@@ -1,4 +1,4 @@
-name: 资产探测 (Masscan)
+name: 1 资产探测 (Masscan)
 on:
   workflow_dispatch:
 
@@ -21,7 +21,7 @@ jobs:
           TARGET_PORTS="80,443,7890,8080,8888,9090,2052,2053,2082,2083"
           
           # 修正后的 masscan 命令，增加 --wait 0 确保任务完成
-          sudo masscan 108.165.16.0/20 -p$TARGET_PORTS --rate 1000 --wait 0 -oG scan_raw.txt
+          sudo masscan 108.165.17.0/20 -p$TARGET_PORTS --rate 1000 --wait 0 -oG scan_raw.txt
           
           # 提取、去重、排序，生成规范的 alive_ips.txt
           grep "open" scan_raw.txt | awk '{print $4}' | sort -u > alive_ips.txt
