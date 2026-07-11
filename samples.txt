@@ -1,0 +1,1171 @@
+
+URL:http://108.165.176.77:80/clash
+TYPE:text/html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎访问</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+         
+================
+
+URL:http://108.165.176.77:80/sub
+TYPE:text/html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎访问</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+         
+================
+
+URL:http://108.165.176.77:80/subscribe
+TYPE:text/html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎访问</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+         
+================
+
+URL:http://108.165.176.77:80/config
+TYPE:text/html
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎访问</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+         
+================
+
+URL:http://129.146.140.147:80/
+TYPE:application/yaml; charset=utf-8
+port: 7890
+socks-port: 7891
+redir-port: 7892
+tproxy-port: 7893
+allow-lan: true
+bind-address: '*'
+mode: global
+log-level: info
+ipv6: false
+external-controller: 127.0.0.1:9090
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  use-hosts: true
+  default-nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
+  nameserver:
+  - https://doh.pub/dns-query
+  - https://dns.alidns.com/dns-query
+proxies:
+- name: 韩国A1｜阿里云中转｜HY2｜备用
+  type: hysteria2
+  server: 8.148.4.25
+  port: 55
+================
+
+URL:http://108.165.176.77:8080/
+TYPE:text/html; charset=utf-8
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+<script src="auth.js"></script>
+<script src="wd_functions.js"></script>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="version" content="1770631027">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AshvaCoin 管理中心</title>
+    <script src="/ashva-
+================
+
+URL:http://38.207.177.236:80/sub
+TYPE:text/yaml; charset=utf-8
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+geodata-mode: true
+geo-auto-update: true
+geo-update-interval: 24
+geox-url:
+  geoip: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+  geosite: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+  mmdb: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
+
+proxies:
+  - name: HK-VPS-3-NEW
+    type: vless
+    server: 38.207.177.236
+    po
+================
+
+URL:http://38.207.177.236:80/
+TYPE:text/yaml; charset=utf-8
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+geodata-mode: true
+geo-auto-update: true
+geo-update-interval: 24
+geox-url:
+  geoip: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+  geosite: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+  mmdb: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
+
+proxies:
+  - name: HK-VPS-3-NEW
+    type: vless
+    server: 38.207.177.236
+    po
+================
+
+URL:http://154.21.92.132:80/
+TYPE:application/octet-stream
+proxies:
+  - name: US-Trojan
+    type: trojan
+    server: 154.21.92.132
+    port: 443
+    password: test123456
+    skip-cert-verify: true
+
+proxy-groups:
+  - name: Proxy
+    type: select
+    proxies:
+      - US-Trojan
+
+rules:
+  - MATCH,Proxy
+
+================
+
+URL:http://149.104.29.83:80/
+TYPE:text/html
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is avail
+================
+
+URL:http://152.42.191.178:80/
+TYPE:application/octet-stream
+# Self-built VPS nodes subscription
+# Updated: 2026-06-23
+
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+
+proxies:
+- name: Hysteria2
+  type: hysteria2
+  server: 152.42.191.178
+  port: 443
+  password: 638ffdaf0235743cb52d65239820b4de
+  sni: www.bing.com
+  skip-cert-verify: true
+
+- name: VLESS-Reality
+  type: vless
+  server: 152.42.191.178
+  port: 443
+  uuid: 5e4af6da-873c-443b-8d8a-84a68ac9e73f
+  flow: xtls-rprx-vision
+  tls: true
+  udp: true
+  servername: www.microsoft.com
+  reali
+================
+
+URL:https://149.104.29.83:443/sub
+TYPE:text/yaml
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+
+dns:
+  enable: true
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  fallback:
+    - 8.8.8.8
+    - 1.1.1.1
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+
+proxies:
+  - name: HongKong-HY2
+    type: hysteria2
+    server: 149.104.29.83
+    port: 443
+    password: C3MhlAEI3P3DmuzlQgK8PSJWWFzU
+    sni: proxy.rusti.cc
+    skip-cert-verify: false
+    obfs: salamander
+    obfs-password: obfs-hk-rus
+================
+
+URL:https://149.104.29.83:443/
+TYPE:text/yaml
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+
+dns:
+  enable: true
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  fallback:
+    - 8.8.8.8
+    - 1.1.1.1
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+
+proxies:
+  - name: HongKong-HY2
+    type: hysteria2
+    server: 149.104.29.83
+    port: 443
+    password: C3MhlAEI3P3DmuzlQgK8PSJWWFzU
+    sni: proxy.rusti.cc
+    skip-cert-verify: false
+    obfs: salamander
+    obfs-password: obfs-hk-rus
+================
+
+URL:https://149.104.29.83:443/clash
+TYPE:text/yaml
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+
+dns:
+  enable: true
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  fallback:
+    - 8.8.8.8
+    - 1.1.1.1
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+
+proxies:
+  - name: HongKong-HY2
+    type: hysteria2
+    server: 149.104.29.83
+    port: 443
+    password: C3MhlAEI3P3DmuzlQgK8PSJWWFzU
+    sni: proxy.rusti.cc
+    skip-cert-verify: false
+    obfs: salamander
+    obfs-password: obfs-hk-rus
+================
+
+URL:http://151.241.229.8:80/
+TYPE:text/html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BOURBON VPN</title>
+    <style>
+        :root {
+            --gold: #c19a5b;
+            --bg: #0a0a0a;
+            --card: #161616;
+            --text: #e8e8e8;
+            --accent: #d4af7a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            fon
+================
+
+URL:http://159.54.181.175:80/
+TYPE:text/plain
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: true
+
+proxies:
+  - name: xray-reality-159.54.181.175
+    type: vless
+    server: 159.54.181.175
+    port: 443
+    uuid: 236afefa-9942-4bbe-b67a-b8af9220034b
+    network: tcp
+    udp: true
+    tls: true
+    servername: www.microsoft.com
+    flow: xtls-rprx-vision
+    reality-opts:
+      public-key: nCVhbo1TjJFrHIhHI9DRdqllNwdY7EIp8n6HgLtE5gA
+      short-id: ""
+    client-fingerprint: chrome
+
+proxy-groups:
+  - name: PROXY
+    type:
+================
+
+URL:http://151.241.229.8:80/config
+TYPE:text/html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BOURBON VPN</title>
+    <style>
+        :root {
+            --gold: #c19a5b;
+            --bg: #0a0a0a;
+            --card: #161616;
+            --text: #e8e8e8;
+            --accent: #d4af7a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            fon
+================
+
+URL:http://151.241.229.8:80/clash
+TYPE:text/html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BOURBON VPN</title>
+    <style>
+        :root {
+            --gold: #c19a5b;
+            --bg: #0a0a0a;
+            --card: #161616;
+            --text: #e8e8e8;
+            --accent: #d4af7a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            fon
+================
+
+URL:http://151.241.229.8:80/subscribe
+TYPE:text/html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BOURBON VPN</title>
+    <style>
+        :root {
+            --gold: #c19a5b;
+            --bg: #0a0a0a;
+            --card: #161616;
+            --text: #e8e8e8;
+            --accent: #d4af7a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            fon
+================
+
+URL:http://151.241.229.8:80/api/sub
+TYPE:text/html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BOURBON VPN</title>
+    <style>
+        :root {
+            --gold: #c19a5b;
+            --bg: #0a0a0a;
+            --card: #161616;
+            --text: #e8e8e8;
+            --accent: #d4af7a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            fon
+================
+
+URL:http://151.241.229.8:80/api/v1/client/subscribe
+TYPE:text/html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BOURBON VPN</title>
+    <style>
+        :root {
+            --gold: #c19a5b;
+            --bg: #0a0a0a;
+            --card: #161616;
+            --text: #e8e8e8;
+            --accent: #d4af7a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            fon
+================
+
+URL:http://156.239.227.43:80/
+TYPE:text/html
+<html>
+<head><title>404 Not Found</title></head>
+<body>
+<center><h1>404 Not Found</h1></center>
+<hr><center>nginx</center>
+</body>
+</html>
+================
+
+URL:https://112233.paofuyunu.com:443/
+TYPE:application/octet-stream
+
+================
+
+URL:http://159.65.79.184:80/
+TYPE:text/plain; charset=utf-8
+# Generated for Clash Verge Rev / Clash Mi.
+# Inline nodes for iOS compatibility. Per-VPS fallback groups + url-test auto-select.
+
+mixed-port: 7890
+allow-lan: true
+bind-address: '*'
+mode: rule
+log-level: info
+ipv6: true
+unified-delay: true
+tcp-concurrent: true
+find-process-mode: strict
+external-controller: 127.0.0.1:9090
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+sniffer:
+  enable: true
+  override-destination: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-desti
+================
+
+URL:http://112233.paofuyunu.com:80/
+TYPE:application/octet-stream
+
+================
+
+URL:https://18.236.221.6:443/
+TYPE:text/html; charset=UTF-8
+<!DOCTYPE html>
+<html dir="ltr" lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>
+沙计算沙计算 | 一沙一世界	</title>
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" type="text/css" media="all" href="https://www.sandcomp.com/blog/wp-content/themes/twentyten/style.css?ver=20250415" />
+<link rel="pingback" href="https://www.sandcomp.com/blog/xmlrpc.php">
+<style id="jetpack-boost-critical-css">@media all{a,body,center,div,form,h1,h2,h3,html,iframe,img,label,li,p,span,strong,ul{
+================
+
+URL:https://156.239.227.43:443/
+TYPE:text/yaml; charset=utf-8
+mixed-port: 7890
+allow-lan: false
+bind-address: "*"
+mode: rule
+log-level: info
+external-controller: ""
+dns:
+  enable: true
+  ipv6: false
+  default-nameserver:
+    - tls://223.5.5.5
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  use-hosts: false
+  nameserver:
+    - https://120.53.53.53/dns-query
+    - https://223.5.5.5/dns-query
+  fallback:
+    - https://doh.dns.sb/dns-query
+    - https://dns.cloudflare.com/dns-query
+    - https://dns.twnic.tw/dns-query
+    - tls:/
+================
+
+URL:https://178.157.63.71:8443/:443/sub
+TYPE:text/plain
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: daban123
+    type: vless
+    server: daban123.top
+    port: 443
+    uuid: ca6e75ec-b7a2-4232-b3e5-f396f8975093
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: mmTVypLWzIByIs2L4tHzV5DQ5gTzqjklv_6orgq5I08
+      short-id: 5c61c3f486ad8058
+
+proxy-groups:
+  - name: Proxy
+    type: select
+  
+================
+
+URL:https://178.157.63.71:8443/:443/
+TYPE:text/plain
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: daban123
+    type: vless
+    server: daban123.top
+    port: 443
+    uuid: ca6e75ec-b7a2-4232-b3e5-f396f8975093
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: mmTVypLWzIByIs2L4tHzV5DQ5gTzqjklv_6orgq5I08
+      short-id: 5c61c3f486ad8058
+
+proxy-groups:
+  - name: Proxy
+    type: select
+  
+================
+
+URL:https://178.157.63.71:8443/:443/clash
+TYPE:text/plain
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: daban123
+    type: vless
+    server: daban123.top
+    port: 443
+    uuid: ca6e75ec-b7a2-4232-b3e5-f396f8975093
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: mmTVypLWzIByIs2L4tHzV5DQ5gTzqjklv_6orgq5I08
+      short-id: 5c61c3f486ad8058
+
+proxy-groups:
+  - name: Proxy
+    type: select
+  
+================
+
+URL:https://178.157.63.71:8443/:443/subscribe
+TYPE:text/plain
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: daban123
+    type: vless
+    server: daban123.top
+    port: 443
+    uuid: ca6e75ec-b7a2-4232-b3e5-f396f8975093
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: mmTVypLWzIByIs2L4tHzV5DQ5gTzqjklv_6orgq5I08
+      short-id: 5c61c3f486ad8058
+
+proxy-groups:
+  - name: Proxy
+    type: select
+  
+================
+
+URL:https://178.157.63.71:8443/:443/config
+TYPE:text/plain
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: daban123
+    type: vless
+    server: daban123.top
+    port: 443
+    uuid: ca6e75ec-b7a2-4232-b3e5-f396f8975093
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: mmTVypLWzIByIs2L4tHzV5DQ5gTzqjklv_6orgq5I08
+      short-id: 5c61c3f486ad8058
+
+proxy-groups:
+  - name: Proxy
+    type: select
+  
+================
+
+URL:https://178.157.63.71:8443/:443/api/v1/client/subscribe
+TYPE:text/plain
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: daban123
+    type: vless
+    server: daban123.top
+    port: 443
+    uuid: ca6e75ec-b7a2-4232-b3e5-f396f8975093
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: mmTVypLWzIByIs2L4tHzV5DQ5gTzqjklv_6orgq5I08
+      short-id: 5c61c3f486ad8058
+
+proxy-groups:
+  - name: Proxy
+    type: select
+  
+================
+
+URL:https://178.157.63.71:8443/:443/api/sub
+TYPE:text/plain
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: daban123
+    type: vless
+    server: daban123.top
+    port: 443
+    uuid: ca6e75ec-b7a2-4232-b3e5-f396f8975093
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: mmTVypLWzIByIs2L4tHzV5DQ5gTzqjklv_6orgq5I08
+      short-id: 5c61c3f486ad8058
+
+proxy-groups:
+  - name: Proxy
+    type: select
+  
+================
+
+URL:http://178.157.63.71:80/sub
+TYPE:text/plain
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: daban123
+    type: vless
+    server: daban123.top
+    port: 443
+    uuid: ca6e75ec-b7a2-4232-b3e5-f396f8975093
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: mmTVypLWzIByIs2L4tHzV5DQ5gTzqjklv_6orgq5I08
+      short-id: 5c61c3f486ad8058
+
+proxy-groups:
+  - name: Proxy
+    type: select
+  
+================
+
+URL:http://178.157.63.71:80/
+TYPE:text/plain
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: daban123
+    type: vless
+    server: daban123.top
+    port: 443
+    uuid: ca6e75ec-b7a2-4232-b3e5-f396f8975093
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: mmTVypLWzIByIs2L4tHzV5DQ5gTzqjklv_6orgq5I08
+      short-id: 5c61c3f486ad8058
+
+proxy-groups:
+  - name: Proxy
+    type: select
+  
+================
+
+URL:http://178.157.63.71:80/clash
+TYPE:text/plain
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: daban123
+    type: vless
+    server: daban123.top
+    port: 443
+    uuid: ca6e75ec-b7a2-4232-b3e5-f396f8975093
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: mmTVypLWzIByIs2L4tHzV5DQ5gTzqjklv_6orgq5I08
+      short-id: 5c61c3f486ad8058
+
+proxy-groups:
+  - name: Proxy
+    type: select
+  
+================
+
+URL:http://178.157.63.71:80/config
+TYPE:text/plain
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: daban123
+    type: vless
+    server: daban123.top
+    port: 443
+    uuid: ca6e75ec-b7a2-4232-b3e5-f396f8975093
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: mmTVypLWzIByIs2L4tHzV5DQ5gTzqjklv_6orgq5I08
+      short-id: 5c61c3f486ad8058
+
+proxy-groups:
+  - name: Proxy
+    type: select
+  
+================
+
+URL:http://178.157.63.71:80/subscribe
+TYPE:text/plain
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: daban123
+    type: vless
+    server: daban123.top
+    port: 443
+    uuid: ca6e75ec-b7a2-4232-b3e5-f396f8975093
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: mmTVypLWzIByIs2L4tHzV5DQ5gTzqjklv_6orgq5I08
+      short-id: 5c61c3f486ad8058
+
+proxy-groups:
+  - name: Proxy
+    type: select
+  
+================
+
+URL:http://178.157.63.71:80/api/sub
+TYPE:text/plain
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: daban123
+    type: vless
+    server: daban123.top
+    port: 443
+    uuid: ca6e75ec-b7a2-4232-b3e5-f396f8975093
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: mmTVypLWzIByIs2L4tHzV5DQ5gTzqjklv_6orgq5I08
+      short-id: 5c61c3f486ad8058
+
+proxy-groups:
+  - name: Proxy
+    type: select
+  
+================
+
+URL:http://178.157.63.71:80/api/v1/client/subscribe
+TYPE:text/plain
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: daban123
+    type: vless
+    server: daban123.top
+    port: 443
+    uuid: ca6e75ec-b7a2-4232-b3e5-f396f8975093
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: mmTVypLWzIByIs2L4tHzV5DQ5gTzqjklv_6orgq5I08
+      short-id: 5c61c3f486ad8058
+
+proxy-groups:
+  - name: Proxy
+    type: select
+  
+================
+
+URL:http://18.236.221.6:80/
+TYPE:text/html; charset=UTF-8
+<!DOCTYPE html>
+<html dir="ltr" lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>
+沙计算沙计算 | 一沙一世界	</title>
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" type="text/css" media="all" href="https://www.sandcomp.com/blog/wp-content/themes/twentyten/style.css?ver=20250415" />
+<link rel="pingback" href="https://www.sandcomp.com/blog/xmlrpc.php">
+<style id="jetpack-boost-critical-css">@media all{a,body,center,div,form,h1,h2,h3,html,iframe,img,label,li,p,span,strong,ul{
+================
+
+URL:https://18.236.221.6:443/
+TYPE:text/html; charset=UTF-8
+<!DOCTYPE html>
+<html dir="ltr" lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>
+沙计算沙计算 | 一沙一世界	</title>
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" type="text/css" media="all" href="https://www.sandcomp.com/blog/wp-content/themes/twentyten/style.css?ver=20250415" />
+<link rel="pingback" href="https://www.sandcomp.com/blog/xmlrpc.php">
+<style id="jetpack-boost-critical-css">@media all{a,body,center,div,form,h1,h2,h3,html,iframe,img,label,li,p,span,strong,ul{
+================
+
+URL:http://18.236.221.6:80/
+TYPE:text/html; charset=UTF-8
+<!DOCTYPE html>
+<html dir="ltr" lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<title>
+沙计算沙计算 | 一沙一世界	</title>
+<link rel="profile" href="https://gmpg.org/xfn/11" />
+<link rel="stylesheet" type="text/css" media="all" href="https://www.sandcomp.com/blog/wp-content/themes/twentyten/style.css?ver=20250415" />
+<link rel="pingback" href="https://www.sandcomp.com/blog/xmlrpc.php">
+<style id="jetpack-boost-critical-css">@media all{a,body,center,div,form,h1,h2,h3,html,iframe,img,label,li,p,span,strong,ul{
+================
+
+URL:http://209.54.107.157:80/sub
+TYPE:text/plain; charset=utf-8
+dm1lc3M6Ly9leUoySWpvZ0lqSWlMQ0FpY0hNaU9pQWlVMlZzWmtKMWFXeGtMVlpOWlhOekxWUk1VeTFYVXlJc0lDSmhaR1FpT2lBaU1qQTVMalUwTGpFd055NHhOVGNpTENBaWNHOXlkQ0k2SUNJME5ETWlMQ0FpYVdRaU9pQWlZelJrTVdNeVpqa3RNekJoWXkwME5EUTJMVGhtTWpZdFpqWmxNak13WldFd04ySXpJaXdnSW1GcFpDSTZJQ0l3SWl3Z0luTmplU0k2SUNKaGRYUnZJaXdnSW01bGRDSTZJQ0ozY3lJc0lDSjBlWEJsSWpvZ0ltNXZibVVpTENBaWFHOXpkQ0k2SUNJeU1Ea3VOVFF1TVRBM0xqRTFOeUlzSUNKd1lYUm9Jam9nSWk5MmJXVnpjeUlzSUNKMGJITWlPaUFpZEd4eklpd2dJbk51YVNJNklDSXlNRGt1TlRRdU1UQTNMakUxTnlJc0lDSmhiR3h2ZDBs
+================
+
+URL:http://209.54.107.157:80/
+TYPE:text/plain; charset=utf-8
+port: 7890
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
+allow-lan: true
+mode: rule
+log-level: info
+ipv6: false
+external-controller: 127.0.0.1:9090
+
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  listen: 0.0.0.0:1053
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - https://dns.google/dns-query
+    - https://1.1.1.1/dns-query
+  nameserver-policy:
+    "geosite:cn,private": 223.5.5.5
+    "geosite:google": https://dns.goog
+================
+
+URL:http://209.54.107.157:80/clash
+TYPE:text/plain; charset=utf-8
+port: 7890
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
+allow-lan: true
+mode: rule
+log-level: info
+ipv6: false
+external-controller: 127.0.0.1:9090
+
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  listen: 0.0.0.0:1053
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - https://dns.google/dns-query
+    - https://1.1.1.1/dns-query
+  nameserver-policy:
+    "geosite:cn,private": 223.5.5.5
+    "geosite:google": https://dns.goog
+================
+
+URL:http://209.54.107.157:80/subscribe
+TYPE:text/plain; charset=utf-8
+dm1lc3M6Ly9leUoySWpvZ0lqSWlMQ0FpY0hNaU9pQWlVMlZzWmtKMWFXeGtMVlpOWlhOekxWUk1VeTFYVXlJc0lDSmhaR1FpT2lBaU1qQTVMalUwTGpFd055NHhOVGNpTENBaWNHOXlkQ0k2SUNJME5ETWlMQ0FpYVdRaU9pQWlZelJrTVdNeVpqa3RNekJoWXkwME5EUTJMVGhtTWpZdFpqWmxNak13WldFd04ySXpJaXdnSW1GcFpDSTZJQ0l3SWl3Z0luTmplU0k2SUNKaGRYUnZJaXdnSW01bGRDSTZJQ0ozY3lJc0lDSjBlWEJsSWpvZ0ltNXZibVVpTENBaWFHOXpkQ0k2SUNJeU1Ea3VOVFF1TVRBM0xqRTFOeUlzSUNKd1lYUm9Jam9nSWk5MmJXVnpjeUlzSUNKMGJITWlPaUFpZEd4eklpd2dJbk51YVNJNklDSXlNRGt1TlRRdU1UQTNMakUxTnlJc0lDSmhiR3h2ZDBs
+================
+
+URL:http://185.254.74.247:80/
+TYPE:application/octet-stream
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: 🇩🇪德国-SS
+    type: ss
+    server: 185.254.74.247
+    port: 8443
+    cipher: aes-256-gcm
+    password: "QigeSS2026!Secure#Proxy"
+    udp: true
+
+proxy-groups:
+  - name: Proxy
+    type: select
+    proxies:
+      - 🇩🇪德国-SS
+      - DIRECT
+
+rules:
+  - IP-CIDR,185.254.74.247/32,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,Proxy
+
+================
+
+URL:http://185.254.74.247:8080/
+TYPE:text/html; charset=utf-8
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Directory listing for /</title>
+</head>
+<body>
+<h1>Directory listing for /</h1>
+<hr>
+<ul>
+<li><a href=".font-unix/">.font-unix/</a></li>
+<li><a href=".ICE-unix/">.ICE-unix/</a></li>
+<li><a href=".X11-unix/">.X11-unix/</a></li>
+<li><a href=".XIM-unix/">.XIM-unix/</a></li>
+<li><a href="systemd-private-da025596bfea4af69e7a74eec523c2dc-haveged.service-uxiFMu/">systemd-private-da025596bfea4af69e7a74eec523c2dc-haveged.service-uxiFMu
+================

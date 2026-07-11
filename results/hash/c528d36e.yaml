@@ -1,0 +1,276 @@
+
+mixed-port: 10808
+allow-lan: true
+mode: Rule
+log-level: info
+external-controller: :9090
+secret: Fly@091004
+sniffer:
+  enable: true
+  sniffing:
+    - tls
+    - http
+  skip-domain:
+    - 'Mijia Cloud'
+    - 'dlg.io.mi.com'
+    - '+.apple.com'
+  # - '*.baidu.com'
+    
+  force-domain:
+  # - '+'
+    - 'google.com'
+    
+  port-whitelist:
+    - 443
+    - 8000-9000
+dns:
+  enabled: true
+  listen: 0.0.0.0:1053
+  ipv6: true
+  default-nameserver:
+    - 223.5.5.5
+    - 114.114.114.114
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - '*.lan'
+    - '*.linksys.com'
+    - '*.linksyssmartwifi.com'
+    - swscan.apple.com
+    - mesu.apple.com
+    - '*.msftconnecttest.com'
+    - '*.msftncsi.com'
+    - time.*.com
+    - time.*.gov
+    - time.*.edu.cn
+    - time.*.apple.com
+    - time1.*.com
+    - time2.*.com
+    - time3.*.com
+    - time4.*.com
+    - time5.*.com
+    - time6.*.com
+    - time7.*.com
+    - ntp.*.com
+    - ntp.*.com
+    - ntp1.*.com
+    - ntp2.*.com
+    - ntp3.*.com
+    - ntp4.*.com
+    - ntp5.*.com
+    - ntp6.*.com
+    - ntp7.*.com
+    - '*.time.edu.cn'
+    - '*.ntp.org.cn'
+    - +.pool.ntp.org
+    - time1.cloud.tencent.com
+    - +.music.163.com
+    - '*.126.net'
+    - musicapi.taihe.com
+    - music.taihe.com
+    - songsearch.kugou.com
+    - trackercdn.kugou.com
+    - '*.kuwo.cn'
+    - api-jooxtt.sanook.com
+    - api.joox.com
+    - joox.com
+    - +.y.qq.com
+    - +.music.tc.qq.com
+    - aqqmusic.tc.qq.com
+    - +.stream.qqmusic.qq.com
+    - '*.xiami.com'
+    - +.music.migu.cn
+    - +.srv.nintendo.net
+    - +.stun.playstation.net
+    - xbox.*.microsoft.com
+    - +.xboxlive.com
+    - localhost.ptlogin2.qq.com
+    - proxy.golang.org
+    - stun.*.*
+    - stun.*.*.*
+    - '*.mcdn.bilivideo.cn'
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  fallback-filter:
+    geoip: false
+    ipcidr:
+      - 240.0.0.0/4
+      - 0.0.0.0/32
+proxies:
+- {name: "WARP",type: wireguard,server: 162.159.192.224,port: 7152,ip: 172.16.0.2,private-key: SHVqHEGI7k2+OQ/oWMmWY2EQObbRQjRBdDPimh0h1WY=,public-key: bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=,remote-dns-resolve: false,udp: true,dialer-proxy: "WARP前置节点"}
+- {"name":"轮子1","type":"hysteria","server":"[2001","port":"bc8","auth_str":"dongtaiwang.com","up":11,"down":55,"fast-open":true,"protocol":"udp","sni":"apple.com","skip-cert-verify":true,"alpn":["h3"]}
+- {"name":"轮子2","type":"hysteria2","server":"[2001","port":"bc8","password":"dongtaiwang.com","fast-open":true,"sni":"apple.com","skip-cert-verify":true}
+- {"name":"轮子3","type":"vmess","server":"104.21.238.35","port":2086,"uuid":"ee420fda-efb7-48a8-9249-8987e36ebd9e","tls":false,"skip-cert-verify":true,"network":"ws","cipher":"auto","alterId":0,"ws-opts":{"path":"github.com/Alvin9999","headers":{"host":"ip29.9447609.xyz"}}}
+- {"name":"轮子4","type":"vmess","server":"104.21.238.35","port":2086,"uuid":"ee420fda-efb7-48a8-9249-8987e36ebd9e","tls":false,"skip-cert-verify":true,"network":"ws","cipher":"auto","alterId":0,"ws-opts":{"path":"github.com/Alvin9999","headers":{"host":"ip19.9447609.xyz"}}}
+- {"name":"轮子5","type":"vmess","server":"2001:bc8:32d7:302::10","port":44579,"uuid":"8e34e170-13ae-4892-9d20-05962acc9f84","tls":false,"skip-cert-verify":true,"network":"ws","cipher":"auto","alterId":0,"ws-opts":{"path":"","headers":{}}}
+- {"name":"轮子6","type":"hysteria","server":"5.83.129.90","port":54177,"auth_str":"dongtaiwang.com","up":11,"down":55,"fast-open":true,"protocol":"udp","sni":"bing.com","skip-cert-verify":true,"alpn":["h3"]}
+- {"name":"轮子7","type":"hysteria","server":"45.150.65.154","port":47119,"auth_str":"dongtaiwang.com","up":11,"down":55,"fast-open":true,"protocol":"udp","sni":"bing.com","skip-cert-verify":true,"alpn":["h3"]}
+- {"name":"轮子8","type":"hysteria","server":"2001:bc8:32d7:17b::2","port":11000,"auth-str":"dongtaiwang.com","sni":"apple.com","skip-cert-verify":true,"alpn":["h3"],"protocol":"udp","up":"11 Mbps","down":"55 Mbps"}
+- {"name":"轮子9","server":"2001:bc8:32d7:302::16","port":34997,"type":"tuic","uuid":"8687b6e0-ef24-4cd2-bcd2-02d3732bf554","password":"dongtaiwang.com","alpn":["h3"],"sni":"bing.com","skip-cert-verify":true,"reduce-rtt":true,"udp-relay-mode":"native","congestion-controller":"bbr"}
+- {"name":"轮子10","type":"hysteria2","server":"2001:bc8:32d7:302::17","port":20088,"password":"dongtaiwang.com","sni":"apple.com","skip-cert-verify":true,"alpn":["h3"],"protocol":"udp","up":"11 Mbps","down":"55 Mbps"}
+- {"name":"轮子11","type":"hysteria","server":"5.83.129.143","port":26691,"auth-str":"dongtaiwang.com","sni":"apple.com","skip-cert-verify":true,"alpn":["h3"],"protocol":"udp","up":"11 Mbps","down":"55 Mbps"}
+- {"name":"轮子12","type":"hysteria","server":"2a14:7584:d099::a","port":26691,"auth-str":"dongtaiwang.com","sni":"apple.com","skip-cert-verify":true,"alpn":["h3"],"protocol":"udp","up":"11 Mbps","down":"55 Mbps"}
+proxy-groups:
+- name: 节点选择
+  type: select
+  proxies:
+  - WARP
+  - 自动选择
+  - 负载均衡
+  - 手动选择
+  - DIRECT
+- name: WARP前置节点
+  type: select
+  proxies:
+  - 自动选择
+  - 负载均衡
+  - 手动选择
+- name: 自动选择
+  type: url-test
+  url: http://www.gstatic.com/generate_204
+  interval: 300
+  tolerance: 50
+  proxies:
+  - 轮子1
+  - 轮子2
+  - 轮子3
+  - 轮子4
+  - 轮子5
+  - 轮子6
+  - 轮子7
+  - 轮子8
+  - 轮子9
+  - 轮子10
+  - 轮子11
+  - 轮子12
+- name: 手动选择
+  type: select
+  proxies:
+  - 轮子1
+  - 轮子2
+  - 轮子3
+  - 轮子4
+  - 轮子5
+  - 轮子6
+  - 轮子7
+  - 轮子8
+  - 轮子9
+  - 轮子10
+  - 轮子11
+  - 轮子12
+- name: 负载均衡
+  type: load-balance
+  proxies:
+  - 轮子1
+  - 轮子2
+  - 轮子3
+  - 轮子4
+  - 轮子5
+  - 轮子6
+  - 轮子7
+  - 轮子8
+  - 轮子9
+  - 轮子10
+  - 轮子11
+  - 轮子12
+  url: http://www.gstatic.com/generate_204
+  interval: 300
+  strategy: round-robin
+rule-providers:
+  reject:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt"
+    path: ./ruleset/reject.yaml
+    interval: 86400
+  icloud:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt"
+    path: ./ruleset/icloud.yaml
+    interval: 86400
+  apple:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt"
+    path: ./ruleset/apple.yaml
+    interval: 86400
+  google:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/google.txt"
+    path: ./ruleset/google.yaml
+    interval: 86400
+  proxy:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/proxy.txt"
+    path: ./ruleset/proxy.yaml
+    interval: 86400
+  direct:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt"
+    path: ./ruleset/direct.yaml
+    interval: 86400
+  private:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt"
+    path: ./ruleset/private.yaml
+    interval: 86400
+  gfw:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt"
+    path: ./ruleset/gfw.yaml
+    interval: 86400
+  tld-not-cn:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/tld-not-cn.txt"
+    path: ./ruleset/tld-not-cn.yaml
+    interval: 86400
+  telegramcidr:
+    type: http
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt"
+    path: ./ruleset/telegramcidr.yaml
+    interval: 86400
+  cncidr:
+    type: http
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt"
+    path: ./ruleset/cncidr.yaml
+    interval: 86400
+  lancidr:
+    type: http
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt"
+    path: ./ruleset/lancidr.yaml
+    interval: 86400
+  applications:
+    type: http
+    behavior: classical
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/applications.txt"
+    path: ./ruleset/applications.yaml
+    interval: 86400
+rules:
+  - RULE-SET,applications,DIRECT
+  - DOMAIN,clash.razord.top,DIRECT
+  - DOMAIN,yacd.haishan.me,DIRECT
+  - RULE-SET,private,DIRECT
+  - RULE-SET,reject,REJECT
+  - RULE-SET,icloud,DIRECT
+  - RULE-SET,apple,DIRECT
+  - RULE-SET,google,节点选择
+  - RULE-SET,proxy,节点选择
+  - RULE-SET,direct,DIRECT
+  - RULE-SET,lancidr,DIRECT
+  - RULE-SET,cncidr,DIRECT
+  - RULE-SET,telegramcidr,节点选择
+  - GEOIP,LAN,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,节点选择
+    
