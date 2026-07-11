@@ -1,54 +1,64 @@
 import aiohttp
 import asyncio
 import ipaddress
-import csv
+import yaml
+import hashlib
 import os
 
 # --- 配置区域 ---
 TARGET_CIDR = "38.207.177.0/24"
 TARGET_PORTS = [80, 443, 7890, 8080, 8888, 9090]
-CONCURRENT_REQUESTS = 100
+TARGET_PATHS = ["/", "/sub", "/subscribe", "/clash", "/config"]
 OUTPUT_DIR = "results"
+CONCURRENT_LIMIT = 100 # Semaphore 限制
 # ----------------
 
-async def check_target(session, ip, port):
-    for scheme in ["http", "https"]:
-        url = f"{scheme}://{ip}:{port}/"
-        try:
-            headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
-            async with session.get(url, timeout=2, headers=headers, ssl=False) as response:
-                if response.status == 200:
-                    text = await response.text()
-                    if "proxies" in text and "name" in text:
-                        return [str(ip), port, scheme, "Detected"]
-        except Exception:
-            continue
+sem = asyncio.Semaphore(CONCURRENT_LIMIT)
+
+async def check_target(session, ip, port, path):
+    async with sem:
+        for scheme in ["http", "https"]:
+            url = f"{scheme}://{ip}:{port}{path}"
+            try:
+                timeout = aiohttp.ClientTimeout(connect=2, sock_read=5)
+                async with session.get(url, timeout=timeout, ssl=False) as resp:
+                    if resp.status == 200:
+                        content = await resp.content.read(65536) # 只读前 64KB
+                        text = content.decode('utf-8', errors='ignore')
+                        
+                        # 结构化校验
+                        try:
+                            cfg = yaml.safe_load(text)
+                            if isinstance(cfg, dict) and any(k in cfg for k in ["proxies", "proxy-groups"]):
+                                # 唯一性校验
+                                content_hash = hashlib.md5(text.encode()).hexdigest()
+                                file_path = f"{OUTPUT_DIR}/{ip}_{port}_{content_hash[:8]}.yaml"
+                                with open(file_path, 'w', encoding='utf-8') as f:
+                                    f.write(text)
+                                return f"[+] Found: {url} saved to {file_path}"
+                        except:
+                            continue
+            except:
+                continue
     return None
 
 async def main():
-    if not os.path.exists(OUTPUT_DIR):
-        os.makedirs(OUTPUT_DIR)
+    if not os.path.exists(OUTPUT_DIR): os.makedirs(OUTPUT_DIR)
     
     ips = [str(ip) for ip in ipaddress.IPv4Network(TARGET_CIDR, strict=False)]
-    connector = aiohttp.TCPConnector(limit=CONCURRENT_REQUESTS, ssl=False)
+    connector = aiohttp.TCPConnector(ssl=False)
     
     async with aiohttp.ClientSession(connector=connector) as session:
         tasks = []
         for ip in ips:
             for port in TARGET_PORTS:
-                tasks.append(check_target(session, ip, port))
+                for path in TARGET_PATHS:
+                    tasks.append(check_target(session, ip, port, path))
         
-        results = await asyncio.gather(*tasks)
-    
-    valid_results = [r for r in results if r]
-    
-    # 存入结果
-    file_path = f"{OUTPUT_DIR}/scan_results.csv"
-    with open(file_path, 'w', newline='', encoding='utf-8') as f:
-        writer = csv.writer(f)
-        writer.writerow(["IP", "Port", "Scheme", "Status"])
-        writer.writerows(valid_results)
-    print(f"[*] 扫描完成，发现 {len(valid_results)} 个有效资产。")
+        # 使用 as_completed 实时获取进度，不再一次性 gather
+        for task in asyncio.as_completed(tasks):
+            res = await task
+            if res: print(res)
 
 if __name__ == "__main__":
     asyncio.run(main())
