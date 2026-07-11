@@ -48,7 +48,6 @@ async def producer(queue, file_path):
     with open(file_path, 'r') as f:
         ips = [line.strip() for line in f if line.strip()]
     
-    # 投递任务
     for ip in ips:
         for port in TARGET_PORTS:
             for path in FAST_PATHS + DEEP_PATHS:
@@ -65,7 +64,6 @@ async def writer_worker(write_queue):
         if h not in data_map:
             data_map[h] = {"count": 0, "urls": []}
         data_map[h]["count"] += 1
-        # 限制单个 Hash 下的 URL 列表长度，防止内存溢出
         if len(data_map[h]["urls"]) < 100:
             data_map[h]["urls"].append(ip_port_path)
         write_queue.task_done()
@@ -91,30 +89,42 @@ async def scanner_worker(queue, write_queue, session, pbar, file_lock):
         
         try:
             url = f"{'https' if port == 443 else 'http'}://{ip}:{port}{path}"
-            async with session.get(url, timeout=aiohttp.ClientTimeout(total=8, connect=3), ssl=False) as resp:
+            # 加入 User-Agent 伪装
+            headers = {"User-Agent": "Clash/1.18.0"}
+            async with session.get(url, headers=headers, timeout=aiohttp.ClientTimeout(total=8, connect=3), ssl=False) as resp:
                 await stats.update("req")
                 await stats.update(resp.status, is_status_code=True)
                 
                 if resp.status == 200:
-                    data = await resp.read()
-                    text = data.decode("utf-8", errors="ignore")
-                    lower_text = text.lower()
+                    # 前置过滤器：分析响应头
+                    ctype = resp.headers.get("Content-Type", "").lower()
+                    server = resp.headers.get("Server", "unknown")
+                    cl = resp.headers.get("Content-Length", "0")
                     
-                    # 严谨指纹匹配
-                    if any(f in lower_text for f in ["proxies:", "proxy-groups:", "mixed-port:", "allow-lan:", "mode:"]):
-                        try:
-                            cfg = yaml.safe_load(text)
-                            if isinstance(cfg, dict) and "proxies" in cfg and isinstance(cfg["proxies"], list) and len(cfg["proxies"]) > 0:
-                                await stats.update("yaml_ok")
-                                h = hashlib.md5(text.encode()).hexdigest()[:8]
-                                
-                                async with file_lock:
-                                    if h not in visited_hash:
-                                        visited_hash.add(h)
-                                        with open(f"{OUTPUT_DIR}/hash/{h}.yaml", 'w', encoding='utf-8') as f: f.write(text)
-                                        await stats.update("saved")
-                                await write_queue.put([h, f"{ip}:{port}{path}"])
-                        except: await stats.update("errors")
+                    # 记录成功样本特征，方便后续分析
+                    async with file_lock:
+                        with open("success_stats.csv", "a", newline='') as f:
+                            csv.writer(f).writerow([ip, port, path, ctype, server, cl])
+                    
+                    # 只有当响应体看起来像是文本时才进行 YAML 解析
+                    if "text" in ctype or "yaml" in ctype or "octet-stream" in ctype:
+                        data = await resp.read()
+                        text = data.decode("utf-8", errors="ignore")
+                        lower_text = text.lower()
+                        
+                        if any(f in lower_text for f in ["proxies:", "proxy-groups:", "mixed-port:", "allow-lan:", "mode:"]):
+                            try:
+                                cfg = yaml.safe_load(text)
+                                if isinstance(cfg, dict) and "proxies" in cfg and isinstance(cfg["proxies"], list) and len(cfg["proxies"]) > 0:
+                                    await stats.update("yaml_ok")
+                                    h = hashlib.md5(text.encode()).hexdigest()[:8]
+                                    async with file_lock:
+                                        if h not in visited_hash:
+                                            visited_hash.add(h)
+                                            with open(f"{OUTPUT_DIR}/hash/{h}.yaml", 'w', encoding='utf-8') as f: f.write(text)
+                                            await stats.update("saved")
+                                    await write_queue.put([h, f"{ip}:{port}{path}"])
+                            except: await stats.update("errors")
         except: await stats.update("errors")
         finally:
             queue.task_done()
@@ -125,6 +135,12 @@ async def main():
     parser.add_argument("--file", required=True)
     args = parser.parse_args()
     os.makedirs(f"{OUTPUT_DIR}/hash", exist_ok=True)
+    
+    # 初始化统计文件头
+    if not os.path.exists("success_stats.csv"):
+        with open("success_stats.csv", "w", newline='') as f:
+            csv.writer(f).writerow(['ip', 'port', 'path', 'ctype', 'server', 'length'])
+            
     queue = asyncio.Queue(maxsize=QUEUE_SIZE)
     write_queue = asyncio.Queue()
     file_lock = asyncio.Lock()
