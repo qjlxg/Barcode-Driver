@@ -1,0 +1,24 @@
+name: 2. 资产解析 (Scanner)
+on:
+  workflow_dispatch:
+
+jobs:
+  parser_job:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: 安装 Python 依赖
+        run: pip install aiohttp PyYAML tqdm
+      - name: 执行深度解析
+        run: python scanner.py --file alive_ips.txt
+      - name: 提交结果
+        run: |
+          if [ -d "results" ] && [ "$(ls -A results/)" ]; then
+            git config --global user.name 'github-actions[bot]'
+            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+            git add results/
+            git commit -m "Update: New assets discovered" || echo "No new assets"
+            git push
+          fi
