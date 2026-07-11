@@ -1,0 +1,470 @@
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: Rule
+log-level: info
+external-controller: 127.0.0.1:9090
+proxies:
+  - {name: 🇯🇵 JP-HY2, server: hy2.jp.nova.gal, port: 443, type: hysteria2, password: 0UIcxbbPogTzMTvWCBOJqenx, auth: 0UIcxbbPogTzMTvWCBOJqenx, sni: hy2.jp.nova.gal, skip-cert-verify: false, udp: true}
+  - {name: Router-TS, server: 100.64.1.1, port: 7891, type: socks5, skip-cert-verify: false, udp: true}
+proxy-groups:
+  - name: 🚀 节点选择
+    type: select
+    proxies:
+      - ♻️ 自动选择
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇸🇬 狮城节点
+      - 🇯🇵 日本节点
+      - 🇺🇲 美国节点
+      - 🇰🇷 韩国节点
+      - 🚀 手动切换
+      - DIRECT
+  - name: 🚀 手动切换
+    type: select
+    proxies:
+      - 🇯🇵 JP-HY2
+      - Router-TS
+  - name: ♻️ 自动选择
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    proxies:
+      - 🇯🇵 JP-HY2
+      - Router-TS
+  - name: 📲 电报消息
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🇸🇬 狮城节点
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇯🇵 日本节点
+      - 🇺🇲 美国节点
+      - 🇰🇷 韩国节点
+      - 🚀 手动切换
+      - DIRECT
+  - name: 💬 Ai平台
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🇸🇬 狮城节点
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇯🇵 日本节点
+      - 🇺🇲 美国节点
+      - 🇰🇷 韩国节点
+      - 🚀 手动切换
+      - DIRECT
+  - name: 📹 油管视频
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🇸🇬 狮城节点
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇯🇵 日本节点
+      - 🇺🇲 美国节点
+      - 🇰🇷 韩国节点
+      - 🚀 手动切换
+      - DIRECT
+  - name: 🎥 奈飞视频
+    type: select
+    proxies:
+      - 🎥 奈飞节点
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🇸🇬 狮城节点
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇯🇵 日本节点
+      - 🇺🇲 美国节点
+      - 🇰🇷 韩国节点
+      - 🚀 手动切换
+      - DIRECT
+  - name: 📺 巴哈姆特
+    type: select
+    proxies:
+      - 🇨🇳 台湾节点
+      - 🚀 节点选择
+      - 🚀 手动切换
+      - DIRECT
+  - name: 📺 哔哩哔哩
+    type: select
+    proxies:
+      - 🎯 全球直连
+      - 🇨🇳 台湾节点
+      - 🇭🇰 香港节点
+  - name: 🌍 国外媒体
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇸🇬 狮城节点
+      - 🇯🇵 日本节点
+      - 🇺🇲 美国节点
+      - 🇰🇷 韩国节点
+      - 🚀 手动切换
+      - DIRECT
+  - name: 🌏 国内媒体
+    type: select
+    proxies:
+      - DIRECT
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇸🇬 狮城节点
+      - 🇯🇵 日本节点
+      - 🚀 手动切换
+  - name: 📢 谷歌FCM
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+      - 🇺🇲 美国节点
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇸🇬 狮城节点
+      - 🇯🇵 日本节点
+      - 🇰🇷 韩国节点
+      - 🚀 手动切换
+  - name: Ⓜ️ 微软Bing
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+      - 🇺🇲 美国节点
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇸🇬 狮城节点
+      - 🇯🇵 日本节点
+      - 🇰🇷 韩国节点
+      - 🚀 手动切换
+  - name: Ⓜ️ 微软云盘
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+      - 🇺🇲 美国节点
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇸🇬 狮城节点
+      - 🇯🇵 日本节点
+      - 🇰🇷 韩国节点
+      - 🚀 手动切换
+  - name: Ⓜ️ 微软服务
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+      - 🇺🇲 美国节点
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇸🇬 狮城节点
+      - 🇯🇵 日本节点
+      - 🇰🇷 韩国节点
+      - 🚀 手动切换
+  - name: 🍎 苹果服务
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+      - 🇺🇲 美国节点
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇸🇬 狮城节点
+      - 🇯🇵 日本节点
+      - 🇰🇷 韩国节点
+      - 🚀 手动切换
+  - name: 🎮 游戏平台
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+      - 🇺🇲 美国节点
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇸🇬 狮城节点
+      - 🇯🇵 日本节点
+      - 🇰🇷 韩国节点
+      - 🚀 手动切换
+  - name: 🎶 网易音乐
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+      - ♻️ 自动选择
+  - name: 🎯 全球直连
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+      - ♻️ 自动选择
+  - name: 🛑 广告拦截
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+  - name: 🍃 应用净化
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+  - name: 🐟 漏网之鱼
+    type: select
+    proxies:
+      - 🚀 节点选择
+      - ♻️ 自动选择
+      - DIRECT
+      - 🇭🇰 香港节点
+      - 🇨🇳 台湾节点
+      - 🇸🇬 狮城节点
+      - 🇯🇵 日本节点
+      - 🇺🇲 美国节点
+      - 🇰🇷 韩国节点
+      - 🚀 手动切换
+  - name: 🇭🇰 香港节点
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    proxies:
+      - DIRECT
+  - name: 🇯🇵 日本节点
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    proxies:
+      - 🇯🇵 JP-HY2
+  - name: 🇺🇲 美国节点
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 150
+    proxies:
+      - DIRECT
+  - name: 🇨🇳 台湾节点
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    proxies:
+      - DIRECT
+  - name: 🇸🇬 狮城节点
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    proxies:
+      - DIRECT
+  - name: 🇰🇷 韩国节点
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    proxies:
+      - DIRECT
+  - name: 🎥 奈飞节点
+    type: select
+    proxies:
+      - DIRECT
+rules:
+  - DOMAIN-SUFFIX,acl4.ssr,🎯 全球直连
+  - DOMAIN-SUFFIX,ip6-localhost,🎯 全球直连
+  - DOMAIN-SUFFIX,ip6-loopback,🎯 全球直连
+  - DOMAIN-SUFFIX,internal,🎯 全球直连
+  - DOMAIN-SUFFIX,lan,🎯 全球直连
+  - DOMAIN-SUFFIX,local,🎯 全球直连
+  - DOMAIN-SUFFIX,localhost,🎯 全球直连
+  - IP-CIDR,0.0.0.0/8,🎯 全球直连,no-resolve
+  - IP-CIDR,10.0.0.0/8,🎯 全球直连,no-resolve
+  - IP-CIDR,100.64.0.0/10,🎯 全球直连,no-resolve
+  - IP-CIDR,127.0.0.0/8,🎯 全球直连,no-resolve
+  - IP-CIDR,169.254.0.0/16,🎯 全球直连,no-resolve
+  - IP-CIDR,172.16.0.0/12,🎯 全球直连,no-resolve
+  - IP-CIDR,192.168.0.0/16,🎯 全球直连,no-resolve
+  - IP-CIDR,198.18.0.0/16,🎯 全球直连,no-resolve
+  - IP-CIDR,224.0.0.0/4,🎯 全球直连,no-resolve
+  - IP-CIDR6,::1/128,🎯 全球直连,no-resolve
+  - IP-CIDR6,fc00::/7,🎯 全球直连,no-resolve
+  - IP-CIDR6,fe80::/10,🎯 全球直连,no-resolve
+  - IP-CIDR6,fd00::/8,🎯 全球直连,no-resolve
+  - DOMAIN,instant.arubanetworks.com,🎯 全球直连
+  - DOMAIN,setmeup.arubanetworks.com,🎯 全球直连
+  - DOMAIN,router.asus.com,🎯 全球直连
+  - DOMAIN,www.asusrouter.com,🎯 全球直连
+  - DOMAIN-SUFFIX,hiwifi.com,🎯 全球直连
+  - DOMAIN-SUFFIX,leike.cc,🎯 全球直连
+  - DOMAIN-SUFFIX,miwifi.com,🎯 全球直连
+  - DOMAIN-SUFFIX,my.router,🎯 全球直连
+  - DOMAIN-SUFFIX,p.to,🎯 全球直连
+  - DOMAIN-SUFFIX,peiluyou.com,🎯 全球直连
+  - DOMAIN-SUFFIX,phicomm.me,🎯 全球直连
+  - DOMAIN-SUFFIX,router.ctc,🎯 全球直连
+  - DOMAIN-SUFFIX,routerlogin.com,🎯 全球直连
+  - DOMAIN-SUFFIX,tendawifi.com,🎯 全球直连
+  - DOMAIN-SUFFIX,zte.home,🎯 全球直连
+  - DOMAIN-SUFFIX,tplogin.cn,🎯 全球直连
+  - DOMAIN-SUFFIX,wifi.cmcc,🎯 全球直连
+  - DOMAIN-SUFFIX,ol.epicgames.com,🎯 全球直连
+  - DOMAIN-SUFFIX,dizhensubao.getui.com,🎯 全球直连
+  - DOMAIN,dl.google.com,🎯 全球直连
+  - DOMAIN-SUFFIX,googletraveladservices.com,🎯 全球直连
+  - DOMAIN-SUFFIX,tracking-protection.cdn.mozilla.net,🎯 全球直连
+  - DOMAIN,origin-a.akamaihd.net,🎯 全球直连
+  - DOMAIN,fairplay.l.qq.com,🎯 全球直连
+  - DOMAIN,livew.l.qq.com,🎯 全球直连
+  - DOMAIN,vd.l.qq.com,🎯 全球直连
+  - DOMAIN,errlog.umeng.com,🎯 全球直连
+  - DOMAIN,msg.umeng.com,🎯 全球直连
+  - DOMAIN,msg.umengcloud.com,🎯 全球直连
+  - DOMAIN,tracking.miui.com,🎯 全球直连
+  - DOMAIN,app.adjust.com,🎯 全球直连
+  - DOMAIN,bdtj.tagtic.cn,🎯 全球直连
+  - DOMAIN,rewards.hypixel.net,🎯 全球直连
+  - DOMAIN-SUFFIX,koodomobile.com,🎯 全球直连
+  - DOMAIN-SUFFIX,koodomobile.ca,🎯 全球直连
+  - DOMAIN-SUFFIX,synology.me,🎯 全球直连
+  - DOMAIN-SUFFIX,DiskStation.me,🎯 全球直连
+  - DOMAIN-SUFFIX,i234.me,🎯 全球直连
+  - DOMAIN-SUFFIX,myDS.me,🎯 全球直连
+  - DOMAIN-SUFFIX,DSCloud.biz,🎯 全球直连
+  - DOMAIN-SUFFIX,DSCloud.me,🎯 全球直连
+  - DOMAIN-SUFFIX,DSCloud.mobi,🎯 全球直连
+  - DOMAIN-SUFFIX,DSmyNAS.com,🎯 全球直连
+  - DOMAIN-SUFFIX,DSmyNAS.net,🎯 全球直连
+  - DOMAIN-SUFFIX,DSmyNAS.org,🎯 全球直连
+  - DOMAIN-SUFFIX,FamilyDS.com,🎯 全球直连
+  - DOMAIN-SUFFIX,FamilyDS.net,🎯 全球直连
+  - DOMAIN-SUFFIX,FamilyDS.org,🎯 全球直连
+  - DOMAIN-KEYWORD,admarvel,🛑 广告拦截
+  - DOMAIN-KEYWORD,admaster,🛑 广告拦截
+  - DOMAIN-KEYWORD,adsage,🛑 广告拦截
+  - DOMAIN-KEYWORD,adsensor,🛑 广告拦截
+  - DOMAIN-KEYWORD,adsmogo,🛑 广告拦截
+  - DOMAIN-KEYWORD,adsrvmedia,🛑 广告拦截
+  - DOMAIN-KEYWORD,adsserving,🛑 广告拦截
+  - DOMAIN-KEYWORD,adsystem,🛑 广告拦截
+  - DOMAIN-KEYWORD,adwords,🛑 广告拦截
+  - DOMAIN-KEYWORD,applovin,🛑 广告拦截
+  - DOMAIN-KEYWORD,appsflyer,🛑 广告拦截
+  - DOMAIN-KEYWORD,domob,🛑 广告拦截
+  - DOMAIN-KEYWORD,duomeng,🛑 广告拦截
+  - DOMAIN-KEYWORD,dwtrack,🛑 广告拦截
+  - DOMAIN-KEYWORD,guanggao,🛑 广告拦截
+  - DOMAIN-KEYWORD,omgmta,🛑 广告拦截
+  - DOMAIN-KEYWORD,omniture,🛑 广告拦截
+  - DOMAIN-KEYWORD,openx,🛑 广告拦截
+  - DOMAIN-KEYWORD,partnerad,🛑 广告拦截
+  - DOMAIN-KEYWORD,pingfore,🛑 广告拦截
+  - DOMAIN-KEYWORD,socdm,🛑 广告拦截
+  - DOMAIN-KEYWORD,supersonicads,🛑 广告拦截
+  - DOMAIN-KEYWORD,wlmonitor,🛑 广告拦截
+  - DOMAIN-KEYWORD,zjtoolbar,🛑 广告拦截
+  - DOMAIN-SUFFIX,09mk.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,100peng.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,114la.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,123juzi.net,🛑 广告拦截
+  - DOMAIN-SUFFIX,138lm.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,17un.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,2cnt.net,🛑 广告拦截
+  - DOMAIN-SUFFIX,3gmimo.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,3xx.vip,🛑 广告拦截
+  - DOMAIN-SUFFIX,51.la,🛑 广告拦截
+  - DOMAIN-SUFFIX,51taifu.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,51yes.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,600ad.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,6dad.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,70e.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,86.cc,🛑 广告拦截
+  - DOMAIN-SUFFIX,8le8le.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,8ox.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,95558000.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,99click.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,99youmeng.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,a3p4.net,🛑 广告拦截
+  - DOMAIN-SUFFIX,acs86.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,acxiom-online.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,ad-brix.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,ad-delivery.net,🛑 广告拦截
+  - DOMAIN-SUFFIX,ad-locus.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,ad-plus.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,ad7.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adadapted.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adadvisor.net,🛑 广告拦截
+  - DOMAIN-SUFFIX,adap.tv,🛑 广告拦截
+  - DOMAIN-SUFFIX,adbana.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adchina.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adcome.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,ader.mobi,🛑 广告拦截
+  - DOMAIN-SUFFIX,adform.net,🛑 广告拦截
+  - DOMAIN-SUFFIX,adfuture.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,adhouyi.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adinfuse.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adirects.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adjust.io,🛑 广告拦截
+  - DOMAIN-SUFFIX,adkmob.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adlive.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,adlocus.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,admaji.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,admin6.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,admon.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,adnyg.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adpolestar.net,🛑 广告拦截
+  - DOMAIN-SUFFIX,adpro.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,adpush.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,adquan.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adreal.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,ads8.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adsame.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adsmogo.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adsmogo.org,🛑 广告拦截
+  - DOMAIN-SUFFIX,adsunflower.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adsunion.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adtrk.me,🛑 广告拦截
+  - DOMAIN-SUFFIX,adups.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,aduu.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,advertising.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adview.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,advmob.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,adwetec.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adwhirl.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adwo.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adxmi.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adyun.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,adzerk.net,🛑 广告拦截
+  - DOMAIN-SUFFIX,agrant.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,agrantsem.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,aihaoduo.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,ajapk.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,allyes.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,allyes.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,amazon-adsystem.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,analysys.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,angsrvr.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,anquan.org,🛑 广告拦截
+  - DOMAIN-SUFFIX,anysdk.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,appadhoc.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,appads.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,appboy.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,appdriver.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,appjiagu.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,applifier.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,appsflyer.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,atdmt.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,baifendian.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,banmamedia.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,baoyatu.cc,🛑 广告拦截
+  - DOMAIN-SUFFIX,baycode.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,bayimob.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,behe.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,bfshan.cn,🛑 广告拦截
+  - DOMAIN-SUFFIX,biddingos.com,🛑 广告拦截
+  - DOMAIN-SUFFIX,biddingx.com,🛑 广告拦截
+  -
