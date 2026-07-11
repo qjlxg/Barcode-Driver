@@ -1,46 +1,29 @@
-name: Network Scanner Workflow
-
+name: Network Recon Pipeline
 on:
-  push:
-    paths:
-      - 'scanner.py' # 当脚本变动时触发
   schedule:
-    - cron: '0 1 * * *' # 每天北京时间 09:00 (UTC 01:00) 自动扫描
-  workflow_dispatch: # 允许手动点击按钮触发
-
-permissions:
-  contents: write # 必须赋予写入权限以回传结果
+    - cron: '0 1 * * *' # 北京时间 09:00
+  workflow_dispatch:
 
 jobs:
-  scan:
+  recon:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Install Dependencies
+      - uses: actions/checkout@v4
+      - name: Install Tools
         run: |
-          pip install aiohttp aiofiles PyYAML
-
-      - name: Run Scanner
+          sudo apt-get install -y masscan
+          pip install aiohttp PyYAML
+      - name: Stage 1 - Masscan
         run: |
-          # 运行你的扫描脚本
-          python scanner.py
-
-      - name: Commit and Push Results
-        # 如果扫描发现了结果，则将其提交并推送回仓库
+          # 预扫 38.207.0.0/16 网段
+          sudo masscan 38.207.0.0/16 -p80,443,7890,8080,8888,9090 --rate 5000 -oG scan_raw.txt
+          grep "open" scan_raw.txt | awk '{print $4}' > alive_ips.txt
+      - name: Stage 2 - Verification
         run: |
-          if [ -f results.csv ]; then
-            git config --global user.name 'github-actions[bot]'
-            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-            git add results.csv
-            git commit -m "Auto-update: Scan results from $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
-            git push
-          else
-            echo "No results found, skipping commit."
-          fi
+          python scanner.py --file alive_ips.txt
+      - name: Commit Results
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add results/ && git commit -m "Auto-recon: $(date +'%Y-%m-%d')" || echo "No changes"
+          git push
