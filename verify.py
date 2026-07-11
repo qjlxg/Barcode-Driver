@@ -1,65 +1,102 @@
 import asyncio
 import aiohttp
 import csv
+import hashlib
 import base64
 
 # --- 配置 ---
-PORTS = [80, 443, 8080, 8443]
-TEST_PATHS = ["/sub", "/subscribe", "/link", "/api/sub", "/config", "/sub.yaml"]
-HIGH_VAL = ["proxies:", "proxy-groups:", "vmess://", "vless://", "trojan://", "ss://"]
-LOW_VAL = ["uuid", "cipher", "server", "port", "type", "allow-lan"]
+CONFIG = {
+    "ports": [80, 443, 8080, 8443],
+    "paths": ["/sub", "/subscribe", "/link", "/api/sub", "/config", "/sub.yaml"],
+    "high_vals": ["proxies:", "proxy-groups:", "vmess://", "vless://", "trojan://", "ss://"],
+    "low_vals": ["uuid", "cipher", "server", "port", "type", "allow-lan"],
+    "max_queue": 5000,
+    "workers": 200
+}
 
-async def worker(queue, session, writer, lock):
+async def producer(queue, ip_file):
+    with open(ip_file) as f:
+        for line in f:
+            target = line.strip().replace("http://", "").replace("https://", "").split("/")[0]
+            if not target: continue
+            for port in CONFIG["ports"]:
+                for path in CONFIG["paths"]:
+                    await queue.put((target, port, path))
+    # 任务完成后，通知所有 worker 退出
+    for _ in range(CONFIG["workers"]):
+        await queue.put(None)
+
+async def result_writer(res_queue):
+    with open("result.csv", "w", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerow(["IP", "PORT", "PATH", "STATUS", "SIZE", "HASH", "SERVER"])
+        seen_hashes = set()
+        while True:
+            data = await res_queue.get()
+            if data is None:
+                res_queue.task_done()
+                break
+            if data['hash'] not in seen_hashes:
+                writer.writerow([data['ip'], data['port'], data['path'], data['status'], data['size'], data['hash'], data['server']])
+                seen_hashes.add(data['hash'])
+            res_queue.task_done()
+
+async def worker(queue, res_queue, session):
     while True:
-        target = await queue.get()
-        ip, port, path = target
-        url = f"https://{ip}:{port}{path}" if port == 443 else f"http://{ip}:{port}{path}"
+        item = await queue.get()
+        if item is None:
+            queue.task_done()
+            break
+        ip, port, path = item
         
-        try:
-            # 增加 SNI 兼容：若某些目标要求严格 SNI，此处可尝试设置 ssl=aiohttp.Fingerprint(...)
-            async with session.get(url, timeout=3, ssl=False) as resp:
-                raw = await resp.read()
-                text = raw.decode("utf-8", errors="ignore")
-                
-                # 增强版特征检测
-                content_lower = text.lower()
-                high_hits = sum(1 for h in HIGH_VAL if h in content_lower)
-                low_hits = sum(1 for l in LOW_VAL if l in content_lower)
-                
-                # 评分逻辑：高权重满足其一，或低权重满足三个以上
-                if resp.status == 200 and (high_hits >= 1 or low_hits >= 3):
-                    # HTML 宽松过滤
-                    if not ("<html" in content_lower and len(text) < 2000):
-                        server = resp.headers.get("Server", "Unknown")
-                        async with lock:
-                            writer.writerow([ip, port, path, resp.status, len(raw), server])
-                            print(f"[!] Hit: {url} | Server: {server}")
-        except: pass
-        finally: queue.task_done()
+        # 优化协议探测顺序
+        protos = ["https", "http"] if port in [443, 8443] else ["http", "https"]
+        
+        for proto in protos:
+            url = f"{proto}://{ip}:{port}{path}"
+            try:
+                async with session.get(url, timeout=aiohttp.ClientTimeout(sock_connect=2, sock_read=5)) as resp:
+                    raw = await resp.read()
+                    text = raw.decode("utf-8", errors="ignore")
+                    
+                    # Base64 严谨过滤
+                    candidate = text.strip()
+                    decoded = ""
+                    if 50 < len(candidate) < 10000 and "\n" not in candidate and len(candidate) % 4 == 0:
+                        try: decoded = base64.b64decode(candidate + "===").decode("utf8", errors="ignore")
+                        except: pass
+                    
+                    content = (text + decoded).lower()
+                    high_hits = sum(1 for h in CONFIG["high_vals"] if h in content)
+                    low_hits = sum(1 for l in CONFIG["low_vals"] if l in content)
+                    
+                    if resp.status == 200 and (high_hits >= 1 or low_hits >= 3):
+                        if not ("<html" in content[:500] and len(raw) < 2000):
+                            await res_queue.put({
+                                "ip": ip, "port": port, "path": path, "status": resp.status,
+                                "size": len(raw), "hash": hashlib.sha256(raw).hexdigest(),
+                                "server": resp.headers.get("Server", "Unknown")
+                            })
+                            break 
+            except Exception: continue
+        queue.task_done()
 
 async def main():
-    # 1. 初始化队列
-    queue = asyncio.Queue()
-    with open("alive_ips.txt") as f:
-        ips = [line.strip() for line in f if line.strip()]
+    queue = asyncio.Queue(maxsize=CONFIG["max_queue"])
+    res_queue = asyncio.Queue()
     
-    for ip in ips:
-        for port in PORTS:
-            for path in TEST_PATHS:
-                queue.put_nowait((ip, port, path))
-
-    # 2. 连接池配置
-    connector = aiohttp.TCPConnector(limit=200, ssl=False, ttl_dns_cache=300)
-    async with aiohttp.ClientSession(connector=connector) as session:
-        lock = asyncio.Lock()
-        with open("result.csv", "w", newline="") as f:
-            writer = csv.writer(f)
-            writer.writerow(["IP", "PORT", "PATH", "STATUS", "SIZE", "SERVER"])
-            
-            # 3. 启动 100 个 Worker 消费队列
-            workers = [asyncio.create_task(worker(queue, session, writer, lock)) for _ in range(100)]
-            await queue.join()
-            for w in workers: w.cancel()
+    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False, limit=300, ttl_dns_cache=300)) as session:
+        # 1. 启动任务
+        producer_task = asyncio.create_task(producer(queue, "alive_ips.txt"))
+        workers = [asyncio.create_task(worker(queue, res_queue, session)) for _ in range(CONFIG["workers"])]
+        writer_task = asyncio.create_task(result_writer(res_queue))
+        
+        # 2. 严格生命周期管理
+        await producer_task       # 等待生产结束
+        await queue.join()         # 等待所有任务处理完毕
+        await res_queue.put(None)  # 通知写入器结束
+        await writer_task          # 等待写入器结束
+        await asyncio.gather(*workers) # 回收所有 worker
 
 if __name__ == "__main__":
     asyncio.run(main())
