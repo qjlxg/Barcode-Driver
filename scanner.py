@@ -5,7 +5,7 @@ import csv
 
 
 TARGET_CIDR = "38.207.177.0/24"  
-PORT = 7890
+PORT = 80
 OUTPUT_FILE = "results.csv"
 CONCURRENT_REQUESTS = 100 
 
