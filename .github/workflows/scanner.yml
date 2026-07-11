@@ -25,7 +25,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install aiohttp aiofiles
+          pip install aiohttp aiofiles yaml
 
       - name: Run Scanner
         run: |
