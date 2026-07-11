@@ -3,8 +3,8 @@ import asyncio
 import ipaddress
 import csv
 
-# 修改点：使用 CIDR 格式
-TARGET_CIDR = "192.168.1.0/24"  # 例如：扫描整个 C 段
+
+TARGET_CIDR = "38.207.177.0/24"  
 PORT = 7890
 OUTPUT_FILE = "results.csv"
 CONCURRENT_REQUESTS = 100 
