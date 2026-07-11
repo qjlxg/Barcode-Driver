@@ -1,6 +1,12 @@
-name: 1 资产探测 (Masscan)
+name: 1. 资产探测 (Masscan)
+
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/scan_masscan.yml'  # 仅当此文件本身变动时触发
 
 jobs:
   masscan_job:
@@ -17,33 +23,21 @@ jobs:
       
       - name: 扫描并固化 IP 列表
         run: |
-          # 格式化端口列表：移除空格，确保逗号标准
           TARGET_PORTS="80,443,7890,8080,8888,9090,2052,2053,2082,2083"
-          
-          # 修正后的 masscan 命令，增加 --wait 0 确保任务完成
           sudo masscan 108.165.17.0/24 -p$TARGET_PORTS --rate 1000 --wait 0 -oG scan_raw.txt
-          
-          # 提取、去重、排序，生成规范的 alive_ips.txt
           grep "open" scan_raw.txt | awk '{print $4}' | sort -u > alive_ips.txt
-          
-          # 清理扫描中间文件
           rm scan_raw.txt
           
       - name: 提交更改
         run: |
-          # 配置 Git 身份
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # 检查是否有内容变动
           if [[ -n $(git status -s alive_ips.txt) ]]; then
             git add alive_ips.txt
-            git commit -m "Update: Refresh alive_ips.txt $(date +'%Y-%m-%d')"
-            
-            # 同步远程最新更改并合并
+            # 在 commit 信息中加入 [skip ci]，防止死循环触发
+            git commit -m "Update: Refresh alive_ips.txt $(date +'%Y-%m-%d') [skip ci]"
             git pull origin main --rebase
-            
-            # 推送到远程
             git push origin main
           else
             echo "[-] alive_ips.txt 无变化，跳过本次提交。"
