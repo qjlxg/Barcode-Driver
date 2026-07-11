@@ -9,16 +9,28 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
       - name: 安装 Python 依赖
         run: pip install aiohttp PyYAML tqdm
+      
       - name: 执行深度解析
         run: python scanner.py --file alive_ips.txt
+      
       - name: 提交结果
         run: |
+          # 检查是否有新生成的 results 文件
           if [ -d "results" ] && [ "$(ls -A results/)" ]; then
             git config --global user.name 'github-actions[bot]'
             git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+            
+            # 同样加入同步机制，防止 rejected 错误
+            git pull origin main --rebase
+            
             git add results/
-            git commit -m "Update: New assets discovered" || echo "No new assets"
-            git push
+            git commit -m "Update: New assets discovered" || echo "No new assets to commit"
+            git push origin main
+          else
+            echo "No results generated, skipping push."
           fi
