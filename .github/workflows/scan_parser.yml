@@ -24,8 +24,8 @@ jobs:
           fetch-depth: 0
       
       - name: 安装 Python 依赖
-        run: pip install aiohttp PyYAML tqdm
-      
+        run: pip install brotli aiohttp PyYAML tqdm
+
       - name: 执行深度解析
         run: python scanner.py --file alive_ips.txt
       
