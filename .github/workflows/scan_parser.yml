@@ -9,6 +9,8 @@ on:
       - main
     paths:
       - 'scanner.py'
+      - '.github/workflows/scan_parser.yml'
+      - 'alive_ips.txt'
 
 jobs:
   parser_job:
