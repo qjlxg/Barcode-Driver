@@ -7,19 +7,20 @@ import csv
 import argparse
 from tqdm import tqdm
 
-# 配置区域
+# 配置
 TARGET_PORTS = [80, 443, 7890, 8080, 8888, 9090]
-TARGET_PATHS = ["/", "/sub", "/subscribe", "/clash", "/config"]
+TARGET_PATHS = ["/", "/sub", "/subscribe", "/clash", "/config", "/api/v1/client/subscribe", "/api/sub"]
 OUTPUT_DIR = "results"
 WORKER_COUNT = 300
 QUEUE_SIZE = 5000
+SAMPLE_LIMIT = 20  # 采集样本数量上限
 
 class StatsManager:
     def __init__(self):
         self.stats = {
-            "req": 0, "keyword": 0, "yaml_ok": 0, "found": 0, "saved": 0, "errors": 0,
-            "status_codes": {}
+            "req": 0, "keyword": 0, "yaml_ok": 0, "saved": 0, "errors": 0, "status_codes": {}
         }
+        self.samples_collected = 0
         self.lock = asyncio.Lock()
     
     async def update(self, key, is_status_code=False):
@@ -47,8 +48,7 @@ async def producer(queue, file_path):
             for port in TARGET_PORTS:
                 for path in TARGET_PATHS:
                     await queue.put((ip, port, path))
-    for _ in range(WORKER_COUNT):
-        await queue.put(None)
+    for _ in range(WORKER_COUNT): await queue.put(None)
 
 async def writer_worker(write_queue):
     with open('scan_results.csv', 'w', newline='') as csvfile:
@@ -73,32 +73,37 @@ async def scanner_worker(queue, write_queue, session, pbar, file_lock):
             break
         ip, port, path = item
         try:
-            scheme = "https" if port == 443 else "http"
-            url = f"{scheme}://{ip}:{port}{path}"
-            timeout = aiohttp.ClientTimeout(sock_connect=2, sock_read=3)
-            async with session.get(url, timeout=timeout, ssl=False) as resp:
+            url = f"{'https' if port == 443 else 'http'}://{ip}:{port}{path}"
+            async with session.get(url, timeout=aiohttp.ClientTimeout(total=5), ssl=False) as resp:
                 await stats.update("req")
                 await stats.update(resp.status, is_status_code=True)
+                
                 if resp.status == 200:
                     data = await resp.read()
-                    if len(data) < 1024 * 1024:
-                        text = data.decode("utf-8", errors="ignore")
-                        if "proxies:" in text:
-                            await stats.update("keyword")
-                            try:
-                                cfg = yaml.safe_load(text)
-                                if isinstance(cfg, dict) and "proxies" in cfg:
-                                    await stats.update("yaml_ok")
-                                    await stats.update("found")
-                                    h = hashlib.md5(text.encode()).hexdigest()[:8]
-                                    f_path = f"{OUTPUT_DIR}/hash/{h}.yaml"
-                                    async with file_lock:
-                                        if not os.path.exists(f_path):
-                                            with open(f_path, 'w', encoding='utf-8') as f: f.write(text)
-                                            await stats.update("saved")
-                                    await write_queue.put([ip, port, path, len(text), h])
-                            except Exception: await stats.update("errors")
-        except Exception: await stats.update("errors")
+                    text = data.decode("utf-8", errors="ignore")
+                    
+                    # 样本采集逻辑：如果没命中关键词，保存前 500 字符以便排查
+                    async with stats.lock:
+                        if stats.samples_collected < SAMPLE_LIMIT:
+                            with open("samples.txt", "a", encoding="utf8") as f:
+                                f.write(f"URL:{url}\nTYPE:{resp.headers.get('content-type')}\n{text[:500]}\n================\n")
+                            stats.samples_collected += 1
+                    
+                    if "proxies:" in text:
+                        await stats.update("keyword")
+                        try:
+                            cfg = yaml.safe_load(text)
+                            if isinstance(cfg, dict) and "proxies" in cfg:
+                                await stats.update("yaml_ok")
+                                h = hashlib.md5(text.encode()).hexdigest()[:8]
+                                f_path = f"{OUTPUT_DIR}/hash/{h}.yaml"
+                                async with file_lock:
+                                    if not os.path.exists(f_path):
+                                        with open(f_path, 'w', encoding='utf-8') as f: f.write(text)
+                                        await stats.update("saved")
+                                await write_queue.put([ip, port, path, len(text), h])
+                        except: await stats.update("errors")
+        except: await stats.update("errors")
         finally:
             queue.task_done()
             pbar.update(1)
@@ -111,11 +116,9 @@ async def main():
     queue = asyncio.Queue(maxsize=QUEUE_SIZE)
     write_queue = asyncio.Queue()
     file_lock = asyncio.Lock()
-    with open(args.file) as f: total = sum(1 for _ in f) * len(TARGET_PORTS) * len(TARGET_PATHS)
     
-    connector = aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT, ttl_dns_cache=300, 
-                                     enable_cleanup_closed=True, force_close=False)
-    async with aiohttp.ClientSession(connector=connector) as session:
+    with open(args.file) as f: total = sum(1 for _ in f) * len(TARGET_PORTS) * len(TARGET_PATHS)
+    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT)) as session:
         pbar = tqdm(total=total, desc="Scanning")
         monitor_task = asyncio.create_task(monitor(pbar))
         workers = [asyncio.create_task(scanner_worker(queue, write_queue, session, pbar, file_lock)) for _ in range(WORKER_COUNT)]
