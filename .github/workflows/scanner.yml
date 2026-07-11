@@ -1,29 +1,41 @@
-name: Network Recon Pipeline
+name: 自动化资产探测系统
 on:
-  schedule:
-    - cron: '0 1 * * *' # 北京时间 09:00
-  workflow_dispatch:
+  workflow_dispatch: # 手动点击即可运行
 
 jobs:
-  recon:
+  stage1_masscan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: 安装 Masscan
+        run: sudo apt-get update && sudo apt-get install -y masscan
+      - name: 执行端口预扫
+        run: |
+          sudo masscan 38.207.0.0/16 -p80,443,7890,8080,8888,9090 --rate 2000 -oG scan_raw.txt
+          grep "open" scan_raw.txt | awk '{print $4}' > alive_ips.txt
+      - name: 保存存活列表
+        uses: actions/upload-artifact@v4
+        with:
+          name: alive_ips
+          path: alive_ips.txt
+
+  stage2_verify:
+    needs: stage1_masscan
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install Tools
-        run: |
-          sudo apt-get install -y masscan
-          pip install aiohttp PyYAML
-      - name: Stage 1 - Masscan
-        run: |
-          # 预扫 38.207.0.0/16 网段
-          sudo masscan 38.207.0.0/16 -p80,443,7890,8080,8888,9090 --rate 5000 -oG scan_raw.txt
-          grep "open" scan_raw.txt | awk '{print $4}' > alive_ips.txt
-      - name: Stage 2 - Verification
-        run: |
-          python scanner.py --file alive_ips.txt
-      - name: Commit Results
-        run: |
-          git config --global user.name 'github-actions[bot]'
-          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add results/ && git commit -m "Auto-recon: $(date +'%Y-%m-%d')" || echo "No changes"
-          git push
+      - name: 下载存活列表
+        uses: actions/download-artifact@v4
+        with:
+          name: alive_ips
+      - name: 安装 Python 依赖
+        run: pip install aiohttp PyYAML
+      - name: 深度解析指纹
+        run: python scanner.py --file alive_ips.txt
+      - name: 上传最终结果
+        uses: actions/upload-artifact@v4
+        with:
+          name: found-configs
+          path: results/
