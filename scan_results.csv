@@ -22,3 +22,6 @@ f325b5c0274c,https://38.207.167.189:443/config.yaml
 003f7f6e007e,http://38.207.177.236:80/sub
 003f7f6e007e,http://38.207.177.236:80/
 >>>>>>> Stashed changes
+770ed1794565,http://38.207.177.251:80/clash,nginx/1.18.0 (Ubuntu),text/plain; charset=utf-8
+003f7f6e007e,http://38.207.177.236:80/sub,BaseHTTP/0.6 Python/3.10.12,text/yaml; charset=utf-8
+003f7f6e007e,http://38.207.177.236:80/,BaseHTTP/0.6 Python/3.10.12,text/yaml; charset=utf-8
