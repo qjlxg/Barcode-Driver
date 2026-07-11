@@ -1,0 +1,22 @@
+name: 1. 资产探测 (Masscan)
+on:
+  workflow_dispatch:
+
+jobs:
+  masscan_job:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: 安装 Masscan
+        run: sudo apt-get update && sudo apt-get install -y masscan
+      - name: 扫描并固化 IP 列表
+        run: |
+          sudo masscan 38.207.0.0/16 -p80,443,7890,8080,8888,9090 --rate 3000 -oG scan_raw.txt
+          grep "open" scan_raw.txt | awk '{print $4}' > alive_ips.txt
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add alive_ips.txt
+          git commit -m "Update: Saved alive_ips.txt" || echo "No changes"
+          git push
