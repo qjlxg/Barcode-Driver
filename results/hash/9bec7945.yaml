@@ -1,0 +1,536 @@
+port: 7890
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+external-controller: 0.0.0.0:9090
+behavior: "classical"
+clash-for-android:
+  append-system-dns: false
+profile:
+  tracing: true
+  store-selected: true
+  store-fake-ip: true
+experimental:
+  sniff-tls-sni: true
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  default-nameserver:
+    - 192.168.31.1:3500
+    - 114.114.114.114
+  ipv6: false
+  enhanced-mode: fake-ip
+  use-hosts: true
+  use-system-hosts: true
+  nameserver:
+    - 192.168.31.1:3500
+    - 8.216.16.159:3500
+  fallback:
+    - 192.168.31.1:5300
+    - 8.216.16.159:5500
+
+  nameserver-policy:
+    "+.gstatic.com":
+      - "114.114.114.114:53"
+    "douyin.com":
+      - "223.6.6.6:53"
+    "+.douyin.com":
+      - "223.6.6.6:53"
+    "+.douyinpic.com":
+      - "223.6.6.6:53"
+    "+.douyinvod.com":
+      - "223.6.6.6:53"
+    "+.douyinstatic.com":
+      - "223.6.6.6:53"
+    "+.bytetos.com":
+      - "223.6.6.6:53"
+    "+.bytedance.com":
+      - "223.6.6.6:53"
+    "+.zijieapi.com":
+      - "223.6.6.6:53"
+    "+.ibytedapm.com":
+      - "223.6.6.6:53"
+    "+.byteimg.com":
+      - "223.6.6.6:53"
+    "+.bytednsdoc.com":
+      - "223.6.6.6:53"
+    "+.feelgood.cn":
+      - "223.6.6.6:53"
+    "+.ndcpp.com":
+      - "223.6.6.6:53"
+    "+.bytetcc.com":
+      - "223.6.6.6:53"
+    "+.toutiaoapi.com":
+      - "223.6.6.6:53"
+    "+.snssdk.com":
+      - "223.6.6.6:53"
+    "+.amemv.com":
+      - "223.6.6.6:53"
+    "+.bytegoofy.com":
+      - "223.6.6.6:53"
+    "+.douyincdn.com":
+      - "223.6.6.6:53"
+    "+.volces.com":
+      - "223.6.6.6:53"
+    "+.bytegecko.com":
+      - "223.6.6.6:53"
+    "+.tencent-cloud.net":
+      - "223.6.6.6:53"
+
+    "+.bytescm.com":
+      - "223.6.6.6:53"
+    "+.iesdouyin.com":
+      - "223.6.6.6:53"
+    "+.applogcdn.com":
+      - "223.6.6.6:53"
+    "+.yhgfb-cn-static.com":
+      - "223.6.6.6:53"
+    "+.starrydyn.com":
+      - "223.6.6.6:53"
+    "+.douyinliving.com":
+      - "223.6.6.6:53"
+    "+.doubao.com":
+      - "223.6.6.6:53"
+
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
+      - 0.0.0.0/32
+      - 127.0.0.1/32
+    domain:
+      - +.ads-twitter.com
+      - +.cms-twdigitalassets.com
+      - +.periscope.tv
+      - +.pscp.tv
+      - +.t.co
+      - +.tellapart.com
+      - +.tweetdeck.com
+      - +.twimg.co
+      - +.twimg.com
+      - +.twimg.org
+      - +.twitpic.com
+      - +.twitter.biz
+      - +.twitter.com
+      - +.twitter.jp
+      - +.twittercommunity.com
+      - +.twitterflightschool.com
+      - +.twitterinc.com
+      - +.twitteroauth.com
+      - +.twitterstat.us
+      - +.twtrdns.net
+      - +.twttr.com
+      - +.twttr.net
+      - +.twvid.com
+      - +.vine.co
+      - +.x.com
+      - +.facebook.com
+      - +.twitter.com
+      - +.google.com
+      - +.googleapis.com
+      - +.google.cn
+      - +.googleapis.cn
+      - +.xn--ngstr-lra8j.com
+      - +.googlevideo.com
+      - +.gvt1.com
+      - +.gmail.com
+      - +.youtube.com
+      - +.youtu.be
+      - +.gvt0.com
+      - +.gvt2.com
+      - +.gvt3.com
+      - +.265.com
+      - +.2mdn.net
+      - +.app-measurement.com
+      - +.c.admob.com
+      - +.clickserve.dartsearch.net
+      - +.crl.pki.goog
+      - +.doubleclick.net
+      - +.firebase-settings.crashlytics.com
+      - +.google-analytics.com
+      - +.googleadservices.com
+      - +.googleanalytics.com
+      - +.googleoptimize.com
+      - +.googlesyndication.com
+      - +.googletagmanager.com
+      - +.googletagservices.com
+      - -.taobao.com
+      - -.weibo.com
+
+  fake-ip-filter:
+    - "*.lan"
+    - "*.localdomain"
+    - "*.example"
+    - "*.invalid"
+    - "*.localhost"
+    - "*.test"
+    - "*.local"
+    - "*.home.arpa"
+    - time.*.com
+    - time.*.gov
+    - time.*.edu.cn
+    - time.*.apple.com
+    - time1.*.com
+    - time2.*.com
+    - time3.*.com
+    - time4.*.com
+    - time5.*.com
+    - time6.*.com
+    - time7.*.com
+    - ntp.*.com
+    - ntp1.*.com
+    - ntp2.*.com
+    - ntp3.*.com
+    - ntp4.*.com
+    - ntp5.*.com
+    - ntp6.*.com
+    - ntp7.*.com
+    - "*.time.edu.cn"
+    - "*.ntp.org.cn"
+    - +.pool.ntp.org
+    - time1.cloud.tencent.com
+    - music.163.com
+    - "*.music.163.com"
+    - "*.126.net"
+    - musicapi.taihe.com
+    - music.taihe.com
+    - songsearch.kugou.com
+    - trackercdn.kugou.com
+    - "*.kuwo.cn"
+    - api-jooxtt.sanook.com
+    - api.joox.com
+    - joox.com
+    - y.qq.com
+    - "*.y.qq.com"
+    - "dlink.host"
+    - "*.dlink.host"
+    - streamoc.music.tc.qq.com
+    - mobileoc.music.tc.qq.com
+    - isure.stream.qqmusic.qq.com
+    - dl.stream.qqmusic.qq.com
+    - aqqmusic.tc.qq.com
+    - amobile.music.tc.qq.com
+    - "*.xiami.com"
+    - "*.music.migu.cn"
+    - music.migu.cn
+    - +.msftconnecttest.com
+    - +.msftncsi.com
+    - msftconnecttest.com
+    - msftncsi.com
+    - localhost.ptlogin2.qq.com
+    - localhost.sec.qq.com
+    - +.srv.nintendo.net
+    - +.stun.playstation.net
+    - xbox.*.microsoft.com
+    - xnotify.xboxlive.com
+    - +.ipv6.microsoft.com
+    - +.battlenet.com.cn
+    - +.wotgame.cn
+    - +.wggames.cn
+    - +.wowsgame.cn
+    - +.wargaming.net
+    - proxy.golang.org
+    - stun.*.*
+    - stun.*.*.*
+    - +.stun.*.*
+    - +.stun.*.*.*
+    - +.stun.*.*.*.*
+    - heartbeat.belkin.com
+    - "*.linksys.com"
+    - "*.linksyssmartwifi.com"
+    - "*.router.asus.com"
+    - mesu.apple.com
+    - swscan.apple.com
+    - swquery.apple.com
+    - swdownload.apple.com
+    - swcdn.apple.com
+    - swdist.apple.com
+    - lens.l.google.com
+    - stun.l.google.com
+    - "*.square-enix.com"
+    - "*.finalfantasyxiv.com"
+    - "*.ffxiv.com"
+    - "*.ff14.sdo.com"
+    - ff.dorado.sdo.com
+    - "*.mcdn.bilivideo.cn"
+    - +.media.dssott.com
+    - +.pvp.net
+
+proxies:
+  - {
+      name: claw.vps日本,
+      server: 8.216.16.159,
+      port: 54,
+      type: vless,
+      uuid: 6ec1dfdf-6ce4-4d2b-c2a3-d6f801dc9709,
+      tls: true,
+      tfo: false,
+      udp: true,
+      flow: xtls-rprx-vision,
+      skip-cert-verify: false,
+      reality-opts: { public-key: 9rx7JwMO-KRZZEM9TQBO19BOAmmGjJyjN86ll2J7uVc },
+      servername: www.adobe.com,
+      client-fingerprint: chrome,
+      network: tcp,
+    }
+
+  - {
+      name: 美国家用宽带,
+      server: 38.34.13.238,
+      port: 91,
+      type: vless,
+      uuid: 2add9f26-c0dc-4b91-f044-0bdf90292f89,
+      tls: true,
+      tfo: false,
+      udp: true,
+      flow: xtls-rprx-vision,
+      skip-cert-verify: false,
+      reality-opts: { public-key: Z3ZGnAOdKkzJ07gR_7_0k9_iTTFP6paDOrqx1rN2LU4 },
+      servername: www.icloud.com,
+      client-fingerprint: chrome,
+      network: tcp,
+    }
+
+  - {
+      name: zoro美国,
+      server: 38.34.13.238,
+      port: 443,
+      type: vless,
+      uuid: 2add9f26-c0dc-4b91-f044-0bdf90292f89,
+      tls: true,
+      tfo: false,
+      udp: true,
+      flow: xtls-rprx-vision,
+      skip-cert-verify: false,
+      reality-opts: { public-key: Z3ZGnAOdKkzJ07gR_7_0k9_iTTFP6paDOrqx1rN2LU4 },
+      servername: www.icloud.com,
+      client-fingerprint: chrome,
+      network: tcp,
+    }
+
+proxy-groups:
+  - name: "Proxy"
+    type: select
+    proxies:
+      - "claw.vps日本"
+      - "zoro美国"
+      - "美国家用宽带"
+      - "美国自动转移"
+      - "最低延迟"
+
+  - name: "美国自动转移"
+    type: select # 使用 fallback 类型
+    proxies:
+      - "zoro美国" # 主服务器（优先使用）
+      - "美国家用宽带自动转移" # 备服务器
+
+  - name: "美国家用宽带自动转移"
+    type: select # 使用 fallback 类型实现主备切换
+    proxies:
+      - "美国家用宽带" # 备用服务器
+
+  - name: "最低延迟"
+    type: fallback
+    url: http://www.gstatic.com/generate_204
+    interval: 30
+    proxies:
+      - "claw.vps日本"
+      - "zoro美国"
+
+rules:
+  #  - PROCESS-NAME,com.google.android.apps.bard,美国家用宽带自动转移
+
+  - DOMAIN-SUFFIX,sifangclub.com,美国自动转移
+
+  # Google Play / GMS 下载链路必须放在 GEOSITE,CN 前面，
+  # 否则 services.googleapis.cn 这类域名会被误判为直连。
+  - PROCESS-NAME,com.android.vending,Proxy
+  - PROCESS-NAME,com.google.android.gms,Proxy
+  - PROCESS-NAME,com.google.android.gsf,Proxy
+  - DOMAIN,services.googleapis.cn,Proxy
+  - DOMAIN,services.googleapis.com,Proxy
+  - DOMAIN,play.googleapis.com,Proxy
+  - DOMAIN,android.clients.google.com,Proxy
+  - DOMAIN,redirector.gvt1.com,Proxy
+  - DOMAIN-SUFFIX,googleapis.com,Proxy
+  - DOMAIN-SUFFIX,googleapis.cn,Proxy
+  - DOMAIN-SUFFIX,gvt1.com,Proxy
+  - DOMAIN-SUFFIX,googleusercontent.com,Proxy
+
+  - DOMAIN-SUFFIX,rainapp.top,DIRECT
+  - PROCESS-NAME,com.google.android.googlequicksearchbox,美国家用宽带自动转移
+  #  - DOMAIN-SUFFIX,perplexity.ai,美国自动转移
+  #  - DOMAIN-SUFFIX,perplexity-ai.cloudflareaccess.com,美国自动转移
+  - DOMAIN-SUFFIX,onevcat.com,claw.vps日本
+  - DOMAIN,browser-intake-datadoghq.com,美国自动转移
+
+  #  - IP-CIDR,24.199.123.28/32,zgo美国cn2,no-resolve
+  #  - IP-CIDR,64.23.132.171/32,zgo美国cn2,no-resolve
+  - DOMAIN-SUFFIX,hiper25.com,DIRECT
+  - DOMAIN-SUFFIX,linkedin.com,Proxy
+  - DOMAIN-SUFFIX,cambridge.org,DIRECT
+  - DOMAIN-SUFFIX,archive.ph,美国自动转移
+  - DOMAIN-SUFFIX,archive.today,美国自动转移
+  - DOMAIN-SUFFIX,aol.com,美国自动转移
+  - DOMAIN-SUFFIX,zoho.com,美国自动转移
+  - DOMAIN,servd-anthropic-website.b-cdn.net,美国家用宽带自动转移
+  - DOMAIN-SUFFIX,anthropic.com,美国家用宽带自动转移
+  - DOMAIN-SUFFIX,claudeusercontent.com,美国家用宽带自动转移
+  - DOMAIN-SUFFIX,claude.ai,美国家用宽带自动转移
+  - DOMAIN-SUFFIX,claude.com,美国家用宽带自动转移
+
+  # - DOMAIN-SUFFIX,sambanova.ai,zgo美国cn2
+  - DOMAIN-SUFFIX,livekit.cloud,zoro美国
+  - DOMAIN-SUFFIX,livekit.io,zoro美国
+  ##
+  - DOMAIN,realtime.chatgpt.com,美国家用宽带
+  # LiveKit 实时通信服务
+  - DOMAIN,chat.openai.com.cdn.cloudflare.net,美国家用宽带 # ChatGPT 的 Cloudflare CDN
+  - DOMAIN,openai-api.arkoselabs.com,美国家用宽带 # OpenAI 使用的 Arkose Labs 防刷 API
+  - DOMAIN,openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net,美国家用宽带 # Azure Front Door 代理的 OpenAI API
+  - DOMAIN,openaicomproductionae4b.blob.core.windows.net,美国家用宽带 # Azure Blob 存储（OpenAI 静态资源）
+  - DOMAIN,production-openaicom-storage.azureedge.net,美国家用宽带 # Azure Edge 存储（OpenAI 资源）
+  - DOMAIN,static.cloudflareinsights.com,美国家用宽带 # Cloudflare Insights 静态资源
+  - DOMAIN-SUFFIX,ai.com,美国家用宽带 # ai.com – AI 相关服务域名
+  - DOMAIN-SUFFIX,algolia.net,美国家用宽带 # Algolia 搜索服务
+  - DOMAIN-SUFFIX,api.statsig.com,美国家用宽带 # Statsig 分析 API
+  - DOMAIN-SUFFIX,auth0.com,美国家用宽带 # Auth0 身份验证服务
+  - DOMAIN-SUFFIX,chatgpt.com,美国家用宽带 # ChatGPT 官方网站
+  - DOMAIN-SUFFIX,client-api.arkoselabs.com,美国家用宽带 # Arkose Labs 客户端 API
+  - DOMAIN-SUFFIX,events.statsigapi.net,美国家用宽带 # Statsig 事件上报 API
+  - DOMAIN-SUFFIX,featuregates.org,美国家用宽带 # Feature Gates（功能开关）服务
+  - DOMAIN-SUFFIX,identrust.com,美国家用宽带 # IdenTrust SSL 证书提供商
+  - DOMAIN-SUFFIX,intercom.io,美国家用宽带 # Intercom 客服聊天平台
+  - DOMAIN-SUFFIX,intercomcdn.com,美国家用宽带 # Intercom 静态资源 CDN
+  - DOMAIN-SUFFIX,launchdarkly.com,美国家用宽带 # LaunchDarkly 功能标记服务
+  - DOMAIN-SUFFIX,oaistatic.com,美国家用宽带 # OpenAI 静态资源域名
+  - DOMAIN-SUFFIX,oaiusercontent.com,美国家用宽带 # OpenAI 用户内容（图片、文件等）域名
+  - DOMAIN-SUFFIX,observeit.net,美国家用宽带 # ObserveIT 监控与审计服务
+  - DOMAIN-SUFFIX,openai.com,美国家用宽带 # OpenAI 官方网站
+  - DOMAIN-SUFFIX,openaiapi-site.azureedge.net,美国家用宽带 # Azure Edge 用于 OpenAI API 网站的资源
+  - DOMAIN-SUFFIX,openaicom.imgix.net,美国家用宽带 # Imgix 图像加速服务（OpenAI 相关图片）
+  - DOMAIN-SUFFIX,segment.io,美国家用宽带 # Segment 数据分析平台
+  - DOMAIN-SUFFIX,sentry.io,美国家用宽带 # Sentry 错误追踪与日志平台
+  - DOMAIN-KEYWORD,openai,美国家用宽带 # 匹配域名中包含 "openai" 关键字的请求
+  - DOMAIN-SUFFIX,sora.com,美国家用宽带
+
+  - DOMAIN-SUFFIX,stripe.com,美国家用宽带自动转移
+
+  #  - DOMAIN-SUFFIX,redd.it,美国自动转移
+  #  - DOMAIN-SUFFIX,reddit.com,美国自动转移
+  #  - DOMAIN-SUFFIX,redditmail.com,美国自动转移
+  #  - DOMAIN-SUFFIX,redditmedia.com,美国自动转移
+  #  - DOMAIN-SUFFIX,redditstatic.com,美国自动转移
+  #  - DOMAIN-SUFFIX,reddituploads.com,美国自动转移
+  #  - DOMAIN-SUFFIX,reddituploads.com.cdn-cf.behance.net,美国自动转移
+  #  - DOMAIN-SUFFIX,reddituploads.com.cdn-cf.dropbox.com,美国自动转移
+  #
+  #
+  #
+  #
+  #
+  #- DOMAIN,ai.google.dev,美国家用宽带
+  #- DOMAIN,makersuite.google.com,zoro美国
+  #- DOMAIN-SUFFIX,bard.google.com,zoro美国
+  #- DOMAIN-SUFFIX,deepmind.com,zoro美国
+  #- DOMAIN-SUFFIX,deepmind.google,zoro美国
+  #- DOMAIN-SUFFIX,gemini.google.com,美国家用宽带
+  #- DOMAIN-SUFFIX,generativeai.google,zoro美国
+  #- DOMAIN-KEYWORD,developerprofiles,zoro美国
+  #- DOMAIN-KEYWORD,generativelanguage,zoro美国
+  #- DOMAIN-SUFFIX,google.com,美国家用宽带
+  #  - DOMAIN-SUFFIX,proactivebackend-pa.googleapis.com,美国家用宽带
+  #  - DOMAIN-SUFFIX,apis.google.com,美国家用宽带
+  #  - DOMAIN-SUFFIX,notebooklm.google.com,zoro美国
+
+  - DOMAIN-SUFFIX,x.ai,美国自动转移
+  - DOMAIN-SUFFIX,grok.com,美国自动转移
+  # - DOMAIN-SUFFIX,groq.com,美国自动转移
+  # 域名后缀规则组（自动转发至 zgo美国CN2 节点）
+  - DOMAIN-SUFFIX,diabrowser.com,美国自动转移
+  - DOMAIN-SUFFIX,typeform.com,美国自动转移 # 覆盖注册表单相关域名
+  - DOMAIN-SUFFIX,thebrowser.company,美国自动转移
+  - DOMAIN-SUFFIX,diabrowser.engineering,美国自动转移
+
+  #  - DOMAIN-SUFFIX,elevenlabs.io,zoro美国 # 包含所有主站请求（网页、博客、文档等） :contentReference[oaicite:0]{index=0}
+  #  - DOMAIN-SUFFIX,api.elevenlabs.io,zoro美国
+
+  #  - DOMAIN-SUFFIX,cursor.com,DIRECT
+  #  - DOMAIN-SUFFIX,docs.cursor.com,DIRECT
+  #  - DOMAIN-SUFFIX,cursor.sh,DIRECT
+
+  #  - DOMAIN-SUFFIX,api2.cursor.sh,DIRECT
+  #  - DOMAIN-SUFFIX,api3.cursor.sh,DIRECT
+  #  - DOMAIN-SUFFIX,api4.cursor.sh,DIRECT
+  #  - DOMAIN-SUFFIX,repo42.cursor.sh,DIRECT
+  #  - DOMAIN-SUFFIX,us-asia.gcpp.cursor.sh,DIRECT
+  #  - DOMAIN-SUFFIX,us-eu.gcpp.cursor.sh,DIRECT
+  #  - DOMAIN-SUFFIX,us-only.gcpp.cursor.sh,DIRECT
+
+  #  - DOMAIN-SUFFIX,cursorapi.com,DIRECT
+  #  - DOMAIN-SUFFIX,cursor-cdn.com,DIRECT
+  #  - DOMAIN-SUFFIX,anysphere-binaries.s3.us-east-1.amazonaws.com,DIRECT
+
+  # - DOMAIN,lambda.amazonaws.com,美国家用宽带2
+  # - DOMAIN,apigateway.amazonaws.com,美国家用宽带2
+  # - DOMAIN,appsync-api.us-east-1.amazonaws.com,美国家用宽带2
+  # - DOMAIN,secretsmanager.amazonaws.com,美国家用宽带2
+  # - DOMAIN,sns.amazonaws.com,美国家用宽带2
+  # - DOMAIN,sqs.amazonaws.com,美国家用宽带2
+  # - DOMAIN,codebuild.amazonaws.com,美国家用宽带2
+  # - DOMAIN,codecommit.amazonaws.com,美国家用宽带2
+  # - DOMAIN,codepipeline.amazonaws.com,美国家用宽带2
+  # - DOMAIN,cloudformation.amazonaws.com,美国家用宽带2
+  # - DOMAIN,cloudfront.amazonaws.com,美国家用宽带2
+  # - DOMAIN,ecr.amazonaws.com,美国家用宽带2
+  # - DOMAIN,eks.amazonaws.com,美国家用宽带2
+  # - DOMAIN,elasticbeanstalk.amazonaws.com,美国家用宽带2
+  #
+  - DOMAIN-SUFFIX,aim.com,美国家用宽带自动转移
+  - DOMAIN-SUFFIX,perplexity.ai,美国家用宽带自动转移
+  - DOMAIN-SUFFIX,perplexity.com,美国家用宽带自动转移
+  #  - DOMAIN-SUFFIX,os.ai,美国家用宽带自动转移
+  #  - DOMAIN-SUFFIX,pplx.ai,美国家用宽带自动转移
+
+  #  - DOMAIN-SUFFIX,perplexity.ai,美国自动转移
+  - DOMAIN-SUFFIX,pmpjfbhq.cn-nb1.rainapp.top,DIRECT
+  - DOMAIN-SUFFIX,anyrouter.top,claw.vps日本
+  - DOMAIN-SUFFIX,augmentcode.com,美国家用宽带自动转移
+  - DOMAIN-SUFFIX,warp.dev,美国家用宽带自动转移
+  - DOMAIN-SUFFIX,bybit.com,claw.vps日本
+  - DOMAIN-SUFFIX,blackhatworld.com,美国自动转移
+  - DOMAIN-SUFFIX,tencentcloud.com,美国自动转移
+  #  - DOMAIN-SUFFIX,cerebras.ai,zgo美国cn2
+  #  - DOMAIN-SUFFIX,tmall.hk,DIRECT
+  #  - DOMAIN-SUFFIX,tmall.com,DIRECT
+  #
+  #
+  #
+  # NAME: Disney
+  # AUTHOR: blackmatrix7
+  # REPO: https://github.com/blackmatrix7/ios_rule_script
+  # UPDATED: 2025-07-30 02:08:18
+  # DOMAIN-SUFFIX: 172
+  # PROCESS-NAME: 2
+  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+  - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,100.64.0.0/10,DIRECT,no-resolve
+  - IP-CIDR6,::1/128,DIRECT,no-resolve
+  - IP-CIDR6,fc00::/7,DIRECT,no-resolve
+  - IP-CIDR6,fe80::/10,DIRECT,no-resolve
+  - IP-CIDR6,fd00::/8,DIRECT,no-resolve
+  - IP-CIDR,218.104.128.106/32,DIRECT
+  - IP-CIDR,58.22.96.66/32,DIRECT
+  - IP-CIDR,218.104.128.106/32,DIRECT,no-resolve
+  - IP-CIDR,58.22.96.66/32,DIRECT,no-resolve
+  - GEOIP,CN,DIRECT,no-resolve # 所有中国大陆 IP 直连
+  - GEOSITE,CN,DIRECT
+  - DOMAIN-SUFFIX,local,DIRECT
+  - MATCH,Proxy

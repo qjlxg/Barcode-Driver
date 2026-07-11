@@ -1,0 +1,52 @@
+# Clash Meta 配置 for Android
+# 生成时间: 2026-05-24
+
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+external-controller: 127.0.0.1:9090
+
+proxies:
+  - name: VPS-VLESS
+    type: vless
+    server: 45.32.40.174
+    port: 2052
+    uuid: 70f2bc37-c62a-4ea4-8e91-12dfe19c7ddc
+    network: tcp
+    tls: false
+    skip-cert-verify: true
+    udp: true
+
+proxy-groups:
+  - name: 节点选择
+    type: select
+    proxies:
+      - VPS-VLESS
+      - DIRECT
+
+  - name: 自动选择
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    proxies:
+      - VPS-VLESS
+
+rules:
+  - DOMAIN-SUFFIX,local,DIRECT
+  - DOMAIN-SUFFIX,lan,DIRECT
+  - DOMAIN-SUFFIX,localhost,DIRECT
+  - DOMAIN-SUFFIX,msftncsi.com,DIRECT
+  - DOMAIN-SUFFIX,www.msftncsi.com,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - IP-CIDR,224.0.0.0/4,DIRECT
+  - IP-CIDR,182.254.0.0/16,DIRECT
+  - IP-CIDR,116.62.0.0/16,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,节点选择

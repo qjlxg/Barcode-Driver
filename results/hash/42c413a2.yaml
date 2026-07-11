@@ -1,0 +1,213 @@
+port: 7890
+socks-port: 7891
+allow-lan: false
+mode: rule
+log-level: info
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: false
+  use-hosts: true
+  use-system-hosts: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  store-fake-ip: true
+  fake-ip-filter-mode: blacklist
+  respect-rules: false
+  default-nameserver:
+    - 1.1.1.1
+    - 8.8.8.8
+  nameserver:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+  proxy-server-nameserver:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+  direct-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver-policy:
+    geosite:cn:
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+    geosite:private:
+      - system
+  fallback:
+    - tls://1.1.1.1
+    - tls://8.8.8.8
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    geosite:
+      - gfw
+  fake-ip-filter:
+    - '*.lan'
+    - '*.local'
+    - '*.home.arpa'
+    - '*.localdomain'
+    - 'localhost'
+    - localhost.ptlogin2.qq.com
+    - '*.msftconnecttest.com'
+    - '*.msftncsi.com'
+    - 'time.*.com'
+    - 'time.*.gov'
+    - 'router.local'
+    - '*.routerlogin.net'
+    - '*.routerlogin.com'
+    - '*.tplinkwifi.net'
+    - '*.tplinkap.net'
+    - '*.miwifi.com'
+    - '*.miwifi.local'
+    - '*.fritz.box'
+    - '*.asusrouter.com'
+    - '*.asusrouter.local'
+    - '*.linksys.com'
+    - '*.netgear.com'
+    - '*.huawei.com'
+    - '*.phicomm.me'
+    - 'openwrt.lan'
+    - 'homeassistant.local'
+profile:
+  store-selected: true
+proxies:
+  - name: 🇺🇸 美国-加州静态住宅
+    type: vless
+    server: proxy.jitttt.com
+    port: 8443
+    uuid: 71e56622-afbf-4072-bcef-6c5786639053
+    network: tcp
+    tls: true
+    udp: true
+    servername: www.cloudflare.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: jihjAdtP4PXFMpD_92y5Q7PixlNLFgsxL1zyaqU0Pk4
+      short-id: 1a2b3c4d
+  - name: 🇺🇸 美国-洛杉矶CN2直连
+    type: vless
+    server: proxy.jitttt.com
+    port: 8445
+    uuid: 32f0f704-74c7-49fb-b01e-6a2026e54413
+    network: tcp
+    tls: true
+    udp: true
+    servername: www.cloudflare.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: jihjAdtP4PXFMpD_92y5Q7PixlNLFgsxL1zyaqU0Pk4
+      short-id: 1a2b3c4d
+proxy-groups:
+  - name: 主策略
+    type: select
+    proxies:
+      - 住宅组
+      - 直连组
+  - name: AI策略
+    type: select
+    proxies:
+      - 住宅组
+      - 直连组
+  - name: YouTube策略
+    type: select
+    proxies:
+      - 住宅组
+      - 直连组
+  - name: 住宅组
+    type: select
+    proxies:
+      - 🇺🇸 美国-加州静态住宅
+  - name: 直连组
+    type: select
+    proxies:
+      - 🇺🇸 美国-洛杉矶CN2直连
+rule-providers:
+  lan:
+    type: http
+    behavior: classical
+    url: https://sub.jitttt.com:8444/X7c3vbwJ5yO0Y4dqzSSjUZxdj_CUtCX_/providers/lan.yaml
+    path: ./rule-providers/lan.yaml
+    interval: 86400
+    format: yaml
+  ads:
+    type: http
+    behavior: classical
+    url: https://sub.jitttt.com:8444/X7c3vbwJ5yO0Y4dqzSSjUZxdj_CUtCX_/providers/ads.yaml
+    path: ./rule-providers/ads.yaml
+    interval: 86400
+    format: yaml
+  china_domain:
+    type: http
+    behavior: classical
+    url: https://sub.jitttt.com:8444/X7c3vbwJ5yO0Y4dqzSSjUZxdj_CUtCX_/providers/china_domain.yaml
+    path: ./rule-providers/china_domain.yaml
+    interval: 86400
+    format: text
+  apple_cn:
+    type: http
+    behavior: domain
+    url: https://sub.jitttt.com:8444/X7c3vbwJ5yO0Y4dqzSSjUZxdj_CUtCX_/providers/apple_cn.yaml
+    path: ./rule-providers/apple_cn.yaml
+    interval: 86400
+    format: text
+  google_cn:
+    type: http
+    behavior: domain
+    url: https://sub.jitttt.com:8444/X7c3vbwJ5yO0Y4dqzSSjUZxdj_CUtCX_/providers/google_cn.yaml
+    path: ./rule-providers/google_cn.yaml
+    interval: 86400
+    format: text
+  openai:
+    type: http
+    behavior: classical
+    url: https://sub.jitttt.com:8444/X7c3vbwJ5yO0Y4dqzSSjUZxdj_CUtCX_/providers/openai.yaml
+    path: ./rule-providers/openai.yaml
+    interval: 86400
+    format: yaml
+  claude:
+    type: http
+    behavior: classical
+    url: https://sub.jitttt.com:8444/X7c3vbwJ5yO0Y4dqzSSjUZxdj_CUtCX_/providers/claude.yaml
+    path: ./rule-providers/claude.yaml
+    interval: 86400
+    format: yaml
+  gemini:
+    type: http
+    behavior: classical
+    url: https://sub.jitttt.com:8444/X7c3vbwJ5yO0Y4dqzSSjUZxdj_CUtCX_/providers/gemini.yaml
+    path: ./rule-providers/gemini.yaml
+    interval: 86400
+    format: yaml
+  youtube:
+    type: http
+    behavior: classical
+    url: https://sub.jitttt.com:8444/X7c3vbwJ5yO0Y4dqzSSjUZxdj_CUtCX_/providers/youtube.yaml
+    path: ./rule-providers/youtube.yaml
+    interval: 86400
+    format: yaml
+rules:
+  - DOMAIN,gemini.google.com,AI策略
+  - DOMAIN-SUFFIX,ai.google.dev,AI策略
+  - DOMAIN,makersuite.google.com,AI策略
+  - DOMAIN-SUFFIX,claude.ai,AI策略
+  - DOMAIN-SUFFIX,anthropic.com,AI策略
+  - DOMAIN-SUFFIX,openai.com,AI策略
+  - DOMAIN-SUFFIX,chatgpt.com,AI策略
+  - DOMAIN-SUFFIX,oaistatic.com,AI策略
+  - DOMAIN-SUFFIX,oaiusercontent.com,AI策略
+  - DOMAIN,cn.bing.com,DIRECT
+  - DOMAIN-SUFFIX,bing.com.cn,DIRECT
+  - DOMAIN-SUFFIX,microsoft.com.cn,DIRECT
+  - DOMAIN-SUFFIX,windows.net.cn,DIRECT
+  - DOMAIN-SUFFIX,azure.cn,DIRECT
+  - DOMAIN-SUFFIX,chinacloudapi.cn,DIRECT
+  - RULE-SET,ads,REJECT
+  - RULE-SET,lan,DIRECT
+  - RULE-SET,openai,AI策略
+  - RULE-SET,claude,AI策略
+  - RULE-SET,gemini,AI策略
+  - RULE-SET,youtube,YouTube策略
+  - RULE-SET,apple_cn,DIRECT
+  - RULE-SET,google_cn,DIRECT
+  - RULE-SET,china_domain,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,主策略

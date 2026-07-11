@@ -1,0 +1,16 @@
+proxies:
+  - name: US-Trojan
+    type: trojan
+    server: 154.21.92.132
+    port: 443
+    password: test123456
+    skip-cert-verify: true
+
+proxy-groups:
+  - name: Proxy
+    type: select
+    proxies:
+      - US-Trojan
+
+rules:
+  - MATCH,Proxy

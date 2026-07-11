@@ -1,0 +1,182 @@
+
+mixed-port: 7890
+allow-lan: true
+bind-address: '*'
+mode: rule
+log-level: info
+ipv6: false
+unified-delay: true
+
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  listen: '0.0.0.0:1053'
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 180.76.76.76
+  fallback:
+    - 1.1.1.1
+    - 8.8.8.8
+    - 208.67.222.222
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
+
+proxies:
+  - name: "美国洛杉矶自建4-VLESS"
+    type: vless
+    server: wo.ilovezhenjiu.top
+    port: 443
+    uuid: 170b57b2-454f-496d-a0e3-c1571b57d931
+    udp: true
+    tls: true
+    flow: xtls-rprx-vision
+    servername: wo.ilovezhenjiu.top
+    network: tcp
+    client-fingerprint: chrome
+
+  - name: "德国法兰克福-VLESS"
+    type: vless
+    server: jason.ilovezhenjiu.top
+    port: 42670
+    uuid: 4dbb4d3f-2b9a-45b6-b741-e839c570ffd8
+    udp: true
+    tls: true
+    flow: xtls-rprx-vision
+    servername: jason.ilovezhenjiu.top
+    network: tcp
+    client-fingerprint: chrome
+
+  - name: "美国洛杉矶自建1-VLESS"
+    type: vless
+    server: ilovezhenjiu.top
+    port: 443
+    uuid: 87cf42af-b9ce-4bc9-8f73-e4988282d265
+    cipher: auto
+    udp: true
+    tls: true
+    servername: ilovezhenjiu.top
+    network: ws
+    ws-opts:
+      path: /kqqzws
+      headers:
+        Host: ilovezhenjiu.top
+    client-fingerprint: chrome
+
+  - name: "日本东京自建-VLESS"
+    type: vless
+    server: wolf.ilovezhenjiu.top
+    port: 443
+    uuid: bb5d6649-55e3-4bea-a6ef-a9a8f684789d
+    cipher: auto
+    udp: true
+    tls: true
+    servername: wolf.ilovezhenjiu.top
+    network: ws
+    ws-opts:
+      path: /tolows
+      headers:
+        Host: wolf.ilovezhenjiu.top
+    client-fingerprint: chrome
+
+  - name: "美国盐湖城自建-VLESS"
+    type: vless
+    server: www.ilovezhenjiu.top
+    port: 443
+    uuid: 03033a68-bde3-4455-ae19-ea970c939ba7
+    cipher: auto
+    udp: true
+    tls: true
+    servername: www.ilovezhenjiu.top
+    network: ws
+    ws-opts:
+      path: /bqtmws
+      headers:
+        Host: www.ilovezhenjiu.top
+    client-fingerprint: chrome
+
+proxy-groups:
+  - name: 🚀 代理中心
+    type: select
+    proxies:
+      - "德国法兰克福-VLESS"
+      - "美国洛杉矶自建4-VLESS"
+      - "美国洛杉矶自建1-VLESS"
+      - "日本东京自建-VLESS"
+      - "美国盐湖城自建-VLESS"
+      - DIRECT
+
+  - name: 🤖 OpenAI
+    type: select
+    proxies:
+      - 🚀 代理中心
+      - "德国法兰克福-VLESS"
+      - "美国洛杉矶自建4-VLESS"
+      - "美国洛杉矶自建1-VLESS"
+      - "日本东京自建-VLESS"
+      - "美国盐湖城自建-VLESS"
+      - DIRECT
+
+  - name: GLOBAL
+    type: select
+    proxies:
+      - 🚀 代理中心
+      - "德国法兰克福-VLESS"
+      - "美国洛杉矶自建4-VLESS"
+      - "美国洛杉矶自建1-VLESS"
+      - "日本东京自建-VLESS"
+      - "美国盐湖城自建-VLESS"
+      - DIRECT
+
+rule-providers:
+  Google: { type: http, behavior: classical, url: 'https://api-gz.hosbbq.com/nus74f89st1/G.yml', interval: 86400, path: ./ruleset/Google.yml }
+  YouTube: { type: http, behavior: classical, url: 'https://api-gz.hosbbq.com/nus74f89st1/Y.yml', interval: 86400, path: ./ruleset/YouTube.yml }
+  Microsoft: { type: http, behavior: classical, url: 'https://api-gz.hosbbq.com/nus74f89st1/M.yml', interval: 86400, path: ./ruleset/Microsoft.yml }
+  SteamCN: { type: http, behavior: classical, url: 'https://api-gz.hosbbq.com/nus74f89st1/SC.yml', interval: 86400, path: ./ruleset/SteamCN.yml }
+  Bahamut: { type: http, behavior: classical, url: 'https://api-gz.hosbbq.com/nus74f89st1/Ba.yml', interval: 86400, path: ./ruleset/Bahamut.yml }
+  DMM: { type: http, behavior: classical, url: 'https://api-gz.hosbbq.com/nus74f89st1/DM.yml', interval: 86400, path: ./ruleset/DMM.yml }
+  ChinaMax: { type: http, behavior: classical, url: 'https://api-gz.hosbbq.com/nus74f89st1/C.yml', interval: 86400, path: ./ruleset/ChinaMax.yml }
+  OpenAI: { type: http, behavior: classical, url: 'https://api-gz.hosbbq.com/nus74f89st1/CH.yml', interval: 86400, path: ./ruleset/OpenAI.yml }
+
+rules:
+  - DOMAIN,cnki.net,DIRECT
+  - DOMAIN,jxlibrary.net,DIRECT
+  - 'DOMAIN-KEYWORD,sjtu.edu.cn,DIRECT'
+  - 'DOMAIN,local.adguard.org,DIRECT'
+  - 'DOMAIN-SUFFIX,local,DIRECT'
+
+  - 'RULE-SET,OpenAI,🤖 OpenAI'
+  - 'RULE-SET,Google,🚀 代理中心'
+  - 'RULE-SET,YouTube,🚀 代理中心'
+  - 'RULE-SET,Microsoft,DIRECT'
+  - 'RULE-SET,SteamCN,DIRECT'
+  - 'RULE-SET,ChinaMax,DIRECT'
+  - 'RULE-SET,Bahamut,🚀 代理中心'
+  - 'RULE-SET,DMM,🚀 代理中心'
+
+  - DOMAIN-SUFFIX,bing.com,🚀 代理中心
+  - DOMAIN-SUFFIX,bing.net,🚀 代理中心
+  - DOMAIN-SUFFIX,bing.edu,🚀 代理中心
+  - 'DOMAIN-KEYWORD,linkedin,🚀 代理中心'
+  - 'DOMAIN-SUFFIX,okex.com,🚀 代理中心'
+  - 'DOMAIN-SUFFIX,oklink.com,🚀 代理中心'
+  - 'DOMAIN-SUFFIX,okx.com,🚀 代理中心'
+
+  - 'IP-CIDR,127.0.0.0/8,DIRECT'
+  - 'IP-CIDR,172.16.0.0/12,DIRECT'
+  - 'IP-CIDR,192.168.0.0/16,DIRECT'
+  - 'IP-CIDR,10.0.0.0/8,DIRECT'
+  - 'IP-CIDR,17.0.0.0/8,DIRECT'
+  - 'IP-CIDR,100.64.0.0/10,DIRECT'
+  - 'IP-CIDR,224.0.0.0/4,DIRECT'
+  - 'IP-CIDR,203.0.113.0/24,DIRECT'
+  - 'IP-CIDR,192.0.2.0/24,DIRECT'
+  - 'IP-CIDR6,fe80::/10,DIRECT'
+  - GEOIP,LAN,DIRECT
+  - GEOIP,CN,DIRECT
+
+  - MATCH,🚀 代理中心

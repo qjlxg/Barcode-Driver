@@ -1,0 +1,135 @@
+proxies:
+  - {name: US01, server: cn00.somethingstranges.com, port: 8803, type: ss, cipher: chacha20-ietf, password: passwd, plugin: obfs, plugin-opts: {mode: http, host: 43739-wx9DB8jb.download.microsoft.com}}
+# - {name: 香港05, server: cn02.somethingstranges.com, port: 8105, type: ss, cipher: chacha20-ietf, password: passwd, plugin: obfs, plugin-opts: {mode: http, host: 43739-wx9DB8jb.download.microsoft.com}}
+# - {name: 香港06, server: cn02.somethingstranges.com, port: 8106, type: ss, cipher: chacha20-ietf, password: passwd, plugin: obfs, plugin-opts: {mode: http, host: 43739-wx9DB8jb.download.microsoft.com}}
+# - {name: 香港07, server: cn02.somethingstranges.com, port: 8107, type: ss, cipher: chacha20-ietf, password: passwd, plugin: obfs, plugin-opts: {mode: http, host: 43739-wx9DB8jb.download.microsoft.com}}
+# - {name: 香港08, server: cn02.somethingstranges.com, port: 8108, type: ss, cipher: chacha20-ietf, password: passwd, plugin: obfs, plugin-opts: {mode: http, host: 43739-wx9DB8jb.download.microsoft.com}}
+# - {name: 香港09, server: cn02.somethingstranges.com, port: 8109, type: ss, cipher: chacha20-ietf, password: passwd, plugin: obfs, plugin-opts: {mode: http, host: 43739-wx9DB8jb.download.microsoft.com}}
+# - {name: 香港10, server: cn02.somethingstranges.com, port: 8110, type: ss, cipher: chacha20-ietf, password: passwd, plugin: obfs, plugin-opts: {mode: http, host: 43739-wx9DB8jb.download.microsoft.com}}
+# - {name: 香港11, server: cn03.somethingstranges.com, port: 8111, type: ss, cipher: chacha20-ietf, password: passwd, plugin: obfs, plugin-opts: {mode: http, host: 43739-wx9DB8jb.download.microsoft.com}}
+# - {name: 香港12, server: cn03.somethingstranges.com, port: 8112, type: ss, cipher: chacha20-ietf, password: passwd, plugin: obfs, plugin-opts: {mode: http, host: 43739-wx9DB8jb.download.microsoft.com}}
+# - {name: 香港13, server: cn03.somethingstranges.com, port: 8113, type: ss, cipher: chacha20-ietf, password: passwd, plugin: obfs, plugin-opts: {mode: http, host: 43739-wx9DB8jb.download.microsoft.com}}
+# - {name: 香港14, server: cn03.somethingstranges.com, port: 8114, type: ss, cipher: chacha20-ietf, password: passwd, plugin: obfs, plugin-opts: {mode: http, host: 43739-wx9DB8jb.download.microsoft.com}}
+# - {name: 香港15, server: cn03.somethingstranges.com, port: 8115, type: ss, cipher: chacha20-ietf, password: passwd, plugin: obfs, plugin-opts: {mode: http, host: 43739-wx9DB8jb.download.microsoft.com}}
+# - {name: 香港16, server: cn04.somethingstranges.com, port: 8116, type: ss, cipher: chacha20-ietf, password: passwd, plugin: obfs, plugin-opts: {mode: http, host: 43739-wx9DB8jb.download.microsoft.com}}
+# - {name: 香港17, server: cn04.somethingstranges.com, port: 8117, type: ss, cipher: chacha20-ietf, password: passwd, plugin: obfs, plugin-opts: {mode: http, host: 43739-wx9DB8jb.download.microsoft.com}}
+  - {name: 免费-日本1-Ver.7, server: q0znpqk-g01.jp01-nn-vm0.entry.fr0528.art, port: 21581, type: vmess, uuid: ac72b60f-7f43-3f34-9bf8-943a137be5bd, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
+  - {name: 免费-日本2-Ver.8, server: f171sqk-g01.jp02-e3-vm0.entry.fr0528.art, port: 11773, type: vmess, uuid: ac72b60f-7f43-3f34-9bf8-943a137be5bd, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
+  - {name: 免费-日本3-Ver.7, server: x07jsnj-g01.jp03-j7-vm0.entry.fr0528.art, port: 21581, type: vmess, uuid: ac72b60f-7f43-3f34-9bf8-943a137be5bd, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
+  - {name: 免费-日本4-Ver.8, server: wvznsqs-g01.jp04-1d-vm0.entry.fr0528.art, port: 444, type: vmess, uuid: ac72b60f-7f43-3f34-9bf8-943a137be5bd, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
+  - {name: 免费-日本5-Ver.9, server: fv7jorj-g01.jp05-h6-vm0.entry.fr0528.art, port: 46482, type: vmess, uuid: ac72b60f-7f43-3f34-9bf8-943a137be5bd, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
+  - {name: 免费-日本6-Ver.8, server: x071srj-g01.jp06-jz-vm0.entry.fr0528.art, port: 28783, type: vmess, uuid: ac72b60f-7f43-3f34-9bf8-943a137be5bd, alterId: 1, cipher: auto, tls: true, skip-cert-verify: false, udp: true}
+  - {name: 免费-日本7-Ver.2, server: fo41pnk-g01.jp07-sh-vm0.entry.fr0528.art, port: 28783, type: vmess, uuid: ac72b60f-7f43-3f34-9bf8-943a137be5bd, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
+  - {name: 🇭🇰 香港W01, server: f.v.a.s.s.r.k.3.b.hk01-ae5.entry.v51124-1.qpon, port: 19272, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇯🇵 日本W01 | IEPL, server: q.o.a.s.o.n.s.3.b.jp01-ae5.entry.v51124-1.qpon, port: 473, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇭🇰 香港W02 | IEPL, server: x.v.4.n.x.n.j.3.b.hk02-ae5.entry.v51124-1.qpon, port: 14560, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇯🇵 日本W02 | IEPL, server: f.v.4.s.x.q.s.3.b.jp02-ae5.entry.v51124-1.qpon, port: 483, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇭🇰 香港W03 | IEPL, server: f.0.z.n.o.q.k.3.b.hk03-ae5.entry.v51124-1.qpon, port: 760, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇯🇵 日本W03 | IEPL, server: q.0.z.s.s.r.j.3.b.jp03-ae5.entry.v51124-1.qpon, port: 488, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇭🇰 香港W04 | IEPL, server: q.v.4.j.x.n.s.3.b.hk04-ae5.entry.v51124-1.qpon, port: 804, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇯🇵 日本W04 | IEPL, server: x.1.a.1.s.r.s.3.b.jp04-ae5.entry.v51124-1.qpon, port: 493, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇭🇰 香港W05 | IEPL, server: w.0.z.n.p.l.j.3.b.hk05-ae5.entry.v51124-1.qpon, port: 1812, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇯🇵 日本W05 | 下载专用 | x0.01, server: w14nsns-g01.jp05-vm5.entry.rtysjur.quest, port: 64655, type: vmess, uuid: ac72b60f-7f43-3f34-9bf8-943a137be5bd, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
+  - {name: 🇭🇰 香港W06 | x0.8, server: w.0.7.j.p.l.j.3.b.hk06-ae5.entry.v51124-1.qpon, port: 1413, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇯🇵 日本W06 | 下载专用 | x0.01, server: fvz1prk-g01.jp06-vm5.entry.rtysjur.quest, port: 663, type: vmess, uuid: ac72b60f-7f43-3f34-9bf8-943a137be5bd, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
+  - {name: 🇭🇰 香港W07 | x0.8, server: w.1.7.n.s.n.s.3.b.hk07-ae5.entry.v51124-1.qpon, port: 1420, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇯🇵 日本W07 | IEPL, server: f.v.7.j.p.l.j.3.b.jp07-ae5.entry.v51124-1.qpon, port: 14005, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇭🇰 香港W08 | x0.8, server: x.v.4.j.o.r.k.3.b.hk08-ae5.entry.v51124-1.qpon, port: 18643, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇯🇵 日本W08 | IEPL, server: q.0.z.n.s.r.k.3.b.jp08-ae5.entry.v51124-1.qpon, port: 12543, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇭🇰 香港W09 | IEPL, server: w.1.4.1.o.r.j.3.b.hk09-vm5.entry.v51124-1.qpon, port: 15265, type: vmess, uuid: ac72b60f-7f43-3f34-9bf8-943a137be5bd, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, udp: true}
+  - {name: 🇯🇵 日本W09 | IEPL, server: f.v.z.s.o.r.j.3.b.jp09-ae5.entry.v51124-1.qpon, port: 11158, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇭🇰 香港W10 | IEPL, server: w.v.4.s.s.q.k.3.b.hk10-vm5.entry.v51124-1.qpon, port: 13483, type: vmess, uuid: ac72b60f-7f43-3f34-9bf8-943a137be5bd, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: speedtest-bgp-01-10.entry-0.chinasnow.net}}, udp: true}
+  - {name: 🇯🇵 日本W10 | IEPL, server: w.o.z.j.x.q.j.3.b.jp10-ae5.entry.v51124-1.qpon, port: 16524, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇭🇰 香港W11 | IEPL, server: w.0.7.j.o.r.k.3.b.hk11-vm5.entry.v51124-1.qpon, port: 575, type: vmess, uuid: ac72b60f-7f43-3f34-9bf8-943a137be5bd, alterId: 1, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /tutorial/iphone13.m3u8, headers: {Host: speedtest-bgp-01-11.entry-0.chinasnow.net}}, udp: true}
+  - {name: 🇯🇵 日本W11 | IEPL, server: w.v.4.s.p.l.s.3.b.jp11-ae5.entry.v51124-1.qpon, port: 17741, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇸🇬 新加坡W01 | IEPL | x2, server: x.v.4.1.p.l.k.3.b.sg01-ae5.entry.v51124-1.qpon, port: 20000, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇸🇬 新加坡W02 | IEPL | x2, server: x.o.7.n.p.l.k.3.b.sg02-ae5.entry.v51124-1.qpon, port: 20075, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇸🇬 新加坡W03 | IEPL | x2, server: x.o.4.1.x.r.k.3.b.sg03-ae5.entry.v51124-1.qpon, port: 20080, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇨🇳 台湾W01 | IEPL | x2, server: w.1.z.s.x.n.k.3.b.tw01-ae5.entry.v51124-1.qpon, port: 20005, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇺🇲 美国W01 | IEPL | x1.5, server: q.v.7.j.s.n.k.3.b.us01-ae5.entry.v51124-1.qpon, port: 20010, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇺🇲 美国W02 | IEPL | x1.5, server: q.o.a.1.o.n.s.3.b.us02-ae5.entry.v51124-1.qpon, port: 20015, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇬🇧 英国W01, server: q.o.z.1.p.l.j.3.b.gb01-ae5.entry.v51124-1.qpon, port: 20020, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇦🇷 阿根廷W01, server: x.o.4.n.p.l.k.3.b.ar01-ae5.entry.v51124-1.qpon, port: 20025, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇷🇺 俄罗斯W01, server: q.v.7.j.p.q.s.3.b.ru01-ae5.entry.v51124-1.qpon, port: 20030, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇹🇷 土耳其W01, server: q.1.4.n.s.l.k.3.b.tr01-ae5.entry.v51124-1.qpon, port: 20035, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇰🇷 韩国W01, server: q.o.a.j.x.r.k.3.b.kr01-ae5.entry.v51124-1.qpon, port: 20040, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇮🇳 印度W01, server: x.0.4.n.o.r.j.3.b.in01-ae5.entry.v51124-1.qpon, port: 20045, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇩🇪 德国W01, server: q.o.4.j.p.r.j.3.b.de01-ae5.entry.v51124-1.qpon, port: 20050, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇨🇦 加拿大W01, server: q.o.z.1.o.l.s.3.b.ca01-ae5.entry.v51124-1.qpon, port: 20055, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇦🇺 澳大利亚W01, server: f.o.4.j.o.l.s.3.b.au01-ae5.entry.v51124-1.qpon, port: 20060, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇫🇷 法国W01, server: f.1.4.s.o.q.s.3.b.fr01-ae5.entry.v51124-1.qpon, port: 20065, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+  - {name: 🇺🇦 乌克兰W01, server: f.v.4.j.o.n.k.3.b.ua01-ae5.entry.v51124-1.qpon, port: 20070, type: ss, cipher: aes-256-gcm, password: ac72b60f-7f43-3f34-9bf8-943a137be5bd, udp: true}
+proxy-groups:
+  - name: IPLC
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    proxies:
+      - US01
+  - name: iKuuu1
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    proxies:
+      - 免费-日本1-Ver.7
+      - 免费-日本2-Ver.8
+      - 免费-日本3-Ver.7
+      - 免费-日本4-Ver.8
+      - 免费-日本5-Ver.9
+      - 免费-日本6-Ver.8
+      - 免费-日本7-Ver.2
+  - name: iKuuu2
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    proxies:
+      - 🇭🇰 香港W01
+      - 🇯🇵 日本W01 | IEPL
+      - 🇭🇰 香港W02 | IEPL
+      - 🇯🇵 日本W02 | IEPL
+      - 🇭🇰 香港W03 | IEPL
+      - 🇯🇵 日本W03 | IEPL
+      - 🇭🇰 香港W04 | IEPL
+      - 🇯🇵 日本W04 | IEPL
+      - 🇭🇰 香港W05 | IEPL
+      - 🇯🇵 日本W05 | 下载专用 | x0.01
+      - 🇭🇰 香港W06 | x0.8
+      - 🇯🇵 日本W06 | 下载专用 | x0.01
+      - 🇭🇰 香港W07 | x0.8
+      - 🇯🇵 日本W07 | IEPL
+      - 🇭🇰 香港W08 | x0.8
+      - 🇯🇵 日本W08 | IEPL
+      - 🇭🇰 香港W09 | IEPL
+      - 🇯🇵 日本W09 | IEPL
+      - 🇭🇰 香港W10 | IEPL
+      - 🇯🇵 日本W10 | IEPL
+      - 🇭🇰 香港W11 | IEPL
+      - 🇯🇵 日本W11 | IEPL
+      - 🇸🇬 新加坡W01 | IEPL | x2
+      - 🇸🇬 新加坡W02 | IEPL | x2
+      - 🇸🇬 新加坡W03 | IEPL | x2
+      - 🇨🇳 台湾W01 | IEPL | x2
+      - 🇺🇲 美国W01 | IEPL | x1.5
+      - 🇺🇲 美国W02 | IEPL | x1.5
+      - 🇬🇧 英国W01
+      - 🇦🇷 阿根廷W01
+      - 🇷🇺 俄罗斯W01
+      - 🇹🇷 土耳其W01
+      - 🇰🇷 韩国W01
+      - 🇮🇳 印度W01
+      - 🇩🇪 德国W01
+      - 🇨🇦 加拿大W01
+      - 🇦🇺 澳大利亚W01
+      - 🇫🇷 法国W01
+      - 🇺🇦 乌克兰W01
+  - name: 自动选择
+    type: fallback
+    proxies:
+      - iKuuu1
+      - iKuuu2
+      - IPLC
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+rules:
+  - GEOIP,CN,DIRECT
+  - MATCH,自动选择

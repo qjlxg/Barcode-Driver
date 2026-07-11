@@ -1,0 +1,60 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+
+proxies:
+  - name: JP-Azure
+    type: vless
+    server: az.zackwill.space
+    port: 4433
+    uuid: f138e9d3-2187-47c6-869a-e78246263fc7
+    flow: xtls-rprx-vision
+    udp: true
+    tls: true
+    servername: www.microsoft.com
+    reality-opts:
+      public-key: A79HXR1v8gPp76vlFQHSR6yol40L4klpthCKv2gYsxg
+      short-id: abc123
+    client-fingerprint: chrome
+
+  - name: US-RackNerd
+    type: vless
+    server: rn.zackwill.space
+    port: 4433
+    uuid: 89b197bd-0205-4785-be2f-2fc7c960d3d3
+    flow: xtls-rprx-vision
+    udp: true
+    tls: true
+    servername: www.microsoft.com
+    reality-opts:
+      public-key: gHZzvJQjEzqDzZbQwsDvHJjRcr6EpXYR14bzEEHlFWk
+      short-id: abc123
+    client-fingerprint: chrome
+
+proxy-groups:
+  - name: Proxy
+    type: select
+    proxies:
+      - Auto
+      - JP-Azure
+      - US-RackNerd
+      - DIRECT
+
+  - name: Auto
+    type: url-test
+    proxies:
+      - JP-Azure
+      - US-RackNerd
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+
+rules:
+  - GEOIP,lan,DIRECT
+  - GEOSITE,cn,DIRECT
+  - GEOIP,cn,DIRECT
+  - GEOSITE,category-ads-all,REJECT
+  - GEOSITE,geolocation-!cn,Proxy
+  - GEOIP,!cn,Proxy
+  - MATCH,Proxy

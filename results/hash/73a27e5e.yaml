@@ -1,0 +1,30 @@
+mixed-port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+
+proxies:
+  - name: "Tokyo-Reality"
+    type: vless
+    server: 45.32.248.50
+    port: 443
+    uuid: 7824e941-1ff3-4005-8d84-567fa67df972
+    network: tcp
+    tls: true
+    flow: xtls-rprx-vision
+    servername: www.microsoft.com
+    reality-opts:
+      public-key: a67uqoS5ddoiR6idOYfzxWvMZJ4zXbCnvoX4qK8cAUk
+      short-id: e4ead856eec1ee37
+    client-fingerprint: chrome
+
+proxy-groups:
+  - name: "Proxy"
+    type: select
+    proxies:
+      - Tokyo-Reality
+
+rules:
+  - MATCH,Proxy
+
