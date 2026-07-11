@@ -1,4 +1,4 @@
-name: 1. 资产探测 (Masscan)
+name: 资产探测 (Masscan)
 on:
   workflow_dispatch:
 
@@ -10,7 +10,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # 获取完整的提交历史，确保 rebase 不会因为缺少历史而失败
           fetch-depth: 0
       
       - name: 安装 Masscan
@@ -18,21 +17,34 @@ jobs:
       
       - name: 扫描并固化 IP 列表
         run: |
-          # 1. 运行扫描
-          sudo masscan ​108.165.16.0/20 -p80,443,7890,8080,8888,9090，2052, 2053, 2082, 2083--rate 1000 -oG scan_raw.txt
-          grep "open" scan_raw.txt | awk '{print $4}' > alive_ips.txt
+          # 格式化端口列表：移除空格，确保逗号标准
+          TARGET_PORTS="80,443,7890,8080,8888,9090,2052,2053,2082,2083"
           
-          # 2. 配置 Git 环境
+          # 修正后的 masscan 命令，增加 --wait 0 确保任务完成
+          sudo masscan 108.165.16.0/20 -p$TARGET_PORTS --rate 1000 --wait 0 -oG scan_raw.txt
+          
+          # 提取、去重、排序，生成规范的 alive_ips.txt
+          grep "open" scan_raw.txt | awk '{print $4}' | sort -u > alive_ips.txt
+          
+          # 清理扫描中间文件
+          rm scan_raw.txt
+          
+      - name: 提交更改
+        run: |
+          # 配置 Git 身份
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # 3. 同步远程最新更改 (防止 rejected 错误)
-          git pull origin main --rebase
-          
-          # 4. 提交更改
-          git add alive_ips.txt
-          # 只有在有内容改动时才提交，避免报错
-          git commit -m "Update: Saved alive_ips.txt" || echo "No changes to commit"
-          
-          # 5. 推送到远程
-          git push origin main
+          # 检查是否有内容变动
+          if [[ -n $(git status -s alive_ips.txt) ]]; then
+            git add alive_ips.txt
+            git commit -m "Update: Refresh alive_ips.txt $(date +'%Y-%m-%d')"
+            
+            # 同步远程最新更改并合并
+            git pull origin main --rebase
+            
+            # 推送到远程
+            git push origin main
+          else
+            echo "[-] alive_ips.txt 无变化，跳过本次提交。"
+          fi
