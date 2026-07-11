@@ -9,14 +9,30 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          # 获取完整的提交历史，确保 rebase 不会因为缺少历史而失败
+          fetch-depth: 0
+      
       - name: 安装 Masscan
         run: sudo apt-get update && sudo apt-get install -y masscan
+      
       - name: 扫描并固化 IP 列表
         run: |
+          # 1. 运行扫描
           sudo masscan 38.207.0.0/16 -p80,443,7890,8080,8888,9090 --rate 3000 -oG scan_raw.txt
           grep "open" scan_raw.txt | awk '{print $4}' > alive_ips.txt
+          
+          # 2. 配置 Git 环境
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # 3. 同步远程最新更改 (防止 rejected 错误)
+          git pull origin main --rebase
+          
+          # 4. 提交更改
           git add alive_ips.txt
-          git commit -m "Update: Saved alive_ips.txt" || echo "No changes"
-          git push
+          # 只有在有内容改动时才提交，避免报错
+          git commit -m "Update: Saved alive_ips.txt" || echo "No changes to commit"
+          
+          # 5. 推送到远程
+          git push origin main
