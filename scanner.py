@@ -13,12 +13,12 @@ TARGET_PATHS = ["/", "/sub", "/subscribe", "/clash", "/config", "/api/v1/client/
 OUTPUT_DIR = "results"
 WORKER_COUNT = 300
 QUEUE_SIZE = 5000
-SAMPLE_LIMIT = 20  # 采集样本数量上限
+SAMPLE_LIMIT = 50
 
 class StatsManager:
     def __init__(self):
         self.stats = {
-            "req": 0, "keyword": 0, "yaml_ok": 0, "saved": 0, "errors": 0, "status_codes": {}
+            "req": 0, "keyword_proxies": 0, "keyword_base64": 0, "yaml_ok": 0, "saved": 0, "errors": 0, "status_codes": {}
         }
         self.samples_collected = 0
         self.lock = asyncio.Lock()
@@ -79,18 +79,24 @@ async def scanner_worker(queue, write_queue, session, pbar, file_lock):
                 await stats.update(resp.status, is_status_code=True)
                 
                 if resp.status == 200:
+                    cl = resp.headers.get("Content-Length")
+                    if cl and int(cl) > 1024 * 1024: continue # 防阻塞大文件
+                    
                     data = await resp.read()
                     text = data.decode("utf-8", errors="ignore")
+                    lower_text = text.lower()
                     
-                    # 样本采集逻辑：如果没命中关键词，保存前 500 字符以便排查
+                    # 1. 指纹采集与特征分析
                     async with stats.lock:
                         if stats.samples_collected < SAMPLE_LIMIT:
                             with open("samples.txt", "a", encoding="utf8") as f:
-                                f.write(f"URL:{url}\nTYPE:{resp.headers.get('content-type')}\n{text[:500]}\n================\n")
+                                f.write(f"\nURL:{url}\nTYPE:{resp.headers.get('content-type')}\n{text[:500]}\n================\n")
                             stats.samples_collected += 1
                     
-                    if "proxies:" in text:
-                        await stats.update("keyword")
+                    # 2. 多重指纹匹配逻辑
+                    match_count = sum(1 for f in ["proxies:", "proxy-groups:", "uuid:", "- name:", "geox-url:"] if f in lower_text)
+                    if match_count >= 1:
+                        await stats.update("keyword_proxies")
                         try:
                             cfg = yaml.safe_load(text)
                             if isinstance(cfg, dict) and "proxies" in cfg:
@@ -103,6 +109,8 @@ async def scanner_worker(queue, write_queue, session, pbar, file_lock):
                                         await stats.update("saved")
                                 await write_queue.put([ip, port, path, len(text), h])
                         except: await stats.update("errors")
+                    elif any(k in lower_text for k in ["vmess://", "vless://", "ss://"]):
+                        await stats.update("keyword_base64")
         except: await stats.update("errors")
         finally:
             queue.task_done()
