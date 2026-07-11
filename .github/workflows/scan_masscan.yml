@@ -19,7 +19,7 @@ jobs:
       - name: 扫描并固化 IP 列表
         run: |
           # 1. 运行扫描
-          sudo masscan 103.22.200.0/22 -p80,443,7890,8080,8888,9090，2052, 2053, 2082, 2083--rate 1000 -oG scan_raw.txt
+          sudo masscan ​108.165.16.0/20 -p80,443,7890,8080,8888,9090，2052, 2053, 2082, 2083--rate 1000 -oG scan_raw.txt
           grep "open" scan_raw.txt | awk '{print $4}' > alive_ips.txt
           
           # 2. 配置 Git 环境
