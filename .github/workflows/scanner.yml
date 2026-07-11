@@ -1,0 +1,46 @@
+name: Network Scanner Workflow
+
+on:
+  push:
+    paths:
+      - 'scanner.py' # 当脚本变动时触发
+  schedule:
+    - cron: '0 1 * * *' # 每天北京时间 09:00 (UTC 01:00) 自动扫描
+  workflow_dispatch: # 允许手动点击按钮触发
+
+permissions:
+  contents: write # 必须赋予写入权限以回传结果
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: |
+          pip install aiohttp aiofiles
+
+      - name: Run Scanner
+        run: |
+          # 运行你的扫描脚本
+          python scanner.py
+
+      - name: Commit and Push Results
+        # 如果扫描发现了结果，则将其提交并推送回仓库
+        run: |
+          if [ -f results.csv ]; then
+            git config --global user.name 'github-actions[bot]'
+            git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+            git add results.csv
+            git commit -m "Auto-update: Scan results from $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+            git push
+          else
+            echo "No results found, skipping commit."
+          fi
