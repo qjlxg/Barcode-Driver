@@ -6,7 +6,7 @@ import hashlib
 import os
 
 # --- 配置区域 ---
-TARGET_CIDR = "38.207.177.0/24"
+TARGET_CIDR = "45.124.0.0/16"
 TARGET_PORTS = [80, 443, 7890, 8080, 8888, 9090]
 TARGET_PATHS = ["/", "/sub", "/subscribe", "/clash", "/config"]
 OUTPUT_DIR = "results"
