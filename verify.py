@@ -1,71 +1,65 @@
-import aiohttp
 import asyncio
-import os
+import aiohttp
 import csv
 import base64
 
 # --- 配置 ---
-PORTS = [443, 80, 8080, 8443]
-TEST_PATHS = [
-    "/sub", "/subscribe", "/link", "/api/sub", "/config", 
-    "/api/v1/client/subscribe", "/clash/proxies", "/sub.yaml"
-]
-KEYWORDS = ["proxies", "proxy-groups", "vless://", "vmess://", "ss://", "trojan://", "uuid", "cipher"]
-UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
-SEM = asyncio.Semaphore(100) # 限制并发
+PORTS = [80, 443, 8080, 8443]
+TEST_PATHS = ["/sub", "/subscribe", "/link", "/api/sub", "/config", "/sub.yaml"]
+HIGH_VAL = ["proxies:", "proxy-groups:", "vmess://", "vless://", "trojan://", "ss://"]
+LOW_VAL = ["uuid", "cipher", "server", "port", "type", "allow-lan"]
 
-def decode_base64(text):
-    try:
-        text = "".join(text.split()).replace("-", "+").replace("_", "/")
-        padding = len(text) % 4
-        if padding: text += "=" * (4 - padding)
-        return base64.b64decode(text).decode("utf8", errors="ignore")
-    except: return ""
-
-async def verify_ip(session, ip, port, path):
-    url = f"https://{ip}:{port}{path}" if port == 443 else f"http://{ip}:{port}{path}"
-    async with SEM:
+async def worker(queue, session, writer, lock):
+    while True:
+        target = await queue.get()
+        ip, port, path = target
+        url = f"https://{ip}:{port}{path}" if port == 443 else f"http://{ip}:{port}{path}"
+        
         try:
-            # 增加 SNI 兼容：若不行，可尝试传 host 参数
-            async with session.get(url, headers={"User-Agent": UA}, timeout=3, ssl=False) as resp:
+            # 增加 SNI 兼容：若某些目标要求严格 SNI，此处可尝试设置 ssl=aiohttp.Fingerprint(...)
+            async with session.get(url, timeout=3, ssl=False) as resp:
                 raw = await resp.read()
                 text = raw.decode("utf-8", errors="ignore")
                 
-                # 兼容 Base64 编码的订阅
-                decoded_text = decode_base64(text)
-                full_content = (text + decoded_text).lower()
+                # 增强版特征检测
+                content_lower = text.lower()
+                high_hits = sum(1 for h in HIGH_VAL if h in content_lower)
+                low_hits = sum(1 for l in LOW_VAL if l in content_lower)
                 
-                # 检查特征
-                if resp.status == 200 and any(k in full_content for k in KEYWORDS):
-                    # 排除 HTML 干扰
-                    if "<html" not in text.lower():
-                        print(f"[!] Found: {url}")
-                        return [ip, port, path, resp.status, "Valid"]
-        except Exception:
-            pass
-    return None
+                # 评分逻辑：高权重满足其一，或低权重满足三个以上
+                if resp.status == 200 and (high_hits >= 1 or low_hits >= 3):
+                    # HTML 宽松过滤
+                    if not ("<html" in content_lower and len(text) < 2000):
+                        server = resp.headers.get("Server", "Unknown")
+                        async with lock:
+                            writer.writerow([ip, port, path, resp.status, len(raw), server])
+                            print(f"[!] Hit: {url} | Server: {server}")
+        except: pass
+        finally: queue.task_done()
 
 async def main():
-    if not os.path.exists("alive_ips.txt"): return
+    # 1. 初始化队列
+    queue = asyncio.Queue()
     with open("alive_ips.txt") as f:
         ips = [line.strip() for line in f if line.strip()]
+    
+    for ip in ips:
+        for port in PORTS:
+            for path in TEST_PATHS:
+                queue.put_nowait((ip, port, path))
 
-    # 全局连接池优化
-    connector = aiohttp.TCPConnector(ssl=False, limit=0)
+    # 2. 连接池配置
+    connector = aiohttp.TCPConnector(limit=200, ssl=False, ttl_dns_cache=300)
     async with aiohttp.ClientSession(connector=connector) as session:
-        tasks = []
-        for ip in ips:
-            for port in PORTS:
-                for path in TEST_PATHS:
-                    tasks.append(verify_ip(session, ip, port, path))
-        
-        results = await asyncio.gather(*tasks)
-        
-        # CSV 统一输出
+        lock = asyncio.Lock()
         with open("result.csv", "w", newline="") as f:
             writer = csv.writer(f)
-            writer.writerow(["IP", "PORT", "PATH", "STATUS", "TYPE"])
-            writer.writerows([r for r in results if r])
+            writer.writerow(["IP", "PORT", "PATH", "STATUS", "SIZE", "SERVER"])
+            
+            # 3. 启动 100 个 Worker 消费队列
+            workers = [asyncio.create_task(worker(queue, session, writer, lock)) for _ in range(100)]
+            await queue.join()
+            for w in workers: w.cancel()
 
 if __name__ == "__main__":
     asyncio.run(main())
