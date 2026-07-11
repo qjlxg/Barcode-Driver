@@ -7,14 +7,16 @@ import csv
 import argparse
 from tqdm import tqdm
 
-# 配置
+# 配置 - 整合并扩充了路径池
 TARGET_PORTS = [443, 80, 8080]
-FAST_PATHS = ["/", "/sub"]
-DEEP_PATHS = ["/subscribe", "/clash", "/config", "/api/sub", "/api/v1/client/subscribe"]
+PATHS = [
+    "/", "/sub", "/subscribe", "/clash", "/config", 
+    "/api/sub", "/api/v1/client/subscribe", "/link", 
+    "/profile", "/getfile"
+]
 OUTPUT_DIR = "results"
 WORKER_COUNT = 300
 QUEUE_SIZE = 5000
-SAMPLE_LIMIT = 50
 
 # 全局状态
 visited_hash = set()
@@ -22,9 +24,8 @@ visited_hash = set()
 class StatsManager:
     def __init__(self):
         self.stats = {
-            "req": 0, "keyword_proxies": 0, "keyword_base64": 0, "yaml_ok": 0, "saved": 0, "errors": 0, "status_codes": {}
+            "req": 0, "yaml_ok": 0, "saved": 0, "errors": 0, "status_codes": {}
         }
-        self.samples_collected = 0
         self.lock = asyncio.Lock()
     
     async def update(self, key, is_status_code=False):
@@ -50,7 +51,7 @@ async def producer(queue, file_path):
     
     for ip in ips:
         for port in TARGET_PORTS:
-            for path in FAST_PATHS + DEEP_PATHS:
+            for path in PATHS:
                 await queue.put((ip, port, path))
                 
     for _ in range(WORKER_COUNT): await queue.put(None)
@@ -89,42 +90,38 @@ async def scanner_worker(queue, write_queue, session, pbar, file_lock):
         
         try:
             url = f"{'https' if port == 443 else 'http'}://{ip}:{port}{path}"
-            # 加入 User-Agent 伪装
             headers = {"User-Agent": "Clash/1.18.0"}
             async with session.get(url, headers=headers, timeout=aiohttp.ClientTimeout(total=8, connect=3), ssl=False) as resp:
                 await stats.update("req")
                 await stats.update(resp.status, is_status_code=True)
                 
                 if resp.status == 200:
-                    # 前置过滤器：分析响应头
                     ctype = resp.headers.get("Content-Type", "").lower()
                     server = resp.headers.get("Server", "unknown")
                     cl = resp.headers.get("Content-Length", "0")
                     
-                    # 记录成功样本特征，方便后续分析
                     async with file_lock:
                         with open("success_stats.csv", "a", newline='') as f:
                             csv.writer(f).writerow([ip, port, path, ctype, server, cl])
                     
-                    # 只有当响应体看起来像是文本时才进行 YAML 解析
-                    if "text" in ctype or "yaml" in ctype or "octet-stream" in ctype:
-                        data = await resp.read()
-                        text = data.decode("utf-8", errors="ignore")
-                        lower_text = text.lower()
-                        
-                        if any(f in lower_text for f in ["proxies:", "proxy-groups:", "mixed-port:", "allow-lan:", "mode:"]):
-                            try:
-                                cfg = yaml.safe_load(text)
-                                if isinstance(cfg, dict) and "proxies" in cfg and isinstance(cfg["proxies"], list) and len(cfg["proxies"]) > 0:
-                                    await stats.update("yaml_ok")
-                                    h = hashlib.md5(text.encode()).hexdigest()[:8]
-                                    async with file_lock:
-                                        if h not in visited_hash:
-                                            visited_hash.add(h)
-                                            with open(f"{OUTPUT_DIR}/hash/{h}.yaml", 'w', encoding='utf-8') as f: f.write(text)
-                                            await stats.update("saved")
-                                    await write_queue.put([h, f"{ip}:{port}{path}"])
-                            except: await stats.update("errors")
+                    # 1. 彻底放宽 Content-Type 过滤 (if True)
+                    data = await resp.read()
+                    text = data.decode("utf-8", errors="ignore")
+                    lower_text = text.lower()
+                    
+                    if any(f in lower_text for f in ["proxies:", "proxy-groups:", "mixed-port:", "allow-lan:", "mode:"]):
+                        try:
+                            cfg = yaml.safe_load(text)
+                            if isinstance(cfg, dict) and "proxies" in cfg and isinstance(cfg["proxies"], list) and len(cfg["proxies"]) > 0:
+                                await stats.update("yaml_ok")
+                                h = hashlib.md5(text.encode()).hexdigest()[:8]
+                                async with file_lock:
+                                    if h not in visited_hash:
+                                        visited_hash.add(h)
+                                        with open(f"{OUTPUT_DIR}/hash/{h}.yaml", 'w', encoding='utf-8') as f: f.write(text)
+                                        await stats.update("saved")
+                                await write_queue.put([h, f"{ip}:{port}{path}"])
+                        except: await stats.update("errors")
         except: await stats.update("errors")
         finally:
             queue.task_done()
@@ -136,7 +133,6 @@ async def main():
     args = parser.parse_args()
     os.makedirs(f"{OUTPUT_DIR}/hash", exist_ok=True)
     
-    # 初始化统计文件头
     if not os.path.exists("success_stats.csv"):
         with open("success_stats.csv", "w", newline='') as f:
             csv.writer(f).writerow(['ip', 'port', 'path', 'ctype', 'server', 'length'])
