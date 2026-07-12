@@ -6589,5 +6589,9 @@ proxy-groups:
   - 节点9_4
   type: select
 rules:
+- GEOIP,CN,DIRECT
+- GEOSITE,CN,DIRECT
+- DOMAIN-SUFFIX,douyin.com,DIRECT
+- DOMAIN-SUFFIX,amemv.com,DIRECT
 - MATCH,手动选择
 socks-port: 7891
