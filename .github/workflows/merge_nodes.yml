@@ -7,29 +7,26 @@ on:
       - '.github/workflows/merge_nodes.yml'
   workflow_dispatch:
   schedule:
-    # 北京时间 03:00 -> UTC 19:00
-    - cron: '0 19 * * *'
+    - cron: '*/15 * * * *'
 
 jobs:
   merge:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-
-      - name: Install dependencies
-        run: pip install pyyaml
-
-      - name: Run merge script
-        run: python merge_nodes.py
-
-      - name: Upload merged result
-        uses: actions/upload-artifact@v4
+      - run: pip install pyyaml
+      - uses: actions/download-artifact@v4
         with:
-          name: merged-nodes
-          path: merged_nodes.yaml
+          name: scan-results
+          path: results/
+      - run: python merge_nodes.py
+      - run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add merged_nodes.yaml
+          git diff --quiet && git diff --staged --quiet || (git commit -m 'Auto update nodes' && git push)
