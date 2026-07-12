@@ -1,0 +1,27 @@
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: Rule
+log-level: info
+external-controller: 127.0.0.1:9090
+proxies:
+  - name: Seoul_CF_WS_80
+    type: vless
+    server: proxy.changdiwenhuayuan.online
+    port: 80
+    uuid: 2aad1c6c-b553-4ee2-a794-a4cdfb15f982
+    network: ws
+    tls: false
+    udp: false
+    ws-opts:
+      path: /ws-fznyf6zcuvy6
+      headers:
+        Host: proxy.changdiwenhuayuan.online
+proxy-groups:
+  - name: PROXY
+    type: select
+    proxies:
+      - Seoul_CF_WS_80
+      - DIRECT
+rules:
+  - MATCH,PROXY
