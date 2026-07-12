@@ -1,0 +1,58 @@
+mixed-port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: 06-Reality
+    type: vless
+    server: 45.38.210.148
+    port: 443
+    uuid: 556be74d-277d-4f79-9355-ce4dfad5940a
+    flow: xtls-rprx-vision
+    tls: true
+    servername: www.microsoft.com
+    reality-opts:
+      public-key: yynogL6lsRa-CuFRQUFa9b5jf1l4heTvzYth7km3FB8
+      short-id: 3943397adbe4dd28
+    client-fingerprint: chrome
+  - name: 06-VLESS-WS
+    type: vless
+    server: 45.38.210.148
+    port: 8443
+    uuid: 556be74d-277d-4f79-9355-ce4dfad5940a
+    network: ws
+    ws-opts:
+      path: /ws-vless
+  - name: 06-VMess-WS
+    type: vmess
+    server: 45.38.210.148
+    port: 2052
+    uuid: 556be74d-277d-4f79-9355-ce4dfad5940a
+    alterId: 0
+    cipher: auto
+    network: ws
+    ws-opts:
+      path: /ws-vmess
+  - name: 06-Trojan-WS
+    type: trojan
+    server: 45.38.210.148
+    port: 2083
+    password: 556be74d-277d-4f79-9355-ce4dfad5940a
+    network: ws
+    ws-opts:
+      path: /ws-trojan
+
+proxy-groups:
+  - name: 06-Server
+    type: select
+    proxies:
+      - DIRECT
+      - 06-Reality
+      - 06-VLESS-WS
+      - 06-VMess-WS
+      - 06-Trojan-WS
+
+rules:
+  - MATCH,06-Server

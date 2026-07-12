@@ -1,0 +1,45 @@
+mixed-port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+
+proxies:
+  - name: SG-Hysteria2
+    type: hysteria2
+    server: 209.74.81.28
+    port: 8443
+    password: b7c9e2f1-4d83-42a1-9e5f-sg2026proxy
+    skip-cert-verify: true
+    sni: 209.74.81.28
+
+  - name: SG-VLESS-Reality
+    type: vless
+    server: 209.74.81.28
+    port: 443
+    uuid: 38996d5d-680f-4041-b95c-93a5e3d7de05
+    flow: xtls-rprx-vision
+    tls: true
+    servername: www.microsoft.com
+    reality-opts:
+      public-key: H0pyffHLCIeZHuOweksurdUKPJ_hhyfuUQKx1uz8a3U
+      short-id: 0b6658594c99a5d7
+    client-fingerprint: chrome
+    network: tcp
+
+proxy-groups:
+  - name: 🚀 节点选择
+    type: select
+    proxies:
+      - SG-VLESS-Reality
+      - SG-Hysteria2
+      - DIRECT
+
+  - name: 🎯 全球直连
+    type: select
+    proxies:
+      - DIRECT
+      - 🚀 节点选择
+
+rules:
+  - GEOIP,CN,🎯 全球直连
+  - MATCH,🚀 节点选择

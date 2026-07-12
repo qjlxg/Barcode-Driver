@@ -1,0 +1,61 @@
+# Clash 订阅配置 - AWS SG VPN
+# 更新时间: 2026-07-06 03:54:09 UTC
+
+mixed-port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: AWS-SG-Reality
+    type: vless
+    server: 13.228.5.237
+    port: 443
+    uuid: 
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.microsoft.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: 
+      short-id: 
+
+  - name: AWS-SG-Hy2
+    type: hysteria2
+    server: 13.228.5.237
+    port: 8443
+    password: c8nzeXelfWF9oPv8krX88A==
+    sni: www.bing.com
+    skip-cert-verify: true
+
+proxy-groups:
+  - name: PROXY
+    type: select
+    proxies:
+      - AWS-SG-Reality
+      - AWS-SG-Hy2
+      - DIRECT
+
+rule-providers:
+  reject:
+    type: file
+    behavior: domain
+    path: ./ruleset/reject.txt
+  direct:
+    type: file
+    behavior: domain
+    path: ./ruleset/direct.txt
+  proxy:
+    type: file
+    behavior: domain
+    path: ./ruleset/proxy.txt
+
+rules:
+  - RULE-SET,reject,REJECT
+  - RULE-SET,direct,DIRECT
+  - RULE-SET,proxy,PROXY
+  - GEOIP,CN,DIRECT
+  - MATCH,DIRECT

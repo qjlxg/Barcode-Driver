@@ -1,0 +1,79 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: warning
+ipv6: false
+external-controller: 127.0.0.1:9090
+find-process-mode: strict
+unified-delay: true
+tcp-concurrent: true
+global-client-fingerprint: chrome
+
+dns:
+  enable: true
+  listen: 127.0.0.1:1053
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+
+proxies:
+  - name: A-Reality-43.133-New
+    type: vless
+    server: 43.133.213.77
+    port: 443
+    uuid: 4192524f-09f0-414f-88fd-7a14378491c7
+    flow: xtls-rprx-vision
+    network: tcp
+    tls: true
+    reality-opts:
+      public-key: ueVbgAT9A7SkGgua_uljhQsvpnRUQlfdc7meiqcaxXE
+      short-id: 913e9b95fbc71278
+    servername: cloudflare.com
+    client-fingerprint: chrome
+    udp: true
+  - name: A-HY2-43.133-New
+    type: hysteria2
+    server: 43.133.213.77
+    port: 443
+    password: YVDuYvttTemjnCHS7Lv8B38EEyLM
+    sni: www.bing.com
+    skip-cert-verify: true
+    udp: true
+
+proxy-groups:
+  - name: AI
+    type: select
+    proxies:
+      - A-Reality-43.133-New
+      - A-HY2-43.133-New
+  - name: PROXY
+    type: select
+    proxies:
+      - AI
+      - A-Reality-43.133-New
+      - A-HY2-43.133-New
+
+rules:
+  - DOMAIN-SUFFIX,openai.com,AI
+  - DOMAIN-SUFFIX,chatgpt.com,AI
+  - DOMAIN-SUFFIX,oaistatic.com,AI
+  - DOMAIN-SUFFIX,oaiusercontent.com,AI
+  - DOMAIN-SUFFIX,anthropic.com,AI
+  - DOMAIN-SUFFIX,claude.ai,AI
+  - DOMAIN-SUFFIX,perplexity.ai,AI
+  - DOMAIN-SUFFIX,gemini.google.com,AI
+  - DOMAIN-SUFFIX,googleapis.com,AI
+  - DOMAIN-SUFFIX,google.com,AI
+  - DOMAIN-SUFFIX,telegram.org,PROXY
+  - DOMAIN-SUFFIX,t.me,PROXY
+  - DOMAIN-SUFFIX,tdesktop.com,PROXY
+  - IP-CIDR,91.108.0.0/16,PROXY,no-resolve
+  - IP-CIDR,149.154.160.0/20,PROXY,no-resolve
+  - DOMAIN-SUFFIX,github.com,PROXY
+  - DOMAIN-SUFFIX,githubusercontent.com,PROXY
+  - DOMAIN-SUFFIX,githubassets.com,PROXY
+  - GEOIP,LAN,DIRECT
+  - MATCH,PROXY
