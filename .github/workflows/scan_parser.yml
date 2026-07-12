@@ -1,16 +1,15 @@
 name: 2. 资产解析 (Scanner)
 
 on:
-  # 1. 允许手动触发
   workflow_dispatch:
-  # 2. 当 scanner.py 发生变动并推送到 main 分支时自动触发
   push:
     branches:
       - main
     paths:
       - 'scanner.py'
       - '.github/workflows/scan_parser.yml'
-      - 'refined_ips.txt'
+      # 这里的文件名请确保与你实际使用的输入文件名一致
+      - 'cleaned_ips.txt' 
 
 jobs:
   parser_job:
@@ -24,32 +23,32 @@ jobs:
           fetch-depth: 0
       
       - name: 安装 Python 依赖
-        run: pip install brotli aiohttp PyYAML tqdm
+        run: pip install aiohttp PyYAML tqdm
 
       - name: 执行深度解析
+        # 确保传入的文件参数与代码读取路径一致
         run: python scanner.py --file cleaned_ips.txt
       
       - name: 诊断与提交
         run: |
-          # 诊断输出
           echo "Scanning output files:"
           ls -F
           
-          # 判断是否有结果生成
-          if ([ -d "results" ] && [ "$(ls -A results/)" ]) || [ -f "scan_results.csv" ]; then
+          # 检查是否有新生成的结果文件 (新增了 scan_manifest.csv)
+          if [ -d "results" ] || [ -f "scan_results.csv" ] || [ -f "scan_manifest.csv" ]; then
             echo "Results found, preparing to push..."
             
             git config --global user.name 'github-actions[bot]'
             git config --global user.email 'github-actions[bot]@users.noreply.github.com'
             
-            # 同步分支
+            # 同步远程分支以防冲突
             git pull origin main --rebase --autostash
             
-            # 添加结果文件
-            git add results/ scan_results.csv samples.txt || true
+            # 必须添加新增的 scan_manifest.csv
+            git add results/ scan_results.csv scan_manifest.csv || true
             
             # 提交并推送
-            git commit -m "Update: New assets discovered $(date +'%Y-%m-%d %H:%M:%S')" || echo "No new assets to commit"
+            git commit -m "Update: New assets discovered $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
             git push origin main
           else
             echo "No results generated, skipping push."
