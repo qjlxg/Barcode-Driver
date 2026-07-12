@@ -1,10 +1,9 @@
 import yaml
 import glob
-import hashlib
 
 def merge_yaml_nodes():
     merged_proxies = []
-    seen_nodes = set()
+    seen_names = {}
     MAX_NODES = 500 
 
     for file_path in glob.glob("results/hash/*.yaml"):
@@ -15,18 +14,15 @@ def merge_yaml_nodes():
                     for p in data['proxies']:
                         if len(merged_proxies) >= MAX_NODES: break
                         
-                        # 使用 name 和 server/ip 作为唯一标识去重
-                        name = p.get('name', 'node')
-                        server = p.get('server', '')
-                        node_id = (name, server)
+                        original_name = p.get('name', 'node')
                         
-                        if node_id in seen_nodes:
-                            continue
-                        seen_nodes.add(node_id)
-                        
-                        # 生成唯一且具备辨识度的名称
-                        suffix = hashlib.md5(f"{name}{server}".encode()).hexdigest()[:4]
-                        p['name'] = f"{name}_{suffix}"
+                        # 检查重名，如果已存在，则添加数字后缀，例如：美国节点_1, 美国节点_2
+                        if original_name in seen_names:
+                            seen_names[original_name] += 1
+                            p['name'] = f"{original_name}_{seen_names[original_name]}"
+                        else:
+                            seen_names[original_name] = 0
+                            p['name'] = original_name
                         
                         merged_proxies.append(p)
         except: continue
