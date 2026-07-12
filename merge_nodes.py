@@ -9,7 +9,6 @@ from datetime import datetime, timedelta
 
 REGISTRY_FILE = 'node_registry.json'
 MAX_IDLE_DAYS = 30
-MAX_SOURCE_RECORD = 10
 ALLOWED_TYPES = {'vless', 'hysteria', 'hysteria2', 'tuic', 'anytls'}
 TODAY = datetime.now().strftime("%Y-%m-%d")
 
@@ -34,25 +33,24 @@ def score_node(p, registry):
     hist = registry.get(h, {})
     score = 0
     
-    # 存活评分 (上限 5)
+    # 1. 存活评分
     try:
         first = datetime.strptime(hist.get('first_seen', TODAY), "%Y-%m-%d")
         days_alive = max((datetime.now() - first).days + 1, 1)
         score += min(days_alive, 5)
     except: score += 1
     
-    # 成功率评分
+    # 2. 成功率评分
     s, f = hist.get('success', 0), hist.get('fail', 0)
     if s + f > 0: score += (s / (s + f)) * 5
     
-    # 多源评分
-    score += min(hist.get('source_count', 1), 2)
+    # 3. 多源评分
+    score += min(len(hist.get("source_map", {})), 2)
     
-    # 协议评分
+    # 4. 协议、特性、地区评分
     t = str(p.get('type', '')).lower()
     score += {'hysteria2': 3, 'hysteria': 3, 'tuic': 3, 'vless': 3, 'anytls': 2}.get(t, 0)
     
-    # 地区与特性加权
     name = str(p.get('name', '')).lower()
     if any(x in name for x in ['jp', 'japan', '日本', 'tokyo']): score += 2
     elif any(x in name for x in ['sg', 'singapore', '新加坡']): score += 1
@@ -60,11 +58,8 @@ def score_node(p, registry):
     if p.get('reality-opts') or p.get('reality'): score += 3
     elif p.get('tls'): score += 1
     
-    # 协议联动 UDP 加权
     if t in ['hysteria2', 'hysteria', 'tuic'] and str(p.get('udp', '')).lower() == 'true':
         score += 1
-    
-    # 端口加权
     port = str(p.get('port', ''))
     if port == '443': score += 1
     elif port == '8443': score += 0.5
@@ -84,47 +79,49 @@ def merge_yaml_nodes():
                 if not data or 'proxies' not in data: continue
                 raw_total += len(data['proxies'])
                 
-                # 过滤与排序
-                nodes = [p for p in data['proxies'] if isinstance(p, dict) and p.get('server') and str(p.get('type', '')).lower() in ALLOWED_TYPES]
+                nodes = [p for p in data['proxies'] if isinstance(p, dict) and p.get('server') 
+                         and str(p.get('type', '')).lower() in ALLOWED_TYPES
+                         and not any(k in str(p.get('name', '')).lower() for k in ['cf', '优选'])]
                 valid_total += len(nodes)
-                nodes.sort(key=lambda x: {'hysteria2':3, 'hysteria':3, 'tuic':3, 'vless':2, 'anytls':1}.get(str(x.get('type','')).lower(), 0), reverse=True)
                 
-                # 注册资产
                 for p in nodes:
                     h = get_node_hash(p)
                     if h not in registry:
-                        registry[h] = {"first_seen": TODAY, "last_seen": TODAY, "success": 0, "fail": 0, "source_count": 1}
+                        registry[h] = {"first_seen": TODAY, "last_seen": TODAY, "success": 0, "fail": 0, "source_map": {file_path: TODAY}}
                     else:
                         registry[h]["last_seen"] = TODAY
-                        # 简单的源增加逻辑，后续若需要极致统计可用 last_sources 列表对比
-                        registry[h]["source_count"] = min(registry[h].get("source_count", 1) + 1, MAX_SOURCE_RECORD)
+                        registry[h].setdefault("source_map", {})[file_path] = TODAY
                     
                     if h not in seen_hashes:
                         seen_hashes.add(h)
                         all_nodes.append(p)
         except: continue
 
-    # 清理与保存
-    cutoff = (datetime.now() - timedelta(days=MAX_IDLE_DAYS)).strftime("%Y-%m-%d")
-    registry = {k: v for k, v in registry.items() if v.get("last_seen", "") >= cutoff}
+    registry = {k: v for k, v in registry.items() if v.get("last_seen", "") >= (datetime.now() - timedelta(days=MAX_IDLE_DAYS)).strftime("%Y-%m-%d")}
     save_registry(registry)
 
-    # 排序输出
     all_nodes.sort(key=lambda x: score_node(x, registry), reverse=True)
-    merged_proxies = all_nodes[:800]
+    merged_proxies = all_nodes[:300]
     
-    # 统计与输出
-    type_counter = Counter(p.get('type', 'unknown').lower() for p in merged_proxies)
-    for p in merged_proxies: p['name'] = p.get('name') or 'node'
+    # 名称去重兼容性修复
+    name_count = {}
+    for p in merged_proxies:
+        name = p.get("name") or "node"
+        if name in name_count:
+            name_count[name] += 1
+            p["name"] = f"{name}-{name_count[name]}"
+        else:
+            name_count[name] = 0
 
     config = {
         'port': 7890, 'socks-port': 7891, 'allow-lan': True, 'mode': 'rule',
-        'dns': {'enable': True, 'ipv6': False, 'enhanced-mode': 'fake-ip', 'fake-ip-range': '198.18.0.1/16',
-                'nameserver': ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query']},
+        'dns': {
+            'enable': True, 'ipv6': False, 'enhanced-mode': 'fake-ip', 'fake-ip-range': '198.18.0.1/16',
+            'nameserver': ['https://dns.alidns.com/dns-query', 'https://doh.pub/dns-query']
+        },
         'proxies': merged_proxies,
         'proxy-groups': [
-            {'name': '🚀 优选自动测速', 'type': 'url-test', 'proxies': [p['name'] for p in merged_proxies[:80]],
-             'url': 'http://www.gstatic.com/generate_204', 'interval': 300, 'tolerance': 50},
+            {'name': '🚀 优选自动测速', 'type': 'url-test', 'proxies': [p['name'] for p in merged_proxies[:80]], 'url': 'http://www.gstatic.com/generate_204', 'interval': 300, 'tolerance': 50},
             {'name': '手动选择', 'type': 'select', 'proxies': ['🚀 优选自动测速'] + [p['name'] for p in merged_proxies]}
         ],
         'rules': ['GEOIP,CN,DIRECT', 'GEOSITE,CN,DIRECT', 'MATCH,手动选择']
@@ -133,9 +130,8 @@ def merge_yaml_nodes():
     with open('merged_nodes.yaml', 'w', encoding='utf-8') as f:
         yaml.dump(config, f, allow_unicode=True, default_flow_style=False)
     
-    print(f"\n--- 最终资产处理报告 ---")
-    print(f"原始: {raw_total} | 协议过滤后: {valid_total} | 最终输出: {len(merged_proxies)}")
-    print(f"协议分布: {dict(type_counter)}")
+    print(f"\n--- 最终资产管理报告 ---")
+    print(f"原始: {raw_total} | 过滤后: {valid_total} | 最终输出: {len(merged_proxies)}")
 
 if __name__ == "__main__":
     merge_yaml_nodes()
