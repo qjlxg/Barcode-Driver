@@ -23,34 +23,29 @@ jobs:
 
       - name: 扫描并固化 IP:Port 列表
         run: |
-          TARGET_PORTS="80,443,7890,8080,8888,9090,2052,2053,2082,2083"
+          # 核心网段：锁定高产区，而非全网段盲扫
+          TARGET_RANGES="104.21.0.0/16,172.67.0.0/16,43.155.0.0/16,154.3.0.0/16,101.35.42.0/24"
+          # 核心端口：根据资产种子反推的业务端口
+          TARGET_PORTS="80,443,8080,8443,2096,8888,12202,8081,8082,8787,2082,2086,2095"
           
-          # 1. 核心扫描逻辑：直接解析 stdout，使用 split 精准分割端口和协议
-          # --rate 5000: 并发速度
-          # --wait 15: 确保等待足够的回包时间
-          # --open-only: 只显示开放端口
-          echo "[*] 开始 Masscan 探测..."
-          sudo masscan 104.16.0.0/12 -p$TARGET_PORTS --rate 5000 --wait 15 --open-only | \
+          echo "[*] 开始 Masscan 定向探测..."
+          sudo masscan $TARGET_RANGES -p$TARGET_PORTS --rate 5000 --wait 15 --open-only | \
           awk '/Discovered open port/ { split($4,p,"/"); print $6 ":" p[1] }' > temp_alive.txt
           
-          # 2. 强制同步磁盘，确保数据落盘
           sync
           
-          # 3. 健壮性验证：检查文件是否非空且包含足够的资产
           LINES=$(wc -l < temp_alive.txt)
           echo "[*] 本次扫描共发现 $LINES 个存活端口。"
           
-          if [ "$LINES" -gt 100 ]; then
-            # 如果数量达标，进行去重并替换原文件
+          # 调整健壮性门槛：针对定向扫描，数量可能变少，若为 0 则保留旧数据
+          if [ "$LINES" -gt 0 ]; then
             sort -u temp_alive.txt > alive_ips.txt
             echo "[+] 成功更新 alive_ips.txt"
           else
-            # 如果数量异常，直接抛出错误并保留旧文件，防止破坏现有的资产链
-            echo "[!] 警告: 扫描结果异常 (数量: $LINES)，本次不进行更新。"
+            echo "[!] 警告: 未扫描到资产 (数量: $LINES)，保留旧资产以防止中断。"
             exit 1
           fi
           
-          # 清理临时文件
           rm temp_alive.txt
 
       - name: 提交更改
@@ -58,7 +53,6 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # 仅在文件确实发生改变时提交
           if [[ -n $(git status -s alive_ips.txt) ]]; then
             git add alive_ips.txt
             git commit -m "Update: Refresh alive_ips.txt $(date +'%Y-%m-%d') [skip ci]"
