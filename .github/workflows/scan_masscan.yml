@@ -30,7 +30,7 @@ jobs:
           # --wait 15: 确保等待足够的回包时间
           # --open-only: 只显示开放端口
           echo "[*] 开始 Masscan 探测..."
-          sudo masscan 104.16.0.0/16 -p$TARGET_PORTS --rate 5000 --wait 15 --open-only | \
+          sudo masscan 104.16.0.0/12 -p$TARGET_PORTS --rate 5000 --wait 15 --open-only | \
           awk '/Discovered open port/ { split($4,p,"/"); print $6 ":" p[1] }' > temp_alive.txt
           
           # 2. 强制同步磁盘，确保数据落盘
