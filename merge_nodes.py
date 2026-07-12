@@ -111,7 +111,7 @@ def merge_yaml_nodes():
 
     # 排序输出
     all_nodes.sort(key=lambda x: score_node(x, registry), reverse=True)
-    merged_proxies = all_nodes[:300]
+    merged_proxies = all_nodes[:800]
     
     # 统计与输出
     type_counter = Counter(p.get('type', 'unknown').lower() for p in merged_proxies)
