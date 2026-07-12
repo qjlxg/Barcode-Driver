@@ -43,8 +43,8 @@ async def main():
     sem = asyncio.Semaphore(500)
     connector = aiohttp.TCPConnector(ssl=False, limit=500, limit_per_host=5)
     
+    refined_count = 0
     async with aiohttp.ClientSession(connector=connector) as session:
-        refined_count = 0
         tasks = []
         with open("cleaned_ips.txt", "r") as f_in, open("refined_ips.txt", "w") as f_out:
             for line in f_in:
@@ -59,13 +59,17 @@ async def main():
                             f_out.write(res + "\n")
                             refined_count += 1
                     tasks = []
-                    print(f"[*] 精炼中... 有效: {refined_count}")
+                    print(f"[*] 精炼中... 已存活: {refined_count}")
             
             # 处理尾部任务
             if tasks:
                 results = await asyncio.gather(*tasks)
                 for res in results:
-                    if res: f_out.write(res + "\n")
+                    if res: 
+                        f_out.write(res + "\n")
+                        refined_count += 1
+    
+    print(f"[*] 完成！总计筛选出有效资产: {refined_count}")
 
 if __name__ == "__main__":
     asyncio.run(main())
