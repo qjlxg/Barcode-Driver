@@ -81,7 +81,7 @@ def merge_yaml_nodes():
                 
                 nodes = [p for p in data['proxies'] if isinstance(p, dict) and p.get('server') 
                          and str(p.get('type', '')).lower() in ALLOWED_TYPES
-                         and not any(k in str(p.get('name', '')).lower() for k in ['cf', '优选'])]
+                         and not any(k in str(p.get('name', '')).lower() for k in ['cf', '优选','节点'])]
                 valid_total += len(nodes)
                 
                 for p in nodes:
