@@ -1,0 +1,57 @@
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: rule
+log-level: info
+external-controller: "127.0.0.1:9090"
+secret: ""
+proxies:
+  - name: tpc.oneding.tech
+    type: trojan
+    server: tpc.oneding.tech
+    port: 443
+    password: oneding
+    sni: tpc.oneding.tech
+    skip-cert-verify: true
+    udp: true
+proxy-groups:
+  - name: 🚀 自动选择
+    type: url-test
+    proxies:
+    - tpc.oneding.tech
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+  - name: 🌍 手动切换
+    type: select
+    proxies:
+    - tpc.oneding.tech
+    - DIRECT
+    - REJECT
+  - name: 🎯 全球直连
+    type: select
+    proxies:
+    - DIRECT
+    - tpc.oneding.tech
+  - name: 🛑 广告拦截
+    type: select
+    proxies:
+    - REJECT
+    - DIRECT
+rules:
+  - DOMAIN-SUFFIX,local,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - DOMAIN-KEYWORD,adservice,REJECT
+  - DOMAIN-KEYWORD,doubleclick,REJECT
+  - DOMAIN-SUFFIX,cn,DIRECT
+  - DOMAIN-KEYWORD,baidu,DIRECT
+  - DOMAIN-KEYWORD,taobao,DIRECT
+  - DOMAIN-KEYWORD,alipay,DIRECT
+  - DOMAIN-KEYWORD,weixin,DIRECT
+  - DOMAIN-KEYWORD,qq.com,DIRECT
+  - DOMAIN-KEYWORD,bilibili,DIRECT
+  - DOMAIN-KEYWORD,zhihu,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,🚀 自动选择
