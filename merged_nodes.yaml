@@ -283,33 +283,6 @@ proxies:
   udp: true
   uuid: cab5e715-ddf0-497d-a065-5e04b1eafea9
 - client-fingerprint: chrome
-  flow: xtls-rprx-vision
-  name: VPS节点
-  network: tcp
-  port: 8443
-  reality-opts:
-    public-key: 3YOwiMpM77A2gHrmQVKpvq6EcHeaM3ywk-koH0OpUUQ
-    short-id: 0cfac61beddf1a52
-  server: 43.108.22.136
-  servername: www.microsoft.com
-  tls: true
-  type: vless
-  udp: true
-  uuid: 55f00627-e200-415c-a80e-0ce3a288a27f
-- client-figerprint: chrome
-  flow: xtls-rprx-vision
-  name: 节点13
-  port: 34324
-  reality-opts:
-    public-key: pHn5CHa2P6-lNBIkTOI3zJQN19jfNFkXxGFuyefpP0M
-    short-id: ''
-  server: 2001:bc8:32d7:302::13
-  servername: dash.cloudflare.com
-  tls: true
-  type: vless
-  udp: true
-  uuid: 26c462ba-a90c-4814-9d7c-a629bc0bdb5c
-- client-fingerprint: chrome
   encryption: none
   name: 🇺🇸 美国02-whome
   network: xhttp
@@ -1289,13 +1262,6 @@ proxies:
   type: vless
   udp: true
   uuid: 4fbf569d-bed2-4b21-a9e9-efa46cca654d
-- name: 节点14
-  port: 37783
-  server: 62.210.70.194
-  tls: true
-  type: vless
-  udp: true
-  uuid: a289c660-1b12-432b-a06c-c2ae469272b0
 - name: HongKong-HY2
   obfs: salamander
   obfs-password: obfs-hk-rusti2026
@@ -1709,194 +1675,6 @@ proxies:
   sni: 209.74.81.28
   type: hysteria2
 - alpn:
-  - h3
-  auth_str: dongtaiwang.com
-  down: 100
-  fast-open: true
-  name: 节点1
-  port: '11000'
-  protocol: udp
-  recv-window: 276824064
-  recv_window_conn: 69206016
-  server: 2001:bc8:32d7:17b::2
-  skip-cert-verify: true
-  sni: apple.com
-  type: hysteria
-  up: 100
-- alpn:
-  - h3
-  auth_str: github.com/Alvin9999-newpac/fanqiang
-  down: 100
-  fast-open: true
-  name: 节点2
-  port: '23556'
-  protocol: udp
-  recv-window: 230686720
-  recv_window_conn: 57671680
-  server: 62.210.70.191
-  skip-cert-verify: true
-  sni: bing.com
-  type: hysteria
-  up: 100
-- alpn:
-  - h3
-  auth_str: dongtaiwang.com
-  down: 100
-  fast-open: true
-  name: 节点3
-  port: '20088'
-  protocol: udp
-  recv-window: 23068672
-  recv_window_conn: 5767168
-  server: 5.83.129.153
-  skip-cert-verify: true
-  sni: apple.com
-  type: hysteria
-  up: 100
-- alpn:
-  - h3
-  auth_str: dongtaiwang.com
-  down: 100
-  fast-open: true
-  name: 节点4
-  port: '54177'
-  protocol: udp
-  recv-window: 230686720
-  recv_window_conn: 57671680
-  server: 5.83.129.90
-  skip-cert-verify: true
-  sni: apple.com
-  type: hysteria
-  up: 100
-- alpn:
-  - h3
-  auth_str: github.com/Alvin9999-newpac/fanqiang
-  down: 100
-  fast-open: true
-  name: 节点5
-  port: '27626'
-  protocol: udp
-  recv-window: 23068672
-  recv_window_conn: 5767168
-  server: 5.83.129.153
-  skip-cert-verify: true
-  sni: bing.com
-  type: hysteria
-  up: 100
-- down: 100 Mbps
-  fast-open: true
-  name: 节点6
-  password: dongtaiwang.com
-  port: '22000'
-  server: 2001:bc8:32d7:17b::8
-  skip-cert-verify: true
-  sni: apple.com
-  type: hysteria2
-  up: 100 Mbps
-- down: 100 Mbps
-  fast-open: true
-  name: 节点7
-  password: dongtaiwang.com
-  port: '20088'
-  server: 2001:bc8:32d7:302::11
-  skip-cert-verify: true
-  sni: apple.com
-  type: hysteria2
-  up: 100 Mbps
-- down: 100 Mbps
-  fast-open: true
-  name: 节点8
-  password: github.com/Alvin9999-newpac/fanqiang
-  port: '60111'
-  server: 62.210.7.139
-  skip-cert-verify: true
-  sni: bing.com
-  type: hysteria2
-  up: 100 Mbps
-- down: 100 Mbps
-  fast-open: true
-  name: 节点9
-  password: dongtaiwang.com
-  port: '22000'
-  server: 2001:bc8:32d7:17b::3
-  skip-cert-verify: true
-  sni: www.microsoft.com
-  type: hysteria2
-  up: 100 Mbps
-- down: 100 Mbps
-  fast-open: true
-  name: 节点10
-  password: github.com/Alvin9999-newpac/fanqiang
-  port: '43115'
-  server: 62.210.147.2
-  skip-cert-verify: true
-  sni: www.microsoft.com
-  type: hysteria2
-  up: 100 Mbps
-- alpn:
-  - h3
-  auth_str: dongtaiwang.com
-  down: 100
-  fast-open: true
-  name: 节点16
-  port: 54177
-  protocol: udp
-  server: 5.83.129.90
-  skip-cert-verify: true
-  sni: bing.com
-  type: hysteria
-  up: 100
-- alpn:
-  - h3
-  auth_str: dongtaiwang.com
-  down: 100
-  fast-open: true
-  name: 节点17
-  port: 47119
-  protocol: udp
-  server: 45.150.65.154
-  skip-cert-verify: true
-  sni: bing.com
-  type: hysteria
-  up: 100
-- alpn:
-  - h3
-  auth-str: dongtaiwang.com
-  down: 100
-  name: 节点18
-  port: 11000
-  protocol: udp
-  server: 2001:bc8:32d7:17b::2
-  skip-cert-verify: true
-  sni: apple.com
-  type: hysteria
-  up: 100
-- alpn:
-  - h3
-  down: 100
-  name: 节点19
-  password: dongtaiwang.com
-  port: 20088
-  protocol: udp
-  server: 2001:bc8:32d7:302::17
-  skip-cert-verify: true
-  sni: apple.com
-  type: hysteria2
-  up: 100
-- alpn:
-  - h3
-  congestion-controller: bbr
-  name: 节点20
-  password: dongtaiwang.com
-  port: 34997
-  reduce-rtt: true
-  server: 2001:bc8:32d7:302::16
-  skip-cert-verify: true
-  sni: bing.com
-  type: tuic
-  udp-relay-mode: native
-  uuid: 8687b6e0-ef24-4cd2-bcd2-02d3732bf554
-- alpn:
   - http/1.1
   client-fingerprint: chrome
   encryption: none
@@ -2080,6 +1858,19 @@ proxies:
   sni: apple.com
   type: hysteria2
   up: 11 Mbps
+- alpn:
+  - h3
+  congestion-controller: bbr
+  name: 轮子10
+  password: dongtaiwang.com
+  port: 34997
+  reduce-rtt: true
+  server: 2001:bc8:32d7:302::16
+  skip-cert-verify: true
+  sni: bing.com
+  type: tuic
+  udp-relay-mode: native
+  uuid: 8687b6e0-ef24-4cd2-bcd2-02d3732bf554
 - alpn:
   - h3
   auth-str: dongtaiwang.com
@@ -3314,8 +3105,6 @@ proxy-groups:
   - HK-VPS-3-NEW
   - SG-VLESS-Reality
   - HongKong-Reality
-  - VPS节点
-  - 节点13
   - 🇺🇸 美国02-whome
   - daban123
   - Ashburn-via-HK
@@ -3374,6 +3163,8 @@ proxy-groups:
   - 🇺🇸 美国-洛杉矶CN2直连
   - 🇭🇰香港251-VLESS(伪装苹果)
   - 🇭🇰→🇺🇸香港116-中转-VLESS
+  - 🇺🇸美国114-VLESS
+  - 🇭🇰香港116-VLESS
   tolerance: 50
   type: url-test
   url: http://www.gstatic.com/generate_204
@@ -3400,8 +3191,6 @@ proxy-groups:
   - HK-VPS-3-NEW
   - SG-VLESS-Reality
   - HongKong-Reality
-  - VPS节点
-  - 节点13
   - 🇺🇸 美国02-whome
   - daban123
   - Ashburn-via-HK
@@ -3472,7 +3261,6 @@ proxy-groups:
   - '[PQ] 🇸🇬新加坡01 | 电信联通推荐'
   - '[PQ] 🇸🇬新加坡02 | 电信联通推荐'
   - vless-reality-vision-usaint
-  - 节点14
   - HongKong-HY2
   - Ashburn-HY2
   - Guangzhou-HY2
@@ -3510,21 +3298,6 @@ proxy-groups:
   - 🇺🇸 US2
   - DO-VPS-Hysteria2
   - SG-Hysteria2
-  - 节点1
-  - 节点2
-  - 节点3
-  - 节点4
-  - 节点5
-  - 节点6
-  - 节点7
-  - 节点8
-  - 节点9
-  - 节点10
-  - 节点16
-  - 节点17
-  - 节点18
-  - 节点19
-  - 节点20
   - 🇺🇸 美国01-whome
   - 🇺🇸 美国hp2-whome
   - Proxy-3
@@ -3538,6 +3311,7 @@ proxy-groups:
   - 轮子7
   - 轮子8
   - 轮子9
+  - 轮子10
   - 轮子11
   - 轮子12
   - VPS-VLESS
