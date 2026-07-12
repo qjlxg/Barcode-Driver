@@ -10,7 +10,7 @@ on:
     paths:
       - 'scanner.py'
       - '.github/workflows/scan_parser.yml'
-      - 'alive_ips.txt'
+      - 'refined_ips.txt'
 
 jobs:
   parser_job:
@@ -27,7 +27,7 @@ jobs:
         run: pip install brotli aiohttp PyYAML tqdm
 
       - name: 执行深度解析
-        run: python scanner.py --file alive_ips.txt
+        run: python scanner.py --file refined_ips.txt
       
       - name: 诊断与提交
         run: |
