@@ -11,10 +11,9 @@ from tqdm import tqdm
 
 # --- 配置 ---
 TARGET_PORTS = [12202,2096,8443]
-PATHS = [
-    "/sub", "/subscribe", "/link", "/api/sub", "/getsub", "/clash", 
-    "/config", "/", "/config.yaml", "/sub.yaml", "/subscription", "/client/subscribe"
-]
+# 优先扫描 "" (根路径)，然后扫描其他路径
+PATHS = ["", "/sub", "/subscribe", "/link", "/api/sub", "/getsub", "/clash", 
+         "/config", "/", "/config.yaml", "/sub.yaml", "/subscription", "/client/subscribe"]
 UA_LIST = ["clash", "ClashMeta", "mihomo", "ClashforAndroid", "sing-box", "Mozilla/5.0"]
 OUTPUT_DIR = "results"
 WORKER_COUNT = 300 
@@ -41,10 +40,8 @@ if os.path.exists('scan_manifest.csv'):
     with open('scan_manifest.csv', 'r') as f:
         reader = csv.reader(f)
         for row in reader:
-            if row: known_manifest.add(row[0]) # 存储 'url_path'
+            if row: known_manifest.add(row[0]) # 存储 'url'
 
-sample_lock = asyncio.Lock()
-SAMPLE_COLLECTED = 0
 hit_hosts = set()
 hit_lock = asyncio.Lock()
 
@@ -113,6 +110,7 @@ async def writer_worker(write_queue, manifest_queue):
         writer = csv.writer(csvfile)
         mwriter = csv.writer(mfile)
         if not file_exists: writer.writerow(['hash', 'url', 'server', 'ctype'])
+        
         while True:
             row = await write_queue.get()
             if row is None: break
@@ -136,7 +134,6 @@ async def scanner_worker(queue, write_queue, manifest_queue, session, pbar, file
         host, port, path = item
         url = f"{'https' if port == 443 else 'http'}://{host}:{port}{path}"
         
-        # 预检查 manifest 去重
         if url in known_manifest:
             queue.task_done()
             pbar.update(1)
@@ -197,12 +194,13 @@ async def main():
     manifest_queue = asyncio.Queue()
     file_lock = asyncio.Lock()
 
-    print("正在预加载任务队列...")
+    print("正在加载任务并初始化清单...")
     total_tasks = await producer(queue, args.file)
     
     connector = aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT, limit_per_host=10)
     async with aiohttp.ClientSession(connector=connector) as session:
-        pbar = tqdm(total=total_tasks, desc="Scanning", unit="url")
+        # 使用 tqdm 实现进度条与自动 ETA (预计剩余时间) 计算
+        pbar = tqdm(total=total_tasks, desc="Scanning", unit="url", ncols=100)
         workers = [asyncio.create_task(scanner_worker(queue, write_queue, manifest_queue, session, pbar, file_lock)) for _ in range(WORKER_COUNT)]
         writer_task = asyncio.create_task(writer_worker(write_queue, manifest_queue))
         
