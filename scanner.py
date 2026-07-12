@@ -130,7 +130,7 @@ async def main():
     file_lock = asyncio.Lock()
 
     async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT)) as session:
-        pbar = tqdm(total=total, desc="Scanning", unit="task", mininterval=5)
+        pbar = tqdm(total=total, desc="Scanning", unit="task", mininterval=45)
         workers = [asyncio.create_task(scanner_worker(queue, session, pbar, file_lock)) for _ in range(WORKER_COUNT)]
         await producer(queue, args.file)
         await asyncio.gather(*workers)
