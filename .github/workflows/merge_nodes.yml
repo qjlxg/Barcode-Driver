@@ -1,29 +1,35 @@
-import yaml
-import os
-import glob
+name: merge_nodes
 
-def merge_yaml_nodes():
-    merged_proxies = []
-    # 遍历所有 yaml 文件
-    for file_path in glob.glob("results/hash/*.yaml"):
-        try:
-            with open(file_path, 'r', encoding='utf-8') as f:
-                data = yaml.safe_load(f)
-                if data and isinstance(data, dict) and 'proxies' in data:
-                    merged_proxies.extend(data['proxies'])
-        except Exception as e:
-            print(f"Error reading {file_path}: {e}")
+on:
+  push:
+    paths:
+      - 'merge_nodes.py'
+      - '.github/workflows/merge_nodes.yml'
+  workflow_dispatch:
+  schedule:
+    # 北京时间 03:00 -> UTC 19:00
+    - cron: '0 19 * * *'
 
-    # 构建最终输出结构
-    output = {
-        'proxies': merged_proxies,
-        'proxy-groups': [], # 根据需要可以留空或补充
-        'rules': []
-    }
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    with open('merged_nodes.yaml', 'w', encoding='utf-8') as f:
-        yaml.dump(output, f, allow_unicode=True, default_flow_style=False)
-    print(f"成功合并 {len(merged_proxies)} 个节点到 merged_nodes.yaml")
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
-if __name__ == "__main__":
-    merge_yaml_nodes()
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Run merge script
+        run: python merge_nodes.py
+
+      - name: Upload merged result
+        uses: actions/upload-artifact@v4
+        with:
+          name: merged-nodes
+          path: merged_nodes.yaml
