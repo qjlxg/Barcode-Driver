@@ -1,171 +1,198 @@
-import aiohttp, asyncio, yaml, hashlib, os, csv, argparse, base64, time
-from urllib.parse import urlparse
+import aiohttp
+import asyncio
+import yaml
+import hashlib
+import os
+import csv
+import argparse
+import base64
+import time
+from tqdm import tqdm
 
 # --- 配置 ---
-TARGET_PORTS = [443, 80, 8080, 8443, 2096, 2053, 2083, 2087, 12202]
-HTTPS_PORTS = [443, 8443, 2096, 2053, 2083, 2087, 12202]
-TARGET_PROTOCOLS = ["vless://", "hysteria://", "hysteria2://", "tuic://", "anytls://"]
-# 去掉 ROOT_PATHS，逻辑内嵌在 producer 中
-SUB_PATHS = ["/sub", "/s/", "/subscribe", "/link", "/api/sub", "/getsub", "/clash", "/config", "/config.yaml", "/sub.yaml", "/subscription", "/client/subscribe"]
-WORKER_COUNT = 100
-MAX_RESPONSE_SIZE = 300 * 1024 
+# 字典定义：端口: 是否强制使用 HTTPS
+TARGET_PORTS = {12202: True, 2096: True, 8443: True, 8081: False}
+PATHS = [
+    "", "/s/", "/sub", "/subscribe", "/link", "/api/sub", "/getsub", "/clash", 
+    "/config", "/", "/config.yaml", "/sub.yaml", "/subscription", "/client/subscribe"
+]
+UA_LIST = ["clash", "ClashMeta", "mihomo", "ClashforAndroid", "sing-box", "Mozilla/5.0"]
 OUTPUT_DIR = "results"
+WORKER_COUNT = 300 
+QUEUE_SIZE = 5000
+MAX_RESPONSE_SIZE = 300 * 1024 
 
-class GlobalState:
+# --- 初始化与状态 ---
+def load_hashes():
+    hashes = set()
+    path = f"{OUTPUT_DIR}/hash"
+    if os.path.exists(path):
+        for f in os.listdir(path):
+            if f.endswith(".yaml") or f.endswith(".txt"):
+                hashes.add(f.split('.')[0])
+    return hashes
+
+initial_hashes = load_hashes()
+visited_hash = set(initial_hashes)
+initial_count = len(visited_hash)
+
+# 精细化去重：记录 host:port
+hit_keys = set()
+hit_lock = asyncio.Lock()
+
+start_time = time.time()
+total_items = 0
+
+class StatsManager:
     def __init__(self):
-        self.visited_hashes = set()
-        self.known_manifest = set()
-        self.total_tasks = 0
-        self.file_lock = asyncio.Lock()
-        self.stats = {"req": 0, "yaml": 0, "b64": 0, "saved": 0, "done": 0, "timeout": 0, "error": 0}
-        self.stats_lock = asyncio.Lock()
+        self.stats = {
+            "req": 0, "yaml_ok": 0, "base64_ok": 0, "saved": 0, 
+            "timeout": 0, "network_err": 0, "yaml_err": 0, "status_codes": {}
+        }
+        self.lock = asyncio.Lock()
+
+    async def update(self, key, is_status=False):
+        async with self.lock:
+            if is_status:
+                self.stats["status_codes"][key] = self.stats["status_codes"].get(key, 0) + 1
+            else:
+                self.stats[key] = self.stats.get(key, 0) + 1
+
+    def summary(self):
+        current_count = len(visited_hash)
+        added_count = current_count - initial_count
+        res = ", ".join([f"{k}: {v}" for k, v in self.stats.items() if k != "status_codes"])
         
-        if os.path.exists(OUTPUT_DIR):
-            for f in os.listdir(OUTPUT_DIR):
-                if f.endswith((".yaml", ".b64")): self.visited_hashes.add(f.rsplit(".", 1)[0])
-        if os.path.exists('scan_manifest.csv'):
-            with open('scan_manifest.csv', 'r') as f:
-                for row in csv.reader(f):
-                    if row: self.known_manifest.add(row[0])
-state = GlobalState()
+        elapsed = time.time() - start_time
+        reqs = self.stats["req"]
+        eta_str = "Calculating..."
+        if reqs > 0 and total_items > 0:
+            avg_time = elapsed / reqs
+            eta = (total_items - reqs) * avg_time
+            eta_str = f"{int(eta // 3600)}h {int((eta % 3600) // 60)}m {int(eta % 60)}s"
+            
+        return f"{res} | Added: {added_count} | Status: {dict(self.stats['status_codes'])} | ETA: {eta_str}"
 
-def is_valid_asset(text):
-    if "<html" in text.lower()[:200] and "://" not in text:
-        return False, None
+stats = StatsManager()
 
-    if any(x in text.lower() for x in ["proxies:", "proxy-providers:", "proxy-groups:", "mixed-port:", "allow-lan:", "mode:"]):
-        try:
-            cfg = yaml.safe_load(text)
-            if isinstance(cfg, dict):
-                if (isinstance(cfg.get("proxies"), list) and any(isinstance(x, dict) and ("server" in x or "type" in x) for x in cfg["proxies"])) or \
-                   isinstance(cfg.get("proxy-providers"), dict):
-                    return True, "yaml"
-        except Exception: pass
+# --- 辅助函数 ---
+def looks_like_base64(s):
+    s = "".join(s.split())
+    return len(s) > 50 and len(s) % 4 in (0, 2, 3)
 
+def decode_base64(text):
+    text = "".join(text.split()).replace("-", "+").replace("_", "/")
+    padding = len(text) % 4
+    if padding: text += "=" * (4 - padding)
     try:
-        raw = text.strip().replace("-", "+").replace("_", "/")
-        pad = len(raw) % 4
-        if pad: raw += "=" * (4 - pad)
-        decoded = base64.b64decode(raw, validate=False).decode(errors="ignore")
-        if len(decoded) > 50 and any(p in decoded for p in TARGET_PROTOCOLS):
-            return True, "b64"
-    except Exception: pass
-    return False, None
+        raw = base64.b64decode(text, validate=False)
+        return raw.decode("utf8", errors="ignore")
+    except: return ""
 
-async def writer_worker(save_queue):
-    with open('scan_results.csv', 'a', newline='') as f1, open('scan_manifest.csv', 'a', newline='') as f2:
-        w1, w2 = csv.writer(f1), csv.writer(f2)
-        while True:
-            item = await save_queue.get()
-            if item is None: break
-            tag, data = item
-            if tag == "res": w1.writerow(data)
-            else: w2.writerow(data)
-            save_queue.task_done()
+# --- 核心逻辑 ---
+async def producer(queue, file_path):
+    global total_items
+    with open(file_path, 'r') as f:
+        items = [line.strip() for line in f if line.strip()]
+    
+    for item in items:
+        # 支持 IP:PORT 格式，如果未指定端口则遍历 TARGET_PORTS
+        if ":" in item:
+            host, port = item.rsplit(":", 1)
+            for path in PATHS:
+                await queue.put((host, int(port), False, path))
+                total_items += 1
+        else:
+            for port, is_https in TARGET_PORTS.items():
+                for path in PATHS:
+                    await queue.put((item, port, is_https, path))
+                    total_items += 1
+    for _ in range(WORKER_COUNT): await queue.put(None)
 
-async def scanner_worker(queue, save_queue, session):
+async def scanner_worker(queue, write_queue, session, pbar, file_lock):
     while True:
-        task = await queue.get()
-        if task is None: queue.task_done(); break
-        host, port, path, is_root = task
-        proto = "https" if port in HTTPS_PORTS else "http"
-        url = f"{proto}://{host}:{port}{path}"
-        
-        if url in state.known_manifest:
-            queue.task_done(); continue
+        item = await queue.get()
+        if item is None:
+            queue.task_done()
+            break
+        host, port, is_https, path = item
+        hit_key = f"{host}:{port}"
+
+        async with hit_lock:
+            if hit_key in hit_keys:
+                queue.task_done()
+                pbar.update(1)
+                continue
+
+        scheme = "https" if is_https else "http"
+        url = f"{scheme}://{host}:{port}{path}"
+        headers = {"User-Agent": UA_LIST[hash(host) % len(UA_LIST)], "Accept-Encoding": "gzip, deflate, br"}
 
         try:
-            async with session.get(url, timeout=4, ssl=False, allow_redirects=False) as resp:
-                async with state.stats_lock: state.stats["req"] += 1
-                if resp.status in [301, 302] and is_root:
-                    loc = resp.headers.get("Location", "")
-                    loc_path = urlparse(loc).path
-                    # 匹配逻辑优化：覆盖更多子路径变体
-                    if any(loc_path.startswith(x) for x in SUB_PATHS):
-                        async with state.stats_lock: state.total_tasks += 1
-                        await queue.put((host, port, loc_path, False))
+            async with session.get(url, headers=headers, timeout=aiohttp.ClientTimeout(total=4), ssl=False) as resp:
+                await stats.update("req")
+                await stats.update(resp.status, is_status=True)
+
                 if resp.status == 200:
                     data = await resp.content.read(MAX_RESPONSE_SIZE)
                     text = data.decode("utf-8", errors="ignore")
-                    valid, ftype = is_valid_asset(text)
-                    if valid:
-                        async with state.stats_lock: state.stats[ftype] += 1
-                        h = hashlib.md5(text.encode()).hexdigest()[:12]
-                        async with state.file_lock:
-                            if h not in state.visited_hashes:
-                                state.visited_hashes.add(h)
-                                with open(f"{OUTPUT_DIR}/{h}.{ftype}", 'w', encoding='utf-8') as f: f.write(text)
-                                await save_queue.put(("res", [h, url, resp.headers.get("Server", "")]))
-                                await save_queue.put(("man", [url, f"{h}.{ftype}"]))
-                                state.known_manifest.add(url)
-                                async with state.stats_lock: state.stats["saved"] += 1
-                        if is_root:
-                            for sp in SUB_PATHS:
-                                async with state.stats_lock: state.total_tasks += 1
-                                await queue.put((host, port, sp, False))
-        except asyncio.TimeoutError:
-            async with state.stats_lock: state.stats["timeout"] += 1
-        except aiohttp.ClientError:
-            async with state.stats_lock: state.stats["error"] += 1
-        finally: 
+                    h = hashlib.md5(text.encode()).hexdigest()[:12]
+                    
+                    # 订阅检测逻辑
+                    yaml_match = False
+                    try:
+                        cfg = yaml.safe_load(text)
+                        if isinstance(cfg, dict) and any(k in cfg for k in ["proxies", "proxy-groups"]):
+                            yaml_match = True
+                            await stats.update("yaml_ok")
+                            async with file_lock:
+                                if h not in visited_hash:
+                                    visited_hash.add(h)
+                                    with open(f"{OUTPUT_DIR}/hash/{h}.yaml", 'w', encoding='utf-8') as f: f.write(text)
+                                    await stats.update("saved")
+                    except: await stats.update("yaml_err")
+
+                    base64_match = False
+                    if not yaml_match and looks_like_base64(text):
+                        decoded = decode_base64(text)
+                        if any(s in decoded.lower() for s in ["vless://", "vmess://", "ss://", "trojan://"]):
+                            base64_match = True
+                            await stats.update("base64_ok")
+                            async with file_lock:
+                                if h not in visited_hash:
+                                    visited_hash.add(h)
+                                    with open(f"{OUTPUT_DIR}/hash/{h}.txt", 'w', encoding='utf-8') as f: f.write(text)
+                                    await stats.update("saved")
+
+                    if yaml_match or base64_match:
+                        async with hit_lock: hit_keys.add(hit_key)
+                        await write_queue.put([h, url, resp.headers.get("Server", ""), resp.headers.get("Content-Type", "")])
+        except asyncio.TimeoutError: await stats.update("timeout")
+        except: await stats.update("network_err")
+        finally:
             queue.task_done()
-            async with state.stats_lock: state.stats["done"] += 1
-
-async def stats_reporter():
-    start_time = time.time()
-    try:
-        while True:
-            await asyncio.sleep(10)
-            async with state.stats_lock:
-                elapsed = time.time() - start_time
-                done = state.stats["done"]
-                speed = done / elapsed if elapsed > 0 else 0
-                remaining = max(0, state.total_tasks - done)
-                rem = remaining / speed if speed > 0 else 0
-                print(f"[监控] 任务:{done}/{state.total_tasks} | 发现:{state.stats['saved']} | 错误:{state.stats['error']} | 速度:{speed:.1f}t/s | ETA:{rem/60:.1f}m")
-    except asyncio.CancelledError: pass
-
-async def producer(args, queue):
-    unique_hosts = set()
-    with open(args.file) as f:
-        for line in f:
-            host = line.strip()
-            if host and host not in unique_hosts:
-                unique_hosts.add(host)
-                for p in TARGET_PORTS:
-                    async with state.stats_lock: state.total_tasks += 1
-                    await queue.put((host, p, "", True))
+            pbar.update(1)
 
 async def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--file", required=True)
     args = parser.parse_args()
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-    
-    queue = asyncio.Queue(maxsize=5000)
-    save_queue = asyncio.Queue()
-    
-    connector = aiohttp.TCPConnector(ssl=False, limit=300, limit_per_host=10, ttl_dns_cache=300)
-    
-    producer_task = asyncio.create_task(producer(args, queue))
-    reporter_task = asyncio.create_task(stats_reporter())
-    
+    os.makedirs(f"{OUTPUT_DIR}/hash", exist_ok=True)
+
+    queue = asyncio.Queue(maxsize=QUEUE_SIZE)
+    write_queue = asyncio.Queue()
+    file_lock = asyncio.Lock()
+
+    connector = aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT, limit_per_host=10)
     async with aiohttp.ClientSession(connector=connector) as session:
-        workers = [asyncio.create_task(scanner_worker(queue, save_queue, session)) for _ in range(WORKER_COUNT)]
-        writer = asyncio.create_task(writer_worker(save_queue))
+        pbar = tqdm(total=total_items, desc="Scanning")
+        workers = [asyncio.create_task(scanner_worker(queue, write_queue, session, pbar, file_lock)) for _ in range(WORKER_COUNT)]
+        asyncio.create_task(asyncio.to_thread(lambda: open('scan_results.csv', 'a').close())) # Init file
         
-        await producer_task
-        await queue.join()
-        for _ in range(WORKER_COUNT): await queue.put(None)
+        await producer(queue, args.file)
         await asyncio.gather(*workers)
-        await save_queue.join()
-        await save_queue.put(None)
-        await writer
-        
-    reporter_task.cancel()
-    try: await reporter_task
-    except asyncio.CancelledError: pass
-    print(f"扫描结束 | 最终统计: {state.stats}")
+        pbar.close()
+        print("\n--- 任务完成 ---\n" + stats.summary())
 
 if __name__ == "__main__":
     asyncio.run(main())
