@@ -52,7 +52,7 @@ async def main():
                 if not item: continue
                 tasks.append(check_target(session, item, sem))
                 
-                if len(tasks) >= 2000:
+                if len(tasks) >= 100:
                     results = await asyncio.gather(*tasks)
                     for res in results:
                         if res:
