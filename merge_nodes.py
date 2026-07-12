@@ -1,39 +1,57 @@
 import yaml
 import glob
+import re
+
+def get_filtered_nodes(proxies):
+    # 正则：涵盖地区变种 (日本/美国及其缩写)
+    reg_regex = re.compile(r"(?i)(日本|JP|Japan|Tokyo|Osaka|美国|US|UnitedStates|USA|LA|NY|NewYork|California)")
+    # 正则：涵盖协议变种 (高性能协议及缩写)
+    proto_regex = re.compile(r"(?i)(hy|hysteria|h2|vless|vmess|trojan|ss|ssr|shadowsocks|anytls)")
+    # 正则：过滤垃圾信息
+    exclude_regex = re.compile(r"(?i)(过期|失效|测试|保留)")
+    
+    filtered = []
+    for p in proxies:
+        name = p.get('name', '')
+        # 必须同时匹配地区和协议，且不能包含垃圾词
+        if reg_regex.search(name) and proto_regex.search(name) and not exclude_regex.search(name):
+            filtered.append(p)
+    return filtered
 
 def merge_yaml_nodes():
-    merged_proxies = []
+    all_nodes = []
     seen_names = {}
-    MAX_NODES = 500 
 
-    # 1. 读取所有节点文件
+    # 1. 读取并筛选节点
     for file_path in glob.glob("results/hash/*.yaml"):
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 data = yaml.safe_load(f)
                 if data and isinstance(data, dict) and 'proxies' in data:
-                    for p in data['proxies']:
-                        if len(merged_proxies) >= MAX_NODES: break
-
+                    nodes = get_filtered_nodes(data['proxies'])
+                    for p in nodes:
+                        # 防重名处理
                         original_name = p.get('name', 'node')
-
-                        # 处理重名
                         if original_name in seen_names:
                             seen_names[original_name] += 1
                             p['name'] = f"{original_name}_{seen_names[original_name]}"
                         else:
                             seen_names[original_name] = 0
                             p['name'] = original_name
-
-                        merged_proxies.append(p)
+                        all_nodes.append(p)
         except: continue
 
-    # 2. 构建配置
+    # 2. 确定节点池 (最多500个)
+    merged_proxies = all_nodes[:500]
+    # 优选测速池 (前50个，防止测速卡死)
+    fast_proxies = merged_proxies[:50]
+
+    # 3. 构建配置
     config = {
         'port': 7890,
         'socks-port': 7891,
         'allow-lan': True,
-        'mode': 'rule', # 这里定义为规则模式
+        'mode': 'rule',
         'dns': {
             'enable': True,
             'ipv6': False,
@@ -43,33 +61,31 @@ def merge_yaml_nodes():
         'proxies': merged_proxies,
         'proxy-groups': [
             {
-                'name': '自动选择',
+                'name': '🚀 优选自动测速',
                 'type': 'url-test',
-                'proxies': [p['name'] for p in merged_proxies],
+                'proxies': [p['name'] for p in fast_proxies],
                 'url': 'http://www.gstatic.com/generate_204',
-                'interval': 900
+                'interval': 300,
+                'tolerance': 50
             },
             {
                 'name': '手动选择',
                 'type': 'select',
-                'proxies': ['自动选择'] + [p['name'] for p in merged_proxies]
+                'proxies': ['🚀 优选自动测速'] + [p['name'] for p in merged_proxies]
             }
         ],
-        # 核心修改：添加分流规则
         'rules': [
-            'GEOIP,CN,DIRECT',          # 所有中国大陆的IP地址走直连
-            'GEOSITE,CN,DIRECT',        # 所有中国大陆的域名走直连
-            'DOMAIN-SUFFIX,douyin.com,DIRECT', # 抖音及其相关服务
-            'DOMAIN-SUFFIX,amemv.com,DIRECT',
-            'MATCH,手动选择'            # 其他所有流量走你选择的节点
+            'GEOIP,CN,DIRECT',
+            'GEOSITE,CN,DIRECT',
+            'MATCH,手动选择'
         ]
     }
 
-    # 3. 写入文件
+    # 4. 写入文件
     with open('merged_nodes.yaml', 'w', encoding='utf-8') as f:
         yaml.dump(config, f, allow_unicode=True, default_flow_style=False)
     
-    print("配置文件已生成: merged_nodes.yaml")
+    print(f"配置文件已生成！成功抓取节点: {len(merged_proxies)} 个。")
 
 if __name__ == "__main__":
     merge_yaml_nodes()
