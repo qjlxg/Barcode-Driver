@@ -27,7 +27,7 @@ jobs:
         run: pip install brotli aiohttp PyYAML tqdm
 
       - name: 执行深度解析
-        run: python scanner.py --file refined_ips.txt
+        run: python scanner.py --file cleaned_ips.txt
       
       - name: 诊断与提交
         run: |
