@@ -24,14 +24,23 @@ jobs:
       - name: 扫描并固化 IP:Port 列表
         run: |
           TARGET_PORTS="80,443,7890,8080,8888,9090,2052,2053,2082,2083"
-          # 使用 -oG 输出扫描结果
+          # 扫描输出到临时文件
           sudo masscan 104.16.0.0/16 -p$TARGET_PORTS --rate 2000 --wait 0 -oG scan_raw.txt
           
-          # 核心修复：解析格式为 IP:PORT
-          # grep 过滤包含开放端口的行，sed 提取 IP 和 Port 并格式化输出
-          grep "/open/tcp//" scan_raw.txt | sed -n 's|.*Host: \([0-9.]*\) Ports: \([0-9]*\)/.*|\1:\2|p' | sort -u > alive_ips.txt
-          
+          # 提取到临时结果文件
+          grep "/open/tcp//" scan_raw.txt | sed -n 's|.*Host: \([0-9.]*\) Ports: \([0-9]*\)/.*|\1:\2|p' | sort -u > temp_alive.txt
           rm scan_raw.txt
+          
+          # 【原子性校验】：只有当 temp_alive.txt 行数 > 100 时才覆盖原文件
+          LINES=$(wc -l < temp_alive.txt)
+          if [ "$LINES" -gt 100 ]; then
+            mv temp_alive.txt alive_ips.txt
+            echo "[+] 扫描成功，共发现 $LINES 个存活端口。"
+          else
+            echo "[!] 警告: 扫描结果异常 ($LINES 行)，保留原有 alive_ips.txt 以防数据丢失。"
+            rm temp_alive.txt
+            exit 1
+          fi
           
       - name: 提交更改
         run: |
@@ -40,7 +49,7 @@ jobs:
           
           if [[ -n $(git status -s alive_ips.txt) ]]; then
             git add alive_ips.txt
-            git commit -m "Update: Refresh alive_ips.txt (with ports) $(date +'%Y-%m-%d') [skip ci]"
+            git commit -m "Update: Refresh alive_ips.txt $(date +'%Y-%m-%d') [skip ci]"
             git pull origin main --rebase
             git push origin main
           else
