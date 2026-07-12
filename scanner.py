@@ -7,7 +7,7 @@ TARGET_PORTS = [443, 80, 8080, 8443, 2096, 2053, 2083, 2087, 12202]
 HTTPS_PORTS = [443, 8443, 2096, 2053, 2083, 2087, 12202]
 TARGET_PROTOCOLS = ["vless://", "hysteria://", "hysteria2://", "tuic://", "anytls://"]
 ROOT_PATHS = [""] 
-SUB_PATHS = ["/sub","/s","/subscribe", "/link", "/api/sub", "/getsub", "/clash", "/config", "/config.yaml", "/sub.yaml", "/subscription", "/client/subscribe"]
+SUB_PATHS = ["/sub", "/subscribe", "/link", "/api/sub", "/getsub", "/clash", "/config", "/config.yaml", "/sub.yaml", "/subscription", "/client/subscribe"]
 WORKER_COUNT = 100
 MAX_RESPONSE_SIZE = 300 * 1024 
 OUTPUT_DIR = "results"
@@ -16,6 +16,7 @@ class GlobalState:
     def __init__(self):
         self.visited_hashes = set()
         self.known_manifest = set()
+        self.pending = 0  # 显式计数器，替代 queue.unfinished_tasks
         self.file_lock = asyncio.Lock()
         self.stats = {"req": 0, "yaml": 0, "b64": 0, "saved": 0, "done": 0, "timeout": 0, "error": 0}
         self.stats_lock = asyncio.Lock()
@@ -70,7 +71,9 @@ async def scanner_worker(queue, save_queue, session):
         url = f"{proto}://{host}:{port}{path}"
         
         if url in state.known_manifest:
-            queue.task_done(); continue
+            queue.task_done()
+            async with state.stats_lock: state.pending -= 1
+            continue
 
         try:
             async with session.get(url, timeout=4, ssl=False, allow_redirects=False) as resp:
@@ -78,7 +81,9 @@ async def scanner_worker(queue, save_queue, session):
                 if resp.status in [301, 302] and is_root:
                     loc = resp.headers.get("Location", "")
                     loc_path = urlparse(loc).path
-                    if loc_path in SUB_PATHS: await queue.put((host, port, loc_path, False))
+                    if loc_path in SUB_PATHS:
+                        async with state.stats_lock: state.pending += 1
+                        await queue.put((host, port, loc_path, False))
                 if resp.status == 200:
                     data = await resp.content.read(MAX_RESPONSE_SIZE)
                     text = data.decode("utf-8", errors="ignore")
@@ -95,16 +100,20 @@ async def scanner_worker(queue, save_queue, session):
                                 state.known_manifest.add(url)
                                 async with state.stats_lock: state.stats["saved"] += 1
                         if is_root:
-                            for sp in SUB_PATHS: await queue.put((host, port, sp, False))
+                            for sp in SUB_PATHS:
+                                async with state.stats_lock: state.pending += 1
+                                await queue.put((host, port, sp, False))
         except asyncio.TimeoutError:
             async with state.stats_lock: state.stats["timeout"] += 1
         except aiohttp.ClientError:
             async with state.stats_lock: state.stats["error"] += 1
         finally: 
             queue.task_done()
-            async with state.stats_lock: state.stats["done"] += 1
+            async with state.stats_lock: 
+                state.stats["done"] += 1
+                state.pending -= 1
 
-async def stats_reporter(queue):
+async def stats_reporter():
     start_time = time.time()
     try:
         while True:
@@ -113,7 +122,7 @@ async def stats_reporter(queue):
                 elapsed = time.time() - start_time
                 done = state.stats["done"]
                 speed = done / elapsed if elapsed > 0 else 0
-                rem = queue.unfinished_tasks / speed if speed > 0 else 0
+                rem = state.pending / speed if speed > 0 else 0
                 print(f"[监控] 任务:{done} | 发现:{state.stats['saved']} | 错误:{state.stats['error']} | 速度:{speed:.1f}t/s | ETA:{rem/60:.1f}m")
     except asyncio.CancelledError: pass
 
@@ -124,7 +133,9 @@ async def producer(args, queue):
             host = line.strip()
             if host and host not in unique_hosts:
                 unique_hosts.add(host)
-                for p in TARGET_PORTS: await queue.put((host, p, "", True))
+                for p in TARGET_PORTS:
+                    async with state.stats_lock: state.pending += 1
+                    await queue.put((host, p, "", True))
 
 async def main():
     parser = argparse.ArgumentParser()
@@ -136,7 +147,7 @@ async def main():
     save_queue = asyncio.Queue()
     
     producer_task = asyncio.create_task(producer(args, queue))
-    reporter_task = asyncio.create_task(stats_reporter(queue))
+    reporter_task = asyncio.create_task(stats_reporter())
     
     async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False, limit=200, ttl_dns_cache=300)) as session:
         workers = [asyncio.create_task(scanner_worker(queue, save_queue, session)) for _ in range(WORKER_COUNT)]
@@ -146,7 +157,7 @@ async def main():
         await queue.join()
         for _ in range(WORKER_COUNT): await queue.put(None)
         await asyncio.gather(*workers)
-        await save_queue.join() # 确保写入完成
+        await save_queue.join()
         await save_queue.put(None)
         await writer
         
