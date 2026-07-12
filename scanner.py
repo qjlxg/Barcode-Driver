@@ -11,7 +11,7 @@ from tqdm import tqdm
 
 # --- 配置 ---
 TARGET_PORTS = [12202,2096,8443,8888]
-PATHS = [
+PATHS = ["",
     "/sub", "/subscribe", "/link", "/api/sub", "/getsub", "/clash", 
     "/config", "/", "/config.yaml", "/sub.yaml", "/subscription", "/client/subscribe"
 ]
