@@ -25,7 +25,7 @@ jobs:
         run: |
           TARGET_PORTS="80,443,7890,8080,8888,9090,2052,2053,2082,2083"
           # 使用 -oG 输出扫描结果
-          sudo masscan 104.16.0.0/12 -p$TARGET_PORTS --rate 2000 --wait 0 -oG scan_raw.txt
+          sudo masscan 104.16.0.0/16 -p$TARGET_PORTS --rate 2000 --wait 0 -oG scan_raw.txt
           
           # 核心修复：解析格式为 IP:PORT
           # grep 过滤包含开放端口的行，sed 提取 IP 和 Port 并格式化输出
