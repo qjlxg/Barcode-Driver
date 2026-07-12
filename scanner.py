@@ -47,14 +47,14 @@ class StatsManager:
             "timeout": 0, "network_err": 0, "yaml_err": 0, "status_codes": {}
         }
         self.lock = asyncio.Lock()
-    
+
     async def update(self, key, is_status=False):
         async with self.lock:
             if is_status:
                 self.stats["status_codes"][key] = self.stats["status_codes"].get(key, 0) + 1
             else:
                 self.stats[key] = self.stats.get(key, 0) + 1
-    
+
     def summary(self):
         current_count = len(visited_hash)
         added_count = current_count - initial_count
@@ -81,11 +81,17 @@ def decode_base64(text):
 async def producer(queue, file_path):
     with open(file_path, 'r') as f:
         for line in f:
-            host = line.strip()
-            if not host: continue
-            for port in TARGET_PORTS:
+            item = line.strip()
+            if not item: continue
+            # 新增逻辑：智能识别是否携带端口
+            if ":" in item:
+                host, port = item.rsplit(":", 1)
                 for path in PATHS:
-                    await queue.put((host, port, path))
+                    await queue.put((host, int(port), path))
+            else:
+                for port in TARGET_PORTS:
+                    for path in PATHS:
+                        await queue.put((item, port, path))
     for _ in range(WORKER_COUNT): await queue.put(None)
 
 async def writer_worker(write_queue):
@@ -107,7 +113,7 @@ async def scanner_worker(queue, write_queue, session, pbar, file_lock):
             queue.task_done()
             break
         host, port, path = item
-        
+
         async with hit_lock:
             if host in hit_hosts:
                 queue.task_done()
@@ -116,26 +122,26 @@ async def scanner_worker(queue, write_queue, session, pbar, file_lock):
         url = f"{'https' if port == 443 else 'http'}://{host}:{port}{path}"
         ua = UA_LIST[hash(host) % len(UA_LIST)]
         headers = {"User-Agent": ua, "Accept-Encoding": "gzip, deflate, br"}
-        
+
         try:
             async with session.get(url, headers=headers, timeout=aiohttp.ClientTimeout(total=4), ssl=False) as resp:
                 await stats.update("req")
                 await stats.update(resp.status, is_status=True)
-                
+
                 if resp.status == 200:
                     ctype = resp.headers.get("Content-Type", "").lower()
                     if not any(x in ctype for x in ["text", "yaml", "json"]): continue
-                    
+
                     try: cl = int(resp.headers.get("Content-Length", 0))
                     except: cl = 0
                     if cl > MAX_RESPONSE_SIZE: continue
-                    
+
                     data = await resp.content.read(MAX_RESPONSE_SIZE)
                     text = data.decode("utf-8", errors="ignore")
-                    
+
                     h = hashlib.md5(text.encode()).hexdigest()[:12]
                     yaml_match = False
-                    
+
                     try:
                         cfg = yaml.safe_load(text)
                         if isinstance(cfg, dict):
@@ -152,7 +158,7 @@ async def scanner_worker(queue, write_queue, session, pbar, file_lock):
                                         with open(f"{OUTPUT_DIR}/hash/{h}.yaml", 'w', encoding='utf-8') as f: f.write(text)
                                         await stats.update("saved")
                     except: await stats.update("yaml_err")
-                    
+
                     base64_match = False
                     if looks_like_base64(text):
                         decoded = decode_base64(text)
@@ -164,7 +170,7 @@ async def scanner_worker(queue, write_queue, session, pbar, file_lock):
                                     visited_hash.add(h)
                                     with open(f"{OUTPUT_DIR}/hash/{h}.txt", 'w', encoding='utf-8') as f: f.write(text)
                                     await stats.update("saved")
-                    
+
                     if yaml_match or base64_match:
                         async with hit_lock:
                             hit_hosts.add(host)
@@ -179,11 +185,11 @@ async def main():
     parser.add_argument("--file", required=True)
     args = parser.parse_args()
     os.makedirs(f"{OUTPUT_DIR}/hash", exist_ok=True)
-    
+
     queue = asyncio.Queue(maxsize=QUEUE_SIZE)
     write_queue = asyncio.Queue()
     file_lock = asyncio.Lock()
-    
+
     connector = aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT, limit_per_host=10)
     async with aiohttp.ClientSession(connector=connector) as session:
         pbar = tqdm(desc="Scanning")
