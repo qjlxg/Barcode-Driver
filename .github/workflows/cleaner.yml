@@ -1,21 +1,46 @@
-name: 5. 资产清洗 (Cleaner)
+name: 2. 资产清洗 (Cleaner)
+
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/cleaner.yml'
+      - 'cleaner.py'  # 监控此脚本的变动
 
 jobs:
   cleaner_job:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: 设置 Python 环境
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
       
       - name: 运行清洗脚本
         run: |
+          # 确保脚本有可执行权限
           python3 cleaner.py
           
       - name: 提交清洗结果
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add cleaned_ips.txt
-          git commit -m "Update: Cleaned asset list $(date +'%Y-%m-%d') [skip ci]"
-          git push origin main
+          
+          # 检查是否有内容变动
+          if [[ -n $(git status -s cleaned_ips.txt) ]]; then
+            git add cleaned_ips.txt
+            # 添加 [skip ci] 防止触发死循环
+            git commit -m "Update: Cleaned asset list $(date +'%Y-%m-%d') [skip ci]"
+            git pull origin main --rebase
+            git push origin main
+          else
+            echo "[-] cleaned_ips.txt 无变化，无需提交。"
+          fi
