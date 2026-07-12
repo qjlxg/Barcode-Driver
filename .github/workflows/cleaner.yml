@@ -1,0 +1,21 @@
+name: 5. 资产清洗 (Cleaner)
+on:
+  workflow_dispatch:
+
+jobs:
+  cleaner_job:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: 运行清洗脚本
+        run: |
+          python3 cleaner.py
+          
+      - name: 提交清洗结果
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add cleaned_ips.txt
+          git commit -m "Update: Cleaned asset list $(date +'%Y-%m-%d') [skip ci]"
+          git push origin main
