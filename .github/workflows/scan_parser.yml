@@ -27,7 +27,7 @@ jobs:
 
       - name: 执行深度解析
         # 确保传入的文件参数与代码读取路径一致
-        run: python scanner.py --file ip.txt
+        run: python scanner.py --file alive_ips.txt
       
       - name: 诊断与提交
         run: |
