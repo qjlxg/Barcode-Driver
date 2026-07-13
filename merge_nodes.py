@@ -3,8 +3,6 @@ import glob
 import hashlib
 import json
 import os
-import random
-from collections import Counter
 from datetime import datetime, timedelta
 
 REGISTRY_FILE = 'node_registry.json'
@@ -33,21 +31,18 @@ def score_node(p, registry):
     hist = registry.get(h, {})
     score = 0
     
-    # 1. 存活评分
+    # 评分逻辑
     try:
         first = datetime.strptime(hist.get('first_seen', TODAY), "%Y-%m-%d")
         days_alive = max((datetime.now() - first).days + 1, 1)
         score += min(days_alive, 5)
     except: score += 1
     
-    # 2. 成功率评分
     s, f = hist.get('success', 0), hist.get('fail', 0)
     if s + f > 0: score += (s / (s + f)) * 5
     
-    # 3. 多源评分
     score += min(len(hist.get("source_map", {})), 2)
     
-    # 4. 协议、特性、地区评分
     t = str(p.get('type', '')).lower()
     score += {'hysteria2': 3, 'hysteria': 3, 'tuic': 3, 'vless': 3, 'anytls': 2}.get(t, 0)
     
@@ -82,8 +77,13 @@ def merge_yaml_nodes():
                 nodes = [p for p in data['proxies'] if isinstance(p, dict) and p.get('server') 
                          and str(p.get('type', '')).lower() in ALLOWED_TYPES
                          and not any(k in str(p.get('name', '')).lower() for k in ['cf', '优选','节点'])]
-                valid_total += len(nodes)
                 
+                # 预处理：确保所有节点都有 name 字段
+                for i, p in enumerate(nodes):
+                    if 'name' not in p or not p['name']:
+                        p['name'] = f"node-{file_path.split('/')[-1]}-{i}"
+                
+                valid_total += len(nodes)
                 for p in nodes:
                     h = get_node_hash(p)
                     if h not in registry:
@@ -103,16 +103,7 @@ def merge_yaml_nodes():
     all_nodes.sort(key=lambda x: score_node(x, registry), reverse=True)
     merged_proxies = all_nodes[:300]
     
-    # 名称去重兼容性修复
-    name_count = {}
-    for p in merged_proxies:
-        name = p.get("name") or "node"
-        if name in name_count:
-            name_count[name] += 1
-            p["name"] = f"{name}-{name_count[name]}"
-        else:
-            name_count[name] = 0
-
+    # 最终输出配置
     config = {
         'port': 7890, 'socks-port': 7891, 'allow-lan': True, 'mode': 'rule',
         'dns': {
@@ -121,8 +112,8 @@ def merge_yaml_nodes():
         },
         'proxies': merged_proxies,
         'proxy-groups': [
-            {'name': '🚀 优选自动测速', 'type': 'url-test', 'proxies': [p['name'] for p in merged_proxies[:80]], 'url': 'http://www.gstatic.com/generate_204', 'interval': 300, 'tolerance': 50},
-            {'name': '手动选择', 'type': 'select', 'proxies': ['🚀 优选自动测速'] + [p['name'] for p in merged_proxies]}
+            {'name': '🚀 优选自动测速', 'type': 'url-test', 'proxies': [p.get('name') for p in merged_proxies[:80]], 'url': 'http://www.gstatic.com/generate_204', 'interval': 300, 'tolerance': 50},
+            {'name': '手动选择', 'type': 'select', 'proxies': ['🚀 优选自动测速'] + [p.get('name') for p in merged_proxies]}
         ],
         'rules': ['GEOIP,CN,DIRECT', 'GEOSITE,CN,DIRECT', 'MATCH,手动选择']
     }
