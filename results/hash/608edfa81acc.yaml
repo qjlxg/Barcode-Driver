@@ -1,0 +1,74 @@
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: Rule
+log-level: info
+external-controller: 127.0.0.1:9090
+unified-delay: true
+proxies:
+- name: 🇰🇷韩国KR006 0.8MB/s中性 TG@jcnode
+  server: dev.aoliuqu.press
+  port: 16335
+  type: trojan
+  password: c68526b9-f9e1-49a3-9711-e57d5c717563
+  sni: dev.aoliuqu.press
+  skip-cert-verify: true
+  network: grpc
+  grpc-opts:
+    grpc-service-name: zhs
+    grpc-mode: gun
+  udp: true
+  client-fingerprint: chrome
+- type: vless
+  server: 54.179.79.12
+  port: 53646
+  uuid: 01c1e826-9c41-4c06-a3bc-7cf26c8151bd
+  flow: ''
+  network: ws
+  encryption: none
+  tls: true
+  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+  ws-opts:
+    path: /@Marisa_kristi
+    headers:
+      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+  client-fingerprint: chrome
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare-ech.com
+  name: 🇸🇬新加坡SG001 16.6MB/s中性 TG@jcnode
+- type: vless
+  server: 54.254.145.25
+  port: 6768
+  uuid: 72a8ace1-f1a8-4f65-b45e-4869a3622ded
+  flow: ''
+  network: ws
+  encryption: none
+  tls: true
+  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+  ws-opts:
+    path: /@Marisa_kristi
+    headers:
+      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+  client-fingerprint: chrome
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare-ech.com
+  name: 🇸🇬新加坡SG002 0.7MB/s中性 TG@jcnode
+- type: vless
+  server: 13.212.82.58
+  port: 2000
+  uuid: 6b0ff21f-8d44-47fe-a296-431150d7ba93
+  flow: ''
+  network: ws
+  encryption: none
+  tls: true
+  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+  ws-opts:
+    path: /@Marisa_kristi
+    headers:
+      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+  client-fingerprint: chrome
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare
