@@ -29,7 +29,7 @@ UA_LIST = [
 
 OUTPUT_DIR = "results"
 MAX_SAVE_FILES = 2000
-WORKER_COUNT = 80          # 建议 60~120，根据你的服务器带宽调整
+WORKER_COUNT = 28          # 建议 60~120，根据你的服务器带宽调整
 REQUEST_TIMEOUT = 5
 
 stats = {"req": 0, "saved": 0, "fail": 0}
