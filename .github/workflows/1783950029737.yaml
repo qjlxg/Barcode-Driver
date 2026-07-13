@@ -1,5 +1,4 @@
-name: 1. 资产探测 (Masscan)配置文件版
-
+name: 1. 资产探测 (Masscan) 配置文件版
 
 on:
   workflow_dispatch:
@@ -7,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - '.github/workflows/scan_masscan.yml'
+      - '.github/workflows/1783950029737.yml'
       - 'targets.txt'
       - 'ports.txt'
 
@@ -27,13 +26,13 @@ jobs:
 
       - name: 扫描并固化 IP:Port 列表
         run: |
-          # 动态读取配置文件
-          TARGETS=$(cat targets.txt | tr -d '\r\n')
+          # 动态读取并处理配置文件，将换行符替换为逗号，并移除末尾的逗号
+          TARGETS=$(tr '\n' ',' < targets.txt | sed 's/,$//')
           PORTS=$(cat ports.txt | tr -d '\r\n')
           
           echo "[*] 开始扫描目标: $TARGETS"
           
-          # 使用 -iL 读取文件，使用 -p 读取端口
+          # 使用逗号分隔的字符串传入 masscan
           sudo masscan $TARGETS -p"$PORTS" --rate 1000 --wait 18 --open-only | \
           awk '/Discovered open port/ { split($4,p,"/"); print $6 ":" p[1] }' > temp_alive.txt
           
