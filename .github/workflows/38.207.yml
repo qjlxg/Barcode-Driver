@@ -1,0 +1,57 @@
+name:  38.207 
+
+on:
+  workflow_dispatch:   # 只能手动触发
+
+jobs:
+  scan_38207:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 安装 Masscan
+        run: sudo apt-get update && sudo apt-get install -y masscan
+
+      - name: 定向扫描 38.207 段
+        run: |
+          # 只扫 38.207 
+          TARGET_RANGES="38.207.0.0/16"
+          
+          # 常用订阅端口
+          TARGET_PORTS="80,443,8080,8443,8888,2052,2053,2082,2083,2087,2095,2096,8081,9999,6001"
+          
+          echo "[*] 开始扫描 38.207 段 (低速模式)..."
+          
+          sudo masscan $TARGET_RANGES -p"$TARGET_PORTS" --rate 800 --wait 15 --open-only | \
+          awk '/Discovered open port/ { split($4,p,"/"); print $6 ":" p[1] }' > temp_alive.txt
+          
+          LINES=$(wc -l < temp_alive.txt)
+          echo "[*] 发现 $LINES 个存活端口。"
+          
+          if [ "$LINES" -gt 0 ]; then
+            sort -u temp_alive.txt > alive_38207.txt
+            echo "[+] 已保存到 alive_38207.txt"
+          else
+            echo "[!] 本次未发现新端口。"
+          fi
+          
+          rm -f temp_alive.txt
+
+      - name: 提交结果
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          if [[ -n $(git status -s alive_38207.txt) ]]; then
+            git add alive_38207.txt
+            git commit -m "Update: 38.207 专用扫描 $(date +'%Y-%m-%d %H:%M') [skip ci]"
+            git pull origin main --rebase
+            git push origin main
+          else
+            echo "[-] 无新结果，跳过提交。"
+          fi
