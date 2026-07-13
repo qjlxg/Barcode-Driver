@@ -8,7 +8,7 @@ import base64
 import random
 import signal
 from tqdm import tqdm
-from typing import List, Tuple, Dict
+from typing import List, Tuple
 
 # --- 配置 ---
 TARGET_PORTS = [80, 443, 1333, 1999, 2052, 2053, 2082, 2083, 2087, 2095, 2096,
@@ -33,9 +33,9 @@ WORKER_COUNT = 28          # 建议 60~120，根据你的服务器带宽调整
 REQUEST_TIMEOUT = 5
 
 stats = {"req": 0, "saved": 0, "fail": 0}
-visited_hash = set()
-# 记录 URL 到 Hash 的映射，用于对比内容变更
-url_history_map: Dict[str, str] = {}
+# 改为记录内容指纹，全局去重
+visited_content_hashes = set()
+existing_urls = set()
 
 def cleanup_files():
     hash_dir = f"{OUTPUT_DIR}/hash"
@@ -51,37 +51,35 @@ def cleanup_files():
                 pass
 
 def load_history():
-    hash_dir = f"{OUTPUT_DIR}/hash"
-    if os.path.exists(hash_dir):
-        for f in os.listdir(hash_dir):
-            if '.' in f:
-                visited_hash.add(f.split('.')[0])
-
+    # 读取已有的 scan_results.csv 建立全局指纹库，防止重复写入
     if os.path.exists('scan_results.csv'):
         try:
             with open('scan_results.csv', 'r', encoding='utf-8') as f:
                 reader = csv.reader(f)
-                next(reader, None) # 跳过表头
+                next(reader, None)
                 for row in reader:
                     if len(row) > 1:
-                        url_history_map[row[1]] = row[0]
+                        visited_content_hashes.add(row[0])
+                        existing_urls.add(row[1])
         except:
             pass
 
 async def writer_worker(write_queue: asyncio.Queue):
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     csv_path = 'scan_results.csv'
-    file_exists = os.path.exists(csv_path)
     with open(csv_path, 'a', newline='', encoding='utf-8') as csvfile:
         writer = csv.writer(csvfile)
-        if not file_exists:
+        if os.path.getsize(csv_path) == 0:
             writer.writerow(['hash', 'url', 'type'])
         while True:
             row = await write_queue.get()
             if row is None:
                 break
-            writer.writerow(row)
-            csvfile.flush()
+            # 只有内容指纹是新的，才写入 CSV
+            if row[0] not in visited_content_hashes:
+                writer.writerow(row)
+                csvfile.flush()
+                visited_content_hashes.add(row[0])
             write_queue.task_done()
 
 async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, session: aiohttp.ClientSession, pbar: tqdm):
@@ -110,6 +108,7 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
 
                     hit = any(s in low for s in SIGNS)
 
+                    # Base64 尝试解码
                     if not hit and 50 < len(text) < 250000:
                         try:
                             decoded_str = "".join(text.split()).replace("-", "+").replace("_", "/")
@@ -122,20 +121,20 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
                             pass
 
                     if hit:
-                        current_hash = hashlib.md5(text.encode("utf-8")).hexdigest()[:12]
+                        # 生成内容唯一指纹
+                        h = hashlib.md5(text.encode("utf-8")).hexdigest()[:12]
                         
-                        # 逻辑变更：检查 URL 是否已存在且 Hash 是否未变
-                        if url not in url_history_map or url_history_map[url] != current_hash:
+                        # 核心去重：如果该内容指纹已处理过，直接跳过
+                        if h not in visited_content_hashes and url not in existing_urls:
                             cleanup_files()
+
                             ext = ".yaml" if "proxies:" in low or "proxy-groups:" in low else ".txt"
-                            save_path = f"{OUTPUT_DIR}/hash/{current_hash}{ext}"
+                            save_path = f"{OUTPUT_DIR}/hash/{h}{ext}"
                             with open(save_path, 'w', encoding='utf-8') as f:
                                 f.write(text)
 
-                            url_history_map[url] = current_hash
-                            visited_hash.add(current_hash)
                             stats["saved"] += 1
-                            await write_queue.put([current_hash, url, 'found'])
+                            await write_queue.put([h, url, 'found'])
         except asyncio.TimeoutError:
             stats["fail"] += 1
         except Exception:
