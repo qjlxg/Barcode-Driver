@@ -1,0 +1,27 @@
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: Rule
+log-level: info
+external-controller: 127.0.0.1:9090
+unified-delay: true
+proxies:
+- name: 🇰🇷韩国KR006 0.8MB/s中性 TG@jcnode
+  server: dev.aoliuqu.press
+  port: 16335
+  type: trojan
+  password: c68526b9-f9e1-49a3-9711-e57d5c717563
+  sni: dev.aoliuqu.press
+  skip-cert-verify: true
+  network: grpc
+  grpc-opts:
+    grpc-service-name: zhs
+    grpc-mode: gun
+  udp: true
+  client-fingerprint: chrome
+- type: vless
+  server: 54.179.79.12
+  port: 53646
+  uuid: 01c1e826-9c41-4c06-a3bc-7cf26c8151bd
+  flow: ''
+  net

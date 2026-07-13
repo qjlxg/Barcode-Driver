@@ -1,0 +1,165 @@
+mixed-port: 32334
+allow-lan: false
+mode: rule
+log-level: info
+unified-delay: true
+tcp-concurrent: true
+find-process-mode: strict
+
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  enhanced-mode: fake-ip
+  nameserver:
+    - 223.5.5.5
+    - 8.8.8.8
+
+tun:
+  enable: true
+  stack: mixed
+  dns-hijack:
+    - any:53
+    - tcp://any:53
+  auto-route: true
+  auto-detect-interface: true
+
+proxies:
+  - name: "JP | Tokyo Pro 3 | VLESS"
+    type: vless
+    server: 3.114.220.22
+    port: 14119
+    uuid: "814bd064-544d-4255-a070-5705c03f6da9"
+    udp: true
+    tls: true
+    servername: "www.apple.com"
+    client-fingerprint: "chrome"
+    flow: "xtls-rprx-vision"
+    reality-opts:
+      public-key: "k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0"
+      short-id: "48050fab"
+  - name: "JP | Tokyo Pro 4 | VLESS"
+    type: vless
+    server: 103.75.118.228
+    port: 13679
+    uuid: "814bd064-544d-4255-a070-5705c03f6da9"
+    udp: true
+    tls: true
+    servername: "www.apple.com"
+    client-fingerprint: "chrome"
+    flow: "xtls-rprx-vision"
+    reality-opts:
+      public-key: "k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0"
+      short-id: "48050fab"
+  - name: "KR | Seoul Pro 1 | VLESS"
+    type: vless
+    server: 3.39.4.109
+    port: 18363
+    uuid: "814bd064-544d-4255-a070-5705c03f6da9"
+    udp: true
+    tls: true
+    servername: "www.apple.com"
+    client-fingerprint: "chrome"
+    flow: "xtls-rprx-vision"
+    reality-opts:
+      public-key: "k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0"
+      short-id: "48050fab"
+  - name: "SG | Singapore Pro 1 | VLESS"
+    type: vless
+    server: 103.106.229.190
+    port: 13002
+    uuid: "814bd064-544d-4255-a070-5705c03f6da9"
+    udp: true
+    tls: true
+    servername: "www.apple.com"
+    client-fingerprint: "chrome"
+    flow: "xtls-rprx-vision"
+    reality-opts:
+      public-key: "k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0"
+      short-id: "48050fab"
+  - name: "SG | Singapore Pro 3 | VLESS"
+    type: vless
+    server: 3.0.111.82
+    port: 16541
+    uuid: "814bd064-544d-4255-a070-5705c03f6da9"
+    udp: true
+    tls: true
+    servername: "www.apple.com"
+    client-fingerprint: "chrome"
+    flow: "xtls-rprx-vision"
+    reality-opts:
+      public-key: "k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0"
+      short-id: "48050fab"
+  - name: "US | Chicago Pro 5 | VLESS"
+    type: vless
+    server: 67.220.73.204
+    port: 17118
+    uuid: "814bd064-544d-4255-a070-5705c03f6da9"
+    udp: true
+    tls: true
+    servername: "www.apple.com"
+    client-fingerprint: "chrome"
+    flow: "xtls-rprx-vision"
+    reality-opts:
+      public-key: "k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0"
+      short-id: "48050fab"
+  - name: "US | Los Angeles Pro 4 | VLESS"
+    type: vless
+    server: 70.39.120.18
+    port: 443
+    uuid: "814bd064-544d-4255-a070-5705c03f6da9"
+    udp: true
+    tls: true
+    servername: "www.apple.com"
+    client-fingerprint: "chrome"
+    flow: "xtls-rprx-vision"
+    reality-opts:
+      public-key: "k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0"
+      short-id: "48050fab"
+  - name: "US | Los Angeles Pro 6 | VLESS"
+    type: vless
+    server: 45.58.144.21
+    port: 8443
+    uuid: "814bd064-544d-4255-a070-5705c03f6da9"
+    udp: true
+    tls: true
+    servername: "www.apple.com"
+    client-fingerprint: "chrome"
+    flow: "xtls-rprx-vision"
+    reality-opts:
+      public-key: "k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0"
+      short-id: "48050fab"
+  - name: "US | Los Angeles Pro 8 | VLESS"
+    type: vless
+    server: 204.188.222.218
+    port: 443
+    uuid: "814bd064-544d-4255-a070-5705c03f6da9"
+    udp: true
+    tls: true
+    servername: "www.apple.com"
+    client-fingerprint: "chrome"
+    flow: "xtls-rprx-vision"
+    reality-opts:
+      public-key: "k2hPp0tTW0Da-HK94wYpSCLbuK44LfGqC2MSJIM1Ti0"
+      short-id: "48050fab"
+
+proxy-groups:
+  - name: "Proxy"
+    type: select
+    proxies:
+      - "Nodes"
+      - "Auto"
+      - "By Country"
+      - DIRECT
+
+  - name: "Nodes"
+    type: select
+    proxies:
+      - "JP | Tokyo Pro 3 | VLESS"
+      - "JP | Tokyo Pro 4 | VLESS"
+      - "KR | Seoul Pro 1 | VLESS"
+      - "SG | Singapore Pro 1 | VLESS"
+      - "SG | Singapore Pro 3 | VLESS"
+      - "US | Chicago Pro 5 | VLESS"
+      - "US | Los Angeles Pro 4 | VLESS"
+      - "US | Los Angeles Pro 6 | VLESS"
+      - "US | 
