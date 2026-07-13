@@ -1,0 +1,151 @@
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: Rule
+log-level: info
+external-controller: 127.0.0.1:9090
+unified-delay: true
+proxies:
+- name: 🇰🇷韩国KR006 0.8MB/s中性 TG@jcnode
+  server: dev.aoliuqu.press
+  port: 16335
+  type: trojan
+  password: c68526b9-f9e1-49a3-9711-e57d5c717563
+  sni: dev.aoliuqu.press
+  skip-cert-verify: true
+  network: grpc
+  grpc-opts:
+    grpc-service-name: zhs
+    grpc-mode: gun
+  udp: true
+  client-fingerprint: chrome
+- type: vless
+  server: 54.179.79.12
+  port: 53646
+  uuid: 01c1e826-9c41-4c06-a3bc-7cf26c8151bd
+  flow: ''
+  network: ws
+  encryption: none
+  tls: true
+  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+  ws-opts:
+    path: /@Marisa_kristi
+    headers:
+      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+  client-fingerprint: chrome
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare-ech.com
+  name: 🇸🇬新加坡SG001 16.6MB/s中性 TG@jcnode
+- type: vless
+  server: 54.254.145.25
+  port: 6768
+  uuid: 72a8ace1-f1a8-4f65-b45e-4869a3622ded
+  flow: ''
+  network: ws
+  encryption: none
+  tls: true
+  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+  ws-opts:
+    path: /@Marisa_kristi
+    headers:
+      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+  client-fingerprint: chrome
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare-ech.com
+  name: 🇸🇬新加坡SG002 0.7MB/s中性 TG@jcnode
+- type: vless
+  server: 13.212.82.58
+  port: 2000
+  uuid: 6b0ff21f-8d44-47fe-a296-431150d7ba93
+  flow: ''
+  network: ws
+  encryption: none
+  tls: true
+  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+  ws-opts:
+    path: /@Marisa_kristi
+    headers:
+      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+  client-fingerprint: chrome
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare-ech.com
+  name: 🇸🇬新加坡SG003 12.9MB/s中性 TG@jcnode
+- type: hysteria2
+  server: hyst-1.hysteria.ltd
+  port: 5443
+  password: 1e06c388-d31c-420e-916a-94a990648e34
+  sni: hyst-1.hysteria.ltd
+  name: 🇷🇺俄罗斯RU008 4.9MB/s中性 TG@jcnode
+- type: hysteria2
+  server: vkmks.hysteria.ltd
+  port: 5443
+  password: 1e06c388-d31c-420e-916a-94a990648e34
+  sni: vkmks.hysteria.ltd
+  skip-cert-verify: true
+  name: 🇷🇺俄罗斯RU009 3.7MB/s中性 TG@jcnode
+- type: vless
+  server: 43.206.204.150
+  port: 4443
+  uuid: dd8b5787-bfa7-4eca-b7fc-42ab3c6080f2
+  flow: ''
+  network: ws
+  encryption: none
+  tls: true
+  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+  ws-opts:
+    path: /@Marisa_kristi
+    headers:
+      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+  client-fingerprint: chrome
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare-ech.com
+  name: 🇯🇵日本JP002 11.1MB/s中性 TG@jcnode
+- type: vless
+  server: 140.235.37.245
+  port: 10291
+  uuid: 56c7e9ed-0cb2-4b72-85fd-d6cc48a4547c
+  flow: ''
+  network: ws
+  encryption: none
+  tls: true
+  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+  ws-opts:
+    path: /@Marisa_kristi
+    headers:
+      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+  client-fingerprint: chrome
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare-ech.com
+  name: 🇯🇵日本JP001 11.7MB/s中性 TG@jcnode
+- type: vless
+  server: armgnl03.auragg.org
+  port: 443
+  uuid: 8bc63720-5ec8-45b5-b6a6-9a21ffb490e8
+  flow: ''
+  network: grpc
+  encryption: none
+  tls: true
+  servername: armgnl03.auragg.org
+  grpc-opts:
+    grpc-service-name: media.session.poll
+  alpn:
+  - h2
+  - http/1.1
+  name: 🇳🇱荷兰NL002 3.0MB/s中性 TG@jcnode
+- type: hysteria2
+  server: united.hysteria.ltd
+  port: 5443
+  password: 1e06c388-d31c-420e-916a-94a990648e34
+  sni: united.hysteria.ltd
+  skip-cert-verify: true
+  name: 🇺🇸美国US062 4.2MB/s纯净 TG@jcnode
+- type: hysteria2
+  server: naive.ghostshell.eu.org
+  port: 443
+  password: basenato:z8WXfbvuauhcyt5J8mdD
+  sni: naive.ghos
