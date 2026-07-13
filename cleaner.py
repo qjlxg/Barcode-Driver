@@ -16,7 +16,7 @@ async def check_port(ip, port, timeout=1.0):
 
 async def main():
     try:
-        with open("alive_ips.txt", "r") as f:
+        with open("alive_highyield.txt", "r") as f:
             raw_items = [line.strip() for line in f if line.strip()]
     except FileNotFoundError:
         print("[!] 错误: alive_ips.txt 不存在。")
