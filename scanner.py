@@ -12,12 +12,18 @@ stats = {"req": 0, "saved": 0}
 visited_hashes = set()
 
 def load_existing_results():
-    """加载历史记录以实现去重"""
+    """加载历史记录以实现去重，若文件不存在则初始化表头"""
     if os.path.exists("scan_results.csv"):
         with open("scan_results.csv", "r", encoding="utf-8") as f:
             reader = csv.reader(f)
             for row in reader:
-                if row: visited_hashes.add(row[0]) # 假设第一列是 hash
+                if row and row[0] != 'hash': # 跳过表头
+                    visited_hashes.add(row[0])
+    else:
+        # 初始化表头
+        with open("scan_results.csv", "w", encoding="utf-8", newline="") as f:
+            writer = csv.writer(f)
+            writer.writerow(['hash', 'url'])
 
 async def scan(session, host, port, path, pbar):
     for scheme in ["https", "http"]:
@@ -43,7 +49,7 @@ async def scan(session, host, port, path, pbar):
                             with open(f"results/hash/{content_hash}.txt", "w", encoding="utf-8") as f:
                                 f.write(text)
                             
-                            # 写入 CSV
+                            # 写入 CSV (追加模式)
                             with open("scan_results.csv", "a", encoding="utf-8", newline="") as f:
                                 writer = csv.writer(f)
                                 writer.writerow([content_hash, url])
