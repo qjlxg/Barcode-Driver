@@ -1,17 +1,7 @@
 import aiohttp
 import asyncio
-import hashlib
-import os
-import csv
 import argparse
-import random
 import sys
-
-# --- 配置 ---
-PATHS = ["", "/", "/sub", "/subscribe", "/link", "/s/", "/api/sub", "/api/v1/client/subscribe",
-         "/api/user/subscribe", "/client/subscribe", "/config.yaml", "/sub.yaml"]
-
-UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
 async def scanner_worker(queue: asyncio.Queue, session: aiohttp.ClientSession):
     while True:
@@ -21,26 +11,22 @@ async def scanner_worker(queue: asyncio.Queue, session: aiohttp.ClientSession):
             break
 
         host, port, path = item
-        url = f"http://{host}:{port}{path}"
+        # 强制使用 HTTPS 协议进行尝试
+        url = f"https://{host}:{port}{path}"
 
         try:
-            # 强化请求头：模拟一个从该域名首页跳转过来的正常浏览器请求
+            # 剥离 Host 中的端口号，很多面板只接受域名/IP作为 Host
             headers = {
-                "User-Agent": UA,
-                "Host": host,
-                "Referer": f"http://{host}:{port}/",
-                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-                "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-                "Connection": "keep-alive"
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                "Host": host, 
+                "Connection": "close"
             }
             
-            async with session.get(url, headers=headers, timeout=aiohttp.ClientTimeout(total=5)) as resp:
-                # 打印状态码和服务器返回的原因短语
-                sys.stdout.write(f"[DEBUG] URL: {url} | Status: {resp.status} | Reason: {resp.reason}\n")
+            async with session.get(url, headers=headers, timeout=aiohttp.ClientTimeout(total=5), ssl=False) as resp:
+                sys.stdout.write(f"[DEBUG] URL: {url} | Status: {resp.status}\n")
                 sys.stdout.flush()
-                
         except Exception as e:
-            sys.stdout.write(f"[ERROR] URL: {url} | 异常: {type(e).__name__}\n")
+            sys.stdout.write(f"[ERROR] URL: {url} | 错误: {type(e).__name__}\n")
             sys.stdout.flush()
         finally:
             queue.task_done()
@@ -54,14 +40,13 @@ async def main():
         lines = [l.strip() for l in f if l.strip()]
 
     queue = asyncio.Queue()
-    async with aiohttp.ClientSession() as session:
+    # 允许连接异常
+    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False)) as session:
         workers = [asyncio.create_task(scanner_worker(queue, session)) for _ in range(10)]
-        
         for item in lines:
             host, port = item.rsplit(":", 1) if ":" in item else (item, 8080)
-            for path in PATHS:
+            for path in ["", "/sub", "/subscribe"]: # 先测试这三个核心路径
                 await queue.put((host, int(port), path))
-        
         for _ in range(10): await queue.put(None)
         await asyncio.gather(*workers)
 
