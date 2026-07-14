@@ -1,7 +1,7 @@
 import ipaddress
 from pathlib import Path
 
-def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=20):
+def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=5):
     input_path = Path(input_file)
     progress_file = Path('progress.txt')
     
@@ -16,6 +16,7 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=2
             target = line.strip()
             if not target: continue
             try:
+                # 如果输入已经是 CIDR 格式，直接处理；否则添加 /24
                 if '/' in target:
                     net = ipaddress.ip_network(target, strict=False)
                 else:
@@ -53,5 +54,5 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=2
     print(f"[*] 进度状态: {end_index}/{total} (下次从第 {next_cursor} 个开始)")
 
 if __name__ == "__main__":
-    # batch_size=20 表示每次处理 20 个网段，你可以根据你的扫描时长自由调整
+    # batch_size=5 表示每次处理 5 个网段，压力平衡
     process_ip_file(batch_size=5)
