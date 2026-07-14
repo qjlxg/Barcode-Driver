@@ -28,6 +28,8 @@ jobs:
           if [ -s targets.txt ]; then
             TARGETS=$(tr '\n' ',' < targets.txt | sed 's/,$//')
             PORTS=$(cat ports.txt | tr ',\n\r' ' ' | xargs | tr ' ' ',')
+            
+            echo "[*] 开始扫描目标: $TARGETS"
             sudo masscan $TARGETS -p"$PORTS" --rate 1000 --wait 5 --open-only | \
             awk '/Discovered open port/ { split($4,p,"/"); print $6 ":" p[1] }' | \
             sort -u > alive_latest.txt
@@ -37,19 +39,29 @@ jobs:
               sort -u alive_history.txt -o alive_history.txt
             fi
           else
+            echo "[-] 暂无待扫描目标。"
             touch alive_latest.txt
           fi
           
       - name: 3. 深度指纹采集 (增量)
         run: |
+          # 修复：防止 grep 找不到匹配项导致进程报错退出
           if [ -s alive_latest.txt ]; then
-            # 过滤已存在的资产，仅扫描新增目标 (假设CSV第3列为host:port)
             if [ -f scan_results.csv ]; then
-              grep -v -f <(cut -d, -f3 scan_results.csv | sort -u) alive_latest.txt > alive_new.txt
+              # 使用 || true 强制返回成功，确保即使没有新资产也不会中断流水线
+              grep -v -f <(cut -d, -f3 scan_results.csv | sort -u) alive_latest.txt > alive_new.txt || true
             else
               cp alive_latest.txt alive_new.txt
             fi
-            [ -s alive_new.txt ] && python3 scanner.py --file alive_new.txt
+            
+            # 只有在产生新文件且不为空时才调用扫描器
+            if [ -s alive_new.txt ]; then
+              python3 scanner.py --file alive_new.txt
+            else
+              echo "[-] 本轮无新资产需要深度检测。"
+            fi
+          else
+            echo "[-] 无存活资产。"
           fi
 
       - name: 结果归档与提交
@@ -58,13 +70,18 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
           mkdir -p archive/hash
-          if [ -d "results/hash" ] && [ "$(ls -A results/hash | wc -l)" -gt 100 ]; then
+          # 如果哈希文件超过 100 个触发归档
+          if [ -d "results/hash" ] && [ "$(ls -A results/hash 2>/dev/null | wc -l)" -gt 100 ]; then
             tar -czf "archive/hash/results_hash_$(date +%Y%m%d_%H%M).tar.gz" results/hash/
             rm -rf results/hash/*
           fi
           
+          # 提交所有必要文件
           git add progress.json alive_latest.txt alive_history.txt scan_results.csv archive/hash/ || true
+          
           if [[ -n $(git status -s) ]]; then
             git commit -m "Auto: 资产轮询完成 $(date +'%Y-%m-%d %H:%M')"
             git push origin main
+          else
+            echo "[-] 无数据变动，无需提交。"
           fi
