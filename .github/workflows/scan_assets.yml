@@ -1,0 +1,33 @@
+name: scan_assets
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/scan_assets.yml'
+      - 'scan_assets.py'
+      - 'targets.txt'
+      - 'ports.txt'
+
+jobs:
+  scanner:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: 执行纯 Python 扫描
+        run: python3 scan_assets.py
+
+      - name: 提交结果
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          if [[ -n $(git status -s alive_ips.txt) ]]; then
+            git add alive_ips.txt
+            git commit -m "Update: Assets $(date +'%Y-%m-%d %H:%M') [skip ci]"
+            git push origin main
+          fi
