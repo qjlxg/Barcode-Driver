@@ -20,7 +20,7 @@ jobs:
       - name: 检出代码库
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # 必须设置为0，否则rebase可能找不到基准
+          fetch-depth: 0
 
       - name: 设置 Python 环境
         uses: actions/setup-python@v5
@@ -35,11 +35,17 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # 拉取远程变动并进行rebase，解决冲突
+          # 1. 将 processor.py 生成的改动暂存到堆栈，确保工作区干净
+          git stash
+          
+          # 2. 拉取远程更新并重置基准，同步最新状态
           git pull --rebase origin main
           
-          # 检查是否有变动
-          if [ -n "$(git status --porcelain)" ]; then
+          # 3. 取出刚才暂存的改动
+          git stash pop || echo "没有需要恢复的改动"
+          
+          # 4. 检查 targets.txt 是否有实质性变动
+          if [ -n "$(git status --porcelain | grep 'targets.txt')" ]; then
             git add targets.txt
             CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')
             git commit -m "Auto-update: 目标网段已更新于 $CURRENT_TIME [skip ci]"
