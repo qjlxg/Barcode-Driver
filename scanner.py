@@ -8,7 +8,6 @@ import base64
 import random
 import signal
 import sys
-import ipaddress
 from tqdm import tqdm
 from typing import List, Tuple
 
@@ -39,17 +38,15 @@ visited_content_hashes = set()
 content_lock = asyncio.Lock()
 
 def cleanup_files():
-    if stats["saved"] % 50 == 0:  
-        hash_dir = f"{OUTPUT_DIR}/hash"
-        if not os.path.exists(hash_dir): return
-        files = [os.path.join(hash_dir, f) for f in os.listdir(hash_dir) if os.path.isfile(os.path.join(hash_dir, f))]
-        if len(files) > MAX_SAVE_FILES:
-            files.sort(key=os.path.getmtime)
-            for f in files[:len(files) - MAX_SAVE_FILES]:
-                try: 
-                    os.remove(f)
-                except: 
-                    pass
+    if stats["saved"] % 50 != 0: return
+    hash_dir = f"{OUTPUT_DIR}/hash"
+    if not os.path.exists(hash_dir): return
+    files = [os.path.join(hash_dir, f) for f in os.listdir(hash_dir) if os.path.isfile(os.path.join(hash_dir, f))]
+    if len(files) > MAX_SAVE_FILES:
+        files.sort(key=os.path.getmtime)
+        for f in files[:len(files) - MAX_SAVE_FILES]:
+            try: os.remove(f)
+            except: pass
 
 def load_history():
     if os.path.exists('scan_results.csv'):
@@ -113,7 +110,11 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
                             found = True; break
                 except: continue
             if not found: stats["fail"] += 1
-            queue.task_done(); pbar.update(1)
+            queue.task_done()
+            pbar.update(1)
+            # 关键修复：实时更新进度条后缀
+            if stats["req"] % 100 == 0:
+                pbar.set_postfix(Req=stats["req"], Saved=stats["saved"], Fail=stats["fail"])
     except asyncio.CancelledError: pass
 
 async def main():
@@ -125,7 +126,6 @@ async def main():
     with open(args.file, 'r', encoding='utf-8') as f: lines = [l.strip() for l in f if l.strip()]
     queue, write_queue = asyncio.Queue(maxsize=8000), asyncio.Queue()
     
-    tasks = []
     def get_addr(item):
         try:
             if item.startswith("["):
@@ -138,7 +138,6 @@ async def main():
             return item, None
         except: return item, None
 
-    # 计算总任务量
     total_tasks = 0
     for item in lines:
         h, p = get_addr(item)
@@ -160,11 +159,11 @@ async def main():
         for _ in range(WORKER_COUNT): await queue.put(None)
         
         stop_event = asyncio.Event()
+        loop = asyncio.get_event_loop()
         for sig in (signal.SIGINT, signal.SIGTERM):
-            loop = asyncio.get_event_loop()
             loop.add_signal_handler(sig, stop_event.set)
             
-        done, pending = await asyncio.wait([asyncio.gather(*workers), asyncio.create_task(stop_event.wait())], return_when=asyncio.FIRST_COMPLETED)
+        await asyncio.wait([asyncio.gather(*workers), asyncio.create_task(stop_event.wait())], return_when=asyncio.FIRST_COMPLETED)
         
         for w in workers: w.cancel()
         await write_queue.put(None)
