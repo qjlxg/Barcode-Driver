@@ -3,8 +3,8 @@ name: 资产清点流水线
 on:
   workflow_dispatch:
   schedule:
-    # 每 6 小时自动运行一次
-    - cron: '0 */6 * * *'
+    # 北京时间 02:00, 08:00, 14:00, 20:00
+    - cron: '0 18,0,6,12 * * *'
 
 jobs:
   asset_pipeline:
@@ -12,53 +12,59 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: 检出代码
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
 
-      - name: 设置 Python 环境
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: 安装依赖
-        run: pip install aiohttp tqdm
-
-      - name: 安装 Masscan
-        run: sudo apt-get update && sudo apt-get install -y masscan
-
-      - name: 1. 生成任务批次 (Progress Control)
-        run: python3 processor.py # 确保该脚本内含我们刚才优化的分片逻辑
-
-      - name: 2. 高速端口探测 (Masscan)
+      - name: 设置环境与依赖
         run: |
-          # 读取 progress.py 生成的 targets.txt
-          TARGETS=$(tr '\n' ',' < targets.txt | sed 's/,$//')
-          PORTS=$(cat ports.txt | tr -d '\r\n')
-          
-          echo "[*] 开始扫描目标: $TARGETS"
-          sudo masscan $TARGETS -p"$PORTS" --rate 5000 --wait 5 --open-only | \
-          awk '/Discovered open port/ { split($4,p,"/"); print $6 ":" p[1] }' > alive_ips.txt
-          
-          # 确保如果没扫到存活，alive_ips.txt 也是存在的空文件
-          touch alive_ips.txt
+          sudo apt-get update && sudo apt-get install -y masscan
+          pip install aiohttp tqdm
 
-      - name: 3. 深度指纹采集 (Fingerprinting)
-        run: python3 scanner.py --file alive_ips.txt
+      - name: 1. 生成任务批次
+        run: python3 processor.py
 
-      - name: 提交进度与结果
+      - name: 2. 高速端口探测
+        run: |
+          if [ -s targets.txt ]; then
+            TARGETS=$(tr '\n' ',' < targets.txt | sed 's/,$//')
+            PORTS=$(cat ports.txt | tr ',\n\r' ' ' | xargs | tr ' ' ',')
+            sudo masscan $TARGETS -p"$PORTS" --rate 1000 --wait 5 --open-only | \
+            awk '/Discovered open port/ { split($4,p,"/"); print $6 ":" p[1] }' | \
+            sort -u > alive_latest.txt
+            
+            if [ -s alive_latest.txt ]; then
+              cat alive_latest.txt >> alive_history.txt
+              sort -u alive_history.txt -o alive_history.txt
+            fi
+          else
+            touch alive_latest.txt
+          fi
+          
+      - name: 3. 深度指纹采集 (增量)
+        run: |
+          if [ -s alive_latest.txt ]; then
+            # 过滤已存在的资产，仅扫描新增目标 (假设CSV第3列为host:port)
+            if [ -f scan_results.csv ]; then
+              grep -v -f <(cut -d, -f3 scan_results.csv | sort -u) alive_latest.txt > alive_new.txt
+            else
+              cp alive_latest.txt alive_new.txt
+            fi
+            [ -s alive_new.txt ] && python3 scanner.py --file alive_new.txt
+          fi
+
+      - name: 结果归档与提交
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # 添加所有产出物
-          git add progress.txt alive_ips.txt scan_results.csv
+          mkdir -p archive/hash
+          if [ -d "results/hash" ] && [ "$(ls -A results/hash | wc -l)" -gt 100 ]; then
+            tar -czf "archive/hash/results_hash_$(date +%Y%m%d_%H%M).tar.gz" results/hash/
+            rm -rf results/hash/*
+          fi
           
-          # 检查是否有变动
+          git add progress.json alive_latest.txt alive_history.txt scan_results.csv archive/hash/ || true
           if [[ -n $(git status -s) ]]; then
             git commit -m "Auto: 资产轮询完成 $(date +'%Y-%m-%d %H:%M')"
             git push origin main
-          else
-            echo "[-] 无数据变动，跳过提交。"
           fi
