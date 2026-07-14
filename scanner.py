@@ -145,7 +145,12 @@ async def main():
     total_tasks = 0
     for item in lines:
         h, p = get_addr(item)
-        total_tasks += len(PATHS) if p else len(TARGET_PORTS) * len(PATHS)
+        if p:
+            # 这里的逻辑是：原端口 + 所有预设端口 (去重)
+            target_ports = sorted(list(set(TARGET_PORTS + [p])))
+            total_tasks += len(target_ports) * len(PATHS)
+        else:
+            total_tasks += len(TARGET_PORTS) * len(PATHS)
     
     print(f"[*] 计算得到总任务量: {total_tasks}")
     pbar = tqdm(total=total_tasks, desc="Scanning", unit="task")
@@ -156,10 +161,12 @@ async def main():
         for item in lines:
             h, p = get_addr(item)
             if p:
-                for path in PATHS: await queue.put((h, p, path))
+                target_ports = sorted(list(set(TARGET_PORTS + [p])))
             else:
-                for pv in TARGET_PORTS:
-                    for path in PATHS: await queue.put((h, pv, path))
+                target_ports = TARGET_PORTS
+            
+            for pv in target_ports:
+                for path in PATHS: await queue.put((h, pv, path))
         
         for _ in range(WORKER_COUNT): await queue.put(None)
         
