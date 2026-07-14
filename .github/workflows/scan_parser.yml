@@ -9,7 +9,7 @@ on:
       - 'scanner.py'
       - '.github/workflows/scan_parser.yml'
       # 这里的文件名请确保与你实际使用的输入文件名一致
-      - 'cleaned_ips.txt' 
+      - 'alive_ips.txt' 
 
 jobs:
   parser_job:
