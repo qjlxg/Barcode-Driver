@@ -10,7 +10,7 @@ import signal
 import sys
 from tqdm import tqdm
 
-# ====================== 配置 ======================
+# ====================== 配置（融合两个版本优点） ======================
 TARGET_PORTS = [80, 443, 1333, 1999, 2052, 2053, 2082, 2083, 2087, 2095, 2096,
                 2222, 3002, 3333, 4444, 5555, 6001, 6666, 7777, 8011, 8080, 8081,
                 8083, 8443, 8444, 8787, 8888, 8899, 9050, 9981, 9999, 10110, 12202,
@@ -31,8 +31,8 @@ UA_LIST = [
 
 OUTPUT_DIR = "results"
 MAX_SAVE_FILES = 2000
-WORKER_COUNT = 60          # 根据你的带宽调整（40~100）
-REQUEST_TIMEOUT = 5
+WORKER_COUNT = 50
+REQUEST_TIMEOUT = 6
 # =================================================
 
 stats = {"req": 0, "saved": 0, "fail": 0}
@@ -49,10 +49,8 @@ def cleanup_files():
     if len(files) > MAX_SAVE_FILES:
         files.sort(key=os.path.getmtime)
         for f in files[:len(files) - MAX_SAVE_FILES]:
-            try:
-                os.remove(f)
-            except:
-                pass
+            try: os.remove(f)
+            except: pass
 
 def load_history():
     if os.path.exists('scan_results.csv'):
@@ -63,25 +61,22 @@ def load_history():
                 for row in reader:
                     if len(row) >= 1:
                         visited_hashes.add(row[0])
-        except:
-            pass
+        except: pass
 
-def get_addr(item: str):
-    """支持 IPv4:port 和 IPv6 [::1]:port"""
+def get_addr(item):
     try:
-        item = item.strip()
-        if item.startswith("["):  # IPv6
+        if item.startswith("["):
             host = item.split("]")[0] + "]"
-            port_str = item.split("]:")[-1] if "]:" in item else "443"
-            return host, int(port_str)
-        elif ":" in item and item.count(":") == 1:  # IPv4:port
+            port = int(item.split("]:")[1]) if "]:" in item else 443
+            return host, port
+        elif ":" in item:
             h, p = item.rsplit(":", 1)
-            return h.strip("[]"), int(p)
-        return item.strip("[]"), None
+            return h, int(p)
+        return item, None
     except:
-        return item.strip("[]"), None
+        return item, None
 
-async def writer_worker(write_queue: asyncio.Queue):
+async def writer_worker(write_queue):
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     csv_path = 'scan_results.csv'
     exists = os.path.exists(csv_path)
@@ -91,19 +86,17 @@ async def writer_worker(write_queue: asyncio.Queue):
             writer.writerow(['hash', 'url', 'type'])
         while True:
             row = await write_queue.get()
-            if row is None:
-                break
+            if row is None: break
             writer.writerow(row)
-            if stats["saved"] % 20 == 0:
+            if stats["saved"] % 10 == 0:
                 csvfile.flush()
             write_queue.task_done()
 
-async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, session: aiohttp.ClientSession, pbar: tqdm):
+async def scanner_worker(queue, write_queue, session, pbar):
     try:
         while True:
             item = await queue.get()
-            if item is None:
-                break
+            if item is None: break
 
             host, port, path = item
             schemes = ["https", "http"] if port in [443, 2053, 2083, 2087, 2096, 8443, 8444] else ["http", "https"]
@@ -111,12 +104,11 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
 
             for scheme in schemes:
                 try:
-                    full_url = f"{scheme}://{host}:{port}{path}"
-                    async with session.get(
-                        full_url,
+                    url = f"{scheme}://{host}:{port}{path}"
+                    async with session.get(url, 
                         headers={"User-Agent": random.choice(UA_LIST), "Connection": "close"},
-                        timeout=aiohttp.ClientTimeout(total=REQUEST_TIMEOUT),
-                        ssl=False,
+                        timeout=aiohttp.ClientTimeout(total=REQUEST_TIMEOUT), 
+                        ssl=False, 
                         allow_redirects=False
                     ) as resp:
                         stats["req"] += 1
@@ -125,10 +117,12 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
                             low = text.lower()
                             hit = any(s in low for s in SIGNS)
 
-                            if not hit and 50 < len(text) < 250000:
+                            if not hit and 20 < len(text) < 250000:
                                 try:
                                     d = "".join(text.split()).replace("-", "+").replace("_", "/")
-                                    d += "=" * (4 - len(d) % 4)
+                                    padding = len(d) % 4
+                                    if padding:
+                                        d += "=" * (4 - padding)
                                     decoded = base64.b64decode(d, validate=False).decode("utf-8", errors="ignore")
                                     hit = any(s in decoded.lower() for s in SIGNS if "://" in s)
                                 except:
@@ -145,7 +139,7 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
                                             f.write(text)
                                         stats["saved"] += 1
                                         visited_hashes.add(h)
-                                        await write_queue.put([h, full_url, 'found'])
+                                        await write_queue.put([h, url, 'found'])
                                 found = True
                                 break
                 except:
@@ -159,12 +153,10 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
             pbar.set_postfix(Req=stats["req"], Saved=stats["saved"], Fail=stats["fail"])
     except asyncio.CancelledError:
         pass
-    except Exception as e:
-        print(f"Worker error: {e}")
 
 async def main():
-    parser = argparse.ArgumentParser(description="订阅链接扫描器")
-    parser.add_argument("--file", required=True, help="IP 列表文件")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--file", required=True)
     args = parser.parse_args()
 
     load_history()
@@ -176,31 +168,30 @@ async def main():
     with open(args.file, 'r', encoding='utf-8') as f:
         lines = [l.strip() for l in f if l.strip()]
 
-    print(f"[*] 已加载 {len(lines)} 个目标 IP")
+    print(f"[*] 已加载 {len(lines)} 个目标")
 
     total_tasks = 0
     for item in lines:
         _, p = get_addr(item)
         total_tasks += len(PATHS) if p else len(TARGET_PORTS) * len(PATHS)
 
-    print(f"[*] 预计总任务量: {total_tasks:,}")
+    print(f"[*] 预计任务量: {total_tasks}")
 
-    queue = asyncio.Queue(maxsize=10000)
+    queue = asyncio.Queue(maxsize=8000)
     write_queue = asyncio.Queue()
 
     pbar = tqdm(total=total_tasks, desc="Scanning", unit="task")
 
     async with aiohttp.ClientSession(
-        connector=aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT*2, force_close=True, ttl_dns_cache=300)
+        connector=aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT*2, force_close=True)
     ) as session:
 
         workers = [asyncio.create_task(scanner_worker(queue, write_queue, session, pbar)) for _ in range(WORKER_COUNT)]
         writer_task = asyncio.create_task(writer_worker(write_queue))
 
-        # 填充任务队列
         for item in lines:
             host, port = get_addr(item)
-            if port is not None:
+            if port:
                 for path in PATHS:
                     await queue.put((host, port, path))
             else:
@@ -211,7 +202,6 @@ async def main():
         for _ in range(WORKER_COUNT):
             await queue.put(None)
 
-        # 优雅退出
         stop_event = asyncio.Event()
         loop = asyncio.get_event_loop()
         for sig in (signal.SIGINT, signal.SIGTERM):
@@ -220,26 +210,20 @@ async def main():
             except:
                 pass
 
-        await asyncio.wait(
-            [asyncio.gather(*workers, return_exceptions=True), asyncio.create_task(stop_event.wait())],
-            return_when=asyncio.FIRST_COMPLETED
-        )
+        await asyncio.wait([asyncio.gather(*workers, return_exceptions=True), asyncio.create_task(stop_event.wait())],
+                           return_when=asyncio.FIRST_COMPLETED)
 
         for w in workers:
-            if not w.done():
-                w.cancel()
+            w.cancel()
 
         await write_queue.put(None)
         await writer_task
         pbar.close()
 
-    print(f"\n[*] 扫描完成！请求: {stats['req']} | 保存: {stats['saved']} | 失败: {stats['fail']}")
+    print(f"\n[*] 完成！找到 {stats['saved']} 个有效配置")
 
 if __name__ == "__main__":
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
-        print("\n[!] 用户中断")
         sys.exit(0)
-    except Exception as e:
-        print(f"错误: {e}")
