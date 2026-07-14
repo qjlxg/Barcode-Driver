@@ -8,6 +8,7 @@ import base64
 import random
 import signal
 import sys
+from tqdm import tqdm
 from typing import List, Tuple
 
 # --- 配置 ---
@@ -22,7 +23,9 @@ PATHS = ["", "/", "/sub", "/subscribe", "/link", "/s/", "/api/sub", "/api/v1/cli
 SIGNS = ["proxies:", "proxy-groups:", "mixed-port", "vless://", "vmess://", "trojan://", "uuid:",
          "hysteria://", "hysteria2://", "hy2://", "tuic://", "anytls://"]
 
-UA_LIST = ["ClashMeta/1.18", "sing-box/1.8", "ClashforAndroid/2.5", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"]
+UA_LIST = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+]
 
 OUTPUT_DIR = "results"
 WORKER_COUNT = 28
@@ -42,14 +45,21 @@ async def scanner_worker(queue: asyncio.Queue, session: aiohttp.ClientSession):
         url = f"{scheme}://{host}:{port}{path}"
 
         try:
-            async with session.get(url, headers={"User-Agent": random.choice(UA_LIST)}, 
-                                   timeout=aiohttp.ClientTimeout(total=REQUEST_TIMEOUT), 
-                                   ssl=False, allow_redirects=True) as resp:
+            # 核心修改：增加 Host 头以绕过 400 错误
+            async with session.get(
+                url,
+                headers={
+                    "User-Agent": random.choice(UA_LIST),
+                    "Host": host, 
+                    "Accept": "*/*"
+                },
+                timeout=aiohttp.ClientTimeout(total=REQUEST_TIMEOUT),
+                ssl=False,
+                allow_redirects=True
+            ) as resp:
                 stats["req"] += 1
-                # --- 强制打印每一个请求的状态 ---
                 sys.stdout.write(f"[DEBUG] URL: {url} | Status: {resp.status}\n")
                 sys.stdout.flush()
-                # ------------------------------
                 
                 if resp.status == 200:
                     text = (await resp.content.read(350 * 1024)).decode("utf-8", errors="ignore")
@@ -58,7 +68,11 @@ async def scanner_worker(queue: asyncio.Queue, session: aiohttp.ClientSession):
                     if any(s in low for s in SIGNS):
                         sys.stdout.write(f"[SUCCESS] 命中目标: {url}\n")
                         sys.stdout.flush()
-                        # (保存逻辑...)
+                        
+                        h = hashlib.md5(text.encode("utf-8")).hexdigest()[:12]
+                        os.makedirs(f"{OUTPUT_DIR}/hash", exist_ok=True)
+                        with open(f"{OUTPUT_DIR}/hash/{h}.yaml", 'w', encoding='utf-8') as f:
+                            f.write(text)
         except Exception as e:
             sys.stdout.write(f"[ERROR] URL: {url} | 错误: {str(e)}\n")
             sys.stdout.flush()
@@ -77,12 +91,16 @@ async def main():
     queue = asyncio.Queue()
     async with aiohttp.ClientSession() as session:
         workers = [asyncio.create_task(scanner_worker(queue, session)) for _ in range(WORKER_COUNT)]
+        
         for item in lines:
             host, port = item.rsplit(":", 1) if ":" in item else (item, 443)
             for path in PATHS:
                 await queue.put((host, int(port), path))
+        
         for _ in range(WORKER_COUNT): await queue.put(None)
         await asyncio.gather(*workers)
+
+    print(f"\n[+] 扫描完成！请求: {stats['req']} | 保存: {stats['saved']} | 失败: {stats['fail']}")
 
 if __name__ == "__main__":
     asyncio.run(main())
