@@ -4,7 +4,7 @@ import json
 import datetime
 from pathlib import Path
 
-BATCH_SIZE = 6
+BATCH_SIZE = 5
 PROGRESS_FILE = Path('progress.json')
 
 def get_net_id(net_str):
