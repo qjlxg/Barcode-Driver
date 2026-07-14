@@ -29,7 +29,6 @@ jobs:
             TARGETS=$(tr '\n' ',' < targets.txt | sed 's/,$//')
             PORTS=$(cat ports.txt | tr ',\n\r' ' ' | xargs | tr ' ' ',')
             
-            echo "[*] 开始扫描目标: $TARGETS"
             sudo masscan $TARGETS -p"$PORTS" --rate 1000 --wait 5 --open-only | \
             awk '/Discovered open port/ { split($4,p,"/"); print $6 ":" p[1] }' | \
             sort -u > alive_latest.txt
@@ -39,22 +38,36 @@ jobs:
               sort -u alive_history.txt -o alive_history.txt
             fi
           else
-            echo "[-] 暂无待扫描目标。"
-            touch alive_latest.txt
+            echo "" > alive_latest.txt
           fi
           
-      - name: 3. 深度指纹采集 (增量)
+      - name: 3. 深度指纹采集 (增量过滤)
         run: |
-          # 修复：防止 grep 找不到匹配项导致进程报错退出
           if [ -s alive_latest.txt ]; then
-            if [ -f scan_results.csv ]; then
-              # 使用 || true 强制返回成功，确保即使没有新资产也不会中断流水线
-              grep -v -f <(cut -d, -f3 scan_results.csv | sort -u) alive_latest.txt > alive_new.txt || true
-            else
-              cp alive_latest.txt alive_new.txt
-            fi
-            
-            # 只有在产生新文件且不为空时才调用扫描器
+            python3 -c "
+import csv, os
+from urllib.parse import urlparse
+
+# 加载旧数据以构建过滤库
+existing = set()
+if os.path.exists('scan_results.csv'):
+    with open('scan_results.csv', 'r', encoding='utf-8') as f:
+        for row in csv.reader(f):
+            if len(row) >= 2:
+                # 尝试从第3列提取 host:port，若失败则从第2列(url)反推
+                if len(row) >= 3 and row[2]:
+                    existing.add(row[2])
+                else:
+                    try: existing.add(urlparse(row[1]).netloc)
+                    except: pass
+
+# 过滤新资产
+with open('alive_latest.txt', 'r') as f_in, open('alive_new.txt', 'w') as f_out:
+    for line in f_in:
+        target = line.strip()
+        if target and target not in existing:
+            f_out.write(target + '\n')
+"
             if [ -s alive_new.txt ]; then
               python3 scanner.py --file alive_new.txt
             else
@@ -70,18 +83,13 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
           mkdir -p archive/hash
-          # 如果哈希文件超过 100 个触发归档
           if [ -d "results/hash" ] && [ "$(ls -A results/hash 2>/dev/null | wc -l)" -gt 100 ]; then
             tar -czf "archive/hash/results_hash_$(date +%Y%m%d_%H%M).tar.gz" results/hash/
             rm -rf results/hash/*
           fi
           
-          # 提交所有必要文件
           git add progress.json alive_latest.txt alive_history.txt scan_results.csv archive/hash/ || true
-          
           if [[ -n $(git status -s) ]]; then
             git commit -m "Auto: 资产轮询完成 $(date +'%Y-%m-%d %H:%M')"
             git push origin main
-          else
-            echo "[-] 无数据变动，无需提交。"
           fi
