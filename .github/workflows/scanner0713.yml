@@ -6,8 +6,8 @@ on:
     branches:
       - main
     paths:
-      - 'scanner.py'
-      - '.github/workflows/scan_parser.yml'
+      - 'scanner0713.py'
+      - '.github/workflows/scanner0713.yml'
       # 这里的文件名请确保与你实际使用的输入文件名一致
       - 'alive_ips.txt' 
 
@@ -27,7 +27,7 @@ jobs:
 
       - name: 执行深度解析
         # 确保传入的文件参数与代码读取路径一致
-        run: python scanner.py --file alive_ips.txt
+        run: python scanner0713.py --file alive_ips.txt
       
       - name: 诊断与提交
         run: |
