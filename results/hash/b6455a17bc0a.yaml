@@ -1,0 +1,62 @@
+port: 7890
+socks-port: 7891
+redir-port: 7892
+tproxy-port: 7893
+allow-lan: true
+bind-address: '*'
+mode: global
+log-level: info
+ipv6: false
+external-controller: 127.0.0.1:9090
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  use-hosts: true
+  default-nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
+  nameserver:
+  - https://doh.pub/dns-query
+  - https://dns.alidns.com/dns-query
+proxies:
+- name: 韩国A1｜阿里云中转｜HY2｜备用
+  type: hysteria2
+  server: 8.148.4.25
+  port: 55020
+  password: d5m-5bGOsVbFgRlxsEyO3pCF
+  sni: 140.245.74.46.sslip.io
+  alpn:
+  - h3
+  skip-cert-verify: true
+- name: 韩国A1｜阿里云中转｜TUIC｜游戏实验
+  type: tuic
+  server: 8.148.4.25
+  port: 443
+  uuid: 4bc8d192-663e-492b-8e3b-ed4bf5ff4a9e
+  password: AJG8Rck0ArSLQg6Q9mS7m6c6
+  sni: 140.245.74.46.sslip.io
+  alpn: &id001
+  - h3
+  skip-cert-verify: true
+  udp-relay-mode: native
+  congestion-controller: bbr
+  reduce-rtt: true
+- name: 韩国A1｜直连｜TUIC｜新IP
+  type: tuic
+  server: 138.2.116.23
+  port: 56020
+  uuid: 4bc8d192-663e-492b-8e3b-ed4bf5ff4a9e
+  password: AJG8Rck0ArSLQg6Q9mS7m6c6
+  sni: 140.245.74.46.sslip.io
+  alpn: *id001
+  skip-cert-verify: true
+  udp-relay-mode: native
+  congestion-controller: bbr
+  reduce-rtt: true
+- name: 韩国A1｜阿里云中转｜HY2混淆｜主用
+  type: hysteria2
+  server: 8.148.4.25
+  port: 55021
+  password: d5m-5bGOsVbFgRlxsEyO3
