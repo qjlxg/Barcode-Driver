@@ -26,6 +26,8 @@ def load_existing_results():
             writer.writerow(['hash', 'url'])
 
 async def scan(session, host, port, path, pbar):
+    # 增加微小随机延迟以防止被防火墙拦截，保持原有逻辑结构
+    await asyncio.sleep(random.uniform(0.1, 0.3))
     for scheme in ["https", "http"]:
         url = f"{scheme}://{host}:{port}{path}"
         try:
@@ -36,24 +38,24 @@ async def scan(session, host, port, path, pbar):
                     if any(s in text.lower() for s in SIGNS):
                         # 计算指纹
                         content_hash = hashlib.md5(text.encode("utf-8")).hexdigest()[:12]
-                        
+
                         if content_hash not in visited_hashes:
                             visited_hashes.add(content_hash)
                             stats["saved"] += 1
-                            
+
                             # 实时日志显示
                             pbar.write(f"[+] 发现新节点: {url}")
-                            
+
                             # 保存文件
                             os.makedirs("results/hash", exist_ok=True)
                             with open(f"results/hash/{content_hash}.txt", "w", encoding="utf-8") as f:
                                 f.write(text)
-                            
+
                             # 写入 CSV (追加模式)
                             with open("scan_results.csv", "a", encoding="utf-8", newline="") as f:
                                 writer = csv.writer(f)
                                 writer.writerow([content_hash, url])
-                                
+
                         return # 找到即停止尝试该端口
         except: continue
     pbar.update(1)
@@ -61,9 +63,9 @@ async def scan(session, host, port, path, pbar):
 async def main():
     parser = argparse.ArgumentParser(); parser.add_argument("--file", required=True); args = parser.parse_args()
     load_existing_results() # 启动时加载历史记录
-    
+
     with open(args.file) as f: lines = [l.strip() for l in f if l.strip()]
-    
+
     tasks = []
     for line in lines:
         if ":" in line:
@@ -75,12 +77,12 @@ async def main():
 
     print(f"[*] 任务总数: {len(tasks)} | 已排除 {len(visited_hashes)} 个旧指纹")
     pbar = tqdm(total=len(tasks))
-    
+
     async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT)) as session:
         for i in range(0, len(tasks), WORKER_COUNT):
             batch = tasks[i:i+WORKER_COUNT]
             await asyncio.gather(*(scan(session, h, p, path, pbar) for h, p, path in batch))
-            
+
     print(f"\n[*] 扫描完成！共新增: {stats['saved']} 个")
 
 if __name__ == "__main__": asyncio.run(main())
