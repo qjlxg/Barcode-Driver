@@ -46,7 +46,7 @@ def run_scanner():
     print(f"[*] 任务准备就绪：共 {total_tasks} 个扫描点")
     
     # 动态调整线程数
-    max_workers = 150
+    max_workers = 50
     
     # 边扫边写，避免列表堆积
     alive_count = 0

@@ -1,0 +1,55 @@
+name: scanner
+
+on:
+  push:
+    paths:
+      - 'ip.txt'
+      - '.github/workflows/scanner.yml'
+      - 'processor.py'
+  workflow_dispatch:
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Shanghai
+    permissions:
+      contents: write
+    
+    steps:
+      - name: 检出代码库
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 设置 Python 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 1. 数据清洗 (processor.py)
+        run: python processor.py
+
+      - name: 2. 推送清洗后的 targets.txt 到仓库
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 1. 将 processor.py 生成的改动暂存到堆栈，确保工作区干净
+          git stash
+          
+          # 2. 拉取远程更新并重置基准，同步最新状态
+          git pull --rebase origin main
+          
+          # 3. 取出刚才暂存的改动
+          git stash pop || echo "没有需要恢复的改动"
+          
+          # 4. 检查 targets.txt 是否有实质性变动
+          if [ -n "$(git status --porcelain | grep 'targets.txt')" ]; then
+            git add targets.txt
+            CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')
+            git commit -m "Auto-update: 目标网段已更新于 $CURRENT_TIME [skip ci]"
+            git push origin main
+          else
+            echo "targets.txt 无变动，跳过推送。"
+          fi
