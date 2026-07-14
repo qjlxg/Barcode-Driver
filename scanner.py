@@ -30,8 +30,8 @@ UA_LIST = [
 
 OUTPUT_DIR = "results"
 MAX_SAVE_FILES = 2000
-WORKER_COUNT = 28
-REQUEST_TIMEOUT = 5
+WORKER_COUNT = 68
+REQUEST_TIMEOUT = 3
 
 stats = {"req": 0, "saved": 0, "fail": 0}
 visited_content_hashes = set()
