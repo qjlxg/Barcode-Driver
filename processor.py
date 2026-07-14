@@ -1,59 +1,74 @@
 import ipaddress
+import hashlib
+import json
+import datetime
 from pathlib import Path
 
-def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=5):
+BATCH_SIZE = 6
+PROGRESS_FILE = Path('progress.json')
+
+def get_net_id(net_str):
+    return hashlib.md5(net_str.encode()).hexdigest()
+
+def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=BATCH_SIZE):
     input_path = Path(input_file)
-    progress_file = Path('progress.txt')
+    if not input_path.exists(): return
 
-    if not input_path.exists():
-        print(f"[!] 错误：找不到源文件 {input_file}")
-        return
-
-    # 1. 读取并规范化所有网段
-    networks = set()
+    # 1. 读取并规范化 (维护插入顺序)
+    seen = set()
+    networks = []
     with input_path.open('r', encoding='utf-8') as f:
         for line in f:
             target = line.strip()
             if not target: continue
             try:
-                # 如果输入已经是 CIDR 格式，直接处理；否则添加 /24
-                if '/' in target:
-                    net = ipaddress.ip_network(target, strict=False)
-                else:
-                    net = ipaddress.ip_network(f"{target}/24", strict=False)
-                networks.add(str(net))
-            except ValueError:
-                continue
+                net = ipaddress.ip_network(target if '/' in target else f"{target}/24", strict=False)
+                net_str = str(net)
+                if net_str not in seen:
+                    seen.add(net_str)
+                    networks.append(net_str)
+            except ValueError: continue
+    
+    all_networks = networks[::-1] # 后加入优先
+    if not all_networks: return
 
-    # 关键修改：先排序保证去重后的顺序一致，再进行倒序，使得末尾追加的 IP 排在最前
-    all_networks = sorted(list(networks), reverse=True)
-    total = len(all_networks)
+    # 2. 计算当前任务队列的哈希 (用于感知内容变化)
+    current_list_hash = hashlib.md5("".join(all_networks).encode()).hexdigest()
 
-    # 2. 读取游标 (上次扫到哪了)
-    try:
-        cursor = int(progress_file.read_text().strip())
-    except (FileNotFoundError, ValueError):
-        cursor = 0
+    # 3. 读取状态
+    state = {"list_hash": "", "last_network_id": "", "last_time": ""}
+    if PROGRESS_FILE.exists():
+        try: state = json.loads(PROGRESS_FILE.read_text())
+        except: pass
 
-    # 3. 截取本次任务批次
-    # 如果游标超过总数，重置为 0
-    if cursor >= total:
-        cursor = 0
+    # 4. 逻辑判断：如果哈希变了，视为队列更新，重置进度
+    if state["list_hash"] != current_list_hash:
+        print("[*] 检测到任务列表更新，重置进度...")
+        state = {"list_hash": current_list_hash, "last_network_id": "", "last_time": ""}
 
-    end_index = min(cursor + batch_size, total)
-    batch = all_networks[cursor:end_index]
-
-    # 4. 更新游标并写入 targets.txt
-    next_cursor = end_index if end_index < total else 0
-    progress_file.write_text(str(next_cursor))
+    # 5. 查找进度
+    current_hash_list = [get_net_id(n) for n in all_networks]
+    start_index = 0
+    if state["last_network_id"]:
+        for i, nid in enumerate(current_hash_list):
+            if nid == state["last_network_id"]:
+                start_index = i + 1
+                break
+    
+    if start_index >= len(all_networks): start_index = 0
+    end_index = min(start_index + batch_size, len(all_networks))
+    batch = all_networks[start_index:end_index]
+    
+    # 6. 保存状态
+    if batch:
+        state["last_network_id"] = current_hash_list[end_index - 1]
+        state["last_time"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        PROGRESS_FILE.write_text(json.dumps(state, indent=2))
 
     with open(output_file, 'w', encoding='utf-8') as f:
-        for n in batch:
-            f.write(f"{n}\n")
+        f.writelines([f"{n}\n" for n in batch])
 
-    print(f"[*] 执行成功！本次处理: {len(batch)} 个网段")
-    print(f"[*] 进度状态: {end_index}/{total} (下次从第 {next_cursor} 个开始)")
+    print(f"[*] 处理: {len(batch)} 个网段 | 进度: {end_index}/{len(all_networks)}")
 
 if __name__ == "__main__":
-    # batch_size=6 表示每次处理 6 个网段，压力平衡
-    process_ip_file(batch_size=6)
+    process_ip_file()
