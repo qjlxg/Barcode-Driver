@@ -31,7 +31,7 @@ UA_LIST = [
 
 OUTPUT_DIR = "results"
 MAX_SAVE_FILES = 2000
-WORKER_COUNT = 60          # 可根据你的带宽调整（40~80 较稳）
+WORKER_COUNT = 60          # 根据你的带宽调整（40~100）
 REQUEST_TIMEOUT = 5
 # =================================================
 
@@ -67,20 +67,19 @@ def load_history():
             pass
 
 def get_addr(item: str):
-    """支持 IPv6 和 IPv4:port"""
+    """支持 IPv4:port 和 IPv6 [::1]:port"""
     try:
+        item = item.strip()
         if item.startswith("["):  # IPv6
             host = item.split("]")[0] + "]"
-            port = int(item.split("]:")[1]) if "]:" in item else 443
-            return host, port
-        elif ":" in item and not item.replace(".", "").replace(":", "").isdigit():  # IPv4:port
+            port_str = item.split("]:")[-1] if "]:" in item else "443"
+            return host, int(port_str)
+        elif ":" in item and item.count(":") == 1:  # IPv4:port
             h, p = item.rsplit(":", 1)
-            return h, int(p)
-        elif ":" in item:  # 纯 IPv6 无端口
-            return item, 443
-        return item, None
+            return h.strip("[]"), int(p)
+        return item.strip("[]"), None
     except:
-        return item, None
+        return item.strip("[]"), None
 
 async def writer_worker(write_queue: asyncio.Queue):
     os.makedirs(OUTPUT_DIR, exist_ok=True)
@@ -106,14 +105,15 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
             if item is None:
                 break
 
-            host, port = item
+            host, port, path = item
             schemes = ["https", "http"] if port in [443, 2053, 2083, 2087, 2096, 8443, 8444] else ["http", "https"]
             found = False
 
             for scheme in schemes:
-                url = f"{scheme}://{host}:{port}"
                 try:
-                    async with session.get(f"{url}{path}",  # path 来自外层循环
+                    full_url = f"{scheme}://{host}:{port}{path}"
+                    async with session.get(
+                        full_url,
                         headers={"User-Agent": random.choice(UA_LIST), "Connection": "close"},
                         timeout=aiohttp.ClientTimeout(total=REQUEST_TIMEOUT),
                         ssl=False,
@@ -125,7 +125,6 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
                             low = text.lower()
                             hit = any(s in low for s in SIGNS)
 
-                            # Base64 尝试
                             if not hit and 50 < len(text) < 250000:
                                 try:
                                     d = "".join(text.split()).replace("-", "+").replace("_", "/")
@@ -146,7 +145,7 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
                                             f.write(text)
                                         stats["saved"] += 1
                                         visited_hashes.add(h)
-                                        await write_queue.put([h, f"{url}{path}", 'found'])
+                                        await write_queue.put([h, full_url, 'found'])
                                 found = True
                                 break
                 except:
@@ -160,6 +159,8 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
             pbar.set_postfix(Req=stats["req"], Saved=stats["saved"], Fail=stats["fail"])
     except asyncio.CancelledError:
         pass
+    except Exception as e:
+        print(f"Worker error: {e}")
 
 async def main():
     parser = argparse.ArgumentParser(description="订阅链接扫描器")
@@ -177,7 +178,6 @@ async def main():
 
     print(f"[*] 已加载 {len(lines)} 个目标 IP")
 
-    # 计算总任务量
     total_tasks = 0
     for item in lines:
         _, p = get_addr(item)
@@ -197,18 +197,17 @@ async def main():
         workers = [asyncio.create_task(scanner_worker(queue, write_queue, session, pbar)) for _ in range(WORKER_COUNT)]
         writer_task = asyncio.create_task(writer_worker(write_queue))
 
-        # 填充队列
+        # 填充任务队列
         for item in lines:
             host, port = get_addr(item)
-            if port:
+            if port is not None:
                 for path in PATHS:
-                    await queue.put((host, port))
+                    await queue.put((host, port, path))
             else:
                 for pv in TARGET_PORTS:
                     for path in PATHS:
-                        await queue.put((host, pv))
+                        await queue.put((host, pv, path))
 
-        # 结束信号
         for _ in range(WORKER_COUNT):
             await queue.put(None)
 
@@ -227,13 +226,14 @@ async def main():
         )
 
         for w in workers:
-            w.cancel()
+            if not w.done():
+                w.cancel()
 
         await write_queue.put(None)
         await writer_task
         pbar.close()
 
-    print(f"\n[*] 扫描完成！保存 {stats['saved']} 个有效配置")
+    print(f"\n[*] 扫描完成！请求: {stats['req']} | 保存: {stats['saved']} | 失败: {stats['fail']}")
 
 if __name__ == "__main__":
     try:
@@ -241,3 +241,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\n[!] 用户中断")
         sys.exit(0)
+    except Exception as e:
+        print(f"错误: {e}")
