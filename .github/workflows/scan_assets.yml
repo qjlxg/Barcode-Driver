@@ -1,4 +1,4 @@
-name: scan_assets
+name: 1. scan_assets
 
 on:
   workflow_dispatch:
