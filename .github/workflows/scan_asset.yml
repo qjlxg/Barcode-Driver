@@ -1,0 +1,64 @@
+name: 资产清点流水线
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 每 6 小时自动运行一次
+    - cron: '0 */6 * * *'
+
+jobs:
+  asset_pipeline:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 设置 Python 环境
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: 安装依赖
+        run: pip install aiohttp tqdm
+
+      - name: 安装 Masscan
+        run: sudo apt-get update && sudo apt-get install -y masscan
+
+      - name: 1. 生成任务批次 (Progress Control)
+        run: python3 progress.py # 确保该脚本内含我们刚才优化的分片逻辑
+
+      - name: 2. 高速端口探测 (Masscan)
+        run: |
+          # 读取 progress.py 生成的 targets.txt
+          TARGETS=$(tr '\n' ',' < targets.txt | sed 's/,$//')
+          PORTS=$(cat ports.txt | tr -d '\r\n')
+          
+          echo "[*] 开始扫描目标: $TARGETS"
+          sudo masscan $TARGETS -p"$PORTS" --rate 5000 --wait 5 --open-only | \
+          awk '/Discovered open port/ { split($4,p,"/"); print $6 ":" p[1] }' > alive_ips.txt
+          
+          # 确保如果没扫到存活，alive_ips.txt 也是存在的空文件
+          touch alive_ips.txt
+
+      - name: 3. 深度指纹采集 (Fingerprinting)
+        run: python3 scanner.py --file alive_ips.txt
+
+      - name: 提交进度与结果
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          # 添加所有产出物
+          git add progress.txt alive_ips.txt scan_results.csv
+          
+          # 检查是否有变动
+          if [[ -n $(git status -s) ]]; then
+            git commit -m "Auto: 资产轮询完成 $(date +'%Y-%m-%d %H:%M')"
+            git push origin main
+          else
+            echo "[-] 无数据变动，跳过提交。"
+          fi
