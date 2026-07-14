@@ -30,8 +30,8 @@ UA_LIST = [
 
 OUTPUT_DIR = "results"
 MAX_SAVE_FILES = 2000
-WORKER_COUNT = 68
-REQUEST_TIMEOUT = 3
+WORKER_COUNT = 28
+REQUEST_TIMEOUT = 5
 
 stats = {"req": 0, "saved": 0, "fail": 0}
 visited_content_hashes = set()
@@ -120,16 +120,16 @@ async def main():
     parser.add_argument("--file", required=True)
     args = parser.parse_args()
     load_history()
-    
+
     if not os.path.exists(args.file):
         print(f"Error: 文件 {args.file} 不存在")
         return
 
     with open(args.file, 'r', encoding='utf-8') as f: lines = [l.strip() for l in f if l.strip()]
     print(f"[*] 已加载 {len(lines)} 个目标 IP")
-    
+
     queue, write_queue = asyncio.Queue(maxsize=8000), asyncio.Queue()
-    
+
     def get_addr(item):
         try:
             if item.startswith("["):
@@ -145,38 +145,31 @@ async def main():
     total_tasks = 0
     for item in lines:
         h, p = get_addr(item)
-        if p:
-            # 这里的逻辑是：原端口 + 所有预设端口 (去重)
-            target_ports = sorted(list(set(TARGET_PORTS + [p])))
-            total_tasks += len(target_ports) * len(PATHS)
-        else:
-            total_tasks += len(TARGET_PORTS) * len(PATHS)
-    
+        total_tasks += len(PATHS) if p else len(TARGET_PORTS) * len(PATHS)
+
     print(f"[*] 计算得到总任务量: {total_tasks}")
     pbar = tqdm(total=total_tasks, desc="Scanning", unit="task")
     async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT*2, force_close=True)) as session:
         workers = [asyncio.create_task(scanner_worker(queue, write_queue, session, pbar)) for _ in range(WORKER_COUNT)]
         writer_task = asyncio.create_task(writer_worker(write_queue))
-        
+
         for item in lines:
             h, p = get_addr(item)
             if p:
-                target_ports = sorted(list(set(TARGET_PORTS + [p])))
+                for path in PATHS: await queue.put((h, p, path))
             else:
-                target_ports = TARGET_PORTS
-            
-            for pv in target_ports:
-                for path in PATHS: await queue.put((h, pv, path))
-        
+                for pv in TARGET_PORTS:
+                    for path in PATHS: await queue.put((h, pv, path))
+
         for _ in range(WORKER_COUNT): await queue.put(None)
-        
+
         stop_event = asyncio.Event()
         loop = asyncio.get_event_loop()
         for sig in (signal.SIGINT, signal.SIGTERM):
             loop.add_signal_handler(sig, stop_event.set)
-            
+
         await asyncio.wait([asyncio.gather(*workers), asyncio.create_task(stop_event.wait())], return_when=asyncio.FIRST_COMPLETED)
-        
+
         for w in workers: w.cancel()
         await write_queue.put(None)
         await writer_task
