@@ -58,7 +58,7 @@ def load_history():
                 reader = csv.reader(f)
                 next(reader, None)
                 for row in reader:
-                    if len(row) > 1:
+                    if len(row) >= 2:
                         visited_content_hashes.add(row[0])
                         existing_urls.add(row[1])
         except:
@@ -106,7 +106,7 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
                     text = (await resp.content.read(350 * 1024)).decode("utf-8", errors="ignore")
                     
                     # --- 插入调试逻辑 (保留原结构) ---
-                    print(f"[DEBUG] URL: {url} | 长度: {len(text)} | 预览: {text[:60].strip()}")
+                    print(f"[DEBUG] URL: {url} | 长度: {len(text)} | 预览: {text[:100].strip()}")
                     # ------------------------------
 
                     low = text.lower()
