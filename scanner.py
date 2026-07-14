@@ -19,7 +19,7 @@ TARGET_PORTS = [80, 443, 1333, 1999, 2052, 2053, 2082, 2083, 2087, 2095, 2096,
 PATHS = ["", "/", "/sub", "/subscribe", "/link", "/s/", "/api/sub", "/api/v1/client/subscribe",
          "/api/user/subscribe", "/client/subscribe", "/config.yaml", "/sub.yaml"]
 
-SIGNS = ["proxies:", "proxy-groups:",,“mixed-port","vless://", "vmess://", "trojan://", "uuid:",
+SIGNS = ["proxies:", "proxy-groups:", "mixed-port", "vless://", "vmess://", "trojan://", "uuid:",
          "hysteria://", "hysteria2://", "hy2://", "tuic://", "anytls://"]
 
 UA_LIST = [
@@ -58,7 +58,7 @@ def load_history():
                 reader = csv.reader(f)
                 next(reader, None)
                 for row in reader:
-                    if len(row) > 1:
+                    if len(row) >= 2:
                         visited_content_hashes.add(row[0])
                         existing_urls.add(row[1])
         except:
@@ -123,7 +123,7 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
                     if hit:
                         # 生成内容唯一指纹
                         h = hashlib.md5(text.encode("utf-8")).hexdigest()[:12]
-                        
+
                         # 核心去重：如果该内容指纹已处理过，直接跳过
                         if h not in visited_content_hashes and url not in existing_urls:
                             cleanup_files()
