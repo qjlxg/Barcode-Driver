@@ -1,0 +1,194 @@
+mixed-port: 7890
+allow-lan: true
+bind-address: '*'
+mode: rule
+log-level: info
+external-controller: '127.0.0.1:9090'
+profile:
+    store-selected: true
+    store-fake-ip: true
+sniffer:
+    enable: true
+    parse-pure-ip: true
+    sniff: { TLS: { ports: [443, 8443] }, HTTP: { ports: [80, 8080-8880] } }
+dns:
+    enable: true
+    listen: '0.0.0.0:53'
+    ipv6: false
+    respect-rules: true
+    default-nameserver: [223.5.5.5, 223.6.6.6]
+    proxy-server-nameserver: ['https://223.5.5.5/dns-query', 'https://223.6.6.6/dns-query', 'tls://dns.alidns.com', 'tls://223.5.5.5:853', 'tls://223.6.6.6:853']
+    enhanced-mode: fake-ip
+    fake-ip-range: 198.18.0.1/16
+    fake-ip-filter: [+.lan, +.local, +.msftconnecttest.com, +.msftncsi.com, 149.104.30.114, localhost.ptlogin2.qq.com, localhost.sec.qq.com, localhost.work.weixin.qq.com]
+    use-hosts: true
+    nameserver: ['https://223.5.5.5/dns-query', 'https://223.6.6.6/dns-query', 'tls://223.5.5.5:853', 'tls://223.6.6.6:853']
+    fallback: ['https://8.8.8.8/dns-query', 'https://8.8.4.4/dns-query', 'tls://dns.google', 'tls://8.8.8.8:853', 'tls://8.8.4.4:853']
+    fallback-filter: { geoip: false }
+proxies:
+    - { name: '剩余流量：676.61 GB', type: vless, server: 149.104.30.114, port: 4443, uuid: 1453554f-e78f-4463-92ac-ac3eec23c686, network: tcp, tls: true, udp: true, flow: xtls-rprx-vision, client-fingerprint: chrome, reality-opts: {public-key: -ze0Y9TSz_6tb8tqD0jk-EfH_4N8hJE4Hi7eL70zvkg, short-id: e925dd3a1b68bee1}, servername: www.microsoft.com }
+    - { name: '距离下次重置剩余：18 天', type: vless, server: 149.104.30.114, port: 4443, uuid: 1453554f-e78f-4463-92ac-ac3eec23c686, network: tcp, tls: true, udp: true, flow: xtls-rprx-vision, client-fingerprint: chrome, reality-opts: {public-key: -ze0Y9TSz_6tb8tqD0jk-EfH_4N8hJE4Hi7eL70zvkg, short-id: e925dd3a1b68bee1}, servername: www.microsoft.com }
+    - { name: '套餐到期：公元前221年', type: vless, server: 149.104.30.114, port: 4443, uuid: 1453554f-e78f-4463-92ac-ac3eec23c686, network: tcp, tls: true, udp: true, flow: xtls-rprx-vision, client-fingerprint: chrome, reality-opts: {public-key: -ze0Y9TSz_6tb8tqD0jk-EfH_4N8hJE4Hi7eL70zvkg, short-id: e925dd3a1b68bee1}, servername: www.microsoft.com }
+    - { name: "Proxy-1", type: vless, server: 149.104.30.114, port: 4443, uuid: 1453554f-e78f-4463-92ac-ac3eec23c686, network: tcp, tls: true, udp: true, flow: xtls-rprx-vision, client-fingerprint: chrome, reality-opts: {public-key: -ze0Y9TSz_6tb8tqD0jk-EfH_4N8hJE4Hi7eL70zvkg, short-id: e925dd3a1b68bee1}, servername: www.microsoft.com }
+    - { name: 'Proxy-3', type: vless, server: 149.104.30.114, port: 18443, uuid: 77d43abd-08e4-4682-852b-70f853a18fb7, network: tcp }
+    - { name: 'Proxy-2', type: vless, server: 149.104.30.114, port: 18443, uuid: 5fd31072-8511-4ce3-a466-9e02f3c96410, network: tcp }
+proxy-groups:
+  - name: "Proxy"
+    type: select
+    proxies:
+      - "剩余流量：676.61 GB"
+      - "距离下次重置剩余：18 天"
+      - "套餐到期：公元前221年"
+      - "Proxy-2"
+      - "Proxy-1"
+      - DIRECT
+  - name: "OpenAI"
+    type: select
+    proxies:
+      - "Proxy-3"
+      - Proxy
+rules:
+  - IP-CIDR,149.104.30.114/32,DIRECT,no-resolve
+  - IP-CIDR,167.71.211.142/32,DIRECT,no-resolve
+  - DOMAIN-SUFFIX,163.com,DIRECT
+  - DOMAIN-SUFFIX,126.com,DIRECT
+  - DOMAIN-SUFFIX,yeah.net,DIRECT
+  - DOMAIN-SUFFIX,netease.com,DIRECT
+  - DOMAIN-SUFFIX,qq.com,DIRECT
+  - DOMAIN-SUFFIX,exmail.qq.com,DIRECT
+  - DOMAIN-SUFFIX,foxmail.com,DIRECT
+  - DOMAIN-SUFFIX,sina.com,DIRECT
+  - DOMAIN-SUFFIX,sina.cn,DIRECT
+  - DOMAIN-SUFFIX,sohu.com,DIRECT
+  - DOMAIN-SUFFIX,tom.com,DIRECT
+  - DOMAIN-SUFFIX,aliyun.com,DIRECT
+  - DOMAIN-SUFFIX,aliyuncs.com,DIRECT
+  - DOMAIN-SUFFIX,189.cn,DIRECT
+  - DOMAIN-SUFFIX,21cn.com,DIRECT
+  - DOMAIN-SUFFIX,139.com,DIRECT
+  - DOMAIN-SUFFIX,10086.cn,DIRECT
+  - DOMAIN-SUFFIX,cn,DIRECT
+  - DOMAIN-SUFFIX,xn--fiqs8s,DIRECT
+  - DOMAIN-SUFFIX,openai.com,OpenAI
+  - DOMAIN-SUFFIX,oaistatic.com,OpenAI
+  - DOMAIN-SUFFIX,oaiusercontent.com,OpenAI
+  - DOMAIN-SUFFIX,chatgpt.com,OpenAI
+  - DOMAIN-SUFFIX,anthropic.com,OpenAI
+  - DOMAIN-SUFFIX,claude.ai,OpenAI
+  - DOMAIN-SUFFIX,claudeusercontent.com,OpenAI
+  - DOMAIN-SUFFIX,auth0.com,OpenAI
+  - DOMAIN-SUFFIX,identrust.com,OpenAI
+  - DOMAIN-SUFFIX,stripe.com,OpenAI
+  - DOMAIN-SUFFIX,accounts.google.com,OpenAI
+  - DOMAIN-SUFFIX,amazonaws.com,OpenAI
+  - DOMAIN-SUFFIX,oauth2.googleapis.com,OpenAI
+  - DOMAIN-SUFFIX,statsig.com,OpenAI
+  - DOMAIN-SUFFIX,statsigapi.net,OpenAI
+  - DOMAIN-SUFFIX,featureassets.org,OpenAI
+  - DOMAIN-SUFFIX,sentry.io,OpenAI
+  - DOMAIN-SUFFIX,ingest.sentry.io,OpenAI
+  - DOMAIN-SUFFIX,intercom.io,OpenAI
+  - DOMAIN-SUFFIX,intercomcdn.com,OpenAI
+  - DOMAIN-SUFFIX,segment.io,OpenAI
+  - DOMAIN-SUFFIX,segment.com,OpenAI
+  - DOMAIN-SUFFIX,cloudflareinsights.com,OpenAI
+  - DOMAIN-SUFFIX,challenges.cloudflare.com,OpenAI
+  - DOMAIN-SUFFIX,openaicom.imgix.net,OpenAI
+  - DOMAIN-SUFFIX,split.io,OpenAI
+  - DOMAIN-SUFFIX,qq.com,DIRECT
+  - DOMAIN-SUFFIX,tencent.com,DIRECT
+  - DOMAIN-SUFFIX,wechat.com,DIRECT
+  - DOMAIN-SUFFIX,weixin.qq.com,DIRECT
+  - DOMAIN-SUFFIX,tenpay.com,DIRECT
+  - DOMAIN-SUFFIX,gtimg.com,DIRECT
+  - DOMAIN-SUFFIX,idqqimg.com,DIRECT
+  - DOMAIN-SUFFIX,qpic.cn,DIRECT
+  - DOMAIN-SUFFIX,qlogo.cn,DIRECT
+  - DOMAIN-SUFFIX,myqcloud.com,DIRECT
+  - DOMAIN-SUFFIX,tushare.xyz,DIRECT
+  - DOMAIN-SUFFIX,pan.baidu.com,DIRECT
+  - DOMAIN-SUFFIX,yun.baidu.com,DIRECT
+  - DOMAIN-SUFFIX,aliyundrive.com,DIRECT
+  - DOMAIN-SUFFIX,alipan.com,DIRECT
+  - DOMAIN-SUFFIX,quark.cn,DIRECT
+  - DOMAIN-SUFFIX,115.com,DIRECT
+  - DOMAIN-SUFFIX,xunlei.com,DIRECT
+  - DOMAIN-SUFFIX,cloud.189.cn,DIRECT
+  - DOMAIN-SUFFIX,lanzou.com,DIRECT
+  - DOMAIN-SUFFIX,lanzoup.com,DIRECT
+  - DOMAIN-SUFFIX,lanzoui.com,DIRECT
+  - DOMAIN-SUFFIX,lanzoux.com,DIRECT
+  - DOMAIN-SUFFIX,jianguoyun.com,DIRECT
+  - DOMAIN-SUFFIX,cowtransfer.com,DIRECT
+  - DOMAIN-SUFFIX,weiyun.com,DIRECT
+  - DOMAIN-SUFFIX,woyun.cn,DIRECT
+  - DOMAIN-SUFFIX,caiyun.10086.cn,DIRECT
+  - DOMAIN-SUFFIX,bilibili.com,DIRECT
+  - DOMAIN-SUFFIX,hdslb.com,DIRECT
+  - DOMAIN-SUFFIX,douyin.com,DIRECT
+  - DOMAIN-SUFFIX,amemv.com,DIRECT
+  - DOMAIN-SUFFIX,bytedance.com,DIRECT
+  - DOMAIN-SUFFIX,byteimg.com,DIRECT
+  - DOMAIN-SUFFIX,meituan.com,DIRECT
+  - DOMAIN-SUFFIX,ele.me,DIRECT
+  - DOMAIN-SUFFIX,xiaohongshu.com,DIRECT
+  - DOMAIN-SUFFIX,autonavi.com,DIRECT
+  - DOMAIN-SUFFIX,amap.com,DIRECT
+  - DOMAIN-SUFFIX,feishu.cn,DIRECT
+  - DOMAIN-SUFFIX,dingtalk.com,DIRECT
+  - DOMAIN-SUFFIX,mi.com,DIRECT
+  - DOMAIN-SUFFIX,xiaomi.com,DIRECT
+  - DOMAIN-SUFFIX,huawei.com,DIRECT
+  - DOMAIN-SUFFIX,hicloud.com,DIRECT
+  - DOMAIN-SUFFIX,netease.com,DIRECT
+  - DOMAIN-SUFFIX,163.com,DIRECT
+  - DOMAIN-SUFFIX,cn,DIRECT
+  - DOMAIN-SUFFIX,xn--fiqs8s,DIRECT
+  - DOMAIN-SUFFIX,alibaba.com,DIRECT
+  - DOMAIN-SUFFIX,alicdn.com,DIRECT
+  - DOMAIN-SUFFIX,aliyun.com,DIRECT
+  - DOMAIN-SUFFIX,alipay.com,DIRECT
+  - DOMAIN-SUFFIX,taobao.com,DIRECT
+  - DOMAIN-SUFFIX,tmall.com,DIRECT
+  - DOMAIN-SUFFIX,jd.com,DIRECT
+  - DOMAIN-SUFFIX,baidu.com,DIRECT
+  - DOMAIN-SUFFIX,bdstatic.com,DIRECT
+  - DOMAIN-SUFFIX,bilibili.com,DIRECT
+  - DOMAIN-SUFFIX,hdslb.com,DIRECT
+  - DOMAIN-SUFFIX,douyin.com,DIRECT
+  - DOMAIN-SUFFIX,amemv.com,DIRECT
+  - DOMAIN-SUFFIX,bytedance.com,DIRECT
+  - DOMAIN-SUFFIX,byteimg.com,DIRECT
+  - DOMAIN-SUFFIX,meituan.com,DIRECT
+  - DOMAIN-SUFFIX,ele.me,DIRECT
+  - DOMAIN-SUFFIX,xiaohongshu.com,DIRECT
+  - DOMAIN-SUFFIX,autonavi.com,DIRECT
+  - DOMAIN-SUFFIX,amap.com,DIRECT
+  - DOMAIN-SUFFIX,feishu.cn,DIRECT
+  - DOMAIN-SUFFIX,dingtalk.com,DIRECT
+  - DOMAIN-SUFFIX,mi.com,DIRECT
+  - DOMAIN-SUFFIX,xiaomi.com,DIRECT
+  - DOMAIN-SUFFIX,huawei.com,DIRECT
+  - DOMAIN-SUFFIX,hicloud.com,DIRECT
+  - DOMAIN-SUFFIX,netease.com,DIRECT
+  - DOMAIN-SUFFIX,163.com,DIRECT
+  - PROCESS-NAME,DingTalk,DIRECT
+  - PROCESS-NAME,DingTalk.exe,DIRECT
+  - PROCESS-NAME,Feishu,DIRECT
+  - PROCESS-NAME,Feishu.exe,DIRECT
+  - PROCESS-NAME,com.eg.android.AlipayGphone,DIRECT
+  - PROCESS-NAME,com.taobao.taobao,DIRECT
+  - PROCESS-NAME,com.jingdong.app.mall,DIRECT
+  - PROCESS-NAME,com.sina.weibo,DIRECT
+  - PROCESS-NAME,com.ss.android.ugc.aweme,DIRECT
+  - PROCESS-NAME,com.xingin.xhs,DIRECT
+  - PROCESS-NAME,com.autonavi.minimap,DIRECT
+  - PROCESS-NAME,com.baidu.BaiduMap,DIRECT
+  - PROCESS-NAME,com.netease.cloudmusic,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+  - IP-CIDR,100.64.0.0/10,DIRECT,no-resolve
+  - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+  - GEOIP,CN,DIRECT
+  - MATCH,Proxy
