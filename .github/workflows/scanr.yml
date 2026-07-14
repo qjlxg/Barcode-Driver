@@ -4,8 +4,8 @@ on:
   push:
     paths:
       - 'ip.txt'
-      - '.github/workflows/scan.yml'
-      - '.processor.py'
+      - '.github/workflows/scanner.yml'
+      - 'processor.py'
   workflow_dispatch:
 
 jobs:
@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: 检出代码库
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # 必须设置为0，否则rebase可能找不到基准
 
       - name: 设置 Python 环境
         uses: actions/setup-python@v5
@@ -33,12 +35,15 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # 仅在 targets.txt 有变动时提交
+          # 拉取远程变动并进行rebase，解决冲突
+          git pull --rebase origin main
+          
+          # 检查是否有变动
           if [ -n "$(git status --porcelain)" ]; then
             git add targets.txt
             CURRENT_TIME=$(date '+%Y-%m-%d %H:%M:%S')
             git commit -m "Auto-update: 目标网段已更新于 $CURRENT_TIME [skip ci]"
-            git push
+            git push origin main
           else
-            echo "targets.txt 无变动，跳过。"
+            echo "targets.txt 无变动，跳过推送。"
           fi
