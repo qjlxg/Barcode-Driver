@@ -30,7 +30,7 @@ UA_LIST = [
 
 OUTPUT_DIR = "results"
 MAX_SAVE_FILES = 2000
-WORKER_COUNT = 28
+WORKER_COUNT = 28          # 建议 60~120，根据你的服务器带宽调整
 REQUEST_TIMEOUT = 5
 
 stats = {"req": 0, "saved": 0, "fail": 0}
@@ -106,10 +106,10 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
                 if resp.status == 200:
                     text = (await resp.content.read(350 * 1024)).decode("utf-8", errors="ignore")
                     
-                    # --- 插入调试逻辑 (强制输出到日志) ---
-                    sys.stdout.write(f"\n[DEBUG] 访问: {url} | 长度: {len(text)} | 预览: {text[:80].replace(chr(10), ' ')}\n")
+                    # --- 插入调试逻辑 (强制输出) ---
+                    sys.stdout.write(f"\n[DEBUG] 访问: {url} | 长度: {len(text)} | 内容前50: {text[:50].strip()}\n")
                     sys.stdout.flush()
-                    # -----------------------------------
+                    # ------------------------------
 
                     low = text.lower()
                     hit = any(s in low for s in SIGNS)
@@ -171,3 +171,45 @@ async def main():
     total = 0
     for l in lines:
         if ":" in l:
+            total += len(PATHS)
+        else:
+            total += len(TARGET_PORTS) * len(PATHS)
+
+    queue: asyncio.Queue = asyncio.Queue(maxsize=8000)
+    write_queue: asyncio.Queue = asyncio.Queue()
+
+    async with aiohttp.ClientSession(
+        connector=aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT*2, ttl_dns_cache=300, force_close=False),
+        headers={"Connection": "close"}
+    ) as session:
+        pbar = tqdm(total=total, desc="Scanning", unit="task", mininterval=3)
+
+        workers = [asyncio.create_task(scanner_worker(queue, write_queue, session, pbar)) for _ in range(WORKER_COUNT)]
+        writer_task = asyncio.create_task(writer_worker(write_queue))
+
+        for item in lines:
+            if ":" in item:
+                try:
+                    host, port_str = item.rsplit(":", 1)
+                    port = int(port_str)
+                    for path in PATHS:
+                        await queue.put((host, port, path))
+                except:
+                    continue
+            else:
+                for port in TARGET_PORTS:
+                    for path in PATHS:
+                        await queue.put((item, port, path))
+
+        for _ in range(WORKER_COUNT):
+            await queue.put(None)
+
+        await asyncio.gather(*workers)
+        await write_queue.put(None)
+        await writer_task
+        pbar.close()
+
+    print(f"\n[+] 扫描完成！请求: {stats['req']} | 保存: {stats['saved']} | 失败: {stats['fail']}")
+
+if __name__ == "__main__":
+    asyncio.run(main())
