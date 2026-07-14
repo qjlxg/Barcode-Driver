@@ -39,7 +39,7 @@ visited_content_hashes = set()
 content_lock = asyncio.Lock()
 
 def cleanup_files():
-    if stats["saved"] % 50 !== 0: return
+    if stats["saved"] % 50 != 0: return
     hash_dir = f"{OUTPUT_DIR}/hash"
     if not os.path.exists(hash_dir): return
     files = [os.path.join(hash_dir, f) for f in os.listdir(hash_dir) if os.path.isfile(os.path.join(hash_dir, f))]
