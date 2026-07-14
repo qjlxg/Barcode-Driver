@@ -3,7 +3,6 @@ name: 资产清点流水线
 on:
   workflow_dispatch:
   schedule:
-    # 北京时间 02:00, 08:00, 14:00, 20:00
     - cron: '0 18,0,6,12 * * *'
 
 jobs:
@@ -28,66 +27,39 @@ jobs:
           if [ -s targets.txt ]; then
             TARGETS=$(tr '\n' ',' < targets.txt | sed 's/,$//')
             PORTS=$(cat ports.txt | tr ',\n\r' ' ' | xargs | tr ' ' ',')
-            
-            sudo masscan $TARGETS -p"$PORTS" --rate 1000 --wait 5 --open-only | \
-            awk '/Discovered open port/ { split($4,p,"/"); print $6 ":" p[1] }' | \
-            sort -u > alive_latest.txt
-            
+            sudo masscan $TARGETS -p"$PORTS" --rate 1000 --wait 5 --open-only | awk '/Discovered open port/ { split($4,p,"/"); print $6 ":" p[1] }' | sort -u > alive_latest.txt
             if [ -s alive_latest.txt ]; then
               cat alive_latest.txt >> alive_history.txt
               sort -u alive_history.txt -o alive_history.txt
             fi
           else
-            echo "" > alive_latest.txt
+            touch alive_latest.txt
           fi
           
       - name: 3. 深度指纹采集 (增量过滤)
         run: |
           if [ -s alive_latest.txt ]; then
-            python3 -c "
-import csv, os
-from urllib.parse import urlparse
-
-# 加载旧数据以构建过滤库
-existing = set()
-if os.path.exists('scan_results.csv'):
-    with open('scan_results.csv', 'r', encoding='utf-8') as f:
-        for row in csv.reader(f):
-            if len(row) >= 2:
-                # 尝试从第3列提取 host:port，若失败则从第2列(url)反推
-                if len(row) >= 3 and row[2]:
-                    existing.add(row[2])
-                else:
-                    try: existing.add(urlparse(row[1]).netloc)
-                    except: pass
-
-# 过滤新资产
-with open('alive_latest.txt', 'r') as f_in, open('alive_new.txt', 'w') as f_out:
-    for line in f_in:
-        target = line.strip()
-        if target and target not in existing:
-            f_out.write(target + '\n')
-"
+            # 使用 Python 的单行执行模式，彻底避免缩进导致的语法错误
+            python3 -c "import csv,os; from urllib.parse import urlparse; e=set(); 
+[e.add(r[2]) if len(r)>2 and r[2] else (e.add(urlparse(r[1]).netloc) if len(r)>1 else None) for r in csv.reader(open('scan_results.csv'))] if os.path.exists('scan_results.csv') else None;
+[open('alive_new.txt','w').write(l) for l in open('alive_latest.txt') if l.strip() and l.strip() not in e]"
+            
             if [ -s alive_new.txt ]; then
               python3 scanner.py --file alive_new.txt
             else
-              echo "[-] 本轮无新资产需要深度检测。"
+              echo "[-] 本轮无新资产。"
             fi
-          else
-            echo "[-] 无存活资产。"
           fi
 
       - name: 结果归档与提交
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          
           mkdir -p archive/hash
-          if [ -d "results/hash" ] && [ "$(ls -A results/hash 2>/dev/null | wc -l)" -gt 100 ]; then
+          if [ -d "results/hash" ] && [ \"$(ls -A results/hash 2>/dev/null | wc -l)\" -gt 100 ]; then
             tar -czf "archive/hash/results_hash_$(date +%Y%m%d_%H%M).tar.gz" results/hash/
             rm -rf results/hash/*
           fi
-          
           git add progress.json alive_latest.txt alive_history.txt scan_results.csv archive/hash/ || true
           if [[ -n $(git status -s) ]]; then
             git commit -m "Auto: 资产轮询完成 $(date +'%Y-%m-%d %H:%M')"
