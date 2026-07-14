@@ -39,15 +39,17 @@ visited_content_hashes = set()
 content_lock = asyncio.Lock()
 
 def cleanup_files():
-    if stats["saved"] % 50 == 0:
-    hash_dir = f"{OUTPUT_DIR}/hash"
-    if not os.path.exists(hash_dir): return
-    files = [os.path.join(hash_dir, f) for f in os.listdir(hash_dir) if os.path.isfile(os.path.join(hash_dir, f))]
-    if len(files) > MAX_SAVE_FILES:
-        files.sort(key=os.path.getmtime)
-        for f in files[:len(files) - MAX_SAVE_FILES]:
-            try: os.remove(f)
-            except: pass
+    if stats["saved"] % 50 == 0:  
+        hash_dir = f"{OUTPUT_DIR}/hash"
+        if not os.path.exists(hash_dir): return
+        files = [os.path.join(hash_dir, f) for f in os.listdir(hash_dir) if os.path.isfile(os.path.join(hash_dir, f))]
+        if len(files) > MAX_SAVE_FILES:
+            files.sort(key=os.path.getmtime)
+            for f in files[:len(files) - MAX_SAVE_FILES]:
+                try: 
+                    os.remove(f)
+                except: 
+                    pass
 
 def load_history():
     if os.path.exists('scan_results.csv'):
