@@ -25,7 +25,7 @@ jobs:
         run: pip install aiohttp PyYAML tqdm
 
       - name: 执行深度解析
-        run: python scanner.py --file 2-alive_ips.txt
+        run: python scanner.py --file alive_ips.txt
       
       - name: 诊断与提交
         run: |
