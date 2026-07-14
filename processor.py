@@ -1,37 +1,57 @@
 import ipaddress
 from pathlib import Path
 
-def process_ip_file(input_file='ip.txt', output_file='targets.txt'):
+def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=20):
     input_path = Path(input_file)
+    progress_file = Path('progress.txt')
+    
     if not input_path.exists():
-        print(f"[!] 错误：找不到文件 {input_file}")
+        print(f"[!] 错误：找不到源文件 {input_file}")
         return
 
+    # 1. 读取并规范化所有网段
     networks = set()
-    
     with input_path.open('r', encoding='utf-8') as f:
-        for line_num, line in enumerate(f, 1):
+        for line in f:
             target = line.strip()
             if not target: continue
-            
             try:
-                # 如果输入已经是 CIDR 格式，直接处理；否则添加 /24
                 if '/' in target:
                     net = ipaddress.ip_network(target, strict=False)
                 else:
                     net = ipaddress.ip_network(f"{target}/24", strict=False)
-                
-                # 将网段规范化并加入集合
                 networks.add(str(net))
             except ValueError:
-                print(f"[!] 第 {line_num} 行格式无效，已跳过: {target}")
-
-    # 将结果排序并写入
+                continue
+    
+    all_networks = sorted(list(networks))
+    total = len(all_networks)
+    
+    # 2. 读取游标 (上次扫到哪了)
+    try:
+        cursor = int(progress_file.read_text().strip())
+    except (FileNotFoundError, ValueError):
+        cursor = 0
+    
+    # 3. 截取本次任务批次
+    # 如果游标超过总数，重置为 0
+    if cursor >= total:
+        cursor = 0
+        
+    end_index = min(cursor + batch_size, total)
+    batch = all_networks[cursor:end_index]
+    
+    # 4. 更新游标并写入 targets.txt
+    next_cursor = end_index if end_index < total else 0
+    progress_file.write_text(str(next_cursor))
+    
     with open(output_file, 'w', encoding='utf-8') as f:
-        for n in sorted(networks):
+        for n in batch:
             f.write(f"{n}\n")
-            
-    print(f"[*] 处理完成！共提取 {len(networks)} 个唯一网段，保存至 {output_file}")
+
+    print(f"[*] 执行成功！本次处理: {len(batch)} 个网段")
+    print(f"[*] 进度状态: {end_index}/{total} (下次从第 {next_cursor} 个开始)")
 
 if __name__ == "__main__":
-    process_ip_file()
+    # batch_size=20 表示每次处理 20 个网段，你可以根据你的扫描时长自由调整
+    process_ip_file(batch_size=20)
