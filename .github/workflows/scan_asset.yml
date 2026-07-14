@@ -29,7 +29,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y masscan
 
       - name: 1. 生成任务批次 (Progress Control)
-        run: python3 progress.py # 确保该脚本内含我们刚才优化的分片逻辑
+        run: python3 processor.py # 确保该脚本内含我们刚才优化的分片逻辑
 
       - name: 2. 高速端口探测 (Masscan)
         run: |
