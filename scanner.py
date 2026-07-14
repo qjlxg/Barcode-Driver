@@ -19,7 +19,7 @@ TARGET_PORTS = [80, 443, 1333, 1999, 2052, 2053, 2082, 2083, 2087, 2095, 2096,
 PATHS = ["", "/", "/sub", "/subscribe", "/link", "/s/", "/api/sub", "/api/v1/client/subscribe",
          "/api/user/subscribe", "/client/subscribe", "/config.yaml", "/sub.yaml"]
 
-SIGNS = ["proxies:", "proxy-groups:", "mixed-port", "vless://", "vmess://", "trojan://", "uuid:",
+SIGNS = ["proxies:", "proxy-groups:", "mixed-port", "vless://", "vmess://", "trojan://", "uuid:","ss://",
          "hysteria://", "hysteria2://", "hy2://", "tuic://", "anytls://"]
 
 UA_LIST = [
@@ -29,11 +29,10 @@ UA_LIST = [
 
 OUTPUT_DIR = "results"
 MAX_SAVE_FILES = 2000
-WORKER_COUNT = 28          # 建议 60~120，根据你的服务器带宽调整
+WORKER_COUNT = 28
 REQUEST_TIMEOUT = 5
 
 stats = {"req": 0, "saved": 0, "fail": 0}
-# 改为记录内容指纹，全局去重
 visited_content_hashes = set()
 existing_urls = set()
 
@@ -88,8 +87,11 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
             break
 
         host, port, path = item
-        # 协议自适应：优先探测 HTTPS，失败则自动回退 HTTP
-        schemes = ["https", "http"]
+        if port in [443, 2053, 2083, 2087, 2096, 8443, 8444]:
+            schemes = ["https", "http"]
+        else:
+            schemes = ["http", "https"]
+        
         found = False
 
         for scheme in schemes:
@@ -97,10 +99,15 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
             try:
                 async with session.get(
                     url,
-                    headers={"User-Agent": random.choice(UA_LIST), "Host": host, "Connection": "close"},
+                    headers={
+                        "User-Agent": random.choice(UA_LIST), 
+                        "Accept": "*/*",
+                        "Accept-Encoding": "gzip, deflate, br",
+                        "Connection": "close"
+                    },
                     timeout=aiohttp.ClientTimeout(total=REQUEST_TIMEOUT),
                     ssl=False,
-                    allow_redirects=True
+                    allow_redirects=False
                 ) as resp:
                     stats["req"] += 1
                     if resp.status == 200:
@@ -110,11 +117,13 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
 
                         if not hit and 50 < len(text) < 250000:
                             try:
-                                decoded_str = "".join(text.split()).replace("-", "+").replace("_", "/")
-                                padding = len(decoded_str) % 4
-                                if padding: decoded_str += "=" * (4 - padding)
-                                decoded = base64.b64decode(decoded_str, validate=False).decode("utf-8", errors="ignore")
-                                hit = any(s in decoded.lower() for s in SIGNS if "://" in s)
+                                decoded_str = "".join(text.split())
+                                if len(decoded_str) > 50:
+                                    decoded_str = decoded_str.replace("-", "+").replace("_", "/")
+                                    padding = len(decoded_str) % 4
+                                    if padding: decoded_str += "=" * (4 - padding)
+                                    decoded = base64.b64decode(decoded_str, validate=False).decode("utf-8", errors="ignore")
+                                    hit = any(s in decoded.lower() for s in SIGNS if "://" in s)
                             except: pass
 
                         if hit:
@@ -126,14 +135,16 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
                                 with open(f"{OUTPUT_DIR}/hash/{h}{ext}", 'w', encoding='utf-8') as f: f.write(text)
                                 stats["saved"] += 1
                                 await write_queue.put([h, url, 'found'])
+                        
+                        # 仅在 HTTP 200 成功响应时设置 found 并中断协议轮询
                         found = True
                         break 
             except:
                 continue
-        
+
         if not found:
             stats["fail"] += 1
-        
+
         queue.task_done()
         pbar.update(1)
         if stats["req"] % 300 == 0:
