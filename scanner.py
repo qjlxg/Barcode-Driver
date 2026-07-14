@@ -112,9 +112,7 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
             if not found: stats["fail"] += 1
             queue.task_done()
             pbar.update(1)
-            # 关键修复：实时更新进度条后缀
-            if stats["req"] % 100 == 0:
-                pbar.set_postfix(Req=stats["req"], Saved=stats["saved"], Fail=stats["fail"])
+            pbar.set_postfix(Req=stats["req"], Saved=stats["saved"], Fail=stats["fail"])
     except asyncio.CancelledError: pass
 
 async def main():
@@ -123,7 +121,13 @@ async def main():
     args = parser.parse_args()
     load_history()
     
+    if not os.path.exists(args.file):
+        print(f"Error: 文件 {args.file} 不存在")
+        return
+
     with open(args.file, 'r', encoding='utf-8') as f: lines = [l.strip() for l in f if l.strip()]
+    print(f"[*] 已加载 {len(lines)} 个目标 IP")
+    
     queue, write_queue = asyncio.Queue(maxsize=8000), asyncio.Queue()
     
     def get_addr(item):
@@ -143,6 +147,7 @@ async def main():
         h, p = get_addr(item)
         total_tasks += len(PATHS) if p else len(TARGET_PORTS) * len(PATHS)
     
+    print(f"[*] 计算得到总任务量: {total_tasks}")
     pbar = tqdm(total=total_tasks, desc="Scanning", unit="task")
     async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT*2, force_close=True)) as session:
         workers = [asyncio.create_task(scanner_worker(queue, write_queue, session, pbar)) for _ in range(WORKER_COUNT)]
