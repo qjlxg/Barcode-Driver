@@ -35,6 +35,9 @@ async def scan(session, host, port, path, pbar):
                             visited_hashes.add(content_hash)
                             stats["saved"] += 1
                             
+                            # 实时日志显示
+                            pbar.write(f"[+] 发现新节点: {url}")
+                            
                             # 保存文件
                             os.makedirs("results/hash", exist_ok=True)
                             with open(f"results/hash/{content_hash}.txt", "w", encoding="utf-8") as f:
