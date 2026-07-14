@@ -54,4 +54,4 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=2
 
 if __name__ == "__main__":
     # batch_size=20 表示每次处理 20 个网段，你可以根据你的扫描时长自由调整
-    process_ip_file(batch_size=20)
+    process_ip_file(batch_size=5)
