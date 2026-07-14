@@ -33,7 +33,6 @@ WORKER_COUNT = 28          # 建议 60~120，根据你的服务器带宽调整
 REQUEST_TIMEOUT = 5
 
 stats = {"req": 0, "saved": 0, "fail": 0}
-# 改为记录内容指纹，全局去重
 visited_content_hashes = set()
 existing_urls = set()
 
@@ -51,7 +50,6 @@ def cleanup_files():
                 pass
 
 def load_history():
-    # 读取已有的 scan_results.csv 建立全局指纹库，防止重复写入
     if os.path.exists('scan_results.csv'):
         try:
             with open('scan_results.csv', 'r', encoding='utf-8') as f:
@@ -75,7 +73,6 @@ async def writer_worker(write_queue: asyncio.Queue):
             row = await write_queue.get()
             if row is None:
                 break
-            # 只有内容指纹是新的，才写入 CSV
             if row[0] not in visited_content_hashes:
                 writer.writerow(row)
                 csvfile.flush()
@@ -105,18 +102,14 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
                 if resp.status == 200:
                     text = (await resp.content.read(350 * 1024)).decode("utf-8", errors="ignore")
                     low = text.lower()
+                    
+                    # --- [DEBUG] 强制输出访问结果，帮助你排查匹配不到的原因 ---
+                    print(f"\n[DEBUG] URL: {url} | 长度: {len(text)}")
+                    print(f"[DEBUG] 内容前100字符: {text[:100].strip()}")
+                    # ----------------------------------------------------
 
-                    # --- DEBUG 插入逻辑 ---
-                    # 只有在发现确实没有 hit 时打印，帮你排查原因
                     hit = any(s in low for s in SIGNS)
-                    if not hit:
-                        found_signs = [s for s in SIGNS if s in low]
-                        if len(text) > 0:
-                            print(f"\n[DEBUG] 访问URL: {url} | 长度: {len(text)}")
-                            print(f"[DEBUG] 内容预览: {text[:150].strip()}")
-                    # ----------------------
 
-                    # Base64 尝试解码
                     if not hit and 50 < len(text) < 250000:
                         try:
                             decoded_str = "".join(text.split()).replace("-", "+").replace("_", "/")
@@ -129,22 +122,15 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
                             pass
 
                     if hit:
-                        # 生成内容唯一指纹
                         h = hashlib.md5(text.encode("utf-8")).hexdigest()[:12]
-
-                        # 核心去重：如果该内容指纹已处理过，直接跳过
                         if h not in visited_content_hashes and url not in existing_urls:
                             cleanup_files()
-
                             ext = ".yaml" if "proxies:" in low or "proxy-groups:" in low else ".txt"
                             save_path = f"{OUTPUT_DIR}/hash/{h}{ext}"
                             with open(save_path, 'w', encoding='utf-8') as f:
                                 f.write(text)
-
                             stats["saved"] += 1
                             await write_queue.put([h, url, 'found'])
-        except asyncio.TimeoutError:
-            stats["fail"] += 1
         except Exception:
             stats["fail"] += 1
         finally:
@@ -154,12 +140,6 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
                 pbar.set_postfix({"Req": stats["req"], "Saved": stats["saved"], "Fail": stats["fail"]})
 
 async def main():
-    try:
-        signal.signal(signal.SIGALRM, lambda s, f: os._exit(0))
-        signal.alarm(19800)
-    except:
-        pass
-
     parser = argparse.ArgumentParser(description="Proxy Subscription Scanner")
     parser.add_argument("--file", required=True, help="Input file (alive_ips.txt)")
     args = parser.parse_args()
@@ -185,7 +165,6 @@ async def main():
         headers={"Connection": "close"}
     ) as session:
         pbar = tqdm(total=total, desc="Scanning", unit="task", mininterval=3)
-
         workers = [asyncio.create_task(scanner_worker(queue, write_queue, session, pbar)) for _ in range(WORKER_COUNT)]
         writer_task = asyncio.create_task(writer_worker(write_queue))
 
