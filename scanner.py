@@ -19,7 +19,7 @@ TARGET_PORTS = [80, 443, 1333, 1999, 2052, 2053, 2082, 2083, 2087, 2095, 2096,
 PATHS = ["", "/", "/sub", "/subscribe", "/link", "/s/", "/api/sub", "/api/v1/client/subscribe",
          "/api/user/subscribe", "/client/subscribe", "/config.yaml", "/sub.yaml"]
 
-SIGNS = ["proxies:", "proxy-groups:", "vless://", "vmess://", "trojan://", "uuid:",
+SIGNS = ["proxies:", "proxy-groups:",,“mixed-port","vless://", "vmess://", "trojan://", "uuid:",
          "hysteria://", "hysteria2://", "hy2://", "tuic://", "anytls://"]
 
 UA_LIST = [
