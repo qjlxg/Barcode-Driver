@@ -1,0 +1,31 @@
+mixed-port: 7897
+allow-lan: true
+mode: rule
+log-level: info
+proxies:
+  - name: "Vultr-V2Ray"
+    type: vmess
+    server: 45.76.202.45
+    port: 4010
+    uuid: "071a8a71-c656-4fb6-a908-4e42eb72243d"
+    alterId: 0
+    cipher: auto
+    network: ws
+    ws-opts:
+      path: "/liksuzcp"
+  - name: "Vultr-H2"
+    type: hysteria2
+    server: 45.76.202.45
+    port: 8443
+    password: "G0bFosyMJiP4wHB4TggU0j3j"
+    sni: bing.com
+    skip-cert-verify: true
+proxy-groups:
+  - name: "Proxy"
+    type: select
+    proxies:
+      - "Vultr-V2Ray"
+      - "Vultr-H2"
+      - DIRECT
+rules:
+  - MATCH,Proxy
