@@ -1,0 +1,135 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+
+dns:
+  enable: true
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  fallback:
+    - 8.8.8.8
+    - 1.1.1.1
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+
+proxies:
+  - name: HongKong-HY2
+    type: hysteria2
+    server: 149.104.29.83
+    port: 443
+    password: C3MhlAEI3P3DmuzlQgK8PSJWWFzU
+    sni: proxy.rusti.cc
+    skip-cert-verify: false
+    obfs: salamander
+    obfs-password: obfs-hk-rusti2026
+
+  - name: HongKong-Reality
+    type: vless
+    server: 149.104.29.83
+    port: 8443
+    uuid: cab5e715-ddf0-497d-a065-5e04b1eafea9
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.apple.com
+    reality-opts:
+      public-key: 40-QvWVq-gj9xlnE9UxB6HUHAXg_XvR1T0Sc-B5U0nY
+      short-id: 3314ee8700a0affe
+    client-fingerprint: chrome
+
+  - name: Ashburn-VLESS
+    type: vless
+    server: 107.175.221.34
+    port: 443
+    uuid: 636deb6a-8396-4325-b0f2-43660587c0e6
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.lovelive-anime.jp
+    reality-opts:
+      public-key: 455D6cAT49LYFp9sw9A2A6w_NL-QVCxtRXNsoYRMVjo
+      short-id: ba0f8e1c3d5a7f29
+    client-fingerprint: chrome
+
+  - name: Ashburn-via-HK
+    type: vless
+    server: 149.104.29.83
+    port: 10443
+    uuid: 636deb6a-8396-4325-b0f2-43660587c0e6
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.lovelive-anime.jp
+    reality-opts:
+      public-key: 455D6cAT49LYFp9sw9A2A6w_NL-QVCxtRXNsoYRMVjo
+      short-id: ba0f8e1c3d5a7f29
+    client-fingerprint: chrome
+
+  - name: Ashburn-HY2
+    type: hysteria2
+    server: 107.175.221.34
+    port: 443
+    password: z2ZGJoBa3GhAzOdQMTIzZOqKNEytH
+    sni: bing.com
+    skip-cert-verify: true
+    obfs: salamander
+    obfs-password: obfs-relay2024
+
+  - name: Guangzhou-HY2
+    type: hysteria2
+    server: 8.138.96.167
+    port: 443
+    password: ef802fb1065265452b034da5750d2960
+    sni: bing.com
+    skip-cert-verify: true
+
+proxy-groups:
+  - name: PROXY
+    type: select
+    proxies:
+      - AUTO
+      - HongKong-HY2
+      - HongKong-Reality
+      - Ashburn-VLESS
+      - Ashburn-via-HK
+      - Ashburn-HY2
+      - Guangzhou-HY2
+      - DIRECT
+
+  - name: AUTO
+    type: url-test
+    proxies:
+      - HongKong-HY2
+      - HongKong-Reality
+      - Ashburn-VLESS
+      - Ashburn-via-HK
+      - Ashburn-HY2
+      - Guangzhou-HY2
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+
+rules:
+  # 防环路(基础设施,所有设备都需要)
+  - DOMAIN-SUFFIX,rusti.cc,DIRECT
+  - IP-CIDR,149.104.29.83/32,DIRECT
+  - IP-CIDR,107.175.221.34/32,DIRECT
+  - IP-CIDR,8.138.96.167/32,DIRECT
+  - IP-CIDR,100.64.0.0/10,DIRECT
+  # 老虎证券(境外券商,部分子域用国内CDN被GEOIP,CN误判走直连)
+  - DOMAIN-SUFFIX,itiger.com,PROXY
+  - DOMAIN-SUFFIX,itigerup.com,PROXY
+  - DOMAIN-SUFFIX,tigerbrokers.com,PROXY
+  - DOMAIN-SUFFIX,tigerbrokers.com.sg,PROXY
+  - DOMAIN-SUFFIX,skytigris.cn,PROXY
+  # 地理分流(境外代理/境内直连)
+  - GEOSITE,geolocation-!cn,PROXY
+  - GEOSITE,geolocation-cn,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,PROXY

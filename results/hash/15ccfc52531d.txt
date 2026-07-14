@@ -1,0 +1,40 @@
+mode: rule
+ipv6: false
+log-level: info
+allow-lan: false
+port: 7890
+socks-port: 7891
+
+proxies:
+  - name: "Windows-VPN"
+    type: vless
+    server: 103.110.221.73
+    port: 4443
+    uuid: bf5d692b-f4f3-430c-953e-107f24f26678
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.microsoft.com
+    reality-opts:
+      public-key: 0qd4L7HSU1CyU0ZJAkG1u5sB4SakPT7H9oaSa33uVHY
+      short-id: 1a2b3c4d
+    client-fingerprint: chrome
+
+proxy-groups:
+  - name: "Proxy"
+    type: select
+    proxies:
+      - "Windows-VPN"
+  - name: "Final"
+    type: select
+    proxies:
+      - "Proxy"
+      - DIRECT
+
+rules:
+  - DOMAIN-SUFFIX,google.com,Proxy
+  - DOMAIN-KEYWORD,google,Proxy
+  - DOMAIN-SUFFIX,github.com,Proxy
+  - GEOIP,CN,DIRECT
+  - MATCH,Final

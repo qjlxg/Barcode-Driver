@@ -8,16 +8,7 @@ SIGNS = ["proxies:", "proxy-groups:", "vless://", "vmess://", "trojan://", "uuid
 WORKER_COUNT = 100 
 
 stats = {"req": 0, "saved": 0}
-# 记录已扫描的指纹，避免重复处理
-visited_hashes = set()
-
-def load_existing_results():
-    """加载历史记录以实现去重"""
-    if os.path.exists("scan_results.csv"):
-        with open("scan_results.csv", "r", encoding="utf-8") as f:
-            reader = csv.reader(f)
-            for row in reader:
-                if row: visited_hashes.add(row[0]) # 假设第一列是 hash
+found_results = [] # 记录已找到的 URL 避免重复
 
 async def scan(session, host, port, path, pbar):
     for scheme in ["https", "http"]:
@@ -28,31 +19,18 @@ async def scan(session, host, port, path, pbar):
                 if resp.status == 200:
                     text = await resp.text(errors="ignore")
                     if any(s in text.lower() for s in SIGNS):
-                        # 计算指纹
-                        content_hash = hashlib.md5(text.encode("utf-8")).hexdigest()[:12]
-                        
-                        if content_hash not in visited_hashes:
-                            visited_hashes.add(content_hash)
+                        if url not in found_results:
+                            found_results.append(url)
                             stats["saved"] += 1
-                            
-                            # 保存文件
-                            os.makedirs("results/hash", exist_ok=True)
-                            with open(f"results/hash/{content_hash}.txt", "w", encoding="utf-8") as f:
-                                f.write(text)
-                            
-                            # 写入 CSV
-                            with open("scan_results.csv", "a", encoding="utf-8", newline="") as f:
-                                writer = csv.writer(f)
-                                writer.writerow([content_hash, url])
-                                
+                            # 写入文件
+                            with open("results.csv", "a", encoding="utf-8") as f:
+                                f.write(f"{url}\n")
                         return # 找到即停止尝试该端口
         except: continue
     pbar.update(1)
 
 async def main():
     parser = argparse.ArgumentParser(); parser.add_argument("--file", required=True); args = parser.parse_args()
-    load_existing_results() # 启动时加载历史记录
-    
     with open(args.file) as f: lines = [l.strip() for l in f if l.strip()]
     
     tasks = []
@@ -64,14 +42,15 @@ async def main():
             for port in TARGET_PORTS:
                 for path in PATHS: tasks.append((line, port, path))
 
-    print(f"[*] 任务总数: {len(tasks)} | 已排除 {len(visited_hashes)} 个旧指纹")
+    print(f"[*] 任务总数: {len(tasks)}")
     pbar = tqdm(total=len(tasks))
     
     async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT)) as session:
+        # 分批执行，避免内存溢出
         for i in range(0, len(tasks), WORKER_COUNT):
             batch = tasks[i:i+WORKER_COUNT]
             await asyncio.gather(*(scan(session, h, p, path, pbar) for h, p, path in batch))
             
-    print(f"\n[*] 扫描完成！共新增: {stats['saved']} 个")
+    print(f"\n[*] 扫描完成！共命中: {stats['saved']} 个")
 
 if __name__ == "__main__": asyncio.run(main())

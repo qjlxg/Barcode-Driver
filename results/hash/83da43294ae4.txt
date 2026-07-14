@@ -1,0 +1,35 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: true
+
+proxies:
+  - name: xray-reality-159.54.181.175
+    type: vless
+    server: 159.54.181.175
+    port: 443
+    uuid: 236afefa-9942-4bbe-b67a-b8af9220034b
+    network: tcp
+    udp: true
+    tls: true
+    servername: www.microsoft.com
+    flow: xtls-rprx-vision
+    reality-opts:
+      public-key: nCVhbo1TjJFrHIhHI9DRdqllNwdY7EIp8n6HgLtE5gA
+      short-id: ""
+    client-fingerprint: chrome
+
+proxy-groups:
+  - name: PROXY
+    type: select
+    proxies:
+      - xray-reality-159.54.181.175
+  - name: FINAL
+    type: select
+    proxies:
+      - PROXY
+      - DIRECT
+
+rules:
+  - MATCH,FINAL
