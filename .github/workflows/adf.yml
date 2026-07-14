@@ -1,0 +1,78 @@
+name: 1. 资产探测 (Masscan) - 优化版
+
+on:
+  workflow_dispatch:          # 手动触发
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/adf.yml'   # 建议改成有意义的文件名
+      - 'targets.txt'
+      - 'ports.txt'
+
+jobs:
+  masscan_job:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 安装 Masscan
+        run: |
+          sudo apt-get update && sudo apt-get install -y masscan
+
+      - name: 扫描并更新存活资产
+        run: |
+          # 读取并处理 targets.txt 和 ports.txt
+          TARGETS=$(tr '\n' ',' < targets.txt | sed 's/,$//')
+          PORTS=$(cat ports.txt | tr -d '\r\n' | tr '\n' ',' | sed 's/,$//')
+          
+          echo "[*] 开始扫描"
+          echo "   ├── 目标网络: ${TARGETS:0:120}..."
+          echo "   ├── 端口: $PORTS"
+          echo "   └── 扫描速率: 800 pps (已优化)"
+          
+          # 优化后的 Masscan 命令
+          sudo masscan $TARGETS \
+            -p"$PORTS" \
+            --rate 800 \                    # 推荐值，可根据情况调至500-1200
+            --wait 12 \
+            --open-only \
+            --randomize-hosts \             # 随机化扫描顺序，提升隐蔽性
+            --exclude 127.0.0.1,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12 | \
+          awk '/open port/ {split($4,p,"/"); print $6 ":" p[1]}' > temp_alive.txt
+          
+          # 统计结果
+          LINES=$(wc -l < temp_alive.txt)
+          echo "[*] 本次扫描共发现 $LINES 个开放端口"
+          
+          if [ "$LINES" -gt 0 ]; then
+            # 去重并排序
+            sort -u temp_alive.txt > alive_ips.txt
+            echo "[+] 已更新 alive_ips.txt（共 $LINES 条记录）"
+          else
+            echo "[!] 未发现新开放端口，保留原有 alive_ips.txt"
+          fi
+          
+          # 清理临时文件
+          rm -f temp_alive.txt
+
+      - name: 提交更新
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          
+          if [[ -n $(git status -s alive_ips.txt) ]]; then
+            git add alive_ips.txt
+            git commit -m "chore: 更新存活资产列表 $(date +'%Y-%m-%d %H:%M:%S') [skip ci]"
+            git pull origin main --rebase
+            git push origin main
+            echo "[+] 成功提交更新"
+          else
+            echo "[-] alive_ips.txt 无变化，跳过提交"
+          fi
