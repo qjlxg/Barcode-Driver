@@ -106,7 +106,15 @@ async def scanner_worker(queue: asyncio.Queue, write_queue: asyncio.Queue, sessi
                     text = (await resp.content.read(350 * 1024)).decode("utf-8", errors="ignore")
                     low = text.lower()
 
+                    # --- DEBUG 插入逻辑 ---
+                    # 只有在发现确实没有 hit 时打印，帮你排查原因
                     hit = any(s in low for s in SIGNS)
+                    if not hit:
+                        found_signs = [s for s in SIGNS if s in low]
+                        if len(text) > 0:
+                            print(f"\n[DEBUG] 访问URL: {url} | 长度: {len(text)}")
+                            print(f"[DEBUG] 内容预览: {text[:150].strip()}")
+                    # ----------------------
 
                     # Base64 尝试解码
                     if not hit and 50 < len(text) < 250000:
