@@ -70,11 +70,7 @@ async def scan(session, host, port, path, pbar):
                         history_data[norm_url] = row
                         pbar.update(1)
                         return # 找到即停止尝试该端口
-                    else:
-                        # DEBUG: 记录未匹配到 SIGNS 的响应内容
-                        os.makedirs("logs", exist_ok=True)
-                        with open("logs/unknown.log", "a", encoding="utf-8") as f:
-                            f.write(f"URL: {url} | Preview: {text[:100].replace(chr(10), ' ')}\n")
+                    
         except Exception: 
             continue
     pbar.update(1)
