@@ -1,10 +1,9 @@
-name:  清点流水线
+name: 清点流水线
 
 on:
   workflow_dispatch:
   schedule:
     - cron: 0 */1 * * *
-    
 
 jobs:
   asset_pipeline:
@@ -13,7 +12,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-        with: {fetch-depth: 0}
+        with:
+          fetch-depth: 0
 
       - name: 设置环境与依赖
         run: |
@@ -46,7 +46,6 @@ jobs:
           if [ -s alive_latest.txt ]; then
             python3 filter_assets.py
             if [ -s alive_new.txt ]; then
-             
               python3 "scanner.py" --file alive_new.txt
             else
               echo "[-] 本轮无新资产需要深度检测。"
@@ -67,7 +66,7 @@ jobs:
             rm -rf results/hash/*
           fi
           
-          # 【新增】归档并提交 logs 文件夹
+          # 归档并提交 logs 文件夹
           if [ -d "logs" ]; then
             git add logs/
           fi
@@ -76,6 +75,11 @@ jobs:
           
           if [[ -n $(git status -s) ]]; then
             git commit -m "Auto: 资产轮询完成 $(date +'%Y-%m-%d %H:%M')"
+            
+            # 修复核心：拉取远程更新并变基，避免提交冲突
+            git pull --rebase origin main
+            
+            # 推送代码
             git push origin main
           else
             echo "[-] 无数据变动，无需提交。"
