@@ -22,7 +22,9 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
             target = line.strip()
             if not target: continue
             try:
-                net = ipaddress.ip_network(target if '/' in target else f"{target}/24", strict=False)
+                # 处理带端口的 IP (例如 101.35.42.94:10110 -> 101.35.42.94)
+                ip_part = target.split(':')[0]
+                net = ipaddress.ip_network(ip_part if '/' in ip_part else f"{ip_part}/24", strict=False)
                 net_str = str(net)
                 if net_str not in seen:
                     seen.add(net_str)
