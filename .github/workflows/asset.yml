@@ -62,17 +62,17 @@ jobs:
           # 1. 归档处理
           mkdir -p archive/hash
           if [ -d "results/hash" ] && [ "$(ls -A results/hash 2>/dev/null | wc -l)" -gt 5000 ]; then
-            tar -czf "archive/hash/results_hash_$(date +%Y%m%d_%H%M).tar.gz" results/hash/
+            tar -czf "archive/hash/results_hash_$(TZ='Asia/Shanghai' date +%Y%m%d_%H%M%S).tar.gz" results/hash/
             rm -rf results/hash/*
           fi
           
           # 归档 logs
           if [ -d "logs" ]; then git add logs/; fi
-          git add progress.json alive_latest.txt alive_history.txt scan_results.csv archive/hash/ || true
+          git add progress.json alive_latest.txt alive_history.txt scan_results.csv results/hash/ archive/hash/ || true
           
           # 2. 判断是否有改动并执行提交
           if [[ -n $(git status -s) ]]; then
-            git commit -m "Auto: 资产轮询完成 $(date +'%Y-%m-%d %H:%M')"
+            git commit -m "Auto: 资产轮询完成 $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
             
             # 使用 stash 暂存所有工作区状态，确保 rebase 时工作区是干净的
             git stash
