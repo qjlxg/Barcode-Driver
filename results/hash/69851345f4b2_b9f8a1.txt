@@ -1,0 +1,282 @@
+# Generated for Clash Verge Rev / Clash Mi.
+# Inline nodes for iOS compatibility. Per-VPS fallback groups + url-test auto-select.
+
+mixed-port: 7890
+allow-lan: true
+bind-address: '*'
+mode: rule
+log-level: info
+ipv6: true
+unified-delay: true
+tcp-concurrent: true
+find-process-mode: strict
+external-controller: 127.0.0.1:9090
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+sniffer:
+  enable: true
+  override-destination: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+      override-destination: true
+    QUIC:
+      ports: [443, 8443]
+      override-destination: true
+
+proxies:
+  - {name: "🇺🇸 US-SFO HY2", type: hysteria2, server: 159.65.79.184, port: 443, ports: 20000-50000, hop-interval: 30, up: "100 Mbps", down: "500 Mbps", password: 7466549e-812f-4b33-b09b-c3e132e6e51b, sni: addons.mozilla.org, skip-cert-verify: false, fingerprint: D2:0B:C6:72:35:F3:99:35:1B:4E:81:EE:4C:16:12:51:0E:52:AE:9E:FE:2C:84:65:76:62:10:DD:F2:1C:2C:3C}
+  - {name: "🇺🇸 US-SFO AnyTLS", type: anytls, server: 159.65.79.184, port: 444, password: 7466549e-812f-4b33-b09b-c3e132e6e51b, client-fingerprint: chrome, udp: true, idle-session-check-interval: 30, idle-session-timeout: 30, sni: addons.mozilla.org, skip-cert-verify: false, fingerprint: D2:0B:C6:72:35:F3:99:35:1B:4E:81:EE:4C:16:12:51:0E:52:AE:9E:FE:2C:84:65:76:62:10:DD:F2:1C:2C:3C}
+  - {name: "🇳🇱 NL-AMS HY2", type: hysteria2, server: 159.223.12.0, port: 443, ports: 20000-50000, hop-interval: 30, up: "100 Mbps", down: "500 Mbps", password: 4aeedead-1354-45a4-935d-8bba5e7f82b5, sni: addons.mozilla.org, skip-cert-verify: false, fingerprint: E9:33:97:A7:BF:A5:AF:2A:2D:B2:AF:02:08:2B:0A:42:19:C2:54:A3:5B:9B:50:20:F8:D3:41:EF:F6:1C:55:82}
+  - {name: "🇳🇱 NL-AMS AnyTLS", type: anytls, server: 159.223.12.0, port: 444, password: 4aeedead-1354-45a4-935d-8bba5e7f82b5, client-fingerprint: chrome, udp: true, idle-session-check-interval: 30, idle-session-timeout: 30, sni: addons.mozilla.org, skip-cert-verify: false, fingerprint: E9:33:97:A7:BF:A5:AF:2A:2D:B2:AF:02:08:2B:0A:42:19:C2:54:A3:5B:9B:50:20:F8:D3:41:EF:F6:1C:55:82}
+  - {name: "🇸🇬 SG-SGP HY2", type: hysteria2, server: 139.59.98.251, port: 443, ports: 20000-50000, hop-interval: 30, up: "100 Mbps", down: "500 Mbps", password: b547b58b-6628-4127-b67d-40aa0be26c67, sni: addons.mozilla.org, skip-cert-verify: false, fingerprint: 8A:24:AD:B1:0F:73:00:69:BF:83:37:62:FF:D0:B4:75:6E:79:85:73:05:A5:CC:D3:A0:DA:C7:84:0B:BF:98:DC}
+  - {name: "🇸🇬 SG-SGP AnyTLS", type: anytls, server: 139.59.98.251, port: 444, password: b547b58b-6628-4127-b67d-40aa0be26c67, client-fingerprint: chrome, udp: true, idle-session-check-interval: 30, idle-session-timeout: 30, sni: addons.mozilla.org, skip-cert-verify: false, fingerprint: 8A:24:AD:B1:0F:73:00:69:BF:83:37:62:FF:D0:B4:75:6E:79:85:73:05:A5:CC:D3:A0:DA:C7:84:0B:BF:98:DC}
+  - {name: "🇭🇰 HK-HKG AnyTLS", type: anytls, server: 123.254.107.195, port: 444, password: e9064dc5-f755-4579-a284-d60bf2d4e322, client-fingerprint: chrome, udp: true, idle-session-check-interval: 30, idle-session-timeout: 30, sni: addons.mozilla.org, skip-cert-verify: false, fingerprint: 50:D8:C8:9C:4F:90:44:3E:BA:2F:52:0A:4C:DF:FC:16:34:F5:5E:6B:06:1B:05:1D:BD:71:38:BF:69:B0:6A:B9}
+
+proxy-groups:
+  - name: 🚀 节点选择
+    type: select
+    proxies: [♻️ 自动选择, 🇺🇸 US-SFO, 🇳🇱 NL-AMS, 🇸🇬 SG-SGP, 🇭🇰 HK-HKG, 🎯 全球直连]
+
+  - name: ♻️ 自动选择
+    type: url-test
+    proxies: [🇺🇸 US-SFO, 🇳🇱 NL-AMS, 🇸🇬 SG-SGP, 🇭🇰 HK-HKG]
+    url: https://cp.cloudflare.com/generate_204
+    interval: 300
+    tolerance: 50
+    lazy: false
+    expected-status: 204
+
+  - name: 🇺🇸 US-SFO
+    type: fallback
+    proxies: [🇺🇸 US-SFO HY2, 🇺🇸 US-SFO AnyTLS]
+    url: https://cp.cloudflare.com/generate_204
+    interval: 300
+    lazy: false
+
+  - name: 🇳🇱 NL-AMS
+    type: fallback
+    proxies: [🇳🇱 NL-AMS HY2, 🇳🇱 NL-AMS AnyTLS]
+    url: https://cp.cloudflare.com/generate_204
+    interval: 300
+    lazy: false
+
+  - name: 🇸🇬 SG-SGP
+    type: fallback
+    proxies: [🇸🇬 SG-SGP HY2, 🇸🇬 SG-SGP AnyTLS]
+    url: https://cp.cloudflare.com/generate_204
+    interval: 300
+    lazy: false
+
+  - name: 🇭🇰 HK-HKG
+    type: select
+    proxies: [🇭🇰 HK-HKG AnyTLS]
+
+  - name: 🤖 OpenAI
+    type: select
+    proxies: [🚀 节点选择, ♻️ 自动选择, 🇺🇸 US-SFO, 🇳🇱 NL-AMS, 🇸🇬 SG-SGP, 🇭🇰 HK-HKG, 🎯 全球直连]
+
+  - name: 📹 YouTube
+    type: select
+    proxies: [🚀 节点选择, ♻️ 自动选择, 🇺🇸 US-SFO, 🇳🇱 NL-AMS, 🇸🇬 SG-SGP, 🇭🇰 HK-HKG, 🎯 全球直连]
+
+  - name: 🍀 Google
+    type: select
+    proxies: [🚀 节点选择, ♻️ 自动选择, 🇺🇸 US-SFO, 🇳🇱 NL-AMS, 🇸🇬 SG-SGP, 🇭🇰 HK-HKG, 🎯 全球直连]
+
+  - name: 🧠 Claude
+    type: select
+    proxies: [🚀 节点选择, ♻️ 自动选择, 🇺🇸 US-SFO, 🇳🇱 NL-AMS, 🇸🇬 SG-SGP, 🇭🇰 HK-HKG, 🎯 全球直连]
+
+  - name: 🎥 国外媒体
+    type: select
+    proxies: [🚀 节点选择, ♻️ 自动选择, 🇺🇸 US-SFO, 🇳🇱 NL-AMS, 🇸🇬 SG-SGP, 🇭🇰 HK-HKG, 🎯 全球直连]
+
+  - name: 📲 电报消息
+    type: select
+    proxies: [🚀 节点选择, ♻️ 自动选择, 🇺🇸 US-SFO, 🇳🇱 NL-AMS, 🇸🇬 SG-SGP, 🇭🇰 HK-HKG, 🎯 全球直连]
+
+  - name: Ⓜ️ 微软服务
+    type: select
+    proxies: [🚀 节点选择, ♻️ 自动选择, 🇺🇸 US-SFO, 🇳🇱 NL-AMS, 🇸🇬 SG-SGP, 🇭🇰 HK-HKG, 🎯 全球直连]
+
+  - name: 🍎 苹果服务
+    type: select
+    proxies: [🎯 全球直连, 🚀 节点选择, ♻️ 自动选择, 🇺🇸 US-SFO, 🇳🇱 NL-AMS, 🇸🇬 SG-SGP, 🇭🇰 HK-HKG]
+
+  - name: 🐙 GitHub
+    type: select
+    proxies: [🚀 节点选择, ♻️ 自动选择, 🇺🇸 US-SFO, 🇳🇱 NL-AMS, 🇸🇬 SG-SGP, 🇭🇰 HK-HKG, 🎯 全球直连]
+
+  - name: 🎯 全球直连
+    type: select
+    proxies: [DIRECT]
+
+  - name: 🛑 广告拦截
+    type: select
+    proxies: [REJECT, DIRECT]
+
+  - name: 🐟 漏网之鱼
+    type: select
+    proxies: [🚀 节点选择, ♻️ 自动选择, 🇺🇸 US-SFO, 🇳🇱 NL-AMS, 🇸🇬 SG-SGP, 🇭🇰 HK-HKG, 🎯 全球直连]
+
+  - name: GLOBAL
+    type: select
+    proxies: [🚀 节点选择, ♻️ 自动选择, 🇺🇸 US-SFO, 🇳🇱 NL-AMS, 🇸🇬 SG-SGP, 🇭🇰 HK-HKG, 🎯 全球直连]
+
+rule-providers:
+  local:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/LocalAreaNetwork.yaml"
+    path: ./ruleset/acl4ssr/local.yaml
+    interval: 86400
+
+  unban:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/UnBan.yaml"
+    path: ./ruleset/acl4ssr/unban.yaml
+    interval: 86400
+
+  reject:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/BanAD.yaml"
+    path: ./ruleset/acl4ssr/reject.yaml
+    interval: 86400
+
+  reject-program:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/BanProgramAD.yaml"
+    path: ./ruleset/acl4ssr/reject-program.yaml
+    interval: 86400
+
+  youtube:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/📹 YouTube.yaml"
+    path: ./ruleset/acl4ssr/youtube.yaml
+    interval: 86400
+
+  google:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/🍀 Google.yaml"
+    path: ./ruleset/acl4ssr/google.yaml
+    interval: 86400
+
+  openai:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/OpenAi.yaml"
+    path: ./ruleset/acl4ssr/openai.yaml
+    interval: 86400
+
+  claude:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/🧠 Claude.yaml"
+    path: ./ruleset/acl4ssr/claude.yaml
+    interval: 86400
+
+  telegram:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Telegram.yaml"
+    path: ./ruleset/acl4ssr/telegram.yaml
+    interval: 86400
+
+  microsoft:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Microsoft.yaml"
+    path: ./ruleset/acl4ssr/microsoft.yaml
+    interval: 86400
+
+  apple:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Apple.yaml"
+    path: ./ruleset/acl4ssr/apple.yaml
+    interval: 86400
+
+  github:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/Ruleset/Github.yaml"
+    path: ./ruleset/acl4ssr/github.yaml
+    interval: 86400
+
+  proxy-media:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/ProxyMedia.yaml"
+    path: ./ruleset/acl4ssr/proxy-media.yaml
+    interval: 86400
+
+  proxy:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/ProxyGFWlist.yaml"
+    path: ./ruleset/acl4ssr/proxy.yaml
+    interval: 86400
+
+  direct:
+    type: http
+    behavior: classical
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/ChinaDomain.yaml"
+    path: ./ruleset/acl4ssr/direct.yaml
+    interval: 86400
+
+  china-ip:
+    type: http
+    behavior: ipcidr
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/ACL4SSR/ACL4SSR@master/Clash/Providers/ChinaIp.yaml"
+    path: ./ruleset/acl4ssr/china-ip.yaml
+    interval: 86400
+
+rules:
+  - RULE-SET,local,🎯 全球直连
+  - RULE-SET,unban,🎯 全球直连
+  - RULE-SET,reject,🛑 广告拦截
+  - RULE-SET,reject-program,🛑 广告拦截
+
+  - RULE-SET,openai,🤖 OpenAI
+  - RULE-SET,claude,🧠 Claude
+  - RULE-SET,youtube,📹 YouTube
+  - RULE-SET,google,🍀 Google
+  - RULE-SET,telegram,📲 电报消息
+  - RULE-SET,microsoft,Ⓜ️ 微软服务
+  - RULE-SET,apple,🍎 苹果服务
+  - RULE-SET,github,🐙 GitHub
+  - RULE-SET,proxy-media,🎥 国外媒体
+  - RULE-SET,direct,🎯 全球直连
+  - RULE-SET,china-ip,🎯 全球直连
+  - RULE-SET,proxy,🚀 节点选择
+  - GEOIP,LAN,🎯 全球直连,no-resolve
+  - GEOIP,CN,🎯 全球直连,no-resolve
+  - MATCH,🐟 漏网之鱼

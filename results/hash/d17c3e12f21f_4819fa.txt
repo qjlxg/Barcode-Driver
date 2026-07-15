@@ -1,0 +1,51 @@
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: rule
+log-level: info
+ipv6: false
+external-controller: :9090
+
+dns:
+  enabled: true
+  prefer-h3: true
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  fallback:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+
+proxies:
+  - name: "VPS-REALITY"
+    type: vless
+    server: 198.23.238.35
+    port: 443
+    uuid: 70f8d74a-7938-4f21-9293-2c437a939247
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.cloudflare.com
+    reality-opts:
+      public-key: M4KRLRGcJGhJScjCv3JinHE0Da9s79Ku7GlVFSNsTVY
+      short-id: a61500e1
+    client-fingerprint: chrome
+
+proxy-groups:
+  - name: "PROXY"
+    type: select
+    proxies:
+      - "VPS-REALITY"
+      - "DIRECT"
+
+rules:
+  - DOMAIN-SUFFIX,cn,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,PROXY
