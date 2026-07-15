@@ -1,4 +1,4 @@
-name: 资产清点流水线
+name:  清点流水线
 
 on:
   workflow_dispatch:
