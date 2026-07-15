@@ -3,6 +3,7 @@ name: 资产清点流水线
 on:
   workflow_dispatch:
   schedule:
+    # 北京时间 02:00, 08:00, 14:00, 20:00
     - cron: '0 18,0,6,12 * * *'
 
 jobs:
@@ -27,6 +28,7 @@ jobs:
           if [ -s targets.txt ]; then
             TARGETS=$(tr '\n' ',' < targets.txt | sed 's/,$//')
             PORTS=$(cat ports.txt | tr ',\n\r' ' ' | xargs | tr ' ' ',')
+            
             sudo masscan $TARGETS -p"$PORTS" --rate 1000 --wait 5 --open-only | \
             awk '/Discovered open port/ { split($4,p,"/"); print $6 ":" p[1] }' | \
             sort -u > alive_latest.txt
@@ -42,7 +44,7 @@ jobs:
       - name: 3. 深度指纹采集 (增量过滤)
         run: |
           if [ -s alive_latest.txt ]; then
-            # 使用外部脚本处理，避免 YAML 缩进错误
+            # 调用外部 Python 脚本进行去重，避免 YAML 缩进陷阱
             python3 filter_assets.py
             if [ -s alive_new.txt ]; then
               python3 scanner.py --file alive_new.txt
@@ -59,7 +61,8 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
           mkdir -p archive/hash
-          if [ -d "results/hash" ] && [ "$(ls -A results/hash 2>/dev/null | wc -l)" -gt 100 ]; then
+          # 已将归档阈值调整为 5000，减少频繁压缩导致的 git 提交压力
+          if [ -d "results/hash" ] && [ "$(ls -A results/hash 2>/dev/null | wc -l)" -gt 5000 ]; then
             tar -czf "archive/hash/results_hash_$(date +%Y%m%d_%H%M).tar.gz" results/hash/
             rm -rf results/hash/*
           fi
@@ -68,4 +71,6 @@ jobs:
           if [[ -n $(git status -s) ]]; then
             git commit -m "Auto: 资产轮询完成 $(date +'%Y-%m-%d %H:%M')"
             git push origin main
+          else
+            echo "[-] 无数据变动，无需提交。"
           fi
