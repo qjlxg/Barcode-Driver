@@ -1,0 +1,306 @@
+# Clash Config for 3x-ui
+# Generated: 2026-07-04
+
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: Rule
+log-level: warning
+ipv6: false
+external-controller: 127.0.0.1:9090
+
+proxies:
+  - name: "NoCF-Reality-80"
+    type: vless
+    server: 198.23.254.116
+    port: 80
+    uuid: 3ec15a55-7709-49e8-adfc-9a9fdc68e74e
+    flow: xtls-rprx-vision
+    tls: true
+    udp: true
+    servername: www.google.com
+    reality-opts:
+      public-key: P0OJOwoq-707qXF86Q2fhDiuXWpJ_j7aJUH9sP8VKTo
+      short-id: 00159ad71d39a0a2
+    client-fingerprint: chrome
+
+  - name: "NoCF-VMESS-WS-2053"
+    type: vmess
+    server: 198.23.254.116
+    port: 2053
+    uuid: e6c7bbf0-3947-43ce-923e-00a005b264fd
+    alterId: 0
+    cipher: auto
+    network: ws
+    ws-path: /ws
+
+  - name: "CF-VLESS-TLS-443"
+    type: vless
+    server: rack.licheng.uk
+    port: 443
+    uuid: 8837d553-96c8-41fc-84e3-935efbc7dc3e
+    network: ws
+    tls: true
+    udp: true
+    servername: rack.licheng.uk
+    ws-opts:
+      path: /vless
+      headers:
+        Host: rack.licheng.uk
+
+proxy-groups:
+  - name: "Proxy"
+    type: select
+    proxies:
+      - "Auto"
+      - "CF-VLESS-TLS-443"
+      - "NoCF-Reality-80"
+      - "NoCF-VMESS-WS-2053"
+      - "DIRECT"
+
+  - name: "Auto"
+    type: url-test
+    proxies:
+      - "CF-VLESS-TLS-443"
+      - "NoCF-Reality-80"
+      - "NoCF-VMESS-WS-2053"
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+    tolerance: 50
+
+  - name: "Global Media"
+    type: select
+    proxies:
+      - "Proxy"
+      - "Auto"
+      - "DIRECT"
+
+  - name: "Google"
+    type: select
+    proxies:
+      - "Proxy"
+      - "Auto"
+      - "DIRECT"
+
+  - name: "Telegram"
+    type: select
+    proxies:
+      - "Proxy"
+      - "Auto"
+      - "DIRECT"
+
+  - name: "Apple"
+    type: select
+    proxies:
+      - "DIRECT"
+      - "Proxy"
+
+  - name: "Microsoft"
+    type: select
+    proxies:
+      - "DIRECT"
+      - "Proxy"
+
+  - name: "Bilibili"
+    type: select
+    proxies:
+      - "DIRECT"
+      - "Proxy"
+
+  - name: "Ad Block"
+    type: select
+    proxies:
+      - "REJECT"
+      - "DIRECT"
+
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  use-hosts: true
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 114.114.114.114
+  nameserver:
+    - https://doh.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  fallback:
+    - https://dns.google/dns-query
+    - https://dns.cloudflare.com/dns-query
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
+  nameserver-policy:
+    "rack.licheng.uk": "223.5.5.5"
+    "geosite:cn": "https://doh.alidns.com/dns-query"
+
+rules:
+  # Ads
+  - DOMAIN-SUFFIX,doubleclick.net,Ad Block
+  - DOMAIN-SUFFIX,googleadservices.com,Ad Block
+  - DOMAIN-SUFFIX,googlesyndication.com,Ad Block
+  - DOMAIN-SUFFIX,googletagmanager.com,Ad Block
+  - DOMAIN-SUFFIX,adsrvr.org,Ad Block
+  - DOMAIN-KEYWORD,adservice,Ad Block
+
+  # LAN & Private
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - IP-CIDR,100.64.0.0/10,DIRECT
+  - IP-CIDR6,::1/128,DIRECT
+  - IP-CIDR6,fc00::/7,DIRECT
+  - IP-CIDR6,fe80::/7,DIRECT
+
+  # Bilibili - direct
+  - DOMAIN-SUFFIX,bilibili.com,Bilibili
+  - DOMAIN-SUFFIX,bilibili.tv,Bilibili
+  - DOMAIN-SUFFIX,hdslb.com,Bilibili
+  - DOMAIN-SUFFIX,bilivideo.com,Bilibili
+  - DOMAIN-SUFFIX,b23.tv,Bilibili
+  - DOMAIN-SUFFIX,acg.tv,Bilibili
+
+  # Microsoft - direct
+  - DOMAIN-SUFFIX,microsoft.com,Microsoft
+  - DOMAIN-SUFFIX,microsoft.net,Microsoft
+  - DOMAIN-SUFFIX,msn.com,Microsoft
+  - DOMAIN-SUFFIX,office.com,Microsoft
+  - DOMAIN-SUFFIX,office.net,Microsoft
+  - DOMAIN-SUFFIX,sharepoint.com,Microsoft
+  - DOMAIN-SUFFIX,onedrive.com,Microsoft
+  - DOMAIN-SUFFIX,outlook.com,Microsoft
+  - DOMAIN-SUFFIX,azure.com,Microsoft
+  - DOMAIN-SUFFIX,live.com,Microsoft
+  - DOMAIN-SUFFIX,bing.com,Microsoft
+  - DOMAIN-SUFFIX,visualstudio.com,Microsoft
+  - DOMAIN-SUFFIX,xbox.com,Microsoft
+  - DOMAIN-SUFFIX,xboxlive.com,Microsoft
+  - DOMAIN-SUFFIX,github.com,Microsoft
+  - DOMAIN-SUFFIX,github.io,Microsoft
+  - DOMAIN-SUFFIX,githubassets.com,Microsoft
+
+  # Apple - direct
+  - DOMAIN-SUFFIX,apple.com,Apple
+  - DOMAIN-SUFFIX,apple-cloudkit.com,Apple
+  - DOMAIN-SUFFIX,icloud.com,Apple
+  - DOMAIN-SUFFIX,icloud-content.com,Apple
+  - DOMAIN-SUFFIX,icloud.net,Apple
+  - DOMAIN-SUFFIX,me.com,Apple
+  - DOMAIN-SUFFIX,itunes.com,Apple
+  - DOMAIN-SUFFIX,apps.apple.com,Apple
+
+  # Google - proxy
+  - DOMAIN-SUFFIX,google.com,Google
+  - DOMAIN-SUFFIX,google.com.hk,Google
+  - DOMAIN-SUFFIX,google.co.jp,Google
+  - DOMAIN-SUFFIX,googleapis.com,Google
+  - DOMAIN-SUFFIX,googlevideo.com,Google
+  - DOMAIN-SUFFIX,youtube.com,Global Media
+  - DOMAIN-SUFFIX,ytimg.com,Global Media
+  - DOMAIN-SUFFIX,gstatic.com,Google
+  - DOMAIN-SUFFIX,ggpht.com,Google
+  - DOMAIN-SUFFIX,blogspot.com,Google
+  - DOMAIN-SUFFIX,googleusercontent.com,Google
+
+  # Telegram - proxy
+  - DOMAIN-SUFFIX,telegram.org,Telegram
+  - IP-CIDR,91.108.56.0/22,Telegram
+  - IP-CIDR,91.108.4.0/22,Telegram
+  - IP-CIDR,91.108.8.0/22,Telegram
+  - IP-CIDR,91.108.12.0/22,Telegram
+  - IP-CIDR,91.108.16.0/22,Telegram
+  - IP-CIDR,91.108.20.0/22,Telegram
+  - IP-CIDR,149.154.160.0/20,Telegram
+  - IP-CIDR,185.76.151.0/24,Telegram
+
+  # Twitter
+  - DOMAIN-SUFFIX,twitter.com,Proxy
+  - DOMAIN-SUFFIX,x.com,Proxy
+  - DOMAIN-SUFFIX,t.co,Proxy
+  - DOMAIN-SUFFIX,twimg.com,Proxy
+
+  # Instagram
+  - DOMAIN-SUFFIX,instagram.com,Proxy
+  - DOMAIN-SUFFIX,cdninstagram.com,Proxy
+
+  # Netflix
+  - DOMAIN-SUFFIX,netflix.com,Global Media
+  - DOMAIN-SUFFIX,netflix.net,Global Media
+  - DOMAIN-SUFFIX,nflxvideo.net,Global Media
+  - DOMAIN-SUFFIX,nflxext.com,Global Media
+  - DOMAIN-SUFFIX,nflximg.com,Global Media
+  - DOMAIN-SUFFIX,nflximg.net,Global Media
+
+  # Spotify
+  - DOMAIN-SUFFIX,spotify.com,Global Media
+  - DOMAIN-SUFFIX,scdn.co,Global Media
+
+  # OpenAI
+  - DOMAIN-SUFFIX,openai.com,Proxy
+  - DOMAIN-SUFFIX,chatgpt.com,Proxy
+  - DOMAIN-SUFFIX,ai.com,Proxy
+
+  # Reddit
+  - DOMAIN-SUFFIX,reddit.com,Proxy
+  - DOMAIN-SUFFIX,redd.it,Proxy
+  - DOMAIN-SUFFIX,redditmedia.com,Proxy
+
+  # Wikipedia
+  - DOMAIN-SUFFIX,wikipedia.org,Proxy
+  - DOMAIN-SUFFIX,wikimedia.org,Proxy
+  - DOMAIN-SUFFIX,wikidata.org,Proxy
+
+  # Cloudflare (CDN - direct)
+  - DOMAIN-SUFFIX,cloudflare.com,DIRECT
+  - DOMAIN-SUFFIX,cloudflare.net,DIRECT
+
+  # Chinese sites - direct
+  - DOMAIN-SUFFIX,cn,DIRECT
+  - DOMAIN-SUFFIX,baidu.com,DIRECT
+  - DOMAIN-SUFFIX,baiducontent.com,DIRECT
+  - DOMAIN-SUFFIX,bdimg.com,DIRECT
+  - DOMAIN-SUFFIX,qq.com,DIRECT
+  - DOMAIN-SUFFIX,tencent.com,DIRECT
+  - DOMAIN-SUFFIX,weixin.com,DIRECT
+  - DOMAIN-SUFFIX,alipay.com,DIRECT
+  - DOMAIN-SUFFIX,taobao.com,DIRECT
+  - DOMAIN-SUFFIX,tmall.com,DIRECT
+  - DOMAIN-SUFFIX,alibaba.com,DIRECT
+  - DOMAIN-SUFFIX,aliyun.com,DIRECT
+  - DOMAIN-SUFFIX,jd.com,DIRECT
+  - DOMAIN-SUFFIX,360.cn,DIRECT
+  - DOMAIN-SUFFIX,sohu.com,DIRECT
+  - DOMAIN-SUFFIX,sina.com,DIRECT
+  - DOMAIN-SUFFIX,sinaimg.cn,DIRECT
+  - DOMAIN-SUFFIX,163.com,DIRECT
+  - DOMAIN-SUFFIX,douyin.com,DIRECT
+  - DOMAIN-SUFFIX,zhihu.com,DIRECT
+  - DOMAIN-SUFFIX,netease.com,DIRECT
+  - DOMAIN-SUFFIX,xiaomi.com,DIRECT
+  - DOMAIN-SUFFIX,huawei.com,DIRECT
+  - DOMAIN-SUFFIX,vivo.com,DIRECT
+  - DOMAIN-SUFFIX,oppo.com,DIRECT
+  - DOMAIN-SUFFIX,meituan.com,DIRECT
+  - DOMAIN-SUFFIX,dianping.com,DIRECT
+  - DOMAIN-SUFFIX,didi.com,DIRECT
+  - DOMAIN-SUFFIX,weibo.com,DIRECT
+  - DOMAIN-SUFFIX,youku.com,DIRECT
+  - DOMAIN-SUFFIX,iqiyi.com,DIRECT
+  - DOMAIN-SUFFIX,weibo.cn,DIRECT
+  - DOMAIN-SUFFIX,qiyi.com,DIRECT
+  - DOMAIN-SUFFIX,pinduoduo.com,DIRECT
+  - DOMAIN-SUFFIX,kuaishou.com,DIRECT
+  - DOMAIN-SUFFIX,ctrip.com,DIRECT
+  - DOMAIN-SUFFIX,mafengwo.cn,DIRECT
+
+  # China IPs - direct
+  - GEOIP,CN,DIRECT
+
+  # Fallback
+  - MATCH,Proxy

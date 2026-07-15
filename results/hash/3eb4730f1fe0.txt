@@ -1,0 +1,44 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  default-nameserver:
+    - 8.8.8.8
+    - 1.1.1.1
+  nameserver:
+    - https://dns.google/dns-query
+    - https://1.1.1.1/dns-query
+  fallback:
+    - https://dns.google/dns-query
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+
+proxies:
+  - name: "洛杉矶"
+    type: vmess
+    server: 176.122.174.175
+    port: 8443
+    uuid: aa6bc79c-7535-4491-aede-655110ced2e3
+    alterId: 0
+    cipher: auto
+    network: ws
+    ws-opts:
+      path: /vmess
+      headers:
+        Host: 176.122.174.175
+
+proxy-groups:
+  - name: "PROXY"
+    type: select
+    proxies:
+      - "洛杉矶"
+      - DIRECT
+
+rules:
+  - GEOIP,CN,DIRECT
+  - MATCH,PROXY
