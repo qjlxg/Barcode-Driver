@@ -3,6 +3,7 @@ import hashlib
 import json
 import datetime
 from pathlib import Path
+from urllib.parse import urlparse
 
 BATCH_SIZE = 5
 PROGRESS_FILE = Path('progress.json')
@@ -22,8 +23,17 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
             target = line.strip()
             if not target: continue
             try:
-                # 处理带端口的 IP (例如 101.35.42.94:10110 -> 101.35.42.94)
-                ip_part = target.split(':')[0]
+                # 逻辑：如果包含协议头，用 urlparse 解析；否则视为原始 IP
+                if "://" in target:
+                    parsed = urlparse(target)
+                    ip_part = parsed.hostname
+                else:
+                    # 去除端口部分
+                    ip_part = target.split(':')[0]
+                
+                # 检查解析出的 ip_part 是否为空
+                if not ip_part: continue
+                
                 net = ipaddress.ip_network(ip_part if '/' in ip_part else f"{ip_part}/24", strict=False)
                 net_str = str(net)
                 if net_str not in seen:
