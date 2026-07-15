@@ -1,0 +1,124 @@
+﻿mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+external-controller: '127.0.0.1:9090'
+unified-delay: true
+tcp-concurrent: true
+
+dns:
+  enable: true
+  ipv6: false
+  default-nameserver: [223.5.5.5, 119.29.29.29]
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver: [223.5.5.5, 119.29.29.29]
+  fallback: [1.1.1.1, 8.8.8.8]
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+
+proxies:
+  # ===== 原有节点：硅谷VPS Hysteria2 =====
+  - name: "🇺🇸 硅谷VPS-Hysteria2"
+    type: hysteria2
+    server: 43.130.7.3
+    port: 8443
+    password: "Hy2@SiLiCon2026!"
+    skip-cert-verify: true
+    sni: bing.com
+    udp: true
+
+  # ===== Cloudflare VLESS 节点 =====
+  - name: "☁️ CF-VLESS"
+    type: vless
+    server: vpn.renshengxuanze.ccwu.cc
+    port: 443
+    uuid: 9a3de3e0-2a6e-4bb2-81bd-1a4e51dfa110
+    network: ws
+    tls: true
+    udp: false
+    servername: vpn.renshengxuanze.ccwu.cc
+    ws-opts:
+      path: "/?ed=2048"
+      headers:
+        Host: vpn.renshengxuanze.ccwu.cc
+
+  # ===== CF优选IP节点（速度更快） =====
+  - name: "☁️ CF-优选1"
+    type: vless
+    server: 104.16.0.1
+    port: 443
+    uuid: 9a3de3e0-2a6e-4bb2-81bd-1a4e51dfa110
+    network: ws
+    tls: true
+    udp: false
+    servername: vpn.renshengxuanze.ccwu.cc
+    ws-opts:
+      path: "/?ed=2048"
+      headers:
+        Host: vpn.renshengxuanze.ccwu.cc
+
+  - name: "☁️ CF-优选2"
+    type: vless
+    server: 172.64.0.1
+    port: 443
+    uuid: 9a3de3e0-2a6e-4bb2-81bd-1a4e51dfa110
+    network: ws
+    tls: true
+    udp: false
+    servername: vpn.renshengxuanze.ccwu.cc
+    ws-opts:
+      path: "/?ed=2048"
+      headers:
+        Host: vpn.renshengxuanze.ccwu.cc
+
+  - name: "☁️ CF-优选3"
+    type: vless
+    server: 1.0.0.1
+    port: 443
+    uuid: 9a3de3e0-2a6e-4bb2-81bd-1a4e51dfa110
+    network: ws
+    tls: true
+    udp: false
+    servername: vpn.renshengxuanze.ccwu.cc
+    ws-opts:
+      path: "/?ed=2048"
+      headers:
+        Host: vpn.renshengxuanze.ccwu.cc
+
+proxy-groups:
+  - name: "🚀 代理"
+    type: select
+    proxies:
+      - "⚡ 自动选择"
+      - "🇺🇸 硅谷VPS-Hysteria2"
+      - "☁️ CF-VLESS"
+      - "☁️ CF-优选1"
+      - "☁️ CF-优选2"
+      - "☁️ CF-优选3"
+      - DIRECT
+
+  - name: "⚡ 自动选择"
+    type: select
+    proxies:
+      - "🇺🇸 硅谷VPS-Hysteria2"
+      - "☁️ CF-VLESS"
+      - "☁️ CF-优选1"
+      - "☁️ CF-优选2"
+      - "☁️ CF-优选3"
+
+  - name: "🎯 全球直连"
+    type: select
+    proxies:
+      - DIRECT
+      - "🚀 代理"
+
+rules:
+  - GEOSITE,private,DIRECT
+  - GEOSITE,cn,DIRECT
+  - GEOIP,CN,DIRECT,no-resolve
+  - GEOSITE,geolocation-!cn,🚀 代理
+  - MATCH,🚀 代理
+
+
