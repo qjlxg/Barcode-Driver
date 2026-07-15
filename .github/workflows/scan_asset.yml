@@ -22,7 +22,8 @@ jobs:
       - name: 1. 生成任务批次
         run: |
           python3 processor.py
-          # 确保 processor.py 运行后生成了 cycle.txt
+          # 确保 processor.py 结束后生成了 cycle.txt，若无则初始化
+          if [ ! -f cycle.txt ]; then echo "1" > cycle.txt; fi
 
       - name: 2. 高速端口探测
         run: |
@@ -45,9 +46,9 @@ jobs:
       - name: 3. 深度指纹采集
         run: |
           if [ -s alive_latest.txt ]; then
-            # 直接调用新版 scanner.py，它自带数据库状态管理
-            # 从 cycle.txt 读取轮次作为参数传入
+            # 使用 cycle.txt 获取当前轮次并传递给 scanner
             CYCLE=$(cat cycle.txt)
+            echo "[*] 当前扫描轮次: $CYCLE"
             python3 scanner.py --file alive_latest.txt --cycle $CYCLE
           else
             echo "[-] 本轮无存活资产。"
@@ -59,15 +60,16 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
           mkdir -p archive/hash
-          # 归档阈值保持为 5000
+          # 归档阈值调整为 5000，减少频繁 IO 和 Git 提交压力
           if [ -d "results/hash" ] && [ "$(ls -A results/hash 2>/dev/null | wc -l)" -gt 5000 ]; then
             tar -czf "archive/hash/results_hash_$(date +%Y%m%d_%H%M).tar.gz" results/hash/
             rm -rf results/hash/*
           fi
           
-          git add progress.json alive_latest.txt alive_history.txt scan_results.csv archive/hash/ || true
+          # 提交包括新的状态库文件 scan_results.csv 和轮次文件 cycle.txt
+          git add progress.json cycle.txt alive_latest.txt alive_history.txt scan_results.csv archive/hash/ || true
           if [[ -n $(git status -s) ]]; then
-            git commit -m "Auto: 资产轮询完成 $(date +'%Y-%m-%d %H:%M')"
+            git commit -m "Auto: 资产轮询完成 cycle $(cat cycle.txt) $(date +'%Y-%m-%d %H:%M')"
             git push origin main
           else
             echo "[-] 无数据变动，无需提交。"
