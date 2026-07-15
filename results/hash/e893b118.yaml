@@ -1,0 +1,26 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: 🇩🇪德国-SS
+    type: ss
+    server: 185.254.74.247
+    port: 8443
+    cipher: aes-256-gcm
+    password: "QigeSS2026!Secure#Proxy"
+    udp: true
+
+proxy-groups:
+  - name: Proxy
+    type: select
+    proxies:
+      - 🇩🇪德国-SS
+      - DIRECT
+
+rules:
+  - IP-CIDR,185.254.74.247/32,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,Proxy

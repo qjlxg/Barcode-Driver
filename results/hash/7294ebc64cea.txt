@@ -1,0 +1,239 @@
+<!doctype html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="copyright" content="Copyright 2012 Ubiquiti Networks, Inc. All rights reserved.">
+
+  <title>EdgeOS</title>
+
+    <link rel="shortcut icon" href="/media/global/favicon.png" />
+        <link rel="stylesheet" href="/lib/1656569626/stylesheets/css/reset.min.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="/lib/1656569626/fonts/open-sans/stylesheet.min.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="/lib/1656569626/stylesheets/css/core.min.css" type="text/css" media="screen" />
+
+
+    <script type="text/javascript">
+        var DEV_MODE = false,
+            EDGE = {}
+        ;
+
+        EDGE.Config = {
+            Api: {
+                'base': 'https://154.3.49.34/api/',
+                'get': 'https://154.3.49.34/api/edge/get.json',
+                'set': 'https://154.3.49.34/api/edge/set.json',
+                'delete': 'https://154.3.49.34/api/edge/delete.json',
+                'batch': 'https://154.3.49.34/api/edge/batch.json',
+                'data': 'https://154.3.49.34/api/edge/data.json',
+                'heartbeat': 'https://154.3.49.34/api/edge/heartbeat.json',
+                'setup': 'https://154.3.49.34/api/edge/setup.json',
+                'feature': 'https://154.3.49.34/api/edge/feature.json'
+            },
+
+            Stats: {
+                url: 'wss://154.3.49.34/ws/stats',
+                debug: 1,
+                required: false
+            },
+
+            Settings: {
+                keepalive: false,
+                defaultConfigWizard: 'Wizard/setup/Basic_Setup'
+            },
+
+            User: {
+                username: 'None',
+                level: 'None'
+            },
+
+            Interfaces: {
+                supported: ['bridge', 'ethernet', 'switch', 'loopback', 'vlan', 'pppoe', 'nni', 'pon']
+            },
+
+            TrafficAnalysis: {
+                predefinedCategories: [
+                    'Business',
+                    'Bypass-Proxies-and-Tunnels',
+                    'File-Transfer',
+                    'Games',
+                    'Instant-messaging',
+                    'Mail-and-Collaboration',
+                    'P2P',
+                    'Remote-Access-Terminals',
+                    'Security-Update',
+                    'Social-Network',
+                    'Stock-Market',
+                    'Streaming-Media',
+                    'TopSites-Adult',
+                    'TopSites-Arts',
+                    'TopSites-Business',
+                    'TopSites-Computers',
+                    'TopSites-Games',
+                    'TopSites-Health',
+                    'TopSites-Home',
+                    'TopSites-KidsnTeens',
+                    'TopSites-News',
+                    'TopSites-Recreation',
+                    'TopSites-Reference',
+                    'TopSites-Regional',
+                    'TopSites-Science',
+                    'TopSites-Shopping',
+                    'TopSites-Society',
+                    'TopSites-Sports',
+                    'Voice-over-IP',
+                    'Web',
+                    'Web-IM'
+                ]
+            },
+
+            Features: {"poe": true, "ports": 6, "sfp": {"ports": ["eth5"]}}
+        };
+
+        //backbone.js class containers
+        EDGE.Models = {};
+        EDGE.Collections = {};
+        EDGE.Views = {};
+        EDGE.Routers = {};
+
+        //initial rendered flag
+        EDGE.Rendered = false;
+        EDGE.DeviceModel = 'ER-6P'
+    </script>
+
+        <script type="text/javascript" src="/lib/1656569626/js/libs/modernizr.custom.js"></script>
+
+</head>
+<body class="index ER-6P" data-name="EdgeRouter 6P">
+
+<!-- Start: Page Content -->
+<div id="PageContent">
+
+<!-- Start: No script -->
+<div id="NoScript" class="alert-box">
+  Javascript is required. Please enable it in your browser.
+</div>
+<!-- End: No script -->
+
+  <!-- Start: Content -->
+  <div id="Login" class="main-section unrendered">
+    <!-- Start: Header -->
+    <div id="PageHeader" class="page-header">
+      <div class="ir edgeos-header-logo">EdgeOS</div>
+    </div>
+    <!-- End: Header -->
+
+    <div class="content-outer-container">
+      <div class="content-inner-container">
+        <div class="content">
+          <h1 class="section-title">Please Login</h1>
+
+          <!-- Start: Section Container -->
+          <div class="section-container tall">
+            <form id="LoginForm" method="post" class="ui-form">
+              <input id="Username" name="username" class="text-input" type="text" placeholder="Username" autocapitalize="off" autocorrection="off"/>
+              <input id="Password" name="password" class="text-input" type="password" placeholder="Password" />
+
+
+              <input id="LoginButton" class="submit-input" type="submit" value="Login" />
+            </form>
+
+            <!-- Preload the application loader image for the application page -->
+            <div class="application-loader"></div>
+          </div>
+          <!-- End: Section Container -->
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End: Content -->
+
+    <div id="UMobileLink">
+      <div class="badges">
+        <a href="https://play.google.com/store/apps/details?id=com.ubnt.umobile">
+          <img src="/media/global/gplay.svg" width="140" alt="Get it on Google Play">
+        </a>
+        <a href="https://itunes.apple.com/us/app/umobile-ubnt/id1183022489?mt=8">
+          <img src="/media/global/astore.svg" width="140" alt="Download on the App Store">
+        </a>
+      </div>
+    </div>
+</div>
+<!-- End: Container -->
+
+            <script type="text/javascript" src="/lib/1656569626/js/core.min.js"></script>
+
+        <script type="text/javascript">
+            var UBNT_DISCOVER_DISABLE = false;
+        </script>
+
+                <script type="text/javascript" src="/lib/1656569626/js/edge/login.js"></script>
+
+
+        <script type="text/javascript">
+            $(function() {
+                try {
+                    if (EDGE.Config.User.level != 'admin') {
+                        $('body').addClass('readonly');
+                    }
+                    window.app.initialize(null, DEV_MODE);
+                } catch (e) {
+                    window.app.fatal(Msg.E_Runtime + ': ' + e, 'Runtime Error', true);
+                }
+
+            });
+       </script>
+
+        <script type="text/javascript">
+            $.xss = function(text) {
+                return text ? $("<div />").text(text).html() : null;
+            };
+
+            // remove leading 0's from each section
+            $.parseIpv6 = function(addr) {
+                if (addr.indexOf(':') > -1) {
+                    var ipv6addr = addr.split('/')[0];
+                    var network = addr.split('/')[1];
+                    var halves = ipv6addr.split('::');
+
+                    if (halves.length == 2) {
+                        var first = halves[0];
+                        var last = halves[1];
+
+                        if (first.length) {
+                            var f_digits = _.map(first.split(':'), function(d) {
+                                return parseInt(d, 16).toString(16);
+                            });
+                        }
+
+                        if (last.length) {
+                            var l_digits = _.map(last.split(':'), function(d) {
+                                return parseInt(d, 16).toString(16);
+                            });
+                        }
+
+                        addr = (typeof f_digits == 'undefined' ? '' : f_digits.join(':')) +
+                                '::' +
+                                (typeof l_digits == 'undefined' ? '' : l_digits.join(':')) +
+                                '/' +
+                                network;
+
+                    } else if (halves.length == 1) {
+                        var digits = halves[0];
+                        digits = _.map(digits.split(':'), function(d) {
+                            return parseInt(d, 16).toString(16);
+                        }).join(':');
+
+                        addr = digits + '/' + network;
+                    }
+                }
+                addr = addr.replace(':0::', '::');
+                addr = addr.replace('::0:', '::');
+
+                return addr;
+            };
+        </script>
+
+    </body>
+</html>

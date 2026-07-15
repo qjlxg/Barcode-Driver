@@ -1,0 +1,81 @@
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+
+dns:
+  enable: true
+  ipv6: false
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+
+proxies:
+  - name: "Trojan (t.tryfocusvault.com) - Spectre"
+    type: trojan
+    server: t.tryfocusvault.com
+    port: 443
+    password: 5bee90f9-f7b1-4bcd-81f3-cd1f58c3f04f
+    udp: true
+    sni: t.tryfocusvault.com
+    skip-cert-verify: false
+
+  - name: "VLESS Reality (Antigravity)"
+    type: vless
+    server: 64.118.155.117
+    port: 17661
+    uuid: 5bee90f9-f7b1-4bcd-81f3-cd1f58c3f04f
+    udp: true
+    tls: true
+    flow: xtls-rprx-vision
+    servername: www.python.org
+    network: tcp
+    reality-opts:
+      public-key: Ouau6NaIhi9GYQm8gOulF0QBfX0DfiQLTFd1o42j_Gg
+      short-id: 6ba85179e30d4fc2
+    client-fingerprint: chrome
+
+  - name: "Hysteria 2 (t.tryfocusvault.com) - Extreme"
+    type: hysteria2
+    server: t.tryfocusvault.com
+    port: 36862
+    password: FocusVaultHy2Pass
+    sni: t.tryfocusvault.com
+    skip-cert-verify: false
+
+proxy-groups:
+  - name: 🚀 节点选择
+    type: select
+    proxies:
+      - Hysteria 2 (t.tryfocusvault.com) - Extreme
+      - Trojan (t.tryfocusvault.com) - Spectre
+      - VLESS Reality (Antigravity)
+      - DIRECT
+
+rules:
+  # 本地局域网流量直连 (LAN Bypass)
+  - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+
+  # ChatGPT / OpenAI 专属域名强制走代理 (Ensuring ChatGPT goes to Proxy)
+  - DOMAIN-SUFFIX,openai.com,🚀 节点选择
+  - DOMAIN-SUFFIX,chatgpt.com,🚀 节点选择
+  - DOMAIN-SUFFIX,oaistatic.com,🚀 节点选择
+  - DOMAIN-SUFFIX,oaiusercontent.com,🚀 节点选择
+  - DOMAIN-SUFFIX,sentry.io,🚀 节点选择
+
+  # 国内域名直连 (CN Domains Bypass)
+  - GEOSITE,cn,DIRECT
+
+  # 国内 IP 直连 (CN IPs Bypass)
+  - GEOIP,cn,DIRECT
+
+  # 其他所有境外流量默认走代理 (All other global traffic goes to Proxy)
+  - MATCH,🚀 节点选择

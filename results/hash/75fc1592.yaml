@@ -1,0 +1,86 @@
+log-level: warning
+external-controller: 127.0.0.1:9090
+profile:
+  store-selected: true
+  store-fake-ip: true
+tcp-concurrent: true
+dns:
+  enable: true
+  cache-algorithm: arc
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-range6: fdfe:dcba:9876::1/64
+  nameserver:
+    - quic://223.5.5.5
+mixed-port: 7890
+tun:
+  enable: true
+  stack: mixed
+  auto-route: true
+  auto-detect-interface: true
+  strict-route: true
+proxies:
+  - name: 🇭🇰Aliyun-HKG
+    type: hysteria2
+    server: aliyun-hkg.pku.pp.ua
+    port: 8443
+    password: "8JCsPssfgS8tiRwiMlhARg=="
+  - name: 🇯🇵Aliyun-TYO
+    type: hysteria2
+    server: aliyun-tyo.pku.pp.ua
+    port: 8443
+    password: "8JCsPssfgS8tiRwiMlhARg=="
+  - name: 🇭🇰Akile-HKG
+    type: vless
+    server: cloudfront.pku.pp.ua
+    port: 443
+    uuid: bf000d23-0752-40b4-affe-68f7707a9661
+    tls: true
+    network: ws
+    ws-opts:
+      path: /akile-hkg
+      headers:
+        Host: cloudfront-akile-hkg.pku.pp.ua
+      v2ray-http-upgrade: true
+    smux:
+      enabled: true
+      padding: true
+  - name: 🇹🇼HiNet
+    type: hysteria2
+    server: aliyun-hkg.pku.pp.ua
+    port: 10000
+    password: "8JCsPssfgS8tiRwiMlhARg=="
+proxy-groups:
+  - name: PROXY
+    type: select
+    proxies:
+      - 🇭🇰Aliyun-HKG
+      - 🇯🇵Aliyun-TYO
+      - 🇭🇰Akile-HKG
+      - 🇹🇼HiNet
+rules:
+  - RULE-SET,geoip-private,DIRECT,no-resolve
+  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,DIRECT
+  - AND,((NETWORK,UDP),(DST-PORT,443),(OR,((RULE-SET,geosite-geolocation-!cn),(NOT,((RULE-SET,geoip-cn)))))),REJECT
+  - RULE-SET,geosite-geolocation-!cn,PROXY
+  - RULE-SET,geoip-cn,DIRECT
+  - MATCH,PROXY
+rule-providers:
+  geosite-geolocation-!cn:
+    type: http
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"
+    proxy: PROXY
+    behavior: domain
+    format: mrs
+  geoip-private:
+    type: http
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/private.mrs"
+    proxy: PROXY
+    behavior: ipcidr
+    format: mrs
+  geoip-cn:
+    type: http
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"
+    proxy: PROXY
+    behavior: ipcidr
+    format: mrs

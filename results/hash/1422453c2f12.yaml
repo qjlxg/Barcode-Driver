@@ -1,0 +1,373 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+find-process-mode: always
+log-level: info
+ipv6: false
+
+dns:
+  enable: true
+  listen: 127.0.0.1:1053
+  enhanced-mode: fake-ip
+  fake-ip-filter:
+    - '*.lan'
+    - 'localhost.ptlogin2.qq.com'
+    - '+.gcld-line.com'
+    - '+.lin.ee'
+    - '+.line-apps-beta.com'
+    - '+.line-apps-rc.com'
+    - '+.line-apps.com'
+    - '+.line-beta.me'
+    - '+.line-cdn.net'
+    - '+.line-scdn.net'
+    - '+.line.biz'
+    - '+.line.me'
+    - '+.line.naver.jp'
+    - '+.linecorp.com'
+    - '+.linefriends.com'
+    - '+.linefriends.com.tw'
+    - '+.linegame.jp'
+    - '+.linemobile.com'
+    - '+.linemyshop.com'
+    - '+.lineshoppingseller.com'
+    - '+.linetv.tw'
+    - '+.naver.jp'
+    - '+.naver.com'
+    - '+.navercorp.com'
+    - '+.nhncorp.jp'
+    - '+.oray.com'
+    - '+.oray.net'
+    - '+.sunlogin.net'
+    - '+.displaycatalog.mp.microsoft.com'
+    - '+.dl.delivery.mp.microsoft.com'
+    - '+.windowsupdate.com'
+  nameserver:
+    - 1.1.1.1
+    - 8.8.8.8
+
+sniffer:
+  enable: true
+  parse-pure-ip: true
+  override-destination: true
+  sniff:
+    QUIC:
+      ports:
+        - 443
+        - 8443
+    TLS:
+      ports:
+        - 443
+        - 8443
+    HTTP:
+      ports:
+        - 80
+        - 8080-8880
+
+rule-providers:
+  geoip-ruleset-cn:
+    behavior: ipcidr
+    format: mrs
+    interval: 172800
+    path: ./ruleset/geoip/cn.mrs
+    proxy: ""
+    type: http
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/cn.mrs
+  geosite-ruleset-cn:
+    behavior: domain
+    format: mrs
+    interval: 172800
+    path: ./ruleset/geosite/cn.mrs
+    proxy: ""
+    type: http
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/cn.mrs
+
+proxies:
+  - name: standalone-60003-no-telegram
+    type: vless
+    server: 124.151.43.79
+    port: 60003
+    uuid: 43ae9b01-0bc1-4d51-9663-0502cc47e06e
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.microsoft.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: CuyJcwbQoG3O08jC2CdY_ncXm7HDVa3O7C6xnkIKCws
+      short-id: aaf82d9c3603e649
+    packet-encoding: xudp
+
+  - name: tg-vless-reality-6002
+    type: vless
+    server: xz-tch1.sytes.net
+    port: 6002
+    uuid: aad097e3-f860-47c1-91b6-3b001f308da0
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.microsoft.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: JPitgJu31J84kzLsmnStpoFSmP-PTZKWh6hyYmuDQ1I
+      short-id: d8da6aa6f264cb36
+    packet-encoding: xudp
+
+proxy-groups:
+  - name: Proxy
+    type: select
+    proxies:
+      - standalone-60003-no-telegram
+
+  - name: Telegram
+    type: select
+    proxies:
+      - tg-vless-reality-6002
+
+  - name: LINE
+    type: select
+    proxies:
+      - standalone-60003-no-telegram
+
+rules:
+  # codex-managed: tg-sk5-endpoint-direct-priority begin
+  - DOMAIN,xz-tch1.sytes.net,DIRECT
+  - IP-CIDR,126.227.121.49/32,DIRECT,no-resolve
+  # codex-managed: tg-sk5-endpoint-direct-priority end
+  # codex-managed: meta-shanghai-stable begin
+  - AND,((NETWORK,UDP),(DST-PORT,443),(IP-ASN,32934)),REJECT
+  - DOMAIN-SUFFIX,facebook.com,Proxy
+  - DOMAIN-SUFFIX,fb.com,Proxy
+  - DOMAIN-SUFFIX,fbcdn.net,Proxy
+  - DOMAIN-SUFFIX,fbsbx.com,Proxy
+  - DOMAIN-SUFFIX,messenger.com,Proxy
+  - DOMAIN-SUFFIX,instagram.com,Proxy
+  - DOMAIN-SUFFIX,cdninstagram.com,Proxy
+  - DOMAIN-SUFFIX,threads.net,Proxy
+  - DOMAIN-SUFFIX,threads.com,Proxy
+  - DOMAIN-SUFFIX,whatsapp.com,Proxy
+  - DOMAIN-SUFFIX,whatsapp.net,Proxy
+  - DOMAIN-KEYWORD,facebook,Proxy
+  - DOMAIN-KEYWORD,instagram,Proxy
+  - IP-ASN,32934,Proxy
+  # codex-managed: meta-shanghai-stable end
+  # codex-managed: youtube-to-telegram begin
+  - DOMAIN-SUFFIX,youtube.com,Telegram
+  - DOMAIN-SUFFIX,youtu.be,Telegram
+  - DOMAIN-SUFFIX,youtube-nocookie.com,Telegram
+  - DOMAIN-SUFFIX,ytimg.com,Telegram
+  - DOMAIN-SUFFIX,ggpht.com,Telegram
+  - DOMAIN,youtubei.googleapis.com,Telegram
+  - DOMAIN,youtube.googleapis.com,Telegram
+  - DOMAIN-SUFFIX,withyoutube.com,Telegram
+  - DOMAIN-KEYWORD,youtube,Telegram
+  # codex-managed: youtube-to-telegram end
+  - DOMAIN,copilot.microsoft.com,Proxy
+  - DOMAIN-SUFFIX,copilot.microsoft.com,Proxy
+  - DOMAIN,copilot.cloud.microsoft,Proxy
+  - DOMAIN-SUFFIX,copilot.cloud.microsoft,Proxy
+  - DOMAIN-SUFFIX,bing.com,Proxy
+  - DOMAIN-SUFFIX,bing.net,Proxy
+  - DOMAIN-SUFFIX,bingapis.com,Proxy
+  - DOMAIN-KEYWORD,copilot,Proxy
+  - PROCESS-NAME,Telegram.exe,Telegram
+  - PROCESS-NAME,telegram.exe,Telegram
+  - PROCESS-NAME,Telegram Desktop.exe,Telegram
+  - PROCESS-NAME,TelegramBeta.exe,Telegram
+  - PROCESS-NAME,telegram-desktop,Telegram
+  - PROCESS-NAME,org.telegram.messenger,Telegram
+  - PROCESS-NAME,org.telegram.messenger.web,Telegram
+  - PROCESS-NAME,org.telegram.plus,Telegram
+  - PROCESS-NAME,nekox.messenger,Telegram
+  - PROCESS-NAME,tw.nekomimi.nekogram,Telegram
+  - PROCESS-NAME,xyz.nextalone.nagram,Telegram
+  - PROCESS-NAME,org.thunderdog.challegram,Telegram
+  - DOMAIN,api.imem.app,Telegram
+  - DOMAIN,api.swiftgram.app,Telegram
+  - DOMAIN,web.telegram.org,Telegram
+  - DOMAIN,oauth.telegram.org,Telegram
+  - DOMAIN,core.telegram.org,Telegram
+  - DOMAIN,desktop.telegram.org,Telegram
+  - DOMAIN,updates.tdesktop.com,Telegram
+  - DOMAIN-SUFFIX,cdn-telegram.org,Telegram
+  - DOMAIN-SUFFIX,comments.app,Telegram
+  - DOMAIN-SUFFIX,contest.com,Telegram
+  - DOMAIN-SUFFIX,fragment.com,Telegram
+  - DOMAIN-SUFFIX,graph.org,Telegram
+  - DOMAIN-SUFFIX,legra.ph,Telegram
+  - DOMAIN-SUFFIX,mbrx.app,Telegram
+  - DOMAIN-SUFFIX,nicegram.app,Telegram
+  - DOMAIN-SUFFIX,quiz.directory,Telegram
+  - DOMAIN-SUFFIX,stel.com,Telegram
+  - DOMAIN-SUFFIX,t.me,Telegram
+  - DOMAIN-SUFFIX,tdesktop.com,Telegram
+  - DOMAIN-SUFFIX,telega.one,Telegram
+  - DOMAIN-SUFFIX,telegra.ph,Telegram
+  - DOMAIN-SUFFIX,telegram-cdn.org,Telegram
+  - DOMAIN-SUFFIX,telegram.dog,Telegram
+  - DOMAIN-SUFFIX,telegram.me,Telegram
+  - DOMAIN-SUFFIX,telegram.org,Telegram
+  - DOMAIN-SUFFIX,telegram.space,Telegram
+  - DOMAIN-SUFFIX,telegramdownload.com,Telegram
+  - DOMAIN-SUFFIX,telesco.pe,Telegram
+  - DOMAIN-SUFFIX,tg.dev,Telegram
+  - DOMAIN-SUFFIX,ton.org,Telegram
+  - DOMAIN-SUFFIX,toncenter.com,Telegram
+  - DOMAIN-SUFFIX,tx.me,Telegram
+  - DOMAIN-SUFFIX,usercontent.dev,Telegram
+  - DOMAIN-KEYWORD,telegram,Telegram
+  - DOMAIN-KEYWORD,nicegram,Telegram
+  - IP-CIDR,5.28.192.0/18,Telegram,no-resolve
+  - IP-CIDR,91.108.0.0/16,Telegram,no-resolve
+  - IP-CIDR,91.105.192.0/23,Telegram,no-resolve
+  - IP-CIDR,95.161.64.0/20,Telegram,no-resolve
+  - IP-CIDR,109.239.140.0/24,Telegram,no-resolve
+  - IP-CIDR,139.59.210.98/32,Telegram,no-resolve
+  - IP-CIDR,149.154.160.0/20,Telegram,no-resolve
+  - IP-CIDR,185.76.151.0/24,Telegram,no-resolve
+  - IP-CIDR,196.55.216.167/32,Telegram,no-resolve
+  - IP-CIDR6,2001:67c:4e8::/48,Telegram,no-resolve
+  - IP-CIDR6,2001:b28:f23c::/47,Telegram,no-resolve
+  - IP-CIDR6,2001:b28:f23f::/48,Telegram,no-resolve
+  - IP-CIDR6,2a0a:f280::/29,Telegram,no-resolve
+  # codex-managed: tiktok-download-to-telegram begin
+  - DOMAIN,xz-tch1.sytes.net,DIRECT
+  - IP-CIDR,126.227.121.49/32,DIRECT,no-resolve
+  - DOMAIN-SUFFIX,tiktok.com,Telegram
+  - DOMAIN-SUFFIX,tiktokv.com,Telegram
+  - DOMAIN-SUFFIX,tiktokcdn.com,Telegram
+  - DOMAIN-SUFFIX,tiktokcdn-us.com,Telegram
+  - DOMAIN-SUFFIX,tiktokcdn-eu.com,Telegram
+  - DOMAIN-SUFFIX,tiktokmusic.app,Telegram
+  - DOMAIN-SUFFIX,musical.ly,Telegram
+  - DOMAIN-SUFFIX,muscdn.com,Telegram
+  - DOMAIN-SUFFIX,byteoversea.com,Telegram
+  - DOMAIN-SUFFIX,ibyteimg.com,Telegram
+  - DOMAIN-SUFFIX,ibytedtos.com,Telegram
+  - DOMAIN-SUFFIX,bytefcdn-oversea.com,Telegram
+  - DOMAIN-SUFFIX,ttwstatic.com,Telegram
+  - DOMAIN-SUFFIX,tiktokcdn-us.com.c.footprint.net,Telegram
+  - DOMAIN-KEYWORD,tiktok,Telegram
+  - DOMAIN-KEYWORD,musical,Telegram
+  - DOMAIN-KEYWORD,byteoversea,Telegram
+  - DOMAIN-KEYWORD,ibytedtos,Telegram
+  - DOMAIN,edgedl.me.gvt1.com,Telegram
+  - DOMAIN,redirector.gvt1.com,Telegram
+  - DOMAIN-SUFFIX,dl.google.com,Telegram
+  - DOMAIN-SUFFIX,googlevideo.com,Telegram
+  - DOMAIN-SUFFIX,googleusercontent.com,Telegram
+  - DOMAIN-SUFFIX,gvt1.com,Telegram
+  - DOMAIN-SUFFIX,gvt2.com,Telegram
+  - DOMAIN-SUFFIX,gvt3.com,Telegram
+  - DOMAIN-SUFFIX,gvt4.com,Telegram
+  - DOMAIN-SUFFIX,googlezip.net,Telegram
+  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,Telegram
+  - DOMAIN-KEYWORD,xn--ngstr,Telegram
+  - DOMAIN,kt2updater.0w0.lol,Telegram
+  # codex-managed: tiktok-download-to-telegram end
+  - PROCESS-NAME,com.sec.android.app.samsungapps,DIRECT
+  - PROCESS-NAME,com.samsung.android.app.samsungapps,DIRECT
+  - PROCESS-NAME,com.samsung.android.themestore,DIRECT
+  - PROCESS-NAME,com.samsung.android.themecenter,DIRECT
+  - PROCESS-NAME,com.samsung.android.spay,DIRECT
+  - PROCESS-NAME,com.samsung.android.mobileservice,DIRECT
+  - PROCESS-NAME,com.samsung.android.scloud,DIRECT
+  - PROCESS-NAME,com.samsung.android.bixby.agent,DIRECT
+  - PROCESS-NAME,com.samsung.android.bixby.service,DIRECT
+  - PROCESS-NAME,com.samsung.android.app.spage,DIRECT
+  - PROCESS-NAME,com.samsung.android.cidmanager,DIRECT
+  - PROCESS-NAME,com.samsung.android.app.omcagent,DIRECT
+  - PROCESS-NAME,com.wssyncmldm,DIRECT
+  - DOMAIN-SUFFIX,galaxyappstore.com,DIRECT
+  - DOMAIN-SUFFIX,samsungapps.com,DIRECT
+  - DOMAIN-SUFFIX,samsungapis.com,DIRECT
+  - DOMAIN-SUFFIX,samsung.com,DIRECT
+  - DOMAIN-SUFFIX,samsung.cn,DIRECT
+  - DOMAIN-SUFFIX,samsungcloud.com,DIRECT
+  - DOMAIN-SUFFIX,samsungmobile.com,DIRECT
+  - DOMAIN-SUFFIX,samsunggalaxy.com.cn,DIRECT
+  - DOMAIN-SUFFIX,samsungknox.com,DIRECT
+  - DOMAIN-SUFFIX,samsungdm.com,DIRECT
+  - DOMAIN-SUFFIX,samsungacr.com,DIRECT
+  - DOMAIN-SUFFIX,samsungosp.com,DIRECT
+  - DOMAIN-SUFFIX,samsungotn.net,DIRECT
+  - DOMAIN-SUFFIX,bixbyllm.com.cn,DIRECT
+  - DOMAIN-SUFFIX,aibixby.com,DIRECT
+  - DOMAIN-KEYWORD,samsung,DIRECT
+  - DOMAIN-KEYWORD,galaxyappstore,DIRECT
+  - DOMAIN-KEYWORD,bixby,DIRECT
+  - PROCESS-NAME,com.android.vending,Proxy
+  - PROCESS-NAME,com.google.android.gms,Proxy
+  - PROCESS-NAME,com.google.android.gsf,Proxy
+  - PROCESS-NAME,com.google.android.gsf.login,Proxy
+  - PROCESS-NAME,com.google.android.apps.restore,Proxy
+  - PROCESS-NAME,com.google.android.feedback,Proxy
+  - DOMAIN,play.google.com,Proxy
+  - DOMAIN,play-fe.googleapis.com,Proxy
+  - DOMAIN,play.googleapis.com,Proxy
+  - DOMAIN,android.clients.google.com,Proxy
+  - DOMAIN,android.googleapis.com,Proxy
+  - DOMAIN,dl.google.com,Telegram
+  - DOMAIN,mtalk.google.com,Proxy
+  - DOMAIN,accounts.google.com,Proxy
+  - DOMAIN,oauth2.googleapis.com,Proxy
+  - DOMAIN-SUFFIX,googleapis.com,Proxy
+  - DOMAIN-SUFFIX,gstatic.com,Proxy
+  - DOMAIN-SUFFIX,google.com,Proxy
+  - DOMAIN-KEYWORD,googleplay,Proxy
+  - PROCESS-NAME,SunloginClient.exe,DIRECT
+  - PROCESS-NAME,SunloginClient_Service.exe,DIRECT
+  - PROCESS-NAME,SunloginClient_Desktop.exe,DIRECT
+  - PROCESS-NAME,SunloginRemote.exe,DIRECT
+  - PROCESS-NAME,SunloginRCHelper.exe,DIRECT
+  - PROCESS-NAME,SunloginUU.exe,DIRECT
+  - PROCESS-NAME,SunloginLauncher.exe,DIRECT
+  - PROCESS-NAME,SunloginService.exe,DIRECT
+  - PROCESS-NAME,OrayRemoteShell.exe,DIRECT
+  - PROCESS-NAME,OrayRemoteService.exe,DIRECT
+  - PROCESS-NAME,ToDesk.exe,DIRECT
+  - PROCESS-NAME,ToDesk_Service.exe,DIRECT
+  - PROCESS-NAME,ToDesk_Lite.exe,DIRECT
+  - PROCESS-NAME,ToDesk_Setup.exe,DIRECT
+  - PROCESS-NAME,UU.exe,DIRECT
+  - PROCESS-NAME,UUBooster.exe,DIRECT
+  - PROCESS-NAME,UUBoosterUser.exe,DIRECT
+  - PROCESS-NAME,WinStore.App.exe,DIRECT
+  - PROCESS-NAME,StoreExperienceHost.exe,DIRECT
+  - PROCESS-NAME,Microsoft.StorePurchaseApp.exe,DIRECT
+  - PROCESS-NAME,WindowsPackageManagerServer.exe,DIRECT
+  - PROCESS-NAME,winget.exe,DIRECT
+  - PROCESS-NAME,AppInstaller.exe,DIRECT
+  - PROCESS-NAME,ApplicationFrameHost.exe,DIRECT
+  - PROCESS-NAME,backgroundTaskHost.exe,DIRECT
+  - PROCESS-NAME,svchost.exe,DIRECT
+  - PROCESS-NAME,MicrosoftEdgeUpdate.exe,DIRECT
+  - PROCESS-NAME,MoUsoCoreWorker.exe,DIRECT
+  - PROCESS-NAME,TiWorker.exe,DIRECT
+  - PROCESS-NAME,TrustedInstaller.exe,DIRECT
+  - PROCESS-NAME,wuauclt.exe,DIRECT
+  - PROCESS-NAME,usoclient.exe,DIRECT
+  - PROCESS-NAME,Bitsadmin.exe,DIRECT
+  - PROCESS-NAME,MusNotifyIcon.exe,DIRECT
+  - PROCESS-NAME,WeChat.exe,DIRECT
+  - PROCESS-NAME,Weixin.exe,DIRECT
+  - PROCESS-NAME,WeChatAppEx.exe,DIRECT
+  - PROCESS-NAME,WeChatBrowser.exe,DIRECT
+  - PROCESS-NAME,WeChatOCR.exe,DIRECT
+  - PROCESS-NAME,WXWork.exe,DIRECT
+  - PROCESS-NAME,WeCom.exe,DIRECT
+  - PROCESS-NAME,QQ.exe,DIRECT
+  - PROCESS-NAME,TIM.exe,DIRECT
+  - PROCESS-NAME,QQProtect.exe,DIRECT
+  - PROCESS-NAME,QQMusic.exe,DIRECT
+  - PROCESS-NAME,QQBrowser.exe,DIRECT
+  - PROCESS-NAME,QQGame.exe,DIRECT
+  - PROCESS-NAME,WeGame.exe,DIRECT
+  - PROCESS-NAME,QQLive.exe,DIRECT
+  - PROCESS-NAME,TencentDocs.exe,DIRECT
+  - PROCESS-NAME,TencentMeeting.exe,DIRECT
+  - PROCESS-NAME,VooVMeeting.exe,DIRECT
+  - PROCESS-NAME,Alipay.exe,DIRECT
+  - PROCESS-NAME,DingTalk.exe,DIRECT
+  - PROCESS-NAME,DingT

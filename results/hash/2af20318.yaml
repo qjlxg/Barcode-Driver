@@ -1,0 +1,241 @@
+port: 7890
+socks-port: 7891
+allow-lan: false
+mode: Rule
+log-level: error
+
+proxies:
+  - name: 🇭🇰 HK1
+    type: vmess
+    server: hk-vp1.xuanmiao.tech
+    port: 11236
+    uuid: b35d1622-5cc0-407f-eac2-34e6f8219d25
+    alterId: 0
+    cipher: auto
+    tls: true
+    servername: hk-vp1.xuanmiao.tech
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: hk-vp1.xuanmiao.tech
+
+  - name: 🇭🇰 HK2
+    type: vless
+    server: hk-vp1.xuanmiao.tech
+    port: 44864
+    uuid: cc690997-e51c-424a-934b-14b3dae3d5ca
+    tls: true
+    servername: hk-vp1.xuanmiao.tech
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: hk-vp1.xuanmiao.tech
+
+  - name: 🇺🇸 US1
+    type: vmess
+    server: us1.xuanmiao.xyz
+    port: 2083
+    uuid: d7c8e042-30b0-44c2-a68e-bcdd7e25f0ee
+    alterId: 0
+    cipher: auto
+    tls: true
+    servername: us1.xuanmiao.xyz
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: us1.xuanmiao.xyz
+
+  - name: 🇺🇸 US2
+    type: vless
+    server: us1.xuanmiao.xyz
+    port: 8443
+    uuid: 82d38cf6-8f06-4fce-b8e5-0a105f25280d
+    tls: true
+    servername: us1.xuanmiao.xyz
+    network: ws
+    ws-opts:
+      path: /
+      headers:
+        Host: us1.xuanmiao.xyz
+
+proxy-groups:
+  - name: PROXY
+    type: select
+    proxies:
+      - 🚩 RECOMMEND
+      - 🇭🇰 HK1
+      - 🇭🇰 HK2
+      - 🇺🇸 US1
+      - 🇺🇸 US2
+      # - 🇷🇺 RU1
+      # - 🇷🇺 RU2
+
+  - name: BY-US
+    type: select
+    proxies:
+      - 🇺🇸 RECOMMEND-US
+      - 🇺🇸 US1
+      - 🇺🇸 US2
+
+  - name: 🚩 RECOMMEND
+    type: url-test
+    proxies:
+      - 🇭🇰 HK1
+      - 🇭🇰 HK2
+      - 🇺🇸 US1
+      - 🇺🇸 US2
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+
+  - name: 🇺🇸 RECOMMEND-US
+    type: url-test
+    proxies:
+      - 🇺🇸 US1
+      - 🇺🇸 US2
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+
+rule-providers:
+  # reject:
+  #   type: http
+  #   behavior: domain
+  #   url: https://rd6fuk6utwt2kutotbu3p66e6a0surrz.lambda-url.us-east-1.on.aws/reject.txt
+  #   path: ./ruleset/reject.yaml
+  #   interval: 86400
+
+  icloud:
+    type: http
+    behavior: domain
+    url: https://rd6fuk6utwt2kutotbu3p66e6a0surrz.lambda-url.us-east-1.on.aws/icloud.txt
+    path: ./ruleset/icloud.yaml
+    interval: 86400
+
+  apple:
+    type: http
+    behavior: domain
+    url: https://rd6fuk6utwt2kutotbu3p66e6a0surrz.lambda-url.us-east-1.on.aws/apple.txt
+    path: ./ruleset/apple.yaml
+    interval: 86400
+    
+  google:
+    type: http
+    behavior: domain
+    url: https://rd6fuk6utwt2kutotbu3p66e6a0surrz.lambda-url.us-east-1.on.aws/google.txt
+    path: ./ruleset/google.yaml
+    interval: 86400
+    
+  proxy:
+    type: http
+    behavior: domain
+    url: https://rd6fuk6utwt2kutotbu3p66e6a0surrz.lambda-url.us-east-1.on.aws/proxy.txt
+    path: ./ruleset/proxy.yaml
+    interval: 86400
+  
+  # direct-1:
+  #   type: http
+  #   behavior: domain
+  #   url: https://rd6fuk6utwt2kutotbu3p66e6a0surrz.lambda-url.us-east-1.on.aws/direct.txt?slice=1
+  #   path: ./ruleset/direct-1.yaml
+  #   interval: 86400
+  
+  # direct-2:
+  #   type: http
+  #   behavior: domain
+  #   url: https://rd6fuk6utwt2kutotbu3p66e6a0surrz.lambda-url.us-east-1.on.aws/direct.txt?slice=2
+  #   path: ./ruleset/direct-2.yaml
+  #   interval: 86400
+  
+  # direct-3:
+  #   type: http
+  #   behavior: domain
+  #   url: https://rd6fuk6utwt2kutotbu3p66e6a0surrz.lambda-url.us-east-1.on.aws/direct.txt?slice=3
+  #   path: ./ruleset/direct-3.yaml
+  #   interval: 86400
+  
+  private:
+    type: http
+    behavior: domain
+    url: https://rd6fuk6utwt2kutotbu3p66e6a0surrz.lambda-url.us-east-1.on.aws/private.txt
+    path: ./ruleset/private.yaml
+    interval: 86400
+
+  gfw:
+    type: http
+    behavior: domain
+    url: https://rd6fuk6utwt2kutotbu3p66e6a0surrz.lambda-url.us-east-1.on.aws/gfw.txt
+    path: ./ruleset/gfw.yaml
+    interval: 86400
+
+  tld-not-cn:
+    type: http
+    behavior: domain
+    url: https://rd6fuk6utwt2kutotbu3p66e6a0surrz.lambda-url.us-east-1.on.aws/tld-not-cn.txt
+    path: ./ruleset/tld-not-cn.yaml
+    interval: 86400
+
+  telegramcidr:
+    type: http
+    behavior: ipcidr
+    url: https://rd6fuk6utwt2kutotbu3p66e6a0surrz.lambda-url.us-east-1.on.aws/telegramcidr.txt
+    path: ./ruleset/telegramcidr.yaml
+    interval: 86400
+
+  cncidr:
+    type: http
+    behavior: ipcidr
+    url: https://rd6fuk6utwt2kutotbu3p66e6a0surrz.lambda-url.us-east-1.on.aws/cncidr.txt
+    path: ./ruleset/cncidr.yaml
+    interval: 86400
+
+  lancidr:
+    type: http
+    behavior: ipcidr
+    url: https://rd6fuk6utwt2kutotbu3p66e6a0surrz.lambda-url.us-east-1.on.aws/lancidr.txt
+    path: ./ruleset/lancidr.yaml
+    interval: 86400
+
+  applications:
+    type: http
+    behavior: classical
+    url: https://rd6fuk6utwt2kutotbu3p66e6a0surrz.lambda-url.us-east-1.on.aws/applications.txt
+    path: ./ruleset/applications.yaml
+    interval: 86400
+    
+
+rules:
+  - DOMAIN-SUFFIX,xuanmiao.work,DIRECT
+  - DOMAIN-SUFFIX,nas.local,DIRECT
+  - DOMAIN-SUFFIX,claude.ai,BY-US
+  - DOMAIN-SUFFIX,tiktok.com,BY-US
+  - DOMAIN-SUFFIX,anthropic.com,BY-US
+  - DOMAIN-SUFFIX,openai.com,BY-US
+  - DOMAIN-SUFFIX,sentry.io,BY-US
+  - DOMAIN-SUFFIX,chatgpt.com,BY-US
+  - DOMAIN-SUFFIX,gemini.google.com,BY-US
+  - DOMAIN-SUFFIX,fonts.gstatic.com,BY-US
+  - DOMAIN-SUFFIX,ultramobile.com,BY-US
+  - DOMAIN-SUFFIX,redislabs.com,BY-US
+  - DOMAIN-SUFFIX,googleadservices.com,PROXY
+  - DOMAIN-SUFFIX,lambda-url.us-east-1.on.aws,PROXY
+  - RULE-SET,apple,DIRECT
+  - RULE-SET,applications,DIRECT
+  - DOMAIN,clash.razord.top,DIRECT
+  - DOMAIN,yacd.haishan.me,DIRECT
+  - RULE-SET,private,DIRECT
+  - RULE-SET,icloud,DIRECT
+  - RULE-SET,google,PROXY
+  - RULE-SET,proxy,PROXY
+  # - RULE-SET,direct-1,DIRECT
+  # - RULE-SET,direct-2,DIRECT
+  # - RULE-SET,direct-3,DIRECT
+  - RULE-SET,lancidr,DIRECT
+  - RULE-SET,cncidr,DIRECT
+  # - RULE-SET,reject,REJECT
+  - RULE-SET,telegramcidr,PROXY
+  - GEOIP,LAN,DIRECT
+  - GEOIP,CN,DIRECT
+  - DOMAIN-SUFFIX,cn,DIRECT
+  - MATCH,PROXY

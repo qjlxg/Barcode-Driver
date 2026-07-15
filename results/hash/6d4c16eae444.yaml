@@ -1,0 +1,584 @@
+mixed-port: 7890
+allow-lan: false
+bind-address: "*"
+mode: rule
+log-level: info
+external-controller: ""
+dns:
+  enable: true
+  ipv6: false
+  default-nameserver:
+    - tls://223.5.5.5
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  use-hosts: false
+  nameserver:
+    - https://120.53.53.53/dns-query
+    - https://223.5.5.5/dns-query
+  fallback:
+    - https://doh.dns.sb/dns-query
+    - https://dns.cloudflare.com/dns-query
+    - https://dns.twnic.tw/dns-query
+    - tls://8.8.4.4:853
+  fallback-filter:
+    geoip: true
+    ipcidr:
+      - 240.0.0.0/4
+      - 0.0.0.0/32
+  fake-ip-filter:
+    - "*"
+    - +.lan
+    - +.local
+    - time.*.com
+    - ntp.*.com
+    - +.market.xiaomi.com
+  use-system-hosts: false
+  proxy-server-nameserver:
+    - https://120.53.53.53/dns-query
+    - https://223.5.5.5/dns-query
+  direct-nameserver: []
+proxies:
+  - name: 剩余流量：192.15 GB
+    type: trojan
+    server: 02-rl-hkg.c-one.us
+    port: 20888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-sin-20.auua.us
+  - name: 距离下次重置剩余：18 天
+    type: trojan
+    server: 02-rl-hkg.c-one.us
+    port: 20888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-sin-20.auua.us
+  - name: 套餐到期：2026-07-18
+    type: trojan
+    server: 02-rl-hkg.c-one.us
+    port: 20888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-sin-20.auua.us
+  - name: 新加坡-SIN-02-TR
+    type: trojan
+    server: 02-rl-hkg.c-one.us
+    port: 20888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-sin-20.auua.us
+  - name: 美国-SJC-03-TR
+    type: trojan
+    server: 03-rl-hkg.c-one.us
+    port: 26888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-sjc-26.auua.us
+  - name: 新加坡-SIN-03-VL
+    type: vless
+    server: 03-rl-hkg.c-one.us
+    port: 25889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-sin-25.auua.us
+  - name: 香港-HKG-02-VL
+    type: vless
+    server: 02-rl-hkg.c-one.us
+    port: 22889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-hkg-22.auua.us
+  - name: 新加坡-SIN-01-VL
+    type: vless
+    server: 01-rl-hkg.c-one.us
+    port: 19889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-sin-19.auua.us
+  - name: 日本-TYO-03-TR
+    type: trojan
+    server: 03-rl-hkg.c-one.us
+    port: 28888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-tyo-28.auua.us
+  - name: 美国-SJC-03-VL
+    type: vless
+    server: 03-rl-hkg.c-one.us
+    port: 26889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-sjc-26.auua.us
+  - name: 美国-SJC-01-TR
+    type: trojan
+    server: 01-rl-hkg.c-one.us
+    port: 23888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-sjc-23.auua.us
+  - name: 台湾-TPE-HiNet-01-VL
+    type: vless
+    server: 01-rl-hkg.c-one.us
+    port: 13889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-tpe-13.auua.us
+  - name: 香港-HKG-02-TR
+    type: trojan
+    server: 02-rl-hkg.c-one.us
+    port: 22888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-hkg-22.auua.us
+  - name: 台湾-TPE-HiNet-02-TR
+    type: trojan
+    server: 02-rl-hkg.c-one.us
+    port: 14888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-tpe-14.auua.us
+  - name: 台湾-TPE-HiNet-01-TR
+    type: trojan
+    server: 01-rl-hkg.c-one.us
+    port: 13888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-tpe-13.auua.us
+  - name: 香港-HKG-03-VL
+    type: vless
+    server: 03-rl-hkg.c-one.us
+    port: 29889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-hkg-29.auua.us
+  - name: 德国-FRA-03-TR
+    type: trojan
+    server: 03-rl-hkg.artacs.click
+    port: 27888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: vl-fra-27.artacs.click
+  - name: 新加坡-SIN-03-TR
+    type: trojan
+    server: 03-rl-hkg.c-one.us
+    port: 25888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-sin-25.auua.us
+  - name: 香港-HKT-01-TR
+    type: trojan
+    server: 01-rl-hkg.c-one.us
+    port: 30888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-hkt-30.auua.us
+  - name: 日本-TYO-01-TR
+    type: trojan
+    server: 01-rl-hkg.c-one.us
+    port: 11888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-tyo-11.auua.us
+  - name: 德国-FRA-02-TR
+    type: trojan
+    server: 02-rl-hkg.c-one.us
+    port: 18888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-fra-18.auua.us
+  - name: 日本-TYO-03-VL
+    type: vless
+    server: 03-rl-hkg.c-one.us
+    port: 28889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-tyo-28.auua.us
+  - name: 香港-HKT-01-VL
+    type: vless
+    server: 01-rl-hkg.c-one.us
+    port: 30889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-hkt-30.auua.us
+  - name: 香港-HKT-02-VL
+    type: vless
+    server: 02-rl-hkg.c-one.us
+    port: 31889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-hkt-31.auua.us
+  - name: 新加坡-SIN-02-VL
+    type: vless
+    server: 02-rl-hkg.c-one.us
+    port: 20889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-sin-20.auua.us
+  - name: 美国-SJC-01-VL
+    type: vless
+    server: 01-rl-hkg.c-one.us
+    port: 23889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-sjc-23.auua.us
+  - name: 台湾-TPE-HiNet-02-VL
+    type: vless
+    server: 02-rl-hkg.c-one.us
+    port: 14889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-tpe-14.auua.us
+  - name: 日本-TYO-01-VL
+    type: vless
+    server: 01-rl-hkg.c-one.us
+    port: 11889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-tyo-11.auua.us
+  - name: 香港-HKG-03-TR
+    type: trojan
+    server: 03-rl-hkg.c-one.us
+    port: 29888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-hkg-29.auua.us
+  - name: 香港-HKG-01-VL
+    type: vless
+    server: 01-rl-hkg.c-one.us
+    port: 21889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-hkg-21.auua.us
+  - name: 香港-HKT-02-TR
+    type: trojan
+    server: 02-rl-hkg.c-one.us
+    port: 31888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-hkt-31.auua.us
+  - name: 新加坡-SIN-01-TR
+    type: trojan
+    server: 01-rl-hkg.c-one.us
+    port: 19888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-sin-19.auua.us
+  - name: 美国-SJC-02-TR
+    type: trojan
+    server: 02-rl-hkg.c-one.us
+    port: 10888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-sjc-10.auua.us
+  - name: 香港-HKG-01-TR
+    type: trojan
+    server: 01-rl-hkg.c-one.us
+    port: 21888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-hkg-21.auua.us
+  - name: 德国-FRA-01-TR
+    type: trojan
+    server: 01-rl-hkg.c-one.us
+    port: 10888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-fra-9.auua.us
+  - name: 德国-FRA-02-VL
+    type: vless
+    server: 02-rl-hkg.c-one.us
+    port: 18889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-fra-18.auua.us
+  - name: 美国-SJC-02-VL
+    type: vless
+    server: 02-rl-hkg.c-one.us
+    port: 10889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-sjc-10.auua.us
+  - name: 日本-TYO-02-VL
+    type: vless
+    server: 02-rl-hkg.c-one.us
+    port: 17889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-tyo-17.auua.us
+  - name: 日本-TYO-02-TR
+    type: trojan
+    server: 02-rl-hkg.c-one.us
+    port: 17888
+    password: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    udp: true
+    sni: tr-tyo-17.auua.us
+  - name: 德国-FRA-03-VL
+    type: vless
+    server: 03-rl-hkg.artacs.click
+    port: 27889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-fra-27.artacs.click
+  - name: 德国-FRA-01-VL
+    type: vless
+    server: 01-rl-hkg.c-one.us
+    port: 10889
+    uuid: b1fb1a1c-1f12-470b-9dfb-087f3323f1fb
+    alterId: 0
+    cipher: auto
+    udp: true
+    flow: xtls-rprx-vision
+    tls: true
+    servername: vl-fra-9.auua.us
+proxy-groups:
+  - name: DirectACCESS
+    type: select
+    proxies:
+      - 自动选择
+      - 故障转移
+      - 剩余流量：192.15 GB
+      - 距离下次重置剩余：18 天
+      - 套餐到期：2026-07-18
+      - 新加坡-SIN-02-TR
+      - 美国-SJC-03-TR
+      - 新加坡-SIN-03-VL
+      - 香港-HKG-02-VL
+      - 新加坡-SIN-01-VL
+      - 日本-TYO-03-TR
+      - 美国-SJC-03-VL
+      - 美国-SJC-01-TR
+      - 台湾-TPE-HiNet-01-VL
+      - 香港-HKG-02-TR
+      - 台湾-TPE-HiNet-02-TR
+      - 台湾-TPE-HiNet-01-TR
+      - 香港-HKG-03-VL
+      - 德国-FRA-03-TR
+      - 新加坡-SIN-03-TR
+      - 香港-HKT-01-TR
+      - 日本-TYO-01-TR
+      - 德国-FRA-02-TR
+      - 日本-TYO-03-VL
+      - 香港-HKT-01-VL
+      - 香港-HKT-02-VL
+      - 新加坡-SIN-02-VL
+      - 美国-SJC-01-VL
+      - 台湾-TPE-HiNet-02-VL
+      - 日本-TYO-01-VL
+      - 香港-HKG-03-TR
+      - 香港-HKG-01-VL
+      - 香港-HKT-02-TR
+      - 新加坡-SIN-01-TR
+      - 美国-SJC-02-TR
+      - 香港-HKG-01-TR
+      - 德国-FRA-01-TR
+      - 德国-FRA-02-VL
+      - 美国-SJC-02-VL
+      - 日本-TYO-02-VL
+      - 日本-TYO-02-TR
+      - 德国-FRA-03-VL
+      - 德国-FRA-01-VL
+  - name: 自动选择
+    type: url-test
+    proxies:
+      - 剩余流量：192.15 GB
+      - 距离下次重置剩余：18 天
+      - 套餐到期：2026-07-18
+      - 新加坡-SIN-02-TR
+      - 美国-SJC-03-TR
+      - 新加坡-SIN-03-VL
+      - 香港-HKG-02-VL
+      - 新加坡-SIN-01-VL
+      - 日本-TYO-03-TR
+      - 美国-SJC-03-VL
+      - 美国-SJC-01-TR
+      - 台湾-TPE-HiNet-01-VL
+      - 香港-HKG-02-TR
+      - 台湾-TPE-HiNet-02-TR
+      - 台湾-TPE-HiNet-01-TR
+      - 香港-HKG-03-VL
+      - 德国-FRA-03-TR
+      - 新加坡-SIN-03-TR
+      - 香港-HKT-01-TR
+      - 日本-TYO-01-TR
+      - 德国-FRA-02-TR
+      - 日本-TYO-03-VL
+      - 香港-HKT-01-VL
+      - 香港-HKT-02-VL
+      - 新加坡-SIN-02-VL
+      - 美国-SJC-01-VL
+      - 台湾-TPE-HiNet-02-VL
+      - 日本-TYO-01-VL
+      - 香港-HKG-03-TR
+      - 香港-HKG-01-VL
+      - 香港-HKT-02-TR
+      - 新加坡-SIN-01-TR
+      - 美国-SJC-02-TR
+      - 香港-HKG-01-TR
+      - 德国-FRA-01-TR
+      - 德国-FRA-02-VL
+      - 美国-SJC-02-VL
+      - 日本-TYO-02-VL
+      - 日本-TYO-02-TR
+      - 德国-FRA-03-VL
+      - 德国-FRA-01-VL
+    url: http://www.gstatic.com/generate_204
+    interval: 86400
+  - name: 故障转移
+    type: fallback
+    proxies:
+      - 剩余流量：192.15 GB
+      - 距离下次重置剩余：18 天
+      - 套餐到期：2026-07-18
+      - 新加坡-SIN-02-TR
+      - 美国-SJC-03-TR
+      - 新加坡-SIN-03-VL
+      - 香港-HKG-02-VL
+      - 新加坡-SIN-01-VL
+      - 日本-TYO-03-TR
+      - 美国-SJC-03-VL
+      - 美国-SJC-01-TR
+      - 台湾-TPE-HiNet-01-VL
+      - 香港-HKG-02-TR
+      - 台湾-TPE-HiNet-02-TR
+      - 台湾-TPE-HiNet-01-TR
+      - 香港-HKG-03-VL
+      - 德国-FRA-03-TR
+      - 新加坡-SIN-03-TR
+      - 香港-HKT-01-TR
+      - 日本-TYO-01-TR
+      - 德国-FRA-02-TR
+      - 日本-TYO-03-VL
+      - 香港-HKT-01-VL
+      - 香港-HKT-02-VL
+      - 新加坡-SIN-02-VL
+      - 美国-SJC-01-VL
+      - 台湾-TPE-HiNet-02-VL
+      - 日本-TYO-01-VL
+      - 香港-HKG-03-TR
+      - 香港-HKG-01-VL
+      - 香港-HKT-02-TR
+      - 新加坡-SIN-01-TR
+      - 美国-SJC-02-TR
+      - 香港-HKG-01-TR
+      - 德国-FRA-01-TR
+      - 德国-FRA-02-VL
+      - 美国-SJC-02-VL
+      - 日本-TYO-02-VL
+      - 日本-TYO-02-TR
+      - 德国-FRA-03-VL
+      - 德国-FRA-01-VL
+    url: http://www.gstatic.com/generate_204
+    interval: 7200
+rules:
+  - IP-CIDR,103.180.29.122/32,DIRECT,no-resolve
+  - IP-CIDR,103.180.29.106/32,DIRECT,no-resolve
+  - IP-CIDR,103.180.29.123/32,DIRECT,no-resolve
+  - DOMAIN,da-xboard-srv.direct-access,DIRECT
+  - DOMAIN-SUFFIX,services.googleapis.cn,DirectACCESS
+  - DOMAIN-SUFFIX,xn--ngstr-lra8j.com,DirectACCESS
+  - DOMAIN,safebrowsing.urlsec.qq.com,DIRECT
+  - DOMAIN,safebrowsing.googleapis.com,DIRECT
+  - DOMAIN,developer.apple.com,DirectACCESS
+  - DOMAIN-SUFFIX,digicert.com,DirectACCESS
+  - DOMAIN,ocsp.apple.com,DirectACCESS
+  - DOMAIN,ocsp.comodoca.com,DirectACCESS
+  - DOMAIN,ocsp.usertrust.com,DirectACCESS
+  - DOMAIN,ocsp.sectigo.com,DirectACCESS
+  - DOMAIN,ocsp.verisign.net,DirectACCESS
+  - DOMAIN-SUFFIX,apple-dns.net,DirectACCESS
+  - DOMAIN,testflight.apple.com,DirectACCESS
+  - DOMAIN,sandbox.itunes.apple.com,DirectACCESS
+  - DOMAIN,itunes.apple.com,DirectACCESS
+  - DOMAIN-SUFFIX,apps.apple.com,DirectACCESS
+  - DOMAIN-SUFFIX,blobstore.apple.com,DirectACCESS
+  - DOMAIN,cvws.icloud-content.com,DirectACCESS
+  - DOMAIN-SUFFIX,mzstatic.com,DIRECT
+  - DOMAIN-SUFFIX,itunes.apple.com,DIRECT
+  - DOMAIN-SUFFIX,icloud.com,DIRECT
+  - DOMAIN-SUFFIX,icloud-content.com,DIRECT
+  - DOMAIN-SUFFIX,me.com,DIRECT
+  - DOMAIN-SUFFIX,aaplimg.com,DIRECT
+  - DOMAIN-SUFFIX,cdn20.com,DIRECT
+  - DOMAIN-SUFFIX,cdn-apple.com,DIRECT
+  - DOMAIN-SUFFIX,akadns.net,DIRECT
+  - DOMAIN-SUFFIX,akamaiedge.net,DIRECT
+  - DOMAIN-SUFFIX,edgekey.net,DIRECT
+  - DOMAIN-SUFFIX,mwcloudcdn.com,DIRECT
+  - DOMAIN-SUFFIX,mwcname.com,DIRECT
+  - DOMAIN-SUFFIX,apple.com,DIRECT
+  - DOMAIN-SUFFIX,apple-cloudkit.com,DIRECT
+  - DOMAIN-SUFFIX,apple-mapkit.com,DIRECT
+  - DOMAIN-SUFFIX,126.com,DIRECT
+  - DOMAIN-SUFFIX,126.net,DIRECT
+  - DOMAIN-SUFFIX

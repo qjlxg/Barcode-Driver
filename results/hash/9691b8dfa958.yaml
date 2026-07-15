@@ -1,0 +1,97 @@
+allow-lan: false
+dns:
+  enable: true
+  fallback:
+  - 8.8.8.8
+  - tls://dns.rubyfish.cn:853
+  - tls://1.0.0.1:853
+  - tls://dns.google:853
+  - https://dns.rubyfish.cn/dns-query
+  - https://cloudflare-dns.com/dns-query
+  - https://dns.google/dns-query
+  fallback-filter:
+    domain:
+    - +.google.com
+    - +.facebook.com
+    - +.youtube.com
+    - +.xn--ngstr-lra8j.com
+    - +.google.cn
+    - +.googleapis.cn
+    - +.gvt1.com
+    geoip: true
+    ipcidr:
+    - 240.0.0.0/4
+    - 0.0.0.0/32
+    - 127.0.0.1/32
+  ipv6: false
+  nameserver:
+  - 223.5.5.5
+  - 180.76.76.76
+  - 119.29.29.29
+  - 117.50.11.11
+  - 117.50.10.10
+  - 114.114.114.114
+  - https://dns.alidns.com/dns-query
+  - https://doh.360.cn/dns-query
+external-controller: 127.0.0.1:9090
+log-level: silent
+mode: rule
+port: 7890
+proxies:
+- alterId: 0
+  cipher: auto
+  name: hg.itundao.com
+  network: ws
+  port: 443
+  server: hg.itundao.com
+  servername: hg.itundao.com
+  skip-cert-verify: false
+  tls: true
+  type: vmess
+  uuid: 920918b2-f6ce-4994-bc6b-ef32428f6e0b
+  ws-opts:
+    headers:
+      Host: hg.itundao.com
+    path: /73ea86
+proxy-groups:
+- name: Proxy
+  proxies:
+  - Auto
+  - hg.itundao.com
+  type: select
+- interval: 300
+  name: Auto
+  proxies:
+  - hg.itundao.com
+  type: url-test
+  url: http://www.gstatic.com/generate_204
+rules:
+- DOMAIN-SUFFIX,chatgpt.com,Proxy
+- DOMAIN-SUFFIX,ghcr.io,Proxy
+- DOMAIN-SUFFIX,googleapis.cn,Proxy
+- DOMAIN-KEYWORD,googleapis.cn,Proxy
+- DOMAIN,safebrowsing.urlsec.qq.com,DIRECT
+- DOMAIN,safebrowsing.googleapis.com,DIRECT
+- DOMAIN-SUFFIX,cn,DIRECT
+- DOMAIN-KEYWORD,amazon,Proxy
+- DOMAIN-KEYWORD,google,Proxy
+- DOMAIN-KEYWORD,gmail,Proxy
+- DOMAIN-KEYWORD,youtube,Proxy
+- DOMAIN-KEYWORD,facebook,Proxy
+- DOMAIN-KEYWORD,twitter,Proxy
+- DOMAIN-KEYWORD,instagram,Proxy
+- DOMAIN-KEYWORD,dropbox,Proxy
+- DOMAIN-KEYWORD,blogspot,Proxy
+- DOMAIN-KEYWORD,whatsapp,Proxy
+- DOMAIN-KEYWORD,github,Proxy
+- DOMAIN-SUFFIX,local,DIRECT
+- IP-CIDR,127.0.0.0/8,DIRECT
+- IP-CIDR,172.16.0.0/12,DIRECT
+- IP-CIDR,192.168.0.0/16,DIRECT
+- IP-CIDR,10.0.0.0/8,DIRECT
+- IP-CIDR,17.0.0.0/8,DIRECT
+- IP-CIDR,100.64.0.0/10,DIRECT
+- GEOIP,CN,DIRECT
+- MATCH,Proxy
+secret: ""
+socks-port: 7891

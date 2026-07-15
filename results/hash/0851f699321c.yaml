@@ -1,0 +1,29 @@
+port: 7890
+socks-port: 7891
+allow-lan: false
+mode: rule
+log-level: info
+
+proxies:
+  - name: SG-VMess
+    type: vmess
+    server: 13.214.178.3
+    port: 443
+    uuid: 714d82c3-184d-457b-bbb3-d8ad3861e5ef
+    alterId: 0
+    cipher: auto
+    network: ws
+    ws-opts:
+      path: /vmess
+
+proxy-groups:
+  - name: Proxy
+    type: select
+    proxies:
+      - SG-VMess
+      - DIRECT
+
+rules:
+  - GEOSITE,cn,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,Proxy

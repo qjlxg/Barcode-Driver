@@ -1,0 +1,325 @@
+# Requires Mihomo / Clash Meta compatible clients.
+mixed-port: 7890
+mode: Rule
+log-level: warning
+allow-lan: true
+external-controller: 127.0.0.1:9090
+secret: 'e024c2ea7b65d4d443897de7231006a58dcfb752045e26ee'
+
+unified-delay: true
+tcp-concurrent: true
+keep-alive-interval: 30
+global-client-fingerprint: random
+find-process-mode: off
+geo-auto-update: true
+geo-update-interval: 24
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+# ============================================================
+# DNS（已净化）：fake-ip 模式下移除 fallback / fallback-filter，
+# 改用 nameserver-policy 让国内域名强制走国内 DOH，杜绝解析死锁。
+# ============================================================
+dns:
+  enable: true
+  listen: 127.0.0.1:1053
+  ipv6: false
+  # bootstrap：必须是纯 IP，用于解析下面 DOH 域名，避免循环依赖
+  default-nameserver:
+    - 114.114.114.114
+    - 223.5.5.5
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.0/15
+  # 解析代理节点自身域名所用的 DNS
+  proxy-server-nameserver:
+    - https://doh.pub/dns-query
+    - 114.114.114.114
+  fake-ip-filter:
+    - '*.lan'
+    - '*.local'
+    - '*.localdomain'
+    - localhost.ptlogin2.qq.com
+    # Tailscale
+    - '*.ts.net'
+    - '*.tailscale.com'
+    - '*.tailnet'
+    # 公司内网
+    - '*.xiaoniangao.com'
+    - '*.xiaoniangao.cn'
+    # NTP / 时间服务器（需要真实 IP 才能同步时间）
+    - time.*.com
+    - time.*.gov
+    - time.*.apple.com
+    - time-ios.apple.com
+    - time1.*.com
+    - ntp.*.com
+    - '*.ntp.org.cn'
+    - +.pool.ntp.org
+    - ntp.aliyun.com
+    - time.windows.com
+    - time.nist.gov
+    - time.apple.com
+    - ntp.ubuntu.com
+    # 游戏 STUN（P2P 打洞需要真实 IP）
+    - stun.*.*
+    - stun.*.*.*
+    - '*.*.stun.playstation.net'
+    - xbox.*.*.microsoft.com
+    - '*.*.xboxlive.com'
+    # 网络连通性检测
+    - '*.msftconnecttest.com'
+    - '*.msftncsi.com'
+    - dns.msftncsi.com
+  # 默认 DNS：统一走国内 DOH，海外域名在 fake-ip 下由代理侧二次解析，无需污染
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+  # 分流式解析：国内域名强制国内 DOH，确保命中国内 CDN，秒开
+  nameserver-policy:
+    'geosite:cn': 'https://doh.pub/dns-query'
+    'geosite:private': 'https://doh.pub/dns-query'
+    '+.xiaoniangao.cn': '114.114.114.114'
+    '+.xiaoniangao.com': '114.114.114.114'
+    '*.ts.net': '100.100.100.100'
+
+tun:
+  enable: true
+  stack: mixed
+  auto-route: true
+  auto-detect-interface: true
+  dns-hijack:
+    - any:53
+
+sniffer:
+  enable: true
+  parse-pure-ip: true
+  force-dns-mapping: true
+  override-destination: false
+  sniff:
+    HTTP:
+      ports:
+        - 80
+    TLS:
+      ports:
+        - 443
+  skip-domain:
+    - +.push.apple.com
+
+# ============================================================
+# 动态规则集（Loyalsoldier/clash-rules，jsdelivr CDN）
+# 说明：该源国内域名白名单文件名为 direct（非 cn），国内 IP 为 cncidr。
+# ============================================================
+rule-providers:
+  # —— 国内/直连类 ——
+  private:
+    type: http
+    behavior: domain
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt"
+    path: ./providers/loyalsoldier/private.yaml
+    interval: 86400
+  direct:
+    type: http
+    behavior: domain
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/direct.txt"
+    path: ./providers/loyalsoldier/direct.yaml
+    interval: 86400
+  cncidr:
+    type: http
+    behavior: ipcidr
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt"
+    path: ./providers/loyalsoldier/cncidr.yaml
+    interval: 86400
+  apple:
+    type: http
+    behavior: domain
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/apple.txt"
+    path: ./providers/loyalsoldier/apple.yaml
+    interval: 86400
+  icloud:
+    type: http
+    behavior: domain
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/icloud.txt"
+    path: ./providers/loyalsoldier/icloud.yaml
+    interval: 86400
+  # —— 代理类 ——
+  gfw:
+    type: http
+    behavior: domain
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/gfw.txt"
+    path: ./providers/loyalsoldier/gfw.yaml
+    interval: 86400
+  telegramcidr:
+    type: http
+    behavior: ipcidr
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/telegramcidr.txt"
+    path: ./providers/loyalsoldier/telegramcidr.yaml
+    interval: 86400
+  # —— 拦截类 ——
+  reject:
+    type: http
+    behavior: domain
+    format: yaml
+    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt"
+    path: ./providers/loyalsoldier/reject.yaml
+    interval: 86400
+
+proxies:
+  - name: "JMS-846412@c60s1.portablesubmarines.com:12529"
+    type: ss
+    server: 144.34.166.24
+    port: 12529
+    cipher: aes-256-gcm
+    password: "DDBpdgvpJBpcvjLz"
+  - name: "JMS-846412@c60s2.portablesubmarines.com:12529"
+    type: ss
+    server: 144.34.171.163
+    port: 12529
+    cipher: aes-256-gcm
+    password: "DDBpdgvpJBpcvjLz"
+  - name: "JMS-846412@c60s3.portablesubmarines.com:12529"
+    type: vmess
+    server: 144.168.59.61
+    port: 12529
+    uuid: "ce59fbec-05d1-47fc-ac1f-72ec219a7530"
+    alterId: 0
+    cipher: auto
+    network: tcp
+  - name: "JMS-846412@c60s4.portablesubmarines.com:12529"
+    type: vmess
+    server: 212.50.247.158
+    port: 12529
+    uuid: "ce59fbec-05d1-47fc-ac1f-72ec219a7530"
+    alterId: 0
+    cipher: auto
+    network: tcp
+  - name: "JMS-846412@c60s5.portablesubmarines.com:12529"
+    type: vmess
+    server: 104.245.100.98
+    port: 12529
+    uuid: "ce59fbec-05d1-47fc-ac1f-72ec219a7530"
+    alterId: 0
+    cipher: auto
+    network: tcp
+  - name: "JMS-846412@c60s801.portablesubmarines.com:12529"
+    type: vmess
+    server: 174.137.58.233
+    port: 12529
+    uuid: "ce59fbec-05d1-47fc-ac1f-72ec219a7530"
+    alterId: 0
+    cipher: auto
+    network: tcp
+
+
+proxy-groups:
+  - name: 节点选择
+    type: select
+    proxies:
+      - 自动选择
+      - DIRECT
+      - "JMS-846412@c60s1.portablesubmarines.com:12529"
+      - "JMS-846412@c60s2.portablesubmarines.com:12529"
+      - "JMS-846412@c60s3.portablesubmarines.com:12529"
+      - "JMS-846412@c60s4.portablesubmarines.com:12529"
+      - "JMS-846412@c60s5.portablesubmarines.com:12529"
+      - "JMS-846412@c60s801.portablesubmarines.com:12529"
+
+
+  - name: 自动选择
+    type: url-test
+    url: http://cp.cloudflare.com/generate_204
+    interval: 300
+    tolerance: 50
+    proxies:
+      - "JMS-846412@c60s1.portablesubmarines.com:12529"
+      - "JMS-846412@c60s2.portablesubmarines.com:12529"
+      - "JMS-846412@c60s3.portablesubmarines.com:12529"
+      - "JMS-846412@c60s4.portablesubmarines.com:12529"
+      - "JMS-846412@c60s5.portablesubmarines.com:12529"
+      - "JMS-846412@c60s801.portablesubmarines.com:12529"
+
+
+# ============================================================
+# 分流规则（白名单架构）
+# 顺序：局域网直连 -> QUIC拦截 -> 远程GFW -> 远程CN -> GEOIP国内IP -> MATCH兜底
+# ============================================================
+rules:
+  # ========== 1) 局域网 / 私有网段 / 本机回环，直连 ==========
+  - RULE-SET,private,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+  - IP-CIDR,169.254.0.0/16,DIRECT,no-resolve
+  - IP-CIDR6,::1/128,DIRECT,no-resolve
+  - IP-CIDR6,fc00::/7,DIRECT,no-resolve
+  - IP-CIDR6,fe80::/10,DIRECT,no-resolve
+  # Tailscale，直连
+  - IP-CIDR,100.64.0.0/10,DIRECT,no-resolve
+  - DOMAIN-KEYWORD,tailscale,DIRECT
+  - DOMAIN-SUFFIX,ts.net,DIRECT
+
+  # ========== 2) QUIC 不做全局拦截或直连，继续遵循后续域名分流 ==========
+  # BT/PT 直连（代理节点通常封禁 BT）
+  - AND,((NETWORK,udp),(DST-PORT,6881)),DIRECT
+  - AND,((NETWORK,udp),(DST-PORT,6882)),DIRECT
+  - AND,((NETWORK,udp),(DST-PORT,6883)),DIRECT
+  - AND,((NETWORK,udp),(DST-PORT,6884)),DIRECT
+  - AND,((NETWORK,udp),(DST-PORT,6885)),DIRECT
+  - AND,((NETWORK,tcp),(DST-PORT,6881)),DIRECT
+  - AND,((NETWORK,tcp),(DST-PORT,6882)),DIRECT
+  - AND,((NETWORK,tcp),(DST-PORT,6883)),DIRECT
+  - AND,((NETWORK,tcp),(DST-PORT,6884)),DIRECT
+  - AND,((NETWORK,tcp),(DST-PORT,6885)),DIRECT
+
+  # ========== 3) 广告拦截 ==========
+  - RULE-SET,reject,REJECT
+
+  # ========== 4) 手动指定走代理的站点（高优先，覆盖远程规则集）==========
+  - DOMAIN-SUFFIX,anthropic.com,节点选择
+  - DOMAIN-SUFFIX,claude.ai,节点选择
+  - DOMAIN-SUFFIX,claudeusercontent.com,节点选择
+  - DOMAIN-SUFFIX,huggingface.co,节点选择
+  - DOMAIN-SUFFIX,civitai.com,节点选择
+  - DOMAIN-SUFFIX,justmysocks.net,节点选择
+  - DOMAIN-SUFFIX,justmysocks1.net,节点选择
+  - DOMAIN-SUFFIX,justmysocks2.net,节点选择
+  - DOMAIN-SUFFIX,justmysocks3.net,节点选择
+  - DOMAIN-SUFFIX,nodeseek.com,节点选择
+  - DOMAIN-SUFFIX,linux.do,节点选择
+  - DOMAIN-SUFFIX,artlist.io,节点选择
+  - DOMAIN-SUFFIX,xiaohui.com,节点选择
+  - DOMAIN-SUFFIX,epicgames.com,节点选择
+  - DOMAIN-SUFFIX,talordata.com,节点选择
+  - DOMAIN-SUFFIX,rutracker.org,节点选择
+  - DOMAIN-SUFFIX,rutracker.cc,节点选择
+  - DOMAIN-SUFFIX,rutrk.org,节点选择
+  - DOMAIN-SUFFIX,winehq.org,节点选择
+  - DOMAIN-SUFFIX,talangya.com,节点选择
+  - DOMAIN-SUFFIX,stocktwits.com,节点选择
+
+  # ========== 5) 远程 GFW 规则：被墙域名走代理 ==========
+  - RULE-SET,gfw,节点选择
+
+  # ========== 6) 远程 CN 规则：国内域名直连（direct = 国内白名单）==========
+  - RULE-SET,apple,DIRECT
+  - RULE-SET,icloud,DIRECT
+  - RULE-SET,direct,DIRECT
+
+  # ========== 7) Telegram IP 段走代理 ==========
+  - RULE-SET,telegramcidr,节点选择,no-resolve
+
+  # ========== 8) GEOIP 国内 IP 直连 ==========
+  - RULE-SET,cncidr,DIRECT,no-resolve
+  - GEOIP,CN,DIRECT,no-resolve
+
+  # ========== 9) 兜底：非明确国内流量一律走代理（白名单核心）==========
+  - MATCH,节点选择

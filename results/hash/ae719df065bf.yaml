@@ -1,0 +1,203 @@
+allow-lan: false
+dns:
+  enable: true
+  fallback:
+  - 8.8.8.8
+  - tls://dns.rubyfish.cn:853
+  - tls://1.0.0.1:853
+  - tls://dns.google:853
+  - https://dns.rubyfish.cn/dns-query
+  - https://cloudflare-dns.com/dns-query
+  - https://dns.google/dns-query
+  fallback-filter:
+    domain:
+    - +.google.com
+    - +.facebook.com
+    - +.youtube.com
+    - +.xn--ngstr-lra8j.com
+    - +.google.cn
+    - +.googleapis.cn
+    - +.gvt1.com
+    geoip: true
+    ipcidr:
+    - 240.0.0.0/4
+    - 0.0.0.0/32
+    - 127.0.0.1/32
+  ipv6: false
+  nameserver:
+  - 223.5.5.5
+  - 180.76.76.76
+  - 119.29.29.29
+  - 117.50.11.11
+  - 117.50.10.10
+  - 114.114.114.114
+  - https://dns.alidns.com/dns-query
+  - https://doh.360.cn/dns-query
+external-controller: 127.0.0.1:9090
+log-level: silent
+mode: rule
+port: 7890
+proxies:
+- alterId: 0
+  cipher: auto
+  name: v2ray-wss
+  network: ws
+  port: 443
+  server: vp.itundao.com
+  servername: vp.itundao.com
+  skip-cert-verify: false
+  tls: true
+  type: vmess
+  uuid: 920918b2-f6ce-4994-bc6b-ef32428f6e0b
+  ws-opts:
+    headers:
+      Host: vp.itundao.com
+    path: /73ea86
+- cipher: auto
+  name: ai.itundao.com
+  network: ws
+  port: 443
+  server: ai.itundao.com
+  servername: ai.itundao.com
+  skip-cert-verify: false
+  tls: true
+  type: vmess
+  uuid: 920918b2-f6ce-4994-bc6b-ef32428f6e0b
+  ws-opts:
+    headers:
+      Host: ai.itundao.com
+    path: /73ea86
+  alterId: 0
+- alterId: 0
+  cipher: auto
+  name: hg.itundao.com
+  network: ws
+  port: 443
+  server: hg.itundao.com
+  servername: hg.itundao.com
+  skip-cert-verify: false
+  tls: true
+  type: vmess
+  uuid: 920918b2-f6ce-4994-bc6b-ef32428f6e0b
+  ws-opts:
+    headers:
+      Host: hg.itundao.com
+    path: /73ea86
+- alpn:
+  - h2
+  - http/1.1
+  name: 有效期2027/12/21,剩余:74.37GB
+  password: 1bb8ORt9PPHy4qWYdC
+  port: 7001
+  server: iplc-hk-1.tr202506.com
+  skip-cert-verify: true
+  type: trojan
+- alpn:
+  - h2
+  - http/1.1
+  name: 中国香港-IPLC-HK-1-流量倍率:1
+  password: 1bb8ORt9PPHy4qWYdC
+  port: 7001
+  server: iplc-hk-1.tr202506.com
+  skip-cert-verify: true
+  type: trojan
+- alpn:
+  - h2
+  - http/1.1
+  name: 中国香港-IPLC-HK-2-流量倍率:1
+  password: 1bb8ORt9PPHy4qWYdC
+  port: 8001
+  server: iplc-hk-2.tr202506.com
+  skip-cert-verify: true
+  type: trojan
+- alpn:
+  - h2
+  - http/1.1
+  name: 中国香港-IPLC-HK-3-流量倍率:1
+  password: 1bb8ORt9PPHy4qWYdC
+  port: 7002
+  server: iplc-hk-3.tr202506.com
+  skip-cert-verify: true
+  type: trojan
+- alpn:
+  - h2
+  - http/1.1
+  name: 中国香港-IPLC-HK-4-流量倍率:1
+  password: 1bb8ORt9PPHy4qWYdC
+  port: 8002
+  server: iplc-hk-4.tr202506.com
+  skip-cert-verify: true
+  type: trojan
+- alpn:
+  - h2
+  - http/1.1
+  name: 中国香港-IPLC-HK-5-流量倍率:1
+  password: 1bb8ORt9PPHy4qWYdC
+  port: 7003
+  server: iplc-hk-5.tr202506.com
+  skip-cert-verify: true
+  type: trojan
+- alpn:
+  - h2
+  - http/1.1
+  name: 中国香港-IPLC-HK-6-流量倍率:1
+  password: 1bb8ORt9PPHy4qWYdC
+  port: 8003
+  server: iplc-hk-6.tr202506.com
+  skip-cert-verify: true
+  type: trojan
+- alpn:
+  - h2
+  - http/1.1
+  name: 日本-FW-JP1-流量倍率:1
+  password: 1bb8ORt9PPHy4qWYdC
+  port: 5011
+  server: fw-jp1.tr202506.com
+  skip-cert-verify: true
+  type: trojan
+- alpn:
+  - h2
+  - http/1.1
+  name: 日本-FW-JP2-流量倍率:1
+  password: 1bb8ORt9PPHy4qWYdC
+  port: 5012
+  server: fw-jp2.tr202506.com
+  skip-cert-verify: true
+  type: trojan
+- alpn:
+  - h2
+  - http/1.1
+  name: 美国-FW-US1-流量倍率:1
+  password: 1bb8ORt9PPHy4qWYdC
+  port: 5021
+  server: fw-us1.tr202506.com
+  skip-cert-verify: true
+  type: trojan
+- alpn:
+  - h2
+  - http/1.1
+  name: 美国-FW-US2-流量倍率:1
+  password: 1bb8ORt9PPHy4qWYdC
+  port: 5022
+  server: fw-us2.tr202506.com
+  skip-cert-verify: true
+  type: trojan
+- alpn:
+  - h2
+  - http/1.1
+  name: 澳大利亚-FW-AU1-流量倍率:1.5
+  password: 1bb8ORt9PPHy4qWYdC
+  port: 5042
+  server: fw-au1.tr202506.com
+  skip-cert-verify: true
+  type: trojan
+- alpn:
+  - h2
+  - http/1.1
+  name: 澳大利亚-FW-AU2-流量倍率:1.5
+  password: 1bb8ORt9PPHy4qWYdC
+  port: 5043
+  server: fw-au2.tr202506.com
+  skip-cert-verify: true
+  type: trojan
+- al

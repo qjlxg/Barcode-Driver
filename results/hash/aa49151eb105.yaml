@@ -1,0 +1,67 @@
+mixed-port: 7891
+port: 7890
+socks-port: 7891
+redir-port: 7892
+tproxy-port: 7893
+allow-lan: false
+mode: Rule
+log-level: silent
+external-controller: '0.0.0.0:9090'
+ipv6: true
+secret: ''
+
+proxies:
+  - name: reality-www.microsoft.com
+    type: vless
+    server: 104.225.237.87
+    port: 443
+    uuid: 2db85988-715e-4481-aad6-90605ca4736d
+    flow: xtls-rprx-vision
+    packet-encoding: xudp
+    tls: true
+    servername: www.microsoft.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: LBeNoujOB6Su0ZKL5-sp51LkIZsNbPzE1xVhufJJaGc
+      short-id: b6bac1f358b14f15
+    encryption: ""
+    network: tcp
+    udp: true
+
+proxy-groups:
+  - name: 🔰国际流量
+    type: select
+    proxies:
+      - reality-www.microsoft.com
+      - 🚀直接连接
+  - name: 🔰国内流量
+    type: select
+    proxies:
+      - DIRECT
+      - 🔰国际流量
+  - name: ⚓️其他流量
+    type: select
+    proxies:
+      - 🔰国际流量
+      - 🚀直接连接
+  - name: ✈️Telegram
+    type: select
+    proxies:
+      - 🔰国际流量
+      - 🚀直接连接
+  - name: 🤖OpenAI
+    type: select
+    proxies:
+      - 🔰国际流量
+      - reality-www.microsoft.com
+  - name: 🎬国际流媒体
+    type: select
+    proxies:
+      - 🔰国际流量
+      - reality-www.microsoft.com
+      - 🚀直接连接
+  - name: 🎬国内流媒体
+    type: select
+    proxies:
+      - 🚀直接连接
+      - 🔰国内

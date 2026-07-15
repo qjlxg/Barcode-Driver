@@ -1,0 +1,149 @@
+mixed-port: 7891
+port: 7890
+socks-port: 7891
+redir-port: 7892
+tproxy-port: 7893
+allow-lan: false
+mode: Rule
+log-level: silent
+external-controller: '0.0.0.0:9090'
+ipv6: true
+secret: ''
+
+proxies:
+  - name: reality-www.microsoft.com
+    type: vless
+    server: 104.225.237.87
+    port: 443
+    uuid: 2db85988-715e-4481-aad6-90605ca4736d
+    flow: xtls-rprx-vision
+    packet-encoding: xudp
+    tls: true
+    servername: www.microsoft.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: LBeNoujOB6Su0ZKL5-sp51LkIZsNbPzE1xVhufJJaGc
+      short-id: b6bac1f358b14f15
+    encryption: ""
+    network: tcp
+    udp: true
+
+proxy-groups:
+  - name: 🔰国际流量
+    type: select
+    proxies:
+      - reality-www.microsoft.com
+      - 🚀直接连接
+  - name: 🔰国内流量
+    type: select
+    proxies:
+      - DIRECT
+      - 🔰国际流量
+  - name: ⚓️其他流量
+    type: select
+    proxies:
+      - 🔰国际流量
+      - 🚀直接连接
+  - name: ✈️Telegram
+    type: select
+    proxies:
+      - 🔰国际流量
+      - 🚀直接连接
+  - name: 🤖OpenAI
+    type: select
+    proxies:
+      - 🔰国际流量
+      - reality-www.microsoft.com
+  - name: 🎬国际流媒体
+    type: select
+    proxies:
+      - 🔰国际流量
+      - reality-www.microsoft.com
+      - 🚀直接连接
+  - name: 🎬国内流媒体
+    type: select
+    proxies:
+      - 🚀直接连接
+      - 🔰国内流量
+      - 🔰国际流量
+  - name: 🍎苹果流量
+    type: select
+    proxies:
+      - 🚀直接连接
+      - 🔰国际流量
+  - name: 🪧广告流量
+    type: select
+    proxies:
+      - 🚧屏蔽流量
+      - 🚀直接连接
+      - 🔰国际流量
+  - name: 🚧屏蔽流量
+    type: select
+    proxies:
+      - REJECT
+  - name: 🚀直接连接
+    type: select
+    proxies:
+      - DIRECT
+
+rules:
+  # > OpenAI / Claude / Gemini
+  - DOMAIN-SUFFIX,openai.com,🤖OpenAI
+  - DOMAIN-SUFFIX,chatgpt.com,🤖OpenAI
+  - DOMAIN-SUFFIX,oaistatic.com,🤖OpenAI
+  - DOMAIN-SUFFIX,oaiusercontent.com,🤖OpenAI
+  - DOMAIN-SUFFIX,api.openai.com,🤖OpenAI
+  - DOMAIN-SUFFIX,ai.com,🤖OpenAI
+  - DOMAIN-SUFFIX,anthropic.com,🤖OpenAI
+  - DOMAIN-SUFFIX,claude.ai,🤖OpenAI
+  - DOMAIN,ai.google.dev,🤖OpenAI
+  - DOMAIN,alkalimakersuite-pa.clients6.google.com,🤖OpenAI
+  - DOMAIN,makersuite.google.com,🤖OpenAI
+  - DOMAIN-SUFFIX,bard.google.com,🤖OpenAI
+  - DOMAIN-SUFFIX,deepmind.com,🤖OpenAI
+  - DOMAIN-SUFFIX,deepmind.google,🤖OpenAI
+  - DOMAIN-SUFFIX,gemini.google.com,🤖OpenAI
+  - DOMAIN-SUFFIX,generativeai.google,🤖OpenAI
+  - DOMAIN,proactivebackend-pa.googleapis.com,🤖OpenAI
+  - DOMAIN-SUFFIX,apis.google.com,🤖OpenAI
+  - DOMAIN-KEYWORD,colab,🤖OpenAI
+  - DOMAIN-KEYWORD,generativelanguage,🤖OpenAI
+
+  # > Telegram
+  - DOMAIN-SUFFIX,telegram.org,✈️Telegram
+  - DOMAIN-SUFFIX,t.me,✈️Telegram
+  - DOMAIN-SUFFIX,telegra.ph,✈️Telegram
+  - DOMAIN-SUFFIX,telesco.pe,✈️Telegram
+
+  # > Streaming
+  - DOMAIN-SUFFIX,netflix.com,🎬国际流媒体
+  - DOMAIN-SUFFIX,netflix.net,🎬国际流媒体
+  - DOMAIN-SUFFIX,nflxvideo.net,🎬国际流媒体
+  - DOMAIN-SUFFIX,disneyplus.com,🎬国际流媒体
+  - DOMAIN-SUFFIX,disney-plus.net,🎬国际流媒体
+  - DOMAIN-SUFFIX,hulu.com,🎬国际流媒体
+  - DOMAIN-SUFFIX,hbomax.com,🎬国际流媒体
+  - DOMAIN-SUFFIX,max.com,🎬国际流媒体
+  - DOMAIN-SUFFIX,bilibili.com,🎬国内流媒体
+  - DOMAIN-SUFFIX,bilivideo.com,🎬国内流媒体
+  - DOMAIN-SUFFIX,iqiyi.com,🎬国内流媒体
+  - DOMAIN-SUFFIX,youku.com,🎬国内流媒体
+
+  # > Apple
+  - DOMAIN-SUFFIX,icloud.com,🍎苹果流量
+  - DOMAIN-SUFFIX,apple.com,🍎苹果流量
+  - DOMAIN-SUFFIX,appstore.com,🍎苹果流量
+  - DOMAIN-SUFFIX,apple-cloudkit.com,🍎苹果流量
+
+  # > Ads
+  - DOMAIN-SUFFIX,doubleclick.net,🪧广告流量
+  - DOMAIN-SUFFIX,googlesyndication.com,🪧广告流量
+  - DOMAIN-SUFFIX,googleadservices.com,🪧广告流量
+  - DOMAIN-SUFFIX,adservice.google.com,🪧广告流量
+  - DOMAIN-SUFFIX,ads.yahoo.com,🪧广告流量
+
+  # > Common international sites
+  - DOMAIN-SUFFIX,amazon.com,🔰国际流量
+  - DOMAIN-SUFFIX,amazonaws.com,🔰国际流量
+  - DOMAIN-SUFFIX,android.com,🔰国际流量
+  - DOMAIN-SUFFIX,apache.org,🔰国际流

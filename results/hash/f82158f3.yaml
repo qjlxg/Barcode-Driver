@@ -1,0 +1,150 @@
+port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+unified-delay: true
+dns:
+  enable: true 
+  listen: "0.0.0.0:1053"
+  ipv6: true
+  prefer-h3: false
+  respect-rules: true
+  use-system-hosts: false
+  cache-algorithm: "arc"
+  enhanced-mode: "fake-ip"
+  fake-ip-range: "198.18.0.1/16"
+  fake-ip-filter:
+    - "+.lan"
+    - "+.local"
+    - "+.msftconnecttest.com"
+    - "+.msftncsi.com"
+    - "localhost.ptlogin2.qq.com"
+    - "localhost.sec.qq.com"
+    - "+.in-addr.arpa"
+    - "+.ip6.arpa"
+    - "time.*.com"
+    - "time.*.gov"
+    - "pool.ntp.org"
+    - "localhost.work.weixin.qq.com"
+  default-nameserver: ["223.5.5.5", "119.29.29.29"]
+  nameserver:
+    - "https://1.1.1.1/dns-query"
+    - "https://8.8.8.8/dns-query"
+  proxy-server-nameserver:
+    - "https://223.5.5.5/dns-query"
+    - "https://doh.pub/dns-query"
+nameserver-policy:
+  "geosite:cn":
+     - "https://223.5.5.5/dns-query"
+     - "https://doh.pub/dns-query"
+
+proxies:
+- name: vless-reality-vision-usaint               
+  type: vless
+  server: 34.4.109.117                           
+  port: 62972                                
+  uuid: 4fbf569d-bed2-4b21-a9e9-efa46cca654d   
+  network: tcp
+  udp: true
+  tls: true
+  flow: xtls-rprx-vision
+  servername: apple.com                 
+  reality-opts: 
+    public-key: FQJDv4Gh2ST2eGjxZYUrsBBMLQkm39UlWh_Gq8oR7Xs    
+    short-id: 0beca734                      
+  client-fingerprint: chrome                  
+
+- name: vmess-ws-usaint                         
+  type: vmess
+  server: usa.uu2324.ccwu.cc                        
+  port: 2096                                     
+  uuid: 4fbf569d-bed2-4b21-a9e9-efa46cca654d       
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: true
+  network: ws
+  servername: usa.uu2324.ccwu.cc                    
+  ws-opts:
+    path: "4fbf569d-bed2-4b21-a9e9-efa46cca654d-vm"                             
+    headers:
+      Host: usa.uu2324.ccwu.cc                     
+
+- name: hysteria2-usaint                            
+  type: hysteria2                                      
+  server: usa.uu2324.ccwu.cc                               
+  port: 44714
+  ports: 40000-41000
+  password: 4fbf569d-bed2-4b21-a9e9-efa46cca654d                          
+  alpn:
+    - h3
+  sni: usa.uu2324.ccwu.cc                               
+  skip-cert-verify: false
+  fast-open: true
+
+- name: tuic5-usaint                            
+  server: usa.uu2324.ccwu.cc                      
+  port: 12071                                    
+  type: tuic
+  uuid: 4fbf569d-bed2-4b21-a9e9-efa46cca654d       
+  password: 4fbf569d-bed2-4b21-a9e9-efa46cca654d   
+  alpn: [h3]
+  disable-sni: false
+  reduce-rtt: true
+  udp-relay-mode: native
+  congestion-controller: bbr
+  sni: usa.uu2324.ccwu.cc                                
+  skip-cert-verify: false
+
+- name: anytls-usaint
+  type: anytls
+  server: usa.uu2324.ccwu.cc
+  port: 44401
+  password: 4fbf569d-bed2-4b21-a9e9-efa46cca654d
+  client-fingerprint: chrome
+  udp: true
+  idle-session-check-interval: 30
+  idle-session-timeout: 30
+  sni: usa.uu2324.ccwu.cc
+  skip-cert-verify: false
+
+proxy-groups:
+- name: 负载均衡
+  type: load-balance
+  url: https://www.gstatic.com/generate_204
+  interval: 300
+  strategy: round-robin
+  proxies:
+    - vless-reality-vision-usaint                              
+    - vmess-ws-usaint
+    - hysteria2-usaint
+    - tuic5-usaint
+    - anytls-usaint
+
+- name: 自动选择
+  type: url-test
+  url: https://www.gstatic.com/generate_204
+  interval: 300
+  tolerance: 50
+  proxies:
+    - vless-reality-vision-usaint                              
+    - vmess-ws-usaint
+    - hysteria2-usaint
+    - tuic5-usaint
+    - anytls-usaint
+    
+- name: 🌍选择代理节点
+  type: select
+  proxies:
+    - 负载均衡                                         
+    - 自动选择
+    - DIRECT
+    - vless-reality-vision-usaint                              
+    - vmess-ws-usaint
+    - hysteria2-usaint
+    - tuic5-usaint
+    - anytls-usaint
+rules:
+  - GEOIP,LAN,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,🌍选择代理节点

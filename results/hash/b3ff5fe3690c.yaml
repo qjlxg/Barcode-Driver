@@ -1,0 +1,134 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+find-process-mode: always
+log-level: info
+ipv6: false
+
+dns:
+  enable: true
+  listen: 127.0.0.1:1053
+  enhanced-mode: fake-ip
+  fake-ip-filter:
+    - '*.lan'
+    - 'localhost.ptlogin2.qq.com'
+    - '+.gcld-line.com'
+    - '+.lin.ee'
+    - '+.line-apps-beta.com'
+    - '+.line-apps-rc.com'
+    - '+.line-apps.com'
+    - '+.line-beta.me'
+    - '+.line-cdn.net'
+    - '+.line-scdn.net'
+    - '+.line.biz'
+    - '+.line.me'
+    - '+.line.naver.jp'
+    - '+.linecorp.com'
+    - '+.linefriends.com'
+    - '+.linefriends.com.tw'
+    - '+.linegame.jp'
+    - '+.linemobile.com'
+    - '+.linemyshop.com'
+    - '+.lineshoppingseller.com'
+    - '+.linetv.tw'
+    - '+.naver.jp'
+    - '+.naver.com'
+    - '+.navercorp.com'
+    - '+.nhncorp.jp'
+    - '+.oray.com'
+    - '+.oray.net'
+    - '+.sunlogin.net'
+    - '+.displaycatalog.mp.microsoft.com'
+    - '+.dl.delivery.mp.microsoft.com'
+    - '+.windowsupdate.com'
+  nameserver:
+    - 1.1.1.1
+    - 8.8.8.8
+
+sniffer:
+  enable: true
+  parse-pure-ip: true
+  override-destination: true
+  sniff:
+    QUIC:
+      ports:
+        - 443
+        - 8443
+    TLS:
+      ports:
+        - 443
+        - 8443
+    HTTP:
+      ports:
+        - 80
+        - 8080-8880
+
+rule-providers:
+  geoip-ruleset-cn:
+    behavior: ipcidr
+    format: mrs
+    interval: 172800
+    path: ./ruleset/geoip/cn.mrs
+    proxy: ""
+    type: http
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geoip/cn.mrs
+  geosite-ruleset-cn:
+    behavior: domain
+    format: mrs
+    interval: 172800
+    path: ./ruleset/geosite/cn.mrs
+    proxy: ""
+    type: http
+    url: https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/refs/heads/meta/geo/geosite/cn.mrs
+
+proxies:
+  - name: standalone-60003-no-telegram
+    type: vless
+    server: 124.151.43.79
+    port: 60003
+    uuid: 43ae9b01-0bc1-4d51-9663-0502cc47e06e
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.microsoft.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: CuyJcwbQoG3O08jC2CdY_ncXm7HDVa3O7C6xnkIKCws
+      short-id: aaf82d9c3603e649
+    packet-encoding: xudp
+
+  - name: tg-vless-reality-6002
+    type: vless
+    server: xz-tch1.sytes.net
+    port: 6002
+    uuid: aad097e3-f860-47c1-91b6-3b001f308da0
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.microsoft.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: JPitgJu31J84kzLsmnStpoFSmP-PTZKWh6hyYmuDQ1I
+      short-id: d8da6aa6f264cb36
+    packet-encoding: xudp
+
+proxy-groups:
+  - name: Proxy
+    type: select
+    proxies:
+      - standalone-60003-no-telegram
+
+  - name: Telegram
+    type: select
+    proxies:
+      - tg-vless-reality-6002
+
+  - name: LINE
+    type: select
+    proxies:
+      - standalone-60003-no-telegram
+
+rules:
+  # 

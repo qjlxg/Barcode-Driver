@@ -1,0 +1,161 @@
+port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+unified-delay: true
+global-client-fingerprint: chrome
+dns:
+  enable: false
+  listen: :53
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  default-nameserver: 
+    - 223.5.5.5
+    - 114.114.114.114
+    - 8.8.8.8
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  fallback:
+    - https://1.0.0.1/dns-query
+    - tls://dns.google
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
+
+proxies:
+- name: CF_V8_usa.visa.com_443
+  type: vless
+  server: usa.visa.com
+  port: 443
+  uuid: 502524df-bb02-4a14-8362-d84caf2b0a76
+  udp: false
+  tls: true
+  network: ws
+  servername: spdf.qzz.io
+  ws-opts:
+    path: "/?ed=2560"
+    headers:
+      Host: spdf.qzz.io
+
+- name: CF_V9_myanmar.visa.com_8443
+  type: vless
+  server: myanmar.visa.com
+  port: 8443
+  uuid: 502524df-bb02-4a14-8362-d84caf2b0a76
+  udp: false
+  tls: true
+  network: ws
+  servername: spdf.qzz.io
+  ws-opts:
+    path: "/?ed=2560"
+    headers:
+      Host: spdf.qzz.io
+
+- name: CF_V10_www.visa.com.tw_2053
+  type: vless
+  server: www.visa.com.tw
+  port: 2053
+  uuid: 502524df-bb02-4a14-8362-d84caf2b0a76
+  udp: false
+  tls: true
+  network: ws
+  servername: spdf.qzz.io
+  ws-opts:
+    path: "/?ed=2560"
+    headers:
+      Host: spdf.qzz.io
+
+- name: CF_V11_www.visaeurope.ch_2083
+  type: vless
+  server: www.visaeurope.ch
+  port: 2083
+  uuid: 502524df-bb02-4a14-8362-d84caf2b0a76
+  udp: false
+  tls: true
+  network: ws
+  servername: spdf.qzz.io
+  ws-opts:
+    path: "/?ed=2560"
+    headers:
+      Host: spdf.qzz.io
+
+- name: CF_V12_www.visa.com.br_2087
+  type: vless
+  server: www.visa.com.br
+  port: 2087
+  uuid: 502524df-bb02-4a14-8362-d84caf2b0a76
+  udp: false
+  tls: true
+  network: ws
+  servername: spdf.qzz.io
+  ws-opts:
+    path: "/?ed=2560"
+    headers:
+      Host: spdf.qzz.io
+
+- name: CF_V13_www.visasoutheasteurope.com_2096
+  type: vless
+  server: www.visasoutheasteurope.com
+  port: 2096
+  uuid: 502524df-bb02-4a14-8362-d84caf2b0a76
+  udp: false
+  tls: true
+  network: ws
+  servername: spdf.qzz.io
+  ws-opts:
+    path: "/?ed=2560"
+    headers:
+      Host: spdf.qzz.io
+
+proxy-groups:
+
+- name: 🌍选择代理
+  type: select
+  proxies:
+    - 负载均衡
+    - 自动选择
+    - DIRECT
+    - CF_V8_usa.visa.com_443
+    - CF_V9_myanmar.visa.com_8443
+    - CF_V10_www.visa.com.tw_2053
+    - CF_V11_www.visaeurope.ch_2083
+    - CF_V12_www.visa.com.br_2087
+    - CF_V13_www.visasoutheasteurope.com_2096
+
+
+- name: 负载均衡
+  type: load-balance
+  url: http://www.gstatic.com/generate_204
+  interval: 300
+  proxies:
+    - CF_V8_usa.visa.com_443
+    - CF_V9_myanmar.visa.com_8443
+    - CF_V10_www.visa.com.tw_2053
+    - CF_V11_www.visaeurope.ch_2083
+    - CF_V12_www.visa.com.br_2087
+    - CF_V13_www.visasoutheasteurope.com_2096
+
+- name: 自动选择
+  type: url-test
+  url: http://www.gstatic.com/generate_204
+  interval: 300
+  tolerance: 50
+  proxies:
+    - CF_V8_usa.visa.com_443
+    - CF_V9_myanmar.visa.com_8443
+    - CF_V10_www.visa.com.tw_2053
+    - CF_V11_www.visaeurope.ch_2083
+    - CF_V12_www.visa.com.br_2087
+    - CF_V13_www.visasoutheasteurope.com_2096
+
+
+rules:
+  - DOMAIN-SUFFIX,040419.xyz,DIRECT
+  - IP-CIDR,35.212.196.170/32,DIRECT
+  - GEOIP,LAN,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,🌍选择代理

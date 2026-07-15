@@ -1,0 +1,22 @@
+port: 7890
+socks-port: 7891
+allow-lan: false
+mode: rule
+log-level: info
+
+proxies:
+  - name: "首尔-VLESS-TCP"
+    type: vless
+    server: 43.155.168.236
+    port: 2053
+    uuid: 170a1859-9a00-43d0-94ad-98093d4ada09
+    network: tcp
+
+proxy-groups:
+  - name: "自动选择"
+    type: select
+    proxies:
+      - "首尔-VLESS-TCP"
+
+rules:
+  - MATCH,自动选择

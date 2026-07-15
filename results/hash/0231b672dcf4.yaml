@@ -1,0 +1,177 @@
+port: 7890
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
+allow-lan: true
+mode: rule
+log-level: info
+ipv6: false
+external-controller: 127.0.0.1:9090
+
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  listen: 0.0.0.0:1053
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - https://dns.google/dns-query
+    - https://1.1.1.1/dns-query
+  nameserver-policy:
+    "geosite:cn,private": 223.5.5.5
+    "geosite:google": https://dns.google/dns-query
+    "geosite:geolocation-!cn": https://1.1.1.1/dns-query
+  fallback:
+    - 223.5.5.5
+    - 119.29.29.29
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+
+proxies:
+  - name: "SelfBuild-VMess-TLS-WS"
+    type: vmess
+    server: 209.54.107.157
+    port: 443
+    uuid: c4d1c2f9-30ac-4446-8f26-f6e230ea07b3
+    alterId: 0
+    cipher: auto
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    servername: 209.54.107.157
+    network: ws
+    ws-opts:
+      path: /vmess
+      headers:
+        Host: 209.54.107.157
+    alpn:
+      - http/1.1
+
+  - name: "SelfBuild-Trojan-TLS-gRPC"
+    type: trojan
+    server: 209.54.107.157
+    port: 8443
+    password: 20bxlR-1fDXjTblDNbzhsA
+    udp: true
+    tls: true
+    skip-cert-verify: true
+    sni: 209.54.107.157
+    network: grpc
+    grpc-opts:
+      grpc-service-name: "trojan-grpc"
+    alpn:
+      - h2
+
+proxy-groups:
+  - name: "AUTO"
+    type: url-test
+    proxies:
+      - "SelfBuild-VMess-TLS-WS"
+      - "SelfBuild-Trojan-TLS-gRPC"
+    url: https://www.gstatic.com/generate_204
+    interval: 300
+
+  - name: "SALESFORCE"
+    type: select
+    proxies:
+      - "SelfBuild-VMess-TLS-WS"
+      - "SelfBuild-Trojan-TLS-gRPC"
+      - "AUTO"
+      - DIRECT
+
+  - name: "PROXY"
+    type: select
+    proxies:
+      - "AUTO"
+      - "SelfBuild-VMess-TLS-WS"
+      - "SelfBuild-Trojan-TLS-gRPC"
+      - DIRECT
+
+  - name: "TikTok"
+    type: select
+    proxies:
+      - "PROXY"
+      - "AUTO"
+      - "SelfBuild-VMess-TLS-WS"
+      - "SelfBuild-Trojan-TLS-gRPC"
+      - DIRECT
+
+rules:
+  - PROCESS-NAME,com.google.android.apps.bard,PROXY
+  - PROCESS-NAME,com.google.android.googlequicksearchbox,PROXY
+  - DOMAIN,gemini.google.com,PROXY
+  - DOMAIN,bard.google.com,PROXY
+  - DOMAIN,aistudio.google.com,PROXY
+  - DOMAIN,ai.google.dev,PROXY
+  - DOMAIN,accounts.google.com,PROXY
+  - DOMAIN,oauth2.googleapis.com,PROXY
+  - DOMAIN,play.googleapis.com,PROXY
+  - DOMAIN,android.clients.google.com,PROXY
+  - DOMAIN,clients4.google.com,PROXY
+  - DOMAIN,clients6.google.com,PROXY
+  - DOMAIN,content-push.googleapis.com,PROXY
+  - DOMAIN,firebaseinstallations.googleapis.com,PROXY
+  - DOMAIN,generativelanguage.googleapis.com,PROXY
+  - DOMAIN-SUFFIX,app-measurement.com,PROXY
+  - DOMAIN-SUFFIX,crashlytics.com,PROXY
+  - DOMAIN-SUFFIX,doubleclick.net,PROXY
+  - DOMAIN-SUFFIX,firebaseapp.com,PROXY
+  - DOMAIN-SUFFIX,firebaseio.com,PROXY
+  - DOMAIN-SUFFIX,google-analytics.com,PROXY
+  - DOMAIN-SUFFIX,googleapis.com,PROXY
+  - DOMAIN-SUFFIX,googleapis.dev,PROXY
+  - DOMAIN-SUFFIX,google.dev,PROXY
+  - DOMAIN-SUFFIX,gvt1.com,PROXY
+  - DOMAIN-SUFFIX,gvt2.com,PROXY
+  - DOMAIN-SUFFIX,withgoogle.com,PROXY
+  - DOMAIN-SUFFIX,tiktok.com,TikTok
+  - DOMAIN-SUFFIX,tiktokv.com,TikTok
+  - DOMAIN-SUFFIX,tiktokcdn.com,TikTok
+  - DOMAIN-SUFFIX,byteoversea.com,TikTok
+  - DOMAIN-SUFFIX,ibyteimg.com,TikTok
+  - DOMAIN-SUFFIX,ipstatp.com,TikTok
+  - DOMAIN-SUFFIX,muscdn.com,TikTok
+  - DOMAIN-SUFFIX,musical.ly,TikTok
+  - DOMAIN-SUFFIX,sgpstatp.com,TikTok
+  - DOMAIN-SUFFIX,snssdk.com,TikTok
+  - DOMAIN-SUFFIX,bytegecko.com,TikTok
+  - DOMAIN-SUFFIX,byteoversea.net,TikTok
+  - DOMAIN-SUFFIX,tik-tok.io,TikTok
+  - DOMAIN-SUFFIX,tiktokcdn-us.com,TikTok
+  - DOMAIN-SUFFIX,tiktokd.org,TikTok
+  - DOMAIN-SUFFIX,tiktokorg.us,TikTok
+  - DOMAIN-KEYWORD,tiktok,TikTok
+  - DOMAIN,ledvancegmbh--ldfuscqa.sandbox.lightning.force.com,SALESFORCE
+  - DOMAIN,ledvancegmbh--uscsandbox.sandbox.lightning.force.com,SALESFORCE
+  - DOMAIN,ledvanceneworg.lightning.force.com,SALESFORCE
+  - DOMAIN-SUFFIX,lightning.force.com,SALESFORCE
+  - DOMAIN-SUFFIX,visual.force.com,SALESFORCE
+  - DOMAIN-KEYWORD,salesforce,SALESFORCE
+  - DOMAIN-SUFFIX,salesforce.com,SALESFORCE
+  - DOMAIN-SUFFIX,force.com,SALESFORCE
+  - DOMAIN-SUFFIX,salesforce-hosting.com,SALESFORCE
+  - DOMAIN-SUFFIX,sfdcstatic.com,SALESFORCE
+  - DOMAIN-KEYWORD,jira,PROXY
+  - DOMAIN-KEYWORD,atlassian,PROXY
+  - DOMAIN-SUFFIX,atlassian.com,PROXY
+  - DOMAIN-SUFFIX,atlassian.net,PROXY
+  - DOMAIN-SUFFIX,jira.com,PROXY
+  - DOMAIN-SUFFIX,atl-paas.net,PROXY
+  - DOMAIN-SUFFIX,youtube.com,PROXY
+  - DOMAIN-SUFFIX,googlevideo.com,PROXY
+  - DOMAIN-SUFFIX,ytimg.com,PROXY
+  - DOMAIN-SUFFIX,ggpht.com,PROXY
+  - DOMAIN-SUFFIX,google.com,PROXY
+  - DOMAIN-SUFFIX,googleusercontent.com,PROXY
+  - DOMAIN-SUFFIX,gstatic.com,PROXY
+  - DOMAIN-SUFFIX,youtu.be,PROXY
+  - DOMAIN-SUFFIX,youtube-nocookie.com,PROXY
+  - DOMAIN-KEYWORD,youtube,PROXY
+  - DOMAIN-KEYWORD,google,PROXY
+  - DOMAIN-KEYWORD,github,PROXY
+  - GEOIP,CN,DIRECT
+  - MATCH,PROXY

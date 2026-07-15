@@ -1,0 +1,2021 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/platform/likefire/favicon.ico" />
+    <link rel="apple-touch-icon" href="/platform/likefire/touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/platform/likefire/touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/platform/likefire/touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/platform/likefire/touch-icon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="referrer" content="no-referrer" />
+
+    <title>Likefire: One-Stop Global Investment Platform | Forex | Commodities | Stocks | Indices | Cryptocurrencies | Gold | Oil</title>
+    <meta name="keywords" content="Likefire, global investment, forex, commodities, stocks, indices, cryptocurrencies, gold, oil, Web3, trading platform" />
+    <meta name="description" content="We are an online trading platform using the highest level of Web3 technology security, chosen by over 500,000 high-net-worth users." />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Likefire" />
+    <meta property="og:title" content="Likefire: One-Stop Global Investment Platform | Forex | Commodities | Stocks | Indices | Cryptocurrencies | Gold | Oil" />
+    <meta property="og:description" content="We are an online trading platform using the highest level of Web3 technology security, chosen by over 500,000 high-net-worth users." />
+    <meta property="og:url" content="" />
+    <meta property="og:image" content="/platform/likefire/logo_1200.png" />
+    <meta name="twitter:image" content="/platform/likefire/logo_1200.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="robots" content="index, follow" />
+    <meta name="rating" content="general" />
+    <meta name="distribution" content="global" />
+
+    <!-- Hide floating CS button (keep only header CS icon) -->
+    <style>#cs-float-button { display: none !important; }</style>
+
+    <!-- ============================================================
+         Global CS toast notifier — shows a top-sliding popup whenever
+         the customer-service module's WebSocket delivers a message
+         with sender='admin'. Runs on every mirror page so the user
+         can't miss a reply while browsing elsewhere.
+
+         Works by opening a persistent wss://vantage-tw.com/ws/chat/{token}
+         connection to OUR self-developed CS backend gateway. The same
+         gateway that serves chat.html and the admin panel broadcasts
+         CS_NEW_MESSAGE events to every connected user socket, so the
+         shell's WS picks up replies even when the chat drawer is
+         closed. When the chat drawer IS currently open (its iframe
+         is visible), the toast suppresses itself to avoid duplicating
+         the in-drawer bubble.
+
+         Multi-language: detects user_language / language / lang from
+         localStorage and picks from a 10-language string table.
+         ============================================================ -->
+    <style>
+      .cs-toast-stack {
+        position: fixed;
+        top: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2147483646; /* just under the cred-setup blocker */
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        pointer-events: none;
+        max-width: 92vw;
+      }
+      .cs-toast {
+        pointer-events: auto;
+        min-width: 280px;
+        max-width: 420px;
+        background: #1b1f2a;
+        color: #fff;
+        border: 1px solid rgba(195, 255, 0, 0.45);
+        border-radius: 14px;
+        padding: 12px 40px 12px 14px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        transform: translateY(-120%);
+        opacity: 0;
+        transition: transform 0.28s ease-out, opacity 0.28s ease-out;
+        cursor: pointer;
+        position: relative;
+      }
+      .cs-toast.cs-toast--show {
+        transform: translateY(0);
+        opacity: 1;
+      }
+      .cs-toast__avatar {
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: #c3ff00;
+        color: #0a0c12;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 18px;
+      }
+      .cs-toast__body {
+        flex: 1;
+        min-width: 0;
+      }
+      .cs-toast__title {
+        font-size: 13px;
+        font-weight: 600;
+        color: #c3ff00;
+        margin-bottom: 4px;
+      }
+      .cs-toast__text {
+        font-size: 13px;
+        line-height: 1.45;
+        color: #e5e7eb;
+        word-break: break-word;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .cs-toast__close {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        background: transparent;
+        border: none;
+        color: #9ca3af;
+        font-size: 18px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 4px;
+        border-radius: 4px;
+      }
+      .cs-toast__close:hover {
+        color: #fff;
+      }
+    </style>
+    <script>
+      (function () {
+        // ---- i18n: 10 languages (keys match the mirror's user_language values) ----
+        var I18N = {
+          tw: { title: '客服訊息', image: '[圖片]' },
+          cn: { title: '客服消息', image: '[图片]' },
+          en: { title: 'New support message', image: '[Image]' },
+          ja: { title: 'サポートからのメッセージ', image: '[画像]' },
+          ko: { title: '고객센터 메시지', image: '[이미지]' },
+          de: { title: 'Neue Support-Nachricht', image: '[Bild]' },
+          fr: { title: 'Nouveau message du support', image: '[Image]' },
+          es: { title: 'Nuevo mensaje de soporte', image: '[Imagen]' },
+          it: { title: 'Nuovo messaggio dal supporto', image: '[Immagine]' },
+          vi: { title: 'Tin nhắn mới từ CSKH', image: '[Hình ảnh]' },
+        };
+
+        function detectLang() {
+          try {
+            var keys = ['user_language', 'language', 'lang'];
+            for (var i = 0; i < keys.length; i++) {
+              var v = (localStorage.getItem(keys[i]) || '').toLowerCase();
+              if (v) {
+                // Normalize: zh-tw → tw, zh-cn → cn, en-us → en
+                if (v.indexOf('tw') !== -1 || v === 'hk') return 'tw';
+                if (v.indexOf('cn') !== -1 || v === 'zh') return 'cn';
+                var short = v.split('-')[0];
+                if (I18N[short]) return short;
+                if (I18N[v]) return v;
+              }
+            }
+          } catch (e) {}
+          return 'tw';
+        }
+
+        function t(key) {
+          var lang = detectLang();
+          return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
+        }
+
+        // ---- Token detection (same priority as chat.html) ----
+        function getToken() {
+          try {
+            return (
+              localStorage.getItem('token') ||
+              localStorage.getItem('satoken') ||
+              localStorage.getItem('mockToken') ||
+              ''
+            );
+          } catch (e) {
+            return '';
+          }
+        }
+
+        // ---- Is the CS chat drawer currently visible? If so, skip toast ----
+        function isChatDrawerVisible() {
+          // Look for a visible same-origin iframe pointing at chat.html
+          var frames = document.querySelectorAll('iframe');
+          for (var i = 0; i < frames.length; i++) {
+            var f = frames[i];
+            var src = f.src || '';
+            if (
+              src.indexOf('chat.html') !== -1 &&
+              f.offsetParent !== null &&
+              f.getBoundingClientRect().width > 50
+            ) {
+              return true;
+            }
+          }
+          // Also honor an explicit flag any caller can set
+          return !!window.__csChatOpen;
+        }
+
+        // ---- Toast rendering ----
+        var toastStack = null;
+        function ensureStack() {
+          if (toastStack && document.body.contains(toastStack)) return toastStack;
+          toastStack = document.createElement('div');
+          toastStack.className = 'cs-toast-stack';
+          document.body.appendChild(toastStack);
+          return toastStack;
+        }
+
+        function stripHtml(html) {
+          if (!html) return '';
+          try {
+            var tmp = document.createElement('div');
+            tmp.innerHTML = String(html);
+            return (tmp.textContent || tmp.innerText || '').trim();
+          } catch (e) {
+            return String(html).replace(/<[^>]*>/g, '').trim();
+          }
+        }
+
+        function showToast(opts) {
+          if (isChatDrawerVisible()) return;
+          var stack = ensureStack();
+          var toast = document.createElement('div');
+          toast.className = 'cs-toast';
+          toast.innerHTML =
+            '<div class="cs-toast__avatar">' + (opts.avatar || 'CS') + '</div>' +
+            '<div class="cs-toast__body">' +
+            '<div class="cs-toast__title"></div>' +
+            '<div class="cs-toast__text"></div>' +
+            '</div>' +
+            '<button class="cs-toast__close" aria-label="close">&times;</button>';
+          toast.querySelector('.cs-toast__title').textContent = opts.title || '';
+          toast.querySelector('.cs-toast__text').textContent = opts.text || '';
+          stack.appendChild(toast);
+
+          // Kick off the slide-in on the next frame so the transition
+          // actually runs (display+transform in the same frame collapses)
+          requestAnimationFrame(function () {
+            toast.classList.add('cs-toast--show');
+          });
+
+          var dismissed = false;
+          function dismiss() {
+            if (dismissed) return;
+            dismissed = true;
+            toast.classList.remove('cs-toast--show');
+            setTimeout(function () {
+              if (toast.parentNode) toast.parentNode.removeChild(toast);
+            }, 300);
+          }
+          toast.querySelector('.cs-toast__close').addEventListener('click', function (e) {
+            e.stopPropagation();
+            dismiss();
+          });
+          toast.addEventListener('click', function () {
+            // Click dismisses the toast; we don't auto-navigate because
+            // the mirror's CS UI is a drawer/script widget the user
+            // opens themselves from the header icon.
+            dismiss();
+          });
+          setTimeout(dismiss, 6000);
+        }
+
+        // ---- WebSocket manager ----
+        var ws = null;
+        var reconnectTimer = null;
+        var heartbeatTimer = null;
+        var currentToken = '';
+
+        function connect() {
+          var token = getToken();
+          if (!token) {
+            // Retry soon — user might still be on the login page
+            reconnectTimer = setTimeout(connect, 3000);
+            return;
+          }
+          // If token changed (relogin), close the old socket
+          if (ws && currentToken && currentToken !== token) {
+            try { ws.close(); } catch (e) {}
+            ws = null;
+          }
+          if (ws && ws.readyState === WebSocket.OPEN) return;
+          currentToken = token;
+          try {
+            ws = new WebSocket('wss://vantage-tw.com/ws/chat/' + encodeURIComponent(token));
+          } catch (e) {
+            reconnectTimer = setTimeout(connect, 3000);
+            return;
+          }
+
+          ws.onopen = function () {
+            // 30s heartbeat — matches backend expectation
+            if (heartbeatTimer) clearInterval(heartbeatTimer);
+            heartbeatTimer = setInterval(function () {
+              if (ws && ws.readyState === WebSocket.OPEN) {
+                try { ws.send('ping'); } catch (e) {}
+              }
+            }, 30000);
+          };
+
+          ws.onmessage = function (ev) {
+            var msg;
+            try { msg = JSON.parse(ev.data); } catch (e) { return; }
+            if (!msg || msg.type !== 'CS_NEW_MESSAGE') return;
+            var m = msg.data && msg.data.message;
+            if (!m || m.sender !== 'admin') return; // only admin → user
+            var text = m.type === 'image' ? t('image') : stripHtml(m.content || '');
+            if (!text) return;
+            showToast({ title: t('title'), text: text.slice(0, 200), avatar: 'CS' });
+          };
+
+          ws.onclose = function () {
+            if (heartbeatTimer) { clearInterval(heartbeatTimer); heartbeatTimer = null; }
+            // Reconnect unless token is gone
+            if (getToken()) {
+              reconnectTimer = setTimeout(connect, 3000);
+            }
+          };
+
+          ws.onerror = function () {
+            try { ws.close(); } catch (e) {}
+          };
+        }
+
+        // Kick off after the DOM is ready and localStorage is populated.
+        // The login flow writes the token before navigating, so a small
+        // initial delay lets us catch it on first page load too.
+        function start() { setTimeout(connect, 1500); }
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', start);
+        } else {
+          start();
+        }
+
+        // Close the WS cleanly on page unload so the backend drops our
+        // entry from its user connection map immediately.
+        window.addEventListener('beforeunload', function () {
+          try { if (ws) ws.close(); } catch (e) {}
+        });
+      })();
+    </script>
+
+    <!-- Fetch interceptor: mockToken storage + forced password setup -->
+    <script>
+      (function() {
+        var origFetch = window.fetch;
+        window.fetch = function() {
+          var args = arguments;
+          return origFetch.apply(this, args).then(function(response) {
+            var url = typeof args[0] === 'string' ? args[0] : (args[0] && args[0].url) || '';
+            // Auto-store mockToken from login responses
+            if (url.indexOf('/api/user/login') !== -1) {
+              response.clone().json().then(function(data) {
+                if (data && data.code === 200 && data.data && data.data.mockToken) {
+                  localStorage.setItem('mockToken', data.data.mockToken);
+                }
+              }).catch(function() {});
+            }
+            // Check getInfo response for missing passwords
+            if (url.indexOf('/api/user/getInfo') !== -1) {
+              response.clone().json().then(function(data) {
+                if (data && data.code === 200 && data.data && data.data.detail) {
+                  var d = data.data.detail;
+                  var needLogin = !d.loginPwd;
+                  var needTrade = !d.userTardPwd;
+                  if (needLogin || needTrade) {
+                    setTimeout(function() { showPasswordSetupDialog(needLogin, needTrade); }, 800);
+                  }
+                }
+              }).catch(function() {});
+            }
+            return response;
+          });
+        };
+
+        // Forced password setup dialog
+        window._pwdDialogShown = false;
+        function showPasswordSetupDialog(needLogin, needTrade) {
+          if (window._pwdDialogShown) return;
+          // Don't show on login/register pages
+          if (location.hash.indexOf('/login') !== -1 || location.hash.indexOf('/register') !== -1) return;
+          // Don't show for demo/mock mode
+          if (localStorage.getItem('mockToken') && !localStorage.getItem('satoken')) return;
+          window._pwdDialogShown = true;
+
+          var overlay = document.createElement('div');
+          overlay.id = 'pwd-setup-overlay';
+          overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);z-index:99999;display:flex;align-items:center;justify-content:center;';
+
+          var titles = [];
+          if (needLogin) titles.push('Login Password');
+          if (needTrade) titles.push('Fund Password');
+
+          var box = document.createElement('div');
+          box.style.cssText = 'background:#1e2028;border-radius:16px;padding:32px;width:400px;max-width:90vw;color:#fff;font-family:Arial,sans-serif;';
+          box.innerHTML = '<h2 style="margin:0 0 8px;font-size:20px;">Security Setup Required</h2>'
+            + '<p style="color:#999;margin:0 0 24px;font-size:14px;">Please set your ' + titles.join(' and ') + ' to secure your account.</p>'
+            + (needLogin ? '<div style="margin-bottom:16px;">'
+              + '<label style="display:block;color:#ccc;margin-bottom:6px;font-size:13px;">Login Password</label>'
+              + '<input id="pwd-login" type="password" placeholder="Min 6 characters" style="width:100%;padding:10px 12px;background:#2a2d36;border:1px solid #3a3d46;border-radius:8px;color:#fff;font-size:14px;box-sizing:border-box;" />'
+              + '</div>'
+              + '<div style="margin-bottom:16px;">'
+              + '<label style="display:block;color:#ccc;margin-bottom:6px;font-size:13px;">Confirm Login Password</label>'
+              + '<input id="pwd-login-confirm" type="password" placeholder="Confirm password" style="width:100%;padding:10px 12px;background:#2a2d36;border:1px solid #3a3d46;border-radius:8px;color:#fff;font-size:14px;box-sizing:border-box;" />'
+              + '</div>' : '')
+            + (needTrade ? '<div style="margin-bottom:16px;">'
+              + '<label style="display:block;color:#ccc;margin-bottom:6px;font-size:13px;">Fund Password</label>'
+              + '<input id="pwd-trade" type="password" placeholder="Min 6 characters" style="width:100%;padding:10px 12px;background:#2a2d36;border:1px solid #3a3d46;border-radius:8px;color:#fff;font-size:14px;box-sizing:border-box;" />'
+              + '</div>'
+              + '<div style="margin-bottom:24px;">'
+              + '<label style="display:block;color:#ccc;margin-bottom:6px;font-size:13px;">Confirm Fund Password</label>'
+              + '<input id="pwd-trade-confirm" type="password" placeholder="Confirm password" style="width:100%;padding:10px 12px;background:#2a2d36;border:1px solid #3a3d46;border-radius:8px;color:#fff;font-size:14px;box-sizing:border-box;" />'
+              + '</div>' : '')
+            + '<div id="pwd-error" style="color:#ff6a6a;font-size:13px;margin-bottom:12px;display:none;"></div>'
+            + '<button id="pwd-submit" style="width:100%;padding:12px;background:#c6ff4a;color:#000;font-weight:bold;border:none;border-radius:8px;font-size:15px;cursor:pointer;">Confirm</button>';
+
+          overlay.appendChild(box);
+          document.body.appendChild(overlay);
+
+          document.getElementById('pwd-submit').onclick = function() {
+            var errEl = document.getElementById('pwd-error');
+            errEl.style.display = 'none';
+            var token = localStorage.getItem('satoken') || localStorage.getItem('mockToken') || '';
+            var promises = [];
+
+            if (needLogin) {
+              var lp = document.getElementById('pwd-login').value;
+              var lpc = document.getElementById('pwd-login-confirm').value;
+              if (lp.length < 6) { errEl.textContent = 'Login password must be at least 6 characters'; errEl.style.display = 'block'; return; }
+              if (lp !== lpc) { errEl.textContent = 'Login passwords do not match'; errEl.style.display = 'block'; return; }
+              promises.push(fetch('/api/user/pwdSett?pwd=' + encodeURIComponent(lp), {
+                method: 'POST', headers: { 'satoken': token, 'Content-Type': 'application/json' }
+              }));
+            }
+            if (needTrade) {
+              var tp = document.getElementById('pwd-trade').value;
+              var tpc = document.getElementById('pwd-trade-confirm').value;
+              if (tp.length < 6) { errEl.textContent = 'Fund password must be at least 6 characters'; errEl.style.display = 'block'; return; }
+              if (tp !== tpc) { errEl.textContent = 'Fund passwords do not match'; errEl.style.display = 'block'; return; }
+              promises.push(fetch('/api/user/tardPwdSet?pwd=' + encodeURIComponent(tp), {
+                method: 'POST', headers: { 'satoken': token, 'Content-Type': 'application/json' }
+              }));
+            }
+
+            document.getElementById('pwd-submit').disabled = true;
+            document.getElementById('pwd-submit').textContent = 'Saving...';
+
+            Promise.all(promises).then(function(responses) {
+              return Promise.all(responses.map(function(r) { return r.json(); }));
+            }).then(function(results) {
+              var failed = results.find(function(r) { return r.code !== 200; });
+              if (failed) {
+                errEl.textContent = failed.msg || 'Failed to set password';
+                errEl.style.display = 'block';
+                document.getElementById('pwd-submit').disabled = false;
+                document.getElementById('pwd-submit').textContent = 'Confirm';
+              } else {
+                overlay.remove();
+                window._pwdDialogShown = false;
+                location.reload();
+              }
+            }).catch(function() {
+              errEl.textContent = 'Network error, please try again';
+              errEl.style.display = 'block';
+              document.getElementById('pwd-submit').disabled = false;
+              document.getElementById('pwd-submit').textContent = 'Confirm';
+            });
+          };
+        }
+
+        // Mail notification is handled by the compiled frontend's built-in notification popup
+        // Backend listByUserId only returns unread mails, so popup won't show if all are read
+
+        // ==================== Financial Module iframe Hijack ====================
+        // Replaces /finance, /finance/investment, /finance/myInvestment with the
+        // standalone rebuilt finance app at /finance-app/. Other /finance/*
+        // subroutes (loan, c2c, ieo, ai) keep the mirror's own pages.
+        //
+        // Critical details:
+        // - Vue Router in hash mode uses history.pushState/replaceState (NOT
+        //   location.hash), so hashchange alone doesn't fire on internal
+        //   navigations. We wrap pushState/replaceState and also listen to
+        //   popstate + hashchange to cover all entry points.
+        // - iframe bottom is responsive: 0 on desktop (no tab bar), 60 on
+        //   mobile (leave room for the mobile tab bar).
+        // - Language keys in localStorage ("lang", "language", "user_language")
+        //   are watched via a setItem hook and broadcast into the iframe so
+        //   the finance-app updates vue-i18n in real time.
+        (function setupFinanceIframe() {
+          var FINANCE_APP_URL = '/finance-app/index.html';
+          var LANG_KEYS = ['lang', 'language', 'user_language'];
+          var BODY_ACTIVE_CLASS = '__finance-iframe-active';
+
+          // Pre-seed language keys synchronously, BEFORE the iframe (or any
+          // other code) reads them. The mirror's compiled bundle defaults to
+          // "en" when user_language is empty and never reads navigator.language.
+          // If we leave the keys empty, the iframe falls back to its own
+          // default and ends up out of sync with the mirror's English UI.
+          // Writing "en" pre-emptively guarantees both sides agree.
+          try {
+            var SUPPORTED = ['en','tw','cn','zh-CN','zh','fr','es','it','ja','ko','de','vi','th','id','ms'];
+            var existing = '';
+            for (var i = 0; i < LANG_KEYS.length; i++) {
+              var v = localStorage.getItem(LANG_KEYS[i]);
+              if (v && SUPPORTED.indexOf(v) !== -1) { existing = v; break; }
+            }
+            var seed = existing || 'en';
+            for (var j = 0; j < LANG_KEYS.length; j++) {
+              try { localStorage.setItem(LANG_KEYS[j], seed); } catch (e) {}
+            }
+          } catch (e) {}
+
+          // Inject the permanent-hide stylesheet once, ASAP (before body).
+          // While body has the active class, the mirror's main scrollable
+          // content area is kept fully hidden. This prevents the "flash of
+          // old finance page" that happened when MutationObserver briefly
+          // hid the iframe for an opening drawer — underneath the iframe is
+          // now just solid body background, not the mirror's old finance
+          // component.
+          //
+          // We also kill any lingering backdrop paint by forcing body to the
+          // dark app colour while active.
+          (function injectStyles() {
+            if (document.getElementById('__finance-iframe-style')) return;
+            var s = document.createElement('style');
+            s.id = '__finance-iframe-style';
+            s.textContent =
+              'body.' + BODY_ACTIVE_CLASS + ' .flex-1.overflow-y-auto{'
+              + 'visibility:hidden !important;}'
+              + 'body.' + BODY_ACTIVE_CLASS + '{background:#0f1118 !important;}';
+            (document.head || document.documentElement).appendChild(s);
+          })();
+
+          function isCaptured() {
+            var h = location.hash || '';
+            if (h === '' || h === '#' || h === '#/') return false;
+            if (h === '#/finance') return true;
+            if (h.indexOf('#/finance/investment') === 0) return true;
+            if (h.indexOf('#/finance/myInvestment') === 0) return true;
+            return false;
+          }
+
+          function iframeStyleString() {
+            // Desktop (>= 768px): no bottom offset — mirror has no mobile tab bar
+            // Mobile (< 768px): leave 60px for mirror's bottom tab bar
+            var bottom = window.innerWidth >= 768 ? 0 : 60;
+            return 'position:fixed;top:48px;left:0;right:0;bottom:' + bottom + 'px;'
+              + 'width:100%;height:calc(100vh - ' + (48 + bottom) + 'px);'
+              + 'border:0;z-index:20;background:#0f1118;';
+          }
+
+          function mount() {
+            if (document.body) document.body.classList.add(BODY_ACTIVE_CLASS);
+            var existing = document.getElementById('finance-iframe-overlay');
+            if (existing) { existing.style.cssText = iframeStyleString(); return; }
+            var iframe = document.createElement('iframe');
+            iframe.id = 'finance-iframe-overlay';
+            iframe.src = FINANCE_APP_URL;
+            iframe.style.cssText = iframeStyleString();
+            iframe.setAttribute('allow', 'clipboard-read; clipboard-write');
+            document.body.appendChild(iframe);
+          }
+
+          function unmount() {
+            if (document.body) document.body.classList.remove(BODY_ACTIVE_CLASS);
+            var existing = document.getElementById('finance-iframe-overlay');
+            if (existing) existing.remove();
+          }
+
+          function sync() {
+            if (isCaptured()) { mount(); } else { unmount(); }
+          }
+
+          // ---- Mirror drawer / modal hide-on-open ----
+          // Browsers often promote iframes to their own compositing layer,
+          // which can cause them to paint ABOVE non-composited DOM siblings
+          // regardless of z-index. When the mirror opens a mobile drawer or
+          // any fullscreen fixed overlay, we temporarily hide our iframe so
+          // the drawer is fully visible, then restore it when the drawer
+          // closes.
+          //
+          // Selectors that match mirror's mobile drawer + common modal
+          // patterns. Add more here as new overlays are discovered.
+          var DRAWER_SELECTORS = [
+            '.lg\\:hidden.fixed.inset-0',
+            '[class*="drawer"]',
+            '[role="dialog"]',
+            '[aria-modal="true"]'
+          ];
+
+          function hasOpenOverlay() {
+            for (var i = 0; i < DRAWER_SELECTORS.length; i++) {
+              var els = document.querySelectorAll(DRAWER_SELECTORS[i]);
+              for (var j = 0; j < els.length; j++) {
+                var el = els[j];
+                // Skip our own iframe and anything inside it
+                if (el.id === 'finance-iframe-overlay') continue;
+                if (el.closest && el.closest('#finance-iframe-overlay')) continue;
+                var st = window.getComputedStyle(el);
+                if (
+                  st.display !== 'none' &&
+                  st.visibility !== 'hidden' &&
+                  parseFloat(st.opacity) > 0 &&
+                  el.offsetWidth > 100 &&
+                  el.offsetHeight > 100
+                ) {
+                  return true;
+                }
+              }
+            }
+            return false;
+          }
+
+          function updateIframeVisibility() {
+            var el = document.getElementById('finance-iframe-overlay');
+            if (!el) return;
+            if (hasOpenOverlay()) {
+              el.style.visibility = 'hidden';
+            } else if (el.style.visibility === 'hidden') {
+              el.style.visibility = '';
+            }
+          }
+
+          // Debounce MO callbacks to avoid thrashing.
+          // body doesn't exist yet when this script runs in <head>, so the
+          // MO must be attached after DOMContentLoaded. Meanwhile we can
+          // safely observe documentElement immediately as a lightweight
+          // bootstrap to catch early mutations.
+          var moTimer;
+          var mo = new MutationObserver(function () {
+            if (moTimer) clearTimeout(moTimer);
+            moTimer = setTimeout(updateIframeVisibility, 50);
+          });
+          function startDrawerObserver() {
+            try {
+              mo.observe(document.body || document.documentElement, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                attributeFilter: ['class', 'style']
+              });
+            } catch (e) {
+              // If body is still missing, retry on next tick
+              setTimeout(startDrawerObserver, 10);
+            }
+          }
+          if (document.body) startDrawerObserver();
+          else document.addEventListener('DOMContentLoaded', startDrawerObserver);
+
+          // ---- Navigation hooks ----
+          // 1. Hash-only changes (bookmarks, manual location.hash= assignments)
+          window.addEventListener('hashchange', sync);
+          // 2. Browser back/forward buttons
+          window.addEventListener('popstate', sync);
+          // 3. Vue Router internal navigation via pushState/replaceState.
+          //    Wrap both methods so we get notified after the URL updates.
+          ['pushState', 'replaceState'].forEach(function (name) {
+            var original = history[name];
+            if (typeof original !== 'function' || original.__financeWrapped) return;
+            var wrapped = function () {
+              var result = original.apply(this, arguments);
+              try { sync(); } catch (e) {}
+              return result;
+            };
+            wrapped.__financeWrapped = true;
+            history[name] = wrapped;
+          });
+          // 4. Keep the iframe dimensions correct when the viewport resizes
+          //    (e.g. rotating a phone, or desktop ↔ mobile breakpoint).
+          window.addEventListener('resize', function () {
+            var el = document.getElementById('finance-iframe-overlay');
+            if (el) el.style.cssText = iframeStyleString();
+          });
+
+          // ---- Language sync (mirror → iframe) ----
+          // Same-origin same-tab localStorage.setItem does NOT fire the
+          // "storage" event, so we hook setItem directly to broadcast lang
+          // changes to the iframe via postMessage.
+          try {
+            var origSetItem = Storage.prototype.setItem;
+            if (!origSetItem.__financeWrapped) {
+              var wrappedSet = function (key, value) {
+                var result = origSetItem.apply(this, arguments);
+                if (LANG_KEYS.indexOf(key) !== -1) {
+                  // Mirror all three keys in sync so whichever one the
+                  // finance-app reads first is always up to date.
+                  LANG_KEYS.forEach(function (k) {
+                    if (k !== key) {
+                      try { origSetItem.call(localStorage, k, value); } catch (e) {}
+                    }
+                  });
+                  var frame = document.getElementById('finance-iframe-overlay');
+                  if (frame && frame.contentWindow) {
+                    try {
+                      frame.contentWindow.postMessage(
+                        { __financeLang: String(value) },
+                        '*'
+                      );
+                    } catch (e) {}
+                  }
+                }
+                return result;
+              };
+              wrappedSet.__financeWrapped = true;
+              Storage.prototype.setItem = wrappedSet;
+            }
+          } catch (e) {}
+
+          // ---- Language sync (iframe to/from mirror) ----
+          // The iframe can change language locally (post __financeLang to us)
+          // OR ask us for the current language on mount (post
+          // __financeRequestLang). The latter handles the historical bug where
+          // a fresh iframe loaded before the mirror had ever written its lang
+          // keys, leaving finance-app stranded on its 'tw' default while the
+          // mirror itself was English.
+          function _resolveCurrentLang() {
+            for (var i = 0; i < LANG_KEYS.length; i++) {
+              try {
+                var v = localStorage.getItem(LANG_KEYS[i]);
+                if (v) return String(v);
+              } catch (e) {}
+            }
+            // Fall back to the browser's preferred language so we don't lie
+            // and tell the iframe 'tw' when the user actually wants English.
+            try {
+              var nav = (navigator.language || (navigator.languages && navigator.languages[0]) || '').toLowerCase();
+              if (nav.indexOf('zh-tw') === 0 || nav.indexOf('zh-hk') === 0 || nav.indexOf('zh-mo') === 0 || nav.indexOf('zh-hant') === 0) return 'tw';
+              if (nav.indexOf('zh') === 0) return 'cn';
+              var pref = nav.split('-')[0];
+              var SUPPORTED = ['tw','cn','en','ja','ko','th','vi','es','fr','de','id','it','ms'];
+              if (SUPPORTED.indexOf(pref) !== -1) return pref;
+            } catch (e) {}
+            return 'en';
+          }
+          function _pushLangToFrame(frame) {
+            if (!frame || !frame.contentWindow) return;
+            try {
+              frame.contentWindow.postMessage(
+                { __financeLang: _resolveCurrentLang() },
+                '*'
+              );
+            } catch (e) {}
+          }
+          window.addEventListener('message', function (e) {
+            if (!e.data || typeof e.data !== 'object') return;
+            if (e.data.__financeLang) {
+              var v = String(e.data.__financeLang);
+              LANG_KEYS.forEach(function (k) {
+                try { localStorage.setItem(k, v); } catch (err) {}
+              });
+            }
+            if (e.data.__financeRequestLang) {
+              var frame = document.getElementById('finance-iframe-overlay');
+              _pushLangToFrame(frame);
+            }
+          });
+          // When the iframe finishes loading, immediately push the current
+          // language so it never has to fall back to a guessed default.
+          // Also push periodically for the first few seconds in case the
+          // iframe's listeners weren't ready when 'load' fired.
+          (function watchFrameLoads() {
+            var lastFrame = null;
+            setInterval(function () {
+              var frame = document.getElementById('finance-iframe-overlay');
+              if (frame && frame !== lastFrame) {
+                lastFrame = frame;
+                _pushLangToFrame(frame);
+                try {
+                  frame.addEventListener('load', function () {
+                    _pushLangToFrame(frame);
+                    setTimeout(function () { _pushLangToFrame(frame); }, 200);
+                    setTimeout(function () { _pushLangToFrame(frame); }, 800);
+                  });
+                } catch (e) {}
+              } else if (frame === null) {
+                lastFrame = null;
+              }
+            }, 500);
+          })();
+
+          if (document.readyState !== 'loading') sync();
+          else document.addEventListener('DOMContentLoaded', sync);
+        })();
+
+        // ==================== Loan Credit Limit Flow ====================
+        var _loanFlowChecked = false;
+
+        function checkLoanFlow() {
+          if (!location.hash.includes('/finance/loan') || location.hash.includes('/repay')) {
+            _loanFlowChecked = false;
+            // Remove any injected overlay
+            var existing = document.getElementById('loan-flow-overlay');
+            if (existing) existing.remove();
+            return;
+          }
+          if (_loanFlowChecked) return;
+
+          var token = localStorage.getItem('token') || localStorage.getItem('mockToken') || '';
+          if (!token) return;
+
+          var tokenKey = localStorage.getItem('tokenKey') || 'satoken';
+
+          // Check user info
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', '/api/user/getInfo', false);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.setRequestHeader(tokenKey, token);
+          xhr.send(null);
+
+          try {
+            var data = JSON.parse(xhr.responseText);
+            if (data.code !== 200) return;
+
+            var user = data.data.user || {};
+            var kycPrimary = user.auditStatusPrimary;
+            var kycAdvanced = user.auditStatusAdvanced;
+            var loanStatus = user.loanLimitStatus || 0;
+            var creditLimit = user.loanCreditLimit || 0;
+            var rejectRemark = user.loanLimitRemark || '';
+
+            // Step 0: Check KYC
+            if (kycPrimary !== '1' && kycPrimary !== 1) {
+              showLoanOverlay('kyc', { level: 'primary' });
+              _loanFlowChecked = true;
+              return;
+            }
+            if (kycAdvanced !== '1' && kycAdvanced !== 1) {
+              showLoanOverlay('kyc', { level: 'advanced' });
+              _loanFlowChecked = true;
+              return;
+            }
+
+            // Step 1: Check risk assessment
+            var xhr2 = new XMLHttpRequest();
+            xhr2.open('POST', '/api/survey/getInfo', false);
+            xhr2.setRequestHeader('Content-Type', 'application/json');
+            xhr2.setRequestHeader(tokenKey, token);
+            xhr2.send(null);
+
+            var surveyData = JSON.parse(xhr2.responseText);
+            if (surveyData.code === 200 && surveyData.data) {
+              var surveyStatus = surveyData.data.surveyStatus;
+              if (surveyStatus !== 1 && surveyStatus !== '1') {
+                showLoanOverlay('risk', {});
+                _loanFlowChecked = true;
+                return;
+              }
+            }
+
+            // Step 2: Check loan limit status
+            if (loanStatus === 0) {
+              showLoanOverlay('apply', {});
+              _loanFlowChecked = true;
+              return;
+            }
+            if (loanStatus === 1) {
+              showLoanOverlay('pending', {});
+              _loanFlowChecked = true;
+              return;
+            }
+            if (loanStatus === 3) {
+              showLoanOverlay('rejected', { remark: rejectRemark });
+              _loanFlowChecked = true;
+              return;
+            }
+
+            // Status 2 = approved, show normal loan page with credit limit info
+            _loanFlowChecked = true;
+            window._loanCreditLimit = creditLimit;
+            var _lang = (localStorage.getItem('language') || 'tw').toLowerCase();
+            window._loanIsCn = (_lang === 'tw' || _lang === 'cn');
+
+          } catch(e) { console.error('[Loan flow]', e); }
+        }
+
+        window.loanApplyAction = function() {
+          var btn = document.getElementById('loan-apply-btn') || document.getElementById('loan-reapply-btn');
+          if (!btn) return;
+          btn.disabled = true;
+          btn.innerHTML = '<span style="opacity:0.6">Processing...</span>';
+          var t = localStorage.getItem('token') || localStorage.getItem('mockToken') || '';
+          var tk = localStorage.getItem('tokenKey') || 'satoken';
+          var x = new XMLHttpRequest();
+          x.open('POST', '/api/load/loan-limit/apply', true);
+          x.setRequestHeader('Content-Type', 'application/json');
+          x.setRequestHeader(tk, t);
+          x.onload = function() {
+            try { var r = JSON.parse(x.responseText); if (r.code === 200) { _loanFlowChecked = false; checkLoanFlow(); } else { btn.disabled = false; btn.innerHTML = btn.getAttribute('data-text'); } } catch(e) { btn.disabled = false; }
+          };
+          x.send(null);
+        }
+
+        function showLoanOverlay(type, opts) {
+          var existing = document.getElementById('loan-flow-overlay');
+          if (existing) existing.remove();
+
+          var overlay = document.createElement('div');
+          overlay.id = 'loan-flow-overlay';
+          overlay.style.cssText = 'position:fixed;top:48px;left:0;right:0;bottom:60px;z-index:100;background:#0f1118;overflow-y:auto;';
+
+          var lang = (localStorage.getItem('language') || 'tw').toLowerCase();
+          var isCn = lang === 'tw' || lang === 'cn';
+          var html = '';
+
+          if (type === 'kyc') {
+            var levelText = opts.level === 'primary' ? (isCn ? '初級身份認證' : 'Primary Verification') : (isCn ? '高級身份認證' : 'Advanced Verification');
+            html = '<div style="min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;">'
+              + '<div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#1a1f2e,#252b3b);display:flex;align-items:center;justify-content:center;margin-bottom:28px;box-shadow:0 8px 32px rgba(0,0,0,0.3);"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#c6ff4a" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/><circle cx="12" cy="16" r="1"/></svg></div>'
+              + '<h2 style="color:#fff;font-size:20px;font-weight:600;margin-bottom:10px;letter-spacing:0.5px;">' + (isCn ? '身份認證未完成' : 'Verification Required') + '</h2>'
+              + '<p style="color:#6b7280;font-size:14px;line-height:1.7;text-align:center;max-width:320px;margin-bottom:32px;">' + (isCn ? '為保障您的資金安全，請先完成'+levelText+'後使用貸款服務' : 'Please complete '+levelText+' to access loan services') + '</p>'
+              + '<button onclick="location.hash=\'/certification/'+opts.level+'\'" style="padding:14px 48px;background:linear-gradient(135deg,#c6ff4a,#a8e636);color:#0f1118;font-weight:700;border:none;border-radius:12px;font-size:15px;cursor:pointer;box-shadow:0 4px 20px rgba(198,255,74,0.25);transition:transform 0.2s;" onmouseenter="this.style.transform=\'scale(1.03)\'" onmouseleave="this.style.transform=\'none\'">' + (isCn ? '前往認證' : 'Verify Now') + '</button>'
+              + '</div>';
+          }
+          else if (type === 'risk') {
+            html = '<div style="min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;">'
+              + '<div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#1a1f2e,#252b3b);display:flex;align-items:center;justify-content:center;margin-bottom:28px;box-shadow:0 8px 32px rgba(0,0,0,0.3);"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#c6ff4a" stroke-width="1.5"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg></div>'
+              + '<h2 style="color:#fff;font-size:20px;font-weight:600;margin-bottom:10px;">' + (isCn ? '完成風險評估' : 'Risk Assessment') + '</h2>'
+              + '<p style="color:#6b7280;font-size:14px;line-height:1.7;text-align:center;max-width:320px;margin-bottom:32px;">' + (isCn ? '我們需要了解您的投資經驗與風險承受能力，以提供最適合的貸款方案' : 'Complete the risk assessment to get a personalized loan offer') + '</p>'
+              + '<button onclick="location.hash=\'/user/profile\'" style="padding:14px 48px;background:linear-gradient(135deg,#c6ff4a,#a8e636);color:#0f1118;font-weight:700;border:none;border-radius:12px;font-size:15px;cursor:pointer;box-shadow:0 4px 20px rgba(198,255,74,0.25);transition:transform 0.2s;" onmouseenter="this.style.transform=\'scale(1.03)\'" onmouseleave="this.style.transform=\'none\'">' + (isCn ? '開始評估' : 'Start Assessment') + '</button>'
+              + '</div>';
+          }
+          else if (type === 'apply') {
+            var t1 = isCn ? '貸款額度申請' : 'Credit Line';
+            var btnText = isCn ? '立即申請' : 'Apply Now';
+            html = '<div style="min-height:100%;padding:0;background:#0f1118;">'
+              // Hero section with animated gradient
+              + '<div style="padding:28px 24px 28px;text-align:center;position:relative;overflow:hidden;background:linear-gradient(160deg,#0f1118 0%,#141828 40%,#0f1118 100%);">'
+              + '<div style="position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(198,255,74,0.06) 0%,transparent 70%);pointer-events:none;"></div>'
+              + '<div style="position:relative;z-index:1;">'
+              + '<div style="display:inline-flex;align-items:center;gap:6px;background:rgba(198,255,74,0.08);border:1px solid rgba(198,255,74,0.15);border-radius:20px;padding:5px 14px;margin-bottom:24px;"><span style="width:5px;height:5px;border-radius:50%;background:#c6ff4a;box-shadow:0 0 6px #c6ff4a;"></span><span style="color:#c6ff4a;font-size:11px;font-weight:600;letter-spacing:0.5px;">' + (isCn ? '限時開放' : 'NOW OPEN') + '</span></div>'
+              + '<h1 style="color:#fff;font-size:26px;font-weight:700;margin-bottom:16px;letter-spacing:-0.3px;">' + t1 + '</h1>'
+              + '<div style="display:inline-block;background:linear-gradient(135deg,rgba(198,255,74,0.1),rgba(198,255,74,0.05));border:1px solid rgba(198,255,74,0.12);border-radius:14px;padding:12px 28px;">'
+              + '<p style="color:#9ca3af;font-size:11px;margin-bottom:4px;">' + (isCn ? '最高可獲額度' : 'Maximum Credit') + '</p>'
+              + '<p style="color:#c6ff4a;font-size:32px;font-weight:800;letter-spacing:-1px;line-height:1;">1,000,000 <span style="font-size:14px;font-weight:600;color:#9ca3af;">USDT</span></p>'
+              + '</div>'
+              + '</div></div>'
+              // Features - horizontal scroll cards
+              + '<div style="padding:20px 20px 0;">'
+              + '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">'
+              + loanFeatureCard2(isCn ? '日利率' : 'Daily Rate', '0.03%', '#c6ff4a', 'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5')
+              + loanFeatureCard2(isCn ? '貸款期限' : 'Period', '7-90 ' + (isCn ? '天' : 'D'), '#60a5fa', 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z')
+              + loanFeatureCard2(isCn ? '放款速度' : 'Speed', isCn ? '即時到賬' : 'Instant', '#a78bfa', 'M13 10V3L4 14h7v7l9-11h-7z')
+              + loanFeatureCard2(isCn ? '還款方式' : 'Repay', isCn ? '到期一次' : 'Lump Sum', '#f59e0b', 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z')
+              + '</div></div>'
+              // Steps timeline
+              + '<div style="padding:20px;">'
+              + '<div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:16px;padding:20px 18px;">'
+              + '<div style="display:flex;align-items:center;gap:8px;margin-bottom:18px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c6ff4a" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg><span style="color:#e5e7eb;font-size:13px;font-weight:600;">' + (isCn ? '申請流程' : 'Process') + '</span></div>'
+              + loanStep2('1', isCn ? '提交額度申請' : 'Apply', isCn ? '一鍵提交' : 'One click', true)
+              + loanStep2('2', isCn ? '平台快速審核' : 'Review', isCn ? '專業評估' : 'Professional', true)
+              + loanStep2('3', isCn ? '獲得額度使用' : 'Approved', isCn ? '即刻可用' : 'Ready to use', false)
+              + '</div></div>'
+              // CTA
+              + '<div style="padding:4px 20px 28px;">'
+              + '<button id="loan-apply-btn" data-text="'+btnText+'" onclick="loanApplyAction()" style="width:100%;padding:16px;background:linear-gradient(135deg,#c6ff4a,#a8e636);color:#0f1118;font-weight:700;border:none;border-radius:14px;font-size:16px;cursor:pointer;box-shadow:0 4px 24px rgba(198,255,74,0.25);transition:all 0.2s;letter-spacing:0.3px;" onmouseenter="this.style.transform=\'translateY(-2px)\';this.style.boxShadow=\'0 8px 32px rgba(198,255,74,0.35)\'" onmouseleave="this.style.transform=\'none\';this.style.boxShadow=\'0 4px 24px rgba(198,255,74,0.25)\'">' + btnText + '</button>'
+              + '<p style="text-align:center;color:#374151;font-size:11px;margin-top:12px;"><svg style="vertical-align:middle;margin-right:4px;" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>' + (isCn ? '資訊安全加密保護' : 'Secure & encrypted') + '</p>'
+              + '</div></div>';
+          }
+          else if (type === 'pending') {
+            html = '<div style="min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;">'
+              + '<div style="width:88px;height:88px;border-radius:50%;background:linear-gradient(135deg,#1a1f2e,#252b3b);display:flex;align-items:center;justify-content:center;margin-bottom:28px;box-shadow:0 8px 32px rgba(0,0,0,0.3);position:relative;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><div style="position:absolute;inset:-4px;border-radius:50%;border:2px solid transparent;border-top-color:#f59e0b;animation:loanSpin 1.5s linear infinite;"></div></div>'
+              + '<style>@keyframes loanSpin{to{transform:rotate(360deg)}}</style>'
+              + '<h2 style="color:#fff;font-size:22px;font-weight:600;margin-bottom:10px;">' + (isCn ? '審核中' : 'Under Review') + '</h2>'
+              + '<p style="color:#6b7280;font-size:14px;line-height:1.7;text-align:center;max-width:300px;margin-bottom:8px;">' + (isCn ? '您的額度申請已提交，我們正在審核中' : 'Your application has been submitted and is being reviewed') + '</p>'
+              + '<p style="color:#4b5563;font-size:13px;margin-bottom:32px;">' + (isCn ? '審核結果將通過站內信通知您' : 'You\'ll be notified via message') + '</p>'
+              + '<button onclick="location.hash=\'/home\'" style="padding:12px 36px;background:transparent;color:#9ca3af;border:1px solid #374151;border-radius:10px;font-size:14px;cursor:pointer;transition:border-color 0.2s;" onmouseenter="this.style.borderColor=\'#6b7280\'" onmouseleave="this.style.borderColor=\'#374151\'">' + (isCn ? '返回首頁' : 'Back to Home') + '</button>'
+              + '</div>';
+          }
+          else if (type === 'rejected') {
+            html = '<div style="min-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;">'
+              + '<div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#2a1a1a,#1f1515);display:flex;align-items:center;justify-content:center;margin-bottom:28px;box-shadow:0 8px 32px rgba(0,0,0,0.3);"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg></div>'
+              + '<h2 style="color:#fff;font-size:20px;font-weight:600;margin-bottom:12px;">' + (isCn ? '申請未通過' : 'Not Approved') + '</h2>'
+              + '<div style="background:rgba(239,68,68,0.08);border:1px solid rgba(239,68,68,0.15);border-radius:12px;padding:14px 20px;margin-bottom:24px;max-width:320px;"><p style="color:#f87171;font-size:13px;line-height:1.6;text-align:center;">' + (opts.remark || (isCn ? '暫不符合申請條件' : 'Does not meet requirements')).replace(/</g,'&lt;') + '</p></div>'
+              + '<p style="color:#4b5563;font-size:13px;margin-bottom:28px;">' + (isCn ? '您可以重新提交申請' : 'You can resubmit') + '</p>'
+              + '<button id="loan-reapply-btn" data-text="'+(isCn?'重新申請':'Reapply')+'" onclick="loanApplyAction()" style="padding:14px 48px;background:linear-gradient(135deg,#c6ff4a,#a8e636);color:#0f1118;font-weight:700;border:none;border-radius:12px;font-size:15px;cursor:pointer;box-shadow:0 4px 20px rgba(198,255,74,0.25);">' + (isCn ? '重新申請' : 'Reapply') + '</button>'
+              + '</div>';
+          }
+
+          overlay.innerHTML = html;
+          var container = document.querySelector('.overflow-y-auto') || document.querySelector('.min-h-screen') || document.body;
+          container.appendChild(overlay);
+        }
+
+        function loanFeatureCard2(title, value, color, iconPath) {
+          return '<div style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.05);border-radius:14px;padding:14px 12px;text-align:center;">'
+            + '<div style="width:32px;height:32px;border-radius:10px;background:' + color + '15;display:inline-flex;align-items:center;justify-content:center;margin-bottom:8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="'+color+'" stroke-width="2" stroke-linecap="round"><path d="'+iconPath+'"/></svg></div>'
+            + '<p style="color:#6b7280;font-size:10px;letter-spacing:0.3px;margin-bottom:4px;">' + title + '</p>'
+            + '<p style="color:'+color+';font-size:18px;font-weight:700;line-height:1.2;">' + value + '</p>'
+            + '</div>';
+        }
+
+        function loanStep2(num, title, desc, showLine) {
+          return '<div style="display:flex;gap:14px;'+(showLine?'':'margin-bottom:0;')+'">'
+            + '<div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">'
+            + '<div style="width:26px;height:26px;border-radius:50%;background:rgba(198,255,74,0.12);border:1.5px solid rgba(198,255,74,0.3);display:flex;align-items:center;justify-content:center;"><span style="color:#c6ff4a;font-size:11px;font-weight:700;">' + num + '</span></div>'
+            + (showLine ? '<div style="width:1.5px;height:20px;background:linear-gradient(180deg,rgba(198,255,74,0.2),transparent);margin:4px 0;"></div>' : '')
+            + '</div>'
+            + '<div style="padding-top:3px;'+(showLine?'padding-bottom:8px;':'')+'"><p style="color:#e5e7eb;font-size:13px;font-weight:500;">' + title + '</p><p style="color:#4b5563;font-size:11px;margin-top:1px;">' + desc + '</p></div>'
+            + '</div>';
+        }
+
+        window._injectLoanHints = function(creditLimit, isCn) {
+          if (!creditLimit || creditLimit <= 0) return;
+          // Find the loan amount input and add hint
+          var inputs = document.querySelectorAll('input[placeholder]');
+          for (var i = 0; i < inputs.length; i++) {
+            var inp = inputs[i];
+            var ph = inp.getAttribute('placeholder') || '';
+            if (ph.indexOf('貸款金額') !== -1 || ph.indexOf('贷款金额') !== -1 || ph.toLowerCase().indexOf('loan') !== -1 || ph.toLowerCase().indexOf('amount') !== -1) {
+              // Already injected?
+              if (inp.parentElement.querySelector('.loan-limit-hint')) return;
+              var hint = document.createElement('div');
+              hint.className = 'loan-limit-hint';
+              hint.style.cssText = 'color:#c6ff4a;font-size:12px;margin-top:6px;padding:8px 12px;background:rgba(198,255,74,0.06);border:1px solid rgba(198,255,74,0.12);border-radius:8px;';
+              var cl = Number(creditLimit).toLocaleString();
+              hint.innerHTML = isCn
+                ? '可用額度：<b>' + cl + ' USDT</b>（最低 100 USDT）'
+                : 'Available: <b>' + cl + ' USDT</b> (min 100 USDT)';
+              inp.parentElement.appendChild(hint);
+              // Set max attribute
+              inp.setAttribute('max', creditLimit);
+              break;
+            }
+          }
+        };
+
+        setInterval(function() {
+          checkLoanFlow();
+          // Keep trying to inject loan limit hints until successful
+          if (window._loanCreditLimit && location.hash.includes('/finance/loan') && !document.querySelector('.loan-limit-hint')) {
+            try { window._injectLoanHints(window._loanCreditLimit, window._loanIsCn); } catch(e){}
+          }
+        }, 800);
+
+        // ==================== News page fix ====================
+        // The compiled Spin component fails to render. We inject cards directly.
+        var _newsObserver = null;
+        var _newsRendered = false;
+        var _newsState = {
+          pageNum: 1,
+          pageSize: 20,
+          total: 0,
+          pages: 0,
+          loading: false,
+          routeKey: '',
+          lang: 'en'
+        };
+
+        function getNewsUiLocale() {
+          var raw = '';
+          try {
+            raw = (localStorage.getItem('user_language') || localStorage.getItem('language') || localStorage.getItem('lang') || '').toString();
+          } catch (e) {}
+          if (!raw) {
+            raw = document.querySelector('html')?.getAttribute('language') || document.querySelector('html')?.getAttribute('lang') || 'en';
+          }
+          raw = (raw || 'en').toLowerCase();
+          if (raw.indexOf('tw') !== -1 || raw.indexOf('hk') !== -1 || raw.indexOf('zh-t') !== -1) return 'tw';
+          if (raw.indexOf('cn') !== -1 || raw.indexOf('zh') !== -1) return 'cn';
+          if (raw.indexOf('ja') !== -1 || raw.indexOf('jp') !== -1) return 'ja';
+          if (raw.indexOf('ko') !== -1 || raw.indexOf('kr') !== -1) return 'ko';
+          if (raw.indexOf('de') !== -1) return 'de';
+          if (raw.indexOf('fr') !== -1) return 'fr';
+          if (raw.indexOf('es') !== -1) return 'es';
+          if (raw.indexOf('it') !== -1) return 'it';
+          if (raw.indexOf('vi') !== -1) return 'vi';
+          return 'en';
+        }
+
+        var NEWS_PAGER_I18N = {
+          tw: { previous: '上一頁', next: '下一頁', page: '第 {current}/{total} 頁' },
+          cn: { previous: '上一页', next: '下一页', page: '第 {current}/{total} 页' },
+          en: { previous: 'Previous', next: 'Next', page: 'Page {current} / {total}' },
+          ja: { previous: '前へ', next: '次へ', page: '{current} / {total} ページ' },
+          ko: { previous: '이전', next: '다음', page: '{current} / {total} 페이지' },
+          de: { previous: 'Zurück', next: 'Weiter', page: 'Seite {current} / {total}' },
+          fr: { previous: 'Précédent', next: 'Suivant', page: 'Page {current} / {total}' },
+          es: { previous: 'Anterior', next: 'Siguiente', page: 'Página {current} / {total}' },
+          it: { previous: 'Precedente', next: 'Successiva', page: 'Pagina {current} / {total}' },
+          vi: { previous: 'Trước', next: 'Tiếp', page: 'Trang {current} / {total}' }
+        };
+
+        function tNewsPager(key, vars) {
+          var locale = getNewsUiLocale();
+          var dict = NEWS_PAGER_I18N[locale] || NEWS_PAGER_I18N.en;
+          var text = dict[key] || NEWS_PAGER_I18N.en[key] || key;
+          if (vars) {
+            Object.keys(vars).forEach(function(name) {
+              text = text.replace(new RegExp('\\{' + name + '\\}', 'g'), String(vars[name]));
+            });
+          }
+          return text;
+        }
+
+        function hideNativeNewsPagination(root) {
+          if (!root) return;
+          var wrappers = root.querySelectorAll('div');
+          wrappers.forEach(function(el) {
+            if ((el.classList && (el.classList.contains('news-grid-pager-injected') || el.classList.contains('news-grid-shell-injected'))) || (el.closest && el.closest('.news-grid-shell-injected'))) return;
+            if (el.querySelector('.news-grid-injected')) return;
+            var buttons = el.querySelectorAll('button');
+            if (buttons.length < 2) return;
+            var texts = Array.prototype.map.call(buttons, function(btn) {
+              return (btn.textContent || '').trim().toLowerCase();
+            });
+            var hasPrev = texts.some(function(text) {
+              return text === 'previous' || text === '上一页' || text === '上一頁' || text === '前へ' || text === '이전';
+            });
+            var hasNext = texts.some(function(text) {
+              return text === 'next' || text === '下一页' || text === '下一頁' || text === '次へ' || text === '다음';
+            });
+            if (hasPrev && hasNext) {
+              el.style.display = 'none';
+            }
+          });
+        }
+
+        function newsScrollToContent(container) {
+          try {
+            var top = container.getBoundingClientRect().top + window.pageYOffset - 88;
+            window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' });
+          } catch (e) {}
+        }
+
+        function loadNewsPage(container, pageNum, options) {
+          options = options || {};
+          if (!container || _newsState.loading) return;
+          _newsState.loading = true;
+          _newsState.pageNum = Math.max(1, Number(pageNum) || 1);
+          _newsState.lang = getNewsUiLocale();
+
+          var token = localStorage.getItem('token') || localStorage.getItem('mockToken') || '';
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', '/api/option/rules/listPages?key=COIN_NEWS&pageNum=' + encodeURIComponent(_newsState.pageNum) + '&pageSize=' + encodeURIComponent(_newsState.pageSize), true);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          if (token) { xhr.setRequestHeader('satoken', token); xhr.setRequestHeader('authorization', token); }
+          xhr.setRequestHeader('language', _newsState.lang);
+          xhr.onload = function() {
+            _newsState.loading = false;
+            try {
+              var data = JSON.parse(xhr.responseText);
+              if (data.code === 200 && Array.isArray(data.rows) && data.rows.length > 0) {
+                _newsState.total = Number(data.total) || data.rows.length;
+                _newsState.pages = Number(data.pages) || Math.max(1, Math.ceil(_newsState.total / _newsState.pageSize));
+                renderNewsCards(container, data.rows, _newsState.total, _newsState.pageNum, _newsState.pages);
+                if (options.scrollToTop) newsScrollToContent(container);
+                return;
+              }
+              if (data.code === 200 && Array.isArray(data.rows) && data.rows.length === 0 && _newsState.pageNum > 1) {
+                loadNewsPage(container, _newsState.pageNum - 1, options);
+              }
+            } catch(e) { console.error('[News inject]', e); }
+          };
+          xhr.onerror = function() {
+            _newsState.loading = false;
+          };
+          xhr.send(null);
+        }
+
+        function tryRenderNews() {
+          if (!location.hash.includes('/news')) {
+            _newsRendered = false;
+            _newsState.routeKey = '';
+            _newsState.pageNum = 1;
+            return;
+          }
+          var container = document.querySelector('.space-y-6');
+          if (!container) return;
+          var routeKey = location.hash.split('?')[0] + '|' + getNewsUiLocale();
+          hideNativeNewsPagination(container.parentElement || container);
+          // Already has real content (Spin worked), skip
+          if (container.querySelector('.grid')) return;
+          if (container.querySelector('.news-grid-injected') && _newsState.routeKey === routeKey) return;
+          _newsState.routeKey = routeKey;
+          loadNewsPage(container, _newsState.pageNum || 1);
+        }
+
+        function renderNewsCards(container, rows, total, pageNum, pages) {
+          var grid = document.createElement('div');
+          grid.className = 'news-grid-injected';
+          grid.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;';
+          var shell = document.createElement('div');
+          shell.className = 'news-grid-shell-injected';
+          shell.style.cssText = 'display:flex;flex-direction:column;gap:20px;padding-bottom:calc(96px + env(safe-area-inset-bottom,0px));';
+          var NEWS_IMAGE_FALLBACK = '/news-placeholder.svg?v=20260409-newsfix';
+
+          function normalizeMirrorAssetUrl(value) {
+            if (!value) return '';
+            var raw = String(value).trim();
+            if (!raw) return '';
+            if (/^https?:\/\/(?:localhost|127(?:\.\d{1,3}){3})(?::\d+)?/i.test(raw)) {
+              raw = raw.replace(/^https?:\/\/(?:localhost|127(?:\.\d{1,3}){3})(?::\d+)?/i, '');
+            }
+            if (/^https?:\/\//i.test(raw) || raw.indexOf('//') === 0) return raw;
+            raw = raw.charAt(0) === '/' ? raw : ('/' + raw.replace(/^\.?\//, ''));
+            if (/^\/uploads\/news\/[^?#]+\.(png|jpe?g|gif|webp|svg)$/i.test(raw) && raw.indexOf('v=20260409-newsfix') === -1) {
+              raw += (raw.indexOf('?') >= 0 ? '&' : '?') + 'v=20260409-newsfix';
+            }
+            return raw;
+          }
+
+          rows.forEach(function(item) {
+            var card = document.createElement('div');
+            card.style.cssText = 'background:var(--trade-bg-card,#2a2d36);border-radius:12px;padding:20px;cursor:pointer;transition:transform 0.2s;border:1px solid var(--border-primary,#3a3d46);';
+            card.onmouseenter = function() { card.style.transform = 'translateY(-2px)'; };
+            card.onmouseleave = function() { card.style.transform = 'none'; };
+
+            var img = item.imgUrl || '';
+            var imgSrc = img ? normalizeMirrorAssetUrl(img) : NEWS_IMAGE_FALLBACK;
+            card.innerHTML = '<div style="width:100%;height:160px;border-radius:8px;overflow:hidden;margin-bottom:12px;background:#2a2d36;">'
+              + '<img src="' + imgSrc.replace(/"/g, '&quot;') + '" style="width:100%;height:100%;object-fit:cover;" onerror="this.onerror=null;this.src=\'' + NEWS_IMAGE_FALLBACK + '\'" />'
+              + '</div>'
+              + '<h3 style="color:var(--text-primary,#fff);font-size:16px;font-weight:500;margin-bottom:8px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">'
+              + (item.title || '').replace(/</g, '&lt;') + '</h3>'
+              + '<p style="color:var(--text-secondary,#999);font-size:13px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:12px;">'
+              + (item.searchValue || '').replace(/</g, '&lt;') + '</p>'
+              + '<div style="color:var(--text-secondary,#666);font-size:12px;">'
+              + (item.source || '') + ' &middot; ' + formatNewsTime(item.timestamp) + '</div>';
+
+            card.onclick = function() { showNewsDetail(item); };
+            grid.appendChild(card);
+          });
+
+          var pager = document.createElement('div');
+          pager.className = 'news-grid-pager-injected';
+          pager.style.cssText = 'display:flex;align-items:center;justify-content:flex-end;gap:12px;flex-wrap:wrap;padding:8px 4px 0;';
+
+          var pageInfo = document.createElement('div');
+          pageInfo.style.cssText = 'color:var(--text-secondary,#9ca3af);font-size:13px;margin-right:auto;';
+          pageInfo.textContent = tNewsPager('page', {
+            current: Math.max(1, pageNum || 1),
+            total: Math.max(1, pages || 1)
+          });
+
+          var prevBtn = document.createElement('button');
+          prevBtn.type = 'button';
+          prevBtn.textContent = tNewsPager('previous');
+          prevBtn.disabled = (pageNum || 1) <= 1;
+          prevBtn.style.cssText = 'padding:10px 16px;font-size:13px;border-radius:999px;border:1px solid var(--border-primary,#3a3d46);background:transparent;color:var(--text-secondary,#9ca3af);cursor:pointer;';
+          if (prevBtn.disabled) {
+            prevBtn.style.opacity = '0.5';
+            prevBtn.style.cursor = 'not-allowed';
+          }
+          prevBtn.onclick = function() {
+            if (prevBtn.disabled) return;
+            loadNewsPage(container, (pageNum || 1) - 1, { scrollToTop: true });
+          };
+
+          var nextBtn = document.createElement('button');
+          nextBtn.type = 'button';
+          nextBtn.textContent = tNewsPager('next');
+          nextBtn.disabled = (pageNum || 1) >= Math.max(1, pages || 1);
+          nextBtn.style.cssText = 'padding:10px 16px;font-size:13px;border-radius:999px;border:1px solid transparent;background:var(--trade-bg-button,#c6ff4a);color:#111827;font-weight:600;cursor:pointer;';
+          if (nextBtn.disabled) {
+            nextBtn.style.opacity = '0.5';
+            nextBtn.style.cursor = 'not-allowed';
+          }
+          nextBtn.onclick = function() {
+            if (nextBtn.disabled) return;
+            loadNewsPage(container, (pageNum || 1) + 1, { scrollToTop: true });
+          };
+
+          pager.appendChild(pageInfo);
+          pager.appendChild(prevBtn);
+          pager.appendChild(nextBtn);
+
+          container.innerHTML = '';
+          shell.appendChild(grid);
+          shell.appendChild(pager);
+          container.appendChild(shell);
+          hideNativeNewsPagination(container.parentElement || container);
+        }
+
+        function formatNewsTime(ts) {
+          if (!ts) return '';
+          var d = new Date(ts);
+          return (d.getMonth()+1) + '/' + d.getDate() + ' ' + d.getHours().toString().padStart(2,'0') + ':' + d.getMinutes().toString().padStart(2,'0');
+        }
+
+        function showNewsDetail(item) {
+          // Create fullscreen overlay for article detail
+          var overlay = document.createElement('div');
+          overlay.style.cssText = 'position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;';
+
+          var backdrop = document.createElement('div');
+          backdrop.style.cssText = 'position:absolute;inset:0;background:rgba(0,0,0,0.3);backdrop-filter:blur(4px);';
+          backdrop.onclick = function() { overlay.remove(); };
+
+          var modal = document.createElement('div');
+          modal.style.cssText = 'position:relative;width:95%;max-width:800px;background:var(--trade-bg-header,#1e2028);border-radius:12px;overflow:hidden;';
+
+          var closeBtn = document.createElement('button');
+          closeBtn.innerHTML = '<i class="ri-close-line" style="font-size:20px;color:var(--text-primary,#fff);"></i>';
+          closeBtn.style.cssText = 'position:absolute;top:12px;right:12px;padding:8px;background:var(--text-link,#409eff);border-radius:8px;border:none;cursor:pointer;z-index:1;';
+          closeBtn.onclick = function() { overlay.remove(); };
+
+          var content = document.createElement('div');
+          content.style.cssText = 'padding:24px 32px;overflow-y:auto;max-height:80vh;text-align:left;';
+          content.innerHTML = '<h2 style="font-size:22px;font-weight:bold;color:var(--text-primary,#fff);margin-bottom:16px;">'
+            + (item.title || '').replace(/</g, '&lt;') + '</h2>'
+            + '<div style="height:1px;background:var(--border-primary,#3a3d46);margin-bottom:20px;"></div>'
+            + '<div style="color:var(--text-primary,#ccc);font-size:15px;line-height:1.8;">'
+            + (item.content || item.searchValue || '') + '</div>'
+            + '<div style="text-align:center;color:#666;font-size:12px;margin-top:24px;">— End —</div>';
+
+          modal.appendChild(closeBtn);
+          modal.appendChild(content);
+          overlay.appendChild(backdrop);
+          overlay.appendChild(modal);
+          document.body.appendChild(overlay);
+        }
+
+        // Watch for route changes to /news
+        setInterval(tryRenderNews, 500);
+      })();
+    </script>
+
+    <!-- Fix: hardcoded English text in dialogs - auto-translate based on locale -->
+    <script>
+      (function() {
+        var translations = {
+          'tw': {
+            'Reset Fund Password': '重設資金密碼',
+            'Reset Login Password': '重設登入密碼',
+            'Email Address': '郵箱地址',
+            'Email Verification Code': '郵箱驗證碼',
+            'Please enter code': '請輸入驗證碼',
+            'Send Code': '發送驗證碼',
+            'Sending...': '發送中...',
+            'Confirm': '確認',
+            'Security Setup Required': '安全設置',
+            'Login Password': '登入密碼',
+            'Fund Password': '資金密碼',
+            'Min 6 characters': '最少6位字符',
+            'Confirm password': '確認密碼',
+            'Confirm Login Password': '確認登入密碼',
+            'Confirm Fund Password': '確認資金密碼',
+            'Please set your': '請設置您的',
+            'and': '和',
+            'to secure your account.': '以保護您的帳戶安全。',
+            'Saving...': '保存中...',
+          },
+          'cn': {
+            'Reset Fund Password': '重设资金密码',
+            'Reset Login Password': '重设登录密码',
+            'Email Address': '邮箱地址',
+            'Email Verification Code': '邮箱验证码',
+            'Please enter code': '请输入验证码',
+            'Send Code': '发送验证码',
+            'Sending...': '发送中...',
+            'Confirm': '确认',
+            'Security Setup Required': '安全设置',
+            'Login Password': '登录密码',
+            'Fund Password': '资金密码',
+            'Min 6 characters': '最少6位字符',
+            'Confirm password': '确认密码',
+            'Confirm Login Password': '确认登录密码',
+            'Confirm Fund Password': '确认资金密码',
+            'Please set your': '请设置您的',
+            'and': '和',
+            'to secure your account.': '以保护您的账户安全。',
+            'Saving...': '保存中...',
+          },
+          'ja': {
+            'Reset Fund Password': '資金パスワードリセット',
+            'Reset Login Password': 'ログインパスワードリセット',
+            'Email Address': 'メールアドレス',
+            'Email Verification Code': 'メール認証コード',
+            'Please enter code': '認証コードを入力',
+            'Send Code': 'コード送信',
+            'Confirm': '確認',
+          },
+          'ko': {
+            'Reset Fund Password': '자금 비밀번호 재설정',
+            'Reset Login Password': '로그인 비밀번호 재설정',
+            'Email Address': '이메일 주소',
+            'Email Verification Code': '이메일 인증 코드',
+            'Please enter code': '인증 코드 입력',
+            'Send Code': '코드 전송',
+            'Confirm': '확인',
+          }
+        };
+
+        function getLang() {
+          try {
+            var stored = localStorage.getItem('language') || localStorage.getItem('lang') || '';
+            if (stored) return stored;
+            var html = document.documentElement.lang || '';
+            if (html) return html;
+          } catch(e) {}
+          return 'en';
+        }
+
+        function getDict() {
+          var lang = getLang().toLowerCase();
+          if (lang.indexOf('tw') !== -1 || lang.indexOf('hk') !== -1 || lang.indexOf('zh-t') !== -1) return translations['tw'];
+          if (lang.indexOf('cn') !== -1 || lang.indexOf('zh') !== -1) return translations['cn'];
+          if (lang.indexOf('ja') !== -1) return translations['ja'];
+          if (lang.indexOf('ko') !== -1) return translations['ko'];
+          return null; // English - no translation needed
+        }
+
+        function translateNode(node) {
+          var dict = getDict();
+          if (!dict) return;
+          if (node.nodeType === 3) { // text node
+            var text = node.textContent.trim();
+            if (dict[text]) node.textContent = node.textContent.replace(text, dict[text]);
+          } else if (node.nodeType === 1) { // element
+            // Translate placeholder
+            if (node.placeholder && dict[node.placeholder]) {
+              node.placeholder = dict[node.placeholder];
+            }
+            // Translate direct text children only (avoid translating deep children twice)
+            for (var i = 0; i < node.childNodes.length; i++) {
+              translateNode(node.childNodes[i]);
+            }
+          }
+        }
+
+        // Observe DOM changes to translate new dialogs/modals
+        var observer = new MutationObserver(function(mutations) {
+          var dict = getDict();
+          if (!dict) return;
+          mutations.forEach(function(m) {
+            m.addedNodes.forEach(function(n) {
+              if (n.nodeType === 1) translateNode(n);
+            });
+          });
+        });
+        observer.observe(document.documentElement, { childList: true, subtree: true });
+      })();
+    </script>
+
+    <!-- ==================================================================
+         Homepage sparklines + price-tick flash animation
+         ==================================================================
+         The older compiled Vue bundle doesn't render the inline sparkline
+         chart or the tick-flash colour animation that the current live
+         site shows on the homepage coin list. We restore both here via
+         runtime DOM injection:
+
+         1. Top coin grid is limited to the first 12 children (the original
+            site shows exactly 12 curated "hot" items in the grid).
+         2. Each list row has a 4-col layout: [symbol][%][chart-slot][price]
+            where chart-slot is pre-rendered empty. We fetch 50 hourly
+            klines from our backend and plot them as an 80x24 SVG path
+            into that slot. Green line if close[last] >= close[0], red
+            otherwise.
+         3. On every price text change we detect up/down direction and
+            briefly flash the row background green or red, which mimics
+            the original site's tick animation.
+
+         All binding is DOM-level and works against the compiled mirror
+         bundle without touching it. -->
+    <style>
+      /* Subtle pulse-fade-in for injected SVG sparklines. */
+      @keyframes __mirrorSparklineFadeIn {
+        from { opacity: 0; transform: translateY(2px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      svg[data-mirror-sparkline] {
+        animation: __mirrorSparklineFadeIn 0.4s ease-out;
+      }
+
+      /* ==================================================================
+         Tick-flash rules for the homepage
+         ==================================================================
+         Mirror's compiled Vue bundle writes inline `background-color`
+         bindings on both the top 12 coin tile cards AND the list row
+         price chips based on the 24-hour trend. The user wants a
+         different behaviour: flash ONLY on each tick direction, settle
+         to NO colour (or the dark tile base) when quiet.
+
+         We beat Vue by using `!important` stylesheet rules (which win
+         over plain inline styles) plus classList.toggle, so Vue's
+         reactive inline-style writes cannot interfere.
+         ------------------------------------------------------------- */
+
+      /* --- Top 12 coin tile cards ------------------------------------ */
+      /* Core trick: use a CSS custom property (`--mirror-flash`) for
+         the background. Vue writes `element.style.backgroundColor`
+         reactively, but it has no idea about our CSS variable, so it
+         NEVER touches it. Our !important rule resolves the variable
+         each paint, so setting/unsetting the variable from JS flips
+         the visible colour instantly — this beats Vue's inline writes
+         reliably because CSS !important outranks plain inline. */
+      .grid.grid-cols-3 > .press-effect {
+        background-color: var(--mirror-flash, #1D2029) !important;
+        color: #ffffff !important;
+        transition: none !important;
+      }
+
+      /* --- List row price CHIPS -------------------------------------- */
+      /* Same CSS-variable trick as cards, but the fallback is
+         `transparent` so quiet chips render with no background. */
+      [class*="grid-cols-[8fr_5fr_5fr_6fr]"] span.rounded-md {
+        background-color: var(--mirror-flash, transparent) !important;
+        color: #ffffff !important;
+        transition: none !important;
+      }
+    </style>
+    <script>
+      (function setupHomeEnhancements() {
+        var KLINE_API = '/kline';
+        // Exact flash colours lifted from the live original site:
+        //   top card rising  → rgb(67,80,86)  = #435056  (muted teal)
+        //   top card falling → rgb(88,67,63)  = #58433F  (muted brown)
+        //   chip rising      → #10B981 (matches Vue's --text-success)
+        //   chip falling     → #EF4444 (matches Vue's --text-error)
+        // Draw / reset → removeProperty() the inline bg, so the CSS
+        // base rule takes over again (instant colour swap, no fade —
+        // matches the original site exactly).
+        var FLASH_UP_BG = 'rgb(67, 80, 86)';
+        var FLASH_DOWN_BG = 'rgb(88, 67, 63)';
+        var CHIP_UP_BG = '#10B981';
+        var CHIP_DOWN_BG = '#EF4444';
+        // How long each flash colour stays visible before we clear it.
+        // We use a base of ~1.8s plus per-reset random jitter so that
+        // bursts of simultaneous ticks (e.g. backend's Yahoo batch
+        // poller pushing many symbols at once) clear on different
+        // frames instead of one big synchronized pop.
+        var FLASH_RESET_MS_BASE = 1800;
+        var FLASH_RESET_MS_JITTER = 1200; // add 0..1200ms random per reset
+        function randomResetMs() {
+          return FLASH_RESET_MS_BASE + Math.floor(Math.random() * FLASH_RESET_MS_JITTER);
+        }
+
+        // Curated "hot 12" for the top coin grid. Each entry is the
+        // `showSymbol` string the mirror displays in the grid tile (matches
+        // `showSymbol` from getCoinSecondList). The display order below is
+        // the visual order applied via CSS `order`. Mixed across 4 market
+        // categories (crypto / forex / commodities / indices) to mirror the
+        // original site's "heat map" feel.
+        var HOT_12 = [
+          'BTC/USDT',  //  1. Bitcoin
+          'ETH/USDT',  //  2. Ethereum
+          'EUR/USD',   //  3. Euro
+          'AUD/USD',   //  4. Aussie dollar
+          'GBP/USD',   //  5. Sterling
+          'XAU/USD',   //  6. Gold
+          'XAG/USD',   //  7. Silver
+          'WTI/USD',   //  8. Crude oil
+          'SPY/USD',   //  9. S&P 500 (ETF)
+          'QQQ/USD',   // 10. Nasdaq 100 (ETF)
+          'DIA/USD',   // 11. Dow Jones (ETF)
+          'IWM/USD',   // 12. Russell 2000 (ETF)
+        ];
+        var HOT_12_ORDER = {};
+        HOT_12.forEach(function (s, i) { HOT_12_ORDER[s] = i + 1; });
+
+        // Cache kline fetches per symbol (TTL 2 minutes) to avoid
+        // hammering the backend on every DOM tick.
+        var klineCache = {};
+        var KLINE_TTL_MS = 2 * 60 * 1000;
+
+        // Previous-price memory for flash detection.
+        var prevPriceBySymbol = {};
+
+        function normalizeSymbol(rawText) {
+          if (!rawText) return '';
+          // "BTC/USDT" -> "BTCUSDT"; "XIAOMI/HKD" -> "XIAOMIHKD"
+          var cleaned = rawText
+            .trim()
+            .replace(/\s+/g, '')
+            .replace(/\//g, '')
+            .toUpperCase();
+          // Only accept alphanumeric symbols up to 20 chars
+          return /^[A-Z0-9]{2,20}$/.test(cleaned) ? cleaned : '';
+        }
+
+        function parsePriceNumber(text) {
+          if (!text) return NaN;
+          var n = parseFloat(text.replace(/[,\s]/g, ''));
+          return Number.isFinite(n) ? n : NaN;
+        }
+
+        // --- (1) Curate the top 12-card grid ------------------------
+        // Instead of just keeping the first 12 DOM children, we filter
+        // the ENTIRE grid by our HOT_12 whitelist (cross-category mix)
+        // and reorder the survivors via CSS `order` so they appear in
+        // the curated sequence. Everything else is `display:none`.
+        function limitTopGrid() {
+          var grids = document.querySelectorAll('.grid.grid-cols-3');
+          grids.forEach(function (grid) {
+            // Heuristic: only target grids whose children look like the
+            // coin tile cards (press-effect + rounded + at least 12 kids).
+            if (grid.children.length < 12) return;
+            var sample = grid.children[0];
+            if (!sample) return;
+            var sampleCls = (sample.className || '').toString();
+            if (!/press-effect/.test(sampleCls) || !/rounded/.test(sampleCls)) return;
+
+            for (var i = 0; i < grid.children.length; i++) {
+              var el = grid.children[i];
+              // The symbol label is the first child's `.text-white.font-bold` node
+              var label =
+                el.querySelector('.text-white.font-bold') ||
+                el.firstElementChild;
+              var symbolText = label ? (label.textContent || '').trim() : '';
+              var orderPos = HOT_12_ORDER[symbolText];
+              if (orderPos) {
+                // Keep it: show + apply curated visual order
+                if (el.style.display === 'none') el.style.display = '';
+                el.style.order = String(orderPos);
+              } else {
+                // Hide everything else
+                if (el.style.display !== 'none') el.style.display = 'none';
+                el.style.order = '';
+              }
+            }
+          });
+        }
+
+        // --- (2) Inject sparkline into each list row -----------------
+        function findListRows() {
+          // The mirror row template uses
+          //   grid grid-cols-[8fr_5fr_5fr_6fr]
+          // and the 3rd child is the empty chart slot.
+          return document.querySelectorAll(
+            '[class*="grid-cols-[8fr_5fr_5fr_6fr]"]'
+          );
+        }
+
+        function buildSparklinePath(closes) {
+          if (!closes || closes.length < 2) return '';
+          var min = closes[0], max = closes[0];
+          for (var i = 1; i < closes.length; i++) {
+            if (closes[i] < min) min = closes[i];
+            if (closes[i] > max) max = closes[i];
+          }
+          var range = max - min;
+          if (range === 0) range = 1;
+          var width = 80, height = 24, pad = 2;
+          var usable = height - 2 * pad;
+          var parts = [];
+          for (var j = 0; j < closes.length; j++) {
+            var x = (j / (closes.length - 1)) * width;
+            var y = pad + (1 - (closes[j] - min) / range) * usable;
+            parts.push((j === 0 ? 'M' : 'L') + x.toFixed(2) + ',' + y.toFixed(2));
+          }
+          return parts.join(' ');
+        }
+
+        function fetchKlineFor(symbol) {
+          var cached = klineCache[symbol];
+          var now = Date.now();
+          if (cached && now - cached.t < KLINE_TTL_MS) {
+            return Promise.resolve(cached.closes);
+          }
+          if (cached && cached.pending) return cached.pending;
+          var promise = fetch(KLINE_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              symbol: symbol,
+              interval: 'ONE_HOUR',
+              limit: 50,
+            }),
+          })
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+              if (!data || data.code !== 200) throw new Error('bad response');
+              var kl = (data.data && data.data.historyKline) || [];
+              var closes = kl.map(function (k) { return parseFloat(k.c); })
+                             .filter(function (n) { return Number.isFinite(n); });
+              klineCache[symbol] = { t: Date.now(), closes: closes };
+              return closes;
+            })
+            .catch(function (e) {
+              // Remember the failure briefly so we don't spam retries.
+              klineCache[symbol] = { t: Date.now(), closes: [] };
+              return [];
+            });
+          klineCache[symbol] = { t: now, closes: [], pending: promise };
+          return promise;
+        }
+
+        function ensureSparkline(row) {
+          var slot = row.children[2];
+          if (!slot) return;
+          // Already injected? Only re-render when symbol changes.
+          var existing = slot.querySelector('svg[data-mirror-sparkline]');
+          var symbolText = row.children[0]
+            ? (row.children[0].textContent || '').trim()
+            : '';
+          var symbol = normalizeSymbol(symbolText);
+          if (!symbol) return;
+          if (existing && existing.getAttribute('data-mirror-sparkline') === symbol) {
+            return;
+          }
+          // Build a fresh SVG
+          var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+          svg.setAttribute('viewBox', '0 0 80 24');
+          svg.setAttribute('preserveAspectRatio', 'none');
+          svg.setAttribute('data-mirror-sparkline', symbol);
+          svg.style.cssText = 'width:80px;height:24px;display:block;';
+          var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          path.setAttribute('fill', 'none');
+          path.setAttribute('stroke-width', '1.5');
+          path.setAttribute('stroke-linecap', 'round');
+          path.setAttribute('stroke-linejoin', 'round');
+          path.setAttribute('stroke', 'rgba(156,163,175,0.35)');
+          svg.appendChild(path);
+          // Clear any placeholder children from the slot + append
+          while (slot.firstChild) slot.removeChild(slot.firstChild);
+          slot.appendChild(svg);
+          // Fetch + paint
+          fetchKlineFor(symbol).then(function (closes) {
+            if (!closes || closes.length < 2) return;
+            // Verify svg is still in the DOM and belongs to this symbol
+            if (!svg.isConnected) return;
+            if (svg.getAttribute('data-mirror-sparkline') !== symbol) return;
+            var d = buildSparklinePath(closes);
+            path.setAttribute('d', d);
+            var rising = closes[closes.length - 1] >= closes[0];
+            path.setAttribute('stroke', rising ? '#00C853' : '#FF5252');
+            path.setAttribute('stroke-width', '2');
+          });
+        }
+
+        function injectAllSparklines() {
+          var rows = findListRows();
+          rows.forEach(ensureSparkline);
+        }
+
+        // --- (3) Tick flash on the top 12 grid cards -----------------
+        // Instant colour swap via inline style with !important (this
+        // is the only way to beat our CSS !important base rule AND
+        // Vue's reactive inline writes). A 2-second timer clears the
+        // inline style, falling back to the base colour. Matches the
+        // original site's behaviour exactly — no fade, no keyframes.
+        var resetTimers = {}; // symbol -> setTimeout id
+
+        function applyCardFlash(card, direction) {
+          if (direction === 'up') {
+            card.style.setProperty('--mirror-flash', FLASH_UP_BG);
+          } else if (direction === 'down') {
+            card.style.setProperty('--mirror-flash', FLASH_DOWN_BG);
+          } else {
+            card.style.removeProperty('--mirror-flash');
+          }
+        }
+
+        function scheduleReset(symbol, card) {
+          if (resetTimers[symbol]) clearTimeout(resetTimers[symbol]);
+          // Randomized hold-time so concurrent ticks don't clear in lock-step.
+          resetTimers[symbol] = setTimeout(function () {
+            card.style.removeProperty('--mirror-flash');
+            delete resetTimers[symbol];
+          }, randomResetMs());
+        }
+
+        function getCardPriceText(card) {
+          // Card structure (3 children):
+          //   [0] label  .text-white.font-bold              "BTC/USDT"
+          //   [1] price  div > span.font-bold               "71,419.63"
+          //   [2] change div > span, span                   "-4.38  -3.88%"
+          var priceBlock = card.children[1];
+          if (!priceBlock) return '';
+          var priceSpan =
+            priceBlock.querySelector('span.font-bold') ||
+            priceBlock.querySelector('span') ||
+            priceBlock;
+          return (priceSpan.textContent || '').trim();
+        }
+
+        function watchTopCardPrices() {
+          // Iterate only the currently-visible (whitelisted) grid cards.
+          var grids = document.querySelectorAll('.grid.grid-cols-3');
+          grids.forEach(function (grid) {
+            if (grid.children.length < 12) return;
+            var sample = grid.children[0];
+            if (!sample) return;
+            var sampleCls = (sample.className || '').toString();
+            if (!/press-effect/.test(sampleCls) || !/rounded/.test(sampleCls)) return;
+
+            Array.from(grid.children).forEach(function (card) {
+              if (card.style.display === 'none') return; // hidden by limitTopGrid
+              var label =
+                card.querySelector('.text-white.font-bold') ||
+                card.firstElementChild;
+              var symbolText = label ? (label.textContent || '').trim() : '';
+              if (!symbolText) return;
+
+              var priceText = getCardPriceText(card);
+              var curNum = parsePriceNumber(priceText);
+              var prev = prevPriceBySymbol[symbolText];
+
+              if (
+                prev &&
+                Number.isFinite(curNum) &&
+                Number.isFinite(prev.num) &&
+                curNum !== prev.num
+              ) {
+                var dir = curNum > prev.num ? 'up' : 'down';
+                applyCardFlash(card, dir);
+                scheduleReset(symbolText, card);
+              }
+              prevPriceBySymbol[symbolText] = { num: curNum, text: priceText };
+            });
+          });
+        }
+
+        // --- (4) Tick flash on list row price CHIPS -----------------
+        // Each list row's price column contains a span:
+        //   DIV .text-right > DIV .max-w-[100px] > SPAN .font-bold.p-1.rounded-md
+        // We flash the SPAN's background green/red based on the latest
+        // tick direction (NOT the 24h trend) and clear it after the
+        // burst period. Independent history keyed by "list:"+symbol so
+        // it doesn't collide with the top-card watcher.
+        var chipResetTimers = {};
+
+        function getChipEl(row) {
+          var priceCol = row.children[3];
+          if (!priceCol) return null;
+          return priceCol.querySelector('span.rounded-md') ||
+                 priceCol.querySelector('span.font-bold');
+        }
+
+        function applyChipFlash(chip, direction) {
+          if (direction === 'up') {
+            chip.style.setProperty('--mirror-flash', CHIP_UP_BG);
+          } else if (direction === 'down') {
+            chip.style.setProperty('--mirror-flash', CHIP_DOWN_BG);
+          } else {
+            chip.style.removeProperty('--mirror-flash');
+          }
+        }
+
+        function scheduleChipReset(key, chip) {
+          if (chipResetTimers[key]) clearTimeout(chipResetTimers[key]);
+          // Randomized hold-time so concurrent ticks don't clear in lock-step.
+          chipResetTimers[key] = setTimeout(function () {
+            chip.style.removeProperty('--mirror-flash');
+            delete chipResetTimers[key];
+          }, randomResetMs());
+        }
+
+        function watchListPriceChips() {
+          var rows = findListRows();
+          rows.forEach(function (row) {
+            var symbolText = row.children[0]
+              ? (row.children[0].textContent || '').trim()
+              : '';
+            var symbol = normalizeSymbol(symbolText);
+            if (!symbol) return;
+            var chip = getChipEl(row);
+            if (!chip) return;
+            var priceText = (chip.textContent || '').trim();
+            var curNum = parsePriceNumber(priceText);
+            var key = 'list:' + symbol;
+            var prev = prevPriceBySymbol[key];
+            if (
+              prev &&
+              Number.isFinite(curNum) &&
+              Number.isFinite(prev.num) &&
+              curNum !== prev.num
+            ) {
+              var dir = curNum > prev.num ? 'up' : 'down';
+              applyChipFlash(chip, dir);
+              scheduleChipReset(key, chip);
+            }
+            prevPriceBySymbol[key] = { num: curNum, text: priceText };
+          });
+        }
+
+        function watchPrices() {
+          watchTopCardPrices();
+          watchListPriceChips();
+        }
+
+        // --- (5) Real-time flash via WebSocket DETAIL stream --------
+        // Mirror's Vue bundle only subscribes to ws streams for a
+        // handful of top coins. We open our OWN connection to the
+        // backend's /ws general handler with `{op:'subscribe',type:
+        // 'DETAIL'}` — it subscribes to EVERY ticker (crypto via
+        // Binance + non-crypto via Yahoo) and pushes per-coin DETAIL
+        // messages as they arrive. Processing them one-by-one gives
+        // naturally staggered flash timings (no "bulk reset" pop that
+        // HTTP batch polling caused).
+        //
+        // A lightweight HTTP snapshot is still used once on load (and
+        // refreshed every 30s) just to build the symbol → showSymbol
+        // lookup table — ws messages use lowercase symbols like
+        // "btcusdt" which we need to map back to the DOM's "BTC/USDT".
+        var POLL_INTERVAL_MS = 30000; // refresh symbol map only
+        var prevBackendPrices = {};   // "BTC/USDT" -> number
+        var wsSymbolToDisplay = {};   // "btcusdt" -> "BTC/USDT"
+
+        function findTopGrid() {
+          var grids = document.querySelectorAll('.grid.grid-cols-3');
+          for (var g of grids) {
+            if (g.children.length < 12) continue;
+            var sample = g.children[0];
+            if (!sample) continue;
+            var sc = (sample.className || '').toString();
+            if (/press-effect/.test(sc) && /rounded/.test(sc)) return g;
+          }
+          return null;
+        }
+
+        function applyFlashBySymbol(symbolUpper, direction) {
+          // Top 12 grid card
+          var grid = findTopGrid();
+          if (grid) {
+            for (var card of grid.children) {
+              if (card.style.display === 'none') continue;
+              var label =
+                card.querySelector('.text-white.font-bold') ||
+                card.firstElementChild;
+              var sym = label ? (label.textContent || '').trim().toUpperCase() : '';
+              if (sym === symbolUpper) {
+                applyCardFlash(card, direction);
+                scheduleReset('top:' + sym, card);
+                break;
+              }
+            }
+          }
+          // List row chip
+          var rows = findListRows();
+          for (var row of rows) {
+            var rs =
+              (row.children[0] && row.children[0].textContent)
+                ? row.children[0].textContent.trim().toUpperCase()
+                : '';
+            if (rs === symbolUpper) {
+              var chip = getChipEl(row);
+              if (chip) {
+                applyChipFlash(chip, direction);
+                // Use the shared helper so jitter + "poll:" key are consistent.
+                scheduleChipReset('poll:' + symbolUpper, chip);
+              }
+              break;
+            }
+          }
+        }
+
+        // Refresh the symbol map + seed prevBackendPrices. No flash
+        // triggering — the ws handler does that on every incoming tick.
+        function refreshSymbolMap() {
+          fetch('/api/common/getCoinSecondList', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: '{}',
+          })
+            .then(function (r) { return r.json(); })
+            .then(function (data) {
+              if (!data || data.code !== 200) return;
+              var coinList =
+                (data.data && (data.data.coinList || data.data.contractList)) || [];
+              if (!Array.isArray(coinList)) return;
+              coinList.forEach(function (c) {
+                var showSym = (c.showSymbol || c.symbol || '').toUpperCase();
+                var wsSym = (c.symbol || '').toLowerCase();
+                if (showSym && wsSym) {
+                  wsSymbolToDisplay[wsSym] = showSym;
+                }
+                // Seed prices so first tick has a baseline.
+                var amt = Number(c.amount);
+                if (showSym && Number.isFinite(amt) && prevBackendPrices[showSym] === undefined) {
+                  prevBackendPrices[showSym] = amt;
+                }
+              });
+            })
+            .catch(function () { /* ignore network hiccups */ });
+        }
+        // Legacy alias kept for any remaining call sites.
+        var pollCoinPrices = refreshSymbolMap;
+
+        // --- Main tick -----------------------------------------------
+        var lastTickAt = 0;
+        function tick() {
+          var now = Date.now();
+          // Throttle to 10 Hz max
+          if (now - lastTickAt < 80) return;
+          lastTickAt = now;
+          try {
+            limitTopGrid();
+            injectAllSparklines();
+            watchPrices();
+          } catch (e) {
+            // Never let a DOM hiccup break the rest of the page.
+          }
+        }
+
+        // Run on initial load + on every meaningful DOM mutation.
+        function start() {
+          tick();
+          var mo = new MutationObserver(function (mutations) {
+            // Only care about subtree changes that might add rows or update
+            // price text. We debounce by scheduling a single tick.
+            if (start._pending) return;
+            start._pending = true;
+            requestAnimationFrame(function () {
+              start._pending = false;
+              tick();
+            });
+          });
+          mo.observe(document.body, {
+            childList: true,
+            subtree: true,
+            characterData: true,
+          });
+          // Fallback poll in case MO misses something (e.g. canvas repaint)
+          setInterval(tick, 1000);
+
+          // HTTP polling fallback for "quiet" coins that the mirror's
+          // Vue bundle never pushes DOM updates for. The first call
+          // seeds `

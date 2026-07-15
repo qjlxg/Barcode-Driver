@@ -1,0 +1,69 @@
+# Self-built VPS nodes subscription
+# Updated: 2026-06-23
+
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+
+proxies:
+- name: Hysteria2
+  type: hysteria2
+  server: 152.42.191.178
+  port: 443
+  password: 638ffdaf0235743cb52d65239820b4de
+  sni: www.bing.com
+  skip-cert-verify: true
+
+- name: VLESS-Reality
+  type: vless
+  server: 152.42.191.178
+  port: 443
+  uuid: 5e4af6da-873c-443b-8d8a-84a68ac9e73f
+  flow: xtls-rprx-vision
+  tls: true
+  udp: true
+  servername: www.microsoft.com
+  reality-opts:
+    public-key: QfTh5YjjntS2zotPJb0KwY3gTT-mK6HWDjEvTPGNOCc
+    short-id: a1b2c3d4
+  client-fingerprint: chrome
+
+- name: Trojan-WS
+  type: trojan
+  server: 152.42.191.178
+  port: 8443
+  password: cortex-trojan-2026
+  udp: true
+  sni: www.bing.com
+  skip-cert-verify: true
+  network: ws
+  ws-opts:
+    path: /trojan-ws-cortex
+    headers:
+      Host: www.bing.com
+
+proxy-groups:
+  - name: PROXY
+    type: select
+    proxies:
+      - Hysteria2
+      - VLESS-Reality
+      - Trojan-WS
+      - DIRECT
+
+  - name: AUTO
+    type: url-test
+    proxies:
+      - Hysteria2
+      - VLESS-Reality
+      - Trojan-WS
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+
+rules:
+  - GEOSITE,category-ads-all,REJECT
+  - GEOSITE,cn,DIRECT
+  - GEOIP,cn,DIRECT
+  - MATCH,PROXY

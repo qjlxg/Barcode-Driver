@@ -1,0 +1,138 @@
+port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+unified-delay: true
+dns:
+  enable: true 
+  listen: "0.0.0.0:1053"
+  ipv6: true
+  prefer-h3: false
+  respect-rules: true
+  use-system-hosts: false
+  cache-algorithm: "arc"
+  enhanced-mode: "fake-ip"
+  fake-ip-range: "198.18.0.1/16"
+  fake-ip-filter:
+    - "+.lan"
+    - "+.local"
+    - "+.msftconnecttest.com"
+    - "+.msftncsi.com"
+    - "localhost.ptlogin2.qq.com"
+    - "localhost.sec.qq.com"
+    - "+.in-addr.arpa"
+    - "+.ip6.arpa"
+    - "time.*.com"
+    - "time.*.gov"
+    - "pool.ntp.org"
+    - "localhost.work.weixin.qq.com"
+  default-nameserver: ["223.5.5.5", "119.29.29.29"]
+  nameserver:
+    - "https://doh.pub/dns-query"
+    - "https://223.5.5.5/dns-query"
+    - "https://1.1.1.1/dns-query"
+  proxy-server-nameserver:
+    - "https://1.1.1.1/dns-query"
+    - "https://8.8.8.8/dns-query"
+
+proxies:
+- name: vless-reality-vision-C20260613215974               
+  type: vless
+  server: 64.90.14.67                           
+  port: 2088                                
+  uuid: cf6299d7-6f64-4b2d-bcce-d14d39829aca   
+  network: tcp
+  udp: true
+  tls: true
+  flow: xtls-rprx-vision
+  servername: apple.com                 
+  reality-opts: 
+    public-key: W0Cpy8SzU6nTvYK72ej9U_ms0QRnW2nkmU5xS9SyjkE    
+    short-id: 61121879                      
+  client-fingerprint: chrome                  
+
+- name: vmess-ws-C20260613215974                         
+  type: vmess
+  server: 64.90.14.67                        
+  port: 2089                                     
+  uuid: cf6299d7-6f64-4b2d-bcce-d14d39829aca       
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: false
+  network: ws
+  servername: www.bing.com                    
+  ws-opts:
+    path: "cf6299d7-6f64-4b2d-bcce-d14d39829aca-vm"                             
+    headers:
+      Host: www.bing.com                     
+
+- name: hysteria2-C20260613215974                            
+  type: hysteria2                                      
+  server: 64.90.14.67                               
+  port: 2090
+  up: 100
+  down: 200
+  password: cf6299d7-6f64-4b2d-bcce-d14d39829aca                          
+  alpn:
+    - h3
+  sni: www.bing.com                               
+  skip-cert-verify: true
+  fast-open: true
+
+- name: tuic5-C20260613215974                            
+  server: 64.90.14.67                      
+  port: 2091                                    
+  type: tuic
+  uuid: cf6299d7-6f64-4b2d-bcce-d14d39829aca       
+  password: cf6299d7-6f64-4b2d-bcce-d14d39829aca   
+  alpn: [h3]
+  disable-sni: true
+  reduce-rtt: true
+  udp-relay-mode: native
+  congestion-controller: bbr
+  sni: www.bing.com                                
+  skip-cert-verify: true
+
+
+
+proxy-groups:
+- name: 负载均衡
+  type: load-balance
+  url: https://www.gstatic.com/generate_204
+  interval: 300
+  strategy: round-robin
+  proxies:
+    - vless-reality-vision-C20260613215974                              
+    - vmess-ws-C20260613215974
+    - hysteria2-C20260613215974
+    - tuic5-C20260613215974
+    
+
+- name: 自动选择
+  type: url-test
+  url: https://www.gstatic.com/generate_204
+  interval: 300
+  tolerance: 50
+  proxies:
+    - vless-reality-vision-C20260613215974                              
+    - vmess-ws-C20260613215974
+    - hysteria2-C20260613215974
+    - tuic5-C20260613215974
+    
+    
+- name: 🌍选择代理节点
+  type: select
+  proxies:
+    - 负载均衡                                         
+    - 自动选择
+    - DIRECT
+    - vless-reality-vision-C20260613215974                              
+    - vmess-ws-C20260613215974
+    - hysteria2-C20260613215974
+    - tuic5-C20260613215974
+    
+rules:
+  - GEOIP,LAN,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,🌍选择代理节点

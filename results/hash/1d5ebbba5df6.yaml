@@ -1,0 +1,21 @@
+proxies:
+  - name: KR-50G-Reality
+    type: vless
+    server: 110.9.166.167
+    port: 24443
+    uuid: cfc0bf86-769f-45fe-abb2-6224f724327b
+    network: tcp
+    udp: true
+    tls: true
+    servername: tp.xyj.lol
+    flow: xtls-rprx-vision
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: pDdrVX1UTu_9MLFipXk96N0FgKWI4a8IZyuyzs_m2jU
+      short-id: 5b822ac620fa3f31
+proxy-groups:
+  - name: PROXY
+    type: select
+    proxies: [KR-50G-Reality]
+rules:
+  - MATCH,PROXY

@@ -1,0 +1,255 @@
+# 必读！！！
+# 注意规则在满足自己需求情况下，尽量做到精简，不要过度复杂，以免影响性能。
+# 跑裸核用户请自行去掉下方控制面板模块的注释。
+# 机场订阅
+proxy-providers:
+  Airport1:
+    url: "https://zhs.futbol/link/VtfyFdYFYFpqtj2Q?is_ss=5&dns=1&tj=1&disney&y2b&ai&nf"
+    type: http
+    interval: 0  # disable automatic refresh; update manually when needed
+    health-check:
+      enable: true
+      url: https://www.gstatic.com/generate_204
+      interval: 300
+    proxy: kr-dev-reality
+    override:
+      udp: true
+
+# 节点信息
+proxies:
+  - name: "kr-dev-reality"
+    type: vless
+    server: dev.aoliuqu.press
+    port: 16334
+    uuid: "c68526b9-f9e1-49a3-9711-e57d5c717563"
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    client-fingerprint: chrome
+    servername: www.microsoft.com
+    reality-opts:
+      public-key: PvorLjkLgwJHlv9XQfICVVPzkiD9G6cPXSijEKkEtA0
+      short-id: 10f897e26c4b9478
+      support-x25519mlkem768: false
+  - name: "kr-dev-grpc"
+    type: trojan
+    server: dev.aoliuqu.press
+    port: 16335
+    password: "c68526b9-f9e1-49a3-9711-e57d5c717563"
+    network: grpc
+    udp: true
+    sni: dev.aoliuqu.press
+    skip-cert-verify: true
+    client-fingerprint: chrome
+    grpc-opts:
+      grpc-service-name: zhs
+  - name: "HK-droptest-reality"
+    type: vless
+    server: droptest.aoliuqu.press
+    port: 16334
+    uuid: "c68526b9-f9e1-49a3-9711-e57d5c717563"
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    client-fingerprint: chrome
+    servername: www.microsoft.com
+    reality-opts:
+      public-key: PvorLjkLgwJHlv9XQfICVVPzkiD9G6cPXSijEKkEtA0
+      short-id: 10f897e26c4b9478
+      support-x25519mlkem768: false
+  - name: "hk-droptest-grpc"
+    type: trojan
+    server: droptest.aoliuqu.press
+    port: 16335
+    password: "c68526b9-f9e1-49a3-9711-e57d5c717563"
+    network: grpc
+    udp: true
+    sni: droptest.aoliuqu.press
+    skip-cert-verify: true
+    client-fingerprint: chrome
+    grpc-opts:
+      grpc-service-name: zhs
+  - name: "jp1-reality"
+    type: vless
+    server: jp1.aoliuqu.press
+    port: 16334
+    uuid: "c68526b9-f9e1-49a3-9711-e57d5c717563"
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    client-fingerprint: chrome
+    servername: www.microsoft.com
+    reality-opts:
+      public-key: PvorLjkLgwJHlv9XQfICVVPzkiD9G6cPXSijEKkEtA0
+      short-id: 10f897e26c4b9478
+      support-x25519mlkem768: false
+  - name: "jp1-grpc"
+    type: trojan
+    server: jp1.aoliuqu.press
+    port: 16335
+    password: "c68526b9-f9e1-49a3-9711-e57d5c717563"
+    network: grpc
+    udp: true
+    sni: jp1.aoliuqu.press
+    skip-cert-verify: true
+    client-fingerprint: chrome
+    grpc-opts:
+      grpc-service-name: zhs
+
+# 全局配置 
+port: 7890
+socks-port: 7891
+redir-port: 7892
+mixed-port: 7893
+tproxy-port: 7894
+allow-lan: true
+bind-address: "*"
+ipv6: false
+unified-delay: true
+tcp-concurrent: true
+# interface-name: enp6s18
+log-level: info
+find-process-mode: 'off'
+global-client-fingerprint: chrome
+keep-alive-idle: 600
+keep-alive-interval: 15
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+# 为防止使用插件朋友遇到面板问题，我注释掉了此模块。
+# 跑裸核朋友自行删除注释即可，使用nikki仅内核的ui路径改为/etc/nikki/run/ui
+#external-controller: 0.0.0.0:9090
+#secret: ""
+#external-ui: "/etc/mihomo/ui"
+#external-ui-name: zashboard
+#external-ui-url: "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
+
+# 嗅探
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+    TLS:
+      ports: [443, 8443]
+    QUIC:
+      ports: [443, 8443]
+  force-domain:
+    - "+.v2ex.com"
+  skip-domain:
+    - "+.baidu.com"
+
+# 入站  
+tun:
+  enable: true
+  # system/gvisor/mixed
+  stack: mixed
+  dns-hijack: ["any:53", "tcp://any:53"]
+  auto-route: true
+  auto-redirect: true
+  auto-detect-interface: true
+  route-exclude-address:
+    - 169.254.0.0/16
+
+# DNS模块
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: false
+  respect-rules: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 28.0.0.1/8
+  fake-ip-filter-mode: blacklist
+  fake-ip-filter:
+    - "rule-set:private_domain,cn_domain"
+    - "+.msftconnecttest.com"
+    - "+.msftncsi.com"
+    - "time.*.com"
+    - "+.market.xiaomi.com"
+  default-nameserver:
+    - 8.8.8.8
+    - 1.1.1.1
+  proxy-server-nameserver:
+    - https://223.5.5.5/dns-query
+  direct-nameserver:
+    - system://
+  nameserver:
+    - 8.8.8.8
+    - 1.1.1.1
+
+# 出站策略，根据自己情况调整每个策略里分组排序，增删都可以，比如把美国自动放到第一个，比如删除香港故转，注意别漏掉表情逗号等。
+# 如果相应分组没有筛选到对应的国家，请根据自己节点名字调整筛选关键字。
+# 没有再使用锚点，是考虑很多新手修改难度，这样新手修改某个分组更容易些。
+proxy-groups:
+  - {name: all, type: select, proxies: [kr-dev-reality, kr-dev-grpc, HK-droptest-reality, hk-droptest-grpc, jp1-reality, jp1-grpc, ♻️ 香港自动, TW 台湾自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 美国自动, ♻️ 韩国自动, ♻️ 自动选择, 🇭🇰 香港节点, TW 台湾节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇺🇲 美国节点, 🇰🇷 韩国节点, 🌐 全部节点, DIRECT]}
+  - {name: jp1, type: select, proxies: [jp1-reality, jp1-grpc]}
+  - {name: 🇭🇰 香港节点, type: select, include-all: true, filter: "(?i)港|hk|hongkong|hong kong"}
+  - {name: TW 台湾节点, type: select, include-all: true, filter: "(?i)台|tw|taiwan"}
+  - {name: 🇯🇵 日本节点, type: select, include-all: true, filter: "(?i)日|jp|japan"}
+  - {name: 🇸🇬 狮城节点, type: select, include-all: true, filter: "(?i)新加坡|坡|狮城|SG|Singapore"}
+  - {name: 🇺🇲 美国节点, type: select, include-all: true, filter: "(?i)美|us|unitedstates|united states"}
+  - {name: 🇰🇷 韩国节点, type: select, include-all: true, filter: "(?i)韩|kr|korea|south korea"}
+  - {name: ♻️ 香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong))^((?!(台|日|韩|新|深|美)).)*$"}
+  - {name: TW 台湾自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(台|TW|(?i)Taiwan))^((?!(港|日|韩|新|美)).)*$"}
+  - {name: ♻️ 日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日|JP|(?i)Japan))^((?!(港|台|韩|新|美)).)*$" }
+  - {name: ♻️ 狮城自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(新加坡|坡|狮城|SG|Singapore))^((?!(港|台|韩|日|美)).)*$" }
+  - {name: ♻️ 美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|日|韩|新)).)*$"}
+  - {name: ♻️ 韩国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(韩|KR|(?i)Korea))^((?!(港|台|日|新|美)).)*$"}
+  - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(DIRECT)).)*$"}
+  - {name: 🌐 全部节点, type: select, include-all: true}
+
+# 规则匹配
+# 此规则部分没有做防泄露处理，因为弊严重大于利！
+rules:
+  - DOMAIN-SUFFIX,okx.com,jp1
+  - DOMAIN-SUFFIX,okx.cab,jp1
+  - DOMAIN-SUFFIX,okx-httpdns.com,jp1
+  - DOMAIN-SUFFIX,jp1.aoliuqu.press,DIRECT
+  - DOMAIN-SUFFIX,aoliuqu.press,DIRECT
+  - IP-CIDR,1.116.198.56/32,DIRECT
+  - RULE-SET,private_ip,DIRECT
+  - RULE-SET,private_domain,DIRECT
+  - DOMAIN-SUFFIX,qichiyu.com,all
+  - RULE-SET,proxylite,all
+  - RULE-SET,cn_domain,DIRECT
+  - RULE-SET,cn_ip,DIRECT
+  - PROCESS-NAME,YDService,DIRECT
+  - PROCESS-NAME,YDLive,DIRECT
+  - MATCH,all
+
+# 规则集
+## type：可选http/file/inline  behavior：可选domain/ipcidr/classical format：可选yaml/text/mrs
+# 通过固定节点更新规则集并禁用自动刷新，避免直连刷新失败。
+rule-anchor:
+  ip: &ip {type: http, interval: 0, behavior: ipcidr, format: mrs, proxy: kr}
+  domain: &domain {type: http, interval: 0, behavior: domain, format: mrs, proxy: kr}
+  class: &class {type: http, interval: 0, behavior: classical, format: text, proxy: kr}
+rule-providers: 
+  private_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
+  proxylite: { <<: *class, url: "https://raw.githubusercontent.com/qichiyuhub/rule/refs/heads/main/proxy.list"}
+  ai: {  <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ai-!cn.mrs" }
+  youtube_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
+  google_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
+  github_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/github.mrs"}
+  telegram_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/telegram.mrs"}
+  netflix_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/netflix.mrs"}
+  paypal_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/paypal.mrs"}
+  onedrive_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/onedrive.mrs"}
+  microsoft_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/microsoft.mrs"}
+  apple_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/apple-cn.mrs"}
+  speedtest_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/ookla-speedtest.mrs"}
+  tiktok_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.mrs"}
+  geolocation-!cn: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}
+  cn_domain: { <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"}
+  
+  private_ip: {<<: *ip, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geoip/private.mrs"}
+  cn_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
+  google_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}
+  telegram_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}
+  netflix_ip: { <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/netflix.mrs"}
+  apple_ip: {<<: *ip, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo-lite/geoip/apple.mrs"}

@@ -1,0 +1,131 @@
+# ---------------------------------------------------------------
+# 完整Clash配置文件 (适用于Clash Verge / Clash Meta for Android)
+# ---------------------------------------------------------------
+
+# (混合端口) HTTP和SOCKS5混合代理端口
+mixed-port: 7890
+# 允许局域网连接
+allow-lan: true
+# 代理模式: Rule (规则) / Global (全局) / Direct (直连)
+mode: Rule
+# 日志级别
+log-level: info
+# 外部控制器地址 (用于UI面板连接)
+external-controller: '0.0.0.0:9090'
+
+# 代理节点列表
+proxies:
+  - name: "alicloud sg(vmess)"
+    type: vmess
+    server: 47.237.123.105
+    port: 39332
+    uuid: 14ceec81-dedf-4193-9738-16bb0c3bdf18
+    alterId: 0
+    cipher: auto
+    network: tcp
+    tls: false
+    udp: true
+  - name: "alicloud sg(vless)"
+    type: vless
+    server: 47.237.123.105
+    port: 18865
+    uuid: 78b93c37-a1ea-4329-a0d5-0acba10d0953
+    network: tcp
+    tls: false
+    udp: true
+  - name: "alicloud sg(shadowsocks)"
+    type: ss
+    server: 47.237.123.105
+    port: 16439
+    cipher: aes-256-gcm
+    password: "8EKoamPCgp"
+    udp: true
+  - name: "langlangyun us(vless)"
+    type: vless
+    server: 192.238.232.174
+    port: 21814
+    uuid: 0d7958f8-f0e8-449f-d9e3-3d9051011a74
+    network: tcp
+    tls: false
+    udp: true
+  - name: "langlangyun us(vmess)"
+    type: vmess
+    server: 192.238.232.174
+    port: 21085
+    uuid: 75f1fa29-be7e-4309-d323-7a4da019e81a
+    alterId: 0
+    cipher: auto
+    network: tcp
+    tls: false
+    udp: true
+  - name: "langlangyun us(shadowsocks)"
+    type: ss
+    server: 192.238.232.174
+    port: 37596
+    cipher: aes-256-gcm
+    password: "YOXhMV8l1D"
+    udp: true
+  - name: "azure kg(vmess)"
+    type: vmess
+    server: 172.207.57.74
+    port: 13943
+    uuid: 5c660126-527d-44aa-9b33-df2e2c89f412
+    alterId: 0
+    cipher: auto
+    network: tcp
+    tls: false
+    udp: true
+  - name: "azure kg(vless)"
+    type: vless
+    server: 172.207.57.74
+    port: 30824
+    uuid: e34b46e5-c264-4f0e-8d26-89ee91a9704d
+    network: tcp
+    tls: false
+    udp: true
+  - name: "azure kg(shadowsocks)"
+    type: ss
+    server: 172.207.57.74
+    port: 41601
+    cipher: aes-256-gcm
+    password: "fgMnROxeiM"
+    udp: true
+
+# 代理组
+proxy-groups:
+  - name: "梯子" # 主选择组，手动选择节点
+    type: select
+    proxies:
+      - "自动选择"
+      - "alicloud sg(vmess)"
+      - "alicloud sg(vless)"
+      - "alicloud sg(shadowsocks)"
+      - "langlangyun us(vless)"
+      - "langlangyun us(vmess)"
+      - "langlangyun us(shadowsocks)"
+      - "azure kg(vmess)"
+      - "azure kg(vless)"
+      - "azure kg(shadowsocks)"
+  - name: "自动选择" # 自动测试延迟最低的节点
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    proxies:
+      - "alicloud sg(vmess)"
+      - "alicloud sg(vless)"
+      - "alicloud sg(shadowsocks)"
+      - "langlangyun us(vless)"
+      - "langlangyun us(vmess)"
+      - "langlangyun us(shadowsocks)"
+      - "azure kg(vmess)"
+      - "azure kg(vless)"
+      - "azure kg(shadowsocks)"
+
+# 规则
+rules:
+  - 'DOMAIN-SUFFIX,google.com,梯子'
+  - 'DOMAIN-SUFFIX,github.com,梯子'
+  - 'DOMAIN-SUFFIX,youtube.com,梯子'
+  - 'DOMAIN-KEYWORD,google,梯子'
+  - 'GEOIP,CN,DIRECT'
+  - 'MATCH,梯子'

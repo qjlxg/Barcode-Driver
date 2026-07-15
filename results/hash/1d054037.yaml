@@ -1,0 +1,28 @@
+mixed-port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+external-controller: ':9090'
+unified-delay: true
+tcp-concurrent: true
+
+proxies:
+    - { name: 1cdn, type: vmess, server: 1cdn.njkrpl.com, port: 443, uuid: a0449b33-d7f6-42a5-8bdc-3b5e727ec9f8, alterId: 0, cipher: auto, udp: true, tls: true, network: ws, ws-opts: { path: "/" } }
+    - { name: 2cdn, type: vmess, server: 2cdn.njkrpl.com, port: 443, uuid: a0449b33-d7f6-42a5-8bdc-3b5e727ec9f8, alterId: 0, cipher: auto, udp: true, tls: true, network: ws, ws-opts: { path: "/" } }
+    - { name: 3cdn, type: vmess, server: 3cdn.njkrpl.com, port: 443, uuid: a0449b33-d7f6-42a5-8bdc-3b5e727ec9f8, alterId: 0, cipher: auto, udp: true, tls: true, network: ws, ws-opts: { path: "/" } }
+    - { name: 4cdn, type: vmess, server: 4cdn.njkrpl.com, port: 443, uuid: a0449b33-d7f6-42a5-8bdc-3b5e727ec9f8, alterId: 0, cipher: auto, udp: true, tls: true, network: ws, ws-opts: { path: "/" } }
+    - { name: 5cdn, type: vmess, server: 5cdn.njkrpl.com, port: 443, uuid: a0449b33-d7f6-42a5-8bdc-3b5e727ec9f8, alterId: 0, cipher: auto, udp: true, tls: true, network: ws, ws-opts: { path: "/" } }
+    - { name: 6cdn, type: vmess, server: 6cdn.njkrpl.com, port: 443, uuid: a0449b33-d7f6-42a5-8bdc-3b5e727ec9f8, alterId: 0, cipher: auto, udp: true, tls: true, network: ws, ws-opts: { path: "/" } }
+    - { name: 7cdn, type: vmess, server: 7cdn.njkrpl.com, port: 443, uuid: a0449b33-d7f6-42a5-8bdc-3b5e727ec9f8, alterId: 0, cipher: auto, udp: true, tls: true, network: ws, ws-opts: { path: "/" } }
+    - { name: 8cdn, type: vmess, server: 8cdn.njkrpl.com, port: 443, uuid: a0449b33-d7f6-42a5-8bdc-3b5e727ec9f8, alterId: 0, cipher: auto, udp: true, tls: true, network: ws, ws-opts: { path: "/" } }
+    - { name: xcdn, type: vmess, server: xcdn.njkrpl.com, port: 443, uuid: a0449b33-d7f6-42a5-8bdc-3b5e727ec9f8, alterId: 0, cipher: auto, udp: true, tls: true, network: ws, ws-opts: { path: "/" } }
+
+proxy-groups:
+    - { name: 手动切换, type: select, proxies: [负载均衡, xcdn, 1cdn, 2cdn, 3cdn, 4cdn, 5cdn, 6cdn, 7cdn, 8cdn] }
+    - { name: 负载均衡, type: load-balance, proxies: [1cdn, 2cdn, 3cdn, 4cdn, 5cdn, 6cdn, 7cdn, 8cdn], url: 'http://cp.cloudflare.com/generate_204', interval: 300, strategy: round-robin }
+
+rules:
+    - 'GEOIP,LAN,DIRECT'
+    - 'GEOIP,CN,DIRECT'
+    - 'GEOIP,IR,DIRECT'
+    - 'MATCH,手动切换'

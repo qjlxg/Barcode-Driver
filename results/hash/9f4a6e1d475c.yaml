@@ -1,0 +1,178 @@
+port: 7890
+socks-port: 7891
+redir-port: 7892
+tproxy-port: 7893
+allow-lan: true
+bind-address: '*'
+mode: global
+log-level: info
+ipv6: false
+external-controller: 127.0.0.1:9090
+dns:
+  enable: true
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  use-hosts: true
+  default-nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
+  nameserver:
+  - https://doh.pub/dns-query
+  - https://dns.alidns.com/dns-query
+proxies:
+- name: 韩国A1｜阿里云中转｜HY2｜备用
+  type: hysteria2
+  server: 8.148.4.25
+  port: 55020
+  password: d5m-5bGOsVbFgRlxsEyO3pCF
+  sni: 140.245.74.46.sslip.io
+  alpn:
+  - h3
+  skip-cert-verify: true
+- name: 韩国A1｜阿里云中转｜TUIC｜游戏实验
+  type: tuic
+  server: 8.148.4.25
+  port: 443
+  uuid: 4bc8d192-663e-492b-8e3b-ed4bf5ff4a9e
+  password: AJG8Rck0ArSLQg6Q9mS7m6c6
+  sni: 140.245.74.46.sslip.io
+  alpn: &id001
+  - h3
+  skip-cert-verify: true
+  udp-relay-mode: native
+  congestion-controller: bbr
+  reduce-rtt: true
+- name: 韩国A1｜直连｜TUIC｜新IP
+  type: tuic
+  server: 138.2.116.23
+  port: 56020
+  uuid: 4bc8d192-663e-492b-8e3b-ed4bf5ff4a9e
+  password: AJG8Rck0ArSLQg6Q9mS7m6c6
+  sni: 140.245.74.46.sslip.io
+  alpn: *id001
+  skip-cert-verify: true
+  udp-relay-mode: native
+  congestion-controller: bbr
+  reduce-rtt: true
+- name: 韩国A1｜阿里云中转｜HY2混淆｜主用
+  type: hysteria2
+  server: 8.148.4.25
+  port: 55021
+  password: d5m-5bGOsVbFgRlxsEyO3pCF
+  sni: 140.245.74.46.sslip.io
+  alpn:
+  - h3
+  skip-cert-verify: true
+  obfs: salamander
+  obfs-password: sS0TATd_LFteT6aCbJWhxFLq
+- name: 韩国A1｜直连｜HY2
+  type: hysteria2
+  server: 138.2.116.23
+  port: 55020
+  password: d5m-5bGOsVbFgRlxsEyO3pCF
+  sni: 140.245.74.46.sslip.io
+  alpn:
+  - h3
+  skip-cert-verify: true
+- name: 韩国A1｜Cloudflare CDN｜WS｜下载备用
+  type: vless
+  server: kr-cdn.aong.xyz
+  port: 8443
+  uuid: f49bfb03-4efe-446a-9098-1bf0b4a33132
+  udp: true
+  tls: true
+  servername: kr-cdn.aong.xyz
+  client-fingerprint: chrome
+  network: ws
+  skip-cert-verify: false
+  ws-opts:
+    path: /cdn-vless
+    headers:
+      Host: kr-cdn.aong.xyz
+- name: 韩国A1｜直连｜HY2混淆
+  type: hysteria2
+  server: 138.2.116.23
+  port: 55021
+  password: d5m-5bGOsVbFgRlxsEyO3pCF
+  sni: 140.245.74.46.sslip.io
+  alpn:
+  - h3
+  skip-cert-verify: true
+  obfs: salamander
+  obfs-password: sS0TATd_LFteT6aCbJWhxFLq
+- name: 韩国E2｜直连｜Reality
+  type: vless
+  server: 134.185.110.238
+  port: 24443
+  uuid: 1338f29f-a7ad-4cae-b12d-095a6664fdea
+  udp: true
+  tls: true
+  servername: www.microsoft.com
+  client-fingerprint: chrome
+  flow: xtls-rprx-vision
+  network: tcp
+  packet-encoding: xudp
+  skip-cert-verify: true
+  reality-opts:
+    public-key: NXtOeMO2tMYeVmzEn73i5Lgz6KxHGSocSjtV4Be8d1c
+    short-id: df38cbb392c0479c
+- name: 美国A1｜阿里云中转｜HY2混淆｜新IP主用
+  type: hysteria2
+  server: 8.148.4.25
+  port: 55023
+  password: hy2_zxlA_gZ5N1KzZlsyBKW-3sfR
+  sni: 129.146.243.146.sslip.io
+  alpn:
+  - h3
+  skip-cert-verify: true
+  obfs: salamander
+  obfs-password: sal_snnZE2WzH4kCUxEFOTdOCenB
+- name: 美国A1｜阿里云中转｜HY2｜新IP备用
+  type: hysteria2
+  server: 8.148.4.25
+  port: 55022
+  password: hy2_zxlA_gZ5N1KzZlsyBKW-3sfR
+  sni: 129.146.243.146.sslip.io
+  alpn:
+  - h3
+  skip-cert-verify: true
+- name: 美国A1｜阿里云中转｜TUIC｜新IP备用
+  type: tuic
+  server: 8.148.4.25
+  port: 444
+  uuid: 25a54c97-c3c3-4505-8d11-93d742eff8fb
+  password: RBK3FbuEqeWNvM5JxAtKV0bI
+  sni: 129.146.243.146.sslip.io
+  alpn:
+  - h3
+  skip-cert-verify: true
+  udp-relay-mode: native
+  congestion-controller: bbr
+  reduce-rtt: true
+- name: 美国A1｜直连｜HY2混淆｜新IP主用
+  type: hysteria2
+  server: 147.224.251.52
+  port: 55021
+  password: hy2_zxlA_gZ5N1KzZlsyBKW-3sfR
+  sni: 129.146.243.146.sslip.io
+  alpn:
+  - h3
+  skip-cert-verify: true
+  obfs: salamander
+  obfs-password: sal_snnZE2WzH4kCUxEFOTdOCenB
+- name: 美国A1｜直连｜HY2｜新IP备用
+  type: hysteria2
+  server: 147.224.251.52
+  port: 55020
+  password: hy2_zxlA_gZ5N1KzZlsyBKW-3sfR
+  sni: 129.146.243.146.sslip.io
+  alpn:
+  - h3
+  skip-cert-verify: true
+- name: 美国A1｜直连｜TUIC｜新IP备用
+  type: tuic
+  server: 147.224.251.52
+  port: 443
+  uuid: 25a54c97-c3c3-4505-8d11-93d742eff8fb
+  password: RBK

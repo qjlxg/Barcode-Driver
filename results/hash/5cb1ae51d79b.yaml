@@ -1,0 +1,76 @@
+mixed-port: 7890
+mode: rule
+log-level: info
+ipv6: false
+allow-lan: true
+external-controller: 127.0.0.1:9090
+
+proxies:
+  - name: 首尔99-VLESS
+    type: vless
+    server: 43.155.143.32
+    port: 443
+    uuid: aada3bb9-8ea4-42dc-af77-c728b0453aa3
+    network: tcp
+    flow: xtls-rprx-vision
+    tls: true
+    udp: false
+    servername: www.bing.com
+    reality-opts:
+      public-key: hzDjiRS6oMKwGOQRwwNQYJMWKoQpmChLMCsEVPQH6Xo
+      short-id: 6ba85179e30d4fc2
+    client-fingerprint: random
+
+proxy-groups:
+  - name: Proxy
+    type: select
+    proxies:
+      - 首尔99-VLESS
+      - DIRECT
+
+rules:
+  - DST-PORT,22,DIRECT
+  - GEOSITE,private,DIRECT
+  - GEOIP,private,DIRECT,no-resolve
+  - DOMAIN-SUFFIX,bilibili.com,DIRECT
+  - DOMAIN-SUFFIX,bilivideo.com,DIRECT
+  - DOMAIN-SUFFIX,acgvideo.com,DIRECT
+  - DOMAIN-SUFFIX,bilibili.tv,DIRECT
+  - DOMAIN-SUFFIX,hdslb.com,DIRECT
+  - DOMAIN-SUFFIX,bilicdn1.com,DIRECT
+  - DOMAIN-SUFFIX,bilivideo.cn,DIRECT
+  - DOMAIN-SUFFIX,mcdn.bilivideo.cn,DIRECT
+  - DOMAIN-SUFFIX,szbdyd.com,DIRECT
+  - DOMAIN-SUFFIX,akamaized.net,DIRECT
+  - DOMAIN-KEYWORD,bilibili,DIRECT
+  - DOMAIN-KEYWORD,bilivideo,DIRECT
+  - DOMAIN-KEYWORD,hdslb,DIRECT
+  - DOMAIN-SUFFIX,iqiyi.com,DIRECT
+  - DOMAIN-SUFFIX,qiyi.com,DIRECT
+  - DOMAIN-SUFFIX,iqiyipic.com,DIRECT
+  - DOMAIN-SUFFIX,youku.com,DIRECT
+  - DOMAIN-SUFFIX,ykimg.com,DIRECT
+  - DOMAIN-SUFFIX,tudou.com,DIRECT
+  - DOMAIN-SUFFIX,qq.com,DIRECT
+  - DOMAIN-SUFFIX,qpic.cn,DIRECT
+  - DOMAIN-SUFFIX,gtimg.com,DIRECT
+  - DOMAIN-SUFFIX,v.qq.com,DIRECT
+  - DOMAIN-SUFFIX,mgtv.com,DIRECT
+  - DOMAIN-SUFFIX,mgtv.com.cn,DIRECT
+  - DOMAIN-SUFFIX,douyin.com,DIRECT
+  - DOMAIN-SUFFIX,douyinvod.com,DIRECT
+  - DOMAIN-SUFFIX,ixigua.com,DIRECT
+  - DOMAIN-SUFFIX,byteimg.com,DIRECT
+  - DOMAIN-SUFFIX,bytecdn.cn,DIRECT
+  - GEOSITE,cn,DIRECT
+  - GEOIP,CN,DIRECT,no-resolve
+  - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
+  - DOMAIN-SUFFIX,googlevideo.com,Proxy
+  - DOMAIN-SUFFIX,youtube.com,Proxy
+  - DOMAIN-SUFFIX,youtu.be,Proxy
+  - DOMAIN-SUFFIX,ytimg.com,Proxy
+  - DOMAIN-SUFFIX,googleapis.com,Proxy
+  - DOMAIN-SUFFIX,gvt1.com,Proxy
+  - DOMAIN-SUFFIX,ggpht.com,Proxy
+  - GEOSITE,category-ads,REJECT
+  - MATCH,Proxy
