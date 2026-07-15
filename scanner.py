@@ -38,6 +38,11 @@ async def scan(session, host, port, path, pbar):
                         content_hash = hashlib.md5(text.encode("utf-8")).hexdigest()[:12]
                         now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                         
+                        # 强制落地备份 (只要匹配到 SIGNS 就存)
+                        os.makedirs("results/hash", exist_ok=True)
+                        with open(f"results/hash/{content_hash}.txt", "w", encoding="utf-8") as f:
+                            f.write(text)
+
                         if url not in history_data:
                             # 新资产
                             stats["saved"] += 1
@@ -55,12 +60,6 @@ async def scan(session, host, port, path, pbar):
                                 row = old_row
                         
                         history_data[url] = row
-                        
-                        # 保存文件
-                        os.makedirs("results/hash", exist_ok=True)
-                        with open(f"results/hash/{content_hash}.txt", "w", encoding="utf-8") as f:
-                            f.write(text)
-                            
                         return # 找到即停止尝试该端口
                     else:
                         # DEBUG: 记录未匹配到 SIGNS 的响应内容
