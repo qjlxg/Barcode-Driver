@@ -1,3 +1,59 @@
+name: 清点流水线
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 */1 * * *
+
+jobs:
+  asset_pipeline:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 设置环境与依赖
+        run: |
+          sudo apt-get update && sudo apt-get install -y masscan
+          pip install aiohttp tqdm
+
+      - name: 1. 生成任务批次
+        run: python3 processor.py
+
+      - name: 2. 高速端口探测
+        run: |
+          if [ -s targets.txt ]; then
+            TARGETS=$(tr '\n' ',' < targets.txt | sed 's/,$//')
+            PORTS=$(cat ports.txt | tr ',\n\r' ' ' | xargs | tr ' ' ',')
+            
+            sudo masscan $TARGETS -p"$PORTS" --rate 1000 --wait 5 --open-only | \
+            awk '/Discovered open port/ { split($4,p,"/"); print $6 ":" p[1] }' | \
+            sort -u > alive_latest.txt
+            
+            if [ -s alive_latest.txt ]; then
+              cat alive_latest.txt >> alive_history.txt
+              sort -u alive_history.txt -o alive_history.txt
+            fi
+          else
+            touch alive_latest.txt
+          fi
+          
+      - name: 3. 深度指纹采集 (增量过滤)
+        run: |
+          if [ -s alive_latest.txt ]; then
+            python3 filter_assets.py
+            if [ -s alive_new.txt ]; then
+              python3 "scanner.py" --file alive_new.txt
+            else
+              echo "[-] 本轮无新资产需要深度检测。"
+            fi
+          else
+            echo "[-] 无存活资产。"
+          fi
+
       - name: 结果归档与提交
         run: |
           git config --global user.name 'github-actions[bot]'
@@ -10,21 +66,21 @@
             rm -rf results/hash/*
           fi
           
+          # 归档 logs
           if [ -d "logs" ]; then git add logs/; fi
           git add progress.json alive_latest.txt alive_history.txt scan_results.csv archive/hash/ || true
           
-          # 2. 判断是否有改动
+          # 2. 判断是否有改动并执行提交
           if [[ -n $(git status -s) ]]; then
             git commit -m "Auto: 资产轮询完成 $(date +'%Y-%m-%d %H:%M')"
             
-            # --- 修复核心：处理未提交的改动 ---
-            # 先暂存所有改动 (包含可能被忽略的、处于 unstaged 状态的残留)
+            # 使用 stash 暂存所有工作区状态，确保 rebase 时工作区是干净的
             git stash
             
-            # 拉取远程并变基
+            # 拉取远程最新提交并变基，解决冲突
             git pull --rebase origin main
             
-            # 恢复刚才 stash 的内容
+            # 恢复之前暂存的改动
             git stash pop || true
             
             # 推送代码
