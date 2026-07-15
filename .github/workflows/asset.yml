@@ -59,31 +59,24 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # 1. 归档处理
+          # 1. 归档处理 (确保删除原有 logs 相关逻辑，使用 find 命令更健壮)
           mkdir -p archive/hash
-          if [ -d "results/hash" ] && [ "$(ls -A results/hash 2>/dev/null | wc -l)" -gt 5000 ]; then
-            tar -czf "archive/hash/results_hash_$(TZ='Asia/Shanghai' date +%Y%m%d_%H%M%S).tar.gz" results/hash/
-            rm -rf results/hash/*
+          if [ -d "results/hash" ] && [ "$(find results/hash -maxdepth 1 -name "*.txt" | wc -l)" -gt 5000 ]; then
+            tar -czf "archive/hash/results_hash_$(TZ='Asia/Shanghai' date +%Y%m%d_%H%M%S).tar.gz" results/hash/*.txt
+            find results/hash -maxdepth 1 -name "*.txt" -delete
           fi
           
-          # 归档 logs
-          if [ -d "logs" ]; then git add logs/; fi
+          # 2. 精简后的 Git add (移除了 logs/ 目录追踪)
           git add progress.json alive_latest.txt alive_history.txt scan_results.csv alive_new.txt results/hash/ archive/hash/ || true
           
-          # 2. 判断是否有改动并执行提交
+          # 3. 判断是否有改动并执行提交
           if [[ -n $(git status -s) ]]; then
             git commit -m "Auto: 资产轮询完成 $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
             
-            # 使用 stash 暂存所有工作区状态，确保 rebase 时工作区是干净的
             git stash
-            
-            # 拉取远程最新提交并变基，解决冲突
             git pull --rebase origin main
-            
-            # 恢复之前暂存的改动
             git stash pop || true
             
-            # 推送代码
             git push origin main
           else
             echo "[-] 无数据变动，无需提交。"
