@@ -3,6 +3,7 @@ name: 资产清点流水线
 on:
   workflow_dispatch:
   schedule:
+    # 北京时间 02:00, 08:00, 14:00, 20:00
     - cron: '0 18,0,6,12 * * *'
 
 jobs:
@@ -20,10 +21,7 @@ jobs:
           pip install aiohttp tqdm
 
       - name: 1. 生成任务批次
-        run: |
-          python3 processor.py
-          # 确保 processor.py 结束后生成了 cycle.txt，若无则初始化
-          if [ ! -f cycle.txt ]; then echo "1" > cycle.txt; fi
+        run: python3 processor.py
 
       - name: 2. 高速端口探测
         run: |
@@ -43,15 +41,18 @@ jobs:
             touch alive_latest.txt
           fi
           
-      - name: 3. 深度指纹采集
+      - name: 3. 深度指纹采集 (增量过滤)
         run: |
           if [ -s alive_latest.txt ]; then
-            # 使用 cycle.txt 获取当前轮次并传递给 scanner
-            CYCLE=$(cat cycle.txt)
-            echo "[*] 当前扫描轮次: $CYCLE"
-            python3 scanner.py --file alive_latest.txt --cycle $CYCLE
+            # 调用外部 Python 脚本进行去重，避免 YAML 缩进陷阱
+            python3 filter_assets.py
+            if [ -s alive_new.txt ]; then
+              python3 scanner.py --file alive_new.txt
+            else
+              echo "[-] 本轮无新资产需要深度检测。"
+            fi
           else
-            echo "[-] 本轮无存活资产。"
+            echo "[-] 无存活资产。"
           fi
 
       - name: 结果归档与提交
@@ -60,16 +61,15 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
           mkdir -p archive/hash
-          # 归档阈值调整为 5000，减少频繁 IO 和 Git 提交压力
+          # 已将归档阈值调整为 5000，减少频繁压缩导致的 git 提交压力
           if [ -d "results/hash" ] && [ "$(ls -A results/hash 2>/dev/null | wc -l)" -gt 5000 ]; then
             tar -czf "archive/hash/results_hash_$(date +%Y%m%d_%H%M).tar.gz" results/hash/
             rm -rf results/hash/*
           fi
           
-          # 提交包括新的状态库文件 scan_results.csv 和轮次文件 cycle.txt
-          git add progress.json cycle.txt alive_latest.txt alive_history.txt scan_results.csv archive/hash/ || true
+          git add progress.json alive_latest.txt alive_history.txt scan_results.csv archive/hash/ || true
           if [[ -n $(git status -s) ]]; then
-            git commit -m "Auto: 资产轮询完成 cycle $(cat cycle.txt) $(date +'%Y-%m-%d %H:%M')"
+            git commit -m "Auto: 资产轮询完成 $(date +'%Y-%m-%d %H:%M')"
             git push origin main
           else
             echo "[-] 无数据变动，无需提交。"
