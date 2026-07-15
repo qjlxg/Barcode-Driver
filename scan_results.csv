@@ -5,3 +5,5 @@ hash,url,host_port,first_seen,last_seen,last_cycle,status,miss_count
 18e1ebf8cc7d,https://198.200.49.114:443/
 c44f0eeb8e47,http://198.23.254.116:8888/api/sub
 46940ee32fe6,http://47.251.186.129:8888/client/subscribe
+aef0105ca308,https://107.161.90.169:8080
+a8fc8b8fbb69,https://107.174.85.153:443/api/sub
