@@ -68,7 +68,7 @@ jobs:
           
           # 归档 logs
           if [ -d "logs" ]; then git add logs/; fi
-          git add progress.json alive_latest.txt alive_history.txt scan_results.csv results/hash/ archive/hash/ || true
+          git add progress.json alive_latest.txt alive_history.txt scan_results.csv alive_new.txt results/hash/ archive/hash/ || true
           
           # 2. 判断是否有改动并执行提交
           if [[ -n $(git status -s) ]]; then
