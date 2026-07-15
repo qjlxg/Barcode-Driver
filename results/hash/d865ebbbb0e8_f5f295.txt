@@ -1,0 +1,174 @@
+mixed-port: 7897
+allow-lan: true
+mode: rule
+log-level: info
+ipv6: true
+external-controller: 127.0.0.1:9090
+
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - "*.lan"
+    - localhost.ptlogin2.qq.com
+    - "+.msftconnecttest.com"
+    - "+.msftncsi.com"
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - https://223.5.5.5/dns-query
+    - https://dns.alidns.com/dns-query
+
+proxies:
+  - name: "🇺🇸 LAX-Hy2"
+    type: hysteria2
+    server: 69.63.220.227
+    port: 443
+    password: 038663b35fe801158d3eca2dae5a6fb1
+    obfs: salamander
+    obfs-password: 7e3ea7dfee4694e5e0e73383
+    sni: 69.63.220.227
+    udp: true
+
+  - name: "🇺🇸 LAX-Reality"
+    type: vless
+    server: 69.63.220.227
+    port: 2053
+    uuid: df3d4d27-4d72-4705-90d1-03021e40588d
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.microsoft.com
+    reality-opts:
+      public-key: jGbSAgFsanhpgbiqz7lNcHFDFgILUkxNBiTGeqnysnU
+      short-id: 42165e773aece9ab
+    client-fingerprint: chrome
+
+proxy-groups:
+  - name: "🚀 节点选择"
+    type: select
+    proxies:
+      - "♻️ 自动选择"
+      - "🇺🇸 LAX-Hy2"
+      - "🇺🇸 LAX-Reality"
+      - DIRECT
+
+  - name: "♻️ 自动选择"
+    type: url-test
+    url: http://cp.cloudflare.com/generate_204
+    interval: 300
+    tolerance: 50
+    proxies:
+      - "🇺🇸 LAX-Hy2"
+      - "🇺🇸 LAX-Reality"
+
+  - name: "🤖 AI 服务"
+    type: select
+    proxies:
+      - "🚀 节点选择"
+      - "🇺🇸 LAX-Reality"
+      - "🇺🇸 LAX-Hy2"
+
+  - name: "📺 流媒体"
+    type: select
+    proxies:
+      - "🚀 节点选择"
+      - "🇺🇸 LAX-Hy2"
+      - "🇺🇸 LAX-Reality"
+
+  - name: "🎯 全球直连"
+    type: select
+    proxies:
+      - DIRECT
+      - "🚀 节点选择"
+
+  - name: "🛑 广告拦截"
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+
+  - name: "🐟 漏网之鱼"
+    type: select
+    proxies:
+      - "🚀 节点选择"
+      - DIRECT
+
+rules:
+  # AI 服务
+  - DOMAIN-KEYWORD,anthropic,🤖 AI 服务
+  - DOMAIN-KEYWORD,claude,🤖 AI 服务
+  - DOMAIN-SUFFIX,anthropic.com,🤖 AI 服务
+  - DOMAIN-SUFFIX,claude.ai,🤖 AI 服务
+  - DOMAIN-SUFFIX,claude.com,🤖 AI 服务
+  - DOMAIN-KEYWORD,openai,🤖 AI 服务
+  - DOMAIN-SUFFIX,openai.com,🤖 AI 服务
+  - DOMAIN-SUFFIX,chatgpt.com,🤖 AI 服务
+  - DOMAIN-SUFFIX,oaistatic.com,🤖 AI 服务
+  - DOMAIN-SUFFIX,oaiusercontent.com,🤖 AI 服务
+  - DOMAIN-KEYWORD,gemini,🤖 AI 服务
+  - DOMAIN-SUFFIX,generativelanguage.googleapis.com,🤖 AI 服务
+  - DOMAIN-KEYWORD,copilot,🤖 AI 服务
+  - DOMAIN-SUFFIX,perplexity.ai,🤖 AI 服务
+
+  # 流媒体
+  - DOMAIN-KEYWORD,netflix,📺 流媒体
+  - DOMAIN-SUFFIX,nflxvideo.net,📺 流媒体
+  - DOMAIN-KEYWORD,disneyplus,📺 流媒体
+  - DOMAIN-SUFFIX,disney-plus.net,📺 流媒体
+  - DOMAIN-KEYWORD,hulu,📺 流媒体
+  - DOMAIN-KEYWORD,hbomax,📺 流媒体
+  - DOMAIN-KEYWORD,youtube,📺 流媒体
+  - DOMAIN-SUFFIX,ytimg.com,📺 流媒体
+  - DOMAIN-SUFFIX,googlevideo.com,📺 流媒体
+  - DOMAIN-KEYWORD,spotify,📺 流媒体
+  - DOMAIN-SUFFIX,twitch.tv,📺 流媒体
+
+  # 常见墙外站（直接给 🚀 节点选择）
+  - DOMAIN-KEYWORD,google,🚀 节点选择
+  - DOMAIN-KEYWORD,github,🚀 节点选择
+  - DOMAIN-KEYWORD,twitter,🚀 节点选择
+  - DOMAIN-SUFFIX,x.com,🚀 节点选择
+  - DOMAIN-KEYWORD,facebook,🚀 节点选择
+  - DOMAIN-KEYWORD,instagram,🚀 节点选择
+  - DOMAIN-KEYWORD,telegram,🚀 节点选择
+  - DOMAIN-SUFFIX,t.me,🚀 节点选择
+  - DOMAIN-KEYWORD,reddit,🚀 节点选择
+  - DOMAIN-SUFFIX,medium.com,🚀 节点选择
+  - DOMAIN-KEYWORD,wikipedia,🚀 节点选择
+
+  # 国内常见直连（兜底，减少流量）
+  - DOMAIN-SUFFIX,cn,🎯 全球直连
+  - DOMAIN-KEYWORD,-cn,🎯 全球直连
+  - DOMAIN-SUFFIX,baidu.com,🎯 全球直连
+  - DOMAIN-SUFFIX,qq.com,🎯 全球直连
+  - DOMAIN-SUFFIX,weixin.com,🎯 全球直连
+  - DOMAIN-SUFFIX,taobao.com,🎯 全球直连
+  - DOMAIN-SUFFIX,tmall.com,🎯 全球直连
+  - DOMAIN-SUFFIX,alipay.com,🎯 全球直连
+  - DOMAIN-SUFFIX,alibaba.com,🎯 全球直连
+  - DOMAIN-SUFFIX,aliyun.com,🎯 全球直连
+  - DOMAIN-SUFFIX,jd.com,🎯 全球直连
+  - DOMAIN-SUFFIX,bilibili.com,🎯 全球直连
+  - DOMAIN-SUFFIX,zhihu.com,🎯 全球直连
+  - DOMAIN-SUFFIX,xiaomi.com,🎯 全球直连
+  - DOMAIN-SUFFIX,apple.com,🎯 全球直连
+
+  # 内网/本地
+  - IP-CIDR,192.168.0.0/16,🎯 全球直连,no-resolve
+  - IP-CIDR,10.0.0.0/8,🎯 全球直连,no-resolve
+  - IP-CIDR,172.16.0.0/12,🎯 全球直连,no-resolve
+  - IP-CIDR,127.0.0.0/8,🎯 全球直连,no-resolve
+  - IP-CIDR,169.254.0.0/16,🎯 全球直连,no-resolve
+
+  # 中国 IP 段直连
+  - GEOIP,LAN,🎯 全球直连,no-resolve
+  - GEOIP,CN,🎯 全球直连,no-resolve
+
+  # 漏网之鱼兜底
+  - MATCH,🐟 漏网之鱼
