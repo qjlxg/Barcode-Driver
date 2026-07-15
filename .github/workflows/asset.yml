@@ -3,8 +3,8 @@ name: 资产清点流水线
 on:
   workflow_dispatch:
   schedule:
-    # 北京时间 02:00, 08:00, 14:00, 20:00
-    - cron: '0 18,0,6,12 * * *'
+    - cron: 0 */1 * * *
+    
 
 jobs:
   asset_pipeline:
