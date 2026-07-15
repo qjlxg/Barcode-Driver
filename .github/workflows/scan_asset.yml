@@ -3,7 +3,6 @@ name: 资产清点流水线
 on:
   workflow_dispatch:
   schedule:
-    # 北京时间 02:00, 08:00, 14:00, 20:00
     - cron: '0 18,0,6,12 * * *'
 
 jobs:
@@ -21,7 +20,9 @@ jobs:
           pip install aiohttp tqdm
 
       - name: 1. 生成任务批次
-        run: python3 processor.py
+        run: |
+          python3 processor.py
+          # 确保 processor.py 运行后生成了 cycle.txt
 
       - name: 2. 高速端口探测
         run: |
@@ -41,18 +42,15 @@ jobs:
             touch alive_latest.txt
           fi
           
-      - name: 3. 深度指纹采集 (增量过滤)
+      - name: 3. 深度指纹采集
         run: |
           if [ -s alive_latest.txt ]; then
-            # 调用外部 Python 脚本进行去重，避免 YAML 缩进陷阱
-            python3 filter_assets.py
-            if [ -s alive_new.txt ]; then
-              python3 scanner.py --file alive_new.txt
-            else
-              echo "[-] 本轮无新资产需要深度检测。"
-            fi
+            # 直接调用新版 scanner.py，它自带数据库状态管理
+            # 从 cycle.txt 读取轮次作为参数传入
+            CYCLE=$(cat cycle.txt)
+            python3 scanner.py --file alive_latest.txt --cycle $CYCLE
           else
-            echo "[-] 无存活资产。"
+            echo "[-] 本轮无存活资产。"
           fi
 
       - name: 结果归档与提交
@@ -61,7 +59,7 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
           mkdir -p archive/hash
-          # 已将归档阈值调整为 5000，减少频繁压缩导致的 git 提交压力
+          # 归档阈值保持为 5000
           if [ -d "results/hash" ] && [ "$(ls -A results/hash 2>/dev/null | wc -l)" -gt 5000 ]; then
             tar -czf "archive/hash/results_hash_$(date +%Y%m%d_%H%M).tar.gz" results/hash/
             rm -rf results/hash/*
