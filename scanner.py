@@ -47,6 +47,8 @@ async def scan(session, host, port, path, pbar):
                             with open("scan_results.csv", "a", encoding="utf-8", newline="") as f:
                                 writer = csv.writer(f)
                                 writer.writerow([content_hash, url])
+                        else:
+                            pbar.write(f"[!] 发现重复指纹: {content_hash} (跳过: {url})")
                                 
                         return # 找到即停止尝试该端口
         except: continue
