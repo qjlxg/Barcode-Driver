@@ -5,7 +5,7 @@ import datetime
 from pathlib import Path
 from urllib.parse import urlparse
 
-BATCH_SIZE = 5
+BATCH_SIZE = 1
 PROGRESS_FILE = Path('progress.json')
 
 def get_net_id(net_str):
@@ -13,7 +13,9 @@ def get_net_id(net_str):
 
 def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=BATCH_SIZE):
     input_path = Path(input_file)
-    if not input_path.exists(): return
+    if not input_path.exists():
+        print("[!] ip.txt不存在")
+        return
 
     # 1. 读取并规范化 (维护插入顺序)
     seen = set()
@@ -41,8 +43,13 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
                     networks.append(net_str)
             except ValueError: continue
     
+    print(f"[*] 解析得到 {len(networks)} 个网段")
+    
     all_networks = networks[::-1] # 后加入优先
-    if not all_networks: return
+    if not all_networks:
+        print("[!] 没有解析出任何网段")
+        Path(output_file).write_text("", encoding="utf-8")
+        return
 
     # 2. 计算当前任务队列的哈希 (用于感知内容变化)
     current_list_hash = hashlib.md5("".join(all_networks).encode()).hexdigest()
@@ -54,16 +61,16 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
         except: pass
 
     # 4. 逻辑判断：如果哈希变了，视为队列更新，重置进度
-    if state["list_hash"] != current_list_hash:
+    if state.get("list_hash", "") != current_list_hash:
         print("[*] 检测到任务列表更新，重置进度...")
         state = {"list_hash": current_list_hash, "last_network_id": "", "last_time": ""}
 
     # 5. 查找进度
     current_hash_list = [get_net_id(n) for n in all_networks]
     start_index = 0
-    if state["last_network_id"]:
+    if state.get("last_network_id"):
         for i, nid in enumerate(current_hash_list):
-            if nid == state["last_network_id"]:
+            if nid == state.get("last_network_id"):
                 start_index = i + 1
                 break
     
@@ -77,6 +84,7 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
         state["last_time"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         PROGRESS_FILE.write_text(json.dumps(state, indent=2))
 
+    print(f"[*] 写入文件: {Path(output_file).resolve()}")
     with open(output_file, 'w', encoding='utf-8') as f:
         f.writelines([f"{n}\n" for n in batch])
 
