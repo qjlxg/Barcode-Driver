@@ -155,20 +155,6 @@ def save_history(history):
 def read_scanned_cidrs():
     """
     读取 targets.txt。
-
-    targets.txt 代表本轮真正交给后续扫描流程的目标。
-
-    例如：
-
-        1.2.3.0/24
-        5.6.7.0/24
-
-    最终统一成：
-
-        {
-            "1.2.3.0/24",
-            "5.6.7.0/24"
-        }
     """
 
     scanned_cidrs = set()
@@ -211,27 +197,6 @@ def read_scanned_cidrs():
 def read_result_counts():
     """
     统计 scan_results.csv 中每个 /24 当前累计拥有多少条结果。
-
-    例如：
-
-        1.2.3.0/24 -> 25
-        5.6.7.0/24 -> 3
-
-    这里的数量是累计结果数量。
-
-    manage_seeds.py 会将：
-
-        本次数量
-        vs
-        历史记录中的上次数量
-
-    进行比较。
-
-    如果：
-
-        current_hits > last_total_hits
-
-    则认为本轮产生了新增结果。
     """
 
     result_counts = defaultdict(int)
@@ -260,7 +225,6 @@ def read_result_counts():
 
             for row in reader:
 
-                # 需要至少能够读取 row[2]
                 if len(row) < 3:
                     continue
 
@@ -285,12 +249,6 @@ def read_result_counts():
 def normalize_history_entry(entry):
     """
     兼容历史版本的 seed_history.json。
-
-    确保每个网段至少拥有：
-
-        last_total_hits
-        no_hit_rounds
-        has_historical_hit
     """
 
     if not isinstance(entry, dict):
@@ -349,11 +307,31 @@ def manage_seeds():
     # --------------------------------------------------------
 
     scanned_cidrs = read_scanned_cidrs()
+    
+    if len(scanned_cidrs) == 0:
+        print("没有实际扫描，本轮跳过清理")
+        return
 
     print(
         f"[*] 本轮实际扫描网段: "
         f"{len(scanned_cidrs)}"
     )
+    
+    if len(history) == 0:
+        print("首次运行，仅建立历史，不清理")
+
+        current_results = read_result_counts()
+
+        for cidr in scanned_cidrs:
+            hits = current_results.get(cidr, 0)
+            history[cidr] = {
+                "last_total_hits": hits,
+                "no_hit_rounds": 0,
+                "has_historical_hit": hits > 0
+            }
+
+        save_history(history)
+        return
 
     # --------------------------------------------------------
     # 3. 读取当前累计结果
@@ -368,19 +346,6 @@ def manage_seeds():
 
     # --------------------------------------------------------
     # 4. 更新本轮状态
-    #
-    # 只有 scanned_cidrs 中的网段才会更新：
-    #
-    # A. 本轮扫描 + 有新增
-    #    no_hit_rounds = 0
-    #
-    # B. 本轮扫描 + 无新增
-    #    no_hit_rounds += 1
-    #
-    # C. 本轮没有扫描
-    #    完全不改变状态
-    #
-    # 这是核心逻辑。
     # --------------------------------------------------------
 
     new_result_cidrs = set()
@@ -388,7 +353,6 @@ def manage_seeds():
 
     for cidr in scanned_cidrs:
 
-        # 如果是第一次见到这个网段
         if cidr not in history:
 
             history[cidr] = {
@@ -399,21 +363,15 @@ def manage_seeds():
 
         state = history[cidr]
 
-        # 当前 scan_results.csv 中的累计结果数
         current_hits = current_results.get(
             cidr,
             0
         )
 
-        # 上一次 manage_seeds.py 记录的结果数
         last_hits = state.get(
             "last_total_hits",
             0
         )
-
-        # ----------------------------------------------------
-        # 本轮出现新增结果
-        # ----------------------------------------------------
 
         if current_hits > last_hits:
 
@@ -429,10 +387,6 @@ def manage_seeds():
                 f"{last_hits} -> {current_hits}"
             )
 
-        # ----------------------------------------------------
-        # 本轮实际扫描，但没有新增结果
-        # ----------------------------------------------------
-
         else:
 
             state["no_hit_rounds"] = (
@@ -444,23 +398,13 @@ def manage_seeds():
 
             inactive_cidrs.add(cidr)
 
-        # 更新当前累计结果数量
         state["last_total_hits"] = current_hits
 
     # --------------------------------------------------------
     # 5. 判断哪些 /24 仍然保留
-    #
-    # 注意：
-    #
-    # 没有被本轮扫描的网段，
-    # 不会增加 no_hit_rounds。
-    #
-    # 因此它们不会因为“没被扫描”
-    # 而被误删。
     # --------------------------------------------------------
 
     alive_cidrs = set()
-
     pruned_cidrs = set()
 
     for cidr, state in history.items():
@@ -475,44 +419,22 @@ def manage_seeds():
             False
         )
 
-        # 曾经有过产出
         if has_historical_hit:
 
             if no_hit_rounds < MAX_INACTIVE_OLD:
-
                 alive_cidrs.add(cidr)
-
             else:
-
                 pruned_cidrs.add(cidr)
 
-        # 从未有过产出
         else:
 
             if no_hit_rounds < MAX_INACTIVE_NEW:
-
                 alive_cidrs.add(cidr)
-
             else:
-
                 pruned_cidrs.add(cidr)
 
     # --------------------------------------------------------
     # 6. 清理 ip.txt
-    #
-    # ip.txt 保存的是原始 IP：
-    #
-    # 1.2.3.4
-    # 1.2.3.5
-    # 1.2.3.6
-    #
-    # 如果：
-    #
-    # 1.2.3.0/24
-    #
-    # 被淘汰，
-    #
-    # 那么这个 /24 下的所有 IP 都会被删除。
     # --------------------------------------------------------
 
     original_ips = []
@@ -538,19 +460,25 @@ def manage_seeds():
             cidr = get_cidr_key(ip)
 
             if cidr in alive_cidrs:
-
                 kept_ips.append(ip)
-
             else:
-
                 removed_ips.append(ip)
 
-        # 去重，同时保持原始顺序
-        kept_ips = list(
-            dict.fromkeys(
-                kept_ips
+        # 安全检查 1：删除占比过大
+        if len(original_ips) > 0 and (len(removed_ips) / len(original_ips) > 0.5):
+            print(
+                f"[!] 警告：删除 IP 数量占比超过 50% "
+                f"({len(removed_ips)}/{len(original_ips)})，放弃清理操作。"
             )
-        )
+            return
+
+        # 安全检查 2：保留列表为空
+        if len(kept_ips) == 0:
+            print(f"[!] 警告：计算后的保留 IP 列表为空，放弃清理操作以防丢失种子。")
+            return
+
+        # 去重，同时保持原始顺序
+        kept_ips = list(dict.fromkeys(kept_ips))
 
         with open(
             IP_FILE,
@@ -559,20 +487,11 @@ def manage_seeds():
         ) as f:
 
             if kept_ips:
-
-                f.write(
-                    "\n".join(
-                        kept_ips
-                    )
-                )
-
+                f.write("\n".join(kept_ips))
                 f.write("\n")
 
     else:
-
-        print(
-            f"[WARN] {IP_FILE} 不存在"
-        )
+        print(f"[WARN] {IP_FILE} 不存在")
 
     # --------------------------------------------------------
     # 7. 保存历史
@@ -589,48 +508,15 @@ def manage_seeds():
     print("                管理完成")
     print("=" * 60)
 
-    print(
-        f"[*] 本轮扫描网段: "
-        f"{len(scanned_cidrs)}"
-    )
-
-    print(
-        f"[+] 本轮有新增结果: "
-        f"{len(new_result_cidrs)}"
-    )
-
-    print(
-        f"[-] 本轮扫描但无新增: "
-        f"{len(inactive_cidrs)}"
-    )
-
-    print(
-        f"[+] 当前保留网段: "
-        f"{len(alive_cidrs)}"
-    )
-
-    print(
-        f"[-] 已淘汰网段: "
-        f"{len(pruned_cidrs)}"
-    )
-
-    print(
-        f"[+] 保留 IP 数量: "
-        f"{len(kept_ips)}"
-    )
-
-    print(
-        f"[-] 删除 IP 数量: "
-        f"{len(removed_ips)}"
-    )
-
+    print(f"[*] 本轮扫描网段: {len(scanned_cidrs)}")
+    print(f"[+] 本轮有新增结果: {len(new_result_cidrs)}")
+    print(f"[-] 本轮扫描但无新增: {len(inactive_cidrs)}")
+    print(f"[+] 当前保留网段: {len(alive_cidrs)}")
+    print(f"[-] 已淘汰网段: {len(pruned_cidrs)}")
+    print(f"[+] 保留 IP 数量: {len(kept_ips)}")
+    print(f"[-] 删除 IP 数量: {len(removed_ips)}")
     print("=" * 60)
 
 
-# ============================================================
-# 程序入口
-# ============================================================
-
 if __name__ == "__main__":
-
     manage_seeds()
