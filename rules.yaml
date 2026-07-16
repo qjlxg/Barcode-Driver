@@ -1,15 +1,14 @@
 # ==========================================
-# 优化版 Clash 配置文件 (大陆环境优化)
+# 最终生产环境版 (由 Python 预排序 + fallback 驱动)
 # ==========================================
 
 proxy-groups:
-  # fallback 模式：当第一个节点挂了自动切换到下一个，比 url-test 在公共节点环境下更稳定
+  # fallback 模式：结合 Python 预排序，实现最快节点优先，挂了即切
   - name: "自动优选"
     type: fallback
     url: https://cp.cloudflare.com/generate_204
     interval: 300
-    tolerance: 50
-    proxies: [] # 脚本自动填充
+    proxies: [] # 脚本自动填充（已按 Python 测速结果排序）
 
   - name: "手动选择"
     type: select
@@ -45,9 +44,9 @@ rule-providers:
     interval: 86400
 
 rules:
-  - RULE-SET,reject,REJECT        # 广告拦截，最优先
-  - RULE-SET,private,DIRECT       # 私有域名直连
-  - RULE-SET,lancidr,DIRECT       # 局域网 IP 直连
-  - RULE-SET,cncidr,DIRECT        # 国内 IP 段直连
-  - RULE-SET,cn,DIRECT            # 国内域名直连
-  - MATCH,自动优选                # 剩余所有流量走自动优选组
+  - RULE-SET,reject,REJECT
+  - RULE-SET,private,DIRECT
+  - RULE-SET,lancidr,DIRECT
+  - RULE-SET,cncidr,DIRECT
+  - RULE-SET,cn,DIRECT
+  - MATCH,自动优选
