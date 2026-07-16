@@ -5,8 +5,8 @@ from concurrent.futures import ThreadPoolExecutor
 
 # 配置
 INPUT_CSV = 'scan_results.csv'
-OUTPUT_DIR = 'results/hash'
-UNIQUE_URLS_FILE = 'unique_urls.txt'  # 新增：去重檔案路徑
+OUTPUT_DIR = 'results/hasha'
+UNIQUE_URLS_FILE = 'unique_urls.txt'
 TIMEOUT = 8  
 THREADS = 10 
 
@@ -19,9 +19,8 @@ def download_node_file(row):
 
     file_path = os.path.join(OUTPUT_DIR, f"{hash_val}.yaml")
     
-    # 新增：跳過已存在的檔案
+    # 若檔案已存在則跳過
     if os.path.exists(file_path):
-        print(f"[SKIP] 檔案已存在: {hash_val}")
         return
     
     try:
@@ -44,20 +43,18 @@ def run_downloader():
         print(f"[!] 找不到 {INPUT_CSV}")
         return
 
-    # 讀取 CSV 並去重
+    # 1. 讀取並去重
     with open(INPUT_CSV, 'r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         tasks = [row for row in reader]
-    
-    # 提取所有不重複的 URL
+
+    # 提取不重複 URL 並保存
     unique_urls = sorted(list(set(row['url'] for row in tasks if row.get('url'))))
-    
-    # 保存去重後的 URL 到文件
     with open(UNIQUE_URLS_FILE, 'w', encoding='utf-8') as f:
         f.write('\n'.join(unique_urls))
     print(f"[INFO] 已保存 {len(unique_urls)} 個不重複網址至 {UNIQUE_URLS_FILE}")
 
-    # 執行下載
+    # 2. 執行下載
     with ThreadPoolExecutor(max_workers=THREADS) as executor:
         executor.map(download_node_file, tasks)
 
