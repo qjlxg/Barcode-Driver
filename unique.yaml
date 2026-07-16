@@ -6,327 +6,10 @@ proxy-groups:
   proxies:
   - Windows-VPN
   - reality-www.microsoft.com
-  - 🇨🇦26加拿大-全网优化(Tuic)
-  - 🇫🇷23法国-全网优化(Tuic)
-  - 🇬🇧17英国-全网优化(Tuic)
-  - 🇨🇦18加拿大-全网优化(Tuic)
-  - 🇦🇪13迪拜-电信/移动/南方联通(Tuic)
-  - 🇨🇱21智利-全网优化(Tuic)
-  - 🇮🇱30以色列-全网优化(Tuic)
-  - 🇪🇸31西班牙-全网优化(Tuic)
-  - 🇰🇷8韩国集群-全网优化(M)
-  - 🇺🇸11美国西集群-全网优化(M)
-  - 🇺🇸12美国旧金山-全网优化(M)
-  - 🇸🇬15新加坡-全网优化(M)
-  - 🇩🇪16德国-电信/联通(M)
-  - 🇬🇧17英国-全网优化(M)
-  - 🇨🇦18加拿大-全网优化(M)
-  - 🇦🇺19澳洲-移动优化(M)
-  - 🇧🇷20巴西-全网优化(M)
-  - 🇨🇱21智利-全网优化(M)
-  - 🇫🇷23法国-全网优化(M)
-  - 🇲🇽27墨西哥-全网优化(M)
-  - 🇳🇱28荷兰-全网优化(M)
-  - 🇺🇸29美国旧金山-全网优化(M)
-  - 🇪🇸31西班牙-全网优化(M)
-  - 🇲🇾35马来西亚-移动/联通(M)
-  - 🇺🇸39美国华盛顿-全网优化(M)
-  - 🇨🇭41瑞士-全网优化(M)
-  - 🇿🇦43南非-约翰内斯堡(M)
-  - 🇭🇰1香港集群-全网优化(M)
-  - 🇭🇰3香港集群-全网优化(M)
-  - 4台湾-联通优化(M)
-  - 5台湾-联通/移动(M)
-  - 🇰🇷8韩国集群-全网优化(AnyTLS)
-  - 🇰🇷25韩国-全网优化(AnyTLS)
-  - 🇯🇵10日本-全网优化(AnyTLS)
-  - 🇺🇸12美国旧金山-全网优化(AnyTLS)
-  - 🇺🇸29美国旧金山-全网优化(AnyTLS)
-  - 🇦🇪13迪拜-电信/移动/南方联通(AnyTLS)
-  - 🇮🇳14印度-移动/南方联通(AnyTLS)
-  - 🇸🇬6新加坡-联通/移动(AnyTLS)
-  - 🇬🇧17英国-全网优化(AnyTLS)
-  - 🇨🇦26加拿大-全网优化(AnyTLS)
-  - 🇷🇺32俄罗斯-全网优化(AnyTLS)
-  - 🇭🇰2香港集群-全网优化(AnyTLS)
-  - 🇺🇸11美国西集群-全网优化(hy2)
-  - 🇺🇸12美国旧金山-全网优化(hy2)
-  - 🇺🇸29美国旧金山-全网优化(hy2)
-  - 🇺🇸39美国华盛顿-全网优化(hy2)
-  - 44美国维加斯-全网优化(hy2)
-  - 🇺🇸39美国华盛顿-全网优化(AnyTLS)
-  - 44美国维加斯-全网优化(AnyTLS)
-  - 🇺🇸11美国西集群-全网优化(AnyTLS)
-  - '官网: go.dgivn.click'
   - Shanghai-IP
   - Shanghai-SOCKS
   - standalone-60003-no-telegram
   - tg-vless-reality-6002
-  - 🇰🇷韩国KR006 0.8MB/s中性 TG@jcnode
-  - 🇸🇬新加坡SG001 16.6MB/s中性 TG@jcnode
-  - 🇸🇬新加坡SG002 0.7MB/s中性 TG@jcnode
-  - 🇯🇵 JP|88|M540ms|43.165.183.74|YT|vless
-  - 🇷🇺俄罗斯RU008 4.9MB/s中性 TG@jcnode
-  - 🇷🇺俄罗斯RU009 3.7MB/s中性 TG@jcnode
-  - 🇯🇵日本JP002 11.1MB/s中性 TG@jcnode
-  - 🇯🇵日本JP001 11.7MB/s中性 TG@jcnode
-  - 🇳🇱荷兰NL002 3.0MB/s中性 TG@jcnode
-  - 🇺🇸美国US062 4.2MB/s纯净 TG@jcnode
-  - 🇳🇱荷兰NL004 3.0MB/s中性 TG@jcnode
-  - 🇸🇪瑞典SE001 0.3MB/s中性 TG@jcnode
-  - 🇰🇷韩国KR003 3.7MB/s中性 TG@jcnode
-  - 🇰🇷韩国KR004 4.7MB/s中性 TG@jcnode
-  - 🇰🇷韩国KR001 6.0MB/s中性 TG@jcnode
-  - 🇯🇵 JP|75|M634ms|212.135.210.133|YT|vless
-  - 🇬🇧英国GB002 0.8MB/s中性 TG@jcnode
-  - 🇰🇷韩国KR002 3.7MB/s中性 TG@jcnode
-  - 🇺🇸美国US 063 0.1MB/s TG@jcnode
-  - 🇺🇸 US|75|M1300ms|88.210.36.109|GPT+YT|ss
-  - 🇭🇰香港HK002 2.1MB/s纯净 TG@jcnode
-  - 🇺🇸美国US 066 5.6MB/s TG@jcnode
-  - 🇺🇸美国US004 1.8MB/s中性 TG@jcnode
-  - 🇺🇸美国US047 5.5MB/s中性 TG@jcnode
-  - 🇷🇺俄罗斯RU001 8.6MB/s纯净 TG@jcnode
-  - 🇯🇵日本JP006 3.6MB/s中性 TG@jcnode
-  - 🇫🇷法国FR001 3.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US045 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US017 2.6MB/s中性 TG@jcnode
-  - 🇺🇸美国US 026 5.5MB/s TG@jcnode
-  - 🇺🇸美国US030 6.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US003 6.2MB/s中性 TG@jcnode
-  - 🇺🇸美国US021 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US058 5.9MB/s中性 TG@jcnode
-  - 🇺🇸美国US027 5.7MB/s中性 TG@jcnode
-  - 🇨🇦加拿大CA001 1.8MB/s中性 TG@jcnode
-  - 🇺🇸美国US046 6.1MB/s中性 TG@jcnode
-  - 🇺🇸 US|67|M1641ms|192.119.83.187|GPT+YT|vless
-  - 🇺🇸美国US 002 6.0MB/s TG@jcnode
-  - 🇺🇸美国US037 5.8MB/s中性 TG@jcnode
-  - 🇩🇪德国DE009 1.2MB/s纯净 TG@jcnode
-  - 🇷🇺俄罗斯RU007 0.4MB/s中性 TG@jcnode
-  - 🇺🇸美国US050 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US025 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US022 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US013 6.1MB/s中性 TG@jcnode
-  - 🇷🇺俄罗斯RU006 2.6MB/s中性 TG@jcnode
-  - 🇺🇸美国US054 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US052 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US015 4.9MB/s中性 TG@jcnode
-  - 🇺🇸美国US 001 5.5MB/s TG@jcnode
-  - 🇺🇸美国US053 6.1MB/s中性 TG@jcnode
-  - 🇸🇬 SG|81.2|M1920ms|164.52.1.182|YT|vless
-  - 🇺🇸美国US032 6.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US024 5.3MB/s中性 TG@jcnode
-  - 🇺🇸美国US036 5.4MB/s中性 TG@jcnode
-  - 🇺🇸美国US056 6.0MB/s中性 TG@jcnode
-  - 🇺🇸 US|60|M1090ms|104.28.165.54|GPT+YT|vless
-  - 🇺🇸美国US051 3.2MB/s中性 TG@jcnode
-  - 🇺🇸美国US 079 8.5MB/s TG@jcnode
-  - 🇺🇸美国US020 5.9MB/s中性 TG@jcnode
-  - 🇩🇪德国DE008 6.1MB/s中性 TG@jcnode
-  - 🇺🇸 US|75|M1114ms|159.203.180.17|YT|vless
-  - 🇺🇸 US|67.4|M1626ms|159.203.180.17|GPT+YT|vless
-  - 🇺🇸美国US012 6.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US034 5.8MB/s中性 TG@jcnode
-  - 🇺🇸美国US049 5.5MB/s中性 TG@jcnode
-  - 🇺🇸 US|75|M1005ms|192.119.83.187|GPT+YT|vless
-  - 🇦🇪阿联酋AE001 1.7MB/s纯净 TG@jcnode
-  - 🇺🇸美国US057 6.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US023 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US055 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US031 5.0MB/s中性 TG@jcnode
-  - 🇺🇸美国US014 6.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US092 6.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US 033 4.3MB/s TG@jcnode
-  - 🇺🇸 US|68|M1141ms|138.199.35.199|GPT+YT|http
-  - 🇺🇸美国US 042 6.8MB/s TG@jcnode
-  - 🇺🇸美国US040 5.5MB/s中性 TG@jcnode
-  - 🇦🇺 AU|60.2|M981ms|159.13.44.228|YT|http
-  - 🇺🇸美国US 085 6.8MB/s TG@jcnode
-  - 🇺🇸美国US038 6.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US 076 7.4MB/s TG@jcnode
-  - 🇫🇮芬兰FI004 3.7MB/s中性 TG@jcnode
-  - 🇺🇸美国US064 0.2MB/s中性 TG@jcnode
-  - 🇺🇸美国US093 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US008 4.0MB/s中性 TG@jcnode
-  - 🇺🇸美国US011 4.9MB/s中性 TG@jcnode
-  - 🇺🇸美国US007 3.9MB/s中性 TG@jcnode
-  - 🇳🇱荷兰NL 001 6.2MB/s TG@jcnode
-  - 🇺🇸 US|68|M1114ms|204.1.108.90|GPT+YT|http
-  - 🇺🇸美国US 059 6.8MB/s TG@jcnode
-  - 🇺🇸美国US 084 7.4MB/s TG@jcnode
-  - 🇭🇰香港HK004 1.8MB/s纯净 TG@jcnode
-  - 🇬🇧英国GB001 1.8MB/s中性 TG@jcnode
-  - 🇺🇸美国US009 3.7MB/s中性 TG@jcnode
-  - 🇺🇸美国US 088 6.8MB/s TG@jcnode
-  - 🇺🇸美国US 077 6.8MB/s TG@jcnode
-  - 🇺🇸美国US 083 5.5MB/s TG@jcnode
-  - 🇳🇱荷兰NL 009 6.2MB/s TG@jcnode
-  - 🇳🇱荷兰NL 006 6.1MB/s TG@jcnode
-  - 🇩🇪德国DE011 4.3MB/s中性 TG@jcnode
-  - 🇺🇸美国US 070 8.0MB/s TG@jcnode
-  - 🇺🇸美国US 087 6.1MB/s TG@jcnode
-  - 🇺🇸美国US 069 6.1MB/s TG@jcnode
-  - 🇺🇸美国US 080 7.4MB/s TG@jcnode
-  - 🇺🇸美国US 075 6.8MB/s TG@jcnode
-  - 🇳🇱荷兰NL 007 8.6MB/s TG@jcnode
-  - 🇺🇸美国US 078 7.4MB/s TG@jcnode
-  - 🇺🇸美国US 089 0.3MB/s TG@jcnode
-  - 🇩🇪德国DE013 3.1MB/s纯净 TG@jcnode
-  - 🇳🇱荷兰NL 005 6.8MB/s TG@jcnode
-  - 🇺🇸美国US 044 8.0MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 073 1.2MB/s TG@jcnode
-  - 🇺🇸美国US 043 7.4MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 029 3.1MB/s TG@jcnode
-  - 🇺🇸美国US 081 8.0MB/s TG@jcnode
-  - 🇺🇸美国US 086 0.5MB/s TG@jcnode
-  - 🇺🇸美国US006 5.5MB/s中性 TG@jcnode
-  - 🇪🇪爱沙尼亚EE 001 2.5MB/s TG@jcnode
-  - 🇫🇷法国FR 002 5.8MB/s TG@jcnode
-  - 🇩🇪德国DE004 3.4MB/s中性 TG@jcnode
-  - 🇺🇸美国US061 2.5MB/s中性 TG@jcnode
-  - 🇩🇪德国DE006 0.3MB/s中性 TG@jcnode
-  - 🇺🇸美国US 082 6.8MB/s TG@jcnode
-  - 🇺🇸美国US 072 6.1MB/s TG@jcnode
-  - 🇺🇸美国US 073 7.4MB/s TG@jcnode
-  - 🇳🇱荷兰NL 008 8.0MB/s TG@jcnode
-  - 🇵🇱波兰PL001 0.6MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 093 3.1MB/s TG@jcnode
-  - 🇯🇵日本JP004 2.9MB/s中性 TG@jcnode
-  - 🇩🇪德国DE002 3.4MB/s中性 TG@jcnode
-  - 🇺🇸美国US041 5.5MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 003 2.4MB/s TG@jcnode
-  - 🇺🇸美国US 090 7.4MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 077 3.1MB/s TG@jcnode
-  - 🇭🇰香港HK003 2.5MB/s纯净 TG@jcnode
-  - 🇷🇴罗马尼亚RO 027 2.5MB/s TG@jcnode
-  - 🇺🇸美国US 071 6.8MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 070 6.2MB/s TG@jcnode
-  - 🇫🇮芬兰FI001 3.7MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 075 1.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 089 2.6MB/s TG@jcnode
-  - 🇷🇺俄罗斯RU002 0.8MB/s危险 TG@jcnode
-  - 🇷🇴罗马尼亚RO 094 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 016 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 005 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 086 5.5MB/s TG@jcnode
-  - 🇳🇱荷兰NL003 3.7MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 099 3.1MB/s TG@jcnode
-  - 🇷🇺俄罗斯RU011 6.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US065 0.5MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 054 2.5MB/s TG@jcnode
-  - 🇯🇵日本JP003 4.3MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 098 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 017 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 072 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 056 2.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 009 6.6MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 013 6.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 065 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 097 6.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 060 6.0MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 071 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 107 6.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 087 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 052 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 038 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 023 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 015 6.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 043 2.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 050 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 001 2.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 081 4.9MB/s TG@jcnode
-  - 🇺🇸美国US 067 4.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 101 6.0MB/s TG@jcnode
-  - 🇫🇷法国FR003 1.2MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 046 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 069 6.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 034 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 095 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 062 3.0MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 067 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 032 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 019 6.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 006 3.3MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 007 6.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 058 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 022 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 014 2.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 057 6.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 055 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 036 3.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 049 2.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 044 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 106 0.8MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 020 2.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 002 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 108 2.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 085 4.3MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 051 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 084 2.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 076 3.4MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 074 4.9MB/s TG@jcnode
-  - 🇩🇪德国DE010 0.2MB/s有风险 TG@jcnode
-  - 🇩🇪德国DE005 0.3MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 035 4.3MB/s TG@jcnode
-  - 🇺🇸美国US 091 2.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 026 4.9MB/s TG@jcnode
-  - 🇺🇸美国US010 4.3MB/s中性 TG@jcnode
-  - 🇩🇪德国DE001 0.4MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 041 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 025 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 030 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 080 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 100 2.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 104 3.4MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 045 6.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 079 2.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 039 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 047 5.5MB/s TG@jcnode
-  - 🇨🇿捷克CZ001 3.7MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 021 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 068 2.0MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 053 3.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 102 1.8MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 011 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 083 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 064 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 008 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 105 4.8MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 037 3.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 040 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 031 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 048 3.1MB/s TG@jcnode
-  - 🇷🇺俄罗斯RU003 3.1MB/s纯净 TG@jcnode
-  - 🇷🇴罗马尼亚RO 024 4.3MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 010 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 042 3.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 090 2.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 018 5.0MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 092 5.5MB/s TG@jcnode
-  - 🇩🇪德国DE007 3.6MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 012 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 033 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 004 6.1MB/s TG@jcnode
-  - 🇸🇬新加坡SG005 3.1MB/s有风险 TG@jcnode
-  - 🇷🇴罗马尼亚RO 063 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 059 2.5MB/s TG@jcnode
-  - 🇩🇪德国DE003 3.7MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 028 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 082 3.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 088 3.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 078 6.8MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 103 5.0MB/s TG@jcnode
-  - 🇸🇬新加坡SG004 0.3MB/s危险 TG@jcnode
-  - 🇨🇿捷克CZ003 3.3MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 096 3.5MB/s TG@jcnode
-  - 🇭🇰香港HK001 1.9MB/s纯净 TG@jcnode
-  - 🇷🇺俄罗斯RU010 0.2MB/s中性 TG@jcnode
-  - 🇨🇿捷克CZ002 0.6MB/s中性 TG@jcnode
-  - 🇺🇸美国US019 6.0MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 061 4.9MB/s TG@jcnode
-  - 🇯🇵日本JP005 0.2MB/s中性 TG@jcnode
-  - 🇩🇪德国DE012 3.0MB/s纯净 TG@jcnode
   - US-Trojan
   - DO-VPS-Hysteria2
   - DO-VPS-Reality
@@ -454,6 +137,14 @@ proxy-groups:
   - '[CF] CF官方优选31'
   - '[CF] CF官方优选32'
   - xray-reality-159.54.181.175
+  - 🇺🇸 US|84.4|M1564ms|159.65.79.184|GPT+YT|hysteria2
+  - 🇺🇸 US|60|M940ms|2604:a880:2:d1:0:1:677c:8001|GPT+YT|anytls
+  - 🇳🇱 NL-AMS HY2
+  - 🇳🇱 NL-AMS AnyTLS
+  - 🇸🇬 SG|95|M341ms|2400:6180:0:d2:0:2:f62c:e000|YT|hysteria2
+  - 🇸🇬 SG|95|M316ms|2400:6180:0:d2:0:2:f62c:e000|YT|anytls
+  - 🇭🇰 HK-HKG HY2
+  - 🇭🇰 HK|75|M282ms|123.254.107.195|YT|anytls
   - US01
   - 免费-日本1-Ver.7
   - 免费-日本2-Ver.8
@@ -501,8 +192,6 @@ proxy-groups:
   - 🇦🇺 澳大利亚W01
   - 🇫🇷 法国W01
   - 🇺🇦 乌克兰W01
-  - 🇸🇬 SG|95|M341ms|2400:6180:0:d2:0:2:f62c:e000|YT|hysteria2
-  - 🇸🇬 SG|95|M316ms|2400:6180:0:d2:0:2:f62c:e000|YT|anytls
   - 🇯🇵 JP|88|M236ms|45.32.49.228|YT|vless
   - 🇸🇬 SG|88|M340ms|164.52.1.182|GPT+YT|trojan
   - 🇸🇬 SG|88|M389ms|43.134.174.114|GPT+YT|trojan
@@ -512,18 +201,21 @@ proxy-groups:
   - 🇯🇵 JP|88|M407ms|168.138.46.67|YT|trojan
   - 🇯🇵 JP|88|M435ms|85.149.218.210|YT|ss
   - 🇸🇬 SG|88|M337ms|139.59.238.97|YT|trojan
+  - 🇯🇵 JP|88|M540ms|43.165.183.74|YT|vless
   - 🇸🇬 SG|88|M527ms|164.52.1.179|YT|vless
-  - 🇺🇸 US|84.4|M1564ms|159.65.79.184|GPT+YT|hysteria2
   - 🇨🇦 CA|81.5|M843ms|147.5.104.226|GPT+YT|tuic
+  - 🇸🇬 SG|81.2|M1920ms|164.52.1.182|YT|vless
   - 🇯🇵 JP|75|M457ms|31.76.91.71|YT|vless
+  - 🇯🇵 JP|75|M634ms|212.135.210.133|YT|vless
   - 🇺🇸 US|75|M630ms|192.204.46.230|GPT+YT|vmess
   - 🇯🇵 JP|75|M566ms|103.106.228.187|YT|trojan
   - 🇺🇸 US|75|M1065ms|51.81.223.184|GPT+YT|vless
   - 🇺🇸 US|75|M684ms|88.210.36.109|GPT+YT|ss
   - 🇺🇸 US|75|M579ms|104.28.202.178|YT|vless
+  - 🇺🇸 US|75|M1300ms|88.210.36.109|GPT+YT|ss
   - 🇺🇸 US|75|M815ms|18.190.176.112|GPT+YT|ss
   - 🇺🇸 US|75|M956ms|150.136.219.11|GPT+YT|vless
-  - 🇭🇰 HK|75|M282ms|123.254.107.195|YT|anytls
+  - 🇺🇸 US|75|M1114ms|159.203.180.17|YT|vless
   - 🇺🇸 US|75|M1046ms|206.189.182.239|GPT+YT|vless
   - 🇸🇬 SG|75|M844ms|43.133.61.219|YT|vless
   - 🇩🇪 DE|75|M601ms|81.31.211.110|YT|vless
@@ -531,6 +223,7 @@ proxy-groups:
   - 🇺🇸 US|75|M626ms|104.168.76.144|YT|vless
   - 🇺🇸 US|75|M1105ms|23.94.41.146|YT|vless
   - 🇺🇸 US|75|M806ms|104.168.76.144|YT|vless
+  - 🇺🇸 US|75|M1005ms|192.119.83.187|GPT+YT|vless
   - 🇯🇵 JP|75|M1440ms|137.220.225.56|YT|trojan
   - 🇰🇷 KR|75|M537ms|151.245.106.49|YT|vless
   - 🇺🇸 US|75|M1106ms|204.44.74.241|YT|vless
@@ -546,7 +239,11 @@ proxy-groups:
   - 🇭🇰 HK|68.9|M910ms|185.244.208.64|YT|trojan
   - 🇵🇱 PL|68.3|M926ms|185.16.36.200|YT|vless
   - 🇺🇸 US|68|M879ms|44.253.54.238|YT|http
+  - 🇺🇸 US|68|M1114ms|204.1.108.90|GPT+YT|http
+  - 🇺🇸 US|68|M1141ms|138.199.35.199|GPT+YT|http
+  - 🇺🇸 US|67.4|M1626ms|159.203.180.17|GPT+YT|vless
   - 🇵🇱 PL|67.1|M1034ms|57.128.195.136|YT|hysteria2
+  - 🇺🇸 US|67|M1641ms|192.119.83.187|GPT+YT|vless
   - 🇳🇱 NL|66.4|M975ms|89.105.210.100|YT|vless
   - 🇨🇭 CH|66|M986ms|152.233.31.70|YT|vless
   - 🇷🇺 RU|64.4|M1026ms|217.168.247.209|YT|vless
@@ -571,8 +268,10 @@ proxy-groups:
   - 🇺🇸 US|62|M1318ms|162.243.23.145|YT|trojan
   - 🇫🇮 FI|61.8|M1173ms|147.78.181.194|YT|hysteria2
   - 🇳🇱 NL|61.5|M1103ms|82.41.131.23|YT|vless
+  - 🇦🇺 AU|60.2|M981ms|159.13.44.228|YT|http
   - 🇺🇸 US|60|M986ms|107.172.6.224|GPT+YT|vless
   - 🇺🇸 US|60|M1487ms|38.180.204.104|YT|vless
+  - 🇺🇸 US|60|M1090ms|104.28.165.54|GPT+YT|vless
   - 🇩🇪 DE|60|M737ms|81.31.211.116|YT|vless
   - 🇯🇵 JP|60|M411ms|147.45.220.146|YT|anytls
   - 🇺🇸 US|60|M1035ms|2602:f988:210:c4f::7f4|GPT+YT|vless
@@ -586,7 +285,6 @@ proxy-groups:
   - 🇺🇸 US|60|M1014ms|172.190.157.189|YT|vless
   - 🇺🇸 US|60|M1025ms|107.172.6.224|GPT+YT|vless
   - 🇮🇪 IE|60|M808ms|84.247.48.66|YT|ss
-  - 🇺🇸 US|60|M940ms|2604:a880:2:d1:0:1:677c:8001|GPT+YT|anytls
   - 🇩🇪 DE|60|M741ms|51.195.94.187|YT|vless
   - 🇩🇪 DE|60|M876ms|2a05:d014:1701:f201:a448:4f7d:a8d1:2bc|YT|trojan
   - NoCF-Reality-80
@@ -611,8 +309,6 @@ proxy-groups:
   - ☁️ CF-优选2
   - 新加坡-REALITY
   - Ubuntu-Proxy
-  - 硅谷-VLESS
-  - 硅谷-SS
   - ycyun_Proxy
   - ycyun_Proxy_IPv6
   - 🏆 台湾4.30双重代理 (服务端直链)
@@ -848,327 +544,10 @@ proxy-groups:
   - DIRECT
   - Windows-VPN
   - reality-www.microsoft.com
-  - 🇨🇦26加拿大-全网优化(Tuic)
-  - 🇫🇷23法国-全网优化(Tuic)
-  - 🇬🇧17英国-全网优化(Tuic)
-  - 🇨🇦18加拿大-全网优化(Tuic)
-  - 🇦🇪13迪拜-电信/移动/南方联通(Tuic)
-  - 🇨🇱21智利-全网优化(Tuic)
-  - 🇮🇱30以色列-全网优化(Tuic)
-  - 🇪🇸31西班牙-全网优化(Tuic)
-  - 🇰🇷8韩国集群-全网优化(M)
-  - 🇺🇸11美国西集群-全网优化(M)
-  - 🇺🇸12美国旧金山-全网优化(M)
-  - 🇸🇬15新加坡-全网优化(M)
-  - 🇩🇪16德国-电信/联通(M)
-  - 🇬🇧17英国-全网优化(M)
-  - 🇨🇦18加拿大-全网优化(M)
-  - 🇦🇺19澳洲-移动优化(M)
-  - 🇧🇷20巴西-全网优化(M)
-  - 🇨🇱21智利-全网优化(M)
-  - 🇫🇷23法国-全网优化(M)
-  - 🇲🇽27墨西哥-全网优化(M)
-  - 🇳🇱28荷兰-全网优化(M)
-  - 🇺🇸29美国旧金山-全网优化(M)
-  - 🇪🇸31西班牙-全网优化(M)
-  - 🇲🇾35马来西亚-移动/联通(M)
-  - 🇺🇸39美国华盛顿-全网优化(M)
-  - 🇨🇭41瑞士-全网优化(M)
-  - 🇿🇦43南非-约翰内斯堡(M)
-  - 🇭🇰1香港集群-全网优化(M)
-  - 🇭🇰3香港集群-全网优化(M)
-  - 4台湾-联通优化(M)
-  - 5台湾-联通/移动(M)
-  - 🇰🇷8韩国集群-全网优化(AnyTLS)
-  - 🇰🇷25韩国-全网优化(AnyTLS)
-  - 🇯🇵10日本-全网优化(AnyTLS)
-  - 🇺🇸12美国旧金山-全网优化(AnyTLS)
-  - 🇺🇸29美国旧金山-全网优化(AnyTLS)
-  - 🇦🇪13迪拜-电信/移动/南方联通(AnyTLS)
-  - 🇮🇳14印度-移动/南方联通(AnyTLS)
-  - 🇸🇬6新加坡-联通/移动(AnyTLS)
-  - 🇬🇧17英国-全网优化(AnyTLS)
-  - 🇨🇦26加拿大-全网优化(AnyTLS)
-  - 🇷🇺32俄罗斯-全网优化(AnyTLS)
-  - 🇭🇰2香港集群-全网优化(AnyTLS)
-  - 🇺🇸11美国西集群-全网优化(hy2)
-  - 🇺🇸12美国旧金山-全网优化(hy2)
-  - 🇺🇸29美国旧金山-全网优化(hy2)
-  - 🇺🇸39美国华盛顿-全网优化(hy2)
-  - 44美国维加斯-全网优化(hy2)
-  - 🇺🇸39美国华盛顿-全网优化(AnyTLS)
-  - 44美国维加斯-全网优化(AnyTLS)
-  - 🇺🇸11美国西集群-全网优化(AnyTLS)
-  - '官网: go.dgivn.click'
   - Shanghai-IP
   - Shanghai-SOCKS
   - standalone-60003-no-telegram
   - tg-vless-reality-6002
-  - 🇰🇷韩国KR006 0.8MB/s中性 TG@jcnode
-  - 🇸🇬新加坡SG001 16.6MB/s中性 TG@jcnode
-  - 🇸🇬新加坡SG002 0.7MB/s中性 TG@jcnode
-  - 🇯🇵 JP|88|M540ms|43.165.183.74|YT|vless
-  - 🇷🇺俄罗斯RU008 4.9MB/s中性 TG@jcnode
-  - 🇷🇺俄罗斯RU009 3.7MB/s中性 TG@jcnode
-  - 🇯🇵日本JP002 11.1MB/s中性 TG@jcnode
-  - 🇯🇵日本JP001 11.7MB/s中性 TG@jcnode
-  - 🇳🇱荷兰NL002 3.0MB/s中性 TG@jcnode
-  - 🇺🇸美国US062 4.2MB/s纯净 TG@jcnode
-  - 🇳🇱荷兰NL004 3.0MB/s中性 TG@jcnode
-  - 🇸🇪瑞典SE001 0.3MB/s中性 TG@jcnode
-  - 🇰🇷韩国KR003 3.7MB/s中性 TG@jcnode
-  - 🇰🇷韩国KR004 4.7MB/s中性 TG@jcnode
-  - 🇰🇷韩国KR001 6.0MB/s中性 TG@jcnode
-  - 🇯🇵 JP|75|M634ms|212.135.210.133|YT|vless
-  - 🇬🇧英国GB002 0.8MB/s中性 TG@jcnode
-  - 🇰🇷韩国KR002 3.7MB/s中性 TG@jcnode
-  - 🇺🇸美国US 063 0.1MB/s TG@jcnode
-  - 🇺🇸 US|75|M1300ms|88.210.36.109|GPT+YT|ss
-  - 🇭🇰香港HK002 2.1MB/s纯净 TG@jcnode
-  - 🇺🇸美国US 066 5.6MB/s TG@jcnode
-  - 🇺🇸美国US004 1.8MB/s中性 TG@jcnode
-  - 🇺🇸美国US047 5.5MB/s中性 TG@jcnode
-  - 🇷🇺俄罗斯RU001 8.6MB/s纯净 TG@jcnode
-  - 🇯🇵日本JP006 3.6MB/s中性 TG@jcnode
-  - 🇫🇷法国FR001 3.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US045 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US017 2.6MB/s中性 TG@jcnode
-  - 🇺🇸美国US 026 5.5MB/s TG@jcnode
-  - 🇺🇸美国US030 6.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US003 6.2MB/s中性 TG@jcnode
-  - 🇺🇸美国US021 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US058 5.9MB/s中性 TG@jcnode
-  - 🇺🇸美国US027 5.7MB/s中性 TG@jcnode
-  - 🇨🇦加拿大CA001 1.8MB/s中性 TG@jcnode
-  - 🇺🇸美国US046 6.1MB/s中性 TG@jcnode
-  - 🇺🇸 US|67|M1641ms|192.119.83.187|GPT+YT|vless
-  - 🇺🇸美国US 002 6.0MB/s TG@jcnode
-  - 🇺🇸美国US037 5.8MB/s中性 TG@jcnode
-  - 🇩🇪德国DE009 1.2MB/s纯净 TG@jcnode
-  - 🇷🇺俄罗斯RU007 0.4MB/s中性 TG@jcnode
-  - 🇺🇸美国US050 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US025 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US022 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US013 6.1MB/s中性 TG@jcnode
-  - 🇷🇺俄罗斯RU006 2.6MB/s中性 TG@jcnode
-  - 🇺🇸美国US054 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US052 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US015 4.9MB/s中性 TG@jcnode
-  - 🇺🇸美国US 001 5.5MB/s TG@jcnode
-  - 🇺🇸美国US053 6.1MB/s中性 TG@jcnode
-  - 🇸🇬 SG|81.2|M1920ms|164.52.1.182|YT|vless
-  - 🇺🇸美国US032 6.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US024 5.3MB/s中性 TG@jcnode
-  - 🇺🇸美国US036 5.4MB/s中性 TG@jcnode
-  - 🇺🇸美国US056 6.0MB/s中性 TG@jcnode
-  - 🇺🇸 US|60|M1090ms|104.28.165.54|GPT+YT|vless
-  - 🇺🇸美国US051 3.2MB/s中性 TG@jcnode
-  - 🇺🇸美国US 079 8.5MB/s TG@jcnode
-  - 🇺🇸美国US020 5.9MB/s中性 TG@jcnode
-  - 🇩🇪德国DE008 6.1MB/s中性 TG@jcnode
-  - 🇺🇸 US|75|M1114ms|159.203.180.17|YT|vless
-  - 🇺🇸 US|67.4|M1626ms|159.203.180.17|GPT+YT|vless
-  - 🇺🇸美国US012 6.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US034 5.8MB/s中性 TG@jcnode
-  - 🇺🇸美国US049 5.5MB/s中性 TG@jcnode
-  - 🇺🇸 US|75|M1005ms|192.119.83.187|GPT+YT|vless
-  - 🇦🇪阿联酋AE001 1.7MB/s纯净 TG@jcnode
-  - 🇺🇸美国US057 6.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US023 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US055 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US031 5.0MB/s中性 TG@jcnode
-  - 🇺🇸美国US014 6.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US092 6.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US 033 4.3MB/s TG@jcnode
-  - 🇺🇸 US|68|M1141ms|138.199.35.199|GPT+YT|http
-  - 🇺🇸美国US 042 6.8MB/s TG@jcnode
-  - 🇺🇸美国US040 5.5MB/s中性 TG@jcnode
-  - 🇦🇺 AU|60.2|M981ms|159.13.44.228|YT|http
-  - 🇺🇸美国US 085 6.8MB/s TG@jcnode
-  - 🇺🇸美国US038 6.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US 076 7.4MB/s TG@jcnode
-  - 🇫🇮芬兰FI004 3.7MB/s中性 TG@jcnode
-  - 🇺🇸美国US064 0.2MB/s中性 TG@jcnode
-  - 🇺🇸美国US093 5.5MB/s中性 TG@jcnode
-  - 🇺🇸美国US008 4.0MB/s中性 TG@jcnode
-  - 🇺🇸美国US011 4.9MB/s中性 TG@jcnode
-  - 🇺🇸美国US007 3.9MB/s中性 TG@jcnode
-  - 🇳🇱荷兰NL 001 6.2MB/s TG@jcnode
-  - 🇺🇸 US|68|M1114ms|204.1.108.90|GPT+YT|http
-  - 🇺🇸美国US 059 6.8MB/s TG@jcnode
-  - 🇺🇸美国US 084 7.4MB/s TG@jcnode
-  - 🇭🇰香港HK004 1.8MB/s纯净 TG@jcnode
-  - 🇬🇧英国GB001 1.8MB/s中性 TG@jcnode
-  - 🇺🇸美国US009 3.7MB/s中性 TG@jcnode
-  - 🇺🇸美国US 088 6.8MB/s TG@jcnode
-  - 🇺🇸美国US 077 6.8MB/s TG@jcnode
-  - 🇺🇸美国US 083 5.5MB/s TG@jcnode
-  - 🇳🇱荷兰NL 009 6.2MB/s TG@jcnode
-  - 🇳🇱荷兰NL 006 6.1MB/s TG@jcnode
-  - 🇩🇪德国DE011 4.3MB/s中性 TG@jcnode
-  - 🇺🇸美国US 070 8.0MB/s TG@jcnode
-  - 🇺🇸美国US 087 6.1MB/s TG@jcnode
-  - 🇺🇸美国US 069 6.1MB/s TG@jcnode
-  - 🇺🇸美国US 080 7.4MB/s TG@jcnode
-  - 🇺🇸美国US 075 6.8MB/s TG@jcnode
-  - 🇳🇱荷兰NL 007 8.6MB/s TG@jcnode
-  - 🇺🇸美国US 078 7.4MB/s TG@jcnode
-  - 🇺🇸美国US 089 0.3MB/s TG@jcnode
-  - 🇩🇪德国DE013 3.1MB/s纯净 TG@jcnode
-  - 🇳🇱荷兰NL 005 6.8MB/s TG@jcnode
-  - 🇺🇸美国US 044 8.0MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 073 1.2MB/s TG@jcnode
-  - 🇺🇸美国US 043 7.4MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 029 3.1MB/s TG@jcnode
-  - 🇺🇸美国US 081 8.0MB/s TG@jcnode
-  - 🇺🇸美国US 086 0.5MB/s TG@jcnode
-  - 🇺🇸美国US006 5.5MB/s中性 TG@jcnode
-  - 🇪🇪爱沙尼亚EE 001 2.5MB/s TG@jcnode
-  - 🇫🇷法国FR 002 5.8MB/s TG@jcnode
-  - 🇩🇪德国DE004 3.4MB/s中性 TG@jcnode
-  - 🇺🇸美国US061 2.5MB/s中性 TG@jcnode
-  - 🇩🇪德国DE006 0.3MB/s中性 TG@jcnode
-  - 🇺🇸美国US 082 6.8MB/s TG@jcnode
-  - 🇺🇸美国US 072 6.1MB/s TG@jcnode
-  - 🇺🇸美国US 073 7.4MB/s TG@jcnode
-  - 🇳🇱荷兰NL 008 8.0MB/s TG@jcnode
-  - 🇵🇱波兰PL001 0.6MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 093 3.1MB/s TG@jcnode
-  - 🇯🇵日本JP004 2.9MB/s中性 TG@jcnode
-  - 🇩🇪德国DE002 3.4MB/s中性 TG@jcnode
-  - 🇺🇸美国US041 5.5MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 003 2.4MB/s TG@jcnode
-  - 🇺🇸美国US 090 7.4MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 077 3.1MB/s TG@jcnode
-  - 🇭🇰香港HK003 2.5MB/s纯净 TG@jcnode
-  - 🇷🇴罗马尼亚RO 027 2.5MB/s TG@jcnode
-  - 🇺🇸美国US 071 6.8MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 070 6.2MB/s TG@jcnode
-  - 🇫🇮芬兰FI001 3.7MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 075 1.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 089 2.6MB/s TG@jcnode
-  - 🇷🇺俄罗斯RU002 0.8MB/s危险 TG@jcnode
-  - 🇷🇴罗马尼亚RO 094 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 016 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 005 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 086 5.5MB/s TG@jcnode
-  - 🇳🇱荷兰NL003 3.7MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 099 3.1MB/s TG@jcnode
-  - 🇷🇺俄罗斯RU011 6.1MB/s中性 TG@jcnode
-  - 🇺🇸美国US065 0.5MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 054 2.5MB/s TG@jcnode
-  - 🇯🇵日本JP003 4.3MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 098 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 017 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 072 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 056 2.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 009 6.6MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 013 6.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 065 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 097 6.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 060 6.0MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 071 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 107 6.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 087 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 052 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 038 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 023 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 015 6.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 043 2.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 050 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 001 2.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 081 4.9MB/s TG@jcnode
-  - 🇺🇸美国US 067 4.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 101 6.0MB/s TG@jcnode
-  - 🇫🇷法国FR003 1.2MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 046 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 069 6.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 034 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 095 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 062 3.0MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 067 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 032 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 019 6.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 006 3.3MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 007 6.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 058 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 022 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 014 2.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 057 6.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 055 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 036 3.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 049 2.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 044 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 106 0.8MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 020 2.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 002 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 108 2.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 085 4.3MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 051 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 084 2.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 076 3.4MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 074 4.9MB/s TG@jcnode
-  - 🇩🇪德国DE010 0.2MB/s有风险 TG@jcnode
-  - 🇩🇪德国DE005 0.3MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 035 4.3MB/s TG@jcnode
-  - 🇺🇸美国US 091 2.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 026 4.9MB/s TG@jcnode
-  - 🇺🇸美国US010 4.3MB/s中性 TG@jcnode
-  - 🇩🇪德国DE001 0.4MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 041 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 025 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 030 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 080 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 100 2.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 104 3.4MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 045 6.2MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 079 2.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 039 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 047 5.5MB/s TG@jcnode
-  - 🇨🇿捷克CZ001 3.7MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 021 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 068 2.0MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 053 3.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 102 1.8MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 011 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 083 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 064 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 008 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 105 4.8MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 037 3.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 040 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 031 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 048 3.1MB/s TG@jcnode
-  - 🇷🇺俄罗斯RU003 3.1MB/s纯净 TG@jcnode
-  - 🇷🇴罗马尼亚RO 024 4.3MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 010 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 042 3.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 090 2.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 018 5.0MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 092 5.5MB/s TG@jcnode
-  - 🇩🇪德国DE007 3.6MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 012 5.5MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 033 4.9MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 004 6.1MB/s TG@jcnode
-  - 🇸🇬新加坡SG005 3.1MB/s有风险 TG@jcnode
-  - 🇷🇴罗马尼亚RO 063 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 059 2.5MB/s TG@jcnode
-  - 🇩🇪德国DE003 3.7MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 028 3.1MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 082 3.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 088 3.7MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 078 6.8MB/s TG@jcnode
-  - 🇷🇴罗马尼亚RO 103 5.0MB/s TG@jcnode
-  - 🇸🇬新加坡SG004 0.3MB/s危险 TG@jcnode
-  - 🇨🇿捷克CZ003 3.3MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 096 3.5MB/s TG@jcnode
-  - 🇭🇰香港HK001 1.9MB/s纯净 TG@jcnode
-  - 🇷🇺俄罗斯RU010 0.2MB/s中性 TG@jcnode
-  - 🇨🇿捷克CZ002 0.6MB/s中性 TG@jcnode
-  - 🇺🇸美国US019 6.0MB/s中性 TG@jcnode
-  - 🇷🇴罗马尼亚RO 061 4.9MB/s TG@jcnode
-  - 🇯🇵日本JP005 0.2MB/s中性 TG@jcnode
-  - 🇩🇪德国DE012 3.0MB/s纯净 TG@jcnode
   - US-Trojan
   - DO-VPS-Hysteria2
   - DO-VPS-Reality
@@ -1296,6 +675,14 @@ proxy-groups:
   - '[CF] CF官方优选31'
   - '[CF] CF官方优选32'
   - xray-reality-159.54.181.175
+  - 🇺🇸 US|84.4|M1564ms|159.65.79.184|GPT+YT|hysteria2
+  - 🇺🇸 US|60|M940ms|2604:a880:2:d1:0:1:677c:8001|GPT+YT|anytls
+  - 🇳🇱 NL-AMS HY2
+  - 🇳🇱 NL-AMS AnyTLS
+  - 🇸🇬 SG|95|M341ms|2400:6180:0:d2:0:2:f62c:e000|YT|hysteria2
+  - 🇸🇬 SG|95|M316ms|2400:6180:0:d2:0:2:f62c:e000|YT|anytls
+  - 🇭🇰 HK-HKG HY2
+  - 🇭🇰 HK|75|M282ms|123.254.107.195|YT|anytls
   - US01
   - 免费-日本1-Ver.7
   - 免费-日本2-Ver.8
@@ -1343,8 +730,6 @@ proxy-groups:
   - 🇦🇺 澳大利亚W01
   - 🇫🇷 法国W01
   - 🇺🇦 乌克兰W01
-  - 🇸🇬 SG|95|M341ms|2400:6180:0:d2:0:2:f62c:e000|YT|hysteria2
-  - 🇸🇬 SG|95|M316ms|2400:6180:0:d2:0:2:f62c:e000|YT|anytls
   - 🇯🇵 JP|88|M236ms|45.32.49.228|YT|vless
   - 🇸🇬 SG|88|M340ms|164.52.1.182|GPT+YT|trojan
   - 🇸🇬 SG|88|M389ms|43.134.174.114|GPT+YT|trojan
@@ -1354,18 +739,21 @@ proxy-groups:
   - 🇯🇵 JP|88|M407ms|168.138.46.67|YT|trojan
   - 🇯🇵 JP|88|M435ms|85.149.218.210|YT|ss
   - 🇸🇬 SG|88|M337ms|139.59.238.97|YT|trojan
+  - 🇯🇵 JP|88|M540ms|43.165.183.74|YT|vless
   - 🇸🇬 SG|88|M527ms|164.52.1.179|YT|vless
-  - 🇺🇸 US|84.4|M1564ms|159.65.79.184|GPT+YT|hysteria2
   - 🇨🇦 CA|81.5|M843ms|147.5.104.226|GPT+YT|tuic
+  - 🇸🇬 SG|81.2|M1920ms|164.52.1.182|YT|vless
   - 🇯🇵 JP|75|M457ms|31.76.91.71|YT|vless
+  - 🇯🇵 JP|75|M634ms|212.135.210.133|YT|vless
   - 🇺🇸 US|75|M630ms|192.204.46.230|GPT+YT|vmess
   - 🇯🇵 JP|75|M566ms|103.106.228.187|YT|trojan
   - 🇺🇸 US|75|M1065ms|51.81.223.184|GPT+YT|vless
   - 🇺🇸 US|75|M684ms|88.210.36.109|GPT+YT|ss
   - 🇺🇸 US|75|M579ms|104.28.202.178|YT|vless
+  - 🇺🇸 US|75|M1300ms|88.210.36.109|GPT+YT|ss
   - 🇺🇸 US|75|M815ms|18.190.176.112|GPT+YT|ss
   - 🇺🇸 US|75|M956ms|150.136.219.11|GPT+YT|vless
-  - 🇭🇰 HK|75|M282ms|123.254.107.195|YT|anytls
+  - 🇺🇸 US|75|M1114ms|159.203.180.17|YT|vless
   - 🇺🇸 US|75|M1046ms|206.189.182.239|GPT+YT|vless
   - 🇸🇬 SG|75|M844ms|43.133.61.219|YT|vless
   - 🇩🇪 DE|75|M601ms|81.31.211.110|YT|vless
@@ -1373,6 +761,7 @@ proxy-groups:
   - 🇺🇸 US|75|M626ms|104.168.76.144|YT|vless
   - 🇺🇸 US|75|M1105ms|23.94.41.146|YT|vless
   - 🇺🇸 US|75|M806ms|104.168.76.144|YT|vless
+  - 🇺🇸 US|75|M1005ms|192.119.83.187|GPT+YT|vless
   - 🇯🇵 JP|75|M1440ms|137.220.225.56|YT|trojan
   - 🇰🇷 KR|75|M537ms|151.245.106.49|YT|vless
   - 🇺🇸 US|75|M1106ms|204.44.74.241|YT|vless
@@ -1388,7 +777,11 @@ proxy-groups:
   - 🇭🇰 HK|68.9|M910ms|185.244.208.64|YT|trojan
   - 🇵🇱 PL|68.3|M926ms|185.16.36.200|YT|vless
   - 🇺🇸 US|68|M879ms|44.253.54.238|YT|http
+  - 🇺🇸 US|68|M1114ms|204.1.108.90|GPT+YT|http
+  - 🇺🇸 US|68|M1141ms|138.199.35.199|GPT+YT|http
+  - 🇺🇸 US|67.4|M1626ms|159.203.180.17|GPT+YT|vless
   - 🇵🇱 PL|67.1|M1034ms|57.128.195.136|YT|hysteria2
+  - 🇺🇸 US|67|M1641ms|192.119.83.187|GPT+YT|vless
   - 🇳🇱 NL|66.4|M975ms|89.105.210.100|YT|vless
   - 🇨🇭 CH|66|M986ms|152.233.31.70|YT|vless
   - 🇷🇺 RU|64.4|M1026ms|217.168.247.209|YT|vless
@@ -1413,8 +806,10 @@ proxy-groups:
   - 🇺🇸 US|62|M1318ms|162.243.23.145|YT|trojan
   - 🇫🇮 FI|61.8|M1173ms|147.78.181.194|YT|hysteria2
   - 🇳🇱 NL|61.5|M1103ms|82.41.131.23|YT|vless
+  - 🇦🇺 AU|60.2|M981ms|159.13.44.228|YT|http
   - 🇺🇸 US|60|M986ms|107.172.6.224|GPT+YT|vless
   - 🇺🇸 US|60|M1487ms|38.180.204.104|YT|vless
+  - 🇺🇸 US|60|M1090ms|104.28.165.54|GPT+YT|vless
   - 🇩🇪 DE|60|M737ms|81.31.211.116|YT|vless
   - 🇯🇵 JP|60|M411ms|147.45.220.146|YT|anytls
   - 🇺🇸 US|60|M1035ms|2602:f988:210:c4f::7f4|GPT+YT|vless
@@ -1428,7 +823,6 @@ proxy-groups:
   - 🇺🇸 US|60|M1014ms|172.190.157.189|YT|vless
   - 🇺🇸 US|60|M1025ms|107.172.6.224|GPT+YT|vless
   - 🇮🇪 IE|60|M808ms|84.247.48.66|YT|ss
-  - 🇺🇸 US|60|M940ms|2604:a880:2:d1:0:1:677c:8001|GPT+YT|anytls
   - 🇩🇪 DE|60|M741ms|51.195.94.187|YT|vless
   - 🇩🇪 DE|60|M876ms|2a05:d014:1701:f201:a448:4f7d:a8d1:2bc|YT|trojan
   - NoCF-Reality-80
@@ -1453,8 +847,6 @@ proxy-groups:
   - ☁️ CF-优选2
   - 新加坡-REALITY
   - Ubuntu-Proxy
-  - 硅谷-VLESS
-  - 硅谷-SS
   - ycyun_Proxy
   - ycyun_Proxy_IPv6
   - 🏆 台湾4.30双重代理 (服务端直链)
@@ -1747,518 +1139,6 @@ proxies:
   encryption: ''
   network: tcp
   udp: true
-- name: 🇨🇦26加拿大-全网优化(Tuic)
-  type: tuic
-  server: 26ca.cloudfrontcdn.com
-  port: 4430
-  uuid: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  reduce-rtt: false
-  congestion-control: bbr
-  udp-relay-mode: native
-  sni: dss0.bdstatic.com
-  alpn:
-  - h3
-  disable-sni: false
-  skip-cert-verify: true
-- name: 🇫🇷23法国-全网优化(Tuic)
-  type: tuic
-  server: 23fr.cloudfrontcdn.com
-  port: 4430
-  uuid: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  reduce-rtt: false
-  congestion-control: bbr
-  udp-relay-mode: native
-  sni: dss0.bdstatic.com
-  alpn:
-  - h3
-  disable-sni: false
-  skip-cert-verify: true
-- name: 🇬🇧17英国-全网优化(Tuic)
-  type: tuic
-  server: 17uk.cloudfrontcdn.com
-  port: 4430
-  uuid: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  reduce-rtt: false
-  congestion-control: bbr
-  udp-relay-mode: native
-  sni: dss0.bdstatic.com
-  alpn:
-  - h3
-  disable-sni: false
-  skip-cert-verify: true
-- name: 🇨🇦18加拿大-全网优化(Tuic)
-  type: tuic
-  server: 18ca.cloudfrontcdn.com
-  port: 4430
-  uuid: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  reduce-rtt: false
-  congestion-control: bbr
-  udp-relay-mode: native
-  sni: dss0.bdstatic.com
-  alpn:
-  - h3
-  disable-sni: false
-  skip-cert-verify: true
-- name: 🇦🇪13迪拜-电信/移动/南方联通(Tuic)
-  type: tuic
-  server: 13dxb.cloudfrontcdn.com
-  port: 4430
-  uuid: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  reduce-rtt: false
-  congestion-control: bbr
-  udp-relay-mode: native
-  sni: dss0.bdstatic.com
-  alpn:
-  - h3
-  disable-sni: false
-  skip-cert-verify: true
-- name: 🇨🇱21智利-全网优化(Tuic)
-  type: tuic
-  server: 21chi.cloudfrontcdn.com
-  port: 4430
-  uuid: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  reduce-rtt: false
-  congestion-control: bbr
-  udp-relay-mode: native
-  sni: dss0.bdstatic.com
-  alpn:
-  - h3
-  disable-sni: false
-  skip-cert-verify: true
-- name: 🇮🇱30以色列-全网优化(Tuic)
-  type: tuic
-  server: 30il.cloudfrontcdn.com
-  port: 4430
-  uuid: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  reduce-rtt: false
-  congestion-control: bbr
-  udp-relay-mode: native
-  sni: dss0.bdstatic.com
-  alpn:
-  - h3
-  disable-sni: false
-  skip-cert-verify: true
-- name: 🇪🇸31西班牙-全网优化(Tuic)
-  type: tuic
-  server: 31es.cloudfrontcdn.com
-  port: 4430
-  uuid: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  reduce-rtt: false
-  congestion-control: bbr
-  udp-relay-mode: native
-  sni: dss0.bdstatic.com
-  alpn:
-  - h3
-  disable-sni: false
-  skip-cert-verify: true
-- name: 🇰🇷8韩国集群-全网优化(M)
-  type: mieru
-  server: 8krmn.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CJNOEAAaBAgAEAAiCAgCEAAYBCAG
-- name: 🇺🇸11美国西集群-全网优化(M)
-  type: mieru
-  server: 11usmn.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CJJOEAAaBAgAEAAiCAgBEAAYAiAE
-- name: 🇺🇸12美国旧金山-全网优化(M)
-  type: mieru
-  server: 12us.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CMzM1AkQABoECAEQAiIICAIQABgGIAg=
-- name: 🇸🇬15新加坡-全网优化(M)
-  type: mieru
-  server: 15sgmn.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CJVOEAAaBAgAEAAiCAgBEAAYBiAI
-- name: 🇩🇪16德国-电信/联通(M)
-  type: mieru
-  server: 16de.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CMzM1AkQABoECAEQAiIICAIQABgGIAg=
-- name: 🇬🇧17英国-全网优化(M)
-  type: mieru
-  server: 17uk.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CMzM1AkQABoECAEQAiIICAIQABgGIAg=
-- name: 🇨🇦18加拿大-全网优化(M)
-  type: mieru
-  server: 18camn.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CJFOEAAaBAgAEAAiAggA
-- name: 🇦🇺19澳洲-移动优化(M)
-  type: mieru
-  server: 19sdy.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CJNOEAAaBAgAEAAiCAgCEAAYBCAG
-- name: 🇧🇷20巴西-全网优化(M)
-  type: mieru
-  server: 20br.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CMzM1AkQABoECAEQAiIICAIQABgGIAg=
-- name: 🇨🇱21智利-全网优化(M)
-  type: mieru
-  server: 21chi.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CMzM1AkQABoECAEQAiIICAIQABgGIAg=
-- name: 🇫🇷23法国-全网优化(M)
-  type: mieru
-  server: 23fr.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CMzM1AkQABoECAEQAiIICAIQABgGIAg=
-- name: 🇲🇽27墨西哥-全网优化(M)
-  type: mieru
-  server: 27mx.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CMzM1AkQABoECAEQAiIICAIQABgGIAg=
-- name: 🇳🇱28荷兰-全网优化(M)
-  type: mieru
-  server: 28nl.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CMzM1AkQABoECAEQAiIICAIQABgGIAg=
-- name: 🇺🇸29美国旧金山-全网优化(M)
-  type: mieru
-  server: 29usmn.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CJJOEAAaBAgAEAAiCAgBEAAYAiAE
-- name: 🇪🇸31西班牙-全网优化(M)
-  type: mieru
-  server: 31es.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CMzM1AkQABoECAEQAiIICAIQABgGIAg=
-- name: 🇲🇾35马来西亚-移动/联通(M)
-  type: mieru
-  server: 35my.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CMzM1AkQABoECAEQAiIICAIQABgGIAg=
-- name: 🇺🇸39美国华盛顿-全网优化(M)
-  type: mieru
-  server: 39us.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CJFOEAAaBAgAEAAiAggA
-- name: 🇨🇭41瑞士-全网优化(M)
-  type: mieru
-  server: 41ch.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CJROEAAaBAgAEAAiCAgCEAAYBiAI
-- name: 🇿🇦43南非-约翰内斯堡(M)
-  type: mieru
-  server: 43za.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CJROEAAaBAgAEAAiCAgCEAAYBiAI
-- name: 🇭🇰1香港集群-全网优化(M)
-  type: mieru
-  server: 1hk.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CMzM1AkQABoECAEQAiIICAIQABgGIAg=
-- name: 🇭🇰3香港集群-全网优化(M)
-  type: mieru
-  server: 3hkmn.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CJZOEAAaBAgBEAAiAggA
-- name: 4台湾-联通优化(M)
-  type: mieru
-  server: 4tw.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CMzM1AkQABoECAEQAiIICAIQABgGIAg=
-- name: 5台湾-联通/移动(M)
-  type: mieru
-  server: 5tw.cloudfrontcdn.com
-  port: 8088
-  transport: TCP
-  username: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  multiplexing: MULTIPLEXING_LOW
-  traffic-pattern: CMzM1AkQABoECAEQAiIICAIQABgGIAg=
-- name: 🇰🇷8韩国集群-全网优化(AnyTLS)
-  type: anytls
-  server: 8kr.cloudfrontcdn.com
-  port: 4430
-  client-fingerprint: random
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  udp: true
-  tfo: false
-  sni: dss0.bdstatic.com
-  skip-cert-verify: true
-- name: 🇰🇷25韩国-全网优化(AnyTLS)
-  type: anytls
-  server: 25kr.cloudfrontcdn.com
-  port: 4430
-  client-fingerprint: random
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  udp: true
-  tfo: false
-  sni: dss0.bdstatic.com
-  skip-cert-verify: true
-- name: 🇯🇵10日本-全网优化(AnyTLS)
-  type: anytls
-  server: 10jp.cloudfrontcdn.com
-  port: 4430
-  client-fingerprint: random
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  udp: true
-  tfo: false
-  sni: dss0.bdstatic.com
-  skip-cert-verify: true
-- name: 🇺🇸12美国旧金山-全网优化(AnyTLS)
-  type: anytls
-  server: 12us.cloudfrontcdn.com
-  port: 4430
-  client-fingerprint: random
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  udp: true
-  tfo: false
-  sni: dss0.bdstatic.com
-  skip-cert-verify: true
-- name: 🇺🇸29美国旧金山-全网优化(AnyTLS)
-  type: anytls
-  server: 29us.cloudfrontcdn.com
-  port: 4430
-  client-fingerprint: random
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  udp: true
-  tfo: false
-  sni: dss0.bdstatic.com
-  skip-cert-verify: true
-- name: 🇦🇪13迪拜-电信/移动/南方联通(AnyTLS)
-  type: anytls
-  server: 13dxb.cloudfrontcdn.com
-  port: 4430
-  client-fingerprint: random
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  udp: true
-  tfo: false
-  sni: dss0.bdstatic.com
-  skip-cert-verify: true
-- name: 🇮🇳14印度-移动/南方联通(AnyTLS)
-  type: anytls
-  server: 14in.cloudfrontcdn.com
-  port: 4430
-  client-fingerprint: random
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  udp: true
-  tfo: false
-  sni: dss0.bdstatic.com
-  skip-cert-verify: true
-- name: 🇸🇬6新加坡-联通/移动(AnyTLS)
-  type: anytls
-  server: 6sg.cloudfrontcdn.com
-  port: 4430
-  client-fingerprint: random
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  udp: true
-  tfo: false
-  sni: dss0.bdstatic.com
-  skip-cert-verify: true
-- name: 🇬🇧17英国-全网优化(AnyTLS)
-  type: anytls
-  server: 17uk.cloudfrontcdn.com
-  port: 4430
-  client-fingerprint: random
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  udp: true
-  tfo: false
-  sni: dss0.bdstatic.com
-  skip-cert-verify: true
-- name: 🇨🇦26加拿大-全网优化(AnyTLS)
-  type: anytls
-  server: 26ca.cloudfrontcdn.com
-  port: 4430
-  client-fingerprint: random
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  udp: true
-  tfo: false
-  sni: dss0.bdstatic.com
-  skip-cert-verify: true
-- name: 🇷🇺32俄罗斯-全网优化(AnyTLS)
-  type: anytls
-  server: 32ru.cloudfrontcdn.com
-  port: 4430
-  client-fingerprint: random
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  udp: true
-  tfo: false
-  sni: dss0.bdstatic.com
-  skip-cert-verify: true
-- name: 🇭🇰2香港集群-全网优化(AnyTLS)
-  type: anytls
-  server: 2hk.cloudfrontcdn.com
-  port: 4430
-  client-fingerprint: random
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  udp: true
-  tfo: false
-  sni: dss0.bdstatic.com
-  skip-cert-verify: true
-- name: 🇺🇸11美国西集群-全网优化(hy2)
-  type: hysteria2
-  server: 11us.quandao.com
-  port: 47551
-  ports: 40000-50000
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  skip-cert-verify: true
-- name: 🇺🇸12美国旧金山-全网优化(hy2)
-  type: hysteria2
-  server: 12us.quandao.com
-  port: 49479
-  ports: 40000-50000
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  skip-cert-verify: true
-- name: 🇺🇸29美国旧金山-全网优化(hy2)
-  type: hysteria2
-  server: 29us.quandao.com
-  port: 41812
-  ports: 40000-50000
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  skip-cert-verify: true
-- name: 🇺🇸39美国华盛顿-全网优化(hy2)
-  type: hysteria2
-  server: 39us.quandao.com
-  port: 40657
-  ports: 40000-50000
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  skip-cert-verify: true
-- name: 44美国维加斯-全网优化(hy2)
-  type: hysteria2
-  server: 44us.quandao.com
-  port: 45662
-  ports: 40000-50000
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  skip-cert-verify: true
-- name: 🇺🇸39美国华盛顿-全网优化(AnyTLS)
-  type: anytls
-  server: 39us.quandao.com
-  port: 4430
-  client-fingerprint: random
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  udp: true
-  tfo: false
-  sni: dss0.bdstatic.com
-  skip-cert-verify: true
-- name: 44美国维加斯-全网优化(AnyTLS)
-  type: anytls
-  server: 44us.quandao.com
-  port: 4430
-  client-fingerprint: random
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  udp: true
-  tfo: false
-  sni: dss0.bdstatic.com
-  skip-cert-verify: true
-- name: 🇺🇸11美国西集群-全网优化(AnyTLS)
-  type: anytls
-  server: 11us.quandao.com
-  port: 4430
-  client-fingerprint: random
-  password: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  udp: true
-  tfo: false
-  sni: dss0.bdstatic.com
-  skip-cert-verify: true
-- name: '官网: go.dgivn.click'
-  type: vmess
-  server: 114.114.114.114
-  port: 2235
-  uuid: 79024f36-cc3c-4995-b0b1-a5efa5d0a3c1
-  alterId: 0
-  cipher: auto
-  udp: true
 - name: Shanghai-IP
   type: http
   server: 123.207.220.143
@@ -2297,3052 +1177,6 @@ proxies:
     public-key: JPitgJu31J84kzLsmnStpoFSmP-PTZKWh6hyYmuDQ1I
     short-id: d8da6aa6f264cb36
   packet-encoding: xudp
-- name: 🇰🇷韩国KR006 0.8MB/s中性 TG@jcnode
-  server: dev.aoliuqu.press
-  port: 16335
-  type: trojan
-  password: c68526b9-f9e1-49a3-9711-e57d5c717563
-  sni: dev.aoliuqu.press
-  skip-cert-verify: true
-  network: grpc
-  grpc-opts:
-    grpc-service-name: zhs
-    grpc-mode: gun
-  udp: true
-  client-fingerprint: chrome
-- type: vless
-  server: 54.179.79.12
-  port: 53646
-  uuid: 01c1e826-9c41-4c06-a3bc-7cf26c8151bd
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  ws-opts:
-    path: /@Marisa_kristi
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇸🇬新加坡SG001 16.6MB/s中性 TG@jcnode
-- type: vless
-  server: 54.254.145.25
-  port: 6768
-  uuid: 72a8ace1-f1a8-4f65-b45e-4869a3622ded
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  ws-opts:
-    path: /@Marisa_kristi
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇸🇬新加坡SG002 0.7MB/s中性 TG@jcnode
-- client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  name: 🇯🇵 JP|88|M540ms|43.165.183.74|YT|vless
-  network: ws
-  port: 2000
-  server: 13.212.82.58
-  tls: true
-  type: vless
-  uuid: 6b0ff21f-8d44-47fe-a296-431150d7ba93
-  ws-opts:
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-    path: /@Marisa_kristi
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-- type: hysteria2
-  server: hyst-1.hysteria.ltd
-  port: 5443
-  password: 1e06c388-d31c-420e-916a-94a990648e34
-  sni: hyst-1.hysteria.ltd
-  name: 🇷🇺俄罗斯RU008 4.9MB/s中性 TG@jcnode
-- type: hysteria2
-  server: vkmks.hysteria.ltd
-  port: 5443
-  password: 1e06c388-d31c-420e-916a-94a990648e34
-  sni: vkmks.hysteria.ltd
-  skip-cert-verify: true
-  name: 🇷🇺俄罗斯RU009 3.7MB/s中性 TG@jcnode
-- type: vless
-  server: 43.206.204.150
-  port: 4443
-  uuid: dd8b5787-bfa7-4eca-b7fc-42ab3c6080f2
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  ws-opts:
-    path: /@Marisa_kristi
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇯🇵日本JP002 11.1MB/s中性 TG@jcnode
-- type: vless
-  server: 140.235.37.245
-  port: 10291
-  uuid: 56c7e9ed-0cb2-4b72-85fd-d6cc48a4547c
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  ws-opts:
-    path: /@Marisa_kristi
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇯🇵日本JP001 11.7MB/s中性 TG@jcnode
-- type: vless
-  server: armgnl03.auragg.org
-  port: 443
-  uuid: 8bc63720-5ec8-45b5-b6a6-9a21ffb490e8
-  flow: ''
-  network: grpc
-  encryption: none
-  tls: true
-  servername: armgnl03.auragg.org
-  grpc-opts:
-    grpc-service-name: media.session.poll
-  alpn:
-  - h2
-  - http/1.1
-  name: 🇳🇱荷兰NL002 3.0MB/s中性 TG@jcnode
-- type: hysteria2
-  server: united.hysteria.ltd
-  port: 5443
-  password: 1e06c388-d31c-420e-916a-94a990648e34
-  sni: united.hysteria.ltd
-  skip-cert-verify: true
-  name: 🇺🇸美国US062 4.2MB/s纯净 TG@jcnode
-- type: hysteria2
-  server: naive.ghostshell.eu.org
-  port: 443
-  password: basenato:z8WXfbvuauhcyt5J8mdD
-  sni: naive.ghostshell.eu.org
-  name: 🇳🇱荷兰NL004 3.0MB/s中性 TG@jcnode
-- name: 🇸🇪瑞典SE001 0.3MB/s中性 TG@jcnode
-  server: aestheticperforator.ru
-  port: 8443
-  type: hysteria2
-  password: 48139d20-931e-4e2b-83f5-8ea97d226c18
-  sni: aestheticperforator.ru
-  skip-cert-verify: false
-  udp: true
-  alpn:
-  - h3
-  obfs-password: 48139d20-931e-4e2b-83f5-8ea97d226c18
-- type: vless
-  server: 221.157.139.47
-  port: 11468
-  uuid: fc024a28-8cff-4527-99f6-2b8afd6fc839
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  ws-opts:
-    path: /@Marisa_kristi
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇰🇷韩国KR003 3.7MB/s中性 TG@jcnode
-- type: vless
-  server: 211.222.128.50
-  port: 10731
-  uuid: d70237aa-edce-4857-a57e-f48bd8fe8773
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  ws-opts:
-    path: /@Marisa_kristi
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇰🇷韩国KR004 4.7MB/s中性 TG@jcnode
-- type: vless
-  server: 14.53.207.174
-  port: 10008
-  uuid: 6fd9913f-be17-47c2-a025-913fd66a5572
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  ws-opts:
-    path: /@Marisa_kristi
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇰🇷韩国KR001 6.0MB/s中性 TG@jcnode
-- client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  name: 🇯🇵 JP|75|M634ms|212.135.210.133|YT|vless
-  network: ws
-  port: 12016
-  server: 220.72.143.166
-  tls: true
-  type: vless
-  uuid: 0735b6f3-fdaa-4413-9c98-9af58e8a9052
-  ws-opts:
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-    path: /@Marisa_kristi
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-- type: hysteria2
-  server: musicclips.videolinks.ru
-  port: 8443
-  password: eltgrek81o6w5cd4
-  sni: musicclips.videolinks.ru
-  skip-cert-verify: true
-  alpn:
-  - h3
-  obfs: salamander
-  obfs-password: 8zzng75tz4tf82pj
-  client-fingerprint: safari
-  name: 🇬🇧英国GB002 0.8MB/s中性 TG@jcnode
-  udp: true
-- type: vless
-  server: 183.107.137.157
-  port: 36389
-  uuid: 2862f168-6267-4e66-8e15-7966069028aa
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  ws-opts:
-    path: /@Marisa_kristi
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇰🇷韩国KR002 3.7MB/s中性 TG@jcnode
-- type: hysteria2
-  server: 156.229.164.1
-  port: 55000
-  password: 1624ccf4-f88b-4411-81bd-978570b3cbdc
-  sni: www.bing.com
-  skip-cert-verify: true
-  name: 🇺🇸美国US 063 0.1MB/s TG@jcnode
-- cipher: chacha20-ietf-poly1305
-  name: 🇺🇸 US|75|M1300ms|88.210.36.109|GPT+YT|ss
-  password: t0srmdxrm3xyjnvqz9ewlxb2myq7rjuv
-  plugin: obfs
-  plugin-opts:
-    host: (Telegram🇨🇳 @WangCai2)f6e348d:70852
-    mode: tls
-  port: 2377
-  server: 88.210.36.106
-  skip-cert-verify: true
-  type: ss
-  udp: true
-- type: hysteria2
-  server: 156.226.172.6
-  port: 55000
-  password: 1624ccf4-f88b-4411-81bd-978570b3cbdc
-  sni: www.bing.com
-  skip-cert-verify: true
-  name: 🇭🇰香港HK002 2.1MB/s纯净 TG@jcnode
-- name: 🇺🇸美国US 066 5.6MB/s TG@jcnode
-  type: vless
-  network: ws
-  uuid: 6c7a6a6a-6a6a-4000-8000-000000000002
-  server: 104.20.2.221
-  servername: bycf.lzjnb.shop
-  port: 8443
-  skip-cert-verify: true
-  tls: true
-  tfo: false
-  ws-opts:
-    headers:
-      Host: bycf.lzjnb.shop
-    path: /
-    early-data-header-name: Sec-WebSocket-Protocol
-    max-early-data: 2560
-  client-fingerprint: chrome
-- type: vless
-  server: 140.235.168.9
-  port: 993
-  uuid: 526d2855-c7d1-ecf3-e4f8-5a75f77d5bb3
-  flow: xtls-rprx-vision
-  network: tcp
-  tls: true
-  reality-opts:
-    public-key: oE7ZEghzkaOUiw1q3PqBtpllP1NlPHLY8ydJRuICtko
-  servername: speed.cloudflare.com
-  client-fingerprint: firefox
-  name: 🇺🇸美国US004 1.8MB/s中性 TG@jcnode
-- type: vless
-  server: freev2.cloudflare.182682.xyz
-  port: 443
-  uuid: b8c87d4c-04d7-487b-b08b-f02d863edda9
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: do-sfo3.862400.xyz
-  ws-opts:
-    path: /announcement?ed=2048
-    headers:
-      Host: do-sfo3.862400.xyz
-  client-fingerprint: random
-  name: 🇺🇸美国US047 5.5MB/s中性 TG@jcnode
-- type: vless
-  server: 147.45.39.93
-  port: 443
-  uuid: 3ef170be-05d0-479c-9753-aa2f860964ea
-  flow: xtls-rprx-vision
-  network: tcp
-  encryption: none
-  tls: true
-  reality-opts:
-    public-key: C1hW1bTA9WOacIK-fHHg-HLkDZ3FY7FhEhAyldMSUEA
-    short-id: a1b2c3d4e5f6
-  servername: cloudflare.com
-  client-fingerprint: qq
-  name: 🇷🇺俄罗斯RU001 8.6MB/s纯净 TG@jcnode
-- type: vmess
-  server: 161.33.139.138
-  port: 58905
-  uuid: 1610f8dc-0661-4032-ac6a-a7250603f608
-  alterId: 0
-  cipher: auto
-  network: ws
-  ws-opts:
-    path: /1610f8dc-0661-4032-ac6a-a7250603f608-vm
-  skip-cert-verify: true
-  name: 🇯🇵日本JP006 3.6MB/s中性 TG@jcnode
-- type: vless
-  server: 151.101.117.184
-  port: 443
-  uuid: 8157e24e-d18e-438c-8bc4-b9c1a8404ab6
-  flow: ''
-  network: xhttp
-  encryption: none
-  tls: true
-  servername: manage.fastly.com
-  xhttp-opts:
-    path: /
-    host: ovd5.global.ssl.fastly.net
-    mode: packet-up
-    scMaxEachPostBytes: 1000000
-    scMaxConcurrentPosts: 100
-    scMinPostsIntervalMs: 30
-    noGRPCHeader: false
-    x-padding-bytes: 100-1000
-  alpn:
-  - h3
-  client-fingerprint: chrome
-  skip-cert-verify: false
-  name: 🇫🇷法国FR001 3.1MB/s中性 TG@jcnode
-- name: 🇺🇸美国US045 5.5MB/s中性 TG@jcnode
-  server: 172.64.53.34
-  port: 443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  encryption: none
-  udp: true
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  packet-encoding: xudp
-- name: 🇺🇸美国US017 2.6MB/s中性 TG@jcnode
-  type: vless
-  network: ws
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  server: 198.41.223.238
-  servername: t1s1.rittbo.kdns.fr
-  port: 443
-  skip-cert-verify: false
-  tls: true
-  udp: true
-  ws-opts:
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-    path: /
-  client-fingerprint: chrome
-  encryption: none
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-    _dns: https://dns.alidns.com/dns-query
-  packet-encoding: xudp
-  tfo: false
-- name: 🇺🇸美国US 026 5.5MB/s TG@jcnode
-  server: 172.64.150.246
-  port: 2083
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  udp: true
-- name: 🇺🇸美国US030 6.1MB/s中性 TG@jcnode
-  server: 162.159.4.221
-  port: 8443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  udp: true
-- name: 🇺🇸美国US003 6.2MB/s中性 TG@jcnode
-  server: 162.159.4.2
-  port: 8443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  udp: true
-- name: 🇺🇸美国US021 5.5MB/s中性 TG@jcnode
-  server: 172.64.41.202
-  port: 443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  udp: true
-- client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-    _dns: https://dns.alidns.com/dns-query
-  encryption: none
-  name: 🇺🇸美国US058 5.9MB/s中性 TG@jcnode
-  network: ws
-  packet-encoding: xudp
-  port: 443
-  server: 172.64.42.44
-  servername: t1s1.rittbo.kdns.fr
-  skip-cert-verify: false
-  tls: true
-  type: vless
-  udp: true
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  ws-opts:
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-    path: /
-- name: 🇺🇸美国US027 5.7MB/s中性 TG@jcnode
-  server: 162.159.36.166
-  port: 8443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  udp: true
-- type: vless
-  server: ct.877774.xyz
-  port: 443
-  uuid: b8c87d4c-04d7-487b-b08b-f02d863edda9
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: do-tor1.862400.xyz
-  ws-opts:
-    path: /announcement?ed=2048
-    headers:
-      Host: do-tor1.862400.xyz
-  client-fingerprint: random
-  name: 🇨🇦加拿大CA001 1.8MB/s中性 TG@jcnode
-- type: vless
-  server: 172.64.159.67
-  port: 443
-  uuid: 68eee13f-1a7a-4761-b71e-83b997eeccf9
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: d6th0.4j9t.hj7.hh.hhyf.kdns.fr
-  ws-opts:
-    path: /glasspanel/guest000_0_5de14443985f/
-    headers:
-      Host: d6th0.4j9t.hj7.hh.hhyf.kdns.fr
-  skip-cert-verify: false
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇺🇸美国US046 6.1MB/s中性 TG@jcnode
-- name: 🇺🇸 US|67|M1641ms|192.119.83.187|GPT+YT|vless
-  type: vless
-  server: 172.64.151.158
-  port: 443
-  client-fingerprint: chrome
-  tls: true
-  servername: t1s1.rittbo.kdns.fr
-  network: ws
-  ws-opts:
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-    path: /
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  encryption: none
-  packet-encoding: xudp
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-- name: 🇺🇸美国US 002 6.0MB/s TG@jcnode
-  server: 172.64.40.49
-  port: 443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  udp: true
-- name: 🇺🇸美国US037 5.8MB/s中性 TG@jcnode
-  server: 162.159.46.24
-  port: 8443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  udp: true
-  packet-encoding: xudp
-- type: vless
-  server: sw-game-2.cloudgamings.org
-  port: 443
-  uuid: 1e06c388-d31c-420e-916a-94a990648e34
-  flow: xtls-rprx-vision
-  network: tcp
-  encryption: none
-  tls: true
-  reality-opts:
-    public-key: 0nEf0UFvNtkltp3yXPHwVQufK2fanOcbPWsOig5q6z4
-    short-id: 2c76b03375a8e45a
-  servername: sw-game-2.cloudgamings.org
-  client-fingerprint: chrome
-  name: 🇩🇪德国DE009 1.2MB/s纯净 TG@jcnode
-- client-fingerprint: chrome
-  flow: xtls-rprx-vision
-  name: 🇷🇺俄罗斯RU007 0.4MB/s中性 TG@jcnode
-  network: tcp
-  packet-encoding: xudp
-  port: 443
-  reality-opts:
-    public-key: UkWs8ZVCrm_MxuzW9a8wKJC3IPjwBJcaz7Rb5czATyA
-    short-id: da122c35
-  server: ru7.netfix.app
-  servername: haharu7.xixihaha.it.com
-  tls: true
-  type: vless
-  udp: true
-  uuid: 935b4c83-6fab-469f-93ea-f7cae11d8a6e
-  encryption: none
-  header-type: none
-  skip-cert-verify: true
-  spx: /
-- name: 🇺🇸美国US050 5.5MB/s中性 TG@jcnode
-  server: 162.159.24.39
-  port: 443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  encryption: none
-  packet-encoding: xudp
-  udp: true
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-- name: 🇺🇸美国US025 5.5MB/s中性 TG@jcnode
-  server: 108.162.196.3
-  port: 2083
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  udp: true
-- name: 🇺🇸美国US022 5.5MB/s中性 TG@jcnode
-  type: vless
-  network: ws
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  server: 172.64.35.206
-  servername: t1s1.rittbo.kdns.fr
-  port: 443
-  skip-cert-verify: false
-  tls: true
-  udp: true
-  ws-opts:
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-    path: /
-  client-fingerprint: chrome
-  encryption: none
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-    _dns: https://dns.alidns.com/dns-query
-  packet-encoding: xudp
-  tfo: false
-- name: 🇺🇸美国US013 6.1MB/s中性 TG@jcnode
-  type: vless
-  server: 162.159.60.167
-  port: 443
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  network: ws
-  servername: t1s1.rittbo.kdns.fr
-  tls: true
-  client-fingerprint: chrome
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  skip-cert-verify: true
-  udp: true
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-- client-fingerprint: chrome
-  encryption: none
-  flow: xtls-rprx-vision
-  name: 🇷🇺俄罗斯RU006 2.6MB/s中性 TG@jcnode
-  network: raw
-  port: 443
-  reality-opts:
-    public-key: UkWs8ZVCrm_MxuzW9a8wKJC3IPjwBJcaz7Rb5czATyA
-    short-id: da122c35
-  server: 5.129.243.64
-  servername: haharu7.xixihaha.it.com
-  tls: true
-  type: vless
-  udp: true
-  uuid: 935b4c83-6fab-469f-93ea-f7cae11d8a6e
-  packet-encoding: xudp
-- name: 🇺🇸美国US054 5.5MB/s中性 TG@jcnode
-  type: vless
-  server: 172.64.40.79
-  port: 2083
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  network: ws
-  servername: t1s1.rittbo.kdns.fr
-  tls: true
-  client-fingerprint: chrome
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  skip-cert-verify: true
-  udp: true
-  encryption: none
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-- name: 🇺🇸美国US052 5.5MB/s中性 TG@jcnode
-  server: 162.159.34.23
-  port: 443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  encryption: none
-  udp: true
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-- name: 🇺🇸美国US015 4.9MB/s中性 TG@jcnode
-  server: 172.64.153.159
-  port: 443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  udp: true
-- name: 🇺🇸美国US 001 5.5MB/s TG@jcnode
-  server: 162.159.46.226
-  port: 8443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  udp: true
-- name: 🇺🇸美国US053 6.1MB/s中性 TG@jcnode
-  type: vless
-  server: 172.64.149.209
-  port: 443
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  network: ws
-  servername: t1s1.rittbo.kdns.fr
-  tls: true
-  client-fingerprint: chrome
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  skip-cert-verify: true
-  udp: true
-  encryption: none
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-- client-fingerprint: chrome
-  ech-opts:
-    _dns: https://dns.alidns.com/dns-query
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  name: 🇸🇬 SG|81.2|M1920ms|164.52.1.182|YT|vless
-  network: ws
-  packet-encoding: xudp
-  port: 443
-  server: 172.64.145.2
-  skip-cert-verify: false
-  tls: true
-  type: vless
-  udp: true
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  ws-opts:
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-    path: /
-  servername: t1s1.rittbo.kdns.fr
-- name: 🇺🇸美国US032 6.1MB/s中性 TG@jcnode
-  server: yx.cloudflare.182682.xyz
-  port: 443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-      User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  packet-encoding: xudp
-  udp: true
-- name: 🇺🇸美国US024 5.3MB/s中性 TG@jcnode
-  type: vless
-  network: ws
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  server: 162.159.21.206
-  servername: t1s1.rittbo.kdns.fr
-  port: 2083
-  skip-cert-verify: false
-  tls: true
-  udp: true
-  ws-opts:
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-    path: /
-  client-fingerprint: chrome
-  encryption: none
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-    _dns: https://dns.alidns.com/dns-query
-  packet-encoding: xudp
-  tfo: false
-- name: 🇺🇸美国US036 5.4MB/s中性 TG@jcnode
-  server: 162.159.32.29
-  port: 8443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  udp: true
-  packet-encoding: xudp
-- name: 🇺🇸美国US056 6.0MB/s中性 TG@jcnode
-  server: 172.64.53.27
-  port: 443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  udp: true
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  packet-encoding: xudp
-- name: 🇺🇸 US|60|M1090ms|104.28.165.54|GPT+YT|vless
-  type: vless
-  server: 172.64.52.240
-  port: 443
-  client-fingerprint: chrome
-  tls: true
-  servername: t1s1.rittbo.kdns.fr
-  network: ws
-  ws-opts:
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-    path: /
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  encryption: none
-  packet-encoding: xudp
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-- name: 🇺🇸美国US051 3.2MB/s中性 TG@jcnode
-  server: 162.159.3.48
-  port: 443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  encryption: none
-  udp: true
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  packet-encoding: xudp
-- type: http
-  server: 138.199.35.196
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 079 8.5MB/s TG@jcnode
-- name: 🇺🇸美国US020 5.9MB/s中性 TG@jcnode
-  server: 172.64.146.229
-  port: 443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  udp: true
-- type: vless
-  server: 31.70.113.54
-  port: 443
-  uuid: 596b215c-3743-4893-b24a-4e396c4ab80f
-  flow: xtls-rprx-vision
-  network: tcp
-  encryption: none
-  tls: true
-  reality-opts:
-    public-key: k_CM7YO0xkMv5qxxUXC3vRPEwpMChsCh6n5u9jBkfmA
-    short-id: eabb96497e376e99
-  servername: povrat-spedstava.com
-  client-fingerprint: firefox
-  name: 🇩🇪德国DE008 6.1MB/s中性 TG@jcnode
-- name: 🇺🇸 US|75|M1114ms|159.203.180.17|YT|vless
-  type: vless
-  server: 162.159.42.182
-  port: 443
-  client-fingerprint: chrome
-  tls: true
-  servername: t1s1.rittbo.kdns.fr
-  network: ws
-  ws-opts:
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-    path: /
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  encryption: none
-  packet-encoding: xudp
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-- name: 🇺🇸 US|67.4|M1626ms|159.203.180.17|GPT+YT|vless
-  type: vless
-  server: 162.159.41.198
-  port: 8443
-  client-fingerprint: chrome
-  tls: true
-  servername: t1s1.rittbo.kdns.fr
-  network: ws
-  ws-opts:
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-    path: /
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  encryption: none
-  packet-encoding: xudp
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-- name: 🇺🇸美国US012 6.1MB/s中性 TG@jcnode
-  type: vless
-  server: cloudflare-ip.mofashi.ltd
-  port: 443
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  network: ws
-  servername: t1s1.rittbo.kdns.fr
-  tls: true
-  client-fingerprint: chrome
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  skip-cert-verify: true
-  udp: true
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-- name: 🇺🇸美国US034 5.8MB/s中性 TG@jcnode
-  server: cf.130519.xyz
-  port: 443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  udp: true
-- name: 🇺🇸美国US049 5.5MB/s中性 TG@jcnode
-  type: vless
-  server: 162.159.14.252
-  port: 443
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  network: ws
-  servername: t1s1.rittbo.kdns.fr
-  tls: true
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  skip-cert-verify: true
-  udp: true
-  client-fingerprint: chrome
-  encryption: none
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-- name: 🇺🇸 US|75|M1005ms|192.119.83.187|GPT+YT|vless
-  type: vless
-  server: 172.64.53.65
-  port: 443
-  client-fingerprint: chrome
-  tls: true
-  servername: t1s1.rittbo.kdns.fr
-  network: ws
-  ws-opts:
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-    path: /
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  packet-encoding: xudp
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-- type: vless
-  server: 176.109.85.89
-  port: 2443
-  uuid: f14a4abb-ecb9-4be4-8a99-3d3895ab3464
-  flow: ''
-  network: grpc
-  encryption: none
-  tls: true
-  reality-opts:
-    public-key: QZz4tjRkxYsgTZBlRALOQU4O5YnAGtSGkXF8OSX11m8
-  servername: id.pervye.ru
-  grpc-opts:
-    grpc-service-name: ns
-    grpc-mode: gun
-  client-fingerprint: qq
-  name: 🇦🇪阿联酋AE001 1.7MB/s纯净 TG@jcnode
-- type: vless
-  server: 172.64.35.37
-  port: 8443
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: t1s1.rittbo.kdns.fr
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  skip-cert-verify: true
-  udp: true
-  tfo: false
-  packet-encoding: xudp
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇺🇸美国US057 6.1MB/s中性 TG@jcnode
-- name: 🇺🇸美国US023 5.5MB/s中性 TG@jcnode
-  type: vless
-  network: ws
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  server: 172.64.52.134
-  servername: t1s1.rittbo.kdns.fr
-  port: 8443
-  skip-cert-verify: false
-  tls: true
-  udp: true
-  ws-opts:
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-    path: /
-  client-fingerprint: chrome
-  encryption: none
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-    _dns: https://dns.alidns.com/dns-query
-  packet-encoding: xudp
-  tfo: false
-- name: 🇺🇸美国US055 5.5MB/s中性 TG@jcnode
-  server: 172.64.52.18
-  port: 443
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  encryption: none
-  udp: true
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  packet-encoding: xudp
-- name: 🇺🇸美国US031 5.0MB/s中性 TG@jcnode
-  server: 162.159.45.201
-  port: 2083
-  type: vless
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  tls: true
-  tfo: false
-  skip-cert-verify: true
-  servername: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  network: ws
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-  udp: true
-- name: 🇺🇸美国US014 6.1MB/s中性 TG@jcnode
-  type: vless
-  network: ws
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  server: 162.159.13.196
-  servername: t1s1.rittbo.kdns.fr
-  port: 8443
-  skip-cert-verify: false
-  tls: true
-  udp: true
-  ws-opts:
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-    path: /
-  client-fingerprint: chrome
-  encryption: none
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-    _dns: https://dns.alidns.com/dns-query
-  packet-encoding: xudp
-  tfo: false
-- type: vless
-  server: 104.17.180.156
-  port: 8443
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: t1s1.rittbo.kdns.fr
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  client-fingerprint: chrome
-  name: 🇺🇸美国US092 6.1MB/s中性 TG@jcnode
-- type: vless
-  server: yx.cloudflare.182682.xyz
-  port: 443
-  uuid: 68eee13f-1a7a-4761-b71e-83b997eeccf9
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: d6th0.4j9t.hj7.hh.hhyf.kdns.fr
-  ws-opts:
-    path: /glasspanel/guest000_0_5de14443985f/
-    headers:
-      Host: d6th0.4j9t.hj7.hh.hhyf.kdns.fr
-  skip-cert-verify: false
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇺🇸美国US 033 4.3MB/s TG@jcnode
-- name: 🇺🇸 US|68|M1141ms|138.199.35.199|GPT+YT|http
-  port: 9002
-  server: 138.199.35.199
-  sin: https://t.me/WangCai2🇨🇳
-  skip-cert-verify: true
-  tls: true
-  type: http
-- name: 🇺🇸美国US 042 6.8MB/s TG@jcnode
-  type: http
-  server: 138.199.35.198
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-- type: vless
-  server: 154.17.4.244
-  port: 443
-  uuid: 68eee13f-1a7a-4761-b71e-83b997eeccf9
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: d6th0.4j9t.hj7.hh.hhyf.kdns.fr
-  ws-opts:
-    path: /glasspanel/guest000_0_5de14443985f/
-    headers:
-      Host: d6th0.4j9t.hj7.hh.hhyf.kdns.fr
-  skip-cert-verify: false
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇺🇸美国US040 5.5MB/s中性 TG@jcnode
-- name: 🇦🇺 AU|60.2|M981ms|159.13.44.228|YT|http
-  port: 443
-  server: 159.13.44.228
-  skip-cert-verify: true
-  tls: true
-  type: http
-- type: http
-  server: 138.199.35.214
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 085 6.8MB/s TG@jcnode
-- name: 🇺🇸美国US038 6.1MB/s中性 TG@jcnode
-  type: vless
-  network: ws
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  server: 104.18.45.249
-  servername: t1s1.rittbo.kdns.fr
-  port: 8443
-  skip-cert-verify: false
-  tls: true
-  udp: true
-  ws-opts:
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-    path: /
-  client-fingerprint: chrome
-  encryption: none
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-    _dns: https://dns.alidns.com/dns-query
-  packet-encoding: xudp
-- type: http
-  server: 138.199.35.195
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 076 7.4MB/s TG@jcnode
-- client-fingerprint: chrome
-  encryption: none
-  flow: xtls-rprx-vision
-  name: 🇫🇮芬兰FI004 3.7MB/s中性 TG@jcnode
-  network: tcp
-  port: 443
-  reality-opts:
-    public-key: HKpd1sbrhBds8SJSL0d22MAq_QyTR6EP6y5b5DYol3U
-  server: meowfin.nethcloud.top
-  servername: www.wikihow.com
-  tls: true
-  type: vless
-  udp: true
-  uuid: a34b5e88-cf0d-4c01-8199-2d1002d3c787
-  packet-encoding: xudp
-- name: 🇺🇸美国US064 0.2MB/s中性 TG@jcnode
-  server: 3.145.57.90
-  type: ss
-  port: 443
-  udp: true
-  password: amazonskr05
-  cipher: aes-256-cfb
-- type: vless
-  server: 104.17.20.156
-  port: 443
-  uuid: 8ce3af34-308f-456c-93a6-e6dff9f03d77
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: zdy.vavava.kdns.fr
-  ws-opts:
-    path: /pyip=ProxyIP.CMLiussss.netfp=chrome
-    headers:
-      Host: zdy.vavava.kdns.fr
-  name: 🇺🇸美国US093 5.5MB/s中性 TG@jcnode
-- type: vless
-  server: 128.241.25.218
-  port: 30021
-  uuid: de0e2655-ec40-4a78-8ef3-d6235c97e819
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  ws-opts:
-    path: /@Marisa_kristi
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇺🇸美国US008 4.0MB/s中性 TG@jcnode
-- name: 🇺🇸美国US011 4.9MB/s中性 TG@jcnode
-  type: vless
-  server: 108.162.198.43
-  port: 8443
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  network: ws
-  servername: t1s1.rittbo.kdns.fr
-  tls: true
-  client-fingerprint: chrome
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  skip-cert-verify: true
-  udp: true
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-- type: vless
-  server: 128.241.25.11
-  port: 30021
-  uuid: c9ff3fca-61c9-47f3-af47-d0448488ae3e
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  ws-opts:
-    path: /@Marisa_kristi
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇺🇸美国US007 3.9MB/s中性 TG@jcnode
-- type: http
-  server: 84.17.47.148
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇳🇱荷兰NL 001 6.2MB/s TG@jcnode
-- name: 🇺🇸 US|68|M1114ms|204.1.108.90|GPT+YT|http
-  port: 443
-  server: 198.2.210.70
-  skip-cert-verify: true
-  tls: true
-  type: http
-- name: 🇺🇸美国US 059 6.8MB/s TG@jcnode
-  password: ''
-  port: 9002
-  server: 138.199.35.201
-  skip-cert-verify: true
-  tls: true
-  type: http
-  username: ''
-- type: http
-  server: 138.199.35.211
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 084 7.4MB/s TG@jcnode
-- type: hysteria2
-  server: 156.226.172.6
-  port: 55000
-  password: e3d48fa4-42b7-40a7-827c-5b6496a043d1
-  sni: www.bing.com
-  skip-cert-verify: true
-  name: 🇭🇰香港HK004 1.8MB/s纯净 TG@jcnode
-- type: vless
-  server: freeyx.cloudflare88.eu.org
-  port: 443
-  uuid: b8c87d4c-04d7-487b-b08b-f02d863edda9
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: do-lon1.862400.xyz
-  ws-opts:
-    path: /announcement?ed=2048
-    headers:
-      Host: do-lon1.862400.xyz
-  client-fingerprint: random
-  name: 🇬🇧英国GB001 1.8MB/s中性 TG@jcnode
-- type: vless
-  server: 128.241.25.3
-  port: 30021
-  uuid: 02997a17-a6ba-4f03-bb62-dbbeafd93c5d
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  ws-opts:
-    path: /@Marisa_kristi
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇺🇸美国US009 3.7MB/s中性 TG@jcnode
-- type: http
-  server: 138.199.35.210
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 088 6.8MB/s TG@jcnode
-- type: http
-  server: 138.199.35.213
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 077 6.8MB/s TG@jcnode
-- type: http
-  server: 138.199.35.204
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 083 5.5MB/s TG@jcnode
-- type: http
-  server: 84.17.47.149
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇳🇱荷兰NL 009 6.2MB/s TG@jcnode
-- name: 🇳🇱荷兰NL 006 6.1MB/s TG@jcnode
-  type: http
-  server: 84.17.47.147
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-- name: 🇩🇪德国DE011 4.3MB/s中性 TG@jcnode
-  type: vless
-  network: ws
-  uuid: 86fdb625-1a7f-4784-99a6-a96b3a80fc6d
-  server: 140.248.180.30
-  servername: hamshahriesfahan.com
-  port: 443
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  tfo: false
-  ws-opts:
-    headers:
-      Host: hamshahriesfahan.com
-    path: /vip1
-- type: http
-  server: 138.199.35.205
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 070 8.0MB/s TG@jcnode
-- type: http
-  server: 138.199.35.197
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 087 6.1MB/s TG@jcnode
-- type: http
-  server: 138.199.35.219
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 069 6.1MB/s TG@jcnode
-- type: http
-  server: 138.199.35.203
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 080 7.4MB/s TG@jcnode
-- type: http
-  server: 138.199.35.200
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 075 6.8MB/s TG@jcnode
-- type: http
-  server: 84.17.47.125
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇳🇱荷兰NL 007 8.6MB/s TG@jcnode
-- type: http
-  server: 138.199.35.202
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 078 7.4MB/s TG@jcnode
-- type: http
-  server: 138.199.35.212
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 089 0.3MB/s TG@jcnode
-- name: 🇩🇪德国DE013 3.1MB/s纯净 TG@jcnode
-  type: vless
-  server: 2a14:7584:d097::a
-  port: 11330
-  uuid: 53d74aab-6471-4c1b-ace7-fac837d1bfbd
-  encryption: none
-  tls: true
-  servername: toarumajutsunoindex.fandom.com
-  skip-cert-verify: false
-  client-fingerprint: chrome
-  network: xhttp
-  flow: None
-  alpn:
-  - h2
-  udp: true
-  reality-opts:
-    public-key: 3HaD5Ztk3X4gi3aJLVesV6KSJTW2YGG-hvGD3ZumJkE
-    short-id: fa789b2f5ff56959
-    spider-x: /
-  xhttp-opts:
-    path: /alvin9999.com
-- name: 🇳🇱荷兰NL 005 6.8MB/s TG@jcnode
-  type: http
-  server: 84.17.47.150
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-- name: 🇺🇸美国US 044 8.0MB/s TG@jcnode
-  type: http
-  server: 138.199.35.215
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-- name: 🇷🇴罗马尼亚RO 073 1.2MB/s TG@jcnode
-  type: http
-  server: 193.176.84.40
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- type: http
-  server: 138.199.35.217
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 043 7.4MB/s TG@jcnode
-- name: 🇷🇴罗马尼亚RO 029 3.1MB/s TG@jcnode
-  type: http
-  server: 193.176.84.26
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- type: http
-  server: 138.199.35.206
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 081 8.0MB/s TG@jcnode
-- type: http
-  server: 138.199.35.216
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 086 0.5MB/s TG@jcnode
-- type: vless
-  server: 146.190.171.187
-  port: 486
-  uuid: 31b54d11-598a-415f-b227-8a6b593fafbc
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  ws-opts:
-    path: /@Marisa_kristi
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇺🇸美国US006 5.5MB/s中性 TG@jcnode
-- type: vless
-  server: tw.serviceoda.ru
-  port: 443
-  uuid: e806fecb-af6c-4256-94ec-078c5ff3a700
-  flow: xtls-rprx-vision
-  network: tcp
-  encryption: none
-  tls: true
-  reality-opts:
-    public-key: JTDF2NcBkHPybo8UokBD01cGbFQ1Rsa2j-TJknU3TGE
-    short-id: a2046727f1bb6a06
-  servername: api-maps.yandex.ru
-  client-fingerprint: qq
-  header-type: none
-  name: 🇪🇪爱沙尼亚EE 001 2.5MB/s TG@jcnode
-- type: http
-  server: 51.38.191.151
-  port: 443
-  tls: true
-  skip-cert-verify: true
-  name: 🇫🇷法国FR 002 5.8MB/s TG@jcnode
-- type: vless
-  server: 78.159.245.43
-  port: 25567
-  uuid: 1db3cf89-7ca0-4d7d-8c7c-4f57ae2a29da
-  flow: xtls-rprx-vision
-  network: raw
-  encryption: none
-  tls: true
-  reality-opts:
-    public-key: tsxzBG6xHNl1Nu8XPpd3hWk_zPGrpFrv2Z-difc3nGY
-    short-id: a5bd715847213387
-  servername: iv.kommersant.ru
-  client-fingerprint: qq
-  name: 🇩🇪德国DE004 3.4MB/s中性 TG@jcnode
-- type: vless
-  server: abolsolo-timazadi-tele.up.railway.app
-  port: 443
-  uuid: a316a3b4-388b-acd1-99bf-d3f0e5032ba8
-  flow: ''
-  network: xhttp
-  encryption: none
-  tls: true
-  servername: abolsolo-timazadi-tele.up.railway.app
-  xhttp-opts:
-    path: /xhttp-siz10/stream-up/a316a3b4-388b-acd1-99bf-d3f0e5032ba8
-    host: abolsolo-timazadi-tele.up.railway.app
-    mode: stream-up
-  alpn:
-  - h2
-  - http/1.1
-  client-fingerprint: chrome
-  name: 🇺🇸美国US061 2.5MB/s中性 TG@jcnode
-- type: vless
-  server: 78.159.250.189
-  port: 1111
-  uuid: 1db3cf89-7ca0-4d7d-8c7c-4f57ae2a29da
-  flow: xtls-rprx-vision
-  network: raw
-  encryption: none
-  tls: true
-  reality-opts:
-    public-key: YuhNgtj_Tf8WNLiSB2bNJKPvfwmqa6PNRpbP8TvNkzA
-  servername: api-maps.yandex.ru
-  client-fingerprint: chrome
-  header-type: none
-  name: 🇩🇪德国DE006 0.3MB/s中性 TG@jcnode
-- type: http
-  server: 138.199.35.208
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 082 6.8MB/s TG@jcnode
-- type: http
-  server: 138.199.35.220
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 072 6.1MB/s TG@jcnode
-- type: http
-  server: 138.199.35.218
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 073 7.4MB/s TG@jcnode
-- type: http
-  server: 84.17.47.146
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇳🇱荷兰NL 008 8.0MB/s TG@jcnode
-- type: vless
-  server: tw1.serviceoda.ru
-  port: 443
-  uuid: e806fecb-af6c-4256-94ec-078c5ff3a700
-  flow: xtls-rprx-vision
-  network: tcp
-  encryption: none
-  tls: true
-  reality-opts:
-    public-key: G9uQu7GdqkkvE6WH0gZ1kfzt2J50s6VgddYnqck5tjw
-    short-id: a29991b068641259
-  servername: api-maps.yandex.ru
-  client-fingerprint: qq
-  header-type: none
-  name: 🇵🇱波兰PL001 0.6MB/s中性 TG@jcnode
-- name: 🇷🇴罗马尼亚RO 093 3.1MB/s TG@jcnode
-  type: http
-  server: 84.239.49.244
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- type: hysteria2
-  server: 45.88.43.116
-  port: 52454
-  password: 6c077487-06af-4fb1-9e46-d485d98f0a31
-  sni: www.bing.com
-  skip-cert-verify: true
-  name: 🇯🇵日本JP004 2.9MB/s中性 TG@jcnode
-- type: vless
-  server: 95.181.162.170
-  port: 444
-  uuid: 751b51bc-af59-4b04-93c0-3fed4965297e
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  ws-opts:
-    path: /@Marisa_kristi
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇩🇪德国DE002 3.4MB/s中性 TG@jcnode
-- type: vless
-  server: 137.184.39.15
-  port: 443
-  uuid: 68eee13f-1a7a-4761-b71e-83b997eeccf9
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: d6th0.4j9t.hj7.hh.hhyf.kdns.fr
-  ws-opts:
-    path: /glasspanel/guest000_0_5de14443985f/
-    headers:
-      Host: d6th0.4j9t.hj7.hh.hhyf.kdns.fr
-  skip-cert-verify: false
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇺🇸美国US041 5.5MB/s中性 TG@jcnode
-- name: 🇷🇴罗马尼亚RO 003 2.4MB/s TG@jcnode
-  type: http
-  server: 84.239.49.234
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- type: http
-  server: 138.199.35.207
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 090 7.4MB/s TG@jcnode
-- name: 🇷🇴罗马尼亚RO 077 3.1MB/s TG@jcnode
-  type: http
-  server: 193.176.84.16
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- type: hysteria2
-  server: 156.226.172.6
-  port: 55000
-  password: d6cc5b3d-304e-48dc-83b0-68e02f5afc05
-  sni: www.bing.com
-  skip-cert-verify: true
-  name: 🇭🇰香港HK003 2.5MB/s纯净 TG@jcnode
-- name: 🇷🇴罗马尼亚RO 027 2.5MB/s TG@jcnode
-  type: http
-  server: 193.176.84.29
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- type: http
-  server: 138.199.35.209
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 071 6.8MB/s TG@jcnode
-- name: 🇷🇴罗马尼亚RO 070 6.2MB/s TG@jcnode
-  type: http
-  server: 84.239.49.179
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- encryption: none
-  name: 🇫🇮芬兰FI001 3.7MB/s中性 TG@jcnode
-  network: ws
-  port: 80
-  server: 146.75.119.82
-  type: vless
-  udp: true
-  uuid: 4071fd0c-c8d2-4353-907e-d8e39ce9b71b
-  ws-opts:
-    headers:
-      Host: rb24.ir
-      User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.89 Safari/537.36
-    path: ws/?ed=2048/@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr@vpnserverrr/?2048
-  packet-encoding: xudp
-- name: 🇷🇴罗马尼亚RO 075 1.7MB/s TG@jcnode
-  type: http
-  server: 193.176.84.36
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 089 2.6MB/s TG@jcnode
-  type: http
-  server: 84.239.49.165
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- type: vless
-  server: 212.22.82.138
-  port: 8443
-  uuid: d0069ea4-18b3-4af1-bc64-f525d0fac759
-  flow: ''
-  network: raw
-  encryption: none
-  tls: true
-  reality-opts:
-    public-key: GoARpHEm6UEmBN9i78FnpQw4qcQDgn6FoIIQZ1yBOxI
-    short-id: 01b3e33129
-  servername: api-maps.yandex.ru
-  client-fingerprint: chrome
-  spx: /Rkely7YLmwF6b8E
-  name: 🇷🇺俄罗斯RU002 0.8MB/s危险 TG@jcnode
-- name: 🇷🇴罗马尼亚RO 094 5.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.252
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 016 5.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.202
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 005 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.159
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 086 5.5MB/s TG@jcnode
-  type: http
-  server: 193.176.84.39
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- type: vless
-  server: ffdhfdh.mbmovietime.ir
-  port: 34027
-  uuid: d7955f3f-dfa3-45a0-a3ef-9693df439a0f
-  flow: ''
-  network: tcp
-  tls: true
-  reality-opts:
-    public-key: 9s3yEketDxPnrIxtN-KUdfVJ_p3gfOpcr_0abD4vSFw
-    short-id: 0e84472c5bfccf3c
-  servername: msn.com
-  client-fingerprint: ios
-  name: 🇳🇱荷兰NL003 3.7MB/s中性 TG@jcnode
-- name: 🇷🇴罗马尼亚RO 099 3.1MB/s TG@jcnode
-  type: http
-  server: 84.239.49.167
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- type: vless
-  server: 85.239.54.134
-  port: 8443
-  uuid: 96423879-75e7-4b83-9298-98a39888a8ba
-  flow: xtls-rprx-vision
-  network: tcp
-  encryption: none
-  tls: true
-  reality-opts:
-    public-key: lRPeETJHxWt5X_fgbQALgwNwDndk8l_GHwuBUpK_cEg
-    short-id: cbf87c88b9edc929
-  servername: site.rumedia-cdn.com
-  client-fingerprint: qq
-  header-type: none
-  name: 🇷🇺俄罗斯RU011 6.1MB/s中性 TG@jcnode
-- name: 🇺🇸美国US065 0.5MB/s中性 TG@jcnode
-  password: aed1cc24-351d-11ef-ba52-f23c9164ca5d
-  port: 443
-  server: 3ce483da-t9zts0-tawg6w-1rfon.se.oshuawei.com
-  sni: 3ce483da-t9zts0-tawg6w-1rfon.se.oshuawei.com
-  tls: true
-  type: http
-  username: aed1cc24-351d-11ef-ba52-f23c9164ca5d
-- name: 🇷🇴罗马尼亚RO 054 2.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.231
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- type: vless
-  server: 138.2.20.58
-  port: 666
-  uuid: e258977b-e413-4718-a3af-02d75492c349
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: ww1.aniuge.qzz.io
-  ws-opts:
-    path: '%2F%3Fed%3D2095'
-    headers:
-      Host: ww1.aniuge.qzz.io
-  alpn:
-  - http/1.1
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    config: AEX+DQBBVwAgACCwYZr8PRQOE4PlAEDZQ59BCVnfRLg32c/1n+jk4BXscAAEAAEAAQASY2xvdWRmbGFyZS1lY2guY29tAAA=
-  name: 🇯🇵日本JP003 4.3MB/s中性 TG@jcnode
-- name: 🇷🇴罗马尼亚RO 098 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.241
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 017 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.209
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 072 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.233
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 056 2.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.168
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 009 6.6MB/s TG@jcnode
-  type: http
-  server: 84.239.49.191
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 013 6.2MB/s TG@jcnode
-  type: http
-  server: 84.239.49.245
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 065 3.1MB/s TG@jcnode
-  type: http
-  server: 84.239.49.192
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 097 6.1MB/s TG@jcnode
-  type: http
-  server: 84.239.49.208
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 060 6.0MB/s TG@jcnode
-  type: http
-  server: 84.239.49.50
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 071 5.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.170
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 107 6.2MB/s TG@jcnode
-  type: http
-  server: 84.239.49.198
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 087 5.5MB/s TG@jcnode
-  type: http
-  server: 193.176.84.33
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 052 5.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.156
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 038 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.196
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 023 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.226
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 015 6.2MB/s TG@jcnode
-  type: http
-  server: 84.239.49.175
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 043 2.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.247
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 050 5.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.249
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 001 2.7MB/s TG@jcnode
-  type: http
-  server: 84.239.49.219
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 081 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.240
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- name: 🇺🇸美国US 067 4.2MB/s TG@jcnode
-  type: http
-  server: 38.28.193.188
-  port: 443
-  skip-cert-verify: true
-  tls: true
-- name: 🇷🇴罗马尼亚RO 101 6.0MB/s TG@jcnode
-  type: http
-  server: 84.239.49.189
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇫🇷法国FR003 1.2MB/s中性 TG@jcnode
-  password: 5dc6fa05-a601-aba6-7761-ecde22d2b0fc
-  port: 443
-  server: eac88fe8-t9zts0-tonrmx-8n27.fr.oshuawei.com
-  sni: eac88fe8-t9zts0-tonrmx-8n27.fr.oshuawei.com
-  tls: true
-  type: http
-  username: 5dc6fa05-a601-aba6-7761-ecde22d2b0fc
-- name: 🇷🇴罗马尼亚RO 046 3.1MB/s TG@jcnode
-  type: http
-  server: 84.239.49.171
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 069 6.2MB/s TG@jcnode
-  type: http
-  server: 84.239.49.58
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 034 5.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.163
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 095 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.41
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 062 3.0MB/s TG@jcnode
-  type: http
-  server: 84.239.49.236
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 067 3.1MB/s TG@jcnode
-  type: http
-  server: 84.239.49.217
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 032 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.173
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 019 6.2MB/s TG@jcnode
-  type: http
-  server: 84.239.49.57
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 006 3.3MB/s TG@jcnode
-  type: http
-  server: 84.239.14.159
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 007 6.2MB/s TG@jcnode
-  type: http
-  server: 84.239.49.154
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 058 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.62
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 022 3.1MB/s TG@jcnode
-  type: http
-  server: 84.239.49.183
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 014 2.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.39
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 057 6.2MB/s TG@jcnode
-  type: http
-  server: 84.239.49.220
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 055 5.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.59
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 036 3.7MB/s TG@jcnode
-  type: http
-  server: 84.239.49.206
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 049 2.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.155
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 044 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.235
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 106 0.8MB/s TG@jcnode
-  type: http
-  server: 84.239.14.148
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 020 2.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.185
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 002 5.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.157
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 108 2.1MB/s TG@jcnode
-  type: http
-  server: 84.239.49.212
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 085 4.3MB/s TG@jcnode
-  type: http
-  server: 84.239.49.248
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 051 5.5MB/s TG@jcnode
-  type: http
-  server: 84.239.14.158
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 084 2.7MB/s TG@jcnode
-  type: http
-  server: 84.239.49.222
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 076 3.4MB/s TG@jcnode
-  type: http
-  server: 84.239.49.38
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 074 4.9MB/s TG@jcnode
-  password: ''
-  port: 9002
-  server: 84.239.49.162
-  skip-cert-verify: true
-  tls: true
-  type: http
-  username: ''
-- type: vless
-  server: api.yandex-cloud.org
-  port: 443
-  uuid: e708dd75-cf26-4a45-aba3-45da05615910
-  flow: xtls-rprx-vision
-  network: tcp
-  encryption: none
-  tls: true
-  reality-opts:
-    public-key: IuvAXlAWBpeXehmEk0P-FIGTctUhny2H3UilbWWfJC0
-    short-id: 122218f4c1f172e4
-  servername: api.yandex-cloud.org
-  client-fingerprint: safari
-  header-type: none
-  name: 🇩🇪德国DE010 0.2MB/s有风险 TG@jcnode
-- type: vless
-  server: 78.159.245.45
-  port: 25565
-  uuid: 1db3cf89-7ca0-4d7d-8c7c-4f57ae2a29da
-  flow: xtls-rprx-vision
-  network: raw
-  encryption: none
-  tls: true
-  reality-opts:
-    public-key: Pw1EUU1hud5uvtfySGyGy5vV38bYIiQzDx-cDQoAdk0
-    short-id: a5bd715847213387
-  servername: img.perekrestok.ru
-  client-fingerprint: qq
-  name: 🇩🇪德国DE005 0.3MB/s中性 TG@jcnode
-- name: 🇷🇴罗马尼亚RO 035 4.3MB/s TG@jcnode
-  type: http
-  server: 84.239.49.201
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- type: http
-  server: 38.28.193.1
-  port: 443
-  tls: true
-  skip-cert-verify: true
-  name: 🇺🇸美国US 091 2.5MB/s TG@jcnode
-- name: 🇷🇴罗马尼亚RO 026 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.49
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- type: vless
-  server: 80.66.196.150
-  port: 9447
-  uuid: 1a242370-5007-46c7-81a9-0dd7f1f2f288
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  ws-opts:
-    path: /@Marisa_kristi
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇺🇸美国US010 4.3MB/s中性 TG@jcnode
-- type: vless
-  server: 109.120.150.185
-  port: 11261
-  uuid: 4ca7bfb0-b93e-472d-8d34-3082780b3e8e
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  ws-opts:
-    path: /@Marisa_kristi
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇩🇪德国DE001 0.4MB/s中性 TG@jcnode
-- name: 🇷🇴罗马尼亚RO 041 5.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.40
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 025 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.182
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 030 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.228
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 080 3.1MB/s TG@jcnode
-  type: http
-  server: 84.239.49.230
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 100 2.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.200
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 104 3.4MB/s TG@jcnode
-  type: http
-  server: 84.239.49.184
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 045 6.2MB/s TG@jcnode
-  type: http
-  server: 84.239.49.164
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 079 2.5MB/s TG@jcnode
-  password: ''
-  port: 9002
-  server: 84.239.14.153
-  skip-cert-verify: true
-  tls: true
-  type: http
-  username: ''
-- name: 🇷🇴罗马尼亚RO 039 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.211
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 047 5.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.242
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- type: vless
-  server: 195.209.86.193
-  port: 443
-  uuid: 45c8814c-c06f-4444-acda-1b745e74d33e
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: s76276.cdn.ngenix.net
-  ws-opts:
-    path: /v1/data/sync/
-    headers:
-      Host: s76276.cdn.ngenix.net
-  alpn:
-  - http/1.1
-  client-fingerprint: qq
-  name: 🇨🇿捷克CZ001 3.7MB/s中性 TG@jcnode
-- name: 🇷🇴罗马尼亚RO 021 3.1MB/s TG@jcnode
-  type: http
-  server: 84.239.49.224
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 068 2.0MB/s TG@jcnode
-  type: http
-  server: 84.239.49.218
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 053 3.7MB/s TG@jcnode
-  type: http
-  server: 84.239.49.223
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 102 1.8MB/s TG@jcnode
-  type: http
-  server: 193.176.84.35
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 011 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.178
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 083 3.1MB/s TG@jcnode
-  type: http
-  server: 193.176.84.24
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 064 5.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.53
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 008 3.1MB/s TG@jcnode
-  type: http
-  server: 84.239.49.227
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 105 4.8MB/s TG@jcnode
-  type: http
-  server: 84.239.14.151
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 037 3.7MB/s TG@jcnode
-  type: http
-  server: 84.239.49.187
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 040 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.239
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 031 3.1MB/s TG@jcnode
-  type: http
-  server: 84.239.14.147
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 048 3.1MB/s TG@jcnode
-  type: http
-  server: 84.239.49.166
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- type: vless
-  server: 212.22.82.138
-  port: 443
-  uuid: 7438bc61-fc48-406c-a8a8-cb2185849d99
-  flow: ''
-  network: raw
-  encryption: none
-  tls: true
-  reality-opts:
-    public-key: Lg6h-bnd_hSHqUgXFnJ-TwMIWzQ-YgdQs5rxWTVvDkY
-    short-id: dcb232276ce1
-  servername: max.ru
-  client-fingerprint: firefox
-  spx: /r4xEQdxaxXeD1Ys
-  name: 🇷🇺俄罗斯RU003 3.1MB/s纯净 TG@jcnode
-- name: 🇷🇴罗马尼亚RO 024 4.3MB/s TG@jcnode
-  type: http
-  server: 84.239.49.197
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 010 3.1MB/s TG@jcnode
-  type: http
-  server: 84.239.49.207
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 042 3.7MB/s TG@jcnode
-  type: http
-  server: 84.239.14.160
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 090 2.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.56
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 018 5.0MB/s TG@jcnode
-  type: http
-  server: 84.239.49.204
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 092 5.5MB/s TG@jcnode
-  password: ''
-  port: 9002
-  server: 193.176.84.17
-  skip-cert-verify: true
-  tls: true
-  type: http
-  username: ''
-- type: vless
-  server: 78.159.250.245
-  port: 8443
-  uuid: a982c357-ae92-40ce-9dad-0e3c3b393ac2
-  flow: xtls-rprx-vision
-  network: raw
-  encryption: none
-  tls: true
-  reality-opts:
-    public-key: gK4nP4pGndlg1SwYVO4AMhOZQGsmGLbu1ScR4SIP-Gw
-    short-id: '76394756'
-  servername: ya.ru
-  client-fingerprint: firefox
-  name: 🇩🇪德国DE007 3.6MB/s中性 TG@jcnode
-- name: 🇷🇴罗马尼亚RO 012 5.5MB/s TG@jcnode
-  type: http
-  server: 84.239.49.160
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- name: 🇷🇴罗马尼亚RO 033 4.9MB/s TG@jcnode
-  type: http
-  server: 84.239.49.238
-  port: 9002
-  skip-cert-verify: true
-  tls: true
-  udp: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 004 6.1MB/s TG@jcnode
-  type: http
-  server: 193.176.84.32
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-  udp: true
-- type: vless
-  server: 5.223.59.9
-  port: 443
-  uuid: e258977b-e413-4718-a3af-02d75492c349
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: ww1.aniuge.qzz.io
-  ws-opts:
-    path: '%2F%3Fed%3D2095'
-    headers:
-      Host: ww1.aniuge.qzz.io
-  alpn:
-  - http/1.1
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    config: AEX+DQBBVwAgACCwYZr8PRQOE4PlAEDZQ59BCVnfRLg32c/1n+jk4BXscAAEAAEAAQASY2xvdWRmbGFyZS1lY2guY29tAAA=
-  name: 🇸🇬新加坡SG005 3.1MB/s有风险 TG@jcnode
-- name: 🇷🇴罗马尼亚RO 063 3.1MB/s TG@jcnode
-  type: http
-  server: 84.239.49.213
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 059 2.5MB/s TG@jcnode
-  type: http
-  server: 193.176.84.34
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- type: vless
-  server: 62.60.186.199
-  port: 10000
-  uuid: bc34f191-de4a-42d7-9370-ab68c67d42fb
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  ws-opts:
-    path: /@Marisa_kristi
-    headers:
-      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  name: 🇩🇪德国DE003 3.7MB/s中性 TG@jcnode
-- name: 🇷🇴罗马尼亚RO 028 3.1MB/s TG@jcnode
-  type: http
-  server: 84.239.49.251
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 082 3.7MB/s TG@jcnode
-  type: http
-  server: 193.176.84.27
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 088 3.7MB/s TG@jcnode
-  type: http
-  server: 193.176.84.38
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 078 6.8MB/s TG@jcnode
-  type: http
-  server: 193.176.84.21
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇷🇴罗马尼亚RO 103 5.0MB/s TG@jcnode
-  type: http
-  server: 193.176.84.25
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- type: vless
-  server: 5.223.60.18
-  port: 4443
-  uuid: e258977b-e413-4718-a3af-02d75492c349
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: ww1.aniuge.qzz.io
-  ws-opts:
-    path: '%2F%3Fed%3D2095'
-    headers:
-      Host: ww1.aniuge.qzz.io
-  alpn:
-  - http/1.1
-  client-fingerprint: chrome
-  ech-opts:
-    enable: true
-    config: AEX+DQBBVwAgACCwYZr8PRQOE4PlAEDZQ59BCVnfRLg32c/1n+jk4BXscAAEAAEAAQASY2xvdWRmbGFyZS1lY2guY29tAAA=
-  name: 🇸🇬新加坡SG004 0.3MB/s危险 TG@jcnode
-- type: vless
-  server: 78.41.110.128
-  port: 443
-  uuid: 45c8814c-c06f-4444-acda-1b745e74d33e
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: s76276.cdn.ngenix.net
-  ws-opts:
-    path: /v1/data/sync/
-    headers:
-      Host: s76276.cdn.ngenix.net
-  alpn:
-  - http/1.1
-  client-fingerprint: firefox
-  name: 🇨🇿捷克CZ003 3.3MB/s中性 TG@jcnode
-- name: 🇷🇴罗马尼亚RO 096 3.5MB/s TG@jcnode
-  type: http
-  server: 193.176.84.20
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- name: 🇭🇰香港HK001 1.9MB/s纯净 TG@jcnode
-  server: 45.202.248.138
-  port: 55000
-  type: hysteria2
-  password: 7c7ff1be-a6e9-4a6f-853c-052ed3f3f21b
-  sni: www.bing.com
-  skip-cert-verify: true
-  udp: true
-- type: vless
-  server: 92.53.99.72
-  port: 443
-  uuid: 4392b776-41a2-4300-b545-a3d2724b605b
-  flow: ''
-  network: xhttp
-  encryption: none
-  tls: true
-  reality-opts:
-    public-key: SRHaGdtnkRYMKRlJPAIlk3gXKNH9lEo_qCzF5BOBdB4
-    short-id: bc1aa344
-  servername: cdn.tracker.yandex.net
-  xhttp-opts:
-    path: /static/js/main.js
-    host: cdn.tracker.yandex.net
-    mode: auto
-    xmux:
-      cMaxReuseTimes: 0.0
-      maxConcurrency: 16-32
-      maxConnections: 0.0
-      hKeepAlivePeriod: 0.0
-      hMaxRequestTimes: 600-900
-      hMaxReusableSecs: 1800-3000
-    noGRPCHeader: false
-    scMaxEachPostBytes: 1000000.0
-    scMinPostsIntervalMs: 30.0
-    scStreamUpServerSecs: 20-80
-    x-padding-bytes: 100-1000
-  client-fingerprint: firefox
-  skip-cert-verify: false
-  name: 🇷🇺俄罗斯RU010 0.2MB/s中性 TG@jcnode
-- type: vless
-  server: 195.209.87.181
-  port: 443
-  uuid: 45c8814c-c06f-4444-acda-1b745e74d33e
-  flow: ''
-  network: ws
-  encryption: none
-  tls: true
-  servername: s76276.cdn.ngenix.net
-  ws-opts:
-    path: /v1/data/sync/
-    headers:
-      Host: s76276.cdn.ngenix.net
-  alpn:
-  - http/1.1
-  client-fingerprint: safari
-  name: 🇨🇿捷克CZ002 0.6MB/s中性 TG@jcnode
-- name: 🇺🇸美国US019 6.0MB/s中性 TG@jcnode
-  type: vless
-  server: cf.090227.xyz
-  port: 443
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
-  network: ws
-  servername: t1s1.rittbo.kdns.fr
-  tls: true
-  client-fingerprint: chrome
-  ws-opts:
-    path: /
-    headers:
-      Host: t1s1.rittbo.kdns.fr
-  skip-cert-verify: true
-  udp: true
-  ech-opts:
-    enable: true
-    query-server-name: cloudflare-ech.com
-  encryption: none
-- name: 🇷🇴罗马尼亚RO 061 4.9MB/s TG@jcnode
-  type: http
-  server: 193.176.84.22
-  port: 9002
-  tls: true
-  skip-cert-verify: true
-  sni: www.bing.com
-- type: socks5
-  server: 112.28.149.152
-  port: 8443
-  name: 🇯🇵日本JP005 0.2MB/s中性 TG@jcnode
-- name: 🇩🇪德国DE012 3.0MB/s纯净 TG@jcnode
-  type: hysteria
-  server: 2a14:7584:d097::a
-  port: 54177
-  protocol: udp
-  auth-str: dongtaiwang.com
-  up: '500'
-  down: '1000'
-  sni: apple.com
-  skip-cert-verify: true
-  alpn:
-  - h3
 - name: US-Trojan
   type: trojan
   server: 154.21.92.132
@@ -6920,6 +2754,92 @@ proxies:
     public-key: nCVhbo1TjJFrHIhHI9DRdqllNwdY7EIp8n6HgLtE5gA
     short-id: ''
   client-fingerprint: chrome
+- name: 🇺🇸 US|84.4|M1564ms|159.65.79.184|GPT+YT|hysteria2
+  type: hysteria2
+  server: 159.65.79.184
+  port: 443
+  password: 7466549e-812f-4b33-b09b-c3e132e6e51b
+  sni: addons.mozilla.org
+  skip-cert-verify: false
+- client-fingerprint: chrome
+  fingerprint: D2:0B:C6:72:35:F3:99:35:1B:4E:81:EE:4C:16:12:51:0E:52:AE:9E:FE:2C:84:65:76:62:10:DD:F2:1C:2C:3C
+  idle-session-check-interval: 30
+  idle-session-timeout: 30
+  name: 🇺🇸 US|60|M940ms|2604:a880:2:d1:0:1:677c:8001|GPT+YT|anytls
+  password: 7466549e-812f-4b33-b09b-c3e132e6e51b
+  port: 444
+  server: 159.65.79.184
+  skip-cert-verify: false
+  sni: addons.mozilla.org
+  type: anytls
+  udp: true
+- name: 🇳🇱 NL-AMS HY2
+  type: hysteria2
+  server: 159.223.12.0
+  port: 443
+  ports: 20000-50000
+  hop-interval: 30
+  up: 100 Mbps
+  down: 500 Mbps
+  password: 4aeedead-1354-45a4-935d-8bba5e7f82b5
+  sni: addons.mozilla.org
+  skip-cert-verify: false
+  fingerprint: E9:33:97:A7:BF:A5:AF:2A:2D:B2:AF:02:08:2B:0A:42:19:C2:54:A3:5B:9B:50:20:F8:D3:41:EF:F6:1C:55:82
+- name: 🇳🇱 NL-AMS AnyTLS
+  type: anytls
+  server: 159.223.12.0
+  port: 444
+  password: 4aeedead-1354-45a4-935d-8bba5e7f82b5
+  client-fingerprint: chrome
+  udp: true
+  idle-session-check-interval: 30
+  idle-session-timeout: 30
+  sni: addons.mozilla.org
+  skip-cert-verify: false
+  fingerprint: E9:33:97:A7:BF:A5:AF:2A:2D:B2:AF:02:08:2B:0A:42:19:C2:54:A3:5B:9B:50:20:F8:D3:41:EF:F6:1C:55:82
+- name: 🇸🇬 SG|95|M341ms|2400:6180:0:d2:0:2:f62c:e000|YT|hysteria2
+  type: hysteria2
+  server: 139.59.98.251
+  port: 443
+  password: b547b58b-6628-4127-b67d-40aa0be26c67
+  sni: addons.mozilla.org
+  skip-cert-verify: false
+- client-fingerprint: chrome
+  fingerprint: 8A:24:AD:B1:0F:73:00:69:BF:83:37:62:FF:D0:B4:75:6E:79:85:73:05:A5:CC:D3:A0:DA:C7:84:0B:BF:98:DC
+  idle-session-check-interval: 30
+  idle-session-timeout: 30
+  name: 🇸🇬 SG|95|M316ms|2400:6180:0:d2:0:2:f62c:e000|YT|anytls
+  password: b547b58b-6628-4127-b67d-40aa0be26c67
+  port: 444
+  server: 139.59.98.251
+  skip-cert-verify: false
+  sni: addons.mozilla.org
+  type: anytls
+  udp: true
+- name: 🇭🇰 HK-HKG HY2
+  type: hysteria2
+  server: 123.254.107.195
+  port: 443
+  ports: 20000-50000
+  hop-interval: 30
+  up: 10 Mbps
+  down: 50 Mbps
+  password: e9064dc5-f755-4579-a284-d60bf2d4e322
+  sni: addons.mozilla.org
+  skip-cert-verify: false
+  fingerprint: 50:D8:C8:9C:4F:90:44:3E:BA:2F:52:0A:4C:DF:FC:16:34:F5:5E:6B:06:1B:05:1D:BD:71:38:BF:69:B0:6A:B9
+- client-fingerprint: chrome
+  fingerprint: 50:D8:C8:9C:4F:90:44:3E:BA:2F:52:0A:4C:DF:FC:16:34:F5:5E:6B:06:1B:05:1D:BD:71:38:BF:69:B0:6A:B9
+  idle-session-check-interval: 30
+  idle-session-timeout: 30
+  name: 🇭🇰 HK|75|M282ms|123.254.107.195|YT|anytls
+  password: e9064dc5-f755-4579-a284-d60bf2d4e322
+  port: 444
+  server: 123.254.107.195
+  skip-cert-verify: false
+  sni: addons.mozilla.org
+  type: anytls
+  udp: true
 - name: US01
   server: cn00.somethingstranges.com
   port: 8803
@@ -7298,25 +3218,6 @@ proxies:
   cipher: aes-256-gcm
   password: ac72b60f-7f43-3f34-9bf8-943a137be5bd
   udp: true
-- name: 🇸🇬 SG|95|M341ms|2400:6180:0:d2:0:2:f62c:e000|YT|hysteria2
-  type: hysteria2
-  server: 139.59.98.251
-  port: 443
-  password: b547b58b-6628-4127-b67d-40aa0be26c67
-  sni: addons.mozilla.org
-  skip-cert-verify: false
-- client-fingerprint: chrome
-  fingerprint: 8A:24:AD:B1:0F:73:00:69:BF:83:37:62:FF:D0:B4:75:6E:79:85:73:05:A5:CC:D3:A0:DA:C7:84:0B:BF:98:DC
-  idle-session-check-interval: 30
-  idle-session-timeout: 30
-  name: 🇸🇬 SG|95|M316ms|2400:6180:0:d2:0:2:f62c:e000|YT|anytls
-  password: b547b58b-6628-4127-b67d-40aa0be26c67
-  port: 444
-  server: 139.59.98.251
-  skip-cert-verify: false
-  sni: addons.mozilla.org
-  type: anytls
-  udp: true
 - name: 🇯🇵 JP|88|M236ms|45.32.49.228|YT|vless
   type: vless
   server: 104.17.191.15
@@ -7403,6 +3304,23 @@ proxies:
   password: pvZE3UfT0ziK1omVLlsjINBqeqqwab1M
   sni: 139.59.238.97
   skip-cert-verify: true
+- client-fingerprint: chrome
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare-ech.com
+  encryption: none
+  name: 🇯🇵 JP|88|M540ms|43.165.183.74|YT|vless
+  network: ws
+  port: 2000
+  server: 13.212.82.58
+  tls: true
+  type: vless
+  uuid: 6b0ff21f-8d44-47fe-a296-431150d7ba93
+  ws-opts:
+    headers:
+      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+    path: /@Marisa_kristi
+  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
 - name: 🇸🇬 SG|88|M527ms|164.52.1.179|YT|vless
   type: vless
   server: 47.82.155.79
@@ -7415,13 +3333,6 @@ proxies:
     path: /glasspanel/guest000_0_5de14443985f/
     headers:
       Host: c8ge1.ev01.2x1.hh.hhyf.kdns.fr
-- name: 🇺🇸 US|84.4|M1564ms|159.65.79.184|GPT+YT|hysteria2
-  type: hysteria2
-  server: 159.65.79.184
-  port: 443
-  password: 7466549e-812f-4b33-b09b-c3e132e6e51b
-  sni: addons.mozilla.org
-  skip-cert-verify: false
 - name: 🇨🇦 CA|81.5|M843ms|147.5.104.226|GPT+YT|tuic
   type: tuic
   server: 33ca.networklinkpro.net
@@ -7437,6 +3348,27 @@ proxies:
   congestion-controller: cubic
   udp-relay-mode: native
   version: 5
+- client-fingerprint: chrome
+  ech-opts:
+    _dns: https://dns.alidns.com/dns-query
+    enable: true
+    query-server-name: cloudflare-ech.com
+  encryption: none
+  name: 🇸🇬 SG|81.2|M1920ms|164.52.1.182|YT|vless
+  network: ws
+  packet-encoding: xudp
+  port: 443
+  server: 172.64.145.2
+  skip-cert-verify: false
+  tls: true
+  type: vless
+  udp: true
+  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
+  ws-opts:
+    headers:
+      Host: t1s1.rittbo.kdns.fr
+    path: /
+  servername: t1s1.rittbo.kdns.fr
 - name: 🇯🇵 JP|75|M457ms|31.76.91.71|YT|vless
   type: vless
   server: jp1.cyphervpn.pro
@@ -7450,6 +3382,23 @@ proxies:
     public-key: USffNprEM08MHiuVy5bj6-kvxugxycuZcgQDFJyz2Wc
     short-id: 8f9d033ad6d2cebf
   uuid: 8bba3194-4856-46d1-8319-075817d87eb1
+- client-fingerprint: chrome
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare-ech.com
+  encryption: none
+  name: 🇯🇵 JP|75|M634ms|212.135.210.133|YT|vless
+  network: ws
+  port: 12016
+  server: 220.72.143.166
+  tls: true
+  type: vless
+  uuid: 0735b6f3-fdaa-4413-9c98-9af58e8a9052
+  ws-opts:
+    headers:
+      Host: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
+    path: /@Marisa_kristi
+  servername: 2-gys60wmzb6bqzd.qpsjn114hh3vlph9z60sesz0agjawpwroneg.workers.dev
 - name: 🇺🇸 US|75|M630ms|192.204.46.230|GPT+YT|vmess
   type: vmess
   server: 192.204.46.230
@@ -7507,6 +3456,18 @@ proxies:
     path: /pyip=ProxyIP.US.CMLiussss.net
   xudp: true
   packet-encoding: xudp
+- cipher: chacha20-ietf-poly1305
+  name: 🇺🇸 US|75|M1300ms|88.210.36.109|GPT+YT|ss
+  password: t0srmdxrm3xyjnvqz9ewlxb2myq7rjuv
+  plugin: obfs
+  plugin-opts:
+    host: (Telegram🇨🇳 @WangCai2)f6e348d:70852
+    mode: tls
+  port: 2377
+  server: 88.210.36.106
+  skip-cert-verify: true
+  type: ss
+  udp: true
 - cipher: aes-256-cfb
   name: 🇺🇸 US|75|M815ms|18.190.176.112|GPT+YT|ss
   password: amazonskr05
@@ -7524,18 +3485,24 @@ proxies:
     path: /pyip=ProxyIP.US.CMLiussss.net
     headers:
       Host: sparkling-shadow-481d.342-429.workers.dev
-- client-fingerprint: chrome
-  fingerprint: 50:D8:C8:9C:4F:90:44:3E:BA:2F:52:0A:4C:DF:FC:16:34:F5:5E:6B:06:1B:05:1D:BD:71:38:BF:69:B0:6A:B9
-  idle-session-check-interval: 30
-  idle-session-timeout: 30
-  name: 🇭🇰 HK|75|M282ms|123.254.107.195|YT|anytls
-  password: e9064dc5-f755-4579-a284-d60bf2d4e322
-  port: 444
-  server: 123.254.107.195
-  skip-cert-verify: false
-  sni: addons.mozilla.org
-  type: anytls
-  udp: true
+- name: 🇺🇸 US|75|M1114ms|159.203.180.17|YT|vless
+  type: vless
+  server: 162.159.42.182
+  port: 443
+  client-fingerprint: chrome
+  tls: true
+  servername: t1s1.rittbo.kdns.fr
+  network: ws
+  ws-opts:
+    headers:
+      Host: t1s1.rittbo.kdns.fr
+    path: /
+  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
+  encryption: none
+  packet-encoding: xudp
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare-ech.com
 - name: 🇺🇸 US|75|M1046ms|206.189.182.239|GPT+YT|vless
   type: vless
   server: 173.245.58.253
@@ -7635,6 +3602,23 @@ proxies:
     path: /pyip=Telegram🇨🇳 @WangCai2
     headers:
       Host: old-violet-a5ce.29-440.workers.dev
+- name: 🇺🇸 US|75|M1005ms|192.119.83.187|GPT+YT|vless
+  type: vless
+  server: 172.64.53.65
+  port: 443
+  client-fingerprint: chrome
+  tls: true
+  servername: t1s1.rittbo.kdns.fr
+  network: ws
+  ws-opts:
+    headers:
+      Host: t1s1.rittbo.kdns.fr
+    path: /
+  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
+  packet-encoding: xudp
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare-ech.com
 - name: 🇯🇵 JP|75|M1440ms|137.220.225.56|YT|trojan
   type: trojan
   server: 66.245.221.196
@@ -7802,6 +3786,37 @@ proxies:
   tls: false
   type: http
   username: ''
+- name: 🇺🇸 US|68|M1114ms|204.1.108.90|GPT+YT|http
+  port: 443
+  server: 198.2.210.70
+  skip-cert-verify: true
+  tls: true
+  type: http
+- name: 🇺🇸 US|68|M1141ms|138.199.35.199|GPT+YT|http
+  port: 9002
+  server: 138.199.35.199
+  sin: https://t.me/WangCai2🇨🇳
+  skip-cert-verify: true
+  tls: true
+  type: http
+- name: 🇺🇸 US|67.4|M1626ms|159.203.180.17|GPT+YT|vless
+  type: vless
+  server: 162.159.41.198
+  port: 8443
+  client-fingerprint: chrome
+  tls: true
+  servername: t1s1.rittbo.kdns.fr
+  network: ws
+  ws-opts:
+    headers:
+      Host: t1s1.rittbo.kdns.fr
+    path: /
+  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
+  encryption: none
+  packet-encoding: xudp
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare-ech.com
 - name: 🇵🇱 PL|67.1|M1034ms|57.128.195.136|YT|hysteria2
   type: hysteria2
   server: eacyqrw.cvewfjg.shop
@@ -7809,6 +3824,24 @@ proxies:
   password: XLXbJUxoTEE98aQbJdSKjrsh7RFtFXdf
   sni: eacyqrw.cvewfjg.shop
   skip-cert-verify: false
+- name: 🇺🇸 US|67|M1641ms|192.119.83.187|GPT+YT|vless
+  type: vless
+  server: 172.64.151.158
+  port: 443
+  client-fingerprint: chrome
+  tls: true
+  servername: t1s1.rittbo.kdns.fr
+  network: ws
+  ws-opts:
+    headers:
+      Host: t1s1.rittbo.kdns.fr
+    path: /
+  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
+  encryption: none
+  packet-encoding: xudp
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare-ech.com
 - name: 🇳🇱 NL|66.4|M975ms|89.105.210.100|YT|vless
   type: vless
   server: ru-1.videoproeditor.com
@@ -8114,6 +4147,12 @@ proxies:
   servername: pypi.org
   network: tcp
   skip-cert-verify: true
+- name: 🇦🇺 AU|60.2|M981ms|159.13.44.228|YT|http
+  port: 443
+  server: 159.13.44.228
+  skip-cert-verify: true
+  tls: true
+  type: http
 - name: 🇺🇸 US|60|M986ms|107.172.6.224|GPT+YT|vless
   type: vless
   server: 162.159.44.113
@@ -8142,6 +4181,24 @@ proxies:
     path: /glasspanel/guest000_0_5de14443985f/
   uuid: 68eee13f-1a7a-4761-b71e-83b997eeccf9
   encryption: none
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare-ech.com
+- name: 🇺🇸 US|60|M1090ms|104.28.165.54|GPT+YT|vless
+  type: vless
+  server: 172.64.52.240
+  port: 443
+  client-fingerprint: chrome
+  tls: true
+  servername: t1s1.rittbo.kdns.fr
+  network: ws
+  ws-opts:
+    headers:
+      Host: t1s1.rittbo.kdns.fr
+    path: /
+  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
+  encryption: none
+  packet-encoding: xudp
   ech-opts:
     enable: true
     query-server-name: cloudflare-ech.com
@@ -8299,18 +4356,6 @@ proxies:
   port: 1080
   cipher: chacha20-ietf-poly1305
   password: Vr06rU_v1vFPYeXq9zbsAA
-- client-fingerprint: chrome
-  fingerprint: D2:0B:C6:72:35:F3:99:35:1B:4E:81:EE:4C:16:12:51:0E:52:AE:9E:FE:2C:84:65:76:62:10:DD:F2:1C:2C:3C
-  idle-session-check-interval: 30
-  idle-session-timeout: 30
-  name: 🇺🇸 US|60|M940ms|2604:a880:2:d1:0:1:677c:8001|GPT+YT|anytls
-  password: 7466549e-812f-4b33-b09b-c3e132e6e51b
-  port: 444
-  server: 159.65.79.184
-  skip-cert-verify: false
-  sni: addons.mozilla.org
-  type: anytls
-  udp: true
 - client-fingerprint: chrome
   encryption: none
   flow: xtls-rprx-vision
@@ -8582,28 +4627,6 @@ proxies:
   network: tcp
   tls: true
   skip-cert-verify: true
-- name: 硅谷-VLESS
-  type: vless
-  server: 43.173.98.184
-  port: 443
-  uuid: 211d03a1-36e9-40e7-8b5e-f9dac6997f05
-  network: tcp
-  tls: true
-  udp: true
-  flow: xtls-rprx-vision
-  client-fingerprint: chrome
-  servername: www.apple.com
-  reality-opts:
-    public-key: ftbEBjykrVrMuhJrZvVVMu7A_YLyIJXXlWEnXDK7VFM
-    short-id: ed7720aa510154f5
-- name: 硅谷-SS
-  type: ss
-  server: 43.173.98.184
-  port: 8388
-  cipher: chacha20-ietf-poly1305
-  password: 3t21e/P6fxeSULmI2S4f0mJ3q3b2TiQO
-  tfo: true
-  udp: true
 - name: ycyun_Proxy
   type: anytls
   server: 45.144.136.244
@@ -9256,7 +5279,7 @@ proxies:
 - name: '[3个月后过期] HK2-HY2'
   type: hysteria2
   server: hk2.dexlos.com
-  port: 20339
+  port: 20232
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: hk2.dexlos.com
   skip-cert-verify: false
@@ -9265,7 +5288,7 @@ proxies:
 - name: '[3个月后过期] HK3-HY2'
   type: hysteria2
   server: hk3.dexlos.com
-  port: 20575
+  port: 20438
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: hk3.dexlos.com
   skip-cert-verify: false
@@ -9274,7 +5297,7 @@ proxies:
 - name: '[3个月后过期] HK4-HY2'
   type: hysteria2
   server: hk4.dexlos.com
-  port: 20758
+  port: 20751
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: hk4.dexlos.com
   skip-cert-verify: false
@@ -9283,7 +5306,7 @@ proxies:
 - name: '[3个月后过期] HK5-HY2'
   type: hysteria2
   server: hk5.dexlos.com
-  port: 20935
+  port: 20852
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: hk5.dexlos.com
   skip-cert-verify: false
@@ -9394,7 +5417,7 @@ proxies:
 - name: '[JP-3个月二跳 US6-HY2] JP6-HY2'
   type: hysteria2
   server: jp6.dexlos.com
-  port: 21047
+  port: 21117
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp6.dexlos.com
   skip-cert-verify: false
@@ -9404,7 +5427,7 @@ proxies:
 - name: '[3个月后过期] JP7-HY2'
   type: hysteria2
   server: jp7.dexlos.com
-  port: 21368
+  port: 21250
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp7.dexlos.com
   skip-cert-verify: false
@@ -9413,7 +5436,7 @@ proxies:
 - name: '[3个月后过期] JP8-HY2'
   type: hysteria2
   server: jp8.dexlos.com
-  port: 21478
+  port: 21558
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp8.dexlos.com
   skip-cert-verify: false
@@ -9422,7 +5445,7 @@ proxies:
 - name: '[3个月后过期] JP9-HY2'
   type: hysteria2
   server: jp9.dexlos.com
-  port: 21726
+  port: 21773
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp9.dexlos.com
   skip-cert-verify: false
@@ -9431,7 +5454,7 @@ proxies:
 - name: '[3个月后过期] JP10-HY2'
   type: hysteria2
   server: jp10.dexlos.com
-  port: 21981
+  port: 21818
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp10.dexlos.com
   skip-cert-verify: false
@@ -9576,7 +5599,7 @@ proxies:
 - name: '[3个月后过期] SG1-HY2'
   type: hysteria2
   server: sg1.dexlos.com
-  port: 20155
+  port: 20114
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: sg1.dexlos.com
   skip-cert-verify: false
@@ -9585,7 +5608,7 @@ proxies:
 - name: '[3个月后过期] SG2-HY2'
   type: hysteria2
   server: sg2.dexlos.com
-  port: 20367
+  port: 20379
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: sg2.dexlos.com
   skip-cert-verify: false
@@ -9679,7 +5702,7 @@ proxies:
 - name: '[3个月后过期] US1-HY2'
   type: hysteria2
   server: us1.dexlos.com
-  port: 20186
+  port: 20069
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us1.dexlos.com
   skip-cert-verify: false
@@ -9688,7 +5711,7 @@ proxies:
 - name: '[3个月后过期] US2-HY2'
   type: hysteria2
   server: us2.dexlos.com
-  port: 20371
+  port: 20342
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us2.dexlos.com
   skip-cert-verify: false
@@ -9697,7 +5720,7 @@ proxies:
 - name: '[3个月后过期] US3-HY2'
   type: hysteria2
   server: us3.dexlos.com
-  port: 20597
+  port: 20401
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us3.dexlos.com
   skip-cert-verify: false
@@ -9706,7 +5729,7 @@ proxies:
 - name: '[3个月后过期] US4-HY2'
   type: hysteria2
   server: us4.dexlos.com
-  port: 20670
+  port: 20758
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us4.dexlos.com
   skip-cert-verify: false
@@ -9715,7 +5738,7 @@ proxies:
 - name: '[3个月后过期] US5-HY2'
   type: hysteria2
   server: us5.dexlos.com
-  port: 20890
+  port: 20856
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us5.dexlos.com
   skip-cert-verify: false
@@ -9724,7 +5747,7 @@ proxies:
 - name: '[3个月后过期] US6-HY2'
   type: hysteria2
   server: us6.dexlos.com
-  port: 21149
+  port: 21176
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us6.dexlos.com
   skip-cert-verify: false
