@@ -32,12 +32,12 @@ rule-providers:
   cn:
     type: http
     behavior: domain
-    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cn.txt"
+    url: "https://cdn.jsdelivr.net/gh/xuhuanxxx/network-rules@release/cn.txt"
     interval: 86400
 
 rules:
-  - RULE-SET,reject,REJECT
-  - RULE-SET,lancidr,DIRECT
-  - RULE-SET,cncidr,DIRECT
-  - RULE-SET,cn,DIRECT
-  - MATCH,自动优选
+  - RULE-SET,reject,REJECT    # 引用上面定义好的 reject 列表，匹配到的直接拦截
+  - RULE-SET,lancidr,DIRECT   # 引用局域网 IP 列表，直连
+  - RULE-SET,cncidr,DIRECT    # 引用国内 IP 列表，直连
+  - RULE-SET,cn,DIRECT        # 引用国内域名列表，直连
+  - MATCH,自动优选             # 最后，所有以上都没匹配到的（即国外网站），走“自动优选”代理组
