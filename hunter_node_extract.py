@@ -29,7 +29,7 @@ BROWSER_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(levelname)s] %(message)s')
 logger = logging.getLogger(__name__)
 
-# --- 辅助函数 (保持原逻辑) ---
+# --- 辅助函数 ---
 def load_exclude_list() -> set:
     exclude_set = set()
     if os.path.exists(EXCLUDE_FILE):
@@ -85,7 +85,9 @@ async def process_source(session: aiohttp.ClientSession, source: str, semaphore:
     return [source, "", "提取成功", len(nodes), status, cost, ""], nodes
 
 async def main():
-    if not os.path.exists(INPUT_CSV): return
+    if not os.path.exists(INPUT_CSV):
+        logger.error(f"未找到输入文件: {INPUT_CSV}")
+        return
     
     # 1. 从 CSV 读取并去重
     exclude_list = load_exclude_list()
@@ -94,7 +96,6 @@ async def main():
         urls = {row['url'].strip() for row in reader if row.get('url')}
         unique_urls = sorted(list({u.rstrip('/') for u in urls if u.rstrip('/') not in exclude_list}))
     
-    # 保存 unique_urls.txt
     with open(UNIQUE_URLS_FILE, 'w', encoding='utf-8') as f:
         f.write('\n'.join(unique_urls))
     
@@ -114,7 +115,19 @@ async def main():
 
     # 4. 生成 YAML
     unique_nodes = list(all_nodes_map.values())
+    
+    # 若存在 rules.yaml 则合并配置
     final_config = {"proxies": unique_nodes}
+    if os.path.exists(RULES_FILE):
+        with open(RULES_FILE, "r", encoding="utf-8") as f:
+            rules_data = yaml.safe_load(f) or {}
+            final_config = {**rules_data, "proxies": unique_nodes}
+            # 自动填充代理组节点
+            if "proxy-groups" in final_config:
+                node_names = [n.get("name") for n in unique_nodes if n.get("name")]
+                for group in final_config["proxy-groups"]:
+                    if group.get("name") in ["自动优选", "手动选择", "Nodes"]:
+                        group["proxies"] = node_names
     
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         yaml.dump(final_config, f, allow_unicode=True, sort_keys=False, width=1000)
@@ -125,7 +138,7 @@ async def main():
         writer.writerow(["原始URL", "资产地址", "状态", "节点数", "HTTP码", "响应秒数", "摘要"])
         writer.writerows(stats)
     
-    logger.info(f"处理完成，生成节点数: {len(unique_nodes)}")
+    logger.info(f"处理完成，生成唯一节点数: {len(unique_nodes)}")
 
 if __name__ == "__main__":
     asyncio.run(main())
