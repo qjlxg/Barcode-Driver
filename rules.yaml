@@ -1,52 +1,66 @@
-# ==========================================
-# 最终生产环境版 (由 Python 预排序 + fallback 驱动)
-# ==========================================
+# =================================================================
+# Clash/Mihomo 自动生成配置文件 - 大陆环境优化生产版
+# =================================================================
 
+# 1. 策略组设置：定义流量出口与优先级
 proxy-groups:
-  # fallback 模式：结合 Python 预排序，实现最快节点优先，挂了即切
+  # fallback 模式：结合 Python 端预先按延迟排序，实现最快节点优先，挂了自动切
   - name: "自动优选"
     type: fallback
-    url: https://cp.cloudflare.com/generate_204
-    interval: 300
-    proxies: [] # 脚本自动填充（已按 Python 测速结果排序）
+    url: https://cp.cloudflare.com/generate_204 # 测试链接，全球可达且快
+    interval: 300 # 每 300 秒探测一次节点存活状态
+    proxies: [] # 占位符：Python 脚本将按测速结果排序后的节点填入此处
 
+  # 手动选择组：提供给客户端手动切换的 UI 选项
   - name: "手动选择"
     type: select
     proxies:
       - "自动优选"
       - "DIRECT"
+      # 占位符：Python 脚本将按测速结果排序后的节点追加到此列表下方
 
+# 2. 规则提供者 (Rule Providers)：从云端同步分流规则
 rule-providers:
+  # 广告拦截：过滤常见的广告追踪域名
   reject:
     type: http
     behavior: domain
     url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt"
     interval: 86400
+  
+  # 国内 IP 段：凡是匹配到中国大陆 IP 的流量，全部强制直连
   cncidr:
     type: http
     behavior: ipcidr
     url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt"
     interval: 86400
+  
+  # 局域网 IP：本地网络流量不走代理
   lancidr:
     type: http
     behavior: ipcidr
     url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt"
     interval: 86400
+  
+  # 私有网络：涵盖私有域名与内网服务，防止泄露或误代理
   private:
     type: http
     behavior: domain
     url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt"
     interval: 86400
+  
+  # 国内白名单：国内主流 App 及网站域名，减少直连漏网之鱼
   cn:
     type: http
     behavior: domain
     url: "https://fastly.jsdelivr.net/gh/xuhuanxxx/network-rules@release/cn.txt"
     interval: 86400
 
+# 3. 流量分流逻辑：从上往下匹配，命中即停止
 rules:
-  - RULE-SET,reject,REJECT
-  - RULE-SET,private,DIRECT
-  - RULE-SET,lancidr,DIRECT
-  - RULE-SET,cncidr,DIRECT
-  - RULE-SET,cn,DIRECT
-  - MATCH,自动优选
+  - RULE-SET,reject,REJECT        # 优先过滤广告
+  - RULE-SET,private,DIRECT       # 内部私有域名直连
+  - RULE-SET,lancidr,DIRECT       # 内网 IP 直连
+  - RULE-SET,cncidr,DIRECT        # 大陆 IP 直连
+  - RULE-SET,cn,DIRECT            # 大陆域名直连
+  - MATCH,自动优选                # 剩余所有流量（默认视为国外/代理流量）走自动优选
