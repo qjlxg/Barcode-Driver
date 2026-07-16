@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>苹果代理 · 订阅</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0;
+    padding: 20px 14px 40px;
+    font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f3f4f6;
+    color: #1a1a1a;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  h1 { font-size: 22px; margin: 0 0 2px; }
+  .sub { color: #888; font-size: 12px; margin-bottom: 22px; }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 14px 14px 12px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: flex; align-items: center; gap: 6px;
+    font-size: 15px;
+  }
+  .tag {
+    font-size: 11px; padding: 2px 7px; border-radius: 4px;
+    background: #e0e7ff; color: #3a7afe; font-weight: 500;
+  }
+  .tag.warn { background: #fee2e2; color: #b91c1c; }
+  .desc { color: #888; font-size: 12px; margin-bottom: 10px; line-height: 1.5; }
+  .url {
+    background: #f3f4f6;
+    border-radius: 6px;
+    padding: 9px 11px;
+    font: 12px/1.5 "SF Mono", Menlo, Consolas, monospace;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+    margin-bottom: 10px;
+    max-height: 110px;
+    overflow-y: auto;
+  }
+  .row { display: flex; gap: 8px; }
+  .btn {
+    flex: 1;
+    padding: 10px 14px;
+    border: none;
+    border-radius: 8px;
+    background: #3a7afe;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    line-height: 20px;
+    display: inline-block;
+  }
+  .btn:active { opacity: 0.72; }
+  .btn-grey { background: #6b7280; }
+  .toast {
+    position: fixed; bottom: 30px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: #1a1a1a; color: white;
+    padding: 10px 20px; border-radius: 22px;
+    font-size: 13px; opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: none; z-index: 99;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  @media (prefers-color-scheme: dark) {
+    body { background: #111; color: #e5e5e5; }
+    .card { background: #1f1f1f; box-shadow: none; }
+    .url { background: #2a2a2a; color: #e5e5e5; }
+    .tag { background: #1e3a8a; color: #93c5fd; }
+    .tag.warn { background: #7f1d1d; color: #fca5a5; }
+    .sub, .desc { color: #999; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>苹果代理订阅</h1>
+  <div class="sub">192.220.24.202 · VLESS-Reality · 订阅口走 :8080</div>
+
+  <div class="card">
+    <div class="label">一键导入 Hiddify <span class="tag">推荐</span></div>
+    <div class="desc">点"打开 Hiddify"直接唤起 App；唤不起就点"复制"再粘贴到 Hiddify。</div>
+    <div class="url" id="u1">hiddify://import/aHR0cDovLzE5Mi4yMjAuMjQuMjAyOjgwODAvaGlkZGlmeQ==</div>
+    <div class="row">
+      <a class="btn" href="hiddify://import/aHR0cDovLzE5Mi4yMjAuMjQuMjAyOjgwODAvaGlkZGlmeQ==">打开 Hiddify</a>
+      <button class="btn btn-grey" onclick="copyText('u1')">复制</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="label">install-config <span class="tag">老版本兼容</span></div>
+    <div class="desc">老版 Hiddify 用这个格式。</div>
+    <div class="url" id="u2">hiddify://install-config?url=http%3A%2F%2F192.220.24.202%3A8080%2Fhiddify</div>
+    <div class="row">
+      <a class="btn" href="hiddify://install-config?url=http%3A%2F%2F192.220.24.202%3A8080%2Fhiddify">打开 Hiddify</a>
+      <button class="btn btn-grey" onclick="copyText('u2')">复制</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="label">订阅 URL <span class="tag">最稳</span></div>
+    <div class="desc">在 Hiddify / Clash / v2rayN 里手动添加订阅，粘这个。</div>
+    <div class="url" id="u3">http://192.220.24.202:8080/hiddify</div>
+    <button class="btn" onclick="copyText('u3')">复制 URL</button>
+  </div>
+
+  <div class="card">
+    <div class="label">VLESS 节点（单节点）</div>
+    <div class="desc">想直接加单节点而不走订阅用这个。</div>
+    <div class="url" id="u4">vless://5238a82b-c1c1-48bd-a233-0014666c9b16@192.220.24.202:443?encryption=none&amp;flow=xtls-rprx-vision&amp;security=reality&amp;sni=www.cloudflare.com&amp;fp=chrome&amp;pbk=BqdO3QT2qzjbTjvKEk3CFkBzdrlhwCojJoa64MkL8C8&amp;sid=2cacc78131b441c2&amp;type=tcp#AppleProxy-192.220.24.202</div>
+    <button class="btn" onclick="copyText('u4')">复制 VLESS</button>
+  </div>
+
+  <div class="card">
+    <div class="label">Clash 订阅</div>
+    <div class="desc">Clash / Stash / Clash Verge 用这个。</div>
+    <div class="url" id="u5">http://192.220.24.202:8080/sub</div>
+    <button class="btn" onclick="copyText('u5')">复制 URL</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">已复制</div>
+
+<script>
+function copyText(id) {
+  var text = document.getElementById(id).innerText.trim();
+  var done = function() {
+    var t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 1400);
+  };
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(done).catch(function() { fallback(text); done(); });
+  } else {
+    fallback(text); done();
+  }
+}
+function fallback(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(ta);
+}
+</script>
+</body>
+</html>

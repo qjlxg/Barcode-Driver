@@ -1,0 +1,29 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+
+proxies:
+  - name: "AppleProxy-192.220.24.202"
+    type: vless
+    server: 192.220.24.202
+    port: 443
+    uuid: 5238a82b-c1c1-48bd-a233-0014666c9b16
+    network: tcp
+    udp: true
+    tls: true
+    servername: www.cloudflare.com
+    client-fingerprint: chrome
+    flow: xtls-rprx-vision
+    reality-opts:
+      public-key: BqdO3QT2qzjbTjvKEk3CFkBzdrlhwCojJoa64MkL8C8
+      short-id: 2cacc78131b441c2
+
+proxy-groups:
+  - name: PROXY
+    type: select
+    proxies:
+      - "AppleProxy-192.220.24.202"
+
+rules:
+  - MATCH,PROXY
