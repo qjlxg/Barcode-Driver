@@ -1,0 +1,172 @@
+name: Manage IP Seeds
+
+on:
+
+  # 每 4 小时运行一次
+  schedule:
+
+    - cron: '30 */4 * * *'
+
+
+  # 支持手动运行
+  workflow_dispatch:
+
+
+# 防止 manage-seeds 自己重复运行
+concurrency:
+
+  group: manage-seeds-lock
+
+  cancel-in-progress: false
+
+
+jobs:
+
+  manage-seeds:
+
+    runs-on: ubuntu-latest
+
+
+    permissions:
+
+      contents: write
+
+
+    steps:
+
+
+      # ==================================================
+      # 1. 获取最新仓库
+      # ==================================================
+
+      - name: Checkout repository
+
+        uses: actions/checkout@v4
+
+        with:
+
+          fetch-depth: 0
+
+
+      # ==================================================
+      # 2. 设置 Python
+      # ==================================================
+
+      - name: Setup Python
+
+        uses: actions/setup-python@v5
+
+        with:
+
+          python-version: '3.11'
+
+
+      # ==================================================
+      # 3. 执行种子管理
+      #
+      # 不扫描
+      #
+      # 不运行：
+      #
+      # processor.py
+      # scanner.py
+      # filter_assets.py
+      #
+      # 只读取仓库中已经存在的：
+      #
+      # ip.txt
+      # targets.txt
+      # scan_results.csv
+      # seed_history.json
+      #
+      # 然后更新：
+      #
+      # ip.txt
+      # seed_history.json
+      # ==================================================
+
+      - name: Manage IP Seeds
+
+        run: |
+
+          python3 manage_seeds.py
+
+
+      # ==================================================
+      # 4. 输出结果
+      # ==================================================
+
+      - name: Show seed statistics
+
+        run: |
+
+          echo "=========================================="
+
+          echo "Seed management completed"
+
+          echo "=========================================="
+
+
+          if [ -f ip.txt ]; then
+
+            echo "ip.txt:"
+
+            wc -l ip.txt
+
+          else
+
+            echo "ip.txt: 0"
+
+          fi
+
+
+          if [ -f seed_history.json ]; then
+
+            echo "seed_history.json:"
+
+            wc -l seed_history.json
+
+          else
+
+            echo "seed_history.json: not found"
+
+          fi
+
+
+          echo "=========================================="
+
+
+      # ==================================================
+      # 5. 提交种子更新
+      # ==================================================
+
+      - name: Commit seed updates
+
+        run: |
+
+          git config user.name \
+            "github-actions[bot]"
+
+
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+
+
+          git add \
+            ip.txt \
+            seed_history.json
+
+
+          if git diff --cached --quiet; then
+
+            echo "[-] No seed changes"
+
+          else
+
+            git commit \
+              -m "Auto: Update IP seeds $(date '+%Y-%m-%d %H:%M:%S')"
+
+
+            git push
+
+          fi
