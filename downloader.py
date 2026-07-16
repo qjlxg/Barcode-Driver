@@ -1,17 +1,16 @@
 import csv
 import os
 import requests
-import shutil
 from concurrent.futures import ThreadPoolExecutor
 
 # 配置
 INPUT_CSV = 'scan_results.csv'
 OUTPUT_DIR = 'results/hash'
-TIMEOUT = 8  # 网络请求超时
-THREADS = 10  # 并发数
+UNIQUE_URLS_FILE = 'unique_urls.txt'  # 新增：去重檔案路徑
+TIMEOUT = 8  
+THREADS = 10 
 
 def download_node_file(row):
-    """下载单个链接并保存"""
     hash_val = row.get('hash')
     url = row.get('url')
     
@@ -20,42 +19,47 @@ def download_node_file(row):
 
     file_path = os.path.join(OUTPUT_DIR, f"{hash_val}.yaml")
     
+    # 新增：跳過已存在的檔案
+    if os.path.exists(file_path):
+        print(f"[SKIP] 檔案已存在: {hash_val}")
+        return
+    
     try:
         response = requests.get(url, timeout=TIMEOUT, stream=True)
         if response.status_code == 200:
             with open(file_path, 'wb') as f:
                 for chunk in response.iter_content(chunk_size=8192):
                     f.write(chunk)
-            print(f"[OK] 下载成功: {hash_val}")
+            print(f"[OK] 下載成功: {hash_val}")
         else:
-            print(f"[FAIL] 状态码 {response.status_code}: {url}")
-            if os.path.exists(file_path): os.remove(file_path)
-            
+            print(f"[FAIL] 狀態碼 {response.status_code}: {url}")
     except Exception as e:
-        print(f"[ERROR] 下载失败 {url}: {e}")
-        if os.path.exists(file_path): os.remove(file_path)
+        print(f"[ERROR] 下載失敗 {url}: {e}")
 
 def run_downloader():
-    # 确保目录存在
     if not os.path.exists(OUTPUT_DIR):
         os.makedirs(OUTPUT_DIR)
 
-    # 读取 CSV
     if not os.path.exists(INPUT_CSV):
         print(f"[!] 找不到 {INPUT_CSV}")
         return
 
-    tasks = []
+    # 讀取 CSV 並去重
     with open(INPUT_CSV, 'r', encoding='utf-8') as f:
         reader = csv.DictReader(f)
         tasks = [row for row in reader]
+    
+    # 提取所有不重複的 URL
+    unique_urls = sorted(list(set(row['url'] for row in tasks if row.get('url'))))
+    
+    # 保存去重後的 URL 到文件
+    with open(UNIQUE_URLS_FILE, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(unique_urls))
+    print(f"[INFO] 已保存 {len(unique_urls)} 個不重複網址至 {UNIQUE_URLS_FILE}")
 
-    # 并发下载
-    print(f"开始下载 {len(tasks)} 个节点源...")
+    # 執行下載
     with ThreadPoolExecutor(max_workers=THREADS) as executor:
         executor.map(download_node_file, tasks)
-
-    print("下载流程完成。")
 
 if __name__ == "__main__":
     run_downloader()
