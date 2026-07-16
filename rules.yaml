@@ -1,43 +1,68 @@
+# ==========================================
+# Clash 核心配置文件 - 智能分流与自动优选版
+# ==========================================
 
+# 1. 策略组设置：定义流量如何“出口”
 proxy-groups:
+  # 自动优选组：Clash 会每 300 秒自动测速，自动选择延迟最低的节点
   - name: "自动优选"
     type: url-test
-    url: http://www.gstatic.com/generate_204
-    interval: 300
-    proxies: [] 
+    url: https://cp.cloudflare.com/generate_204 # 测速链接，用于判断连接是否通畅
+    interval: 300 # 测速时间间隔（秒）
+    tolerance: 50 # 容差值（毫秒），只有当延迟差距超过 50ms 时才会切换节点，防止频繁跳动
+    proxies: [] # 占位符：Python 脚本执行时会将所有抓取的节点名称填入此处
 
+  # 手动选择组：提供给用户在客户端界面手动切换节点的入口
   - name: "手动选择"
     type: select
     proxies:
-      - "自动优选"
-      - DIRECT
-      - [] 
+      - "自动优选" # 默认选项，指向自动优选组
+      - "DIRECT"  # 直连选项，不使用任何代理
+      # 占位符：Python 脚本执行时会将所有抓取的节点名称追加到此列表下方
 
+# 2. 规则提供者：从云端动态获取分流名单
 rule-providers:
+  # 广告屏蔽：利用 Loyalsoldier 的开源规则库，自动拦截应用内广告
   reject:
     type: http
     behavior: domain
-    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt"
-    interval: 86400
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt"
+    interval: 86400 # 每日更新一次规则
+
+  # 国内 IP 列表：匹配国内 IP 段，确保这部分流量直连
   cncidr:
     type: http
     behavior: ipcidr
-    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt"
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt"
     interval: 86400
+
+  # 局域网 IP 列表：匹配局域网地址（如 192.168.x.x），直连
   lancidr:
     type: http
     behavior: ipcidr
-    url: "https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt"
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt"
     interval: 86400
+
+  # 私有网络规则：涵盖常见企业/私有域名，防止意外代理
+  private:
+    type: http
+    behavior: domain
+    url: "https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt"
+    interval: 86400
+
+  # 国内域名列表：国内主流 APP 及网站，确保不消耗代理带宽
   cn:
     type: http
     behavior: domain
-    url: "https://cdn.jsdelivr.net/gh/xuhuanxxx/network-rules@release/cn.txt"
+    url: "https://fastly.jsdelivr.net/gh/xuhuanxxx/network-rules@release/cn.txt"
     interval: 86400
 
+# 3. 流量分流逻辑：按照以下顺序匹配规则
 rules:
-  - RULE-SET,reject,REJECT    # 引用上面定义好的 reject 列表，匹配到的直接拦截
-  - RULE-SET,lancidr,DIRECT   # 引用局域网 IP 列表，直连
-  - RULE-SET,cncidr,DIRECT    # 引用国内 IP 列表，直连
-  - RULE-SET,cn,DIRECT        # 引用国内域名列表，直连
-  - MATCH,自动优选             # 最后，所有以上都没匹配到的（即国外网站），走“自动优选”代理组
+  - RULE-SET,reject,REJECT        # 优先拦截广告请求
+  - RULE-SET,private,DIRECT       # 私有地址走直连
+  - RULE-SET,lancidr,DIRECT       # 局域网流量走直连
+  - RULE-SET,cncidr,DIRECT        # 国内 IP 流量走直连
+  - RULE-SET,cn,DIRECT            # 国内域名流量走直连
+  - GEOIP,LAN,DIRECT              # 通过地理位置识别局域网，确保直连
+  - MATCH,自动优选                # 最终兜底规则：凡是没匹配到上述条件的，全部通过“自动优选”代理组出口
