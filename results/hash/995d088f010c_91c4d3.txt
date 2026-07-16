@@ -1,0 +1,46 @@
+mixed-port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+ipv6: false
+
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  fallback:
+    - 8.8.8.8
+    - 1.1.1.1
+
+proxies:
+  - name: "Xray-VLESS-REALITY"
+    type: vless
+    server: 43.162.87.210
+    port: 443
+    uuid: cc556a1f-86d7-4f36-8894-3a23115fcef8
+    network: tcp
+    tls: true
+    flow: xtls-rprx-vision
+    client-fingerprint: chrome
+    servername: www.cloudflare.com
+    reality-opts:
+      public-key: Z-BsivnXK8IvWj_bQ1sYBvWJNX2brdNbQfU4IMpOjko
+      short-id: 9dd0c4ea3b073089
+
+proxy-groups:
+  - name: "Proxy"
+    type: select
+    proxies:
+      - "Xray-VLESS-REALITY"
+  - name: "Final"
+    type: select
+    proxies:
+      - "Proxy"
+      - DIRECT
+
+rules:
+  - MATCH,Final
