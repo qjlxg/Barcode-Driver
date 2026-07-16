@@ -1,0 +1,3355 @@
+mixed-port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+profile:
+  store-selected: true
+tcp-concurrent: true
+global-client-fingerprint: chrome
+dns:
+  enable: true
+  ipv6: false
+  listen: 0.0.0.0:1053
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+  - '*.googleapis.com'
+  - generativelanguage.googleapis.com
+  - cloudcode-pa.googleapis.com
+  - play.googleapis.com
+  - gemini.google.com
+  - '*.google.com'
+  - '*.lan'
+  - '*.local'
+  - msftconnecttest.com
+  - www.msftconnecttest.com
+  - msftncsi.com
+  - captive.apple.com
+  - connectivitycheck.gstatic.com
+  - time.*.apple.com
+  - time.windows.com
+  - ntp.*.com
+  - pool.ntp.org
+  nameserver:
+  - 223.5.5.5
+  - 119.29.29.29
+  fallback:
+  - https://dns.google/dns-query
+  - 8.8.8.8
+proxies:
+- name: ycyun_Proxy
+  type: anytls
+  server: 45.144.136.244
+  port: 443
+  password: 3QZglKmlgzc9zBCDD5W8tQ==
+  sni: www.bing.com
+  skip-cert-verify: true
+- name: ycyun_Proxy_IPv6
+  type: anytls
+  server: 2001:df1:7880:100::cc8
+  port: 443
+  password: 3QZglKmlgzc9zBCDD5W8tQ==
+  sni: www.bing.com
+  skip-cert-verify: true
+- name: 🏆 台湾4.30双重代理 (服务端直链)
+  type: anytls
+  server: 45.144.136.244
+  port: 443
+  password: TW_3QZglKmlgzc9zBCDD5W8tQ==
+  sni: www.bing.com
+  skip-cert-verify: true
+- name: 2026-04-30 续费进官网
+  type: ss
+  server: do.not.use.node
+  port: 4444
+  cipher: chacha20-ietf-poly1305
+  password: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  udp: true
+- name: '账号: IHYbeH@qiemi.com'
+  type: ss
+  server: do.not.use.node
+  port: 4444
+  cipher: chacha20-ietf-poly1305
+  password: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  udp: true
+- name: 官网www.qiezichuhai.com
+  type: ss
+  server: do.not.use.node
+  port: 4444
+  cipher: chacha20-ietf-poly1305
+  password: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  udp: true
+- name: 可定制各种电商直播独享专线
+  type: ss
+  server: do.not.use.node
+  port: 4444
+  cipher: chacha20-ietf-poly1305
+  password: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  udp: true
+- name: 防失联QQ群：201152805
+  type: ss
+  server: do.not.use.node
+  port: 4444
+  cipher: chacha20-ietf-poly1305
+  password: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  udp: true
+- name: 🇭🇰香港-01
+  type: vless
+  server: vl-01.qz10086.top
+  port: 38000
+  uuid: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  alterId: 0
+  cipher: auto
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: hk.speedtest.net
+  reality-opts:
+    public-key: j7lihAdLvNKWg67WMGQsRSM8WFbaUK5dAi7D2R7iXHM
+    short-id: d5a01375
+  client-fingerprint: edge
+- name: 🇭🇰香港-02
+  type: vless
+  server: vl-01.qz10086.top
+  port: 38001
+  uuid: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  alterId: 0
+  cipher: auto
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: hk.speedtest.net
+  reality-opts:
+    public-key: j7lihAdLvNKWg67WMGQsRSM8WFbaUK5dAi7D2R7iXHM
+    short-id: d5a01375
+  client-fingerprint: edge
+- name: 🇸🇬新加坡-01
+  type: vless
+  server: vl-01.qz10086.top
+  port: 37999
+  uuid: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  alterId: 0
+  cipher: auto
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: hk.speedtest.net
+  reality-opts:
+    public-key: j7lihAdLvNKWg67WMGQsRSM8WFbaUK5dAi7D2R7iXHM
+    short-id: d5a01375
+  client-fingerprint: qq
+- name: 🇸🇬新加坡-02
+  type: vless
+  server: vl-01.qz10086.top
+  port: 37998
+  uuid: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  alterId: 0
+  cipher: auto
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: hk.speedtest.net
+  reality-opts:
+    public-key: j7lihAdLvNKWg67WMGQsRSM8WFbaUK5dAi7D2R7iXHM
+    short-id: d5a01375
+  client-fingerprint: edge
+- name: 🇯🇵日本-01
+  type: vless
+  server: vl-01.qz10086.top
+  port: 38004
+  uuid: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  alterId: 0
+  cipher: auto
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: hk.speedtest.net
+  reality-opts:
+    public-key: DsOOnAf3UWMi7WnOk616ysY53EqfATIEPQB_SKDaAEA
+    short-id: bc3373df
+  client-fingerprint: safari
+- name: 🇯🇵日本-02
+  type: vless
+  server: vl-01.qz10086.top
+  port: 38005
+  uuid: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  alterId: 0
+  cipher: auto
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: hk.speedtest.net
+  reality-opts:
+    public-key: y0p1yI8OoWqcOE4XEv7ueudaSOOc5UIb5yFyA3SstD8
+    short-id: 7e7e8c23
+  client-fingerprint: firefox
+- name: 🇨🇳台湾-01
+  type: vless
+  server: vl-01.qz10086.top
+  port: 38006
+  uuid: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  alterId: 0
+  cipher: auto
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: hk.speedtest.net
+  reality-opts:
+    public-key: 42OVsEgJaBSQelo5v7QuTmtc8gU1qYLIUV0_q6zMdG8
+    short-id: c8ec6ffb
+  client-fingerprint: ios
+- name: 🇨🇳台湾-02
+  type: vless
+  server: vl-01.qz10086.top
+  port: 38007
+  uuid: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  alterId: 0
+  cipher: auto
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: hk.speedtest.net
+  reality-opts:
+    public-key: VjWww_5KhL-EDAX8brnCZlHYGKQv2cbceTnxTv17mko
+    short-id: 3b8cae8c
+  client-fingerprint: firefox
+- name: 🇺🇸美国-01
+  type: vless
+  server: vl-01.qz10086.top
+  port: 38008
+  uuid: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  alterId: 0
+  cipher: auto
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: hk.speedtest.net
+  reality-opts:
+    public-key: 4z86hZqXsH9ARVzZLInj4JqQ5aTp7q224cUcAUPLzh4
+    short-id: be9ccaa4
+  client-fingerprint: chrome
+- name: 🇺🇸美国-02
+  type: vless
+  server: vl-01.qz10086.top
+  port: 38009
+  uuid: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  alterId: 0
+  cipher: auto
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: hk.speedtest.net
+  reality-opts:
+    public-key: dizkscpPI3dfFkPa4SDK3aRmAL31xMxau8A5K2JndHU
+    short-id: 0167a88b
+  client-fingerprint: chrome
+- name: 🇦🇺澳大利亚-01
+  type: vless
+  server: vl-01.qz10086.top
+  port: 38014
+  uuid: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  alterId: 0
+  cipher: auto
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: hk.speedtest.net
+  reality-opts:
+    public-key: 1MiJj1TpCkiF8_WEnEOzB_yKZl6ctos5pJ4LvWrRjGI
+    short-id: cb46ddde
+  client-fingerprint: safari
+- name: 🇰🇷韩国-01
+  type: vless
+  server: vl-01.qz10086.top
+  port: 38011
+  uuid: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  alterId: 0
+  cipher: auto
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: hk.speedtest.net
+  reality-opts:
+    public-key: Wc9-UQQQt9YoBf2Z71Q1DD02OGOQEWANCCr1hUh4oV8
+    short-id: 2d7f0d76
+  client-fingerprint: ios
+- name: 🇬🇧英国-01
+  type: vless
+  server: vl-01.qz10086.top
+  port: 38012
+  uuid: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  alterId: 0
+  cipher: auto
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: hk.speedtest.net
+  reality-opts:
+    public-key: GnMP0zLXau1Qg08-qxAo59AiYdxFbXZKIkIoH_dy5lg
+    short-id: e48913c4
+  client-fingerprint: ios
+- name: 🇲🇾马来西亚-01
+  type: vless
+  server: vl-01.qz10086.top
+  port: 38013
+  uuid: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  alterId: 0
+  cipher: auto
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  servername: hk.speedtest.net
+  reality-opts:
+    public-key: TBdz3vABoRkXxs7rsPjXUuky_f0N5CJMcEjoIpsMfE8
+    short-id: f4ffd2a6
+  client-fingerprint: safari
+- name: 🇭🇰香港01
+  type: ss
+  server: net-01.qz10086.top
+  port: 53997
+  cipher: 2022-blake3-aes-128-gcm
+  password: MTg0YTg0MmJhMzQ4MjM1MQ==:Yjg2YWZkMDEtNTUwZi00Nw==
+  udp: true
+- name: 🇭🇰香港02
+  type: ss
+  server: net-02.qz10086.top
+  port: 35809
+  cipher: 2022-blake3-aes-128-gcm
+  password: MWIwOWRjNzczZTFlOGMzOA==:Yjg2YWZkMDEtNTUwZi00Nw==
+  udp: true
+- name: 🇭🇰香港03
+  type: ss
+  server: net-ipv6-01.qz10086.top
+  port: 53997
+  cipher: 2022-blake3-aes-128-gcm
+  password: MTg0YTg0MmJhMzQ4MjM1MQ==:Yjg2YWZkMDEtNTUwZi00Nw==
+  udp: true
+- name: 🇸🇬新加坡01
+  type: ss
+  server: net-01.qz10086.top
+  port: 27120
+  cipher: 2022-blake3-aes-128-gcm
+  password: MDBiOGJlNzU3NDlmYmE2Zg==:Yjg2YWZkMDEtNTUwZi00Nw==
+  udp: true
+- name: 🇸🇬新加坡02
+  type: ss
+  server: net-02.qz10086.top
+  port: 20491
+  cipher: 2022-blake3-aes-128-gcm
+  password: MDBiOGJlNzU3NDlmYmE2Zg==:Yjg2YWZkMDEtNTUwZi00Nw==
+  udp: true
+- name: 🇸🇬新加坡03
+  type: ss
+  server: net-ipv6-01.qz10086.top
+  port: 27120
+  cipher: 2022-blake3-aes-128-gcm
+  password: MDBiOGJlNzU3NDlmYmE2Zg==:Yjg2YWZkMDEtNTUwZi00Nw==
+  udp: true
+- name: 🇯🇵日本01
+  type: ss
+  server: net-01.qz10086.top
+  port: 16055
+  cipher: 2022-blake3-aes-128-gcm
+  password: OTE0N2ZkODY3ZDE5MGI2NA==:Yjg2YWZkMDEtNTUwZi00Nw==
+  udp: true
+- name: 🇯🇵日本02
+  type: ss
+  server: net-02.qz10086.top
+  port: 10149
+  cipher: 2022-blake3-aes-128-gcm
+  password: OTE0N2ZkODY3ZDE5MGI2NA==:Yjg2YWZkMDEtNTUwZi00Nw==
+  udp: true
+- name: 🇯🇵日本03
+  type: ss
+  server: net-ipv6-01.qz10086.top
+  port: 16055
+  cipher: 2022-blake3-aes-128-gcm
+  password: OTE0N2ZkODY3ZDE5MGI2NA==:Yjg2YWZkMDEtNTUwZi00Nw==
+  udp: true
+- name: 🇨🇳台湾01
+  type: ss
+  server: net-01.qz10086.top
+  port: 19162
+  cipher: chacha20-ietf-poly1305
+  password: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  udp: true
+- name: 🇨🇳台湾02
+  type: ss
+  server: net-02.qz10086.top
+  port: 65351
+  cipher: 2022-blake3-aes-128-gcm
+  password: ODYxYjg0MWRmZDFiODY1ZQ==:Yjg2YWZkMDEtNTUwZi00Nw==
+  udp: true
+- name: 🇨🇳台湾03
+  type: ss
+  server: net-01.qz10086.top
+  port: 19162
+  cipher: chacha20-ietf-poly1305
+  password: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  udp: true
+- name: 🇺🇸美国01
+  type: ss
+  server: net-01.qz10086.top
+  port: 18443
+  cipher: 2022-blake3-aes-128-gcm
+  password: MTY1ZDFmOGZkMWYyM2NhNA==:Yjg2YWZkMDEtNTUwZi00Nw==
+  udp: true
+- name: 🇺🇸美国02
+  type: ss
+  server: net-02.qz10086.top
+  port: 33354
+  cipher: 2022-blake3-aes-128-gcm
+  password: MTY1ZDFmOGZkMWYyM2NhNA==:Yjg2YWZkMDEtNTUwZi00Nw==
+  udp: true
+- name: 🇭🇰香港01-BGP
+  type: ss
+  server: bgp-02.qz10086.top
+  port: 53997
+  cipher: 2022-blake3-aes-128-gcm
+  password: MTg0YTg0MmJhMzQ4MjM1MQ==:Yjg2YWZkMDEtNTUwZi00Nw==
+  udp: true
+- name: 🇸🇬新加坡01-BGP
+  type: ss
+  server: bgp-02.qz10086.top
+  port: 27120
+  cipher: 2022-blake3-aes-128-gcm
+  password: MDBiOGJlNzU3NDlmYmE2Zg==:Yjg2YWZkMDEtNTUwZi00Nw==
+  udp: true
+- name: 🇯🇵日本01-BGP
+  type: ss
+  server: bgp-02.qz10086.top
+  port: 27957
+  cipher: 2022-blake3-aes-128-gcm
+  password: OTE0N2ZkODY3ZDE5MGI2NA==:Yjg2YWZkMDEtNTUwZi00Nw==
+  udp: true
+- name: 🇨🇳台湾01-BGP
+  type: ss
+  server: bgp-02.qz10086.top
+  port: 19162
+  cipher: chacha20-ietf-poly1305
+  password: b86afd01-550f-475e-b056-9c9f8ca94d6e
+  udp: true
+- name: 🇺🇸美国01-BGP
+  type: ss
+  server: bgp-02.qz10086.top
+  port: 18443
+  cipher: 2022-blake3-aes-128-gcm
+  password: MTY1ZDFmOGZkMWYyM2NhNA==:Yjg2YWZkMDEtNTUwZi00Nw==
+  udp: true
+- name: 🇭🇰香港1 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 57794
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: 🇭🇰香港｜直连 按量不限时
+  server: 666.zlstar.sbs
+  port: 56690
+  sni: 666.zlstar.sbs
+  up: 100
+  down: 1000
+  skip-cert-verify: true
+  type: hysteria2
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+- name: 🇨🇳台湾1 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 57799
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: 🇨🇳台湾｜直连 按量不限时
+  server: 663.zlstar.sbs
+  port: 53276
+  sni: 663.zlstar.sbs
+  up: 100
+  down: 1000
+  skip-cert-verify: true
+  type: hysteria2
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+- name: 🇯🇵日本1 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 33219
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: 🇯🇵日本2 按量不限时
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  alterId: 0
+  cipher: auto
+  udp: true
+  flow: null
+  encryption: none
+  tls: true
+  skip-cert-verify: false
+  servername: 999.zlstar.sbs
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /66
+    headers:
+      Host: 999.zlstar.sbs
+- name: 🇯🇵日本｜直连 按量不限时
+  server: 664.zlstar.sbs
+  port: 53277
+  sni: 664.zlstar.sbs
+  up: 100
+  down: 1000
+  skip-cert-verify: true
+  type: hysteria2
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+- name: 🇸🇬新加坡1 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 33276
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: 🇸🇬新加坡｜直连 按量不限时
+  server: 665.zlstar.sbs
+  port: 56762
+  sni: 665.zlstar.sbs
+  up: 100
+  down: 1000
+  skip-cert-verify: true
+  type: hysteria2
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+- name: 🇺🇸美国1 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 59876
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: 🇺🇸美国｜直连 按量不限时
+  server: 662.zlstar.sbs
+  port: 53275
+  sni: 662.zlstar.sbs
+  up: 100
+  down: 1000
+  skip-cert-verify: true
+  type: hysteria2
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+- name: 🇲🇾马来西亚 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 51550
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: 🇮🇳印度 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 22434
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: 🇰🇷韩国 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 33446
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: 🇦🇺澳大利亚 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 22456
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: 🇮🇹意大利 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 21600
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: 🇫🇷法国 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 39991
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: 🇬🇧英国 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 21453
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: 🇧🇷巴西 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 23211
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: 🇹🇷土耳其 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 21123
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: 🇵🇹葡萄牙 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 22488
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: 🇬🇷希腊 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 22599
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: 🇮🇸冰岛 按量不限时
+  type: ss
+  server: sl.idsduf.com
+  port: 44600
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇭🇰香港1 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 57794
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇭🇰香港｜直连 按量不限时'
+  server: 666.zlstar.sbs
+  port: 56690
+  sni: 666.zlstar.sbs
+  up: 100
+  down: 1000
+  skip-cert-verify: true
+  type: hysteria2
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+- name: '[限量] 🇨🇳台湾1 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 57799
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇨🇳台湾｜直连 按量不限时'
+  server: 663.zlstar.sbs
+  port: 53276
+  sni: 663.zlstar.sbs
+  up: 100
+  down: 1000
+  skip-cert-verify: true
+  type: hysteria2
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+- name: '[限量] 🇯🇵日本1 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 33219
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇯🇵日本2 按量不限时'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  alterId: 0
+  cipher: auto
+  udp: true
+  flow: null
+  encryption: none
+  tls: true
+  skip-cert-verify: false
+  servername: 999.zlstar.sbs
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /66
+    headers:
+      Host: 999.zlstar.sbs
+- name: '[限量] 🇯🇵日本｜直连 按量不限时'
+  server: 664.zlstar.sbs
+  port: 53277
+  sni: 664.zlstar.sbs
+  up: 100
+  down: 1000
+  skip-cert-verify: true
+  type: hysteria2
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+- name: '[限量] 🇸🇬新加坡1 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 33276
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇸🇬新加坡｜直连 按量不限时'
+  server: 665.zlstar.sbs
+  port: 56762
+  sni: 665.zlstar.sbs
+  up: 100
+  down: 1000
+  skip-cert-verify: true
+  type: hysteria2
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+- name: '[限量] 🇺🇸美国1 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 59876
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇺🇸美国｜直连 按量不限时'
+  server: 662.zlstar.sbs
+  port: 53275
+  sni: 662.zlstar.sbs
+  up: 100
+  down: 1000
+  skip-cert-verify: true
+  type: hysteria2
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+- name: '[限量] 🇲🇾马来西亚 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 51550
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇮🇳印度 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 22434
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇰🇷韩国 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 33446
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇦🇺澳大利亚 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 22456
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇮🇹意大利 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 21600
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇫🇷法国 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 39991
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇬🇧英国 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 21453
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇧🇷巴西 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 23211
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇹🇷土耳其 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 21123
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇵🇹葡萄牙 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 22488
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇬🇷希腊 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 22599
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[限量] 🇮🇸冰岛 按量不限时'
+  type: ss
+  server: sl.idsduf.com
+  port: 44600
+  cipher: chacha20-ietf-poly1305
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+- name: '[3个月后过期] HK-1'
+  type: vless
+  server: hk1-r.link-t7.com
+  port: 10126
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: update
+- name: '[3个月后过期] HK-2'
+  type: vless
+  server: hk2-r.link-t7.com
+  port: 10127
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: update
+- name: '[3个月后过期] HK-3'
+  type: vless
+  server: hk3-r.link-t7.com
+  port: 10128
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: movie
+- name: '[3个月后过期] HK-4'
+  type: vless
+  server: hk4-r.link-t7.com
+  port: 10129
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: movie
+- name: '[3个月后过期] HK-5'
+  type: vless
+  server: hk5-r.link-t7.com
+  port: 10130
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: movie
+- name: '[3个月后过期] HK-6'
+  type: vless
+  server: hk6-r.link-t7.com
+  port: 10136
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: movie
+- name: '[3个月后过期] HK2-HY2'
+  type: hysteria2
+  server: hk2.dexlos.com
+  port: 20262
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: hk2.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[3个月后过期] HK3-HY2'
+  type: hysteria2
+  server: hk3.dexlos.com
+  port: 20438
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: hk3.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[3个月后过期] HK4-HY2'
+  type: hysteria2
+  server: hk4.dexlos.com
+  port: 20693
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: hk4.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[3个月后过期] HK5-HY2'
+  type: hysteria2
+  server: hk5.dexlos.com
+  port: 20811
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: hk5.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[3个月后过期] JP-1'
+  type: vless
+  server: jp1-r.link-t7.com
+  port: 10031
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: update
+- name: '[3个月后过期] JP-2'
+  type: vless
+  server: jp2-r.link-t7.com
+  port: 10032
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: update
+- name: '[3个月后过期] JP-3'
+  type: vless
+  server: jp3-r.link-t7.com
+  port: 10033
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: update
+- name: '[3个月后过期] JP-4'
+  type: vless
+  server: jp4-r.link-t7.com
+  port: 10034
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: update
+- name: '[3个月后过期] JP-5'
+  type: vless
+  server: jp5-r.link-t7.com
+  port: 10035
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: update
+- name: '[3个月后过期] JP-6'
+  type: vless
+  server: jp6-r.link-t7.com
+  port: 10036
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: update
+- name: '[3个月后过期] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[3个月后过期] JP7-HY2'
+  type: hysteria2
+  server: jp7.dexlos.com
+  port: 21213
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp7.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[3个月后过期] JP8-HY2'
+  type: hysteria2
+  server: jp8.dexlos.com
+  port: 21500
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp8.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[3个月后过期] JP9-HY2'
+  type: hysteria2
+  server: jp9.dexlos.com
+  port: 21784
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp9.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[3个月后过期] JP10-HY2'
+  type: hysteria2
+  server: jp10.dexlos.com
+  port: 21803
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp10.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[3个月后过期] KR-1'
+  type: vless
+  server: kr1-r.link-t7.com
+  port: 10046
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: update
+- name: '[3个月后过期] KR-2'
+  type: vless
+  server: kr2-r.link-t7.com
+  port: 10047
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: update
+- name: '[3个月后过期] KR-3'
+  type: vless
+  server: kr3-r.link-t7.com
+  port: 10048
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: update
+- name: '[3个月后过期] KR-4'
+  type: vless
+  server: kr4-r.link-t7.com
+  port: 10049
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: update
+- name: '[3个月后过期] KR-5'
+  type: vless
+  server: kr5-r.link-t7.com
+  port: 10050
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: update
+- name: '[3个月后过期] SG-1'
+  type: vless
+  server: sg1-r.link-t7.com
+  port: 10036
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: update
+- name: '[3个月后过期] SG-2'
+  type: vless
+  server: sg2-r.link-t7.com
+  port: 10037
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: update
+- name: '[3个月后过期] SG-3'
+  type: vless
+  server: sg3-r.link-t7.com
+  port: 10038
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: d1.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: update
+- name: '[3个月后过期] SG1-HY2'
+  type: hysteria2
+  server: sg1.dexlos.com
+  port: 20154
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: sg1.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[3个月后过期] SG2-HY2'
+  type: hysteria2
+  server: sg2.dexlos.com
+  port: 20270
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: sg2.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[3个月后过期] US-1TCP'
+  type: vless
+  server: us1-r.link-t7.com
+  port: 10238
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: movie
+- name: '[3个月后过期] US-2TCP'
+  type: vless
+  server: us2-r.link-t7.com
+  port: 10239
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: movie
+- name: '[3个月后过期] US-3TCP'
+  type: vless
+  server: us3-r.link-t7.com
+  port: 10240
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: movie
+- name: '[3个月后过期] US-4TCP'
+  type: vless
+  server: us4-r.link-t7.com
+  port: 10241
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: movie
+- name: '[3个月后过期] US-5TCP'
+  type: vless
+  server: us5-r.link-t7.com
+  port: 10242
+  uuid: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  alterId: 0
+  cipher: auto
+  udp: true
+  network: grpc
+  tls: true
+  client-fingerprint: chrome
+  servername: s0.awsstatic.com
+  reality-opts:
+    public-key: wOu-BMrXvk9KX23JZrlpUlF4SMjDcejm0vNECdhy5xE
+    short-id: 686c0ef0
+  grpc-opts:
+    grpc-service-name: movie
+- name: '[3个月后过期] US1-HY2'
+  type: hysteria2
+  server: us1.dexlos.com
+  port: 20086
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: us1.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[3个月后过期] US2-HY2'
+  type: hysteria2
+  server: us2.dexlos.com
+  port: 20299
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: us2.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[3个月后过期] US3-HY2'
+  type: hysteria2
+  server: us3.dexlos.com
+  port: 20561
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: us3.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[3个月后过期] US4-HY2'
+  type: hysteria2
+  server: us4.dexlos.com
+  port: 20735
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: us4.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[3个月后过期] US5-HY2'
+  type: hysteria2
+  server: us5.dexlos.com
+  port: 20873
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: us5.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[3个月后过期] US6-HY2'
+  type: hysteria2
+  server: us6.dexlos.com
+  port: 21160
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: us6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 剩余流量：991.91 GB'
+  type: vless
+  server: 127.0.0.1
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: jp-lx.777076.xyz
+  network: ws
+  ws-opts:
+    path: /liangxin/jp1
+    headers:
+      Host: jp-lx.777076.xyz
+- name: '[良心云便宜] 距离下次重置剩余：27 天'
+  type: vless
+  server: 127.0.0.1
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: jp-lx.777076.xyz
+  network: ws
+  ws-opts:
+    path: /liangxin/jp1
+    headers:
+      Host: jp-lx.777076.xyz
+- name: '[良心云便宜] 套餐到期：2026-08-12'
+  type: vless
+  server: 127.0.0.1
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: jp-lx.777076.xyz
+  network: ws
+  ws-opts:
+    path: /liangxin/jp1
+    headers:
+      Host: jp-lx.777076.xyz
+- name: '[良心云便宜] 🇯🇵日本高速01|CTCU|0.5x'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: jp-lx.777076.xyz
+  network: ws
+  ws-opts:
+    path: /liangxin/jp1
+    headers:
+      Host: jp-lx.777076.xyz
+- name: '[良心云便宜] 🇯🇵日本高速02|CTCU|0.5x'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: jp2-lx.777076.xyz
+  network: ws
+  ws-opts:
+    path: /liangxin/jp1
+    headers:
+      Host: jp2-lx.777076.xyz
+- name: '[良心云便宜] 🇭🇰香港高速02|BGP|CMCU'
+  type: vless
+  server: aws-link2.liangxin1.xyz
+  port: 38725
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: www.lamer.com.hk
+  reality-opts:
+    public-key: HvwnLBMMKsmvghGX5yVPq3J2HWxwr1GGQB2WIvbPvAY
+    short-id: 8f6ca378
+- name: '[良心云便宜] 🇭🇰香港高速03|BGP|CMCU'
+  type: vless
+  server: aws-link3.liangxin1.xyz
+  port: 27758
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: www.lamer.com.hk
+  reality-opts:
+    public-key: EYa4ic3GAxqznV61U-OOww-WKsu5wuQQptyS3fw7czM
+    short-id: c50db39f
+- name: '[良心云便宜] 🇭🇰香港高速04|BGP|CMCU'
+  type: vless
+  server: aws-link4.liangxin1.xyz
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: www.lamer.com.hk
+  reality-opts:
+    public-key: 3FPGTaxkfOM3nEUWUyCiqkH5oJGsOx-WxPJfADi1QWY
+    short-id: 7f369e14
+- name: '[良心云便宜] 🇭🇰香港高速05|BGP|CMCU'
+  type: vless
+  server: aws-link5.liangxin1.xyz
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: www.lamer.com.hk
+  reality-opts:
+    public-key: a11gdDetacKBsiBBfhsPvanTGMtVyZEIvax7gU5Wplg
+    short-id: 9bf38508
+- name: '[良心云便宜] 🇭🇰香港高速06|BGP|CMCU'
+  type: vless
+  server: aws-link6.liangxin1.xyz
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: www.lamer.com.hk
+  reality-opts:
+    public-key: qUCQFvosamzk8NWdkalFmEMYinnt-_FnZZw6_9EdRVY
+    short-id: 6eb97c25
+- name: '[良心云便宜] 🇸🇬新加坡高速01|BGP|CTCUCM'
+  type: vless
+  server: aws-link7.liangxin1.xyz
+  port: 48574
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: www.lamer.com.sg
+  reality-opts:
+    public-key: lmxSayN8tUg2Dag2MPXrdqZ2SQK9K3OjlaKk8wVCRnc
+    short-id: f8f18902
+- name: '[良心云便宜] 🇸🇬新加坡高速02|BGP|CTCUCM'
+  type: vless
+  server: aws-link8.liangxin1.xyz
+  port: 39645
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: iosapps.itunes.apple.com
+  reality-opts:
+    public-key: x7VqpFP7_PrY4ebNw8hi8Ec5Tm5Upmt5JOdrN1M9VnQ
+    short-id: 2b3b0b93
+- name: '[良心云便宜] 🇸🇬新加坡高速03|BGP|CTCUCM'
+  type: vless
+  server: aws-link9.liangxin1.xyz
+  port: 23587
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: iosapps.itunes.apple.com
+  reality-opts:
+    public-key: H66PLLf6HkZwHk4oFqisfTawIvw2cxkEwk8Ue8sHZgA
+    short-id: 19b580ae
+- name: '[良心云便宜] 🇸🇬新加坡高速04|BGP|CTCUCM'
+  type: vless
+  server: aws-link30.liangxin1.xyz
+  port: 23568
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: www.lamer.com.hk
+  reality-opts:
+    public-key: EjcM-ENrpWY8iIL82qJtQrZgRs4KlVqhdisqLAXonUY
+    short-id: 55d046dc
+- name: '[良心云便宜] 🇸🇬新加坡高速05|BGP|CTCUCM'
+  type: vless
+  server: aws-link31.liangxin1.xyz
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: download-porter.hoyoverse.com
+  reality-opts:
+    public-key: wXayfckurSM2zWeis7OAL_QVGm9wBLr0WYp2zFtJFAE
+    short-id: c7487aeb
+- name: '[良心云便宜] 🇸🇬新加坡高速06|BGP|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lx-1sg.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/sg1
+    headers:
+      Host: lx-1sg.lxy1015.top
+- name: '[良心云便宜] 🇸🇬新加坡高速07|BGP|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lx-1sg.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/sg1
+    headers:
+      Host: lx-1sg.lxy1015.top
+- name: '[良心云便宜] 🇸🇬新加坡高速08|BGP|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lx-1sg.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/sg1
+    headers:
+      Host: lx-1sg.lxy1015.top
+- name: '[良心云便宜] 🇯🇵日本高速01|BGP|CUCM'
+  type: vless
+  server: aws-link13.liangxin1.xyz
+  port: 36574
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: www.apple.com.cn
+  reality-opts:
+    public-key: sDG-KQk1BF7V83-xnmrWDouXxpPd_ZSxKcHrJJzbols
+    short-id: 32a3650d
+- name: '[良心云便宜] 🇯🇵日本高速02|BGP|CUCM'
+  type: vless
+  server: aws-link14.liangxin1.xyz
+  port: 25485
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: www.apple.com.cn
+  reality-opts:
+    public-key: VOFSjjWT0wIH3Q0ntyEZd8WwksrIAb5gPt_3PBnEASg
+    short-id: 9c5b8c53
+- name: '[良心云便宜] 🇯🇵日本高速03|BGP|CUCM'
+  type: vless
+  server: aws-link19.liangxin1.xyz
+  port: 8654
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: download-porter.hoyoverse.com
+  reality-opts:
+    public-key: QE5l0RUqs4OsH3j3u_xHm06-4NlILmQivZUJqiEx11o
+    short-id: 6314e825
+- name: '[良心云便宜] 🇯🇵日本高速04|BGP|CUCM'
+  type: vless
+  server: aws-link20.liangxin1.xyz
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: download-porter.hoyoverse.com
+  reality-opts:
+    public-key: QE5l0RUqs4OsH3j3u_xHm06-4NlILmQivZUJqiEx11o
+    short-id: 6314e825
+- name: '[良心云便宜] 🇯🇵日本高速05|BGP|CUCM'
+  type: vless
+  server: aws-link23.liangxin1.xyz
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: download-porter.hoyoverse.com
+  reality-opts:
+    public-key: dLmUAqcdy4Z7iucApd9zjOhkXTjl-xt_eHumShIYW0c
+    short-id: ba826a54
+- name: '[良心云便宜] 🇯🇵日本高速06|BGP|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lxs1jp.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/jp1
+    headers:
+      Host: lx-1jp.lxy1015.top
+- name: '[良心云便宜] 🇯🇵日本高速07|BGP|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lxs1jp.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/jp1
+    headers:
+      Host: lx-1jp.lxy1015.top
+- name: '[良心云便宜] 🇯🇵日本高速08|BGP|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lxs2jp.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/jp1
+    headers:
+      Host: lx-2jp.lxy1015.top
+- name: '[良心云便宜] 🇯🇵日本高速09|BGP|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lxs2jp.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/jp1
+    headers:
+      Host: lx-2jp.lxy1015.top
+- name: '[良心云便宜] 🇺🇸美国高速01|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lx-us1.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/us
+    headers:
+      Host: lx-us1.lxy1015.top
+- name: '[良心云便宜] 🇺🇸美国高速02|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lx-us1.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/us
+    headers:
+      Host: lx-us1.lxy1015.top
+- name: '[良心云便宜] 🇬🇧英国伦敦|CTCU|0.1x'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: gb-lx.777076.xyz
+  network: ws
+  ws-opts:
+    path: /liangxin/gb1
+    headers:
+      Host: gb-lx.777076.xyz
+- name: '[良心云便宜] 🇰🇷韩国高速01|BGP|流媒体'
+  type: vless
+  server: aws-link27.liangxin1.xyz
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: download-porter.hoyoverse.com
+  reality-opts:
+    public-key: a9I2uA3NNZA6uBAe3Tui9vZ8CG5MrMaYOifWrAdc0zg
+    short-id: a8609be8
+- name: '[良心云便宜] 🇨🇳台湾高速01|BGP|流媒体'
+  type: vless
+  server: aws-link28.liangxin1.xyz
+  port: 443
+  uuid: 745cc62d-b1d0-4888-842a-e487d6142455
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: download-porter.hoyoverse.com
+  reality-opts:
+    public-key: PFTc9Cn176HxLhtBCIzONGZIBVDJJodsCs4QHaTt7Sc
+    short-id: b8fe57fe
+- name: '[良心云便宜] 🇭🇰香港专线01|BGP|流媒体'
+  server: aws-linkhy1.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: iosapps.itunes.apple.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: 59777b9f4c7e20e49d88b179b5e3f75031f1e08be731670b2ee09acb6c1f3811
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 🇭🇰香港专线02|BGP|流媒体'
+  server: aws-linkhy2.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: iosapps.itunes.apple.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: 3ca3c00f5f864fa79ae5632ea16b13b959931f1cce2102b41db52c9ed045be1b
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 🇭🇰香港专线03|BGP|流媒体'
+  server: aws-linkhy3.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: iosapps.itunes.apple.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: 3ca3c00f5f864fa79ae5632ea16b13b959931f1cce2102b41db52c9ed045be1b
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 🇭🇰香港专线04|BGP|流媒体'
+  server: aws-linkhy4.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: iosapps.itunes.apple.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: f03a3cb440015c84f520be5a5b1362811d41154a6080212f3fc5883ebb747be7
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 🇸🇬新加坡专线01|BGP|流媒体'
+  server: aws-linkhy9.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: iosapps.itunes.apple.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: 2b6c9b75b2ef903fbe66ee91d1801941dea0ddb5429505ae3bce65e2fb17ad45
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 🇸🇬新加坡专线02|BGP|流媒体'
+  server: aws-linkhy10.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: iosapps.itunes.apple.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: 2b6c9b75b2ef903fbe66ee91d1801941dea0ddb5429505ae3bce65e2fb17ad45
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 🇸🇬新加坡专线03|BGP|流媒体'
+  server: aws-linkhy11.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: iosapps.itunes.apple.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: dd9dd03d942400ad4c1400879bda98f4fa097183aa9a91a1423cdd42a3e183d7
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 🇸🇬新加坡专线04|BGP|流媒体'
+  server: aws-linkhy12.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: iosapps.itunes.apple.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: 064255322ff7fa4fc225b44e72e5347fb9094fccc3bdd14ddb006118296b3fd3
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 🇯🇵日本专线01|BGP|流媒体'
+  server: aws-linkhy15.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: bilibili-jp.biliimg.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: 95b89cf256ca58006f8d2f090bc8a6ca89b385f424852e82b59f2af384b142d7
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 🇯🇵日本专线02|BGP|流媒体'
+  server: aws-linkhy16.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: bilibili-jp2.biliimg.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: 95b89cf256ca58006f8d2f090bc8a6ca89b385f424852e82b59f2af384b142d7
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 🇯🇵日本专线03|BGP|流媒体'
+  server: aws-linkhy17.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: bilibili-jp3.biliimg.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: a52eee8669d92360a913a3fc101157e2bdc182947a377831abbccc31928decce
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 🇯🇵日本专线04|BGP|流媒体'
+  server: aws-linkhy18.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: bilibili-jp4.biliimg.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: a52eee8669d92360a913a3fc101157e2bdc182947a377831abbccc31928decce
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 🇰🇷韩国专线01|BGP|流媒体'
+  server: aws-linkhy21.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: bilibili-kr.biliimg.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: e2ffb0b28a539fdb55a38bfa9ef07b948a0114ab58b01cead3371bd55f2c880c
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 🇨🇳台湾专线01|BGP|流媒体'
+  server: aws-linkhy22.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: bilibili-tw.biliimg.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: 41bdd7599812d70f35e0fdafef794eb25b4f16d8735876038e414f9b8a29bf4c
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 🇬🇧英国伦敦01|流媒体|0.1x'
+  server: 62.164.143.251
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: bilibili-gb.biliimg.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: f7d837d9a8fd47ae4f18de5a72430fb02f7e4c6e37a8823db929a1e1b8792aa1
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 🇬🇧英国伦敦02|流媒体|0.1x'
+  server: 62.164.143.251
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: bilibili-gb.biliimg.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: f7d837d9a8fd47ae4f18de5a72430fb02f7e4c6e37a8823db929a1e1b8792aa1
+  up: 100
+  down: 1000
+- name: '[良心云便宜] 🇺🇸美国01|流媒体'
+  server: 203.10.97.121
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 745cc62d-b1d0-4888-842a-e487d6142455
+  fingerprint: 7883472b634b93a7ec09a020fdbd4b1ac7b0accc7569028dfaeb54c6384677c1
+  up: 100
+  down: 1000
+- name: '[限量新订阅二跳] 🇭🇰香港1'
+  type: anytls
+  server: khhk.zlstar.sbs
+  port: 56789
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 666.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇭🇰香港2'
+  type: anytls
+  server: 667.zlstar.sbs
+  port: 56790
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 667.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇭🇰香港3'
+  type: anytls
+  server: 668.zlstar.sbs
+  port: 32655
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 668.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇭🇰香港4'
+  type: anytls
+  server: soos.zlstar.sbs
+  port: 21490
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 669.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇨🇳台湾1'
+  type: anytls
+  server: soos.zlstar.sbs
+  port: 25521
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 670.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇨🇳台湾2'
+  type: anytls
+  server: khhk.zlstar.sbs
+  port: 35546
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 991.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇨🇳台湾3'
+  type: anytls
+  server: soos.zlstar.sbs
+  port: 53276
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 663.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇯🇵日本1'
+  type: anytls
+  server: soos.zlstar.sbs
+  port: 53277
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 664.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇯🇵日本2'
+  type: anytls
+  server: 990.zlstar.sbs
+  port: 45366
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 990.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇸🇬新加坡1'
+  type: anytls
+  server: khhk.zlstar.sbs
+  port: 23444
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 993.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇸🇬新加坡2'
+  type: anytls
+  server: 665.zlstar.sbs
+  port: 56762
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 665.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇺🇸美国1'
+  type: anytls
+  server: 992.zlstar.sbs
+  port: 25541
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 992.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇺🇸美国2'
+  type: anytls
+  server: soos.zlstar.sbs
+  port: 24532
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 662.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇺🇸美国3'
+  type: anytls
+  server: khhk.zlstar.sbs
+  port: 53888
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 671.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇹🇭泰国'
+  type: anytls
+  server: soos.zlstar.sbs
+  port: 20180
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 224.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇻🇳越南'
+  type: anytls
+  server: soos.zlstar.sbs
+  port: 20116
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 994.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇲🇾马来西亚'
+  type: anytls
+  server: khhk.zlstar.sbs
+  port: 20182
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 231.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇰🇭柬埔寨'
+  type: anytls
+  server: soos.zlstar.sbs
+  port: 20092
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 228.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇮🇳印度'
+  type: anytls
+  server: khhk.zlstar.sbs
+  port: 23411
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 222.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇵🇭菲律宾'
+  type: anytls
+  server: soos.zlstar.sbs
+  port: 20073
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 221.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇪🇬埃及'
+  type: anytls
+  server: soos.zlstar.sbs
+  port: 20037
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 230.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇦🇺澳大利亚'
+  type: anytls
+  server: soos.zlstar.sbs
+  port: 54322
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 223.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇬🇧英国'
+  type: anytls
+  server: khhk.zlstar.sbs
+  port: 20041
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 226.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇫🇷法国'
+  type: anytls
+  server: soos.zlstar.sbs
+  port: 20029
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 225.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[限量新订阅二跳] 🇩🇪德国'
+  type: anytls
+  server: khhk.zlstar.sbs
+  port: 20078
+  password: a93bba64-16ba-4f3e-bdcf-7962a410fe73
+  udp: true
+  sni: 229.zlstar.sbs
+  skip-cert-verify: true
+  dialer-proxy: ycyun_Proxy
+- name: '[JP-3个月二跳] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: 3个月后自动中转
+- name: '[JP-3个月二跳 HK-1] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] HK-1'
+- name: '[JP-3个月二跳 HK-2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] HK-2'
+- name: '[JP-3个月二跳 HK-3] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] HK-3'
+- name: '[JP-3个月二跳 HK-4] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] HK-4'
+- name: '[JP-3个月二跳 HK-5] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] HK-5'
+- name: '[JP-3个月二跳 HK-6] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] HK-6'
+- name: '[JP-3个月二跳 HK2-HY2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] HK2-HY2'
+- name: '[JP-3个月二跳 HK3-HY2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] HK3-HY2'
+- name: '[JP-3个月二跳 HK4-HY2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] HK4-HY2'
+- name: '[JP-3个月二跳 HK5-HY2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] HK5-HY2'
+- name: '[JP-3个月二跳 JP-1] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] JP-1'
+- name: '[JP-3个月二跳 JP-2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] JP-2'
+- name: '[JP-3个月二跳 JP-3] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] JP-3'
+- name: '[JP-3个月二跳 JP-4] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] JP-4'
+- name: '[JP-3个月二跳 JP-5] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] JP-5'
+- name: '[JP-3个月二跳 JP-6] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] JP-6'
+- name: '[JP-3个月二跳 JP7-HY2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] JP7-HY2'
+- name: '[JP-3个月二跳 JP8-HY2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] JP8-HY2'
+- name: '[JP-3个月二跳 JP9-HY2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] JP9-HY2'
+- name: '[JP-3个月二跳 JP10-HY2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] JP10-HY2'
+- name: '[JP-3个月二跳 KR-1] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] KR-1'
+- name: '[JP-3个月二跳 KR-2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] KR-2'
+- name: '[JP-3个月二跳 KR-3] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] KR-3'
+- name: '[JP-3个月二跳 KR-4] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] KR-4'
+- name: '[JP-3个月二跳 KR-5] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] KR-5'
+- name: '[JP-3个月二跳 SG-1] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] SG-1'
+- name: '[JP-3个月二跳 SG-2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] SG-2'
+- name: '[JP-3个月二跳 SG-3] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] SG-3'
+- name: '[JP-3个月二跳 SG1-HY2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] SG1-HY2'
+- name: '[JP-3个月二跳 SG2-HY2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] SG2-HY2'
+- name: '[JP-3个月二跳 US-1TCP] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] US-1TCP'
+- name: '[JP-3个月二跳 US-2TCP] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] US-2TCP'
+- name: '[JP-3个月二跳 US-3TCP] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] US-3TCP'
+- name: '[JP-3个月二跳 US-4TCP] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] US-4TCP'
+- name: '[JP-3个月二跳 US-5TCP] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] US-5TCP'
+- name: '[JP-3个月二跳 US1-HY2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] US1-HY2'
+- name: '[JP-3个月二跳 US2-HY2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] US2-HY2'
+- name: '[JP-3个月二跳 US3-HY2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] US3-HY2'
+- name: '[JP-3个月二跳 US4-HY2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] US4-HY2'
+- name: '[JP-3个月二跳 US5-HY2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] US5-HY2'
+- name: '[JP-3个月二跳 US6-HY2] JP6-HY2'
+  type: hysteria2
+  server: jp6.dexlos.com
+  port: 21167
+  password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
+  sni: jp6.dexlos.com
+  skip-cert-verify: false
+  up: 100
+  down: 1000
+  dialer-proxy: '[3个月后过期] US6-HY2'
+proxy-groups:
+- name: Proxy
+  type: select
+  url: https://www.google.com/generate_204
+  interval: 300
+  timeout: 5000
+  proxies:
+  - ycyun_Proxy
+  - ycyun_Proxy_IPv6
+  - DIRECT
+  - 良心云便宜分组
+  - 原始3月后 JP分组
+  - JP-3个月-自动中转
+  - 限量分组新订阅链接
+  - 原始限量
+  - 原始3个月后
+- name: 默认兜底分组
+  type: select
+  proxies:
+  - ycyun_Proxy
+  - ycyun_Proxy_IPv6
+  - DIRECT
+  - 良心云便宜分组
+  - 原始3月后 JP分组
+  - JP-3个月-自动中转
+  - 限量分组新订阅链接
+  - 原始限量
+  - 原始3个月后
+  url: https://www.google.com/generate_204
+  interval: 300
+  timeout: 5000
+- name: AI中转站分组
+  type: select
+  proxies:
+  - ycyun_Proxy
+  - ycyun_Proxy_IPv6
+  - DIRECT
+  - 良心云便宜分组
+  - 原始3月后 JP分组
+  - JP-3个月-自动中转
+  - 限量分组新订阅链接
+  - 原始限量
+  - 原始3个月后
+  url: https://www.google.com/generate_204
+  interval: 300
+  timeout: 5000
+- name: kiro_zed_tabbit分组
+  type: select
+  proxies:
+  - ycyun_Proxy
+  - ycyun_Proxy_IPv6
+  - DIRECT
+  - 良心云便宜分组
+  - 原始3月后 JP分组
+  - JP-3个月-自动中转
+  - 限量分组新订阅链接
+  - 原始限量
+  - 原始3个月后
+  url: https://www.google.com/generate_204
+  interval: 300
+  timeout: 5000
+- name: OpenAi
+  type: select
+  proxies:
+  - ycyun_Proxy
+  - ycyun_Proxy_IPv6
+  - DIRECT
+  - 良心云便宜分组
+  - 原始3月后 JP分组
+  - JP-3个月-自动中转
+  - 限量分组新订阅链接
+  - 原始限量
+  - 原始3个月后
+  url: https://www.google.com/generate_204
+  interval: 300
+  timeout: 5000
+- name: Google
+  type: select
+  proxies:
+  - ycyun_Proxy
+  - ycyun_Proxy_IPv6
+  - DIRECT
+  - 良心云便宜分组
+  - 原始3月后 JP分组
+  - JP-3个月-自动中转
+  - 限量分组新订阅链接
+  - 原始限量
+  - 原始3个月后
+  url: https://www.google.com/generate_204
+  interval: 300
+  timeout: 5000
+- name: Windsurf
+  type: select
+  proxies:
+  - ycyun_Proxy
+  - ycyun_Proxy_IPv6
+  - DIRECT
+  - 良心云便宜分组
+  - 原始3月后 JP分组
+  - JP-3个月-自动中转
+  - 限量分组新订阅链接
+  - 原始限量
+  - 原始3个月后
+  url: https://www.google.com/generate_204
+  interval: 300
+  timeout: 5000
+- name: Steam
+  type: select
+  proxies:
+  - ycyun_Proxy
+  - ycyun_Proxy_IPv6
+  - DIRECT
+  - 良心云便宜分组
+  - 原始3月后 JP分组
+  - JP-3个月-自动中转
+  - 限量分组新订阅链接
+  - 原始限量
+  - 原始3个月后
+  url: https://www.google.com/generate_204
+  interval: 300
+  timeout: 5000
+- name: project zomboid
+  type: select
+  proxies:
+  - ycyun_Proxy
+  - ycyun_Proxy_IPv6
+  - DIRECT
+  - 良心云便宜分组
+  - 原始3月后 JP分组
+  - JP-3个月-自动中转
+  - 限量分组新订阅链接
+  - 原始限量
+  - 原始3个月后
+  url: https://www.google.com/generate_204
+  interval: 300
+  timeout: 5000
+- name: 良心云便宜分组
+  type: select
+  proxies:
+  - '[良心云便宜] 🇯🇵日本高速01|CTCU|0.5x'
+  - '[良心云便宜] 🇯🇵日本高速02|CTCU|0.5x'
+  - '[良心云便宜] 🇸🇬新加坡高速01|BGP|CTCUCM'
+  - '[良心云便宜] 🇸🇬新加坡高速02|BGP|CTCUCM'
+  - '[良心云便宜] 🇸🇬新加坡高速03|BGP|CTCUCM'
+  - '[良心云便宜] 🇸🇬新加坡高速05|BGP|CTCUCM'
+  - '[良心云便宜] 🇸🇬新加坡高速06|BGP|CTCU'
+  - '[良心云便宜] 🇸🇬新加坡高速07|BGP|CTCU'
+  - '[良心云便宜] 🇸🇬新加坡高速08|BGP|CTCU'
+  - '[良心云便宜] 🇯🇵日本高速01|BGP|CUCM'
+  - '[良心云便宜] 🇯🇵日本高速02|BGP|CUCM'
+  - '[良心云便宜] 🇯🇵日本高速03|BGP|CUCM'
+  - '[良心云便宜] 🇯🇵日本高速04|BGP|CUCM'
+  - '[良心云便宜] 🇯🇵日本高速05|BGP|CUCM'
+  - '[良心云便宜] 🇯🇵日本高速06|BGP|CTCU'
+  - '[良心云便宜] 🇯🇵日本高速07|BGP|CTCU'
+  - '[良心云便宜] 🇯🇵日本高速08|BGP|CTCU'
+  - '[良心云便宜] 🇯🇵日本高速09|BGP|CTCU'
+  - '[良心云便宜] 🇺🇸美国高速01|CTCU'
+  - '[良心云便宜] 🇺🇸美国高速02|CTCU'
+  - '[良心云便宜] 🇬🇧英国伦敦|CTCU|0.1x'
+  - '[良心云便宜] 🇰🇷韩国高速01|BGP|流媒体'
+  - '[良心云便宜] 🇨🇳台湾高速01|BGP|流媒体'
+  - '[良心云便宜] 🇸🇬新加坡专线01|BGP|流媒体'
+  - '[良心云便宜] 🇸🇬新加坡专线02|BGP|流媒体'
+  - '[良心云便宜] 🇸🇬新加坡专线03|BGP|流媒体'
+  - '[良心云便宜] 🇸🇬新加坡专线04|BGP|流媒体'
+  - '[良心云便宜] 🇯🇵日本专线01|BGP|流媒体'
+  - '[良心云便宜] 🇯🇵日本专线02|BGP|流媒体'
+  - '[良心云便宜] 🇯🇵日本专线03|BGP|流媒体'
+  - '[良心云便宜] 🇯🇵日本专线04|BGP|流媒体'
+  - '[良心云便宜] 🇰🇷韩国专线01|BGP|流媒体'
+  - '[良心云便宜] 🇨🇳台湾专线01|BGP|流媒体'
+  - '[良心云便宜] 🇬🇧英国伦敦01|流媒体|0.1x'
+  - '[良心云便宜] 🇬🇧英国伦敦02|流媒体|0.1x'
+  - '[良心云便宜] 🇺🇸美国01|流媒体'
+- name: 原始3月后 JP分组
+  type: fallback
+  url: https://www.google.com/generate_204
+  interval: 300
+  timeout: 5000
+  proxies:
+  - '[3个月后过期] JP-1'
+  - '[3个月后过期] JP-2'
+  - '[3个月后过期] JP-3'
+  - '[3个月后过期] JP-4'
+  - '[3个月后过期] JP-5'
+  - '[3个月后过期] JP-6'
+  - '[3个月后过期] JP6-HY2'
+  - '[3个月后过期] JP7-HY2'
+  - '[3个月后过期] JP8-HY2'
+  - '[3个月后过期] JP9-HY2'
+  - '[3个月后过期] JP10-HY2'
+- name: JP-3个月-自动中转
+  type: url-test
+  url: https://www.google.com/generate_204
+  interval: 300
+  timeout: 5000
+  tolerance: 50
+  proxies:
+  - '[3个月后过期] JP6-HY2'
+  - '[JP-3个月二跳 HK-1] JP6-HY2'
+  - '[JP-3个月二跳 HK-2] JP6-HY2'
+  - '[JP-3个月二跳 HK-3] JP6-HY2'
+  - '[JP-3个月二跳 HK-4] JP6-HY2'
+  - '[JP-3个月二跳 HK-5] JP6-HY2'
+  - '[JP-3个月二跳 HK-6] JP6-HY2'
+  - '[JP-3个月二跳 HK2-HY2] JP6-HY2'
+  - '[JP-3个月二跳 HK3-HY2] JP6-HY2'
+  - '[JP-3个月二跳 HK4-HY2] JP6-HY2'
+  - '[JP-3个月二跳 HK5-HY2] JP6-HY2'
+  - '[JP-3个月二跳 JP-1] JP6-HY2'
+  - '[JP-3个月二跳 JP-2] JP6-HY2'
+  - '[JP-3个月二跳 JP-3] JP6-HY2'
+  - '[JP-3个月二跳 JP-4] JP6-HY2'
+  - '[JP-3个月二跳 JP-5] JP6-HY2'
+  - '[JP-3个月二跳 JP-6] JP6-HY2'
+  - '[JP-3个月二跳 JP7-HY2] JP6-HY2'
+  - '[JP-3个月二跳 JP8-HY2] JP6-HY2'
+  - '[JP-3个月二跳 JP9-HY2] JP6-HY2'
+  - '[JP-3个月二跳 JP10-HY2] JP6-HY2'
+  - '[JP-3个月二跳 KR-1] JP6-HY2'
+  - '[JP-3个月二跳 KR-2] JP6-HY2'
+  - '[JP-3个月二跳 KR-3] JP6-HY2'
+  - '[JP-3个月二跳 KR-4] JP6-HY2'
+  - '[JP-3个月二跳 KR-5] JP6-HY2'
+  - '[JP-3个月二跳 SG-1] JP6-HY2'
+  - '[JP-3个月二跳 SG-2] JP6-HY2'
+  - '[JP-3个月二跳 SG-3] JP6-HY2'
+  - '[JP-3个月二跳 SG1-HY2] JP6-HY2'
+  - '[JP-3个月二跳 SG2-HY2] JP6-HY2'
+  - '[JP-3个月二跳 US-1TCP] JP6-HY2'
+  - '[JP-3个月二跳 US-2TCP] JP6-HY2'
+  - '[JP-3个月二跳 US-3TCP] JP6-HY2'
+  - '[JP-3个月二跳 US-4TCP] JP6-HY2'
+  - '[JP-3个月二跳 US-5TCP] JP6-HY2'
+  - '[JP-3个月二跳 US1-HY2] JP6-HY2'
+  - '[JP-3个月二跳 US2-HY2] JP6-HY2'
+  - '[JP-3个月二跳 US3-HY2] JP6-HY2'
+  - '[JP-3个月二跳 US4-HY2] JP6-HY2'
+  - '[JP-3个月二跳 US5-HY2] JP6-HY2'
+  - '[JP-3个月二跳 US6-HY2] JP6-HY2'
+- name: 3个月后自动中转
+  type: url-test
+  url: https://www.google.com/generate_204
+  interval: 300
+  timeout: 5000
+  proxies:
+  - ycyun_Proxy
+  - '[3个月后过期] HK-1'
+  - '[3个月后过期] HK-2'
+  - '[3个月后过期] HK-3'
+  - '[3个月后过期] HK-4'
+  - '[3个月后过期] HK-5'
+  - '[3个月后过期] HK-6'
+  - '[3个月后过期] HK2-HY2'
+  - '[3个月后过期] HK3-HY2'
+  - '[3个月后过期] HK4-HY2'
+  - '[3个月后过期] HK5-HY2'
+  - '[3个月后过期] JP-1'
+  - '[3个月后过期] JP-2'
+  - '[3个月后过期] JP-3'
+  - '[3个月后过期] JP-4'
+  - '[3个月后过期] JP-5'
+  - '[3个月后过期] JP-6'
+  - '[3个月后过期] JP7-HY2'
+  - '[3个月后过期] JP8-HY2'
+  - '[3个月后过期] JP9-HY2'
+  - '[3个月后过期] JP10-HY2'
+  - '[3个月后过期] KR-1'
+  - '[3个月后过期] KR-2'
+  - '[3个月后过期] KR-3'
+  - '[3个月后过期] KR-4'
+  - '[3个月后过期] KR-5'
+  - '[3个月后过期] SG-1'
+  - '[3个月后过期] SG-2'
+  - '[3个月后过期] SG-3'
+  - '[3个月后过期] SG1-HY2'
+  - '[3个月后过期] SG2-HY2'
+  - '[3个月后过期] US-1TCP'
+  - '[3个月后过期] US-2TCP'
+  - '[3个月后过期] US-3TCP'
+  - '[3个月后过期] US-4TCP'
+  - '[3个月后过期] US-5TCP'
+  - '[3个月后过期] US1-HY2'
+  - '[3个月后过期] US2-HY2'
+  - '[3个月后过期] US3-HY2'
+  - '[3个月后过期] US4-HY2'
+  - '[3个月后过期] US5-HY2'
+  - '[3个月后过期] US6-HY2'
+- name: 限量分组新订阅链接
+  type: select
+  proxies:
+  - '[限量新订阅二跳] 🇭🇰香港1'
+  - '[限量新订阅二跳] 🇭🇰香港2'
+  - '[限量新订阅二跳] 🇭🇰香港3'
+  - '[限量新订阅二跳] 🇭🇰香港4'
+  - '[限量新订阅二跳] 🇨🇳台湾1'
+  - '[限量新订阅二跳] 🇨🇳台湾2'
+  - '[限量新订阅二跳] 🇨🇳台湾3'
+  - '[限量新订阅二跳] 🇯🇵日本1'
+  - '[限量新订阅二跳] 🇯🇵日本2'
+  - '[限量新订阅二跳] 🇸🇬新加坡1'
+  - '[限量新订阅二跳] 🇸🇬新加坡2'
+  - '[限量新订阅二跳] 🇺🇸美国1'
+  - '[限量新订阅二跳] 🇺🇸美国2'
+  - '[限量新订阅二跳] 🇺🇸美国3'
+  - '[限量新订阅二跳] 🇹🇭泰国'
+  - '[限量新订阅二跳] 🇻🇳越南'
+  - '[限量新订阅二跳] 🇲🇾马来西亚'
+  - '[限量新订阅二跳] 🇰🇭柬埔寨'
+  - '[限量新订阅二跳] 🇮🇳印度'
+  - '[限量新订阅二跳] 🇵🇭菲律宾'
+  - '[限量新订阅二跳] 🇪🇬埃及'
+  - '[限量新订阅二跳] 🇦🇺澳大利亚'
+  - '[限量新订阅二跳] 🇬🇧英国'
+  - '[限量新订阅二跳] 🇫🇷法国'
+  - '[限量新订阅二跳] 🇩🇪德国'
+- name: 原始限量
+  type: select
+  proxies:
+  - '[限量] 🇭🇰香港1 按量不限时'
+  - '[限量] 🇭🇰香港｜直连 按量不限时'
+  - '[限量] 🇨🇳台湾1 按量不限时'
+  - '[限量] 🇨🇳台湾｜直连 按量不限时'
+  - '[限量] 🇯🇵日本1 按量不限时'
+  - '[限量] 🇯🇵日本2 按量不限时'
+  - '[限量] 🇯🇵日本｜直连 按量不限时'
+  - '[限量] 🇸🇬新加坡1 按量不限时'
+  - '[限量] 🇸🇬新加坡｜直连 按量不限时'
+  - '[限量] 🇺🇸美国1 按量不限时'
+  - '[限量] 🇺🇸美国｜直连 按量不限时'
+  - '[限量] 🇲🇾马来西亚 按量不限时'
+  - '[限量] 🇮🇳印度 按量不限时'
+  - '[限量] 🇰🇷韩国 按量不限时'
+  - '[限量] 🇦🇺澳大利亚 按量不限时'
+  - '[限量] 🇮🇹意大利 按量不限时'
+  - '[限量] 🇫🇷法国 按量不限时'
+  - '[限量] 🇬🇧英国 按量不限时'
+  - '[限量] 🇧🇷巴西 按量不限时'
+  - '[限量] 🇹🇷土耳其 按量不限时'
+  - '[限量] 🇵🇹葡萄牙 按量不限时'
+  - '[限量] 🇬🇷希腊 按量不限时'
+  - '[限量] 🇮🇸冰岛 按量不限时'
+- name: 原始3个月后
+  type: select
+  proxies:
+  - '[3个月后过期] HK-1'
+  - '[3个月后过期] HK-2'
+  - '[3个月后过期] HK-3'
+  - '[3个月后过期] HK-4'
+  - '[3个月后过期] HK-5'
+  - '[3个月后过期] HK-6'
+  - '[3个月后过期] HK2-HY2'
+  - '[3个月后过期] HK3-HY2'
+  - '[3个月后过期] HK4-HY2'
+  - '[3个月后过期] HK5-HY2'
+  - '[3个月后过期] JP-1'
+  - '[3个月后过期] JP-2'
+  - '[3个月后过期] JP-3'
+  - '[3个月后过期] JP-4'
+  - '[3个月后过期] JP-5'
+  - '[3个月后过期] JP-6'
+  - '[3个月后过期] JP6-HY2'
+  - '[3个月后过期] JP7-HY2'
+  - '[3个月后过期] JP8-HY2'
+  - '[3个月后过期] JP9-HY2'
+  - '[3个月后过期] JP10-HY2'
+  - '[3个月后过期] KR-1'
+  - '[3个月后过期] KR-2'
+  - '[3个月后过期] KR-3'
+  - '[3个月后过期] KR-4'
+  - '[3个月后过期] KR-5'
+  - '[3个月后过期] SG-1'
+  - '[3个月后过期] SG-2'
+  - '[3个月后过期] SG-3'
+  - '[3个月后过期] SG1-HY2'
+  - '[3个月后过期] SG2-HY2'
+  - '[3个月后过期] US-1TCP'
+  - '[3个月后过期] US-2TCP'
+  - '[3个月后过期] US-3TCP'
+  - '[3个月后过期] US-4TCP'
+  - '[3个月后过期] US-5TCP'
+  - '[3个月后过期] US1-HY2'
+  - '[3个月后过期] US2-HY2'
+  - '[3个月后过期] US3-HY2'
+  - '[3个月后过期] US4-HY2'
+  - '[3个月后过期] US5-HY2'
+  - '[3个月后过期] US6-HY2'
+rules:
+- DST-PORT,16261,project zomboid
+- DOMAIN,claude.com,OpenAi
+- DOMAIN-KEYWORD,claude.com,OpenAi
+- DOMAIN-KEYWORD,86gamestore,AI中转站分组
+- DOMAIN-KEYWORD,gitlab,AI中转站分组
+- DOMAIN-KEYWORD,zz1cc,AI中转站分组
+- DOMAIN-KEYWORD,congmingai,AI中转站分组
+- DOMAIN-KEYWORD,zzshu,AI中转站分组
+- DOMAIN-KEYWORD,zzshu.cc,AI中转站分组
+- DOMAIN-KEYWORD,lucen,AI中转站分组
+- DOMAIN-KEYWORD,xixiapi,AI中转站分组
+- DOMAIN-KEYWORD,nexahub,AI中转站分组
+- DOMAIN-KEYWORD,anyrouter,AI中转站分组
+- DOMAIN-KEYWORD,ymocode,AI中转站分组
+- DOMAIN-KEYWORD,songsongai,AI中转站分组
+- DOMAIN-KEYWORD,cli-proxy,AI中转站分组
+- DOMAIN-KEYWORD,ferribuy,AI中转站分组
+- DOMAIN-KEYWORD,tokensfather,AI中转站分组
+- DOMAIN-KEYWORD,mitce,Proxy
+- DOMAIN-KEYWORD,notion,Proxy
+- DOMAIN-KEYWORD,slack,Proxy
+- DOMAIN-KEYWORD,cloudflare,Proxy
+- DOMAIN-KEYWORD,turnstile,Proxy
+- DOMAIN-KEYWORD,cf-turnstile,Proxy
+- DOMAIN-KEYWORD,cf_chl,Proxy
+- DOMAIN-KEYWORD,cf-chl,Proxy
+- DOMAIN-KEYWORD,cf-ray,Proxy
+- DOMAIN,gemini.google.com,Google
+- DOMAIN-SUFFIX,gemini.google.com,Google
+- DOMAIN,aistudio.google.com,Google
+- DOMAIN-SUFFIX,aistudio.google.com,Google
+- DOMAIN,generativelanguage.googleapis.com,Google
+- DOMAIN-SUFFIX,generativelanguage.googleapis.com,Google
+- DOMAIN-SUFFIX,ai.google.dev,Google
+- DOMAIN-KEYWORD,gate,OpenAi
+- DOMAIN-KEYWORD,he.wwszxc.tax,默认兜底分组
+- DOMAIN,xingwan.store,默认兜底分组
+- DOMAIN-SUFFIX,zzshu.cc,Proxy
+- DOMAIN,localhost,DIRECT
+- DOMAIN-SUFFIX,localhost,DIRECT
+- DOMAIN-SUFFIX,local,DIRECT
+- IP-CIDR,0.0.0.0/8,DIRECT,no-resolve
+- IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+- IP-CIDR,100.64.0.0/10,DIRECT,no-resolve
+- IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+- IP-CIDR,169.254.0.0/16,DIRECT,no-resolve
+- IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+- IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+- IP-CIDR,224.0.0.0/4,DIRECT,no-resolve
+- IP-CIDR,240.0.0.0/4,DIRECT,no-resolve
+- IP-CIDR,255.255.255.255/32,DIRECT,no-resolve
+- IP-CIDR6,::1/128,DIRECT,no-resolve
+- IP-CIDR6,fc00::/7,DIRECT,no-resolve
+- IP-CIDR6,fe80::/10,DIRECT,no-resolve
+- DOMAIN-SUFFIX,lucen.cc,默认兜底分组
+- DOMAIN,drive.usercontent.google.com,Proxy
+- DOMAIN-SUFFIX,drive.google.com,Proxy
+- DOMAIN-SUFFIX,docs.google.com,Proxy
+- DOMAIN,google.com,Proxy
+- DOMAIN,www.google.com,Proxy
+- DOMAIN-SUFFIX,images.google.com,Proxy
+- DOMAIN-SUFFIX,lens.google.com,Proxy
+- DOMAIN-SUFFIX,news.google.com,Proxy
+- DOMAIN-SUFFIX,translate.google.com,Proxy
+- DOMAIN-SUFFIX,mail.google.com,Proxy
+- DOMAIN-SUFFIX,calendar.google.com,Proxy
+- DOMAIN-SUFFIX,photos.google.com,Proxy
+- DOMAIN-SUFFIX,drive.usercontent.google.com,Proxy
+- DOMAIN-SUFFIX,googleusercontent.com,Proxy
+- DOMAIN-SUFFIX,gstatic.com,Proxy
+- DOMAIN-SUFFIX,googlevideo.com,Proxy
+- DOMAIN-SUFFIX,youtube.com,Proxy
+- DOMAIN-SUFFIX,youtu.be,Proxy
+- DOMAIN-SUFFIX,ytimg.com,Proxy
+- DOMAIN-SUFFIX,ggpht.com,Proxy
+- DOMAIN-SUFFIX,windsurf.com,Windsurf
+- DOMAIN-SUFFIX,codeium.com,Windsurf
+- DOMAIN-SUFFIX,codeiumdata.com,Windsurf
+- DOMAIN-KEYWORD,windsurf,Windsurf
+- DOMAIN-KEYWORD,codeium,Windsurf
+- DOMAIN-SUFFIX,kiro.dev,kiro_zed_tabbit分组
+- DOMAIN-SUFFIX,kiro.aws,kiro_zed_tabbit分组
+- DOMAIN-KEYWORD,kiro,kiro_zed_tabbit分组
+- DOMAIN-KEYWORD,antigravity,kiro_zed_tabbit分组
+- DOMAIN-SUFFIX,tabbitbrowser.com,kiro_zed_tabbit分组
+- DOMAIN-KEYWORD,tabbit,kiro_zed_tabbit分组
+- DOMAIN-SUFFIX,ingest.us.sentry.io,kiro_zed_tabbit分组
+- DOMAIN-SUFFIX,events.data.microsoft.com,kiro_zed_tabbit分组
+- DOMAIN-KEYWORD,cloudcode,kiro_zed_tabbit分组
+- DOMAIN,cloudcode-pa.googleapis.com,kiro_zed_tabbit分组
+- DOMAIN,www.googleapis.com,kiro_zed_tabbit分组
+- DOMAIN,prod.us-east-1.telemetry.desktop.kiro.dev,kiro_zed_tabbit分组
+- DOMAIN,prod.us-east-1.telemetry.kiro.aws.dev,kiro_zed_tabbit分组
+- DOMAIN,prod.log.shortbread.aws.dev,kiro_zed_tabbit分组
+- DOMAIN,vs.aws.amazon.com,kiro_zed_tabbit分组
+- DOMAIN,q.us-east-1.amazonaws.com,kiro_zed_tabbit分组
+- DOMAIN,content-autofill.googleapis.com,kiro_zed_tabbit分组
+- DOMAIN,update.googleapis.com,kiro_zed_tabbit分组
+- DOMAIN,amazonwebservices.d2.sc.omtrdc.net,kiro_zed_tabbit分组
+- DOMAIN-SUFFIX,aws.amazon.com,Google
+- DOMAIN-SUFFIX,amazonaws.com,Google
+- DOMAIN-SUFFIX,awsstatic.com,Google
+- DOMAIN-SUFFIX,aws.dev,Google
+- DOMAIN-SUFFIX,awscloud.com,Google
+- DOMAIN-SUFFIX,amazon.com,Google
+- DOMAIN-SUFFIX,amazon.dev,Google
+- DOMAIN-SUFFIX,amazontrust.com,Google
+- DOMAIN,challenges.cloudflare.com,Proxy
+- DOMAIN,turnstile.cloudflare.com,Proxy
+- DOMAIN,static.cloudflareinsights.com,Proxy
+- DOMAIN-SUFFIX,cf-turnstile.com,Proxy
+- DOMAIN-SUFFIX,cloudflare.com,Proxy
+- DOMAIN-SUFFIX,cloudflare.net,Proxy
+- DOMAIN-SUFFIX,cloudflare-dns.com,Proxy
+- DOMAIN-SUFFIX,cloudflareinsights.com,Proxy
+- DOMAIN-SUFFIX,cloudflarestream.com,Proxy
+- DOMAIN-SUFFIX,cloudflareimages.com,Proxy
+- DOMAIN-SUFFIX,cloudflare-ipfs.com,Proxy
+- DOMAIN-SUFFIX,cloudflarestorage.com,Proxy
+- DOMAIN-SUFFIX,workers.dev,Proxy
+- DOMAIN-SUFFIX,pages.dev,Proxy
+- DOMAIN-SUFFIX,r2.dev,Proxy
+- DOMAIN-SUFFIX,trycloudflare.com,Proxy
+- DOMAIN-SUFFIX,cloudflareaccess.com,Proxy
+- DOMAIN-SUFFIX,cloudflareclient.com,Proxy
+- DOMAIN-SUFFIX,argotunnel.com,Proxy
+- DOMAIN-SUFFIX,warp.dev,Proxy
+- DOMAIN-SUFFIX,one.one.one.one,Proxy
+- DOMAIN-KEYWORD,amazonaws,Google
+- DOMAIN-SUFFIX,92scw.cn,默认兜底分组
+- DOMAIN-SUFFIX,aixj.cc,默认兜底分组
+- DOMAIN-SUFFIX,kunkunout.cn,默认兜底分组
+- DOMAIN-SUFFIX,minimaxi.com,默认兜底分组
+- DOMAIN-SUFFIX,aicodee.com,默认兜底分组
+- DOMAIN-SUFFIX,linkapi.org,默认兜底分组
+- DOMAIN-KEYWORD,dota2,默认兜底分组
+- DOMAIN-SUFFIX,dota2.com,默认兜底分组
+- DOMAIN-SUFFIX,dota2.net,默认兜底分组
+- DOMAIN-SUFFIX,dota2.com.cn,默认兜底分组
+- DOMAIN,store.steampowered.com,Steam
+- DOMAIN-SUFFIX,steampowered.com,Steam
+- DOMAIN-SUFFIX,steamcommunity.com,Steam
+- DOMAIN-SUFFIX,steamstatic.com,Steam
+- DOMAIN-SUFFIX,steamcontent.com,Steam
+- DOMAIN-SUFFIX,steamserver.net,Steam
+- DOMAIN-SUFFIX,steamcdn-a.akamaihd.net,Steam
+- DOMAIN-SUFFIX,steamusercontent.com,Steam
+- DOMAIN-KEYWORD,steam,Steam
+- DOMAIN-KEYWORD,zed,kiro_zed_tabbit分组
+- DOMAIN-KEYWORD,reddit,kiro_zed_tabbit分组
+- DOMAIN-KEYWORD,mypikpak,kiro_zed_tabbit分组
+- DOMAIN-KEYWORD,chatgpt,OpenAi
+- DOMAIN-KEYWORD,openai,OpenAi
+- DOMAIN-KEYWORD,oaistatic,OpenAi
+- DOMAIN-SUFFIX,anthropic.com,OpenAi
+- DOMAIN-KEYWORD,anthropic,OpenAi
+- DOMAIN-SUFFIX,claude.ai,OpenAi
+- DOMAIN-SUFFIX,claudeusercontent.com,OpenAi
+- DOMAIN-KEYWORD,claude,OpenAi
+- DOMAIN-KEYWORD,ping0,OpenAi
+- DOMAIN,dl.acm.org,Proxy
+- DOMAIN,ieeexplore.ieee.org,Proxy
+- DOMAIN,link.springer.com,Proxy
+- DOMAIN,arxiv.org,Proxy
+- DOMAIN,scholar.google.com,Proxy
+- DOMAIN,openaccess.thecvf.com,Proxy
+- DOMAIN,proceedings.neurips.cc,Proxy
+- DOMAIN,proceedings.mlr.press,Proxy
+- DOMAIN,pubmed.ncbi.nlm.nih.gov,Proxy
+- DOMAIN,pubs.acs.org,Proxy
+- DOMAIN,ieeexploreapi.ieee.org,Proxy
+- DOMAIN,cdn-lfs.huggingface.co,Proxy
+- DOMAIN,datasets-server.huggingface.co,Proxy
+- DOMAIN-SUFFIX,acm.org,Proxy
+- DOMAIN-SUFFIX,ieee.org,Proxy
+- DOMAIN-SUFFIX,computer.org,Proxy
+- DOMAIN-SUFFIX,springer.com,Proxy
+- DOMAIN-SUFFIX,springerlink.com,Proxy
+- DOMAIN-SUFFIX,nature.com,Proxy
+- DOMAIN-SUFFIX,sciencedirect.com,Proxy
+- DOMAIN-SUFFIX,elsevier.com,Proxy
+- DOMAIN-SUFFIX,cell.com,Proxy
+- DOMAIN-SUFFIX,arxiv.org,Proxy
+- DOMAIN-SUFFIX,arxiv-vanity.com,Proxy
+- DOMAIN-SUFFIX,biorxiv.org,Proxy
+- DOMAIN-SUFFIX,medrxiv.org,Proxy
+- DOMAIN-SUFFIX,doi.org,Proxy
+- DOMAIN-SUFFIX,crossref.org,Proxy
+- DOMAIN-SUFFIX,semanticscholar.org,Proxy
+- DOMAIN-SUFFIX,aclweb.org,Proxy
+- DOMAIN-SUFFIX,aclanthology.org,Proxy
+- DOMAIN-SUFFIX,openreview.net,Proxy
+- DOMAIN-SUFFIX,neurips.cc,Proxy
+- DOMAIN-SUFFIX,iclr.cc,Proxy
+- DOMAIN-SUFFIX,aaai.org,Proxy
+- DOMAIN-SUFFIX,ijcai.org,Proxy
+- DOMAIN-SUFFIX,jmlr.org,Proxy
+- DOMAIN-SUFFIX,mlr.press,Proxy
+- DOMAIN-SUFFIX,thecvf.com,Proxy
+- DOMAIN-SUFFIX,usenix.org,Proxy
+- DOMAIN-SUFFIX,wiley.com,Proxy
+- DOMAIN-SUFFIX,tandfonline.com,Proxy
+- DOMAIN-SUFFIX,jstor.org,Proxy
+- DOMAIN-SUFFIX,sagepub.com,Proxy
+- DOMAIN-SUFFIX,science.org,Proxy
+- DOMAIN-SUFFIX,pnas.org,Proxy
+- DOMAIN-SUFFIX,mdpi.com,Proxy
+- DOMAIN-SUFFIX,frontiersin.org,Proxy
+- DOMAIN-SUFFIX,plos.org,Proxy
+- DOMAIN-SUFFIX,ssrn.com,Proxy
+- DOMAIN-SUFFIX,researchgate.net,Proxy
+- DOMAIN-SUFFIX,scopus.com,Proxy
+- DOMAIN-SUFFIX,webofscience.com,Proxy
+- DOMAIN-SUFFIX,clarivate.com,Proxy
+- DOMAIN-SUFFIX,proquest.com,Proxy
+- DOMAIN-SUFFIX,ebscohost.com,Proxy
+- DOMAIN-SUFFIX,cambridge.org,Proxy
+- DOMAIN-SUFFIX,oup.com,Proxy
+- DOMAIN-SUFFIX,oxfordacademic.com,Proxy
+- DOMAIN-SUFFIX,degruyter.com,Proxy
+- DOMAIN-SUFFIX,emerald.com,Proxy
+- DOMAIN-SUFFIX,aps.org,Proxy
+- DOMAIN-SUFFIX,aip.org,Proxy
+- DOMAIN-SUFFIX,iop.org,Proxy
+- DOMAIN-SUFFIX,iopscience.iop.org,Proxy
+- DOMAIN-SUFFIX,rsc.org,Proxy
+- DOMAIN-SUFFIX,acs.org,Proxy
+- DOMAIN-SUFFIX,siam.org,Proxy
+- DOMAIN-SUFFIX,spie.org,Proxy
+- DOMAIN-SUFFIX,spiedigitallibrary.org,Proxy
+- DOMAIN-SUFFIX,optica.org,Proxy
+- DOMAIN-SUFFIX,hindawi.com,Proxy
+- DOMAIN-SUFFIX,royalsocietypublishing.org,Proxy
+- DOMAIN-SUFFIX,ncbi.nlm.nih.gov,Proxy
+- DOMAIN-SUFFIX,paperswithcode.com,Proxy
+- DOMAIN-SUFFIX,huggingface.co,Proxy
+- DOMAIN-SUFFIX,hf.co,Proxy
+- DOMAIN-SUFFIX,zenodo.org,Proxy
+- DOMAIN-SUFFIX,figshare.com,Proxy
+- DOMAIN-SUFFIX,osf.io,Proxy
+- DOMAIN-SUFFIX,kaggle.com,Proxy
+- DOMAIN-SUFFIX,kaggleusercontent.com,Proxy
+- DOMAIN-SUFFIX,dblp.org,Proxy
+- DOMAIN-SUFFIX,uni-trier.de,Proxy
+- DOMAIN-SUFFIX,openalex.org,Proxy
+- DOMAIN-SUFFIX,orcid.org,Proxy
+- DOMAIN-SUFFIX,overleaf.com,Proxy
+- DOMAIN-SUFFIX,zotero.org,Proxy
+- DOMAIN-SUFFIX,connectedpapers.com,Proxy
+- DOMAIN-SUFFIX,researchrabbitapp.com,Proxy
+- GEOSITE,google,Proxy
+- GEOSITE,github,Proxy
+- GEOSITE,gfw,Proxy
+- GEOSITE,telegram,Proxy
+- MATCH,默认兜底分组

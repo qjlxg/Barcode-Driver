@@ -1,0 +1,40 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+
+proxies:
+  - name: Bandwagon-Osaka
+    type: vless
+    server: 45.78.49.66
+    port: 443
+    uuid: de10c885-c3d3-4294-ab65-11d795d66ee2
+    network: tcp
+    tls: true
+    udp: false
+    flow: xtls-rprx-vision
+    servername: www.microsoft.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: 08-1bKMnVuYeE3LzB5RF4V9CkIvwZJkACl8YbSaPUAQ
+      short-id: b2b8740a44fbcd61
+
+proxy-groups:
+  - name: PROXY
+    type: select
+    proxies:
+      - Bandwagon-Osaka
+      - DIRECT
+
+rules:
+  - DOMAIN-SUFFIX,gmail.com,PROXY
+  - DOMAIN-SUFFIX,googlemail.com,PROXY
+  - DOMAIN,mail.google.com,PROXY
+  - DOMAIN,accounts.google.com,PROXY
+  - DOMAIN-SUFFIX,googleusercontent.com,PROXY
+  - DOMAIN-SUFFIX,gstatic.com,PROXY
+  - DOMAIN-SUFFIX,googleapis.com,PROXY
+  - DOMAIN-SUFFIX,gvt1.com,PROXY
+  - DOMAIN-SUFFIX,gvt2.com,PROXY
+  - GEOIP,CN,DIRECT
+  - MATCH,PROXY

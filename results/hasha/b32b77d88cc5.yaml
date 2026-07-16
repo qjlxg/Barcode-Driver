@@ -1,0 +1,53 @@
+proxies:
+  # === Hysteria2 - 最低延迟 ===
+  - name: "SV-Hysteria2"
+    type: hysteria2
+    server: 49.51.184.74
+    port: 443
+    password: Hyec82097ea3d58d5e
+    sni: hysteria.example.com
+    skip-cert-verify: true
+
+  # === VMess + WebSocket ===
+  - name: "SV-VMess-WS"
+    type: vmess
+    server: 49.51.184.74
+    port: 10086
+    uuid: 38a50f48-7fe9-4f65-bb39-41bf89327359
+    alterId: 0
+    cipher: auto
+    network: ws
+    ws-opts:
+      path: /ws
+
+  # === VMess + KCP ===
+  - name: "SV-VMess-KCP"
+    type: vmess
+    server: 49.51.184.74
+    port: 10087
+    uuid: 38a50f48-7fe9-4f65-bb39-41bf89327359
+    alterId: 0
+    cipher: auto
+    network: kcp
+
+  # === Shadowsocks ===
+  - name: "SV-Shadowsocks"
+    type: ss
+    server: 49.51.184.74
+    port: 8388
+    cipher: aes-256-cfb
+    password: goJ6x4QCv0VPOFxB
+
+proxy-groups:
+  - name: "🚀 Auto"
+    type: url-test
+    proxies:
+      - SV-Hysteria2
+      - SV-VMess-KCP
+      - SV-VMess-WS
+      - SV-Shadowsocks
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+
+rules:
+  - MATCH,🚀 Auto

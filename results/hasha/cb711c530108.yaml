@@ -1,0 +1,40 @@
+# 客户端订阅 profile - 2026-07-01 disk-cleanup 改
+# 专门给手机 clash 客户端订阅时用的 YAML
+# 不是 mihomo-user daemon 的运行时配置（那是 config.yaml）
+#
+# 手机拉这个文件后:
+#   - MATCH,Proxy → 选 Proxy group → Proxy group 选 Shanghai-IP (HTTP)
+#   - 手机流量 → 123.207.220.143:7892 (mihomo-user daemon)
+#   - mihomo-user daemon 用 config.yaml (DIRECT 模式) 直连转发
+#   - 出口 IP = mihomo-user 出口 = server 公网 IP = 上海 123.207.220.143
+#
+# YAML 写法: 所有注释放在行首 #（避免 clash 客户端 YAML parser 不认行内 # 报错）
+
+mixed-port: 0
+allow-lan: true
+mode: rule
+log-level: info
+
+# HTTP proxy → mihomo-user daemon (7892) → daemon DIRECT 模式转发 → IP = 上海
+proxies:
+  - name: Shanghai-IP
+    type: http
+    server: 123.207.220.143
+    port: 7892
+
+  - name: Shanghai-SOCKS
+    type: socks5
+    server: 123.207.220.143
+    port: 7893
+
+# 代理组: 手机端默认选 Proxy group, 可切上海 HTTP 或 SOCKS
+proxy-groups:
+  - name: Proxy
+    type: select
+    proxies:
+      - Shanghai-IP
+      - Shanghai-SOCKS
+
+# 全部流量走 Proxy group → 强制 server 中转
+rules:
+  - MATCH,Proxy

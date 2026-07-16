@@ -1,0 +1,2826 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+find-process-mode: strict
+unified-delay: true
+tcp-concurrent: true
+profile:
+  store-selected: true
+  store-fake-ip: true
+geodata-mode: true
+geodata-loader: standard
+geo-auto-update: true
+geo-update-interval: 24
+sniffer:
+  enable: true
+  sniff:
+    TLS:
+      ports:
+      - 443
+      - 8443
+    HTTP:
+      ports:
+      - 80
+      - 8080-8880
+      override-destination: true
+proxies:
+- name: DO-VPS-Hysteria2
+  type: hysteria2
+  server: 159.223.157.129
+  port: 8443
+  password: suAmQS9LlInNq4Wumh-FUF4GGlpgmG_g
+  sni: www.microsoft.com
+  skip-cert-verify: true
+  udp: true
+- name: DO-VPS-Reality
+  type: vless
+  server: 159.223.157.129
+  port: 443
+  uuid: 68d81021-d60b-4560-9777-24fb3ac4ca65
+  network: tcp
+  udp: true
+  tls: true
+  flow: xtls-rprx-vision
+  servername: www.microsoft.com
+  client-fingerprint: chrome
+  reality-opts:
+    public-key: NXXR4q8yGWEBdMk4jIwZs8Fo8LcLsBadI5suozflmCU
+    short-id: 3ea3f4804bea672d
+- name: '[PQ] 🇯🇵日本东京01-0.1倍 | 电信联通推荐'
+  type: vless
+  server: unamecf.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: ujp1.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/jp1
+    headers:
+      Host: ujp1.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇯🇵日本东京02-0.1倍 | 电信联通推荐'
+  type: vless
+  server: unamecf.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: ujp2.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/jp2
+    headers:
+      Host: ujp2.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇯🇵日本东京03-0.1倍 | 电信联通推荐'
+  type: vless
+  server: unamecf.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: ujp3.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/jp3
+    headers:
+      Host: ujp3.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇯🇵日本东京04-0.1倍 | 电信联通推荐'
+  type: vless
+  server: unamecf.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: ujp4.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/jp4
+    headers:
+      Host: ujp4.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇯🇵日本东京05-0.1倍 | 电信联通推荐'
+  type: vless
+  server: unamecf.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: ujp5.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/jp5
+    headers:
+      Host: ujp5.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇯🇵日本东京06-0.1倍 | 高速专线推荐'
+  type: vless
+  server: unamecf2.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: ujp2.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/jp2
+    headers:
+      Host: ujp2.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇯🇵日本东京07-0.1倍 | 高速专线推荐'
+  type: vless
+  server: unamecf2.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: ujp3.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/jp3
+    headers:
+      Host: ujp3.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇯🇵日本东京08-0.1倍 | 高速专线推荐'
+  type: vless
+  server: unamecf2.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: ujp4.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/jp4
+    headers:
+      Host: ujp4.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇯🇵日本东京09-0.1倍 | 高速专线推荐'
+  type: vless
+  server: unamecf2.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: ujp5.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/jp5
+    headers:
+      Host: ujp5.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇸🇬新加坡01 | 电信联通推荐'
+  type: vless
+  server: downloadcfpro.xn--ghq880n3na965a.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: sgp1.xn--ghq880n3na965a.com
+  network: ws
+  ws-opts:
+    path: /pq/sg1
+    headers:
+      Host: sgp1.xn--ghq880n3na965a.com
+- name: '[PQ] 🇸🇬新加坡02 | 电信联通推荐'
+  type: vless
+  server: downloadcfpro.xn--ghq880n3na965a.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: sgp1.xn--ghq880n3na965a.com
+  network: ws
+  ws-opts:
+    path: /pq/sg1
+    headers:
+      Host: sgp1.xn--ghq880n3na965a.com
+- name: '[PQ] 🇯🇵日本东京01 | 移动联通推荐'
+  type: vless
+  server: pq.aws48.yydjc.top
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: iosapps.itunes.apple.com
+  reality-opts:
+    public-key: ybBxu1pW3O9Me954LCDfXgHW6lIYepAbnla82yaZ5HE
+    short-id: 6a1faecb
+- name: '[PQ] 🇯🇵日本东京02 | 移动联通推荐'
+  type: vless
+  server: pq.aws49.yydjc.top
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: support.apple.com
+  reality-opts:
+    public-key: f1131S_7UjEFSAbjkkPrSp4wdjZwG5otAmHd9Naxcj4
+    short-id: 701fcb1f
+- name: '[PQ] 🇯🇵日本东京03 | 移动联通推荐'
+  type: vless
+  server: pq.aws50.yydjc.top
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: iosapps.itunes.apple.com
+  reality-opts:
+    public-key: pR8CV43xvSgvzSXPVLCVomjw-yZvNyqU32kietO2pEc
+    short-id: a6115a2c
+- name: '[PQ] 🇯🇵日本东京04 | 移动联通推荐'
+  type: vless
+  server: pq.aws51.yydjc.top
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: cdn-dynmedia-1.microsoft.com
+  reality-opts:
+    public-key: FrLhPuCVfzdM5rppzxHXQ5BZSGf1YHrXgo-cCtecGSo
+    short-id: f3b38af2
+- name: '[PQ] 🇯🇵日本东京05 | 移动联通推荐'
+  type: vless
+  server: pq.aws52.yydjc.top
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: cdn-dynmedia-1.microsoft.com
+  reality-opts:
+    public-key: FrLhPuCVfzdM5rppzxHXQ5BZSGf1YHrXgo-cCtecGSo
+    short-id: f3b38af2
+- name: '[PQ] 🇭🇰香港01-0.1倍'
+  type: vless
+  server: downloadcfpro.xn--ghq880n3na965a.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: hk1p1.xn--ghq880n3na965a.com
+  network: ws
+  ws-opts:
+    path: /pq/hk1
+    headers:
+      Host: hk1p1.xn--ghq880n3na965a.com
+- name: '[PQ] 🇭🇰香港02-0.1倍'
+  type: vless
+  server: downloadcfpro.xn--ghq880n3na965a.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: hk2p1.xn--ghq880n3na965a.com
+  network: ws
+  ws-opts:
+    path: /pq/hk2
+    headers:
+      Host: hk2p1.xn--ghq880n3na965a.com
+- name: '[PQ] 🇭🇰香港03-0.1倍'
+  type: vless
+  server: downloadcfpro.xn--ghq880n3na965a.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: hk3p1.xn--ghq880n3na965a.com
+  network: ws
+  ws-opts:
+    path: /pq/hk3
+    headers:
+      Host: hk3p1.xn--ghq880n3na965a.com
+- name: '[PQ] 🇭🇰香港04-0.1倍'
+  type: vless
+  server: downloadcfpro.xn--ghq880n3na965a.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: hk4p1.xn--ghq880n3na965a.com
+  network: ws
+  ws-opts:
+    path: /pq/hk4
+    headers:
+      Host: hk4p1.xn--ghq880n3na965a.com
+- name: '[PQ] 🇭🇰香港05-0.1倍'
+  type: vless
+  server: downloadcfpro.xn--ghq880n3na965a.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: hk5p1.xn--ghq880n3na965a.com
+  network: ws
+  ws-opts:
+    path: /pq/hk5
+    headers:
+      Host: hk5p1.xn--ghq880n3na965a.com
+- name: '[PQ] 🇭🇰香港06-0.1倍'
+  type: vless
+  server: downloadcfpro.xn--ghq880n3na965a.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: hk6p1.xn--ghq880n3na965a.com
+  network: ws
+  ws-opts:
+    path: /pq/hk6
+    headers:
+      Host: hk6p1.xn--ghq880n3na965a.com
+- name: '[PQ] 🇭🇰香港07-0.1倍'
+  type: vless
+  server: downloadcfpro.xn--ghq880n3na965a.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: hk7p1.xn--ghq880n3na965a.com
+  network: ws
+  ws-opts:
+    path: /pq/hk7
+    headers:
+      Host: hk7p1.xn--ghq880n3na965a.com
+- name: '[PQ] 🇭🇰香港08-0.1倍'
+  type: vless
+  server: downloadcfpro.xn--ghq880n3na965a.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: hk8p1.xn--ghq880n3na965a.com
+  network: ws
+  ws-opts:
+    path: /pq/hk8
+    headers:
+      Host: hk8p1.xn--ghq880n3na965a.com
+- name: '[PQ] 🇸🇬AWS新加坡02 | 移动联通推荐'
+  type: vless
+  server: pq.aws64.yydjc.top
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: iosapps.itunes.apple.com
+  reality-opts:
+    public-key: xjWkdgeetCnB1-kHqwVnAaSUqg4qK9TFWQlamW8FSRI
+    short-id: e2e15173
+- name: '[PQ] 🇸🇬AWS新加坡03 | 移动联通推荐'
+  type: vless
+  server: pq.aws65.yydjc.top
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: iosapps.itunes.apple.com
+  reality-opts:
+    public-key: 9076EbD5vM8kATc_08QvDiqZF5KHTM_LaSrMOvcwfHw
+    short-id: 57b7989c
+- name: '[PQ] 🇺🇸美国01-0.1倍 | 电信联通移动推荐'
+  server: pq.us1.globals-download.com
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇺🇸美国02-0.1倍 | 电信联通移动推荐'
+  server: pq.us2.globals-download.com
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇺🇸美国03-0.1倍 | 电信联通移动推荐'
+  server: pq.us3.globals-download.com
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: tv.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇺🇸美国04-0.1倍 | 电信联通移动推荐'
+  server: pq.us4.globals-download.com
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇺🇸美国05-0.1倍 | 电信联通移动推荐'
+  server: pq.us5.globals-download.com
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇺🇸美国06-0.1倍 | 电信联通移动推荐'
+  server: pq.us6.globals-download.com
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇺🇸美国07-0.1倍 | 电信联通移动推荐'
+  server: pq.us7.globals-download.com
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇺🇸美国08-0.1倍 | 电信联通移动推荐'
+  server: pq.us8.globals-download.com
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇭🇰香港01 | 移动联通推荐'
+  server: 103.197.71.112
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇭🇰香港02 | 移动联通推荐'
+  server: 103.197.71.113
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇭🇰香港03 | 移动联通推荐'
+  server: 103.197.71.114
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇭🇰香港04 | 移动联通推荐'
+  server: 103.197.71.116
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇭🇰香港05 | 移动联通推荐'
+  server: 103.197.71.117
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: tv.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇭🇰香港06 | 移动联通推荐'
+  server: 103.197.71.75
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇭🇰香港07 | 移动联通推荐'
+  server: 103.197.71.236
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: tv.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇭🇰香港08 | 移动联通推荐'
+  server: 103.197.71.237
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: tv.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇭🇰香港09 | 移动联通推荐'
+  server: 103.197.71.178
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: tv.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇭🇰香港10 | 移动联通推荐'
+  server: 103.197.71.239
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇰🇷韩国 | 高速专线-hy2'
+  server: 146.56.164.36
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: api.push.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇦🇪迪拜 | 高速专线-hy2'
+  server: 139.185.46.236
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇨🇭瑞士苏黎世 | 高速专线-hy2'
+  server: 152.67.95.183
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇦🇺澳大利亚 | 高速专线-hy2'
+  server: 207.211.147.108
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: api.push.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇦🇺澳大利亚2 | 高速专线-hy2'
+  server: 158.179.18.251
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: api.push.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇦🇺澳大利亚3 | 高速专线-hy2'
+  server: 159.13.35.245
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: api.push.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇸🇬新加坡 | 高速专线-hy2'
+  server: 203.27.106.148
+  port: 60000
+  ports: 60000-63000
+  mport: 60000-63000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇸🇬新加坡2 | 高速专线-hy2'
+  server: 203.27.106.148
+  port: 60000
+  ports: 60000-63000
+  mport: 60000-63000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇸🇬新加坡3 | 高速专线-hy2'
+  server: 152.69.220.212
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: api.push.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇸🇬新加坡4 | 高速专线-hy2'
+  server: 140.245.114.136
+  port: 35000
+  ports: 35000-39000
+  mport: 35000-39000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇯🇵日本东京 | 移动联通推荐-hy2'
+  server: pq.hy.jp.yydjc.top
+  port: 60000
+  ports: 60000-63000
+  mport: 60000-63000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇯🇵日本东京2 | 移动联通推荐-hy2'
+  server: pq.hy.jp2.yydjc.top
+  port: 60000
+  ports: 60000-63000
+  mport: 60000-63000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇯🇵日本东京3 | 移动联通推荐-hy2'
+  server: pq.hy.jp3.yydjc.top
+  port: 60000
+  ports: 60000-63000
+  mport: 60000-63000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇯🇵日本东京4 | 移动联通推荐-hy2'
+  server: pq.hy.jp4.yydjc.top
+  port: 60000
+  ports: 60000-63000
+  mport: 60000-63000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇯🇵日本东京5 | 移动联通推荐-hy2'
+  server: pq.hy.jp5.yydjc.top
+  port: 60000
+  ports: 60000-63000
+  mport: 60000-63000
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+- name: '[PQ] 🇺🇸美国圣何塞01-0.1倍'
+  type: vless
+  server: unamecf2.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: usa1s.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/us1
+    headers:
+      Host: usa1s.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇺🇸美国圣何塞02-0.1倍'
+  type: vless
+  server: unamecf2.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: usa2.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/us2
+    headers:
+      Host: usa2.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇺🇸美国圣何塞03-0.1倍'
+  type: vless
+  server: unamecf2.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: usa3.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/us3
+    headers:
+      Host: usa3.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇺🇸美国圣何塞04-0.1倍'
+  type: vless
+  server: unamecf2.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: usa4.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/us4
+    headers:
+      Host: usa4.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇺🇸美国圣何塞05-0.1倍'
+  type: vless
+  server: unamecf2.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: usa5.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/us5
+    headers:
+      Host: usa5.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇺🇸美国圣何塞06-0.1倍'
+  type: vless
+  server: unamecf2.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: usa6.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/us6
+    headers:
+      Host: usa6.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇺🇸美国圣何塞07-0.1倍'
+  type: vless
+  server: unamecf2.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: usa7.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/us7
+    headers:
+      Host: usa7.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇺🇸美国洛杉矶08-0.1倍'
+  type: vless
+  server: unamecf2.xn--ghqu5fm27b67w.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: usa8.xn--ghqu5fm27b67w.com
+  network: ws
+  ws-opts:
+    path: /pq/us8
+    headers:
+      Host: usa8.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇺🇸美国阿什本01-0.1倍'
+  type: vless
+  server: 69.84.182.109
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: pq-us4.globals-download.com
+  network: ws
+  ws-opts:
+    path: /pq/us4
+    headers:
+      Host: pq-us4.globals-download.com
+- name: '[PQ] 🇺🇸美国阿什本02-0.1倍'
+  type: vless
+  server: 69.84.182.109
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: pq-us5.globals-download.com
+  network: ws
+  ws-opts:
+    path: /pq/us5
+    headers:
+      Host: pq-us5.globals-download.com
+- name: '[PQ] 🇺🇸美国阿什本03-0.1倍'
+  type: vless
+  server: 69.84.182.109
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: pq-us6.globals-download.com
+  network: ws
+  ws-opts:
+    path: /pq/us6
+    headers:
+      Host: pq-us6.globals-download.com
+- name: '[PQ] 🇰🇷韩国首尔01'
+  type: vless
+  server: 193.123.227.125
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: buylite.music.apple.com
+  reality-opts:
+    public-key: P--AseuV7sGvgy7YJ8iX58GxeP5-M2oq0Mq2YxPAXRs
+    short-id: f00d40f38482
+- name: '[PQ] 🇹🇼台湾 | 避免晚高峰使用'
+  type: vless
+  server: pq-hinet.tw1.yydjc.top
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: static-snowbreak.amazingseasun.com
+  reality-opts:
+    public-key: kp6ml6xwSt4hTDEKj6U0FR0l-kDy2iUiILiT0XfFwjA
+    short-id: 3662ca42
+- name: '[PQ] 🇹🇼台湾2 | 避免晚高峰使用'
+  type: vless
+  server: pq-hinet.tw2.yydjc.top
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: static-snowbreak.amazingseasun.com
+  reality-opts:
+    public-key: Z-S-J9zDn7pXU7haa9_BeIny-Yp5qtS0R_MnHSgsoGA
+    short-id: 0c9347ba
+- name: '[PQ] 🇹🇼台湾3 | 避免晚高峰使用'
+  type: vless
+  server: pq-hinet.tw3.yydjc.top
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: static-snowbreak.amazingseasun.com
+  reality-opts:
+    public-key: eECwNaUgTEzRbyaeSaYpZGNTuuf5xZL2UVeGhDNWxTE
+    short-id: c85e4b9b
+- name: '[PQ] 🇯🇵日本高速01-0.1倍'
+  type: vless
+  server: 69.84.182.18
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  network: ws
+  ws-opts:
+    path: /pq/jp1
+    headers:
+      Host: jpa1.xn--ghqu5fm27b67w.com
+- name: '[PQ] 🇮🇳印度01-0.1倍'
+  type: vless
+  server: downloadcfpro.xn--ghq880n3na965a.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: in1s-s.xn--ghq880n3na965a.com
+  network: ws
+  ws-opts:
+    path: /pq/in1
+    headers:
+      Host: in1s-s.xn--ghq880n3na965a.com
+- name: '[PQ] 🇺🇸美国01 | 合适下载使用-0.01倍'
+  type: vless
+  server: downloadcfpro.xn--ghq880n3na965a.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: us1p1.xn--ghq880n3na965a.com
+  network: ws
+  ws-opts:
+    path: /pq/us1
+    headers:
+      Host: us1p1.xn--ghq880n3na965a.com
+- name: '[PQ] 🇺🇸美国02 | 合适下载使用-0.01倍'
+  type: vless
+  server: downloadcfpro.xn--ghq880n3na965a.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: us2p1.xn--ghq880n3na965a.com
+  network: ws
+  ws-opts:
+    path: /pq/us2
+    headers:
+      Host: us2p1.xn--ghq880n3na965a.com
+- name: '[PQ] 🇺🇸美国03 | 合适下载使用-0.01倍'
+  type: vless
+  server: downloadcfpro.xn--ghq880n3na965a.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: us3p1.xn--ghq880n3na965a.com
+  network: ws
+  ws-opts:
+    path: /pq/us3
+    headers:
+      Host: us3p1.xn--ghq880n3na965a.com
+- name: '[PQ] 🇺🇸美国04 | 合适下载使用-0.01倍'
+  type: vless
+  server: downloadcfpro.xn--ghq880n3na965a.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: us4p1.xn--ghq880n3na965a.com
+  network: ws
+  ws-opts:
+    path: /pq/us4
+    headers:
+      Host: us4p1.xn--ghq880n3na965a.com
+- name: '[PQ] 🇺🇸美国05 | 合适下载使用-0.01倍'
+  type: vless
+  server: downloadcfpro.xn--ghq880n3na965a.com
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: us5p1.xn--ghq880n3na965a.com
+  network: ws
+  ws-opts:
+    path: /pq/us5
+    headers:
+      Host: us5p1.xn--ghq880n3na965a.com
+- name: '[PQ] 🇺🇸美国圣何塞01 | 三网推荐'
+  type: vless
+  server: 134.195.101.129
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: download.visualstudio.microsoft.com
+  reality-opts:
+    public-key: FM0qkboWVs40429dRef1ow-S-FeRLAIO9iy-pVrNxwA
+    short-id: edd28d44
+- name: '[PQ] 🇺🇸美国圣何塞02 | 三网推荐'
+  type: vless
+  server: 134.195.101.137
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: download.visualstudio.microsoft.com
+  reality-opts:
+    public-key: EIkWIEbq7Jl81SdCDZEu55CfhNo43sojC_1ZOKspSWo
+    short-id: 51b8a9f3
+- name: '[PQ] 🇺🇸美国圣何塞03 | 三网推荐'
+  type: vless
+  server: 134.195.101.178
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: download.visualstudio.microsoft.com
+  reality-opts:
+    public-key: LlhhBwGFP-W9YXhZBj71NFoOsT6zol8BEd6KEIt2njc
+    short-id: a648418c
+- name: '[PQ] 🇺🇸美国圣何塞04 | 三网推荐'
+  type: vless
+  server: 134.195.101.207
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: download.visualstudio.microsoft.com
+  reality-opts:
+    public-key: jOlpatVK4ADLMPUBdtNLyjzCf-5BPdK8bMzWiPeAygw
+    short-id: 1f260699
+- name: '[PQ] 🇺🇸美国圣何塞05 | 三网推荐'
+  type: vless
+  server: 134.195.101.122
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: download.visualstudio.microsoft.com
+  reality-opts:
+    public-key: 5GuO4I_E15w2KmNriq2iJgCNRzmUaf2czrSyyxDaJiI
+    short-id: 870ba0fa
+- name: '[PQ] 🇺🇸美国圣何塞06 | 三网推荐'
+  type: vless
+  server: 134.195.101.182
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: download.visualstudio.microsoft.com
+  reality-opts:
+    public-key: lnhtAqxtQkbLmxHuqSNAFawUuPO-06b_0XiMUO0omG8
+    short-id: 8d3c4b88
+- name: '[PQ] 🇺🇸美国圣何塞07 | 三网推荐'
+  type: vless
+  server: 134.195.101.187
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: myvs.download.prss.microsoft.com
+  reality-opts:
+    public-key: XHMmGYsdXLNQ5CNZBAmzKReempIwKnE74wVuZmYGKAA
+    short-id: '50941934'
+- name: '[PQ] 🇺🇸美国洛杉矶08 | 三网推荐'
+  type: vless
+  server: 203.10.96.138
+  port: 443
+  uuid: 1cf6035b-c666-40c4-894e-8c19c01bbc8e
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: cdn-dynmedia-1.microsoft.com
+  reality-opts:
+    public-key: VFG2L-3i30fQZg3wd0DF6dEGdaT27S-PKpuYu7Hp8xU
+    short-id: fd26d49a
+- name: '[LX] 🇯🇵日本高速01|CTCU|0.5x'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: jp-lx.777076.xyz
+  network: ws
+  ws-opts:
+    path: /liangxin/jp1
+    headers:
+      Host: jp-lx.777076.xyz
+- name: '[LX] 🇯🇵日本高速02|CTCU|0.5x'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: jp2-lx.777076.xyz
+  network: ws
+  ws-opts:
+    path: /liangxin/jp1
+    headers:
+      Host: jp2-lx.777076.xyz
+- name: '[LX] 🇭🇰香港高速01|BGP|CMCU'
+  type: vless
+  server: aws-link1.liangxin1.xyz
+  port: 35248
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: www.lamer.com.hk
+  reality-opts:
+    public-key: IGsSxC0wgn7wLy0NM0QN_yOREDKT_814Y_3_rbgDoTc
+    short-id: c8c0f951
+- name: '[LX] 🇭🇰香港高速02|BGP|CMCU'
+  type: vless
+  server: aws-link2.liangxin1.xyz
+  port: 38725
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: www.lamer.com.hk
+  reality-opts:
+    public-key: HvwnLBMMKsmvghGX5yVPq3J2HWxwr1GGQB2WIvbPvAY
+    short-id: 8f6ca378
+- name: '[LX] 🇭🇰香港高速03|BGP|CMCU'
+  type: vless
+  server: aws-link3.liangxin1.xyz
+  port: 27758
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: www.lamer.com.hk
+  reality-opts:
+    public-key: EYa4ic3GAxqznV61U-OOww-WKsu5wuQQptyS3fw7czM
+    short-id: c50db39f
+- name: '[LX] 🇭🇰香港高速04|BGP|CMCU'
+  type: vless
+  server: aws-link4.liangxin1.xyz
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: www.lamer.com.hk
+  reality-opts:
+    public-key: 3FPGTaxkfOM3nEUWUyCiqkH5oJGsOx-WxPJfADi1QWY
+    short-id: 7f369e14
+- name: '[LX] 🇭🇰香港高速05|BGP|CMCU'
+  type: vless
+  server: aws-link5.liangxin1.xyz
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: www.lamer.com.hk
+  reality-opts:
+    public-key: a11gdDetacKBsiBBfhsPvanTGMtVyZEIvax7gU5Wplg
+    short-id: 9bf38508
+- name: '[LX] 🇭🇰香港高速06|BGP|CMCU'
+  type: vless
+  server: aws-link6.liangxin1.xyz
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: www.lamer.com.hk
+  reality-opts:
+    public-key: qUCQFvosamzk8NWdkalFmEMYinnt-_FnZZw6_9EdRVY
+    short-id: 6eb97c25
+- name: '[LX] 🇸🇬新加坡高速01|BGP|CTCUCM'
+  type: vless
+  server: aws-link7.liangxin1.xyz
+  port: 48574
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: www.lamer.com.sg
+  reality-opts:
+    public-key: lmxSayN8tUg2Dag2MPXrdqZ2SQK9K3OjlaKk8wVCRnc
+    short-id: f8f18902
+- name: '[LX] 🇸🇬新加坡高速02|BGP|CTCUCM'
+  type: vless
+  server: aws-link8.liangxin1.xyz
+  port: 39645
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: iosapps.itunes.apple.com
+  reality-opts:
+    public-key: x7VqpFP7_PrY4ebNw8hi8Ec5Tm5Upmt5JOdrN1M9VnQ
+    short-id: 2b3b0b93
+- name: '[LX] 🇸🇬新加坡高速03|BGP|CTCUCM'
+  type: vless
+  server: aws-link9.liangxin1.xyz
+  port: 23587
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: iosapps.itunes.apple.com
+  reality-opts:
+    public-key: H66PLLf6HkZwHk4oFqisfTawIvw2cxkEwk8Ue8sHZgA
+    short-id: 19b580ae
+- name: '[LX] 🇸🇬新加坡高速04|BGP|CTCUCM'
+  type: vless
+  server: aws-link30.liangxin1.xyz
+  port: 23568
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: www.lamer.com.hk
+  reality-opts:
+    public-key: EjcM-ENrpWY8iIL82qJtQrZgRs4KlVqhdisqLAXonUY
+    short-id: 55d046dc
+- name: '[LX] 🇸🇬新加坡高速05|BGP|CTCUCM'
+  type: vless
+  server: aws-link31.liangxin1.xyz
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: download-porter.hoyoverse.com
+  reality-opts:
+    public-key: wXayfckurSM2zWeis7OAL_QVGm9wBLr0WYp2zFtJFAE
+    short-id: c7487aeb
+- name: '[LX] 🇸🇬新加坡高速06|BGP|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lx-1sg.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/sg1
+    headers:
+      Host: lx-1sg.lxy1015.top
+- name: '[LX] 🇸🇬新加坡高速07|BGP|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lx-1sg.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/sg1
+    headers:
+      Host: lx-1sg.lxy1015.top
+- name: '[LX] 🇸🇬新加坡高速08|BGP|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lx-1sg.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/sg1
+    headers:
+      Host: lx-1sg.lxy1015.top
+- name: '[LX] 🇯🇵日本高速01|BGP|CUCM'
+  type: vless
+  server: aws-link13.liangxin1.xyz
+  port: 36574
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: www.apple.com.cn
+  reality-opts:
+    public-key: sDG-KQk1BF7V83-xnmrWDouXxpPd_ZSxKcHrJJzbols
+    short-id: 32a3650d
+- name: '[LX] 🇯🇵日本高速02|BGP|CUCM'
+  type: vless
+  server: aws-link14.liangxin1.xyz
+  port: 25485
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: www.apple.com.cn
+  reality-opts:
+    public-key: VOFSjjWT0wIH3Q0ntyEZd8WwksrIAb5gPt_3PBnEASg
+    short-id: 9c5b8c53
+- name: '[LX] 🇯🇵日本高速03|BGP|CUCM'
+  type: vless
+  server: aws-link19.liangxin1.xyz
+  port: 8654
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: download-porter.hoyoverse.com
+  reality-opts:
+    public-key: QE5l0RUqs4OsH3j3u_xHm06-4NlILmQivZUJqiEx11o
+    short-id: 6314e825
+- name: '[LX] 🇯🇵日本高速04|BGP|CUCM'
+  type: vless
+  server: aws-link20.liangxin1.xyz
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: download-porter.hoyoverse.com
+  reality-opts:
+    public-key: QE5l0RUqs4OsH3j3u_xHm06-4NlILmQivZUJqiEx11o
+    short-id: 6314e825
+- name: '[LX] 🇯🇵日本高速05|BGP|CUCM'
+  type: vless
+  server: aws-link23.liangxin1.xyz
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: download-porter.hoyoverse.com
+  reality-opts:
+    public-key: dLmUAqcdy4Z7iucApd9zjOhkXTjl-xt_eHumShIYW0c
+    short-id: ba826a54
+- name: '[LX] 🇯🇵日本高速06|BGP|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lxs1jp.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/jp1
+    headers:
+      Host: lx-1jp.lxy1015.top
+- name: '[LX] 🇯🇵日本高速07|BGP|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lxs1jp.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/jp1
+    headers:
+      Host: lx-1jp.lxy1015.top
+- name: '[LX] 🇯🇵日本高速08|BGP|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lxs2jp.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/jp1
+    headers:
+      Host: lx-2jp.lxy1015.top
+- name: '[LX] 🇯🇵日本高速09|BGP|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lxs2jp.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/jp1
+    headers:
+      Host: lx-2jp.lxy1015.top
+- name: '[LX] 🇺🇸美国高速01|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lx-us1.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/us
+    headers:
+      Host: lx-us1.lxy1015.top
+- name: '[LX] 🇺🇸美国高速02|CTCU'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: chrome
+  servername: lx-us1.lxy1015.top
+  network: ws
+  ws-opts:
+    path: /liangxin/us
+    headers:
+      Host: lx-us1.lxy1015.top
+- name: '[LX] 🇬🇧英国伦敦|CTCU|0.1x'
+  type: vless
+  server: cfyes.lxy1015.top
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: ios
+  servername: gb-lx.777076.xyz
+  network: ws
+  ws-opts:
+    path: /liangxin/gb1
+    headers:
+      Host: gb-lx.777076.xyz
+- name: '[LX] 🇰🇷韩国高速01|BGP|流媒体'
+  type: vless
+  server: aws-link27.liangxin1.xyz
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: download-porter.hoyoverse.com
+  reality-opts:
+    public-key: a9I2uA3NNZA6uBAe3Tui9vZ8CG5MrMaYOifWrAdc0zg
+    short-id: a8609be8
+- name: '[LX] 🇨🇳台湾高速01|BGP|流媒体'
+  type: vless
+  server: aws-link28.liangxin1.xyz
+  port: 443
+  uuid: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+  udp: true
+  flow: xtls-rprx-vision
+  tls: true
+  skip-cert-verify: false
+  client-fingerprint: safari
+  servername: download-porter.hoyoverse.com
+  reality-opts:
+    public-key: PFTc9Cn176HxLhtBCIzONGZIBVDJJodsCs4QHaTt7Sc
+    short-id: b8fe57fe
+- name: '[LX] 🇭🇰香港专线01|BGP|流媒体'
+  server: aws-linkhy1.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: iosapps.itunes.apple.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[LX] 🇭🇰香港专线02|BGP|流媒体'
+  server: aws-linkhy2.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: iosapps.itunes.apple.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[LX] 🇭🇰香港专线03|BGP|流媒体'
+  server: aws-linkhy3.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: iosapps.itunes.apple.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[LX] 🇭🇰香港专线04|BGP|流媒体'
+  server: aws-linkhy4.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: iosapps.itunes.apple.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[LX] 🇸🇬新加坡专线01|BGP|流媒体'
+  server: aws-linkhy9.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: iosapps.itunes.apple.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[LX] 🇸🇬新加坡专线02|BGP|流媒体'
+  server: aws-linkhy10.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: iosapps.itunes.apple.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[LX] 🇸🇬新加坡专线03|BGP|流媒体'
+  server: aws-linkhy11.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: iosapps.itunes.apple.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[LX] 🇸🇬新加坡专线04|BGP|流媒体'
+  server: aws-linkhy12.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: iosapps.itunes.apple.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[LX] 🇯🇵日本专线01|BGP|流媒体'
+  server: aws-linkhy15.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: bilibili-jp.biliimg.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[LX] 🇯🇵日本专线02|BGP|流媒体'
+  server: aws-linkhy16.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: bilibili-jp2.biliimg.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[LX] 🇯🇵日本专线03|BGP|流媒体'
+  server: aws-linkhy17.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: bilibili-jp3.biliimg.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[LX] 🇯🇵日本专线04|BGP|流媒体'
+  server: aws-linkhy18.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: bilibili-jp4.biliimg.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[LX] 🇰🇷韩国专线01|BGP|流媒体'
+  server: aws-linkhy21.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: bilibili-kr.biliimg.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[LX] 🇨🇳台湾专线01|BGP|流媒体'
+  server: aws-linkhy22.liangxin1.xyz
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: bilibili-tw.biliimg.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[LX] 🇬🇧英国伦敦01|流媒体|0.1x'
+  server: 62.164.143.251
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: bilibili-gb.biliimg.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[LX] 🇬🇧英国伦敦02|流媒体|0.1x'
+  server: 62.164.143.251
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: bilibili-gb.biliimg.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[LX] 🇺🇸美国01|流媒体'
+  server: 203.10.97.121
+  port: 60000
+  ports: 60000-65530
+  mport: 60000-65530
+  udp: true
+  skip-cert-verify: true
+  sni: www.apple.com
+  type: hysteria2
+  password: 4aebdb2f-754b-4e83-ae25-983b6b8cdd13
+- name: '[CF] CF官方优选1'
+  server: 104.17.117.247
+  port: 2087
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选2'
+  server: 104.17.171.216
+  port: 8443
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选3'
+  server: 91.193.58.21
+  port: 2087
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选4'
+  server: 104.19.149.0
+  port: 2083
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选5'
+  server: 104.18.85.4
+  port: 443
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选6'
+  server: 104.17.180.70
+  port: 443
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选7'
+  server: 198.41.208.207
+  port: 2096
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选8'
+  server: 172.67.75.194
+  port: 2096
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选9'
+  server: 172.66.1.194
+  port: 2083
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选10'
+  server: 104.17.159.154
+  port: 2083
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选11'
+  server: 104.18.94.142
+  port: 8443
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选12'
+  server: 104.19.44.224
+  port: 2083
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选13'
+  server: 104.17.117.67
+  port: 2087
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选14'
+  server: 162.159.39.40
+  port: 2096
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选15'
+  server: 104.19.36.203
+  port: 2096
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选16'
+  server: 104.19.157.154
+  port: 8443
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选17'
+  server: 104.17.28.83
+  port: 2087
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选18'
+  server: 188.164.248.81
+  port: 2087
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选19'
+  server: 104.17.164.86
+  port: 8443
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选20'
+  server: 104.17.183.150
+  port: 443
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选21'
+  server: 188.164.248.96
+  port: 8443
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选22'
+  server: 104.19.45.32
+  port: 2053
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选23'
+  server: 8.39.125.213
+  port: 443
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选24'
+  server: 198.41.223.20
+  port: 2087
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选25'
+  server: 104.17.104.17
+  port: 8443
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选26'
+  server: 198.41.209.21
+  port: 443
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选27'
+  server: 188.164.248.61
+  port: 443
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选28'
+  server: 198.41.223.165
+  port: 2053
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选29'
+  server: 104.19.47.77
+  port: 443
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选30'
+  server: 172.66.3.141
+  port: 2083
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选31'
+  server: 172.67.65.56
+  port: 2053
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+- name: '[CF] CF官方优选32'
+  server: 162.159.32.77
+  port: 2083
+  type: vless
+  uuid: 099244b9-2168-4dbd-870e-cbbe9d6eb573
+  tls: true
+  skip-cert-verify: false
+  servername: whitecreeper.pages.dev
+  client-fingerprint: chrome
+  network: ws
+  ws-opts:
+    path: /proxyip=ProxyIP.SG.CMLiussss.Net
+    headers:
+      Host: whitecreeper.pages.dev
+proxy-groups:
+- name: L1-HOME
+  type: fallback
+  proxies:
+  - L2-VPS
+  url: https://www.gstatic.com/generate_204
+  interval: 300
+  lazy: true
+- name: L2-VPS
+  type: fallback
+  proxies:
+  - DO-VPS-Reality
+  url: https://www.gstatic.com/generate_204
+  interval: 300
+  lazy: true
+- name: PQ-CHEAP-AUTO
+  type: url-test
+  proxies:
+  - '[PQ] 🇯🇵日本东京01-0.1倍 | 电信联通推荐'
+  - '[PQ] 🇯🇵日本东京02-0.1倍 | 电信联通推荐'
+  - '[PQ] 🇯🇵日本东京03-0.1倍 | 电信联通推荐'
+  - '[PQ] 🇯🇵日本东京04-0.1倍 | 电信联通推荐'
+  - '[PQ] 🇯🇵日本东京05-0.1倍 | 电信联通推荐'
+  - '[PQ] 🇯🇵日本东京06-0.1倍 | 高速专线推荐'
+  - '[PQ] 🇯🇵日本东京07-0.1倍 | 高速专线推荐'
+  - '[PQ] 🇯🇵日本东京08-0.1倍 | 高速专线推荐'
+  - '[PQ] 🇯🇵日本东京09-0.1倍 | 高速专线推荐'
+  - '[PQ] 🇸🇬新加坡01 | 电信联通推荐'
+  - '[PQ] 🇸🇬新加坡02 | 电信联通推荐'
+  - '[PQ] 🇯🇵日本东京01 | 移动联通推荐'
+  - '[PQ] 🇯🇵日本东京02 | 移动联通推荐'
+  - '[PQ] 🇯🇵日本东京03 | 移动联通推荐'
+  - '[PQ] 🇯🇵日本东京04 | 移动联通推荐'
+  - '[PQ] 🇯🇵日本东京05 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港01-0.1倍'
+  - '[PQ] 🇭🇰香港02-0.1倍'
+  - '[PQ] 🇭🇰香港03-0.1倍'
+  - '[PQ] 🇭🇰香港04-0.1倍'
+  - '[PQ] 🇭🇰香港05-0.1倍'
+  - '[PQ] 🇭🇰香港06-0.1倍'
+  - '[PQ] 🇭🇰香港07-0.1倍'
+  - '[PQ] 🇭🇰香港08-0.1倍'
+  - '[PQ] 🇸🇬AWS新加坡02 | 移动联通推荐'
+  - '[PQ] 🇸🇬AWS新加坡03 | 移动联通推荐'
+  - '[PQ] 🇺🇸美国01-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国02-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国03-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国04-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国05-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国06-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国07-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国08-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇭🇰香港01 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港02 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港03 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港04 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港05 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港06 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港07 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港08 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港09 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港10 | 移动联通推荐'
+  - '[PQ] 🇰🇷韩国 | 高速专线-hy2'
+  - '[PQ] 🇦🇪迪拜 | 高速专线-hy2'
+  - '[PQ] 🇨🇭瑞士苏黎世 | 高速专线-hy2'
+  - '[PQ] 🇦🇺澳大利亚 | 高速专线-hy2'
+  - '[PQ] 🇦🇺澳大利亚2 | 高速专线-hy2'
+  - '[PQ] 🇦🇺澳大利亚3 | 高速专线-hy2'
+  - '[PQ] 🇸🇬新加坡 | 高速专线-hy2'
+  - '[PQ] 🇸🇬新加坡2 | 高速专线-hy2'
+  - '[PQ] 🇸🇬新加坡3 | 高速专线-hy2'
+  - '[PQ] 🇸🇬新加坡4 | 高速专线-hy2'
+  - '[PQ] 🇯🇵日本东京 | 移动联通推荐-hy2'
+  - '[PQ] 🇯🇵日本东京2 | 移动联通推荐-hy2'
+  - '[PQ] 🇯🇵日本东京3 | 移动联通推荐-hy2'
+  - '[PQ] 🇯🇵日本东京4 | 移动联通推荐-hy2'
+  - '[PQ] 🇯🇵日本东京5 | 移动联通推荐-hy2'
+  - '[PQ] 🇺🇸美国圣何塞01-0.1倍'
+  - '[PQ] 🇺🇸美国圣何塞02-0.1倍'
+  - '[PQ] 🇺🇸美国圣何塞03-0.1倍'
+  - '[PQ] 🇺🇸美国圣何塞04-0.1倍'
+  - '[PQ] 🇺🇸美国圣何塞05-0.1倍'
+  - '[PQ] 🇺🇸美国圣何塞06-0.1倍'
+  - '[PQ] 🇺🇸美国圣何塞07-0.1倍'
+  - '[PQ] 🇺🇸美国洛杉矶08-0.1倍'
+  - '[PQ] 🇺🇸美国阿什本01-0.1倍'
+  - '[PQ] 🇺🇸美国阿什本02-0.1倍'
+  - '[PQ] 🇺🇸美国阿什本03-0.1倍'
+  - '[PQ] 🇰🇷韩国首尔01'
+  - '[PQ] 🇹🇼台湾 | 避免晚高峰使用'
+  - '[PQ] 🇹🇼台湾2 | 避免晚高峰使用'
+  - '[PQ] 🇹🇼台湾3 | 避免晚高峰使用'
+  - '[PQ] 🇯🇵日本高速01-0.1倍'
+  - '[PQ] 🇮🇳印度01-0.1倍'
+  - '[PQ] 🇺🇸美国01 | 合适下载使用-0.01倍'
+  - '[PQ] 🇺🇸美国02 | 合适下载使用-0.01倍'
+  - '[PQ] 🇺🇸美国03 | 合适下载使用-0.01倍'
+  - '[PQ] 🇺🇸美国04 | 合适下载使用-0.01倍'
+  - '[PQ] 🇺🇸美国05 | 合适下载使用-0.01倍'
+  - '[PQ] 🇺🇸美国圣何塞01 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞02 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞03 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞04 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞05 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞06 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞07 | 三网推荐'
+  - '[PQ] 🇺🇸美国洛杉矶08 | 三网推荐'
+  url: https://www.gstatic.com/generate_204
+  interval: 1800
+  tolerance: 200
+  lazy: true
+- name: LX-CHEAP-AUTO
+  type: url-test
+  proxies:
+  - '[LX] 🇯🇵日本高速01|CTCU|0.5x'
+  - '[LX] 🇯🇵日本高速02|CTCU|0.5x'
+  - '[LX] 🇭🇰香港高速01|BGP|CMCU'
+  - '[LX] 🇭🇰香港高速02|BGP|CMCU'
+  - '[LX] 🇭🇰香港高速03|BGP|CMCU'
+  - '[LX] 🇭🇰香港高速04|BGP|CMCU'
+  - '[LX] 🇭🇰香港高速05|BGP|CMCU'
+  - '[LX] 🇭🇰香港高速06|BGP|CMCU'
+  - '[LX] 🇸🇬新加坡高速01|BGP|CTCUCM'
+  - '[LX] 🇸🇬新加坡高速02|BGP|CTCUCM'
+  - '[LX] 🇸🇬新加坡高速03|BGP|CTCUCM'
+  - '[LX] 🇸🇬新加坡高速04|BGP|CTCUCM'
+  - '[LX] 🇸🇬新加坡高速05|BGP|CTCUCM'
+  - '[LX] 🇸🇬新加坡高速06|BGP|CTCU'
+  - '[LX] 🇸🇬新加坡高速07|BGP|CTCU'
+  - '[LX] 🇸🇬新加坡高速08|BGP|CTCU'
+  - '[LX] 🇯🇵日本高速01|BGP|CUCM'
+  - '[LX] 🇯🇵日本高速02|BGP|CUCM'
+  - '[LX] 🇯🇵日本高速03|BGP|CUCM'
+  - '[LX] 🇯🇵日本高速04|BGP|CUCM'
+  - '[LX] 🇯🇵日本高速05|BGP|CUCM'
+  - '[LX] 🇯🇵日本高速06|BGP|CTCU'
+  - '[LX] 🇯🇵日本高速07|BGP|CTCU'
+  - '[LX] 🇯🇵日本高速08|BGP|CTCU'
+  - '[LX] 🇯🇵日本高速09|BGP|CTCU'
+  - '[LX] 🇺🇸美国高速01|CTCU'
+  - '[LX] 🇺🇸美国高速02|CTCU'
+  - '[LX] 🇬🇧英国伦敦|CTCU|0.1x'
+  - '[LX] 🇰🇷韩国高速01|BGP|流媒体'
+  - '[LX] 🇨🇳台湾高速01|BGP|流媒体'
+  - '[LX] 🇭🇰香港专线01|BGP|流媒体'
+  - '[LX] 🇭🇰香港专线02|BGP|流媒体'
+  - '[LX] 🇭🇰香港专线03|BGP|流媒体'
+  - '[LX] 🇭🇰香港专线04|BGP|流媒体'
+  - '[LX] 🇸🇬新加坡专线01|BGP|流媒体'
+  - '[LX] 🇸🇬新加坡专线02|BGP|流媒体'
+  - '[LX] 🇸🇬新加坡专线03|BGP|流媒体'
+  - '[LX] 🇸🇬新加坡专线04|BGP|流媒体'
+  - '[LX] 🇯🇵日本专线01|BGP|流媒体'
+  - '[LX] 🇯🇵日本专线02|BGP|流媒体'
+  - '[LX] 🇯🇵日本专线03|BGP|流媒体'
+  - '[LX] 🇯🇵日本专线04|BGP|流媒体'
+  - '[LX] 🇰🇷韩国专线01|BGP|流媒体'
+  - '[LX] 🇨🇳台湾专线01|BGP|流媒体'
+  - '[LX] 🇬🇧英国伦敦01|流媒体|0.1x'
+  - '[LX] 🇬🇧英国伦敦02|流媒体|0.1x'
+  - '[LX] 🇺🇸美国01|流媒体'
+  url: https://www.gstatic.com/generate_204
+  interval: 1800
+  tolerance: 200
+  lazy: true
+- name: CF-FREE-AUTO
+  type: url-test
+  proxies:
+  - '[CF] CF官方优选1'
+  - '[CF] CF官方优选2'
+  - '[CF] CF官方优选3'
+  - '[CF] CF官方优选4'
+  - '[CF] CF官方优选5'
+  - '[CF] CF官方优选6'
+  - '[CF] CF官方优选7'
+  - '[CF] CF官方优选8'
+  - '[CF] CF官方优选9'
+  - '[CF] CF官方优选10'
+  - '[CF] CF官方优选11'
+  - '[CF] CF官方优选12'
+  - '[CF] CF官方优选13'
+  - '[CF] CF官方优选14'
+  - '[CF] CF官方优选15'
+  - '[CF] CF官方优选16'
+  - '[CF] CF官方优选17'
+  - '[CF] CF官方优选18'
+  - '[CF] CF官方优选19'
+  - '[CF] CF官方优选20'
+  - '[CF] CF官方优选21'
+  - '[CF] CF官方优选22'
+  - '[CF] CF官方优选23'
+  - '[CF] CF官方优选24'
+  - '[CF] CF官方优选25'
+  - '[CF] CF官方优选26'
+  - '[CF] CF官方优选27'
+  - '[CF] CF官方优选28'
+  - '[CF] CF官方优选29'
+  - '[CF] CF官方优选30'
+  - '[CF] CF官方优选31'
+  - '[CF] CF官方优选32'
+  url: https://www.gstatic.com/generate_204
+  interval: 1800
+  tolerance: 200
+  lazy: true
+- name: L3-US-AUTO
+  type: url-test
+  proxies:
+  - '[PQ] 🇺🇸美国01-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国02-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国03-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国04-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国05-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国06-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国07-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国08-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国圣何塞01-0.1倍'
+  - '[PQ] 🇺🇸美国圣何塞02-0.1倍'
+  - '[PQ] 🇺🇸美国圣何塞03-0.1倍'
+  - '[PQ] 🇺🇸美国圣何塞04-0.1倍'
+  - '[PQ] 🇺🇸美国圣何塞05-0.1倍'
+  - '[PQ] 🇺🇸美国圣何塞06-0.1倍'
+  - '[PQ] 🇺🇸美国圣何塞07-0.1倍'
+  - '[PQ] 🇺🇸美国洛杉矶08-0.1倍'
+  - '[PQ] 🇺🇸美国阿什本01-0.1倍'
+  - '[PQ] 🇺🇸美国阿什本02-0.1倍'
+  - '[PQ] 🇺🇸美国阿什本03-0.1倍'
+  - '[PQ] 🇺🇸美国01 | 合适下载使用-0.01倍'
+  - '[PQ] 🇺🇸美国02 | 合适下载使用-0.01倍'
+  - '[PQ] 🇺🇸美国03 | 合适下载使用-0.01倍'
+  - '[PQ] 🇺🇸美国04 | 合适下载使用-0.01倍'
+  - '[PQ] 🇺🇸美国05 | 合适下载使用-0.01倍'
+  - '[PQ] 🇺🇸美国圣何塞01 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞02 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞03 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞04 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞05 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞06 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞07 | 三网推荐'
+  - '[PQ] 🇺🇸美国洛杉矶08 | 三网推荐'
+  - '[LX] 🇺🇸美国高速01|CTCU'
+  - '[LX] 🇺🇸美国高速02|CTCU'
+  - '[LX] 🇺🇸美国01|流媒体'
+  url: https://www.gstatic.com/generate_204
+  interval: 1800
+  tolerance: 200
+  lazy: true
+- name: L3-SG-AUTO
+  type: url-test
+  proxies:
+  - '[PQ] 🇸🇬新加坡01 | 电信联通推荐'
+  - '[PQ] 🇸🇬新加坡02 | 电信联通推荐'
+  - '[PQ] 🇸🇬AWS新加坡02 | 移动联通推荐'
+  - '[PQ] 🇸🇬AWS新加坡03 | 移动联通推荐'
+  - '[PQ] 🇸🇬新加坡 | 高速专线-hy2'
+  - '[PQ] 🇸🇬新加坡2 | 高速专线-hy2'
+  - '[PQ] 🇸🇬新加坡3 | 高速专线-hy2'
+  - '[PQ] 🇸🇬新加坡4 | 高速专线-hy2'
+  - '[LX] 🇸🇬新加坡高速01|BGP|CTCUCM'
+  - '[LX] 🇸🇬新加坡高速02|BGP|CTCUCM'
+  - '[LX] 🇸🇬新加坡高速03|BGP|CTCUCM'
+  - '[LX] 🇸🇬新加坡高速04|BGP|CTCUCM'
+  - '[LX] 🇸🇬新加坡高速05|BGP|CTCUCM'
+  - '[LX] 🇸🇬新加坡高速06|BGP|CTCU'
+  - '[LX] 🇸🇬新加坡高速07|BGP|CTCU'
+  - '[LX] 🇸🇬新加坡高速08|BGP|CTCU'
+  - '[LX] 🇸🇬新加坡专线01|BGP|流媒体'
+  - '[LX] 🇸🇬新加坡专线02|BGP|流媒体'
+  - '[LX] 🇸🇬新加坡专线03|BGP|流媒体'
+  - '[LX] 🇸🇬新加坡专线04|BGP|流媒体'
+  url: https://www.gstatic.com/generate_204
+  interval: 1800
+  tolerance: 200
+  lazy: true
+- name: L3-JP-AUTO
+  type: url-test
+  proxies:
+  - '[PQ] 🇯🇵日本东京01-0.1倍 | 电信联通推荐'
+  - '[PQ] 🇯🇵日本东京02-0.1倍 | 电信联通推荐'
+  - '[PQ] 🇯🇵日本东京03-0.1倍 | 电信联通推荐'
+  - '[PQ] 🇯🇵日本东京04-0.1倍 | 电信联通推荐'
+  - '[PQ] 🇯🇵日本东京05-0.1倍 | 电信联通推荐'
+  - '[PQ] 🇯🇵日本东京06-0.1倍 | 高速专线推荐'
+  - '[PQ] 🇯🇵日本东京07-0.1倍 | 高速专线推荐'
+  - '[PQ] 🇯🇵日本东京08-0.1倍 | 高速专线推荐'
+  - '[PQ] 🇯🇵日本东京09-0.1倍 | 高速专线推荐'
+  - '[PQ] 🇯🇵日本东京01 | 移动联通推荐'
+  - '[PQ] 🇯🇵日本东京02 | 移动联通推荐'
+  - '[PQ] 🇯🇵日本东京03 | 移动联通推荐'
+  - '[PQ] 🇯🇵日本东京04 | 移动联通推荐'
+  - '[PQ] 🇯🇵日本东京05 | 移动联通推荐'
+  - '[PQ] 🇯🇵日本东京 | 移动联通推荐-hy2'
+  - '[PQ] 🇯🇵日本东京2 | 移动联通推荐-hy2'
+  - '[PQ] 🇯🇵日本东京3 | 移动联通推荐-hy2'
+  - '[PQ] 🇯🇵日本东京4 | 移动联通推荐-hy2'
+  - '[PQ] 🇯🇵日本东京5 | 移动联通推荐-hy2'
+  - '[PQ] 🇯🇵日本高速01-0.1倍'
+  - '[LX] 🇯🇵日本高速01|CTCU|0.5x'
+  - '[LX] 🇯🇵日本高速02|CTCU|0.5x'
+  - '[LX] 🇯🇵日本高速01|BGP|CUCM'
+  - '[LX] 🇯🇵日本高速02|BGP|CUCM'
+  - '[LX] 🇯🇵日本高速03|BGP|CUCM'
+  - '[LX] 🇯🇵日本高速04|BGP|CUCM'
+  - '[LX] 🇯🇵日本高速05|BGP|CUCM'
+  - '[LX] 🇯🇵日本高速06|BGP|CTCU'
+  - '[LX] 🇯🇵日本高速07|BGP|CTCU'
+  - '[LX] 🇯🇵日本高速08|BGP|CTCU'
+  - '[LX] 🇯🇵日本高速09|BGP|CTCU'
+  - '[LX] 🇯🇵日本专线01|BGP|流媒体'
+  - '[LX] 🇯🇵日本专线02|BGP|流媒体'
+  - '[LX] 🇯🇵日本专线03|BGP|流媒体'
+  - '[LX] 🇯🇵日本专线04|BGP|流媒体'
+  url: https://www.gstatic.com/generate_204
+  interval: 1800
+  tolerance: 200
+  lazy: true
+- name: L3-CHEAP
+  type: fallback
+  proxies:
+  - L3-US-AUTO
+  - L2-VPS
+  - L3-SG-AUTO
+  - L3-JP-AUTO
+  - PQ-CHEAP-AUTO
+  - LX-CHEAP-AUTO
+  - CF-FREE-AUTO
+  url: https://www.gstatic.com/generate_204
+  interval: 600
+  lazy: true
+- name: MANUAL
+  type: select
+  proxies:
+  - L1-HOME
+  - L2-VPS
+  - L3-CHEAP
+  - L3-US-AUTO
+  - L3-SG-AUTO
+  - L3-JP-AUTO
+  - DO-VPS-Hysteria2
+  - DO-VPS-Reality
+  - DIRECT
+rules:
+- DOMAIN-SUFFIX,local,DIRECT
+- DOMAIN-SUFFIX,localhost,DIRECT
+- DOMAIN-SUFFIX,lan,DIRECT
+- IP-CIDR,0.0.0.0/8,DIRECT,no-resolve
+- IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+- IP-CIDR,100.64.0.0/10,DIRECT,no-resolve
+- IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+- IP-CIDR,169.254.0.0/16,DIRECT,no-resolve
+- IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+- IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+- IP-CIDR,224.0.0.0/4,DIRECT,no-resolve
+- PROCESS-NAME,WeChat.exe,DIRECT
+- PROCESS-NAME,Weixin.exe,DIRECT
+- PROCESS-NAME,WXWork.exe,DIRECT
+- PROCESS-NAME,QQ.exe,DIRECT
+- DOMAIN-SUFFIX,apps.microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,store.microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,store-images.microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,storeedgefd.dsx.mp.microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,displaycatalog.mp.microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,dl.delivery.mp.microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,tlu.dl.delivery.mp.microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,fe3.delivery.mp.microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,prod.do.dsp.mp.microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,dsp.mp.microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,licensing.mp.microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,purchase.mp.microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,login.windows.net,L2-VPS
+- DOMAIN-SUFFIX,login.live.com,L2-VPS
+- DOMAIN-SUFFIX,login.microsoftonline.com,L2-VPS
+- DOMAIN-SUFFIX,account.live.com,L2-VPS
+- DOMAIN-SUFFIX,clientconfig.passport.net,L2-VPS
+- DOMAIN-SUFFIX,graph.microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,activity.windows.com,L2-VPS
+- DOMAIN-SUFFIX,client.wns.windows.com,L2-VPS
+- DOMAIN-SUFFIX,wns.windows.com,L2-VPS
+- DOMAIN-SUFFIX,settings-win.data.microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,events.data.microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,data.microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,msftconnecttest.com,L2-VPS
+- DOMAIN-SUFFIX,ipv6.msftconnecttest.com,L2-VPS
+- DOMAIN-SUFFIX,msftncsi.com,L2-VPS
+- DOMAIN-KEYWORD,microsoftstore,L2-VPS
+- DOMAIN-KEYWORD,windowsstore,L2-VPS
+- DOMAIN-SUFFIX,xiaohongshu.com,DIRECT
+- DOMAIN-SUFFIX,xhscdn.com,DIRECT
+- DOMAIN-SUFFIX,xhscdn.net,DIRECT
+- DOMAIN-SUFFIX,douyin.com,DIRECT
+- DOMAIN-SUFFIX,douyincdn.com,DIRECT
+- DOMAIN-SUFFIX,douyinpic.com,DIRECT
+- DOMAIN-SUFFIX,douyinstatic.com,DIRECT
+- DOMAIN-SUFFIX,amemv.com,DIRECT
+- DOMAIN-SUFFIX,iesdouyin.com,DIRECT
+- DOMAIN-SUFFIX,bytedance.com,DIRECT
+- DOMAIN-SUFFIX,byteimg.com,DIRECT
+- DOMAIN-SUFFIX,zijieapi.com,DIRECT
+- DOMAIN-SUFFIX,volces.com,DIRECT
+- DOMAIN-SUFFIX,oceanengine.com,DIRECT
+- DOMAIN-SUFFIX,klingai.com,DIRECT
+- DOMAIN-SUFFIX,klingai.kuaishou.com,DIRECT
+- DOMAIN-SUFFIX,seed.bytedance.com,DIRECT
+- DOMAIN-SUFFIX,seedance.com,DIRECT
+- DOMAIN-SUFFIX,seedance.ai,DIRECT
+- DOMAIN-SUFFIX,seedream.bytedance.com,DIRECT
+- DOMAIN-SUFFIX,doubao.com,DIRECT
+- DOMAIN-SUFFIX,doubao.com.cn,DIRECT
+- DOMAIN-SUFFIX,volcengineapi.com,DIRECT
+- DOMAIN-SUFFIX,volcengine.com,DIRECT
+- DOMAIN-SUFFIX,volces.com,DIRECT
+- DOMAIN-SUFFIX,jimeng.jianying.com,DIRECT
+- DOMAIN-SUFFIX,jianying.com,DIRECT
+- DOMAIN-SUFFIX,capcut.com,DIRECT
+- DOMAIN-SUFFIX,kuaishou.com,DIRECT
+- DOMAIN-SUFFIX,kwaicdn.com,DIRECT
+- DOMAIN-SUFFIX,kwai.com,DIRECT
+- DOMAIN-SUFFIX,ksapisrv.com,DIRECT
+- DOMAIN-SUFFIX,gifshow.com,DIRECT
+- DOMAIN-SUFFIX,bilibili.com,DIRECT
+- DOMAIN-SUFFIX,bilivideo.com,DIRECT
+- DOMAIN-SUFFIX,biliapi.com,DIRECT
+- DOMAIN-SUFFIX,biliapi.net,DIRECT
+- DOMAIN-SUFFIX,biligame.com,DIRECT
+- DOMAIN-SUFFIX,bilibiligame.net,DIRECT
+- DOMAIN-SUFFIX,hdslb.com,DIRECT
+- DOMAIN-SUFFIX,acgvideo.com,DIRECT
+- DOMAIN-SUFFIX,wechat.com,DIRECT
+- DOMAIN-SUFFIX,weixin.qq.com,DIRECT
+- DOMAIN-SUFFIX,weixinbridge.com,DIRECT
+- DOMAIN-SUFFIX,wx.qq.com,DIRECT
+- DOMAIN-SUFFIX,qq.com,DIRECT
+- DOMAIN-SUFFIX,qpic.cn,DIRECT
+- DOMAIN-SUFFIX,gtimg.com,DIRECT
+- DOMAIN-SUFFIX,myqcloud.com,DIRECT
+- DOMAIN-SUFFIX,tencent.com,DIRECT
+- DOMAIN-SUFFIX,tencent-cloud.com,DIRECT
+- DOMAIN-SUFFIX,tencent-cloud.net,DIRECT
+- DOMAIN-SUFFIX,smtcdns.com,DIRECT
+- DOMAIN-SUFFIX,taobao.com,DIRECT
+- DOMAIN-SUFFIX,tmall.com,DIRECT
+- DOMAIN-SUFFIX,1688.com,DIRECT
+- DOMAIN-SUFFIX,alibaba.com,DIRECT
+- DOMAIN-SUFFIX,alibabacloud.com,DIRECT
+- DOMAIN-SUFFIX,alibaba-inc.com,DIRECT
+- DOMAIN-SUFFIX,alicdn.com,DIRECT
+- DOMAIN-SUFFIX,aliyuncs.com,DIRECT
+- DOMAIN-SUFFIX,aliapp.org,DIRECT
+- DOMAIN-SUFFIX,alipayobjects.com,DIRECT
+- DOMAIN-SUFFIX,mmstat.com,DIRECT
+- DOMAIN-SUFFIX,cnzz.com,DIRECT
+- DOMAIN-SUFFIX,uc.cn,DIRECT
+- DOMAIN-SUFFIX,ucweb.com,DIRECT
+- DOMAIN-SUFFIX,quark.cn,DIRECT
+- DOMAIN-SUFFIX,myquark.cn,DIRECT
+- DOMAIN-SUFFIX,sm.cn,DIRECT
+- DOMAIN-SUFFIX,aliyun.com,DIRECT
+- DOMAIN-SUFFIX,alipay.com,DIRECT
+- DOMAIN-SUFFIX,baidu.com,DIRECT
+- DOMAIN-SUFFIX,bdstatic.com,DIRECT
+- DOMAIN-SUFFIX,bcebos.com,DIRECT
+- DOMAIN-SUFFIX,baidubce.com,DIRECT
+- DOMAIN-SUFFIX,bdimg.com,DIRECT
+- DOMAIN-SUFFIX,iqiyi.com,DIRECT
+- DOMAIN-SUFFIX,qiyi.com,DIRECT
+- DOMAIN-SUFFIX,qiyipic.com,DIRECT
+- DOMAIN-SUFFIX,iqiyipic.com,DIRECT
+- DOMAIN-SUFFIX,youku.com,DIRECT
+- DOMAIN-SUFFIX,ykimg.com,DIRECT
+- DOMAIN-SUFFIX,wasu.tv,DIRECT
+- DOMAIN-SUFFIX,wasu.cn,DIRECT
+- DOMAIN-SUFFIX,cibntv.net,DIRECT
+- DOMAIN-SUFFIX,163.com,DIRECT
+- DOMAIN-SUFFIX,126.net,DIRECT
+- DOMAIN-SUFFIX,netease.com,DIRECT
+- DOMAIN-SUFFIX,jd.com,DIRECT
+- DOMAIN-SUFFIX,meituan.com,DIRECT
+- DOMAIN-SUFFIX,dpfile.com,DIRECT
+- DOMAIN-SUFFIX,pinduoduo.com,DIRECT
+- DOMAIN-SUFFIX,yangkeduo.com,DIRECT
+- DOMAIN-SUFFIX,zhihu.com,DIRECT
+- DOMAIN-SUFFIX,csdn.net,DIRECT
+- DOMAIN-SUFFIX,mi.com,DIRECT
+- DOMAIN-SUFFIX,miui.com,DIRECT
+- DOMAIN-SUFFIX,huawei.com,DIRECT
+- DOMAIN-SUFFIX,huaweicloud.com,DIRECT
+- DOMAIN-SUFFIX,360.cn,DIRECT
+- DOMAIN-SUFFIX,360.com,DIRECT
+- DOMAIN-SUFFIX,steamcontent.com,DIRECT
+- DOMAIN-SUFFIX,steamstatic.com,DIRECT
+- DOMAIN-SUFFIX,steampowered.com,DIRECT
+- DOMAIN-SUFFIX,steamserver.net,DIRECT
+- DOMAIN-SUFFIX,steamcommunity.com,DIRECT
+- DOMAIN-SUFFIX,steam-chat.com,DIRECT
+- DOMAIN-SUFFIX,steamgames.com,DIRECT
+- DOMAIN-SUFFIX,steamusercontent.com,DIRECT
+- DOMAIN-SUFFIX,steamdeck.com,DIRECT
+- DOMAIN-SUFFIX,steam.tv,DIRECT
+- DOMAIN-SUFFIX,valvesoftware.com,DIRECT
+- DOMAIN-SUFFIX,valve.net,DIRECT
+- DOMAIN-KEYWORD,xiaohongshu,DIRECT
+- DOMAIN-KEYWORD,bilibili,DIRECT
+- DOMAIN-KEYWORD,steam,DIRECT
+- DOMAIN-KEYWORD,valve,DIRECT
+- DOMAIN-KEYWORD,klingai,DIRECT
+- DOMAIN-KEYWORD,kling,DIRECT
+- DOMAIN-KEYWORD,seedance,DIRECT
+- DOMAIN-KEYWORD,seedream,DIRECT
+- DOMAIN-KEYWORD,doubao,DIRECT
+- DOMAIN-KEYWORD,jimeng,DIRECT
+- DOMAIN-KEYWORD,jianying,DIRECT
+- DOMAIN-KEYWORD,kuaishou,DIRECT
+- DOMAIN-KEYWORD,kwai,DIRECT
+- DOMAIN-KEYWORD,quark,DIRECT
+- GEOSITE,private,DIRECT
+- GEOSITE,cn,DIRECT
+- GEOIP,private,DIRECT,no-resolve
+- GEOIP,CN,DIRECT,no-resolve
+- DOMAIN-SUFFIX,openai.com,L1-HOME
+- DOMAIN-SUFFIX,chatgpt.com,L1-HOME
+- DOMAIN-SUFFIX,oaistatic.com,L1-HOME
+- DOMAIN-SUFFIX,oaiusercontent.com,L1-HOME
+- DOMAIN-SUFFIX,anthropic.com,L1-HOME
+- DOMAIN-SUFFIX,claude.ai,L1-HOME
+- DOMAIN-SUFFIX,gemini.google.com,L1-HOME
+- DOMAIN-SUFFIX,ai.google.dev,L1-HOME
+- DOMAIN-SUFFIX,aistudio.google.com,L1-HOME
+- DOMAIN-SUFFIX,perplexity.ai,L1-HOME
+- DOMAIN-SUFFIX,poe.com,L1-HOME
+- DOMAIN-SUFFIX,tiktok.com,L1-HOME
+- DOMAIN-SUFFIX,tiktokv.com,L1-HOME
+- DOMAIN-SUFFIX,tiktokcdn.com,L1-HOME
+- DOMAIN-SUFFIX,stripe.com,L1-HOME
+- DOMAIN-SUFFIX,paypal.com,L1-HOME
+- DOMAIN-KEYWORD,openai,L1-HOME
+- DOMAIN-KEYWORD,chatgpt,L1-HOME
+- DOMAIN-KEYWORD,claude,L1-HOME
+- DOMAIN-KEYWORD,anthropic,L1-HOME
+- DOMAIN-KEYWORD,perplexity,L1-HOME
+- DOMAIN-SUFFIX,microsoft.com,L2-VPS
+- DOMAIN-SUFFIX,windows.com,L2-VPS
+- DOMAIN-SUFFIX,windows.net,L2-VPS
+- DOMAIN-SUFFIX,assets1.xboxlive.com,L2-VPS
+- DOMAIN-SUFFIX,assets2.xboxlive.com,L2-VPS
+- DOMAIN-SUFFIX,xboxlive.com,L2-VPS
+- DOMAIN-SUFFIX,xboxservices.com,L2-VPS
+- DOMAIN-SUFFIX,gamepass.com,L2-VPS
+- DOMAIN-SUFFIX,catalog.gamepass.com,L2-VPS
+- DOMAIN-SUFFIX,catalog.video.msn.com,L2-VPS
+- DOMAIN-SUFFIX,img-prod-cms-rt-microsoft-com.akamaized.net,L2-VPS
+- DOMAIN-SUFFIX,youtube.com,L2-VPS
+- DOMAIN-SUFFIX,youtube-nocookie.com,L2-VPS
+- DOMAIN-SUFFIX,youtubei.googleapis.com,L2-VPS
+- DOMAIN-SUFFIX,pinterest.com,L2-VPS
+- DOMAIN-SUFFIX,pinimg.com,L2-VPS
+- DOMAIN-SUFFIX,pin.it,L2-VPS
+- DOMAIN-SUFFIX,pinit.com,L2-VPS
+- DOMAIN-SUFFIX,pinadmin.com,L2-VPS
+- DOMAIN-SUFFIX,pinterdev.com,L2-VPS
+- DOMAIN-SUFFIX,pinterestmail.com,L2-VPS
+- DOMAIN-SUFFIX,pinterest.co.uk,L2-VPS
+- DOMAIN-SUFFIX,pinterest.ca,L2-VPS
+- DOMAIN-SUFFIX,cedexis.com,L2-VPS
+- DOMAIN-SUFFIX,cedexis-radar.net,L2-VPS
+- DOMAIN-SUFFIX,tvpixel.com,L2-VPS
+- DOMAIN-SUFFIX,x.com,L2-VPS
+- DOMAIN-SUFFIX,twitter.com,L2-VPS
+- DOMAIN-SUFFIX,t.co,L2-VPS
+- DOMAIN-SUFFIX,twimg.com,L2-VPS
+- DOMAIN-SUFFIX,pbs.twimg.com,L2-VPS
+- DOMAIN-SUFFIX,video.twimg.com,L2-VPS
+- DOMAIN-SUFFIX,abs.twimg.com,L2-VPS
+- DOMAIN-SUFFIX,api.twitter.com,L2-VPS
+- DOMAIN-SUFFIX,api.x.com,L2-VPS
+- DOMAIN-KEYWORD,pinterest,L2-VPS
+- DOMAIN-KEYWORD,pinimg,L2-VPS
+- MATCH,L2-VPS

@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>耀创 · 节点管理面板</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --primary:#7F77DD;
+  --primary-dark:#534AB7;
+  --primary-light:#EEEDFE;
+  --bg:#f5f5f7;
+  --bg-card:#ffffff;
+  --bg-sidebar:#ffffff;
+  --border:#e8e8ec;
+  --text:#1a1a2e;
+  --text2:#6b6b80;
+  --text3:#9999aa;
+  --green:#1D9E75;
+  --green-bg:#E1F5EE;
+  --green-text:#085041;
+  --red:#E24B4A;
+  --red-bg:#FCEBEB;
+  --red-text:#791F1F;
+  --amber:#BA7517;
+  --amber-bg:#FAEEDA;
+  --amber-text:#633806;
+  --blue-bg:#E6F1FB;
+  --blue-text:#185FA5;
+  --radius:8px;
+  --radius-lg:12px;
+}
+body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:var(--bg);color:var(--text);font-size:13px;display:flex;height:100vh;overflow:hidden}
+
+/* SIDEBAR */
+.sidebar{width:186px;background:var(--bg-sidebar);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;height:100vh;overflow-y:auto}
+.logo-area{display:flex;align-items:center;gap:9px;padding:18px 16px 14px;border-bottom:1px solid var(--border)}
+.logo-icon{width:28px;height:28px;background:var(--primary);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:#fff}
+.logo-name{font-size:15px;font-weight:600;letter-spacing:2px;color:var(--text)}
+.logo-ver{font-size:9px;color:var(--text3);letter-spacing:.5px;margin-top:1px}
+.nav-section{padding:10px 0}
+.nav-group-label{font-size:10px;color:var(--text3);letter-spacing:1px;padding:6px 16px 4px;text-transform:uppercase}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 16px;font-size:13px;color:var(--text2);cursor:pointer;border-left:2px solid transparent;transition:all .15s;user-select:none}
+.nav-item:hover{color:var(--text);background:#f8f8fb}
+.nav-item.active{color:var(--primary);border-left-color:var(--primary);background:var(--primary-light)}
+.nav-item svg{width:15px;height:15px;flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.8}
+.nav-badge{margin-left:auto;background:var(--primary);color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;font-weight:500}
+.nav-badge-red{background:var(--red)}
+.sidebar-footer{margin-top:auto;padding:12px 16px;border-top:1px solid var(--border)}
+.user-row{display:flex;align-items:center;gap:9px}
+.user-av{width:30px;height:30px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;color:var(--primary)}
+.user-name{font-size:12px;font-weight:500;color:var(--text)}
+.user-role{font-size:10px;color:var(--text3)}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;background:var(--bg-card);border-bottom:1px solid var(--border);flex-shrink:0}
+.page-title{font-size:16px;font-weight:600;color:var(--text)}
+.page-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.topbar-right{display:flex;gap:8px;align-items:center}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 13px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-card);font-size:12px;color:var(--text2);cursor:pointer;transition:all .12s;font-family:inherit;white-space:nowrap}
+.btn:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-light)}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+.btn-primary:hover{background:var(--primary-dark);border-color:var(--primary-dark);color:#fff}
+.btn-danger{border-color:var(--red);color:var(--red)}
+.btn-danger:hover{background:var(--red-bg)}
+.btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* CONTENT */
+.content{flex:1;overflow-y:auto;padding:20px 22px}
+.page{display:none}
+.page.active{display:block}
+
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.metric{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:14px 16px}
+.metric-label{font-size:11px;color:var(--text3);margin-bottom:6px;letter-spacing:.3px}
+.metric-value{font-size:24px;font-weight:600;color:var(--text);line-height:1}
+.metric-sub{font-size:11px;color:var(--text3);margin-top:5px}
+.metric-sub.up{color:var(--green)}
+.metric-sub.warn{color:var(--amber)}
+
+/* CARDS */
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:16px;margin-bottom:14px}
+.card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.card-title{font-size:13px;font-weight:600;color:var(--text)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+
+/* BADGES */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;border-radius:5px;font-size:11px;font-weight:500;white-space:nowrap}
+.badge-on{background:var(--green-bg);color:var(--green-text)}
+.badge-off{background:var(--red-bg);color:var(--red-text)}
+.badge-warn{background:var(--amber-bg);color:var(--amber-text)}
+.badge-blue{background:var(--blue-bg);color:var(--blue-text)}
+.badge-purple{background:var(--primary-light);color:var(--primary-dark)}
+.dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.dot-on{background:var(--green)}
+.dot-off{background:var(--red)}
+.dot-warn{background:var(--amber)}
+
+/* TABLES */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;font-weight:500;font-size:11px;color:var(--text3);padding:7px 10px 7px 0;border-bottom:1px solid var(--border);white-space:nowrap;letter-spacing:.3px}
+td{padding:9px 10px 9px 0;border-bottom:1px solid var(--border);color:var(--text);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafafc}
+.mono{font-family:'SF Mono','Consolas',monospace;font-size:11px;color:var(--blue-text)}
+
+/* PROGRESS */
+.prog{height:3px;background:var(--bg);border-radius:3px;overflow:hidden;width:60px;margin-top:3px}
+.prog-bar{height:100%;border-radius:3px;background:var(--primary);transition:width .3s}
+.prog-bar.green{background:var(--green)}
+.prog-bar.red{background:var(--red)}
+.prog-bar.amber{background:var(--amber)}
+
+/* BAR CHART */
+.bar-chart{display:flex;align-items:flex-end;gap:6px;height:90px}
+.bbar{flex:1;border-radius:3px 3px 0 0;background:#CECBF6;cursor:pointer;transition:background .15s}
+.bbar:hover{background:var(--primary)}
+.bbar.today{background:var(--primary)}
+.bar-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-top:5px}
+
+/* FORM */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group.full{grid-column:1/-1}
+label{font-size:11px;color:var(--text2);font-weight:500;letter-spacing:.3px}
+input,select,textarea{padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius);font-size:12px;color:var(--text);background:var(--bg-card);font-family:inherit;outline:none;transition:border .15s;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--primary)}
+textarea{resize:vertical;min-height:80px}
+
+/* SEARCH BAR */
+.search-row{display:flex;gap:8px;margin-bottom:12px;align-items:center}
+.search-wrap{position:relative;flex:1}
+.search-wrap svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:13px;height:13px;stroke:var(--text3);fill:none;stroke-width:2}
+.search-input{padding-left:30px!important}
+
+/* TABS */
+.tab-row{display:flex;border-bottom:1px solid var(--border);margin-bottom:12px;gap:0}
+.tab{padding:7px 14px;font-size:12px;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .12s;white-space:nowrap}
+.tab:hover{color:var(--text2)}
+.tab.on{color:var(--primary);border-bottom-color:var(--primary)}
+
+/* ICON BUTTONS */
+.icon-btn{width:26px;height:26px;border:1px solid var(--border);border-radius:6px;background:transparent;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text3);font-size:12px;margin-left:3px;transition:all .12s}
+.icon-btn:hover{border-color:var(--primary);color:var(--primary);background:var(--primary-light)}
+.icon-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:100;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:var(--bg-card);border-radius:var(--radius-lg);padding:24px;width:520px;max-width:95vw;max-height:90vh;overflow-y:auto;border:1px solid var(--border)}
+.modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.modal-title{font-size:15px;font-weight:600;color:var(--text)}
+.modal-close{width:28px;height:28px;border:1px solid var(--border);border-radius:6px;background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text3)}
+.modal-close:hover{border-color:var(--red);color:var(--red)}
+.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:20px;padding-top:16px;border-top:1px solid var(--border)}
+
+/* STAT ROWS */
+.stat-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border);font-size:12px}
+.stat-row:last-child{border-bottom:none}
+.stat-label{color:var(--text3)}
+.stat-value{color:var(--text);font-weight:500}
+
+/* ALERT ITEMS */
+.alert-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.alert-item:last-child{border-bottom:none}
+.alert-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.alert-icon svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2}
+.alert-title{font-size:12px;font-weight:500;color:var(--text)}
+.alert-sub{font-size:11px;color:var(--text3);margin-top:2px}
+.alert-time{font-size:10px;color:var(--text3);margin-top:4px}
+
+/* LOG */
+.log-item{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid var(--border);align-items:flex-start;font-size:12px}
+.log-item:last-child{border-bottom:none}
+.log-time{color:var(--text3);white-space:nowrap;font-family:monospace;font-size:11px;padding-top:1px}
+.log-action{color:var(--text);flex:1}
+.log-user{color:var(--primary);font-size:11px}
+
+/* DONUT */
+.donut-wrap{display:flex;align-items:center;gap:20px}
+.donut-legend{display:flex;flex-direction:column;gap:8px;flex:1}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:12px}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* TOGGLE */
+.toggle{position:relative;width:36px;height:20px;cursor:pointer}
+.toggle input{opacity:0;width:0;height:0}
+.toggle-track{position:absolute;inset:0;background:var(--border);border-radius:10px;transition:background .2s}
+.toggle input:checked~.toggle-track{background:var(--primary)}
+.toggle-thumb{position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle input:checked~.toggle-thumb{transform:translateX(16px)}
+
+/* COPY TOAST */
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:#fff;padding:8px 18px;border-radius:20px;font-size:12px;opacity:0;transition:all .3s;z-index:999;pointer-events:none}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+</style>
+</head>
+<body>
+
+<div id="toast">已复制到剪贴板</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="logo-area">
+    <div class="logo-icon">耀</div>
+    <div>
+      <div class="logo-name">耀创</div>
+      <div class="logo-ver">NODE PANEL v1.0</div>
+    </div>
+  </div>
+  <div class="nav-section">
+    <div class="nav-group-label">核心</div>
+    <div class="nav-item active" onclick="showPage('overview',this)">
+      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>总览
+    </div>
+    <div class="nav-item" onclick="showPage('vps',this)">
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="5" rx="1"/><rect x="2" y="10" width="20" height="5" rx="1"/><rect x="2" y="17" width="20" height="5" rx="1"/><circle cx="19" cy="5.5" r="1" fill="currentColor"/><circle cx="19" cy="12.5" r="1" fill="currentColor"/><circle cx="19" cy="19.5" r="1" fill="currentColor"/></svg>VPS 管理
+    </div>
+    <div class="nav-item" onclick="showPage('nodes',this)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="18" r="2"/><path d="M6 6h4M14 6h4M6 18h4M14 18h4M10 10l-4-3M14 10l4-3M10 14l-4 3M14 14l4 3"/></svg>IP 节点
+      <span class="nav-badge">50</span>
+    </div>
+    <div class="nav-item" onclick="showPage('users',this)">
+      <svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.85"/></svg>用户管理
+    </div>
+  </div>
+  <div class="nav-section" style="border-top:1px solid var(--border)">
+    <div class="nav-group-label">流量</div>
+    <div class="nav-item" onclick="showPage('traffic',this)">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>流量统计
+    </div>
+    <div class="nav-item" onclick="showPage('alerts',this)">
+      <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>告警中心
+      <span class="nav-badge nav-badge-red">3</span>
+    </div>
+  </div>
+  <div class="nav-section" style="border-top:1px solid var(--border)">
+    <div class="nav-group-label">配置</div>
+    <div class="nav-item" onclick="showPage('batch',this)">
+      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>批量导入
+    </div>
+    <div class="nav-item" onclick="showPage('subscribe',this)">
+      <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>订阅链接
+    </div>
+    <div class="nav-item" onclick="showPage('inbound',this)">
+      <svg viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>入站规则
+    </div>
+    <div class="nav-item" onclick="showPage('outbound',this)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>出站规则
+    </div>
+    <div class="nav-item" onclick="showPage('routing',this)">
+      <svg viewBox="0 0 24 24"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg>路由规则
+    </div>
+  </div>
+  <div class="nav-section" style="border-top:1px solid var(--border)">
+    <div class="nav-group-label">系统</div>
+    <div class="nav-item" onclick="showPage('logs',this)">
+      <svg viewBox="0 0 24 24"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>操作日志
+    </div>
+    <div class="nav-item" onclick="showPage('backup',this)">
+      <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>备份恢复
+    </div>
+    <div class="nav-item" onclick="showPage('settings',this)">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>系统设置
+    </div>
+  </div>
+  <div class="sidebar-footer">
+    <div class="user-row">
+      <div class="user-av">管</div>
+      <div>
+        <div class="user-name">超级管理员</div>
+        <div class="user-role">Administrator</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar" id="topbar">
+    <div>
+      <div class="page-title" id="page-title">总览</div>
+      <div class="page-sub" id="page-sub">系统运行正常 · 2026年6月3日</div>
+    </div>
+    <div class="topbar-right" id="topbar-actions">
+      <button class="btn" onclick="location.reload()">
+        <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>刷新
+      </button>
+      <button class="btn btn-primary" onclick="openModal('addNodeModal')">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>添加节点
+      </button>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- 总览 -->
+    <div class="page active" id="page-overview">
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-label">VPS 总数</div>
+          <div class="metric-value">3</div>
+          <div class="metric-sub up">● 全部在线</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">IP 节点总数</div>
+          <div class="metric-value">50</div>
+          <div class="metric-sub">47 在线 · 3 离线</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">今日流量</div>
+          <div class="metric-value">128 GB</div>
+          <div class="metric-sub up">↑ 较昨日 +12%</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">活跃用户</div>
+          <div class="metric-value">24</div>
+          <div class="metric-sub">本月共 31 人</div>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">VPS 状态</span>
+            <span class="badge badge-on"><span class="dot dot-on"></span>全部在线</span>
+          </div>
+          <table>
+            <tr><th>名称</th><th>IP</th><th>节点</th><th>CPU</th><th>状态</th></tr>
+            <tr><td style="font-weight:600">HK-01</td><td class="mono">103.x.x.x</td><td>20</td><td style="color:var(--text3)">23%</td><td><span class="badge badge-on"><span class="dot dot-on"></span>在线</span></td></tr>
+            <tr><td style="font-weight:600">US-01</td><td class="mono">45.x.x.x</td><td>18</td><td style="color:var(--text3)">11%</td><td><span class="badge badge-on"><span class="dot dot-on"></span>在线</span></td></tr>
+            <tr><td style="font-weight:600">JP-01</td><td class="mono">202.x.x.x</td><td>12</td><td style="color:var(--text3)">8%</td><td><span class="badge badge-on"><span class="dot dot-on"></span>在线</span></td></tr>
+          </table>
+        </div>
+        <div class="card">
+          <div class="card-head">
+            <span class="card-title">7天流量趋势</span>
+            <span style="font-size:11px;color:var(--text3)">本周 742 GB</span>
+          </div>
+          <div class="bar-chart">
+            <div class="bbar" style="height:40%"></div>
+            <div class="bbar" style="height:55%"></div>
+            <div class="bbar" style="height:48%"></div>
+            <div class="bbar" style="height:72%"></div>
+            <div class="bbar" style="height:63%"></div>
+            <div class="bbar" style="height:88%"></div>
+            <div class="bbar today" style="height:100%"></div>
+          </div>
+          <div class="bar-labels"><span>周一</span><span>周二</span><span>周三</span><span>周四</span><span>周五</span><span>周六</span><span style="color:var(--primary)">今天</span></div>
+          <div style="display:flex;gap:20px;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)">
+            <div><div style="font-size:10px;color:var(--text3)">上行</div><div style="font-size:13px;font-weight:600;margin-top:2px">48 GB</div></div>
+            <div><div style="font-size:10px;color:var(--text3)">下行</div><div style="font-size:13px;font-weight:600;margin-top:2px">80 GB</div></div>
+            <div><div style="font-size:10px;color:var(--text3)">峰值</div><div style="font-size:13px;font-weight:600;margin-top:2px">1.2 Gbps</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">最近节点状态</span>
+          <button class="btn" onclick="showPage('nodes',document.querySelector('[onclick*=nodes]'))">查看全部</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <tr><th>IP 地址</th><th>备注</th><th>协议</th><th>端口</th><th>今日流量</th><th>用量</th><th>延迟</th><th>状态</th></tr>
+            <tr><td class="mono">1.2.3.4</td><td style="color:var(--text3)">香港节点 01</td><td><span class="badge badge-blue">VLESS</span></td><td style="color:var(--text3)">443</td><td>3.2 GB</td><td><div style="font-size:10px;color:var(--text3)">64%</div><div class="prog"><div class="prog-bar" style="width:64%"></div></div></td><td style="color:var(--green)">12ms</td><td><span class="badge badge-on"><span class="dot dot-on"></span>在线</span></td></tr>
+            <tr><td class="mono">5.6.7.8</td><td style="color:var(--text3)">香港节点 02</td><td><span class="badge badge-blue">VLESS</span></td><td style="color:var(--text3)">443</td><td>1.8 GB</td><td><div style="font-size:10px;color:var(--text3)">32%</div><div class="prog"><div class="prog-bar green" style="width:32%"></div></div></td><td style="color:var(--green)">8ms</td><td><span class="badge badge-on"><span class="dot dot-on"></span>在线</span></td></tr>
+            <tr><td class="mono">9.10.11.12</td><td style="color:var(--text3)">美国节点 01</td><td><span class="badge badge-blue">VLESS</span></td><td style="color:var(--text3)">443</td><td>0 GB</td><td><div style="font-size:10px;color:var(--text3)">0%</div><div class="prog"><div class="prog-bar red" style="width:0%"></div></div></td><td style="color:var(--red)">超时</td><td><span class="badge badge-off"><span class="dot dot-off"></span>离线</span></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- VPS管理 -->
+    <div class="page" id="page-vps">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:14px;gap:8px">
+        <button class="btn btn-primary" onclick="openModal('addVpsModal')">
+          <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>添加 VPS
+        </button>
+      </div>
+      <div class="grid2">
+        <div class="card" style="border-top:3px solid var(--green)">
+          <div class="card-head">
+            <div>
+              <div style="font-size:14px;font-weight:600">HK-01</div>
+              <div class="mono" style="margin-top:3px">103.235.46.78</div>
+            </div>
+            <span class="badge badge-on"><span class="dot dot-on"></span>在线</span>
+          </div>
+          <div class="stat-row"><span class="stat-label">地区</span><span class="stat-value">🇭🇰 香港</span></div>
+          <div class="stat-row"><span class="stat-label">IP 节点数</span><span class="stat-value">20 个</span></div>
+          <div class="stat-row"><span class="stat-label">CPU 使用率</span><span class="stat-value" style="color:var(--green)">23%</span></div>
+          <div class="stat-row"><span class="stat-label">内存使用率</span><span class="stat-value">41%</span></div>
+          <div class="stat-row"><span class="stat-label">今日流量</span><span class="stat-value">56 GB</span></div>
+          <div class="stat-row"><span class="stat-label">运行时长</span><span class="stat-value">32 天</span></div>
+          <div style="display:flex;gap:6px;margin-top:14px">
+            <button class="btn" style="flex:1">编辑</button>
+            <button class="btn" style="flex:1">SSH 连接</button>
+            <button class="btn btn-danger">删除</button>
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--green)">
+          <div class="card-head">
+            <div>
+              <div style="font-size:14px;font-weight:600">US-01</div>
+              <div class="mono" style="margin-top:3px">45.128.204.91</div>
+            </div>
+            <span class="badge badge-on"><span class="dot dot-on"></span>在线</span>
+          </div>
+          <div class="stat-row"><span class="stat-label">地区</span><span class="stat-value">🇺🇸 美国</span></div>
+          <div class="stat-row"><span class="stat-label">IP 节点数</span><span class="stat-value">18 个</span></div>
+          <div class="stat-row"><span class="stat-label">CPU 使用率</span><span class="stat-value" style="color:var(--green)">11%</span></div>
+          <div class="stat-row"><span class="stat-label">内存使用率</span><span class="stat-value">29%</span></div>
+          <div class="stat-row"><span class="stat-label">今日流量</span><span class="stat-value">48 GB</span></div>
+          <div class="stat-row"><span class="stat-label">运行时长</span><span class="stat-value">15 天</span></div>
+          <div style="display:flex;gap:6px;margin-top:14px">
+            <button class="btn" style="flex:1">编辑</button>
+            <button class="btn" style="flex:1">SSH 连接</button>
+            <button class="btn btn-danger">删除</button>
+          </div>
+        </div>
+        <div class="card" style="border-top:3px solid var(--green)">
+          <div class="card-head">
+            <div>
+              <div style="font-size:14px;font-weight:600">JP-01</div>
+              <div class="mono" style="margin-top:3px">202.61.244.12</div>
+            </div>
+            <span class="badge badge-on"><span class="dot dot-on"></span>在线</span>
+          </div>
+          <div class="stat-row"><span class="stat-label">地区</span><span class="stat-value">🇯🇵 日本</span></div>
+          <div class="stat-row"><span class="stat-label">IP 节点数</span><span class="stat-value">12 个</span></div>
+          <div class="stat-row"><span class="stat-label">CPU 使用率</span><span class="stat-value" style="color:var(--green)">8%</span></div>
+          <div class="stat-row"><span class="stat-label">内存使用率</span><span class="stat-value">18%</span></div>
+          <div class="stat-row"><span class="stat-label">今日流量</span><span class="stat-value">24 GB</span></div>
+          <div class="stat-row"><span class="stat-label">运行时长</span><span class="stat-value">8 天</span></div>
+          <div style="display:flex;gap:6px;margin-top:14px">
+            <button class="btn" style="flex:1">编辑</button>
+            <button class="btn" style="flex:1">SSH 连接</button>
+            <button class="btn btn-danger">删除</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IP节点 -->
+    <div class="page" id="page-nodes">
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">IP 节点管理</span>
+          <div style="display:flex;gap:6px">
+            <button class="btn" onclick="showPage('batch',document.querySelector('[onclick*=batch]'))">
+              <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>批量导入
+            </button>
+            <button class="btn" onclick="copyAllLinks()">
+              <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>一键复制全部
+            </button>
+            <button class="btn btn-primary" onclick="openModal('addNodeModal')">
+              <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>添加节点
+            </button>
+          </div>
+        </div>
+        <div class="search-row">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input class="search-input" placeholder="搜索 IP 地址 / 备注名称...">
+          </div>
+          <select><option>全部 VPS</option><option>HK-01</option><option>US-01</option><option>JP-01</option></select>
+          <select><option>全部协议</option><option>VLESS</option><option>VMess</option><option>Trojan</option></select>
+          <select><option>全部状态</option><option>在线</option><option>离线</option></select>
+        </div>
+        <div class="tab-row">
+          <div class="tab on">全部 (50)</div>
+          <div class="tab">在线 (47)</div>
+          <div class="tab">离线 (3)</div>
+          <div class="tab">HK-01 (20)</div>
+          <div class="tab">US-01 (18)</div>
+          <div class="tab">JP-01 (12)</div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <tr>
+              <th style="width:18px"><input type="checkbox" id="selectAll" onchange="toggleAll(this)" style="accent-color:var(--primary)"></th>
+              <th>IP 地址</th><th>备注</th><th>所属VPS</th><th>协议</th><th>端口</th><th>今日流量</th><th>用量</th><th>延迟</th><th>状态</th><th>操作</th>
+            </tr>
+            <tr><td><input type="checkbox" style="accent-color:var(--primary)"></td><td class="mono">1.2.3.4</td><td style="color:var(--text3)">香港节点 01</td><td><span class="badge badge-purple">HK-01</span></td><td><span class="badge badge-blue">VLESS</span></td><td style="color:var(--text3)">443</td><td>3.2 GB</td><td><div style="font-size:10px;color:var(--text3)">64%</div><div class="prog"><div class="prog-bar" style="width:64%"></div></div></td><td style="color:var(--green)">12ms</td><td><span class="badge badge-on"><span class="dot dot-on"></span>在线</span></td><td><button class="icon-btn" onclick="copyLink('1.2.3.4')" title="复制链接"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button><button class="icon-btn" title="二维码"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="5" y="5" width="3" height="3" fill="currentColor"/><rect x="16" y="5" width="3" height="3" fill="currentColor"/><rect x="5" y="16" width="3" height="3" fill="currentColor"/><rect x="14" y="14" width="7" height="7"/></svg></button><button class="icon-btn" title="编辑"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button></td></tr>
+            <tr><td><input type="checkbox" style="accent-color:var(--primary)"></td><td class="mono">5.6.7.8</td><td style="color:var(--text3)">香港节点 02</td><td><span class="badge badge-purple">HK-01</span></td><td><span class="badge badge-blue">VLESS</span></td><td style="color:var(--text3)">443</td><td>1.8 GB</td><td><div style="font-size:10px;color:var(--text3)">32%</div><div class="prog"><div class="prog-bar green" style="width:32%"></div></div></td><td style="color:var(--green)">8ms</td><td><span class="badge badge-on"><span class="dot dot-on"></span>在线</span></td><td><button class="icon-btn" onclick="copyLink('5.6.7.8')" title="复制链接"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button><button class="icon-btn" title="二维码"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="5" y="5" width="3" height="3" fill="currentColor"/><rect x="16" y="5" width="3" height="3" fill="currentColor"/><rect x="5" y="16" width="3" height="3" fill="currentColor"/><rect x="14" y="14" width="7" height="7"/></svg></button><button class="icon-btn" title="编辑"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button></td></tr>
+            <tr><td><input type="checkbox" style="accent-color:var(--primary)"></td><td class="mono">9.10.11.12</td><td style="color:var(--text3)">美国节点 01</td><td><span class="badge badge-purple">US-01</span></td><td><span class="badge badge-blue">VLESS</span></td><td style="color:var(--text3)">443</td><td>0 GB</td><td><div style="font-size:10px;color:var(--text3)">0%</div><div class="prog"><div class="prog-bar red" style="width:0%"></div></div></td><td style="color:var(--red)">超时</td><td><span class="badge badge-off"><span class="dot dot-off"></span>离线</span></td><td><button class="icon-btn" title="复制链接"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button><button class="icon-btn" title="二维码"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="5" y="5" width="3" height="3" fill="currentColor"/><rect x="16" y="5" width="3" height="3" fill="currentColor"/><rect x="5" y="16" width="3" height="3" fill="currentColor"/><rect x="14" y="14" width="7" height="7"/></svg></button><button class="icon-btn" title="编辑"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button></td></tr>
+          </table>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:12px;padding-top:10px;border-top:1px solid var(--border)">
+          <div style="font-size:11px;color:var(--text3)">显示 3 / 50 条</div>
+          <div style="display:flex;gap:6px">
+            <button class="btn btn-danger" style="font-size:11px">批量删除</button>
+            <button class="btn" style="font-size:11px">批量禁用</button>
+            <button class="btn" style="font-size:11px;color:var(--primary);border-color:var(--primary)" onclick="copyAllLinks()">一键复制全部链接</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 用户管理 -->
+    <div class="page" id="page-users">
+      <div class="metrics" style="grid-template-columns:repeat(3,1fr)">
+        <div class="metric"><div class="metric-label">总用户数</div><div class="metric-value">31</div><div class="metric-sub">本月新增 8 人</div></div>
+        <div class="metric"><div class="metric-label">活跃用户</div><div class="metric-value">24</div><div class="metric-sub up">占比 77%</div></div>
+        <div class="metric"><div class="metric-label">即将到期</div><div class="metric-value">5</div><div class="metric-sub warn">7天内到期</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">用户列表</span>
+          <button class="btn btn-primary" onclick="openModal('addUserModal')">
+            <svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>添加用户
+          </button>
+        </div>
+        <div class="search-row">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input class="search-input" placeholder="搜索用户名 / UUID...">
+          </div>
+          <select><option>全部状态</option><option>活跃</option><option>已禁用</option><option>已到期</option></select>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <tr><th>用户名</th><th>UUID</th><th>绑定节点</th><th>已用流量</th><th>流量限制</th><th>到期时间</th><th>状态</th><th>操作</th></tr>
+            <tr><td style="font-weight:500">用户001</td><td class="mono" style="font-size:10px">a1b2c3d4-...</td><td><span class="badge badge-purple">HK-01</span></td><td>12.4 GB</td><td>50 GB</td><td>2026-08-01</td><td><span class="badge badge-on">活跃</span></td><td><button class="icon-btn" title="编辑"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="icon-btn btn-danger" title="重置"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></button></td></tr>
+            <tr><td style="font-weight:500">用户002</td><td class="mono" style="font-size:10px">e5f6g7h8-...</td><td><span class="badge badge-purple">US-01</span></td><td>3.1 GB</td><td>20 GB</td><td>2026-07-15</td><td><span class="badge badge-on">活跃</span></td><td><button class="icon-btn" title="编辑"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="icon-btn" title="重置"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></button></td></tr>
+            <tr><td style="font-weight:500">用户003</td><td class="mono" style="font-size:10px">i9j0k1l2-...</td><td><span class="badge badge-purple">JP-01</span></td><td>48.9 GB</td><td>50 GB</td><td>2026-06-10</td><td><span class="badge badge-warn"><span class="dot dot-warn"></span>即将到期</span></td><td><button class="icon-btn" title="编辑"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="icon-btn" title="重置"><svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg></button></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 流量统计 -->
+    <div class="page" id="page-traffic">
+      <div class="metrics">
+        <div class="metric"><div class="metric-label">本月总流量</div><div class="metric-value">2.4 TB</div><div class="metric-sub up">↑ 较上月 +18%</div></div>
+        <div class="metric"><div class="metric-label">今日流量</div><div class="metric-value">128 GB</div><div class="metric-sub up">↑ +12%</div></div>
+        <div class="metric"><div class="metric-label">峰值带宽</div><div class="metric-value">1.2 Gbps</div><div class="metric-sub">今日 14:32</div></div>
+        <div class="metric"><div class="metric-label">月均日流量</div><div class="metric-value">80 GB</div><div class="metric-sub">过去30天</div></div>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <div class="card-head"><span class="card-title">30天流量趋势</span></div>
+          <div class="bar-chart" style="height:110px">
+            <div class="bbar" style="height:45%"></div><div class="bbar" style="height:60%"></div><div class="bbar" style="height:38%"></div><div class="bbar" style="height:72%"></div><div class="bbar" style="height:55%"></div><div class="bbar" style="height:80%"></div><div class="bbar" style="height:50%"></div><div class="bbar" style="height:65%"></div><div class="bbar" style="height:42%"></div><div class="bbar" style="height:78%"></div><div class="bbar" style="height:58%"></div><div class="bbar" style="height:85%"></div><div class="bbar" style="height:47%"></div><div class="bbar" style="height:62%"></div><div class="bbar" style="height:91%"></div><div class="bbar" style="height:53%"></div><div class="bbar" style="height:70%"></div><div class="bbar" style="height:44%"></div><div class="bbar" style="height:68%"></div><div class="bbar" style="height:75%"></div><div class="bbar" style="height:57%"></div><div class="bbar" style="height:83%"></div><div class="bbar" style="height:49%"></div><div class="bbar" style="height:77%"></div><div class="bbar" style="height:61%"></div><div class="bbar" style="height:88%"></div><div class="bbar" style="height:54%"></div><div class="bbar" style="height:79%"></div><div class="bbar" style="height:92%"></div><div class="bbar today" style="height:100%"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="card-title">节点流量占比</span></div>
+          <div class="stat-row"><span class="stat-label">🇭🇰 HK-01</span><div style="display:flex;align-items:center;gap:8px"><div style="width:100px;height:6px;background:var(--bg);border-radius:3px;overflow:hidden"><div style="width:44%;height:100%;background:var(--primary);border-radius:3px"></div></div><span class="stat-value">44%</span></div></div>
+          <div class="stat-row"><span class="stat-label">🇺🇸 US-01</span><div style="display:flex;align-items:center;gap:8px"><div style="width:100px;height:6px;background:var(--bg);border-radius:3px;overflow:hidden"><div style="width:37%;height:100%;background:var(--green);border-radius:3px"></div></div><span class="stat-value">37%</span></div></div>
+          <div class="stat-row"><span class="stat-label">🇯🇵 JP-01</span><div style="display:flex;align-items:center;gap:8px"><div style="width:100px;height:6px;background:var(--bg);border-radius:3px;overflow:hidden"><div style="width:19%;height:100%;background:var(--amber);border-radius:3px"></div></div><span class="stat-value">19%</span></div></div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
+            <div style="font-size:11px;color:var(--text3);margin-bottom:8px">用户流量排行</div>
+            <div class="stat-row"><span class="stat-label">用户003</span><span class="stat-value" style="color:var(--red)">48.9 GB</span></div>
+            <div class="stat-row"><span class="stat-label">用户001</span><span class="stat-value">12.4 GB</span></div>
+            <div class="stat-row"><span class="stat-label">用户002</span><span class="stat-value">3.1 GB</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 告警中心 -->
+    <div class="page" id="page-alerts">
+      <div class="metrics" style="grid-template-columns:repeat(3,1fr)">
+        <div class="metric"><div class="metric-label">未处理告警</div><div class="metric-value" style="color:var(--red)">3</div><div class="metric-sub">需要处理</div></div>
+        <div class="metric"><div class="metric-label">今日告警</div><div class="metric-value">7</div><div class="metric-sub">已处理 4 条</div></div>
+        <div class="metric"><div class="metric-label">节点离线</div><div class="metric-value">3</div><div class="metric-sub warn">持续离线中</div></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <span class="card-title">告警列表</span>
+          <button class="btn">全部标记已读</button>
+        </div>
+        <div class="alert-item">
+          <div class="alert-icon" style="background:var(--red-bg)"><svg style="color:var(--red)" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <div style="flex:1">
+            <div class="alert-title">节点离线 · 9.10.11.12</div>
+            <div class="alert-sub">美国节点 01 已持续离线 2小时，请检查网络连接</div>
+            <div class="alert-time">2026-06-03 12:34</div>
+          </div>
+          <span class="badge badge-off">未处理</span>
+        </div>
+        <div class="alert-item">
+          <div class="alert-icon" style="background:var(--amber-bg)"><svg style="color:var(--amber)" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+          <div style="flex:1">
+            <div class="alert-title">流量超限预警 · 用户003</div>
+            <div class="alert-sub">用户003 已使用 48.9GB / 50GB，即将达到流量上限</div>
+            <div class="alert-time">2026-06-03 11:20</div>
+          </div>
+          <span class="badge badge-warn">未处理</span>
+        </div>
+        <div class="alert-item">
+          <div class="alert-icon" style="background:var(--amber-bg)"><svg style="color:var(--amber)" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div style="flex:1">
+            <div class="alert-title">账号即将到期 · 用户003</div>
+            <div class="alert-sub">用户003 账号将于 2026-06-10 到期，还剩 7 天</div>
+            <div class="alert-time">2026-06-03 08:00</div>
+          </div>
+          <span class="badge badge-warn">未处理</span>
+        </div>
+        <div class="alert-item" style="opacity:.5">
+          <div class="alert-icon" style="background:var(--green-bg)"><svg style="color:var(--green)" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div style="flex:1">
+            <div class="alert-title">节点恢复在线 · 5.6.7.8</div>
+            <div class="alert-sub">香港节点 02 已恢复正常</div>
+            <div class="alert-time">2026-06-03 07:15</div>
+          </div>
+          <span class="badge badge-on">已处理</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 批量导入 -->
+    <div class="page" id="page-batch">
+      <div class="grid2">
+        <div class="card">
+          <div class="card-head"><span class="card-title">批量导入 IP 节点</span></div>
+          <div style="margin-bottom:12px">
+            <label style="display:block;margin-bottom:6px">IP 列表（每行一个）</label>
+            <textarea id="batchIPs" placeholder="1.2.3.4&#10;5.6.7.8&#10;9.10.11.12&#10;..." style="height:160px;font-family:monospace;font-size:12px"></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>所属 VPS</label>
+              <select><option>HK-01</option><option>US-01</option><option>JP-01</option></select>
+            </div>
+            <div class="form-group">
+              <label>协议</label>
+              <select><option>VLESS</option><option>VMess</option><option>Trojan</option></select>
+            </div>
+            <div class="form-group">
+              <label>端口</label>
+              <input type="number" value="443">
+            </div>
+            <div class="form-group">
+              <label>传输方式</label>
+              <select><option>TCP</option><option>WebSocket</option><option>gRPC</option></select>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;margin-top:4px">
+            <button class="btn" style="flex:1" onclick="previewBatch()">预览</button>
+            <button class="btn btn-primary" style="flex:1" onclick="importBatch()">一键导入</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="card-title">批量生成配置</span></div>
+          <div style="margin-bottom:12px">
+            <label style="display:block;margin-bottom:6px">UUID（留空自动生成）</label>
+            <input placeholder="自动为每个IP生成唯一UUID">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>备注前缀</label>
+              <input placeholder="如：香港节点">
+            </div>
+            <div class="form-group">
+              <label>起始编号</label>
+              <input type="number" value="1">
+            </div>
+          </div>
+          <div style="margin-bottom:12px">
+            <label style="display:block;margin-bottom:6px">生成内容</label>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer"><input type="checkbox" checked style="accent-color:var(--primary)"> 生成 vless:// 节点链接</label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer"><input type="checkbox" checked style="accent-color:var(--primary)"> 生成 Xray config.json</label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer"><input type="checkbox" style="accent-color:var(--primary)"> 生成订阅文件</label>
+              <label style="display:flex;align-items:center;gap:8px;font-size:12px;cursor:pointer"><input type="checkbox" style="accent-color:var(--primary)"> 生成二维码</label>
+            </div>
+          </div>
+          <button class="btn btn-primary" style="width:100%" onclick="generateConfig()">生成配置文件</button>
+          <div id="batchResult" style="display:none;margin-top:12px;padding:10px;background:var(--bg);border-radius:var(--radius);font-size:11px;font-family:monospace;color:var(--green);line-height:1.6"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 订阅链接 -->
+    <div class="page" id="page-subscribe">
+      <div class="card">
+        <div class="card-head"><span class="card-title">订阅链接管理</span>
+          <button class="btn btn-primary" onclick="openModal('addSubModal')">生成新订阅</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <tr><th>订阅名称</th><th>包含节点</th><th>订阅地址</th><th>格式</th><th>更新时间</th><th>操作</th></tr>
+            <tr>
+              <td style="font-weight:500">全部节点订阅</td>
+              <td>50 个节点</td>
+              <td class="mono" style="font-size:10px">https://sub.yourdomain.com/all</td>
+              <td><span class="badge badge-blue">Clash</span></td>
+              <td style="color:var(--text3)">2分钟前</td>
+              <td>
+                <button class="icon-btn" onclick="copyLink('https://sub.yourdomain.com/all')" title="复制"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                <button class="icon-btn" title="二维码"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="5" y="5" width="3" height="3" fill="currentColor"/><rect x="16" y="5" width="3" height="3" fill="currentColor"/><rect x="5" y="16" width="3" height="3" fill="currentColor"/><rect x="14" y="14" width="7" height="7"/></svg></button>
+              </td>
+            </tr>
+            <tr>
+              <td style="font-weight:500">香港节点订阅</td>
+              <td>20 个节点</td>
+              <td class="mono" style="font-size:10px">https://sub.yourdomain.com/hk</td>
+              <td><span class="badge badge-purple">V2Ray</span></td>
+              <td style="color:var(--text3)">5分钟前</td>
+              <td>
+                <button class="icon-btn" onclick="copyLink('https://sub.yourdomain.com/hk')" title="复制"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                <button class="icon-btn" title="二维码"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="5" y="5" width="3" height="3" fill="currentColor"/><rect x="16" y="5" width="3" height="3" fill="currentColor"/><rect x="5" y="16" width="3" height="3" fill="currentColor"/><rect x="14" y="14" width="7" height="7"/></svg></button>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="card" style="margin-top:14px">
+        <div class="card-head">
+          <span class="card-title">节点直链列表（真实数据）</span>
+          <button class="btn" onclick="loadLinks()">刷新</button>
+        </div>
+        <div class="table-wrap">
+          <table id="linksRealTable">
+            <tr><th>节点名</th><th>链接</th><th>操作</th></tr>
+            <tr><td colspan="3" style="text-align:center;padding:24px;color:var(--text3)">加载中...</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 入站规则 -->
+    <div class="page" id="page-inbound">
+      <div class="card">
+        <div class="card-head"><span class="card-title">入站规则</span>
+          <button class="btn btn-primary" onclick="openModal('addInboundModal')">添加入站</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <tr><th>标签</th><th>协议</th><th>监听端口</th><th>传输方式</th><th>TLS</th><th>UUID数量</th><th>状态</th><th>操作</th></tr>
+            <tr><td style="font-weight:500">inbound-443</td><td><span class="badge badge-blue">VLESS</span></td><td class="mono">0.0.0.0:443</td><td>TCP</td><td><span class="badge badge-on">开启</span></td><td>50</td><td><span class="badge badge-on">启用</span></td><td><button class="icon-btn" title="编辑"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button></td></tr>
+            <tr><td style="font-weight:500">inbound-80</td><td><span class="badge badge-purple">VMess</span></td><td class="mono">0.0.0.0:80</td><td>WebSocket</td><td><span class="badge badge-off">关闭</span></td><td>10</td><td><span class="badge badge-on">启用</span></td><td><button class="icon-btn" title="编辑"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 出站规则 -->
+    <div class="page" id="page-outbound">
+      <div class="card">
+        <div class="card-head"><span class="card-title">出站规则</span>
+          <button class="btn btn-primary">添加出站</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <tr><th>标签</th><th>协议</th><th>绑定 IP</th><th>目标端口</th><th>所属VPS</th><th>状态</th><th>操作</th></tr>
+            <tr><td class="mono" style="font-size:11px">out-1.2.3.4</td><td><span class="badge badge-blue">Freedom</span></td><td class="mono">1.2.3.4</td><td>—</td><td><span class="badge badge-purple">HK-01</span></td><td><span class="badge badge-on">启用</span></td><td><button class="icon-btn" title="编辑"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="icon-btn btn-danger" title="删除"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg></button></td></tr>
+            <tr><td class="mono" style="font-size:11px">out-5.6.7.8</td><td><span class="badge badge-blue">Freedom</span></td><td class="mono">5.6.7.8</td><td>—</td><td><span class="badge badge-purple">HK-01</span></td><td><span class="badge badge-on">启用</span></td><td><button class="icon-btn" title="编辑"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="icon-btn btn-danger" title="删除"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg></button></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 路由规则 -->
+    <div class="page" id="page-routing">
+      <div class="card">
+        <div class="card-head"><span class="card-title">路由规则配置</span>
+          <button class="btn btn-primary">添加规则</button>
+        </div>
+        <div style="margin-bottom:12px;padding:12px;background:var(--bg);border-radius:var(--radius);font-size:12px;color:var(--text3)">
+          路由策略：用户 UUID → 匹配出站 IP，实现每个用户走指定出口
+        </div>
+        <div class="table-wrap">
+          <table>
+            <tr><th>规则名称</th><th>匹配条件</th><th>出站标签</th><th>优先级</th><th>操作</th></tr>
+            <tr><td style="font-weight:500">用户001专线</td><td class="mono" style="font-size:10px">UUID: a1b2c3d4...</td><td class="mono" style="color:var(--primary)">out-1.2.3.4</td><td>1</td><td><button class="icon-btn" title="编辑"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button></td></tr>
+            <tr><td style="font-weight:500">默认出站</td><td style="color:var(--text3)">其他所有流量</td><td class="mono" style="color:var(--primary)">out-5.6.7.8</td><td>99</td><td><button class="icon-btn" title="编辑"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button></td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 操作日志 -->
+    <div class="page" id="page-logs">
+      <div class="card">
+        <div class="card-head"><span class="card-title">操作日志</span>
+          <div style="display:flex;gap:8px">
+            <select><option>全部操作</option><option>节点操作</option><option>用户操作</option><option>系统操作</option></select>
+            <button class="btn">导出日志</button>
+          </div>
+        </div>
+        <div class="log-item"><span class="log-time">06-03 14:32</span><div><div class="log-action">添加节点 <span class="mono">1.2.3.4</span> 至 HK-01</div><div class="log-user">admin</div></div></div>
+        <div class="log-item"><span class="log-time">06-03 13:15</span><div><div class="log-action">批量导入 20 个IP节点</div><div class="log-user">admin</div></div></div>
+        <div class="log-item"><span class="log-time">06-03 12:34</span><div><div class="log-action">节点 <span class="mono">9.10.11.12</span> 离线告警触发</div><div class="log-user" style="color:var(--red)">系统</div></div></div>
+        <div class="log-item"><span class="log-time">06-03 11:20</span><div><div class="log-action">用户003 流量超限预警 (48.9/50 GB)</div><div class="log-user" style="color:var(--red)">系统</div></div></div>
+        <div class="log-item"><span class="log-time">06-03 10:05</span><div><div class="log-action">修改用户002 流量限制 10GB → 20GB</div><div class="log-user">admin</div></div></div>
+        <div class="log-item"><span class="log-time">06-03 08:00</span><div><div class="log-action">系统自动备份完成</div><div class="log-user" style="color:var(--green)">系统</div></div></div>
+      </div>
+    </div>
+
+    <!-- 备份恢复 -->
+    <div class="page" id="page-backup">
+      <div class="grid2">
+        <div class="card">
+          <div class="card-head"><span class="card-title">备份管理</span>
+            <button class="btn btn-primary" onclick="showToast('备份创建中...')">立即备份</button>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <tr><th>备份名称</th><th>大小</th><th>时间</th><th>操作</th></tr>
+              <tr><td>backup_20260603_080000</td><td>2.4 MB</td><td style="color:var(--text3)">今天 08:00</td><td><button class="icon-btn" title="下载"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button><button class="icon-btn btn-danger" title="删除"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button></td></tr>
+              <tr><td>backup_20260602_080000</td><td>2.3 MB</td><td style="color:var(--text3)">昨天 08:00</td><td><button class="icon-btn" title="下载"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button><button class="icon-btn btn-danger" title="删除"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button></td></tr>
+            </table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="card-title">自动备份设置</span></div>
+          <div class="stat-row"><span class="stat-label">自动备份</span><label class="toggle"><input type="checkbox" checked><span class="toggle-track"></span><span class="toggle-thumb"></span></label></div>
+          <div class="stat-row"><span class="stat-label">备份频率</span><select style="width:auto;padding:4px 8px"><option>每天</option><option>每周</option></select></div>
+          <div class="stat-row"><span class="stat-label">保留数量</span><select style="width:auto;padding:4px 8px"><option>7 份</option><option>14 份</option><option>30 份</option></select></div>
+          <div class="stat-row"><span class="stat-label">备份时间</span><input type="time" value="08:00" style="width:auto;padding:4px 8px"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 系统设置 -->
+    <div class="page" id="page-settings">
+      <div class="grid2">
+        <div class="card">
+          <div class="card-head"><span class="card-title">基本设置</span></div>
+          <div class="form-row" style="grid-template-columns:1fr">
+            <div class="form-group"><label>面板名称</label><input value="耀创 Node Panel"></div>
+            <div class="form-group"><label>面板端口</label><input value="2053"></div>
+            <div class="form-group"><label>管理员密码</label><input type="password" value="••••••••"></div>
+          </div>
+          <div class="stat-row"><span class="stat-label">HTTPS</span><label class="toggle"><input type="checkbox" checked><span class="toggle-track"></span><span class="toggle-thumb"></span></label></div>
+          <div class="stat-row"><span class="stat-label">双因素认证</span><label class="toggle"><input type="checkbox"><span class="toggle-track"></span><span class="toggle-thumb"></span></label></div>
+          <button class="btn btn-primary" style="margin-top:14px;width:100%" onclick="showToast('设置已保存')">保存设置</button>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="card-title">通知设置</span></div>
+          <div class="stat-row"><span class="stat-label">节点离线通知</span><label class="toggle"><input type="checkbox" checked><span class="toggle-track"></span><span class="toggle-thumb"></span></label></div>
+          <div class="stat-row"><span class="stat-label">流量超限通知</span><label class="toggle"><input type="checkbox" checked><span class="toggle-track"></span><span class="toggle-thumb"></span></label></div>
+          <div class="stat-row"><span class="stat-label">账号到期通知</span><label class="toggle"><input type="checkbox" checked><span class="toggle-track"></span><span class="toggle-thumb"></span></label></div>
+          <div style="margin-top:14px">
+            <div class="form-group" style="margin-bottom:10px"><label>Telegram Bot Token</label><input placeholder="输入 Bot Token"></div>
+            <div class="form-group" style="margin-bottom:10px"><label>Telegram Chat ID</label><input placeholder="输入 Chat ID"></div>
+          </div>
+          <button class="btn btn-primary" style="width:100%" onclick="showToast('通知设置已保存')">保存</button>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="card-title">API 接口</span></div>
+          <div class="form-group" style="margin-bottom:12px"><label>API Key</label><div style="display:flex;gap:8px"><input value="yc_api_xxxxxxxxxxxxxxxx" readonly><button class="btn" onclick="showToast('已复制API Key')">复制</button></div></div>
+          <div style="font-size:11px;color:var(--text3);line-height:1.8">
+            <div><span style="color:var(--green)">GET</span> /api/nodes — 获取所有节点</div>
+            <div><span style="color:var(--primary)">POST</span> /api/nodes/add — 添加节点</div>
+            <div><span style="color:var(--primary)">POST</span> /api/nodes/batch — 批量添加</div>
+            <div><span style="color:var(--amber)">DELETE</span> /api/nodes/:id — 删除节点</div>
+            <div><span style="color:var(--green)">GET</span> /api/users — 获取用户列表</div>
+            <div><span style="color:var(--green)">GET</span> /api/traffic — 流量统计</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-head"><span class="card-title">Xray 配置</span></div>
+          <div class="stat-row"><span class="stat-label">Xray 版本</span><span class="stat-value" style="color:var(--green)">v1.8.11</span></div>
+          <div class="stat-row"><span class="stat-label">运行状态</span><span class="badge badge-on">运行中</span></div>
+          <div style="display:flex;gap:8px;margin-top:14px">
+            <button class="btn" style="flex:1" onclick="showToast('Xray 已重启')">重启 Xray</button>
+            <button class="btn" style="flex:1" onclick="showToast('配置已导出')">导出配置</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="addNodeModal">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-title">添加 IP 节点</span>
+      <button class="modal-close" onclick="closeModal('addNodeModal')">✕</button>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>IP 地址</label><input placeholder="1.2.3.4"></div>
+      <div class="form-group"><label>备注名称</label><input placeholder="香港节点 01"></div>
+      <div class="form-group"><label>所属 VPS</label><select><option>HK-01</option><option>US-01</option><option>JP-01</option></select></div>
+      <div class="form-group"><label>协议</label><select><option>VLESS</option><option>VMess</option><option>Trojan</option></select></div>
+      <div class="form-group"><label>端口</label><input type="number" value="443"></div>
+      <div class="form-group"><label>传输方式</label><select><option>TCP</option><option>WebSocket</option><option>gRPC</option></select></div>
+    </div>
+    <div class="form-group full" style="margin-bottom:12px"><label>UUID（留空自动生成）</label><input placeholder="自动生成"></div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('addNodeModal')">取消</button>
+      <button class="btn btn-primary" onclick="closeModal('addNodeModal');showToast('节点添加成功')">确认添加</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="addVpsModal">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-title">添加 VPS</span>
+      <button class="modal-close" onclick="closeModal('addVpsModal')">✕</button>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>VPS 名称</label><input placeholder="SG-01"></div>
+      <div class="form-group"><label>IP 地址</label><input placeholder="1.2.3.4"></div>
+      <div class="form-group"><label>SSH 端口</label><input type="number" value="22"></div>
+      <div class="form-group"><label>地区</label><select><option>香港</option><option>美国</option><option>日本</option><option>新加坡</option><option>其他</option></select></div>
+    </div>
+    <div class="form-group" style="margin-bottom:12px"><label>SSH 私钥或密码</label><textarea placeholder="粘贴 SSH 私钥..." style="height:80px"></textarea></div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('addVpsModal')">取消</button>
+      <button class="btn btn-primary" onclick="closeModal('addVpsModal');showToast('VPS 添加成功')">确认添加</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="addUserModal">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-title">添加用户</span>
+      <button class="modal-close" onclick="closeModal('addUserModal')">✕</button>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>用户名</label><input placeholder="用户名称"></div>
+      <div class="form-group"><label>UUID</label><input placeholder="自动生成" id="uuidInput"></div>
+      <div class="form-group"><label>绑定节点</label><select><option>全部节点</option><option>HK-01</option><option>US-01</option><option>JP-01</option></select></div>
+      <div class="form-group"><label>流量限制</label><input placeholder="如：50 (GB)，0为不限"></div>
+      <div class="form-group"><label>到期时间</label><input type="date"></div>
+      <div class="form-group"><label>备注</label><input placeholder="可选备注"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('addUserModal')">取消</button>
+      <button class="btn btn-primary" onclick="submitAddUser()">确认添加</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="addInboundModal">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-title">添加入站规则</span>
+      <button class="modal-close" onclick="closeModal('addInboundModal')">✕</button>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>标签</label><input placeholder="inbound-443"></div>
+      <div class="form-group"><label>协议</label><select><option>VLESS</option><option>VMess</option><option>Trojan</option></select></div>
+      <div class="form-group"><label>监听地址</label><input value="0.0.0.0"></div>
+      <div class="form-group"><label>端口</label><input type="number" value="443"></div>
+      <div class="form-group"><label>传输方式</label><select><option>TCP</option><option>WebSocket</option><option>gRPC</option></select></div>
+      <div class="form-group"><label>TLS</label><select><option>开启</option><option>关闭</option></select></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('addInboundModal')">取消</button>
+      <button class="btn btn-primary" onclick="closeModal('addInboundModal');showToast('入站规则已添加')">确认</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="addSubModal">
+  <div class="modal">
+    <div class="modal-head">
+      <span class="modal-title">生成订阅链接</span>
+      <button class="modal-close" onclick="closeModal('addSubModal')">✕</button>
+    </div>
+    <div class="form-row" style="grid-template-columns:1fr">
+      <div class="form-group"><label>订阅名称</label><input placeholder="全部节点订阅"></div>
+      <div class="form-group"><label>包含节点</label><select><option>全部节点</option><option>仅HK-01</option><option>仅US-01</option><option>仅JP-01</option></select></div>
+      <div class="form-group"><label>订阅格式</label><select><option>Clash</option><option>V2Ray</option><option>Base64</option></select></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal('addSubModal')">取消</button>
+      <button class="btn btn-primary" onclick="closeModal('addSubModal');showToast('订阅链接已生成')">生成</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// 耀创面板 - 真实API对接版
+// 后端地址配置 (修改这里指向你的VPS IP)
+// ============================================================
+const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+  ? 'http://localhost:8080'
+  : `http://${window.location.hostname}:8080`;
+
+const pageTitles = {
+  overview:'总览', vps:'VPS 管理', nodes:'IP 节点', users:'用户管理',
+  traffic:'流量统计', alerts:'告警中心', batch:'批量导入', subscribe:'订阅链接',
+  inbound:'入站规则', outbound:'出站规则', routing:'路由规则',
+  logs:'操作日志', backup:'备份恢复', settings:'系统设置'
+};
+
+// ---- API 工具函数 ----
+async function apiGet(path) {
+  try {
+    const r = await fetch(API_BASE + path);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return await r.json();
+  } catch(e) {
+    console.error('GET', path, e);
+    return null;
+  }
+}
+async function apiPost(path, data) {
+  try {
+    const r = await fetch(API_BASE + path, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(data)
+    });
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return await r.json();
+  } catch(e) {
+    console.error('POST', path, e);
+    return null;
+  }
+}
+async function apiDelete(path) {
+  try {
+    const r = await fetch(API_BASE + path, {method:'DELETE'});
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return await r.json();
+  } catch(e) {
+    console.error('DELETE', path, e);
+    return null;
+  }
+}
+
+// ---- 页面切换 ----
+function showPage(id, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  if (el) el.classList.add('active');
+  document.getElementById('page-title').textContent = pageTitles[id] || id;
+  // 切换页面时刷新对应数据
+  const loaders = { overview: loadOverview, nodes: loadNodes, users: loadUsers, subscribe: loadLinks };
+  if (loaders[id]) loaders[id]();
+}
+
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('open');
+  });
+});
+
+function showToast(msg, type) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.background = type === 'error' ? '#E24B4A' : '#1a1a2e';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ---- 总览页 ----
+async function loadOverview() {
+  const stats = await apiGet('/api/stats');
+  if (!stats) { showToast('无法连接后端，请确认服务已启动', 'error'); return; }
+  // 更新顶部指标
+  const mv = document.querySelectorAll('#page-overview .metric-value');
+  if (mv[1]) mv[1].textContent = stats.total_nodes || 0;
+  if (mv[3]) mv[3].textContent = stats.total_users || 0;
+  // 更新活跃
+  const subs = document.querySelectorAll('#page-overview .metric-sub');
+  if (subs[1]) subs[1].textContent = (stats.online_nodes||0) + ' 在线 · ' + ((stats.total_nodes||0)-(stats.online_nodes||0)) + ' 离线';
+  if (subs[3]) subs[3].textContent = '本月共 ' + (stats.total_users||0) + ' 人';
+
+  // 更新最近节点表
+  const nodes = await apiGet('/api/nodes');
+  if (nodes) renderRecentNodes(nodes.slice(0,5));
+}
+
+function renderRecentNodes(nodes) {
+  const tbody = document.querySelector('#page-overview .card:last-child .table-wrap table');
+  if (!tbody) return;
+  const rows = nodes.map(n => `
+    <tr>
+      <td class="mono">${n.ip}</td>
+      <td style="color:var(--text3)">${n.remark||''}</td>
+      <td><span class="badge badge-blue">VLESS</span></td>
+      <td style="color:var(--text3)">${n.port||443}</td>
+      <td>${formatBytes(n.traffic_today||0)}</td>
+      <td>
+        <div style="font-size:10px;color:var(--text3)">-</div>
+        <div class="prog"><div class="prog-bar" style="width:0%"></div></div>
+      </td>
+      <td style="color:var(--text3)">-</td>
+      <td><span class="badge ${n.status==='online'?'badge-on':'badge-off'}">
+        <span class="dot ${n.status==='online'?'dot-on':'dot-off'}"></span>
+        ${n.status==='online'?'在线':'离线'}
+      </span></td>
+    </tr>`).join('');
+  tbody.innerHTML = '<tr><th>IP 地址</th><th>备注</th><th>协议</th><th>端口</th><th>今日流量</th><th>用量</th><th>延迟</th><th>状态</th></tr>' + rows;
+}
+
+// ---- 节点管理 ----
+async function loadNodes() {
+  const nodes = await apiGet('/api/nodes');
+  if (!nodes) { showToast('加载节点失败', 'error'); return; }
+
+  // 更新tab计数
+  const total = nodes.length;
+  const online = nodes.filter(n=>n.status==='online').length;
+  document.querySelectorAll('#page-nodes .tab')[0].textContent = '全部 ('+total+')';
+  document.querySelectorAll('#page-nodes .tab')[1].textContent = '在线 ('+online+')';
+  document.querySelectorAll('#page-nodes .tab')[2].textContent = '离线 ('+(total-online)+')';
+
+  // 更新节点数badge
+  const badge = document.querySelector('.nav-item[onclick*=nodes] .nav-badge');
+  if (badge) badge.textContent = total;
+
+  renderNodesTable(nodes);
+}
+
+function renderNodesTable(nodes) {
+  const table = document.querySelector('#page-nodes .table-wrap table');
+  if (!table) return;
+  const rows = nodes.map(n => `
+    <tr>
+      <td><input type="checkbox" style="accent-color:var(--primary)" data-id="${n.id}"></td>
+      <td class="mono">${n.ip}</td>
+      <td style="color:var(--text3)">${n.remark||''}</td>
+      <td><span class="badge badge-purple">-</span></td>
+      <td><span class="badge badge-blue">VLESS</span></td>
+      <td style="color:var(--text3)">${n.port||443}</td>
+      <td>${formatBytes(n.traffic_today||0)}</td>
+      <td><div style="font-size:10px;color:var(--text3)">-</div><div class="prog"><div class="prog-bar" style="width:0%"></div></div></td>
+      <td style="color:var(--text3)">-</td>
+      <td><span class="badge ${n.status==='online'?'badge-on':'badge-off'}">
+        <span class="dot ${n.status==='online'?'dot-on':'dot-off'}"></span>
+        ${n.status==='online'?'在线':'离线'}
+      </span></td>
+      <td>
+        <button class="icon-btn" onclick="copyNodeLink('${n.uuid}','${n.ip}',${n.port||443},'${n.remark||''}')" title="复制链接">
+          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
+        <button class="icon-btn btn-danger" onclick="deleteNode('${n.id}')" title="删除">
+          <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        </button>
+      </td>
+    </tr>`).join('');
+
+  table.innerHTML = `
+    <tr>
+      <th style="width:18px"><input type="checkbox" id="selectAll" onchange="toggleAll(this)" style="accent-color:var(--primary)"></th>
+      <th>IP 地址</th><th>备注</th><th>所属VPS</th><th>协议</th><th>端口</th>
+      <th>今日流量</th><th>用量</th><th>延迟</th><th>状态</th><th>操作</th>
+    </tr>
+    ${rows || '<tr><td colspan="11" style="text-align:center;padding:24px;color:var(--text3)">暂无节点，请先批量导入</td></tr>'}`;
+
+  // 更新底部计数
+  const countEl = document.querySelector('#page-nodes .table-wrap + div div');
+  if (countEl) countEl.textContent = '共 ' + nodes.length + ' 条';
+}
+
+async function deleteNode(id) {
+  if (!confirm('确认删除此节点？')) return;
+  const r = await apiDelete('/api/nodes/delete/' + id);
+  if (r && r.ok) { showToast('节点已删除'); loadNodes(); }
+  else showToast('删除失败', 'error');
+}
+
+function copyNodeLink(uuid, ip, port, remark) {
+  const link = `vless://${uuid}@${ip}:${port}?encryption=none&security=none&type=tcp#${remark}`;
+  navigator.clipboard.writeText(link).then(() => showToast('节点链接已复制')).catch(()=>showToast('复制失败','error'));
+}
+
+async function copyAllLinks() {
+  const links = await apiGet('/api/links');
+  if (!links || !links.length) { showToast('暂无节点', 'error'); return; }
+  const text = links.map(l=>l.link).join('\n');
+  navigator.clipboard.writeText(text).then(() => showToast('已复制全部 '+links.length+' 条节点链接')).catch(()=>showToast('复制失败','error'));
+}
+
+// ---- 批量导入 ----
+async function importBatch() {
+  const ips = document.getElementById('batchIPs').value.trim().split('\n').filter(Boolean);
+  if (!ips.length) { showToast('请先输入IP列表'); return; }
+  const prefix = document.getElementById('batchPrefix') ? document.getElementById('batchPrefix').value || '节点' : '节点';
+  const port = document.getElementById('batchPort') ? parseInt(document.getElementById('batchPort').value) || 443 : 443;
+
+  showToast('正在导入...');
+  const r = await apiPost('/api/nodes/batch', { ips, prefix, port });
+  if (r && r.ok) {
+    showToast('成功导入 ' + r.count + ' 个节点');
+    document.getElementById('batchIPs').value = '';
+    document.getElementById('batchResult').style.display = 'none';
+    loadNodes();
+  } else {
+    showToast('导入失败，请检查后端是否运行', 'error');
+  }
+}
+
+function previewBatch() {
+  const ips = document.getElementById('batchIPs').value.trim().split('\n').filter(Boolean);
+  const res = document.getElementById('batchResult');
+  if (!ips.length) { showToast('请先输入IP列表'); return; }
+  res.style.display = 'block';
+  res.textContent = `预览：共 ${ips.length} 个节点\n` + ips.slice(0,3).map(ip => `vless://uuid@${ip.trim()}:443?...`).join('\n') + (ips.length > 3 ? `\n... 共 ${ips.length} 条` : '');
+}
+
+// ---- 用户管理 ----
+async function loadUsers() {
+  const users = await apiGet('/api/users');
+  if (!users) { showToast('加载用户失败', 'error'); return; }
+
+  // 更新指标
+  const mv = document.querySelectorAll('#page-users .metric-value');
+  if (mv[0]) mv[0].textContent = users.length;
+  const active = users.filter(u=>u.status==='active').length;
+  if (mv[1]) mv[1].textContent = active;
+
+  renderUsersTable(users);
+}
+
+function renderUsersTable(users) {
+  const table = document.querySelector('#page-users .table-wrap table');
+  if (!table) return;
+  const rows = users.map(u => `
+    <tr>
+      <td style="font-weight:500">${u.name}</td>
+      <td class="mono" style="font-size:10px">${(u.uuid||'').substring(0,12)}...</td>
+      <td><span class="badge badge-purple">全部</span></td>
+      <td>${formatBytes(u.traffic_used||0)}</td>
+      <td>${u.traffic_limit ? formatBytes(u.traffic_limit*1024*1024*1024) : '不限'}</td>
+      <td>${u.expire_date || '-'}</td>
+      <td><span class="badge ${u.status==='active'?'badge-on':'badge-off'}">${u.status==='active'?'活跃':'禁用'}</span></td>
+      <td>
+        <button class="icon-btn btn-danger" onclick="deleteUser('${u.id}')" title="删除">
+          <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
+        </button>
+      </td>
+    </tr>`).join('');
+  table.innerHTML = `<tr><th>用户名</th><th>UUID</th><th>绑定节点</th><th>已用流量</th><th>流量限制</th><th>到期时间</th><th>状态</th><th>操作</th></tr>
+    ${rows || '<tr><td colspan="8" style="text-align:center;padding:24px;color:var(--text3)">暂无用户</td></tr>'}`;
+}
+
+async function deleteUser(id) {
+  if (!confirm('确认删除此用户？')) return;
+  const r = await apiDelete('/api/users/delete/' + id);
+  if (r && r.ok) { showToast('用户已删除'); loadUsers(); }
+  else showToast('删除失败', 'error');
+}
+
+// ---- 添加用户 ----
+async function submitAddUser() {
+  const nameEl = document.querySelector('#addUserModal input[placeholder="用户名称"]');
+  const limitEl = document.querySelector('#addUserModal input[placeholder*="GB"]');
+  if (!nameEl || !nameEl.value.trim()) { showToast('请输入用户名'); return; }
+  const r = await apiPost('/api/users/add', {
+    name: nameEl.value.trim(),
+    traffic_limit: limitEl ? parseInt(limitEl.value)||0 : 0
+  });
+  if (r && r.ok) {
+    closeModal('addUserModal');
+    showToast('用户 ' + r.user.name + ' 已添加');
+    nameEl.value = '';
+    loadUsers();
+  } else showToast('添加失败', 'error');
+}
+
+// ---- 订阅链接 ----
+async function loadLinks() {
+  const links = await apiGet('/api/links');
+  if (!links) return;
+  const table = document.getElementById('linksRealTable');
+  if (!table) return;
+  const rows = links.map(l => `
+    <tr>
+      <td style="font-weight:500">${l.remark}</td>
+      <td class="mono" style="font-size:10px;max-width:260px;overflow:hidden;text-overflow:ellipsis">${l.link}</td>
+      <td>
+        <button class="icon-btn" onclick="navigator.clipboard.writeText('${l.link.replace(/'/g,"\'")}').then(()=>showToast('已复制'))" title="复制">
+          <svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
+      </td>
+    </tr>`).join('');
+  table.innerHTML = '<tr><th>节点名</th><th>链接</th><th>操作</th></tr>' + (rows || '<tr><td colspan="3" style="text-align:center;padding:24px;color:var(--text3)">暂无节点链接</td></tr>');
+}
+
+// ---- 生成配置 ----
+function generateConfig() {
+  const res = document.getElementById('batchResult');
+  res.style.display = 'block';
+  res.textContent = '请通过 API 管理节点，配置文件需在服务器端 Xray 中管理。';
+  showToast('提示：请在服务器端配置 Xray');
+}
+
+// ---- 工具函数 ----
+function formatBytes(bytes) {
+  if (!bytes) return '0 B';
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024*1024) return (bytes/1024).toFixed(1) + ' KB';
+  if (bytes < 1024*1024*1024) return (bytes/1024/1024).toFixed(1) + ' MB';
+  return (bytes/1024/1024/1024).toFixed(2) + ' GB';
+}
+
+function toggleAll(cb) {
+  document.querySelectorAll('#page-nodes input[type=checkbox]').forEach(c => c.checked = cb.checked);
+}
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    this.closest('.tab-row').querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+    this.classList.add('on');
+  });
+});
+
+// 修改添加用户确认按钮
+document.addEventListener('DOMContentLoaded', () => {
+  const addUserBtn = document.querySelector('#addUserModal .btn-primary');
+  if (addUserBtn) addUserBtn.onclick = submitAddUser;
+
+  // 初始加载
+  loadOverview();
+
+  // 显示API地址提示
+  document.getElementById('page-sub').textContent = '后端: ' + API_BASE + ' · ' + new Date().toLocaleDateString('zh-CN');
+});
+</script>
+</body>
+</html>
