@@ -122,12 +122,15 @@ async def main():
         with open(RULES_FILE, "r", encoding="utf-8") as f:
             rules_data = yaml.safe_load(f) or {}
             final_config = {**rules_data, "proxies": unique_nodes}
-            # 自动填充代理组节点
+            # 自动填充代理组节点 (插入逻辑)
             if "proxy-groups" in final_config:
                 node_names = [n.get("name") for n in unique_nodes if n.get("name")]
                 for group in final_config["proxy-groups"]:
                     if group.get("name") in ["自动优选", "手动选择", "Nodes"]:
-                        group["proxies"] = node_names
+                        # 确保将抓取的节点填入代理组，且排除重复
+                        current_proxies = group.get("proxies", [])
+                        new_proxies = [p for p in current_proxies if p not in node_names]
+                        group["proxies"] = new_proxies + node_names
     
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         yaml.dump(final_config, f, allow_unicode=True, sort_keys=False, width=1000)
