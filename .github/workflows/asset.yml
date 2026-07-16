@@ -1,9 +1,14 @@
 name: 流水线
 
+
+concurrency:
+  group: asset-pipeline-lock
+  cancel-in-progress: true
+
 on:
   workflow_dispatch:
   schedule:
-      - cron: 0 */1 * * *
+    - cron: 0 */1 * * *
 
 jobs:
   asset_pipeline:
@@ -59,24 +64,22 @@ jobs:
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # 1. 归档处理 (确保删除原有 logs 相关逻辑，使用 find 命令更健壮)
+          # 1. 归档处理
           mkdir -p archive/hash
           if [ -d "results/hash" ] && [ "$(find results/hash -maxdepth 1 -name "*.txt" | wc -l)" -gt 5000 ]; then
             tar -czf "archive/hash/results_hash_$(TZ='Asia/Shanghai' date +%Y%m%d_%H%M%S).tar.gz" results/hash/*.txt
             find results/hash -maxdepth 1 -name "*.txt" -delete
           fi
           
-          # 2. 精简后的 Git add (移除了 logs/ 目录追踪)
+          # 2. 精简后的 Git add
           git add progress.json alive_latest.txt alive_history.txt scan_results.csv alive_new.txt results/hash/ archive/hash/ || true
           
           # 3. 判断是否有改动并执行提交
           if [[ -n $(git status -s) ]]; then
             git commit -m "Auto: 资产轮询完成 $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
             
-            git stash
+            # 使用 --rebase 避免冲突
             git pull --rebase origin main
-            git stash pop || true
-            
             git push origin main
           else
             echo "[-] 无数据变动，无需提交。"
