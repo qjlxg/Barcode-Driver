@@ -1,0 +1,38 @@
+# Minions
+# 高速稳定版：只保留最快节点
+
+port: 7890
+socks-port: 7891
+allow-lan: true
+mode: Rule
+log-level: info
+
+proxies:
+  - name: "美国|新泽西 01"
+    type: vless
+    server: 66.154.102.59
+    port: 49347
+    uuid: 182b49f4-2793-490e-b94a-6420302950bb
+    flow: xtls-rprx-vision
+    tls: true
+    servername: www.ebay.com
+    reality_opts:
+      public-key: 7clt3hypa37uYhdWzDqYgMlAnEzs_YnTE2H4ZE3Ehk4
+      fingerprint: chrome
+    network: tcp
+    udp: true
+    skip-cert-verify: true
+    client-fingerprint: chrome
+
+proxy-groups:
+  - name: "节点选择"
+    type: select
+    proxies:
+      - "美国|新泽西 01"
+      - "DIRECT"
+
+rules:
+  - GEOIP,CN,DIRECT
+  - GEOSITE,CN,DIRECT
+  - GEOIP,PRIVATE,DIRECT
+  - MATCH,节点选择
