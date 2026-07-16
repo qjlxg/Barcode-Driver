@@ -1,0 +1,1774 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meal Planner</title>
+<style>
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface2: #252836;
+  --border: #2e3140;
+  --text: #e4e4e7;
+  --text-muted: #8b8d98;
+  --accent: #6c63ff;
+  --accent-hover: #5a52e0;
+  --green: #34d399;
+  --green-bg: rgba(52,211,153,0.12);
+  --red: #f87171;
+  --red-bg: rgba(248,113,113,0.12);
+  --yellow: #fbbf24;
+  --yellow-bg: rgba(251,191,36,0.12);
+  --orange: #fb923c;
+  --radius: 12px;
+  --radius-sm: 8px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+button { cursor: pointer; font-family: inherit; }
+input, select, textarea { font-family: inherit; }
+
+/* Layout */
+.app { display: flex; min-height: 100vh; }
+.sidebar {
+  width: 240px;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: 20px 0;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+}
+.sidebar-header {
+  padding: 0 20px 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.sidebar-header h1 { font-size: 20px; font-weight: 700; }
+.sidebar-header p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+.nav-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 20px;
+  color: var(--text-muted);
+  font-size: 14px; font-weight: 500;
+  border: none; background: none; width: 100%;
+  text-align: left; transition: all 0.15s;
+}
+.nav-item:hover { color: var(--text); background: var(--surface2); }
+.nav-item.active { color: var(--accent); background: rgba(108,99,255,0.1); border-right: 3px solid var(--accent); }
+.nav-icon { font-size: 18px; width: 24px; text-align: center; }
+
+.main { margin-left: 240px; flex: 1; padding: 24px; max-width: 1200px; }
+.view { display: none; }
+.view.active { display: block; }
+
+/* Responsive */
+.menu-toggle { display: none; position: fixed; top: 12px; left: 12px; z-index: 200;
+  background: var(--surface2); border: 1px solid var(--border); color: var(--text);
+  width: 40px; height: 40px; border-radius: var(--radius-sm); font-size: 20px; }
+@media (max-width: 768px) {
+  .sidebar { transform: translateX(-100%); transition: transform 0.2s; }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; padding: 16px; padding-top: 56px; }
+  .menu-toggle { display: flex; align-items: center; justify-content: center; }
+}
+
+/* Cards */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.card-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 16px;
+}
+.card-header h2 { font-size: 18px; font-weight: 600; }
+
+/* Buttons */
+.btn {
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 13px; font-weight: 500;
+  transition: all 0.15s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.btn:hover { background: var(--border); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: white; }
+.btn-primary:hover { background: var(--accent-hover); }
+.btn-danger { background: var(--red-bg); border-color: transparent; color: var(--red); }
+.btn-danger:hover { background: var(--red); color: white; }
+.btn-sm { padding: 4px 10px; font-size: 12px; }
+.btn-icon { padding: 6px; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; }
+
+/* Inputs */
+.input, .select {
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface2);
+  color: var(--text);
+  font-size: 14px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.input:focus, .select:focus { border-color: var(--accent); }
+textarea.input { resize: vertical; min-height: 80px; }
+.form-group { margin-bottom: 12px; }
+.form-group label { display: block; font-size: 13px; font-weight: 500; color: var(--text-muted); margin-bottom: 4px; }
+.form-row { display: flex; gap: 12px; }
+.form-row > * { flex: 1; }
+
+/* Grid */
+.meal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+.meal-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  transition: all 0.15s;
+  cursor: pointer;
+}
+.meal-card:hover { border-color: var(--accent); transform: translateY(-1px); }
+.meal-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+.meal-card-name { font-weight: 600; font-size: 15px; }
+.meal-card-category { font-size: 12px; color: var(--text-muted); }
+.meal-card-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 8px; }
+.tag {
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 11px; font-weight: 500;
+  background: var(--surface2);
+  color: var(--text-muted);
+}
+.tag-healthy { background: var(--green-bg); color: var(--green); }
+.tag-vegetarisch { background: rgba(108,99,255,0.12); color: var(--accent); }
+.tag-vegan { background: var(--green-bg); color: var(--green); }
+.tag-schnell { background: var(--yellow-bg); color: var(--yellow); }
+.ing-count { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+/* Search */
+.search-bar {
+  display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap;
+}
+.search-bar .input { max-width: 300px; }
+
+/* Weekly Plan */
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+}
+@media (max-width: 900px) { .week-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px) { .week-grid { grid-template-columns: 1fr; } }
+.day-col {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  min-height: 200px;
+  padding: 12px;
+}
+.day-header {
+  font-size: 13px; font-weight: 600;
+  text-align: center;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  color: var(--accent);
+}
+.plan-meal {
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  font-size: 13px;
+  position: relative;
+}
+.plan-meal-name { font-weight: 500; }
+.plan-meal-type { font-size: 11px; color: var(--text-muted); text-transform: uppercase; }
+.plan-meal-servings { font-size: 11px; color: var(--text-muted); }
+.plan-meal-remove {
+  position: absolute; top: 4px; right: 4px;
+  background: none; border: none; color: var(--text-muted);
+  font-size: 14px; padding: 2px 4px; border-radius: 4px;
+}
+.plan-meal-remove:hover { color: var(--red); background: var(--red-bg); }
+.day-add {
+  width: 100%;
+  padding: 6px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--text-muted);
+  font-size: 12px;
+  margin-top: 4px;
+}
+.day-add:hover { border-color: var(--accent); color: var(--accent); }
+
+/* Fridge */
+.fridge-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+}
+.fridge-item {
+  display: flex; justify-content: space-between; align-items: center;
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+}
+.fridge-item-name { font-weight: 500; font-size: 14px; }
+.fridge-item-amount { font-size: 12px; color: var(--text-muted); }
+
+/* Shopping list */
+.shopping-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+}
+.shopping-item:last-child { border-bottom: none; }
+.shopping-check { width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
+.shopping-item.checked { text-decoration: line-through; color: var(--text-muted); }
+.shopping-item .in-fridge-badge {
+  font-size: 11px; padding: 1px 6px; border-radius: 10px;
+  background: var(--green-bg); color: var(--green);
+}
+
+/* Suggestions */
+.suggestion-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 8px;
+}
+.match-bar {
+  height: 6px; border-radius: 3px;
+  background: var(--surface2);
+  margin: 8px 0;
+  overflow: hidden;
+}
+.match-bar-fill {
+  height: 100%; border-radius: 3px;
+  transition: width 0.3s;
+}
+.match-100 { background: var(--green); }
+.match-75 { background: var(--accent); }
+.match-50 { background: var(--yellow); }
+.match-25 { background: var(--orange); }
+.match-0 { background: var(--red); }
+.missing-list { font-size: 12px; color: var(--text-muted); margin-top: 6px; }
+
+/* Modal */
+.modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 1000;
+  justify-content: center; align-items: flex-start;
+  padding: 40px 16px;
+  overflow-y: auto;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  width: 100%; max-width: 600px;
+  padding: 24px;
+  animation: slideIn 0.2s;
+}
+@keyframes slideIn { from { transform: translateY(-20px); opacity: 0; } }
+.modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.modal-header h2 { font-size: 18px; }
+.modal-close { background: none; border: none; color: var(--text-muted); font-size: 24px; }
+.modal-close:hover { color: var(--text); }
+
+/* Ingredient row */
+.ing-row {
+  display: flex; gap: 8px; align-items: center; margin-bottom: 6px;
+}
+.ing-row .input { font-size: 13px; padding: 6px 10px; }
+.ing-row .ing-name { flex: 3; }
+.ing-row .ing-amount { flex: 1; }
+.ing-row .ing-unit { flex: 1; }
+.ing-remove { background: none; border: none; color: var(--text-muted); font-size: 16px; padding: 4px; }
+.ing-remove:hover { color: var(--red); }
+
+/* Stats row */
+.stats-row { display: flex; gap: 16px; margin-bottom: 20px; flex-wrap: wrap; }
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  flex: 1; min-width: 140px;
+}
+.stat-value { font-size: 28px; font-weight: 700; color: var(--accent); }
+.stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+/* Autocomplete */
+.autocomplete-wrapper { position: relative; }
+.autocomplete-list {
+  position: absolute; top: 100%; left: 0; right: 0;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  max-height: 150px; overflow-y: auto;
+  z-index: 50;
+  display: none;
+}
+.autocomplete-list.open { display: block; }
+.autocomplete-item {
+  padding: 6px 12px; font-size: 13px; cursor: pointer;
+}
+.autocomplete-item:hover { background: var(--border); }
+
+/* Week navigation */
+.week-nav {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+}
+.week-nav h2 { font-size: 18px; font-weight: 600; }
+
+/* Servings control */
+.servings-control {
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.servings-btn {
+  width: 22px; height: 22px; border-radius: 50%;
+  background: var(--surface2); border: 1px solid var(--border);
+  color: var(--text); font-size: 14px;
+  display: flex; align-items: center; justify-content: center;
+}
+.servings-btn:hover { background: var(--accent); border-color: var(--accent); }
+.servings-val { font-size: 13px; min-width: 16px; text-align: center; }
+
+/* Generator */
+.gen-check { width: 18px; height: 18px; accent-color: var(--accent); cursor: pointer; }
+.gen-servings { width: 60px; text-align: center; padding: 4px 8px; font-size: 13px; }
+.gen-review-meal {
+  background: var(--surface2);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.gen-review-meal-info { flex: 1; }
+.gen-review-meal-name { font-weight: 500; font-size: 14px; }
+.gen-review-meal-meta { font-size: 11px; color: var(--text-muted); }
+.gen-review-actions { display: flex; gap: 4px; }
+.swap-meal-option {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 14px;
+}
+.swap-meal-option:hover { background: var(--surface2); }
+.swap-meal-option:last-child { border-bottom: none; }
+
+/* Print */
+@media print {
+  .sidebar, .menu-toggle, .btn, .search-bar, .nav-item { display: none !important; }
+  .main { margin-left: 0; }
+  body { background: white; color: black; }
+  .card, .day-col, .shopping-item { border-color: #ddd; background: white; }
+}
+</style>
+</head>
+<body>
+<button class="menu-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">&#9776;</button>
+
+<div class="app">
+  <nav class="sidebar">
+    <div class="sidebar-header">
+      <h1>Meal Planner</h1>
+      <p>Plan &bull; Cook &bull; Shop</p>
+    </div>
+    <button class="nav-item active" data-view="dashboard"><span class="nav-icon">&#9632;</span> Dashboard</button>
+    <button class="nav-item" data-view="meals"><span class="nav-icon">&#127860;</span> Gerichte</button>
+    <button class="nav-item" data-view="planner"><span class="nav-icon">&#128197;</span> Wochenplan</button>
+    <button class="nav-item" data-view="fridge"><span class="nav-icon">&#129482;</span> Kühlschrank</button>
+    <button class="nav-item" data-view="suggestions"><span class="nav-icon">&#128161;</span> Vorschläge</button>
+    <button class="nav-item" data-view="generator"><span class="nav-icon">&#9889;</span> Plan generieren</button>
+    <button class="nav-item" data-view="shopping"><span class="nav-icon">&#128722;</span> Einkaufsliste</button>
+    <button class="nav-item" data-view="settings"><span class="nav-icon">&#9881;</span> Einstellungen</button>
+  </nav>
+
+  <div class="main">
+    <!-- Dashboard -->
+    <div id="view-dashboard" class="view active">
+      <h2 style="font-size: 24px; margin-bottom: 20px;">Dashboard</h2>
+      <div class="stats-row">
+        <div class="stat-card"><div class="stat-value" id="stat-meals">0</div><div class="stat-label">Gerichte</div></div>
+        <div class="stat-card"><div class="stat-value" id="stat-fridge">0</div><div class="stat-label">Im Kühlschrank</div></div>
+        <div class="stat-card"><div class="stat-value" id="stat-planned">0</div><div class="stat-label">Diese Woche geplant</div></div>
+        <div class="stat-card"><div class="stat-value" id="stat-shopping">0</div><div class="stat-label">Einzukaufen</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="card">
+          <div class="card-header"><h2>Diese Woche</h2></div>
+          <div id="dash-week-preview"></div>
+        </div>
+        <div class="card">
+          <div class="card-header"><h2>Top Vorschläge</h2></div>
+          <div id="dash-suggestions"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meals -->
+    <div id="view-meals" class="view">
+      <div class="card-header" style="margin-bottom:16px">
+        <h2 style="font-size:24px">Gerichte</h2>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-sm" onclick="fillMissingIngredients()" id="fill-missing-btn" style="display:none;background:var(--yellow-bg);color:var(--yellow);border-color:transparent">Fehlende Zutaten ergänzen</button>
+          <button class="btn btn-primary" onclick="openMealModal()">+ Neues Gericht</button>
+        </div>
+      </div>
+      <div class="search-bar">
+        <input class="input" id="meal-search" placeholder="Suchen..." oninput="renderMeals()">
+        <select class="select" id="meal-cat-filter" style="max-width:200px" onchange="renderMeals()">
+          <option value="">Alle Kategorien</option>
+        </select>
+        <select class="select" id="meal-tag-filter" style="max-width:200px" onchange="renderMeals()">
+          <option value="">Alle Tags</option>
+        </select>
+      </div>
+      <div class="meal-grid" id="meal-grid"></div>
+    </div>
+
+    <!-- Planner -->
+    <div id="view-planner" class="view">
+      <div class="week-nav">
+        <button class="btn btn-sm" onclick="changeWeek(-1)">&larr;</button>
+        <h2 id="week-label">Diese Woche</h2>
+        <button class="btn btn-sm" onclick="changeWeek(1)">&rarr;</button>
+        <button class="btn btn-sm" onclick="currentWeekOffset=0;loadPlan()">Heute</button>
+        <button class="btn btn-sm btn-danger" onclick="clearWeekPlan()">Woche leeren</button>
+        <button class="btn btn-primary btn-sm" onclick="generateShoppingList()" style="margin-left:auto">Einkaufsliste generieren</button>
+      </div>
+      <div class="week-grid" id="week-grid"></div>
+    </div>
+
+    <!-- Fridge -->
+    <div id="view-fridge" class="view">
+      <div class="card-header" style="margin-bottom:16px">
+        <h2 style="font-size:24px">Kühlschrank</h2>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-danger btn-sm" onclick="clearFridge()">Alles leeren</button>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="form-row">
+          <div class="form-group autocomplete-wrapper">
+            <label>Zutat</label>
+            <input class="input" id="fridge-name" placeholder="z.B. Eier" oninput="fridgeAutocomplete(this)">
+            <div class="autocomplete-list" id="fridge-ac"></div>
+          </div>
+          <div class="form-group"><label>Menge</label><input class="input" id="fridge-amount" placeholder="z.B. 6"></div>
+          <div class="form-group"><label>Einheit</label><input class="input" id="fridge-unit" placeholder="z.B. Stück"></div>
+          <div class="form-group" style="display:flex;align-items:flex-end"><button class="btn btn-primary" onclick="addToFridge()">Hinzufügen</button></div>
+        </div>
+      </div>
+      <div class="fridge-grid" id="fridge-grid"></div>
+    </div>
+
+    <!-- Suggestions -->
+    <div id="view-suggestions" class="view">
+      <h2 style="font-size:24px;margin-bottom:16px">Was kann ich kochen?</h2>
+      <p style="color:var(--text-muted);margin-bottom:16px;font-size:14px">Basierend auf dem Kühlschrankinhalt — Gerichte ohne Zutaten werden nicht angezeigt.</p>
+      <div id="suggestions-list"></div>
+    </div>
+
+    <!-- Generator -->
+    <div id="view-generator" class="view">
+      <h2 style="font-size:24px;margin-bottom:8px">Wochenplan generieren</h2>
+      <p style="color:var(--text-muted);margin-bottom:20px;font-size:14px">Konfiguriere welche Mahlzeiten du brauchst, wie viele Personen pro Mahlzeit, und lass dir einen zufälligen Plan erstellen. Du kannst einzelne Gerichte danach austauschen.</p>
+
+      <!-- Step 1: Configure slots -->
+      <div id="gen-step-config">
+        <div class="card">
+          <div class="card-header">
+            <h2>1. Mahlzeiten konfigurieren</h2>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-sm" onclick="genSetAllServings()">Alle Portionen setzen</button>
+            </div>
+          </div>
+          <div style="overflow-x:auto">
+            <table style="width:100%;border-collapse:collapse;font-size:14px" id="gen-config-table">
+              <thead>
+                <tr style="border-bottom:1px solid var(--border)">
+                  <th style="text-align:left;padding:8px;color:var(--text-muted);font-weight:500">Tag</th>
+                  <th style="text-align:center;padding:8px;color:var(--text-muted);font-weight:500">Mittagessen</th>
+                  <th style="text-align:center;padding:8px;color:var(--text-muted);font-weight:500">Portionen</th>
+                  <th style="text-align:center;padding:8px;color:var(--text-muted);font-weight:500">Abendessen</th>
+                  <th style="text-align:center;padding:8px;color:var(--text-muted);font-weight:500">Portionen</th>
+                </tr>
+              </thead>
+              <tbody id="gen-config-body"></tbody>
+            </table>
+          </div>
+          <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px">
+            <button class="btn btn-primary" onclick="generatePlan()" style="font-size:15px;padding:10px 24px">Plan generieren</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Review & edit generated plan -->
+      <div id="gen-step-review" style="display:none">
+        <div class="card">
+          <div class="card-header">
+            <h2>2. Plan überprüfen & anpassen</h2>
+            <div style="display:flex;gap:8px">
+              <button class="btn btn-sm" onclick="genBackToConfig()">Zurück</button>
+              <button class="btn btn-sm" onclick="genRegenerate()">Neu generieren</button>
+              <button class="btn btn-sm btn-primary" onclick="genAcceptPlan()">Plan übernehmen</button>
+            </div>
+          </div>
+          <div id="gen-review-grid" class="week-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Shopping -->
+    <div id="view-shopping" class="view">
+      <div class="card-header" style="margin-bottom:16px">
+        <h2 style="font-size:24px">Einkaufsliste</h2>
+        <div style="display:flex;gap:8px">
+          <button class="btn btn-primary btn-sm" onclick="generateShoppingList()">Neu generieren</button>
+          <button class="btn btn-sm" onclick="sendToBring()" id="bring-send-btn" style="background:var(--green-bg);color:var(--green);border-color:transparent">An Bring! senden</button>
+          <button class="btn btn-sm" onclick="printShopping()">Drucken</button>
+        </div>
+      </div>
+      <!-- Toggle between grouped and combined view -->
+      <div style="display:flex;gap:8px;margin-bottom:16px">
+        <button class="btn btn-sm" id="shop-view-meal" onclick="setShopView('meal')" style="border-color:var(--accent);color:var(--accent)">Nach Gericht</button>
+        <button class="btn btn-sm" id="shop-view-combined" onclick="setShopView('combined')">Gesamtliste</button>
+      </div>
+      <div id="shopping-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Meal Modal -->
+<div class="modal-overlay" id="meal-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="meal-modal-title">Neues Gericht</h2>
+      <button class="modal-close" onclick="closeMealModal()">&times;</button>
+    </div>
+    <input type="hidden" id="meal-edit-id">
+    <div class="form-group"><label>Name</label><input class="input" id="meal-name"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Kategorie</label><select class="select" id="meal-category"></select></div>
+      <div class="form-group"><label>Portionen</label><input class="input" type="number" id="meal-servings" value="4" min="1"></div>
+    </div>
+    <div class="form-group"><label>Tags (kommagetrennt)</label><input class="input" id="meal-tags" placeholder="z.B. Vegetarisch, Schnell"></div>
+    <div class="form-group">
+      <label>Zutaten</label>
+      <div id="meal-ingredients-list"></div>
+      <button class="btn btn-sm" onclick="addIngredientRow()" style="margin-top:6px">+ Zutat</button>
+    </div>
+    <div class="form-group"><label>Zubereitung</label><textarea class="input" id="meal-instructions" rows="4"></textarea></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
+      <button class="btn" onclick="closeMealModal()">Abbrechen</button>
+      <button class="btn btn-danger" id="meal-delete-btn" style="display:none" onclick="deleteMeal()">Löschen</button>
+      <button class="btn btn-primary" onclick="saveMeal()">Speichern</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add to Plan Modal -->
+<div class="modal-overlay" id="plan-modal">
+  <div class="modal" style="max-width:400px">
+    <div class="modal-header">
+      <h2>Zum Plan hinzufügen</h2>
+      <button class="modal-close" onclick="closePlanModal()">&times;</button>
+    </div>
+    <input type="hidden" id="plan-day">
+    <div class="form-group">
+      <label>Gericht</label>
+      <select class="select" id="plan-meal-select"></select>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Mahlzeit</label>
+        <select class="select" id="plan-meal-type">
+          <option value="lunch">Mittagessen</option>
+          <option value="dinner">Abendessen</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Portionen</label>
+        <input class="input" type="number" id="plan-servings" value="4" min="1">
+      </div>
+    </div>
+    <div style="display:flex;justify-content:flex-end;gap:8px;margin-top:16px">
+      <button class="btn" onclick="closePlanModal()">Abbrechen</button>
+      <button class="btn btn-primary" onclick="addToPlan()">Hinzufügen</button>
+    </div>
+    <!-- Settings -->
+    <div id="view-settings" class="view">
+      <h2 style="font-size:24px;margin-bottom:20px">Einstellungen</h2>
+      <div class="card">
+        <div class="card-header"><h2>Bring! Integration</h2></div>
+        <p style="color:var(--text-muted);font-size:14px;margin-bottom:16px">Verbinde dein Bring!-Konto, um Einkaufslisten direkt in die Bring!-App zu senden.</p>
+        <div class="form-group"><label>E-Mail</label><input class="input" id="bring-email" placeholder="deine@email.com"></div>
+        <div class="form-group"><label>Passwort</label><input class="input" id="bring-password" type="password" placeholder="Bring! Passwort"></div>
+        <div class="form-row" style="align-items:flex-end">
+          <div class="form-group">
+            <label>Einkaufsliste</label>
+            <select class="select" id="bring-list-select">
+              <option value="">Zuerst verbinden...</option>
+            </select>
+          </div>
+          <div class="form-group" style="flex:0">
+            <button class="btn btn-sm" onclick="bringFetchLists()">Listen laden</button>
+          </div>
+        </div>
+        <div id="bring-status" style="font-size:13px;margin-top:8px"></div>
+        <div style="display:flex;gap:8px;margin-top:16px">
+          <button class="btn btn-primary" onclick="saveBringSettings()">Speichern</button>
+          <button class="btn btn-sm" onclick="testBringConnection()">Verbindung testen</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Populate Ingredients Modal (for shopping list) -->
+<div class="modal-overlay" id="populate-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="populate-modal-title">Zutaten ergänzen</h2>
+      <button class="modal-close" onclick="closePopulateModal()">&times;</button>
+    </div>
+    <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px" id="populate-modal-desc"></p>
+    <input type="hidden" id="populate-meal-id">
+    <div class="form-group">
+      <label>Zutaten</label>
+      <div id="populate-ingredients-list"></div>
+      <button class="btn btn-sm" onclick="popAddIngRow()" style="margin-top:6px">+ Zutat</button>
+    </div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
+      <button class="btn" onclick="popSkipMeal()">Überspringen</button>
+      <button class="btn btn-primary" onclick="popSaveIngredients()">Speichern & weiter</button>
+    </div>
+    <div style="margin-top:8px;text-align:right">
+      <button class="btn btn-sm" onclick="popSkipAll()" style="font-size:11px;color:var(--text-muted)">Alle überspringen</button>
+    </div>
+  </div>
+</div>
+
+<!-- Swap Meal Modal (for generator) -->
+<div class="modal-overlay" id="swap-modal">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header">
+      <h2>Gericht austauschen</h2>
+      <button class="modal-close" onclick="closeSwapModal()">&times;</button>
+    </div>
+    <input type="hidden" id="swap-plan-id">
+    <div class="form-group">
+      <label>Neues Gericht wählen</label>
+      <input class="input" id="swap-search" placeholder="Suchen..." oninput="renderSwapList()">
+    </div>
+    <div id="swap-meal-list" style="max-height:300px;overflow-y:auto;margin-bottom:12px"></div>
+    <div style="border-top:1px solid var(--border);padding-top:12px">
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:8px">Gericht nicht in der Liste? Erstelle ein neues:</p>
+      <button class="btn btn-primary btn-sm" onclick="openQuickAddMeal()">+ Neues Gericht erstellen</button>
+    </div>
+  </div>
+</div>
+
+<!-- Quick Add Meal Modal (inline from generator) -->
+<div class="modal-overlay" id="quick-meal-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Neues Gericht erstellen</h2>
+      <button class="modal-close" onclick="closeQuickMealModal()">&times;</button>
+    </div>
+    <div class="form-group"><label>Name</label><input class="input" id="qm-name"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Kategorie</label><select class="select" id="qm-category"></select></div>
+      <div class="form-group"><label>Portionen</label><input class="input" type="number" id="qm-servings" value="4" min="1"></div>
+    </div>
+    <div class="form-group"><label>Tags (kommagetrennt)</label><input class="input" id="qm-tags" placeholder="z.B. Vegetarisch, Schnell"></div>
+    <div class="form-group">
+      <label>Zutaten</label>
+      <div id="qm-ingredients-list"></div>
+      <button class="btn btn-sm" onclick="qmAddIngRow()" style="margin-top:6px">+ Zutat</button>
+    </div>
+    <div class="form-group"><label>Zubereitung</label><textarea class="input" id="qm-instructions" rows="3"></textarea></div>
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:16px">
+      <button class="btn" onclick="closeQuickMealModal()">Abbrechen</button>
+      <button class="btn btn-primary" onclick="saveQuickMeal()">Speichern & auswählen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// State
+let meals = [], categories = [], tags = [], fridge = [], plan = [], shoppingList = [];
+let currentWeekOffset = 0;
+const DAYS = ['Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag','Sonntag'];
+const DAY_SHORT = ['Mo','Di','Mi','Do','Fr','Sa','So'];
+
+// API helpers
+async function api(path, opts = {}) {
+  const res = await fetch('/api' + path, {
+    headers: { 'Content-Type': 'application/json' },
+    ...opts,
+    body: opts.body ? JSON.stringify(opts.body) : undefined,
+  });
+  if (res.status === 204) return null;
+  return res.json();
+}
+
+// Navigation
+document.querySelectorAll('.nav-item').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('view-' + btn.dataset.view).classList.add('active');
+    document.querySelector('.sidebar').classList.remove('open');
+
+    // Refresh data on view switch
+    const view = btn.dataset.view;
+    if (view === 'planner') loadPlan();
+    if (view === 'fridge') loadFridge();
+    if (view === 'suggestions') loadSuggestions();
+    if (view === 'shopping') loadShopping();
+    if (view === 'dashboard') loadDashboard();
+    if (view === 'generator') initGenerator();
+    if (view === 'settings') loadBringSettings();
+  });
+});
+
+// Initial load
+async function init() {
+  categories = await api('/categories');
+  meals = await api('/meals');
+  tags = await api('/tags');
+  renderCategoryFilters();
+  renderTagFilters();
+  renderMeals();
+  loadDashboard();
+}
+
+// Dashboard
+async function loadDashboard() {
+  fridge = await api('/fridge');
+  plan = await api('/plan?week_offset=0');
+  shoppingData = await api('/shopping-list?week_offset=0');
+  shoppingList = shoppingData ? shoppingData.combined : [];
+  const suggestions = await api('/suggestions');
+
+  document.getElementById('stat-meals').textContent = meals.length;
+  document.getElementById('stat-fridge').textContent = fridge.length;
+  document.getElementById('stat-planned').textContent = plan.length;
+  document.getElementById('stat-shopping').textContent = (shoppingList || []).filter(i => !i.in_fridge).length;
+
+  // Week preview
+  const wp = document.getElementById('dash-week-preview');
+  if (plan.length === 0) {
+    wp.innerHTML = '<p style="color:var(--text-muted);font-size:14px">Noch nichts geplant. Gehe zum Wochenplan!</p>';
+  } else {
+    wp.innerHTML = plan.map(p => `
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:14px">
+        <span>${DAY_SHORT[p.day_of_week]}</span>
+        <span style="font-weight:500">${esc(p.meal_name)}</span>
+        <span style="color:var(--text-muted)">${p.servings}P</span>
+      </div>
+    `).join('');
+  }
+
+  // Top suggestions
+  const sg = document.getElementById('dash-suggestions');
+  if (suggestions.length === 0) {
+    sg.innerHTML = '<p style="color:var(--text-muted);font-size:14px">Füge Zutaten zum Kühlschrank hinzu, um Vorschläge zu erhalten.</p>';
+  } else {
+    sg.innerHTML = suggestions.slice(0, 5).map(s => `
+      <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:14px">
+        <span style="font-weight:500">${esc(s.name)}</span>
+        <span style="color:${s.match_percentage >= 75 ? 'var(--green)' : s.match_percentage >= 50 ? 'var(--yellow)' : 'var(--orange)'}">${s.match_percentage}%</span>
+      </div>
+    `).join('');
+  }
+}
+
+// Meals
+function renderCategoryFilters() {
+  const sel = document.getElementById('meal-cat-filter');
+  const modalSel = document.getElementById('meal-category');
+  categories.forEach(c => {
+    sel.innerHTML += `<option value="${c.id}">${c.icon} ${c.name}</option>`;
+    modalSel.innerHTML += `<option value="${c.id}">${c.icon} ${c.name}</option>`;
+  });
+}
+
+function renderTagFilters() {
+  const sel = document.getElementById('meal-tag-filter');
+  tags.forEach(t => {
+    sel.innerHTML += `<option value="${t}">${t}</option>`;
+  });
+}
+
+function renderMeals() {
+  const search = document.getElementById('meal-search').value.toLowerCase();
+  const catFilter = document.getElementById('meal-cat-filter').value;
+  const tagFilter = document.getElementById('meal-tag-filter').value;
+
+  let filtered = meals.filter(m => {
+    if (search && !m.name.toLowerCase().includes(search)) return false;
+    if (catFilter && m.category_id !== parseInt(catFilter)) return false;
+    if (tagFilter && !m.tags.includes(tagFilter)) return false;
+    return true;
+  });
+
+  // Show/hide "fill missing" button
+  const missingCount = meals.filter(m => m.ingredients.length === 0).length;
+  const fillBtn = document.getElementById('fill-missing-btn');
+  if (fillBtn) {
+    fillBtn.style.display = missingCount > 0 ? 'inline-flex' : 'none';
+    fillBtn.textContent = `Fehlende Zutaten ergänzen (${missingCount})`;
+  }
+
+  const grid = document.getElementById('meal-grid');
+  grid.innerHTML = filtered.map(m => `
+    <div class="meal-card" onclick="openMealModal(${m.id})">
+      <div class="meal-card-header">
+        <div>
+          <div class="meal-card-name">${esc(m.name)}</div>
+          <div class="meal-card-category">${m.category_icon} ${esc(m.category_name)}</div>
+        </div>
+        <span style="font-size:12px;color:var(--text-muted)">${m.default_servings}P</span>
+      </div>
+      ${m.ingredients.length ? `<div class="ing-count">${m.ingredients.length} Zutaten</div>` : '<div class="ing-count" style="color:var(--yellow)">Keine Zutaten</div>'}
+      <div class="meal-card-tags">
+        ${m.tags.map(t => `<span class="tag tag-${t.toLowerCase()}">${t}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+// Meal Modal
+function openMealModal(id) {
+  const modal = document.getElementById('meal-modal');
+  const title = document.getElementById('meal-modal-title');
+  const deleteBtn = document.getElementById('meal-delete-btn');
+  document.getElementById('meal-edit-id').value = '';
+  document.getElementById('meal-name').value = '';
+  document.getElementById('meal-category').value = categories[0]?.id || '';
+  document.getElementById('meal-servings').value = 4;
+  document.getElementById('meal-tags').value = '';
+  document.getElementById('meal-instructions').value = '';
+  document.getElementById('meal-ingredients-list').innerHTML = '';
+
+  if (id) {
+    const m = meals.find(x => x.id === id);
+    if (!m) return;
+    title.textContent = 'Gericht bearbeiten';
+    deleteBtn.style.display = 'inline-flex';
+    document.getElementById('meal-edit-id').value = id;
+    document.getElementById('meal-name').value = m.name;
+    document.getElementById('meal-category').value = m.category_id || '';
+    document.getElementById('meal-servings').value = m.default_servings;
+    document.getElementById('meal-tags').value = m.tags.join(', ');
+    document.getElementById('meal-instructions').value = m.instructions;
+    m.ingredients.forEach(i => addIngredientRow(i.name, i.amount, i.unit));
+  } else {
+    title.textContent = 'Neues Gericht';
+    deleteBtn.style.display = 'none';
+    addIngredientRow();
+  }
+  modal.classList.add('open');
+}
+
+function closeMealModal() {
+  document.getElementById('meal-modal').classList.remove('open');
+}
+
+function addIngredientRow(name = '', amount = '', unit = '') {
+  const list = document.getElementById('meal-ingredients-list');
+  const row = document.createElement('div');
+  row.className = 'ing-row';
+  row.innerHTML = `
+    <div class="autocomplete-wrapper ing-name">
+      <input class="input" placeholder="Zutat" value="${esc(name)}" oninput="ingAutocomplete(this)">
+      <div class="autocomplete-list"></div>
+    </div>
+    <input class="input ing-amount" placeholder="Menge" value="${esc(amount)}">
+    <input class="input ing-unit" placeholder="Einheit" value="${esc(unit)}">
+    <button class="ing-remove" onclick="this.parentElement.remove()">&times;</button>
+  `;
+  list.appendChild(row);
+}
+
+async function saveMeal() {
+  const id = document.getElementById('meal-edit-id').value;
+  const data = {
+    name: document.getElementById('meal-name').value.trim(),
+    category_id: parseInt(document.getElementById('meal-category').value) || null,
+    default_servings: parseInt(document.getElementById('meal-servings').value) || 4,
+    tags: document.getElementById('meal-tags').value.split(',').map(t => t.trim()).filter(Boolean),
+    instructions: document.getElementById('meal-instructions').value.trim(),
+    ingredients: [],
+  };
+
+  document.querySelectorAll('#meal-ingredients-list .ing-row').forEach(row => {
+    const name = row.querySelector('.ing-name input').value.trim();
+    if (name) {
+      data.ingredients.push({
+        name,
+        amount: row.querySelector('.ing-amount').value.trim(),
+        unit: row.querySelector('.ing-unit').value.trim(),
+      });
+    }
+  });
+
+  if (!data.name) return alert('Bitte Name eingeben');
+
+  if (id) {
+    await api('/meals/' + id, { method: 'PUT', body: data });
+  } else {
+    await api('/meals', { method: 'POST', body: data });
+  }
+
+  meals = await api('/meals');
+  tags = await api('/tags');
+  renderMeals();
+  closeMealModal();
+}
+
+async function deleteMeal() {
+  const id = document.getElementById('meal-edit-id').value;
+  if (!id || !confirm('Gericht wirklich löschen?')) return;
+  await api('/meals/' + id, { method: 'DELETE' });
+  meals = await api('/meals');
+  renderMeals();
+  closeMealModal();
+}
+
+// Autocomplete for ingredients
+async function ingAutocomplete(input) {
+  const val = input.value.trim();
+  const list = input.parentElement.querySelector('.autocomplete-list');
+  if (val.length < 1) { list.classList.remove('open'); return; }
+  const results = await api('/ingredients?q=' + encodeURIComponent(val));
+  if (results.length === 0) { list.classList.remove('open'); return; }
+  list.innerHTML = results.map(r => `<div class="autocomplete-item" onmousedown="selectAC(this, '${esc(r)}')">${esc(r)}</div>`).join('');
+  list.classList.add('open');
+  input.addEventListener('blur', () => setTimeout(() => list.classList.remove('open'), 150), { once: true });
+}
+
+function selectAC(el, val) {
+  const input = el.closest('.autocomplete-wrapper').querySelector('input');
+  input.value = val;
+  el.closest('.autocomplete-list').classList.remove('open');
+}
+
+// Fridge
+async function loadFridge() {
+  fridge = await api('/fridge');
+  renderFridge();
+}
+
+function renderFridge() {
+  const grid = document.getElementById('fridge-grid');
+  if (fridge.length === 0) {
+    grid.innerHTML = '<p style="color:var(--text-muted);font-size:14px;grid-column:1/-1">Kühlschrank ist leer. Füge Zutaten hinzu!</p>';
+    return;
+  }
+  grid.innerHTML = fridge.map(f => `
+    <div class="fridge-item">
+      <div>
+        <div class="fridge-item-name">${esc(f.name)}</div>
+        ${f.amount ? `<div class="fridge-item-amount">${esc(f.amount)} ${esc(f.unit)}</div>` : ''}
+      </div>
+      <button class="btn btn-sm btn-danger btn-icon" onclick="removeFridge(${f.id})">&times;</button>
+    </div>
+  `).join('');
+}
+
+async function addToFridge() {
+  const name = document.getElementById('fridge-name').value.trim();
+  if (!name) return;
+  await api('/fridge', {
+    method: 'POST',
+    body: {
+      name,
+      amount: document.getElementById('fridge-amount').value.trim(),
+      unit: document.getElementById('fridge-unit').value.trim(),
+    },
+  });
+  document.getElementById('fridge-name').value = '';
+  document.getElementById('fridge-amount').value = '';
+  document.getElementById('fridge-unit').value = '';
+  loadFridge();
+}
+
+async function removeFridge(id) {
+  await api('/fridge/' + id, { method: 'DELETE' });
+  loadFridge();
+}
+
+async function clearFridge() {
+  if (!confirm('Kühlschrank leeren?')) return;
+  await api('/fridge/clear', { method: 'POST' });
+  loadFridge();
+}
+
+async function fridgeAutocomplete(input) {
+  const val = input.value.trim();
+  const list = document.getElementById('fridge-ac');
+  if (val.length < 1) { list.classList.remove('open'); return; }
+  const results = await api('/ingredients?q=' + encodeURIComponent(val));
+  if (results.length === 0) { list.classList.remove('open'); return; }
+  list.innerHTML = results.map(r => `<div class="autocomplete-item" onmousedown="document.getElementById('fridge-name').value='${esc(r)}';document.getElementById('fridge-ac').classList.remove('open')">${esc(r)}</div>`).join('');
+  list.classList.add('open');
+  input.addEventListener('blur', () => setTimeout(() => list.classList.remove('open'), 150), { once: true });
+}
+
+// Weekly Plan
+async function loadPlan() {
+  plan = await api('/plan?week_offset=' + currentWeekOffset);
+  const label = document.getElementById('week-label');
+  if (currentWeekOffset === 0) label.textContent = 'Diese Woche';
+  else if (currentWeekOffset === 1) label.textContent = 'Nächste Woche';
+  else if (currentWeekOffset === -1) label.textContent = 'Letzte Woche';
+  else label.textContent = `Woche ${currentWeekOffset > 0 ? '+' : ''}${currentWeekOffset}`;
+  renderPlan();
+}
+
+function changeWeek(delta) {
+  currentWeekOffset += delta;
+  loadPlan();
+}
+
+function renderPlan() {
+  const grid = document.getElementById('week-grid');
+  grid.innerHTML = DAYS.map((day, i) => {
+    const dayMeals = plan.filter(p => p.day_of_week === i);
+    return `
+      <div class="day-col">
+        <div class="day-header">${day}${dayMeals.length ? `<button class="plan-meal-remove" onclick="clearDay(${i})" title="Tag leeren" style="float:right">&times;</button>` : ''}</div>
+        ${dayMeals.map(p => `
+          <div class="plan-meal">
+            <div class="plan-meal-type">${p.meal_type === 'lunch' ? 'Mittag' : 'Abend'}</div>
+            <div class="plan-meal-name">${esc(p.meal_name)}</div>
+            <div class="plan-meal-servings">
+              <span class="servings-control">
+                <button class="servings-btn" onclick="updatePlanServings(${p.id}, ${p.servings - 1}, ${p.day_of_week}, '${p.meal_type}')">&minus;</button>
+                <span class="servings-val">${p.servings}P</span>
+                <button class="servings-btn" onclick="updatePlanServings(${p.id}, ${p.servings + 1}, ${p.day_of_week}, '${p.meal_type}')">+</button>
+              </span>
+            </div>
+            <button class="plan-meal-remove" onclick="removePlan(${p.id})">&times;</button>
+          </div>
+        `).join('')}
+        <button class="day-add" onclick="openPlanModal(${i})">+ Gericht</button>
+      </div>
+    `;
+  }).join('');
+}
+
+async function updatePlanServings(planId, servings, dayOfWeek, mealType) {
+  if (servings < 1) return;
+  await api('/plan/' + planId, { method: 'PUT', body: { day_of_week: dayOfWeek, meal_type: mealType, servings } });
+  loadPlan();
+}
+
+function openPlanModal(day) {
+  document.getElementById('plan-day').value = day;
+  const sel = document.getElementById('plan-meal-select');
+  sel.innerHTML = meals.map(m => `<option value="${m.id}">${esc(m.name)}</option>`).join('');
+  document.getElementById('plan-servings').value = 4;
+  document.getElementById('plan-modal').classList.add('open');
+}
+
+function closePlanModal() {
+  document.getElementById('plan-modal').classList.remove('open');
+}
+
+async function addToPlan() {
+  await api('/plan', {
+    method: 'POST',
+    body: {
+      meal_id: parseInt(document.getElementById('plan-meal-select').value),
+      day_of_week: parseInt(document.getElementById('plan-day').value),
+      meal_type: document.getElementById('plan-meal-type').value,
+      servings: parseInt(document.getElementById('plan-servings').value) || 4,
+      week_offset: currentWeekOffset,
+    },
+  });
+  closePlanModal();
+  loadPlan();
+}
+
+async function removePlan(id) {
+  await api('/plan/' + id, { method: 'DELETE' });
+  loadPlan();
+}
+
+async function clearDay(dayOfWeek) {
+  await api('/plan/clear-day', { method: 'POST', body: { week_offset: currentWeekOffset, day_of_week: dayOfWeek } });
+  loadPlan();
+}
+
+async function clearWeekPlan() {
+  if (!confirm('Wochenplan leeren?')) return;
+  await api('/plan/clear', { method: 'POST', body: { week_offset: currentWeekOffset } });
+  loadPlan();
+}
+
+// Suggestions
+async function loadSuggestions() {
+  const suggestions = await api('/suggestions');
+  const list = document.getElementById('suggestions-list');
+  if (suggestions.length === 0) {
+    list.innerHTML = '<div class="card"><p style="color:var(--text-muted)">Füge Zutaten zum Kühlschrank hinzu, um Vorschläge basierend auf dem, was du hast, zu erhalten.</p></div>';
+    return;
+  }
+  list.innerHTML = suggestions.map(s => {
+    const cls = s.match_percentage >= 100 ? 'match-100' : s.match_percentage >= 75 ? 'match-75' : s.match_percentage >= 50 ? 'match-50' : s.match_percentage >= 25 ? 'match-25' : 'match-0';
+    return `
+      <div class="suggestion-card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <span style="font-weight:600">${esc(s.name)}</span>
+            <span style="color:var(--text-muted);font-size:13px;margin-left:8px">${s.category_icon} ${esc(s.category_name)}</span>
+          </div>
+          <span style="font-weight:600;font-size:18px;color:${s.match_percentage >= 75 ? 'var(--green)' : s.match_percentage >= 50 ? 'var(--yellow)' : 'var(--orange)'}">${s.match_percentage}%</span>
+        </div>
+        <div class="match-bar"><div class="match-bar-fill ${cls}" style="width:${s.match_percentage}%"></div></div>
+        <div style="font-size:13px;color:var(--text-muted)">${s.have_count}/${s.total_count} Zutaten vorhanden</div>
+        ${s.missing_ingredients.length ? `<div class="missing-list">Fehlt: ${s.missing_ingredients.map(i => esc(i.name)).join(', ')}</div>` : '<div style="color:var(--green);font-size:13px;margin-top:4px">Alles vorhanden!</div>'}
+      </div>
+    `;
+  }).join('');
+}
+
+// Shopping list
+let populateQueue = []; // meals missing ingredients to prompt user
+let shopViewMode = 'meal'; // 'meal' or 'combined'
+let shoppingData = null; // {by_meal, combined}
+
+async function loadShopping() {
+  shoppingData = await api('/shopping-list?week_offset=' + currentWeekOffset);
+  shoppingList = shoppingData ? shoppingData.combined : [];
+  renderShoppingList();
+}
+
+function setShopView(mode) {
+  shopViewMode = mode;
+  document.getElementById('shop-view-meal').style.borderColor = mode === 'meal' ? 'var(--accent)' : 'var(--border)';
+  document.getElementById('shop-view-meal').style.color = mode === 'meal' ? 'var(--accent)' : 'var(--text)';
+  document.getElementById('shop-view-combined').style.borderColor = mode === 'combined' ? 'var(--accent)' : 'var(--border)';
+  document.getElementById('shop-view-combined').style.color = mode === 'combined' ? 'var(--accent)' : 'var(--text)';
+  renderShoppingList();
+}
+
+function renderShoppingList() {
+  const list = document.getElementById('shopping-list');
+  if (!shoppingData || (shoppingData.by_meal.length === 0 && shoppingData.combined.length === 0)) {
+    list.innerHTML = '<div class="card"><p style="color:var(--text-muted);font-size:14px">Plane Gerichte im Wochenplan und klicke "Einkaufsliste generieren".</p></div>';
+    return;
+  }
+
+  if (shopViewMode === 'meal') {
+    list.innerHTML = shoppingData.by_meal.map(meal => `
+      <div class="card" style="margin-bottom:12px">
+        <h3 style="font-size:15px;font-weight:600;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border);color:var(--accent)">${esc(meal.heading)}</h3>
+        ${meal.no_ingredients
+          ? '<p style="color:var(--yellow);font-size:13px">Keine Zutaten hinterlegt</p>'
+          : meal.ingredients.map(item => `
+            <div class="shopping-item">
+              <input type="checkbox" class="shopping-check" onchange="this.parentElement.classList.toggle('checked')" ${item.in_fridge ? 'checked' : ''}>
+              <span style="flex:1;font-weight:500">${esc(item.name)}</span>
+              <span style="color:var(--text-muted);min-width:80px;text-align:right">${item.amount ? item.amount + ' ' : ''}${esc(item.unit)}</span>
+              ${item.in_fridge ? '<span class="in-fridge-badge">Im Kühlschrank</span>' : ''}
+            </div>
+          `).join('')}
+      </div>
+    `).join('');
+  } else {
+    list.innerHTML = `<div class="card">
+      <h3 style="font-size:15px;font-weight:600;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--border)">Gesamte Einkaufsliste</h3>
+      ${shoppingData.combined.map(item => `
+        <div class="shopping-item">
+          <input type="checkbox" class="shopping-check" onchange="this.parentElement.classList.toggle('checked')" ${item.in_fridge ? 'checked' : ''}>
+          <span style="flex:1;font-weight:500">${esc(item.name)}</span>
+          <span style="color:var(--text-muted);min-width:80px;text-align:right">${item.amount ? item.amount + ' ' : ''}${esc(item.unit)}</span>
+          ${item.in_fridge ? '<span class="in-fridge-badge">Im Kühlschrank</span>' : ''}
+        </div>
+      `).join('')}
+    </div>`;
+  }
+}
+
+async function generateShoppingList() {
+  // Load plan, check which meals have no ingredients
+  plan = await api('/plan?week_offset=' + currentWeekOffset);
+  if (plan.length === 0) {
+    alert('Kein Wochenplan vorhanden. Erstelle zuerst einen Plan.');
+    return;
+  }
+
+  // Refresh meals to get latest ingredient data
+  meals = await api('/meals');
+
+  // Find unique meals in plan that have no ingredients
+  const planMealIds = [...new Set(plan.map(p => p.meal_id))];
+  const missing = [];
+  for (const mealId of planMealIds) {
+    const m = meals.find(x => x.id === mealId);
+    if (m && m.ingredients.length === 0) {
+      missing.push(m);
+    }
+  }
+
+  if (missing.length === 0) {
+    // All good, navigate to shopping view and load
+    await navigateToShopping();
+    return;
+  }
+
+  // Start populate flow
+  populateQueue = [...missing];
+  showNextPopulate();
+}
+
+async function navigateToShopping() {
+  shoppingData = await api('/shopping-list?week_offset=' + currentWeekOffset);
+  shoppingList = shoppingData ? shoppingData.combined : [];
+  // Switch to shopping view
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelector('.nav-item[data-view="shopping"]').classList.add('active');
+  document.getElementById('view-shopping').classList.add('active');
+  renderShoppingList();
+}
+
+function showNextPopulate() {
+  if (populateQueue.length === 0) {
+    // Done, refresh everything
+    closePopulateModal();
+    finishPopulate();
+    return;
+  }
+
+  const meal = populateQueue[0];
+  document.getElementById('populate-meal-id').value = meal.id;
+  document.getElementById('populate-modal-title').textContent = `Zutaten für: ${meal.name}`;
+  document.getElementById('populate-modal-desc').textContent =
+    `Dieses Gericht hat noch keine Zutaten. Bitte ergänze die Zutaten, damit die Einkaufsliste vollständig ist. (Noch ${populateQueue.length} Gerichte übrig)`;
+  document.getElementById('populate-ingredients-list').innerHTML = '';
+  popAddIngRow();
+  popAddIngRow();
+  popAddIngRow();
+  document.getElementById('populate-modal').classList.add('open');
+}
+
+function closePopulateModal() {
+  document.getElementById('populate-modal').classList.remove('open');
+}
+
+function popAddIngRow(name = '', amount = '', unit = '') {
+  const list = document.getElementById('populate-ingredients-list');
+  const row = document.createElement('div');
+  row.className = 'ing-row';
+  row.innerHTML = `
+    <div class="autocomplete-wrapper ing-name">
+      <input class="input" placeholder="Zutat" value="${esc(name)}" oninput="ingAutocomplete(this)">
+      <div class="autocomplete-list"></div>
+    </div>
+    <input class="input ing-amount" placeholder="Menge" value="${esc(amount)}">
+    <input class="input ing-unit" placeholder="Einheit" value="${esc(unit)}">
+    <button class="ing-remove" onclick="this.parentElement.remove()">&times;</button>
+  `;
+  list.appendChild(row);
+}
+
+async function popSaveIngredients() {
+  const mealId = parseInt(document.getElementById('populate-meal-id').value);
+  const meal = meals.find(m => m.id === mealId);
+  if (!meal) return;
+
+  const ingredients = [];
+  document.querySelectorAll('#populate-ingredients-list .ing-row').forEach(row => {
+    const name = row.querySelector('.ing-name input').value.trim();
+    if (name) {
+      ingredients.push({
+        name,
+        amount: row.querySelector('.ing-amount').value.trim(),
+        unit: row.querySelector('.ing-unit').value.trim(),
+      });
+    }
+  });
+
+  if (ingredients.length > 0) {
+    // Update the meal with new ingredients (keep existing data)
+    await api('/meals/' + mealId, {
+      method: 'PUT',
+      body: {
+        name: meal.name,
+        category_id: meal.category_id,
+        default_servings: meal.default_servings,
+        tags: meal.tags,
+        instructions: meal.instructions,
+        ingredients: ingredients,
+      },
+    });
+    // Refresh meals
+    meals = await api('/meals');
+  }
+
+  // Move to next
+  populateQueue.shift();
+  showNextPopulate();
+}
+
+function popSkipMeal() {
+  populateQueue.shift();
+  showNextPopulate();
+}
+
+function popSkipAll() {
+  populateQueue = [];
+  showNextPopulate();
+}
+
+let populateCallback = null; // what to do after populate flow finishes
+
+async function finishPopulate() {
+  meals = await api('/meals');
+  tags = await api('/tags');
+  if (populateCallback) {
+    const cb = populateCallback;
+    populateCallback = null;
+    cb();
+  } else {
+    await navigateToShopping();
+  }
+}
+
+function fillMissingIngredients() {
+  const missing = meals.filter(m => m.ingredients.length === 0);
+  if (missing.length === 0) {
+    alert('Alle Gerichte haben Zutaten!');
+    return;
+  }
+  populateQueue = [...missing];
+  populateCallback = () => { renderMeals(); };
+  showNextPopulate();
+}
+
+function printShopping() {
+  window.print();
+}
+
+// Utility
+function esc(s) {
+  if (s == null) return '';
+  const d = document.createElement('div');
+  d.textContent = String(s);
+  return d.innerHTML;
+}
+
+// Keyboard shortcut for fridge add
+document.getElementById('fridge-name').addEventListener('keydown', e => { if (e.key === 'Enter') addToFridge(); });
+document.getElementById('fridge-amount').addEventListener('keydown', e => { if (e.key === 'Enter') addToFridge(); });
+document.getElementById('fridge-unit').addEventListener('keydown', e => { if (e.key === 'Enter') addToFridge(); });
+
+// =====================
+// GENERATOR
+// =====================
+let genConfig = []; // [{day, dayName, lunch: bool, lunchServings, dinner: bool, dinnerServings}]
+let generatedPlan = []; // results from API
+
+function initGenerator() {
+  // Build config with defaults: all dinners enabled, all lunches enabled except Monday(0) and Thursday(3)
+  const NO_LUNCH_DAYS = [0, 3]; // Monday, Thursday
+  genConfig = DAYS.map((name, i) => ({
+    day: i,
+    dayName: name,
+    lunch: !NO_LUNCH_DAYS.includes(i),
+    lunchServings: 4,
+    dinner: true,
+    dinnerServings: 4,
+  }));
+  renderGenConfig();
+  // Reset to step 1
+  document.getElementById('gen-step-config').style.display = '';
+  document.getElementById('gen-step-review').style.display = 'none';
+}
+
+function renderGenConfig() {
+  const tbody = document.getElementById('gen-config-body');
+  tbody.innerHTML = genConfig.map(c => `
+    <tr style="border-bottom:1px solid var(--border)">
+      <td style="padding:8px;font-weight:500">${c.dayName}</td>
+      <td style="text-align:center;padding:8px">
+        <input type="checkbox" class="gen-check" ${c.lunch ? 'checked' : ''} onchange="genConfig[${c.day}].lunch=this.checked">
+      </td>
+      <td style="text-align:center;padding:8px">
+        <input type="number" class="input gen-servings" value="${c.lunchServings}" min="1" ${c.lunch ? '' : 'disabled'}
+          onchange="genConfig[${c.day}].lunchServings=parseInt(this.value)||4"
+          data-gen-lunch-servings="${c.day}">
+      </td>
+      <td style="text-align:center;padding:8px">
+        <input type="checkbox" class="gen-check" ${c.dinner ? 'checked' : ''} onchange="genConfig[${c.day}].dinner=this.checked">
+      </td>
+      <td style="text-align:center;padding:8px">
+        <input type="number" class="input gen-servings" value="${c.dinnerServings}" min="1" ${c.dinner ? '' : 'disabled'}
+          onchange="genConfig[${c.day}].dinnerServings=parseInt(this.value)||4"
+          data-gen-dinner-servings="${c.day}">
+      </td>
+    </tr>
+  `).join('');
+
+  // Wire up checkbox to enable/disable servings input
+  tbody.querySelectorAll('.gen-check').forEach(cb => {
+    cb.addEventListener('change', () => {
+      const row = cb.closest('tr');
+      const inputs = row.querySelectorAll('.gen-servings');
+      const checks = row.querySelectorAll('.gen-check');
+      checks.forEach((ch, idx) => { inputs[idx].disabled = !ch.checked; });
+    });
+  });
+}
+
+function genSetAllServings() {
+  const val = prompt('Portionen für alle Mahlzeiten:', '4');
+  if (!val) return;
+  const n = parseInt(val) || 4;
+  genConfig.forEach(c => { c.lunchServings = n; c.dinnerServings = n; });
+  renderGenConfig();
+}
+
+async function generatePlan() {
+  // Build slots from config
+  const slots = [];
+  genConfig.forEach(c => {
+    if (c.lunch) slots.push({ day_of_week: c.day, meal_type: 'lunch', servings: c.lunchServings });
+    if (c.dinner) slots.push({ day_of_week: c.day, meal_type: 'dinner', servings: c.dinnerServings });
+  });
+
+  if (slots.length === 0) return alert('Keine Mahlzeiten ausgewählt!');
+
+  generatedPlan = await api('/plan/generate', {
+    method: 'POST',
+    body: { slots, week_offset: currentWeekOffset },
+  });
+
+  // Switch to review step
+  document.getElementById('gen-step-config').style.display = 'none';
+  document.getElementById('gen-step-review').style.display = '';
+  renderGenReview();
+}
+
+function renderGenReview() {
+  const grid = document.getElementById('gen-review-grid');
+  grid.innerHTML = DAYS.map((day, i) => {
+    const dayMeals = generatedPlan.filter(p => p.day_of_week === i);
+    if (dayMeals.length === 0) {
+      return `
+        <div class="day-col" style="opacity:0.5">
+          <div class="day-header">${day}</div>
+          <p style="font-size:12px;color:var(--text-muted);text-align:center;padding:20px 0">Keine Mahlzeit</p>
+        </div>
+      `;
+    }
+    return `
+      <div class="day-col">
+        <div class="day-header">${day}</div>
+        ${dayMeals.map(p => `
+          <div class="gen-review-meal">
+            <div class="gen-review-meal-info">
+              <div class="gen-review-meal-meta">${p.meal_type === 'lunch' ? 'Mittag' : 'Abend'} &bull; ${p.servings}P</div>
+              <div class="gen-review-meal-name">${esc(p.meal_name)}</div>
+            </div>
+            <div class="gen-review-actions">
+              <button class="btn btn-sm" onclick="openSwapModal(${p.id})" title="Austauschen">&#x21c4;</button>
+              <button class="btn btn-sm btn-danger" onclick="genRemoveEntry(${p.id})" title="Entfernen">&times;</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }).join('');
+}
+
+async function genRemoveEntry(planId) {
+  await api('/plan/' + planId, { method: 'DELETE' });
+  generatedPlan = generatedPlan.filter(p => p.id !== planId);
+  renderGenReview();
+}
+
+function genBackToConfig() {
+  document.getElementById('gen-step-config').style.display = '';
+  document.getElementById('gen-step-review').style.display = 'none';
+}
+
+async function genRegenerate() {
+  await generatePlan();
+}
+
+function genAcceptPlan() {
+  // Plan is already saved to the DB by generate endpoint, just navigate to planner
+  document.querySelector('.nav-item[data-view="planner"]').click();
+}
+
+// Swap modal
+function openSwapModal(planId) {
+  document.getElementById('swap-plan-id').value = planId;
+  document.getElementById('swap-search').value = '';
+  renderSwapList();
+  document.getElementById('swap-modal').classList.add('open');
+}
+
+function closeSwapModal() {
+  document.getElementById('swap-modal').classList.remove('open');
+}
+
+function renderSwapList() {
+  const search = document.getElementById('swap-search').value.toLowerCase();
+  const filtered = meals.filter(m => !search || m.name.toLowerCase().includes(search));
+  const list = document.getElementById('swap-meal-list');
+  list.innerHTML = filtered.map(m => `
+    <div class="swap-meal-option" onclick="doSwap(${m.id})">
+      <span>${esc(m.name)}</span>
+      <span style="font-size:12px;color:var(--text-muted)">${m.category_icon} ${esc(m.category_name)}</span>
+    </div>
+  `).join('');
+}
+
+async function doSwap(newMealId) {
+  const planId = parseInt(document.getElementById('swap-plan-id').value);
+  const updated = await api('/plan/' + planId + '/swap', {
+    method: 'POST',
+    body: { meal_id: newMealId },
+  });
+  // Update in local generated plan
+  const idx = generatedPlan.findIndex(p => p.id === planId);
+  if (idx >= 0) generatedPlan[idx] = updated;
+  closeSwapModal();
+  renderGenReview();
+}
+
+// Quick add meal from generator
+function openQuickAddMeal() {
+  const sel = document.getElementById('qm-category');
+  sel.innerHTML = categories.map(c => `<option value="${c.id}">${c.icon} ${c.name}</option>`).join('');
+  document.getElementById('qm-name').value = '';
+  document.getElementById('qm-servings').value = 4;
+  document.getElementById('qm-tags').value = '';
+  document.getElementById('qm-instructions').value = '';
+  document.getElementById('qm-ingredients-list').innerHTML = '';
+  qmAddIngRow();
+  document.getElementById('quick-meal-modal').classList.add('open');
+}
+
+function closeQuickMealModal() {
+  document.getElementById('quick-meal-modal').classList.remove('open');
+}
+
+function qmAddIngRow(name = '', amount = '', unit = '') {
+  const list = document.getElementById('qm-ingredients-list');
+  const row = document.createElement('div');
+  row.className = 'ing-row';
+  row.innerHTML = `
+    <div class="autocomplete-wrapper ing-name">
+      <input class="input" placeholder="Zutat" value="${esc(name)}" oninput="ingAutocomplete(this)">
+      <div class="autocomplete-list"></div>
+    </div>
+    <input class="input ing-amount" placeholder="Menge" value="${esc(amount)}">
+    <input class="input ing-unit" placeholder="Einheit" value="${esc(unit)}">
+    <button class="ing-remove" onclick="this.parentElement.remove()">&times;</button>
+  `;
+  list.appendChild(row);
+}
+
+async function saveQuickMeal() {
+  const data = {
+    name: document.getElementById('qm-name').value.trim(),
+    category_id: parseInt(document.getElementById('qm-category').value) || null,
+    default_servings: parseInt(document.getElementById('qm-servings').value) || 4,
+    tags: document.getElementById('qm-tags').value.split(',').map(t => t.trim()).filter(Boolean),
+    instructions: document.getElementById('qm-instructions').value.trim(),
+    ingredients: [],
+  };
+
+  document.querySelectorAll('#qm-ingredients-list .ing-row').forEach(row => {
+    const name = row.querySelector('.ing-name input').value.trim();
+    if (name) {
+      data.ingredients.push({
+        name,
+        amount: row.querySelector('.ing-amount').value.trim(),
+        unit: row.querySelector('.ing-unit').value.trim(),
+      });
+    }
+  });
+
+  if (!data.name) return alert('Bitte Name eingeben');
+
+  const newMeal = await api('/meals', { method: 'POST', body: data });
+  // Refresh meals list
+  meals = await api('/meals');
+  tags = await api('/tags');
+
+  closeQuickMealModal();
+
+  // If swap modal is open, auto-swap to this new meal
+  const planId = document.getElementById('swap-plan-id').value;
+  if (planId) {
+    await doSwap(newMeal.id);
+  }
+}
+
+// =====================
+// BRING! INTEGRATION
+// =====================
+async function loadBringSettings() {
+  const data = await api('/settings/bring');
+  document.getElementById('bring-email').value = data.email || '';
+  document.getElementById('bring-password').value = '';
+  document.getElementById('bring-password').placeholder = data.has_password ? '(gespeichert)' : 'Bring! Passwort';
+  if (data.list_uuid) {
+    const sel = document.getElementById('bring-list-select');
+    sel.innerHTML = `<option value="${esc(data.list_uuid)}" selected>${esc(data.list_name || data.list_uuid)}</option>`;
+  }
+}
+
+async function bringFetchLists() {
+  const email = document.getElementById('bring-email').value.trim();
+  const password = document.getElementById('bring-password').value;
+  const status = document.getElementById('bring-status');
+
+  status.textContent = 'Verbinde...';
+  status.style.color = 'var(--text-muted)';
+
+  try {
+    const body = {};
+    if (email) body.email = email;
+    if (password) body.password = password;
+    const data = await api('/bring/lists', { method: 'POST', body });
+    const sel = document.getElementById('bring-list-select');
+    sel.innerHTML = data.lists.map(l =>
+      `<option value="${esc(l.uuid)}">${esc(l.name)}</option>`
+    ).join('');
+    status.textContent = `${data.lists.length} Listen gefunden`;
+    status.style.color = 'var(--green)';
+  } catch (e) {
+    status.textContent = 'Fehler: Zugangsdaten prüfen';
+    status.style.color = 'var(--red)';
+  }
+}
+
+async function saveBringSettings() {
+  const email = document.getElementById('bring-email').value.trim();
+  const password = document.getElementById('bring-password').value;
+  const sel = document.getElementById('bring-list-select');
+  const listUuid = sel.value;
+  const listName = sel.options[sel.selectedIndex]?.textContent || '';
+
+  await api('/settings/bring', {
+    method: 'POST',
+    body: { email, password, list_uuid: listUuid, list_name: listName },
+  });
+
+  const status = document.getElementById('bring-status');
+  status.textContent = 'Gespeichert!';
+  status.style.color = 'var(--green)';
+  setTimeout(() => { status.textContent = ''; }, 2000);
+}
+
+async function testBringConnection() {
+  const status = document.getElementById('bring-status');
+  status.textContent = 'Teste...';
+  status.style.color = 'var(--text-muted)';
+  try {
+    const data = await api('/bring/lists', { method: 'POST', body: {} });
+    status.textContent = `Verbunden! ${data.lists.length} Listen verfügbar.`;
+    status.style.color = 'var(--green)';
+  } catch (e) {
+    status.textContent = 'Verbindung fehlgeschlagen. Zugangsdaten prüfen.';
+    status.style.color = 'var(--red)';
+  }
+}
+
+async function sendToBring() {
+  if (!shoppingData || !shoppingData.combined || shoppingData.combined.length === 0) {
+    alert('Keine Einkaufsliste vorhanden. Bitte zuerst generieren.');
+    return;
+  }
+
+  // Build items - combine amount + unit as spec
+  const items = shoppingData.combined
+    .filter(item => !item.in_fridge)  // Skip items already in fridge
+    .map(item => ({
+      name: item.name,
+      spec: item.amount ? `${item.amount} ${item.unit}`.trim() : item.unit || '',
+    }));
+
+  if (items.length === 0) {
+    alert('Alle Zutaten sind bereits im Kühlschrank!');
+    return;
+  }
+
+  const btn = document.getElementById('bring-send-btn');
+  const origText = btn.textContent;
+  btn.textContent = 'Sende...';
+  btn.disabled = true;
+
+  try {
+    const result = await api('/bring/send', { method: 'POST', body: { items } });
+    if (result.error) {
+      alert('Fehler: ' + result.error);
+    } else {
+      btn.textContent = `${result.count} Artikel gesendet!`;
+      btn.style.background = 'var(--green)';
+      btn.style.color = 'white';
+      setTimeout(() => {
+        btn.textContent = origText;
+        btn.style.background = 'var(--green-bg)';
+        btn.style.color = 'var(--green)';
+        btn.disabled = false;
+      }, 3000);
+      return;
+    }
+  } catch (e) {
+    alert('Fehler beim Senden. Bring! Einstellungen prüfen.');
+  }
+  btn.textContent = origText;
+  btn.disabled = false;
+}
+
+// Init
+init();
+</script>
+</body>
+</html>

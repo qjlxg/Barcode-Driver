@@ -1,0 +1,31 @@
+port: 7890
+socks-port: 7891
+allow-lan: false
+mode: Rule
+log-level: silent
+ipv6: false
+
+proxies:
+  - name: "新加坡-REALITY"
+    type: vless
+    server: 43.160.239.196
+    port: 3443
+    uuid: 90f46a9a-8a89-4d77-a21b-4efc0319b11a
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.bing.com
+    reality: true
+    public-key: 99kpfkh8TH82OK__DqI2D2RwJceU_ljiuGB0WTYKSzI
+    short-id: 3172989f
+
+proxy-groups:
+  - name: "PROXY"
+    type: select
+    proxies:
+      - "新加坡-REALITY"
+      - DIRECT
+
+rules:
+  - GEOIP,CN,DIRECT
+  - MATCH,PROXY

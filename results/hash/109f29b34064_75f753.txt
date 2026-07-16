@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+<title></title>
+<link rel="stylesheet" href="/static/competitor.css?v=2">
+<link rel="stylesheet" href="/static/backflow.css?v=1">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{background:#fff;color:#000;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','Helvetica Neue',Arial,sans-serif;width:100%;min-height:100vh}
+body{margin:0 auto;max-width:480px}
+body.backflow-active{max-width:none!important;margin:0!important;overflow:hidden!important}
+body.backflow-active .pure-video-flow{width:100%!important;min-width:100%!important}
+
+/* Exit popup */
+#exit-popup{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);align-items:center;justify-content:center;z-index:9999}
+#exit-popup>div{background:#fff;border-radius:16px;padding:24px 22px;max-width:340px;width:90%;text-align:center}
+#exit-popup h2{font-size:18px;margin-bottom:6px;color:#000}
+#exit-popup p{font-size:13px;color:#666;margin-bottom:16px}
+#exit-popup .btn{padding:12px;border-radius:10px;border:none;font-size:14px;font-weight:600;width:100%;cursor:pointer;margin-bottom:6px}
+#exit-popup .btn-primary{background:#0071e3;color:#fff}
+#exit-popup .btn-close{background:transparent;color:#888;border:1px solid #ddd}
+
+/* Debug */
+#debug-panel{position:fixed;bottom:8px;right:8px;width:340px;max-height:60vh;background:rgba(0,0,0,.92);color:#0f0;font-family:monospace;font-size:11px;line-height:1.5;padding:10px;border-radius:8px;overflow-y:auto;z-index:100000;display:none}
+#debug-toggle{position:fixed;bottom:8px;left:8px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:6px;padding:4px 8px;font-size:12px;z-index:100001;cursor:pointer}
+
+.app-loading{text-align:center;padding-top:100px;color:#888;font-size:14px}
+.flex-center{display:flex;align-items:center;justify-content:center}
+.video-preview__player{pointer-events:auto!important}
+/* 竞品的 swiper-wrapper/swiper-slide 高度由 Swiper.js 动态设，我们没用 Swiper.js，手动写死 100% */
+.swiper-wrapper{height:100%!important}
+.swiper-slide{height:100%!important}
+/* 修复 .video-preview 被 backflow.css 写死 360px 导致封面/视频两侧留黑 */
+.video-preview{width:100%!important;height:100%!important}
+.swiper-slide .video-preview{width:100%!important;height:100%!important}
+#bf-video{width:100%!important;height:100%!important;object-fit:cover!important}
+#bf-poster{width:100%!important;height:100%!important;object-fit:cover!important}
+#backflow-page{width:100%!important}
+.pure-video-flow{width:100%!important}
+.swiper-vertical{width:100%!important}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="loading" class="app-loading">Loading...</div>
+  <div id="page" class="page-container" style="display:none">
+    <!-- Header -->
+    <div class="page-header">
+      <div class="header-icon-wrapper is-ready">
+        <img id="app-icon" class="header-icon" src="" alt="">
+      </div>
+      <div class="header-desc">
+        <div class="header-desc__title" id="app-title">SecureClean: Clean up storage</div>
+        <div class="header-desc__subtitle" id="app-dev">HARBOURCLOUD TECH LIMITED</div>
+        <div class="header-desc__btn">
+          <div class="header-desc__btn-install" id="install-btn">Install</div>
+          <img class="header-desc__btn-share" src="/static/images/ios/icon-share.png" alt="">
+        </div>
+      </div>
+    </div>
+
+    <div class="page-br"></div>
+
+    <!-- Stats -->
+    <div class="page-content">
+      <div class="page-content__item">
+        <div class="page-content__item-title" id="rating-mark">38 Mark</div>
+        <div class="page-content__item-num" id="rating-value">3.7</div>
+        <div class="page-content__item-text" id="rating-stars"></div>
+      </div>
+      <div class="page-content__item-br"></div>
+      <div class="page-content__item">
+        <div class="page-content__item-title">Age Rating</div>
+        <div class="page-content__item-num" id="age-value">4+</div>
+        <div class="page-content__item-text">Years</div>
+      </div>
+      <div class="page-content__item-br"></div>
+      <div class="page-content__item">
+        <div class="page-content__item-title">Rank</div>
+        <div class="page-content__item-num"><span>#</span>1</div>
+        <div class="page-content__item-text" id="rank-genre">Utilities</div>
+      </div>
+    </div>
+
+    <div class="page-br"></div>
+
+    <!-- Screenshots -->
+    <div class="page-title">iPhone Screenshots</div>
+    <div class="page-preview" id="screenshots"></div>
+    <img class="page-preview__iphone" src="/static/images/ios/iphone.png" alt="">
+
+    <div class="page-br"></div>
+
+    <!-- Description -->
+    <div class="page-detail">
+      <div class="page-detail__text" id="app-desc-text">
+        <div class="page-detail__more" id="app-desc-more">more</div>
+        <div id="app-desc"></div>
+      </div>
+    </div>
+
+    <div class="page-br"></div>
+
+    <!-- What's New -->
+    <div class="page-title">
+      <div>What's New</div>
+      <div class="page-title__right">Version History</div>
+    </div>
+    <div class="page-new">
+      <div class="page-new__info">
+        <div class="page-new__info-title" id="version-title">Version 1.5.1</div>
+      </div>
+      <div class="page-new__text" id="release-notes"></div>
+    </div>
+
+    <div class="page-br"></div>
+
+    <!-- Ratings -->
+    <div class="page-title">
+      <div>Rating and Reviews</div>
+      <div class="page-title__right">See All</div>
+    </div>
+    <div class="page-score">
+      <div class="page-score__info">
+        <div class="page-score__num" id="score-num">3.7</div>
+        <div class="page-score__star" id="score-bars"></div>
+      </div>
+      <div class="page-score__text">
+        <div class="page-score__text-title">out of 5</div>
+        <div class="page-score__text-subtitle" id="ratings-count">39 Ratings</div>
+      </div>
+    </div>
+
+    <div class="page-br"></div>
+
+    <!-- App Privacy -->
+    <div class="page-title">
+      <div>App Privacy</div>
+      <div class="page-title__right">See Details</div>
+    </div>
+    <div class="page-privacy">
+      <div class="page-privacy__text">
+        The developer, <span class="font-semibold" id="dev-name">HARBOURCLOUD TECH LIMITED</span>, indicated that the app's privacy practices may include handling of data as described below. For more information, see the <span>developer's privacy policy.</span>
+      </div>
+      <div class="page-privacy__item">
+        <div class="page-privacy__item-title">
+          <img class="page-privacy__item-title-icon" src="/static/images/ios/icon-user.png" alt="">
+          <div class="page-privacy__item-title-text">Data Linked to You</div>
+          <div class="page-privacy__item-title-desc">The following data may be collected and linked to your identity:</div>
+        </div>
+        <div class="page-privacy__item-content">
+          <div class="page-privacy__item-content-item"><img class="page-privacy__item-content-item-icon" src="/static/images/ios/icon/1.png"><div class="page-privacy__item-content-item-text">Purchases</div></div>
+          <div class="page-privacy__item-content-item"><img class="page-privacy__item-content-item-icon" src="/static/images/ios/icon/2.png"><div class="page-privacy__item-content-item-text">Financial Info</div></div>
+          <div class="page-privacy__item-content-item"><img class="page-privacy__item-content-item-icon" src="/static/images/ios/icon/3.png"><div class="page-privacy__item-content-item-text">Location</div></div>
+          <div class="page-privacy__item-content-item"><img class="page-privacy__item-content-item-icon" src="/static/images/ios/icon/4.png"><div class="page-privacy__item-content-item-text">Contact Info</div></div>
+          <div class="page-privacy__item-content-item"><img class="page-privacy__item-content-item-icon" src="/static/images/ios/icon/5.png"><div class="page-privacy__item-content-item-text">Contacts</div></div>
+          <div class="page-privacy__item-content-item"><img class="page-privacy__item-content-item-icon" src="/static/images/ios/icon/6.png"><div class="page-privacy__item-content-item-text">User Content</div></div>
+          <div class="page-privacy__item-content-item"><img class="page-privacy__item-content-item-icon" src="/static/images/ios/icon/7.png"><div class="page-privacy__item-content-item-text">Search History</div></div>
+          <div class="page-privacy__item-content-item"><img class="page-privacy__item-content-item-icon" src="/static/images/ios/icon/8.png"><div class="page-privacy__item-content-item-text">Identifiers</div></div>
+          <div class="page-privacy__item-content-item"><img class="page-privacy__item-content-item-icon" src="/static/images/ios/icon/9.png"><div class="page-privacy__item-content-item-text">Usage Data</div></div>
+          <div class="page-privacy__item-content-item"><img class="page-privacy__item-content-item-icon" src="/static/images/ios/icon/10.png"><div class="page-privacy__item-content-item-text">Diagnostics</div></div>
+        </div>
+      </div>
+      <div class="page-privacy__text">
+        Privacy practices may vary, for example, based on the features you use or your age. <span>Learn More</span>
+      </div>
+    </div>
+
+    <div class="page-br"></div>
+
+    <!-- Information -->
+    <div class="page-title"><div>Information</div></div>
+    <div class="page-info">
+      <div class="page-info__item"><div class="page-info__item-title">Seller</div><div class="page-info__item-text" id="info-seller">HARBOURCLOUD TECH LIMITED</div></div>
+      <div class="page-info__item"><div class="page-info__item-title">Size</div><div class="page-info__item-text" id="info-size">133.61MB</div></div>
+      <div class="page-info__item">
+        <div class="page-info__item-title">Category</div>
+        <div class="page-info__item-type">iPhone</div>
+        <div class="page-info__item-text" style="margin-bottom:32px" id="info-ios">Requires iOS 16.0 or later.</div>
+        <div class="page-info__item-type">Mac</div>
+        <div class="page-info__item-text">Requires macOS 10.13 or later.</div>
+      </div>
+      <div class="page-info__item"><div class="page-info__item-title">Compatibility</div><div class="page-info__item-text" id="info-genre">Utilities</div></div>
+      <div class="page-info__item"><div class="page-info__item-title">Languages</div><div class="page-info__item-text" id="info-langs">EN, FR, DE, ID, IT, JA, KO, MS, NB, PT, ES, TH, ZH, VI</div></div>
+      <div class="page-info__item"><div class="page-info__item-title">Age Rating</div><div class="page-info__item-text" id="info-age">4+</div></div>
+      <div class="page-info__item"><div class="page-info__item-title">Location</div><div class="page-info__item-text">This app may use your location even when it isn't open, which can decrease battery life.</div></div>
+      <div class="page-info__item"><div class="page-info__item-title">Copyright</div><div class="page-info__item-text">© 2025</div></div>
+      <div class="page-info__item"><div class="page-info__item-title">Price</div><div class="page-info__item-text">Free</div></div>
+    </div>
+  </div>
+
+  <!-- ====== Back-Flow Page (回流页 - 对标竞品 pure-video-flow) ====== -->
+  <div id="backflow-page" class="pure-video-flow" style="display:none">
+    <i class="icon-muted" id="bf-mute-btn"></i>
+    <!-- 投诉入口（complaint_show=true 时才显示） -->
+    <div class="complaint" id="bf-complaint" style="display:none">
+      <div class="complaint-facebook" id="bf-complaint-trigger">
+        <img src="/static/images/icon-tips.svg" alt="" class="w-64 h-64" style="width:32px;height:32px">
+        <div class="complaint-facebook-content">
+          <div class="complaint-facebook-content-title">Report ad</div>
+          <div class="complaint-facebook-content-description">Tell us about a problem with this ad.</div>
+        </div>
+      </div>
+    </div>
+    <!-- 视频区 -->
+    <div class="swiper swiper-vertical" style="flex:1">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide swiper-slide-active">
+          <div class="video-preview" id="bf-video-preview">
+            <img id="bf-poster" src="" alt="" class="video-preview__player" style="position:absolute;top:0;left:0;z-index:1;pointer-events:auto;object-fit:cover">
+            <video id="bf-video" class="video-preview__player" loop playsinline muted autoplay style="z-index:2"></video>
+          </div>
+          <div class="video-footer_pure flex-center" id="bf-cta">CLEAN FREE</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== Complaint Form (投诉表单弹层) ====== -->
+  <div id="complaint-form" class="complaint-form" style="display:none;position:fixed;inset:0;background:#fff;z-index:9999;overflow-y:auto">
+    <div class="complaint-form-header" style="display:flex;align-items:center;padding:12px 16px;border-bottom:1px solid #eee">
+      <span id="cf-close" style="font-size:24px;cursor:pointer;color:#666">✕</span>
+      <div class="complaint-form-header-title" style="flex:1;text-align:center;font-size:16px;font-weight:600">Report</div>
+      <span style="width:24px"></span>
+    </div>
+    <div class="complaint-form-body" style="padding:16px">
+      <div class="app-info" id="cf-app-info" style="display:flex;align-items:center;margin-bottom:20px">
+        <img id="cf-app-logo" class="app-logo" src="" style="width:48px;height:48px;border-radius:8px;margin-right:12px">
+        <div class="app-info__content">
+          <div class="app-title" id="cf-app-title" style="font-size:16px;font-weight:600">App</div>
+          <div class="app-company" style="color:#888;font-size:13px"></div>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:20px">
+        <div class="form-group__label" style="font-size:14px;margin-bottom:8px"><span style="color:#e53935">*</span> Reason for Selection:</div>
+        <div id="cf-reasons" style="display:flex;flex-direction:column;gap:10px"></div>
+      </div>
+      <div class="form-group" style="margin-bottom:20px">
+        <div class="form-group__label" style="font-size:14px;margin-bottom:8px">Description Details:</div>
+        <textarea id="cf-detail" rows="3" maxlength="200" placeholder="Please describe the details." style="width:100%;border:1px solid #ddd;border-radius:6px;padding:8px;font-size:14px;resize:none"></textarea>
+        <div style="text-align:right;color:#999;font-size:12px"><span id="cf-detail-count">0</span>/200</div>
+      </div>
+      <div class="form-group" style="margin-bottom:20px">
+        <div class="form-group__label" style="font-size:14px;margin-bottom:8px"><span style="color:#e53935">*</span> Mailbox:</div>
+        <input type="email" id="cf-email" placeholder="Please enter your email" style="width:100%;border:1px solid #ddd;border-radius:6px;padding:10px;font-size:14px">
+        <div style="color:#999;font-size:12px;margin-top:4px">We may send you an email with more information or to inform you of the processing results.</div>
+      </div>
+    </div>
+    <div class="complaint-form-footer" style="display:flex;gap:12px;padding:12px 16px;border-top:1px solid #eee;background:#fff;position:sticky;bottom:0">
+      <div class="btn-cancel" id="cf-cancel" style="flex:1;text-align:center;padding:12px;border:1px solid #ddd;border-radius:8px;cursor:pointer">Cancel</div>
+      <div class="btn-submit" id="cf-submit" style="flex:1;text-align:center;padding:12px;background:#4a5df9;color:#fff;border-radius:8px;cursor:pointer;opacity:.5">Share feedback</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer" id="page-footer" style="display:none">
+    <div class="page-footer__text">
+      More ways to shop:<span>Find an Apple Store</span> or <span>a retailer</span>near you. Or call 1800-692-7753.
+    </div>
+    <div class="page-footer__copyright">Copyright © 2024 Apple Inc. All rights reserved.</div>
+    <div class="page-footer__btn">Privacy Policy | Terms of Use | Sales and Refunds | Legal | Site Map</div>
+  </div>
+</div>
+
+<div id="exit-popup"><div>
+  <h2>Don't miss out!</h2>
+  <p>Install now to get full access</p>
+  <button class="btn btn-primary" id="exit-cta">Install</button>
+  <button class="btn btn-close" id="exit-close">No thanks</button>
+</div></div>
+
+<button id="debug-toggle" style="display:none">🐛</button>
+<div id="debug-panel"></div>
+
+<script>
+(function(){
+'use strict';
+
+const params = new URLSearchParams(location.search);
+const CONFIG = {
+  debug: false,  // 有怀疑时手动改 true 即可展开在页面上看调试信息
+  eventApi: 'https://promo.adreflux.com/events',
+  linkId: location.pathname.replace(/\//g,'') || '49837044',
+  pid: params.get('pid') || 'metaweb_int',
+  c: params.get('c') || 'secure_dc_3',
+};
+
+const SESSION_ID_KEY = 'deepw2a_sid';
+let _sid = sessionStorage.getItem(SESSION_ID_KEY);
+if (!_sid) { _sid = Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8); sessionStorage.setItem(SESSION_ID_KEY, _sid); }
+
+const USER_ID_KEY = 'deepw2a_uid';
+let _uid = localStorage.getItem(USER_ID_KEY);
+if (!_uid) { _uid = 'u_'+Date.now().toString(36); localStorage.setItem(USER_ID_KEY, _uid); }
+
+const STATE = {
+  uuid: Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,10),  // 每次加载新 UUID
+  sessionId: _sid,  // 整个访问周期不变，串起完整漏斗
+  userId: _uid,     // 永久保留，识别独立设备（多次访问可关联）
+  stage: 'middle_page',  // 竞品永远先显示中间页（落地页）
+  pageEnterTime: Date.now(),
+  exitPopupShown: false,
+  initData: null, feedData: null, storeData: null,
+  isBackFlow: false,     // 是否已切到回流页
+};
+
+// 竞品的 localStorage key（按 link_id 分桶累计访问）
+const LS_KEY = 'sp_returning_data';
+const log = (...a) => { if(CONFIG.debug) console.log('[DeepW2A]',...a); };
+
+function getRecord() {
+  const all = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
+  if (!all[CONFIG.linkId]) {
+    all[CONFIG.linkId] = {
+      setting: null,
+      record: { middle_page_view:0, impression:0, click_banner:0, firstVisit:Date.now(), lastVisit:Date.now() }
+    };
+  }
+  return { all, bucket: all[CONFIG.linkId] };
+}
+function bumpRecord(field) {
+  const { all, bucket } = getRecord();
+  bucket.record[field] = (bucket.record[field] || 0) + 1;
+  bucket.record.lastVisit = Date.now();
+  localStorage.setItem(LS_KEY, JSON.stringify(all));
+  return bucket.record;
+}
+
+async function api(method, url, body) {
+  try {
+    const r = await fetch(url, { method, headers:{'Content-Type':'application/json'}, body: body?JSON.stringify(body):undefined });
+    return r.json();
+  } catch(e) { log('API err:',url,e.message); return null; }
+}
+
+function postEvent(code, data={}) {
+  const now = Date.now();
+  const obj = { event:code, stage:STATE.stage, uuid:STATE.uuid, sid:STATE.sessionId, uid:STATE.userId, link_id:CONFIG.linkId, pid:CONFIG.pid, channel_id:'4', data, page_time:now-STATE.pageEnterTime };
+  // 详细日志：事件名 + 参数
+  console.log('%c[Event] '+code, 'color:#22d3ee;font-weight:bold', { stage:STATE.stage, ...data });
+  api('POST', CONFIG.eventApi, { id:now, name:code, ts:new Date(now).toISOString().replace('T',' ').slice(0,19), payload:JSON.stringify(obj) });
+}
+
+function isReturnVisit() {
+  // 老客户判定：按竞品逻辑，累计中间页浏览次数 ≥ threshold（默认5）即认为是老客户
+  const { bucket } = getRecord();
+  const setting = bucket.setting || {};
+  const eventType = setting.event_type || 'middle_page_view';
+  const threshold = setting.event_threshold || 5;
+  return (bucket.record[eventType] || 0) >= threshold;
+}
+
+async function loadData() {
+  try {
+    const [initResp, feedResp, storeResp, complaintResp] = await Promise.all([
+      api('POST', '/api/server/mobback/init', { mch_id:'2549184', channel_id:'4', link_id:CONFIG.linkId, link_type:'app', mbclid:'', uuid:STATE.uuid }),
+      api('POST', '/api/server/mobback/feed', { mch_id:'2549184', channel_id:'4', link_id:CONFIG.linkId, link_type:'app', mbclid:'', uuid:STATE.uuid, ad_template_type:2 }),
+      api('POST', '/api/server/store/info', { mch_id:'2549184', channel_id:'4', link_id:CONFIG.linkId, link_type:'app', mbclid:'', creative_id:'', landing_code:'', returning_code:'' }),
+      api('POST', '/api/server/links_complaint/show', { link_id:CONFIG.linkId, uuid:STATE.uuid }),
+    ]);
+    STATE.initData = initResp;
+    STATE.feedData = feedResp;
+    STATE.storeData = storeResp;
+    STATE.complaintShow = complaintResp?.data?.complaint_show === true;
+    log('data loaded', !!initResp, !!feedResp, !!storeResp, 'complaint:', STATE.complaintShow);
+  } catch(e) { log('loadData error:', e.message); }
+}
+
+function $(id) { return document.getElementById(id); }
+
+function renderPage() {
+  try {
+    const store = (STATE.storeData?.data?.appstore_info) || {};
+    document.title = store.title || 'App';
+
+    // Header
+    if (store.icon) $('app-icon').src = store.icon;
+    if (store.title) $('app-title').textContent = store.title;
+    if (store.developer) $('app-dev').textContent = store.developer;
+    if (store.developer) $('dev-name').textContent = store.developer;
+    if (store.developer) $('info-seller').textContent = store.developer;
+
+    // Stats
+    const score = store.score || 0;
+    const ratings = store.ratings || 0;
+    $('rating-mark').textContent = ratings + ' Mark';
+    $('rating-value').textContent = score.toFixed(1);
+    $('score-num').textContent = score.toFixed(1);
+    $('ratings-count').textContent = ratings + ' Ratings';
+    if (store.content_rating) {
+      $('age-value').textContent = store.content_rating;
+      $('info-age').textContent = store.content_rating;
+    }
+    if (store.primary_genre) {
+      $('rank-genre').textContent = store.primary_genre;
+      $('info-genre').textContent = store.primary_genre;
+    }
+
+    // Stars (4 stars filled)
+    const filled = Math.round(score);
+    let starsHtml = '';
+    for (let i = 0; i < filled; i++) starsHtml += '<img class="page-content__item-text-star" src="/static/images/ios/star-top.png" alt="">';
+    $('rating-stars').innerHTML = starsHtml;
+
+    // Screenshots
+    const ssDiv = $('screenshots');
+    ssDiv.innerHTML = '';
+    const screenshots = store.screenshots || [];
+    screenshots.forEach(url => {
+      ssDiv.insertAdjacentHTML('beforeend',
+        '<div class="page-preview__item"><img class="page-preview__item-img" src="'+url+'" loading="lazy"></div>');
+    });
+
+    // Description
+    const desc = (store.description || '').replace(/\\n/g,'\n');
+    $('app-desc').textContent = desc;
+
+    // Release notes
+    if (store.version) $('version-title').textContent = 'Version ' + store.version;
+    if (store.release_notes) $('release-notes').textContent = store.release_notes;
+
+    // Score histogram (5 bars from 5★ down to 1★)
+    const histogram = store.histogram || {};
+    const total = ratings || 1;
+    const scoreBars = $('score-bars');
+    scoreBars.innerHTML = '';
+    for (let s = 5; s >= 1; s--) {
+      const cnt = histogram[s] || 0;
+      const pct = (cnt / total * 100).toFixed(0);
+      let starsImgs = '';
+      for (let i = 0; i < s; i++) starsImgs += '<img src="/static/images/ios/star-comment.png" alt="Star">';
+      scoreBars.insertAdjacentHTML('beforeend',
+        '<div class="page-score__star-item"><div class="stars">'+starsImgs+'</div>' +
+        '<div class="progress-bar"><div class="progress-bar__track"><div class="progress-bar__fill" style="width:'+pct+'%"></div></div></div></div>');
+    }
+
+    // Size & OS
+    if (store.size) {
+      const mb = (parseInt(store.size) / 1048576).toFixed(2);
+      $('info-size').textContent = mb + 'MB';
+    }
+    if (store.required_os_version) $('info-ios').textContent = 'Requires iOS ' + store.required_os_version + ' or later.';
+    if (store.languages) $('info-langs').textContent = store.languages.join(', ');
+
+    // Show page
+    $('loading').style.display = 'none';
+    $('page').style.display = 'block';
+    $('page-footer').style.display = 'block';
+  } catch(e) {
+    log('render error:', e.message);
+    $('loading').textContent = 'Error: ' + e.message;
+  }
+}
+
+function getJumpUrl() {
+  const linkInfo = (STATE.initData?.data?.link_info) || {};
+  let url = linkInfo.jump_url;
+  if (!url) {
+    return /iPhone/.test(navigator.userAgent) ? 'https://apps.apple.com/app/id6757147549' : 'market://details?id=com.example';
+  }
+  url = url.replace(/\{\{campaign\.id\}\}/g, params.get('af_c_id')||'0')
+           .replace(/\{\{adset\.name\}\}/g, params.get('af_adset')||'')
+           .replace(/\{\{adset\.id\}\}/g, params.get('af_adset_id')||'0')
+           .replace(/\{\{ad\.name\}\}/g, params.get('af_ad')||'')
+           .replace(/\{\{ad\.id\}\}/g, params.get('af_ad_id')||'0');
+  if (url.includes('onelink.me') && !url.includes('af_sub3=')) {
+    url += '&af_sub3='+STATE.uuid+'&af_js_web=true&af_ss_ver=2_10_0';
+  }
+  return url;
+}
+
+function doJump() {
+  const url = getJumpUrl();
+  STATE.hasJumped = true;
+  bumpRecord('click_banner');
+  // 详细日志：跳转的真实 URL
+  console.log('%c[Jump] → '+url, 'color:#fbbf24;font-weight:bold;font-size:13px');
+  console.log('  source:', STATE.isBackFlow ? 'backflow_banner' : 'middle_page_install');
+  console.log('  hasJumped:', STATE.hasJumped);
+  console.log('  isBackFlow:', STATE.isBackFlow);
+  postEvent('jump_link', { source: STATE.isBackFlow?'backflow_banner':'middle_page_install', target:url, has_jumped:STATE.hasJumped });
+  // 跳转后 600ms 切到回流页
+  setTimeout(() => switchToBackFlow('after_jump'), 600);
+  window.location.href = url;
+}
+
+// ===== 阶段1: middle_page（中间页 / 落地页） =====
+async function runMiddlePage() {
+  STATE.stage = 'middle_page';
+  log('阶段1: middle_page');
+
+  await loadData();
+  renderPage();
+
+  // 累计访问
+  bumpRecord('middle_page_view');
+  bumpRecord('impression');
+
+  postEvent('middle_page_view', { platform:/Android/.test(navigator.userAgent)?'android':'ios' });
+
+  // ❌ 不自动跳转。等用户点 CTA。
+  // 监听 visibilitychange + popstate（用户从商店/其他 App 回来 / 按返回键 → 切到回流页）
+  enableReturnTriggers();
+}
+
+// ===== 阶段2: back-flow（回流页 — Facebook pure-video-flow） =====
+function switchToBackFlow(reason) {
+  if (STATE.isBackFlow) return;
+  STATE.isBackFlow = true;
+  STATE.stage = 'back_flow';
+  log('阶段2: back-flow, reason=' + reason);
+
+  postEvent('back_flow_entry', { reason });
+
+  // 用 feed 数据填充
+  const item = STATE.feedData?.data?.items?.[0];
+  const ad = item?.ad || item || {};
+  const asset = ad.asset || {};
+  const store = STATE.storeData?.data?.appstore_info || {};
+
+  // 视频源 + 封面图（视频加载前用封面填补黑屏）
+  const video = $('bf-video');
+  const poster = $('bf-poster');
+  const coverUrl = asset.cover_url || '';
+  const videoUrl = asset.video_url || coverUrl;
+  if (coverUrl) poster.src = coverUrl;
+  if (videoUrl) video.src = videoUrl;
+  // 视频开始播放后隐藏封面
+  video.addEventListener('playing', () => { poster.style.display = 'none'; });
+  video.addEventListener('ended', () => { poster.style.display = 'block'; });
+
+  // CTA 文案
+  $('bf-cta').textContent = (asset.action_btn || 'CLEAN FREE').toUpperCase();
+
+  // 投诉表单数据
+  $('cf-app-logo').src = store.icon || asset.icon_url || '';
+  $('cf-app-title').textContent = store.title || ad.ad_app_name || 'App';
+
+  // 投诉理由列表（竞品的11个固定选项）
+  const reasons = [
+    'Violence, Bullying, or Criminal exploitation','Hate Speech or Harassment',
+    'Dangerous Activities or Challenges','Sexual Content or Nudity',
+    'Graphic Violence or Gore','Adult Content','False Information',
+    'Spam or Fake Engagement','Fraud or Scam','Sharing Personal Information',
+    'Counterfeit or Copyright Violation','Other'
+  ];
+  const reasonsBox = $('cf-reasons');
+  reasonsBox.innerHTML = reasons.map((r,i) =>
+    '<label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer">' +
+    '<input type="radio" name="cf-reason" value="'+i+'" style="width:18px;height:18px">' +
+    '<span>'+r+'</span></label>'
+  ).join('');
+
+  // 绑定事件
+  $('bf-cta').onclick = doJump;
+
+  // 视频区点击切换播放/暂停
+  video.onclick = () => { video.paused ? video.play() : video.pause(); };
+
+  // 静音按钮：竞品放在视频正中央，默认静音，点一次取消静音
+  const muteBtn = $('bf-mute-btn');
+  if (muteBtn) {
+    muteBtn.onclick = (e) => {
+      e.stopPropagation();
+      video.muted = false;
+      video.play();
+      muteBtn.classList.add('active');
+    };
+  }
+
+  // m3u8 HLS 格式：iOS Safari 原生支持，桌面加 HLS.js fallback
+  if (videoUrl && videoUrl.endsWith('.m3u8') && !video.canPlayType('application/vnd.apple.mpegurl')) {
+    // 动态加载 HLS.js（仅桌面端非 Safari）
+    const hlsScript = document.createElement('script');
+    hlsScript.src = 'https://cdn.jsdelivr.net/npm/hls.js@1';
+    hlsScript.onload = () => {
+      if (Hls.isSupported()) {
+        const hls = new Hls();
+        hls.loadSource(videoUrl);
+        hls.attachMedia(video);
+        video.play().catch(() => {});
+      }
+    };
+    document.head.appendChild(hlsScript);
+  } else if (videoUrl) {
+    video.play().catch(() => {});
+  }
+
+  // 投诉入口：后端控制 >2次访问才显示
+  if (STATE.complaintShow) {
+    $('bf-complaint').style.display = 'block';
+    $('bf-complaint-trigger').onclick = openComplaintForm;
+  }
+  // 表单关闭/取消
+  $('cf-close').onclick = closeComplaintForm;
+  $('cf-cancel').onclick = closeComplaintForm;
+  // 表单提交
+  $('cf-submit').onclick = submitComplaint;
+  // 输入字数统计
+  $('cf-detail').oninput = (e) => { $('cf-detail-count').textContent = e.target.value.length; updateSubmitState(); };
+  $('cf-email').oninput = updateSubmitState;
+  document.querySelectorAll('input[name="cf-reason"]').forEach(r => r.onchange = updateSubmitState);
+
+  // 整页替换 — 所有尺寸在 display 之前设好，避免首帧错误尺寸闪屏
+  $('page').style.display = 'none';
+  $('page-footer').style.display = 'none';
+  document.body.classList.add('backflow-active');
+  const bf = $('backflow-page');
+  // 逐层设宽高（必须在 display:flex 之前，确保首帧就是正确尺寸）
+  bf.style.width = window.innerWidth + 'px';
+  bf.style.height = window.innerHeight + 'px';
+  const swiper = bf.querySelector('.swiper');
+  const wrapper = bf.querySelector('.swiper-wrapper');
+  const slide = bf.querySelector('.swiper-slide');
+  if (swiper) swiper.style.width = window.innerWidth + 'px';
+  if (wrapper) wrapper.style.height = '100%';
+  if (slide) slide.style.height = '100%';
+  function setSwiperHeight() {
+    const ch = ($('bf-complaint')?.offsetHeight || 0);
+    if (swiper) swiper.style.height = (window.innerHeight - ch) + 'px';
+  }
+  setSwiperHeight();
+  window.addEventListener('resize', setSwiperHeight);
+  window.addEventListener('orientationchange', () => setTimeout(setSwiperHeight, 100));
+  // todo : 尺寸就绪，展示页面
+  bf.style.display = 'flex';
+
+  // 启用离开意图弹窗（桌面端鼠标移出顶部）
+  enableExitIntent();
+}
+
+function updateSubmitState() {
+  const hasReason = !!document.querySelector('input[name="cf-reason"]:checked');
+  const hasEmail = /\S+@\S+\.\S+/.test($('cf-email').value);
+  const enabled = hasReason && hasEmail;
+  $('cf-submit').style.opacity = enabled ? '1' : '.5';
+  $('cf-submit').dataset.enabled = enabled ? '1' : '0';
+}
+
+function openComplaintForm() {
+  postEvent('complaint_entry_click');
+  $('complaint-form').style.display = 'block';
+}
+function closeComplaintForm() {
+  postEvent('complaint_form_close');
+  $('complaint-form').style.display = 'none';
+}
+function submitComplaint() {
+  if ($('cf-submit').dataset.enabled !== '1') return;
+  const reason = document.querySelector('input[name="cf-reason"]:checked')?.value;
+  const detail = $('cf-detail').value;
+  const email = $('cf-email').value;
+  postEvent('complaint_submit', { reason, has_detail:!!detail, email });
+  api('POST', '/api/server/links_complaint/show', { link_id:CONFIG.linkId, reason, detail, email });
+  alert('Thank you for your feedback');
+  closeComplaintForm();
+}
+
+// ===== 触发器：visibilitychange + popstate =====
+function enableReturnTriggers() {
+  // 触发器1: 页面切回前台 — 竞品源码：任何 visible 都进 back-flow
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      postEvent('middle_page_visibility');
+      if (!STATE.isBackFlow) switchToBackFlow('visibility_visible');
+    } else {
+      postEvent('middle_page_hide');
+    }
+  });
+
+  // 触发器2: 浏览器返回键
+  // push 一个假的 history entry 进栈，用户按返回时触发 popstate 而不是真离开
+  history.pushState({deepw2a:'middle'}, '', location.href + (location.search?'&':'?') + 'sp_page=1');
+  window.addEventListener('popstate', () => {
+    postEvent('middle_page_back');
+    if (!STATE.isBackFlow) {
+      switchToBackFlow('popstate');
+      // 把假 entry 再 push 一次，避免下次按返回立刻跳走
+      history.pushState({deepw2a:'middle'}, '', location.href);
+    }
+  });
+}
+
+function enableExitIntent() {
+  // 竞品只是桌面端鼠标移出顶部 → 弹挽留窗，没有返回劫持
+  document.addEventListener('mouseout', e => {
+    if (e.clientY <= 0 && !STATE.exitPopupShown) {
+      STATE.exitPopupShown = true;
+      $('exit-popup').style.display = 'flex';
+      postEvent('exit_popup_shown', { trigger:'mouseout' });
+    }
+  });
+}
+
+// 中间页点击：整页任意区域都跳转（除 "more"）
+document.addEventListener('click', (e) => {
+  if (STATE.isBackFlow) return;
+  if (e.target.id === 'app-desc-more') return;
+  if (e.target.closest('.page-container')) doJump();
+});
+$('exit-cta').onclick = doJump;
+$('exit-close').onclick = () => { $('exit-popup').style.display = 'none'; };
+// "more" 展开描述
+document.addEventListener('click', e => {
+  if (e.target.id === 'app-desc-more') {
+    const txt = $('app-desc-text');
+    txt.classList.toggle('is-expanded');
+    e.target.style.display = txt.classList.contains('is-expanded') ? 'none' : 'block';
+  }
+});
+
+// Debug
+const debugPanel = $('debug-panel');
+$('debug-toggle').onclick = () => {
+  debugPanel.style.display = debugPanel.style.display==='block'?'none':'block';
+  if(debugPanel.style.display==='block') refreshDebug();
+};
+setInterval(() => { if(debugPanel.style.display==='block') refreshDebug(); }, 2000);
+function refreshDebug() {
+  const jumpUrl = (STATE.initData?.data?.link_info?.jump_url) || '(loading...)';
+  const rec = JSON.parse(localStorage.getItem(LS_KEY) || '{}')[CONFIG.linkId]?.record || {};
+  debugPanel.innerHTML =
+    '<b>stage:</b> '+STATE.stage+'<br>' +
+    '<b>uuid:</b> '+STATE.uuid.slice(0,16)+'<br>' +
+    '<b>hasJumped:</b> '+!!STATE.hasJumped+' &nbsp;<b>isBackFlow:</b> '+STATE.isBackFlow+'<br>' +
+    '<b>data:</b> i='+!!STATE.initData+' f='+!!STATE.feedData+' s='+!!STATE.storeData+'<br>' +
+    '<b>localStorage:</b> middle_page_view='+(rec.middle_page_view||0)+' click='+(rec.click_banner||0)+'<br>' +
+    '<b>jump_url:</b><br><span style="color:#fbbf24;word-break:break-all">'+jumpUrl.slice(0,200)+'</span><br>' +
+    '<hr style="border-color:#333;margin:6px 0">';
+  fetch('/api/events').then(r=>r.json()).then(evts => {
+    debugPanel.innerHTML += '<b>events ('+evts.length+'):</b><br>' + evts.slice(-15).reverse().map(e => {
+      let payload = '';
+      try {
+        const p = JSON.parse(e.payload);
+        payload = ' <span style=color:#888>'+JSON.stringify(p.data).slice(0,80)+'</span>';
+      } catch(_) {}
+      return '<span style=color:#6b7280>'+(e.ts||'').slice(11)+'</span> <span style=color:#22d3ee>'+e.name+'</span>'+payload;
+    }).join('<br>');
+  });
+}
+
+log('uuid='+STATE.uuid);
+if (CONFIG.debug) $('debug-toggle').style.display = 'block';
+runMiddlePage();
+
+})();
+</script>
+</body>
+</html>

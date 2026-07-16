@@ -1,0 +1,41 @@
+mixed-port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: "硅谷-VLESS"
+    type: vless
+    server: 43.173.98.184
+    port: 443
+    uuid: 211d03a1-36e9-40e7-8b5e-f9dac6997f05
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    client-fingerprint: chrome
+    servername: www.apple.com
+    reality-opts:
+      public-key: ftbEBjykrVrMuhJrZvVVMu7A_YLyIJXXlWEnXDK7VFM
+      short-id: ed7720aa510154f5
+  - name: "硅谷-SS"
+    type: ss
+    server: 43.173.98.184
+    port: 8388
+    cipher: chacha20-ietf-poly1305
+    password: "3t21e/P6fxeSULmI2S4f0mJ3q3b2TiQO"
+    tfo: true
+    udp: true
+
+proxy-groups:
+  - name: Proxy
+    type: select
+    proxies:
+      - "硅谷-VLESS"
+      - "硅谷-SS"
+      - DIRECT
+
+rules:
+  - GEOIP,CN,DIRECT
+  - MATCH,Proxy

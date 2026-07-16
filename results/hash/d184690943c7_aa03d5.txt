@@ -1,0 +1,85 @@
+# ============================================
+# Clash Meta / Mihomo 客户端配置
+# 双栈: Hysteria2(Salamander+端口跳跃) + VLESS+REALITY
+# 服务器: 东京 (xTom) | 更新: 2026-07-16
+# ============================================
+
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: true
+
+# ---- DNS ----
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - "*.lan"
+    - "*.local"
+    - "+.stun.*.*"
+    - "+.stun.*.*.*"
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  proxy-server-nameserver:
+    - https://dns.alidns.com/dns-query
+
+# ---- 代理节点 ----
+proxies:
+  - name: "Tokyo-HY2"
+    type: hysteria2
+    server: 43.239.249.156
+    port: 443
+    ports: "20000-40000"
+    hop-interval: 30
+    password: "A+zMlq4oyj1Oze/w9lke1A=="
+    sni: www.microsoft.com
+    skip-cert-verify: true
+    up: "20"
+    down: "80"
+    alpn:
+      - h3
+
+  - name: "Tokyo-VLESS"
+    type: vless
+    server: 43.239.249.156
+    port: 443
+    uuid: b3d281cb-1c75-403a-8517-a682607ace72
+    network: tcp
+    tls: true
+    servername: gateway.icloud.com
+    reality-opts:
+      public-key: 4_AWBtYfkzZ5iNS_2cYNi7Atj2sjgoYTXGvS9AZPa0I
+      short-id: ac11a3684276d50e
+    client-fingerprint: chrome
+
+# ---- 代理组 ----
+proxy-groups:
+  - name: "Proxy"
+    type: fallback
+    proxies:
+      - "Tokyo-HY2"
+      - "Tokyo-VLESS"
+    url: "https://www.gstatic.com/generate_204"
+    interval: 300
+
+# ---- 规则 ----
+rules:
+  # 局域网/内网直连
+  - IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+  - IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+  - IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+  - IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+  # 中国域名直连
+  - GEOSITE,cn,DIRECT
+  # 中国 IP 直连
+  - GEOIP,cn,DIRECT,no-resolve
+  # 其余走代理
+  - MATCH,Proxy

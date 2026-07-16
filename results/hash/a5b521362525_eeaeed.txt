@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>06 VPN Clash 订阅</title>
+  <style>
+    body { font-family: monospace; max-width: 800px; margin: 20px auto; padding: 20px; background: #1a1a2e; color: #e0e0e0; }
+    pre { background: #0f0f23; padding: 15px; border-radius: 8px; overflow-x: auto; color: #a0ffa0; font-size: 13px; }
+    h2 { color: #7b68ee; }
+    .note { color: #ff6b6b; }
+    .ok { color: #4caf50; }
+  </style>
+</head>
+<body>
+  <h2>06 服务器 VPN 订阅 (Clash Meta)</h2>
+  <p>服务器: 45.38.210.148 | 四个节点: VLESS Reality / VLESS WS / VMess WS / Trojan WS</p>
+  <div class='ok'>✅ 已适配 Clash Meta 格式，导入后自动出现分组</div>
+
+  <h3>1. Clash 订阅链接 (Base64 编码，直接在 Clash 里用)</h3>
+  <pre>http://45.38.210.148:8080/sub</pre>
+
+  <h3>2. 节点配置总览</h3>
+  <pre>proxies:
+  - name: 06-Reality
+    type: vless
+    server: 45.38.210.148
+    port: 443
+    uuid: 556be74d-277d-4f79-9355-ce4dfad5940a
+    flow: xtls-rprx-vision
+    tls: true
+    servername: www.microsoft.com
+    reality-opts:
+      public-key: yynogL6lsRa-CuFRQUFa9b5jf1l4heTvzYth7km3FB8
+      short-id: 3943397adbe4dd28
+    client-fingerprint: chrome
+  - name: 06-VLESS-WS
+    type: vless
+    server: 45.38.210.148
+    port: 8443
+    uuid: 556be74d-277d-4f79-9355-ce4dfad5940a
+    network: ws
+    ws-opts:
+      path: /ws-vless
+  - name: 06-VMess-WS
+    type: vmess
+    server: 45.38.210.148
+    port: 2052
+    uuid: 556be74d-277d-4f79-9355-ce4dfad5940a
+    alterId: 0
+    cipher: auto
+    network: ws
+    ws-opts:
+      path: /ws-vmess
+  - name: 06-Trojan-WS
+    type: trojan
+    server: 45.38.210.148
+    port: 2083
+    password: 556be74d-277d-4f79-9355-ce4dfad5940a
+    network: ws
+    ws-opts:
+      path: /ws-trojan</pre>
+
+  <h3>3. 性能优化</h3>
+  <pre>内核: 5.15.0-46 | BBR 拥塞控制: ✅ 已启用
+Reality 目标: www.microsoft.com:443 (高信誉域名)
+磁盘: 9.8G 总量, 剩余 1.7G (82%)</pre>
+
+  <h3>4. 客户端要求</h3>
+  <pre>需使用支持 VLESS Reality 的 Clash Meta (mihomo) 内核
+推荐: Clash Verge Rev, FlClash, Sing-box 等</pre>
+</body>
+</html>
