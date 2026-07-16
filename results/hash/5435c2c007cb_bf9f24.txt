@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gost v3 管理 (纯 ssu + DNS)</title>
+    <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+    <script src="https://unpkg.com/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <style>
+        *{box-sizing:border-box}body{background:#f1f5f9;font-family:Segoe UI,Roboto,sans-serif;margin:0;padding:24px 20px;color:#0f172a}.container{max-width:1200px;margin:0 auto}.login-overlay{display:flex;justify-content:center;align-items:center;min-height:80vh}.login-box{background:#fff;border-radius:24px;padding:2rem;width:360px;box-shadow:0 20px 40px rgba(0,0,0,.1);text-align:center}.login-box h2{margin-bottom:1.5rem}.login-box input{width:100%;padding:12px;margin:8px 0;border-radius:12px;border:1px solid #cbd5e1;font-size:1rem}.login-box button{width:100%;padding:12px;margin-top:16px;background:#3b82f6;color:#fff;border:0;border-radius:12px;font-size:1rem;cursor:pointer;font-weight:600}.login-box .error{color:#ef4444;margin-top:10px;display:none}.main-content{display:none}.card{background:#fff;border-radius:24px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 10px 25px -5px rgba(0,0,0,.05)}.card-header{font-size:1.3rem;font-weight:600;border-left:5px solid #3b82f6;padding-left:1rem;margin-bottom:1rem}.grid-2col{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}label{font-weight:500;font-size:.85rem;color:#475569;display:block;margin-bottom:4px}input,textarea{width:100%;padding:10px;border-radius:14px;border:1px solid #cbd5e1;font-family:monospace;font-size:.9rem}button{background:#3b82f6;color:#fff;border:0;padding:8px 16px;border-radius:40px;font-weight:500;cursor:pointer;margin:4px}button:hover{background:#2563eb}button:disabled{opacity:0.6;cursor:not-allowed}button.secondary{background:#f1f5f9;color:#1e293b;border:1px solid #cbd5e1}button.success{background:#10b981}button.warning{background:#f97316}button.export{background:#f59e0b}button.purple{background:#8b5cf6}.table-wrapper{overflow-x:auto;margin:1rem 0;border-radius:16px;border:1px solid #e2e8f0}table{width:100%;border-collapse:collapse;font-size:.85rem}th,td{padding:10px;text-align:left;border-bottom:1px solid #e2e8f0}th{background:#f8fafc}.badge{background:#e6f0ff;color:#1e40af;border-radius:30px;padding:2px 10px;font-size:.75rem}.toast{position:fixed;top:20px;right:20px;z-index:999;padding:10px 20px;border-radius:30px;font-weight:500;animation:slide .3s}.toast-success{background:#dcfce7;color:#166534}.toast-error{background:#fee2e2;color:#991b1b}@keyframes slide{from{opacity:0;transform:translateX(60px)}}.header-bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.4);display:flex;justify-content:center;align-items:center;z-index:1000}.modal-box{background:#fff;border-radius:20px;padding:2rem;width:360px}.modal-box input{width:100%;padding:10px;margin:8px 0;border-radius:12px;border:1px solid #cbd5e1}.modal-box button{margin-top:10px}.yaml-editor{background:#0f172a;color:#e2e8f0;font-family:monospace;font-size:.8rem;padding:1rem;border-radius:16px;border:none;resize:vertical;width:100%}input[readonly]{background:#f1f5f9;cursor:not-allowed}.node-status{font-weight:500;padding:2px 8px;border-radius:20px;font-size:0.8rem;display:inline-block}.node-status small{font-size:0.7rem;display:block}
+    </style>
+</head>
+<body>
+<div id="loginBox" class="login-overlay">
+    <div class="login-box">
+        <h2>🔐 登录管理</h2>
+        <input type="text" id="username" placeholder="用户名">
+        <input type="password" id="password" placeholder="密码">
+        <button id="loginBtn">登 录</button>
+        <p class="error" id="loginError">用户名或密码错误</p>
+    </div>
+</div>
+
+<div id="mainContent" class="container main-content">
+    <div class="header-bar">
+        <h1 style="margin:0;">🔗 Gost v3 管理 (纯 ssu + DNS代理)</h1>
+        <div>
+            <button id="changePwdBtn" class="secondary">🔑 修改密码</button>
+            <button id="logoutBtn" class="secondary">退出登录</button>
+        </div>
+    </div>
+    <p style="color:#475569;">SS + SSU · 域名解析经代理链防泄漏 · 防丢包优化已启用</p>
+
+    <!-- 修改密码模态框 -->
+    <div id="changePwdModal" class="modal-overlay" style="display:none;">
+        <div class="modal-box">
+            <h3>修改登录信息</h3>
+            <input type="password" id="oldPassword" placeholder="原密码">
+            <input type="text" id="newUsername" placeholder="新用户名（留空不变）">
+            <input type="password" id="newPassword" placeholder="新密码">
+            <div style="display:flex; gap:10px; justify-content:flex-end;">
+                <button id="cancelChangeBtn" class="secondary">取消</button>
+                <button id="submitChangeBtn">确认修改</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 基础设置 -->
+    <div class="card">
+        <div class="card-header">⚙️ 基础设置</div>
+        <div class="grid-2col">
+            <div><label>加密方式</label><input type="text" id="ssMethod" value="chacha20-ietf-poly1305"></div>
+            <div><label>密码</label><input type="text" id="ssPassword" value="123456"></div>
+            <div><label>起始端口</label><input type="number" id="startPort" value="46001"></div>
+            <div><label>服务器 IP (自动获取)</label><input type="text" id="serverIP" readonly placeholder="自动获取中..."></div>
+            <!-- 新增 DNS 上游输入框 -->
+            <div><label>DNS 上游 (经代理查询)</label><input type="text" id="dnsUpstream" value="8.8.8.8:53" placeholder="8.8.8.8:53"></div>
+        </div>
+    </div>
+
+    <!-- 上游 SOCKS5 节点 (含监听端口、备注列) -->
+    <div class="card">
+        <div class="card-header">📥 上游 SOCKS5 节点</div>
+        <textarea id="batchInput" rows="4" placeholder="host:port:user:pass 每行一个 (自动分配监听端口)"></textarea>
+        <div style="margin:10px 0;">
+            <button id="parseBtn">✨ 解析添加 (自动端口)</button>
+            <button id="extractFromYamlBtn" class="secondary">📤 从 YAML 提取</button>
+            <button id="clearBtn" class="secondary">清空</button>
+            <button id="checkAllBtn" class="warning">🔍 检测所有节点</button>
+            <span class="badge" id="nodeCount">0 个节点</span>
+        </div>
+        <div class="table-wrapper">
+            <table><thead><tr>
+                <th>#</th>
+                <th>监听端口</th>
+                <th>地址</th>
+                <th>用户名</th>
+                <th>密码</th>
+                <th>备注</th>
+                <th>重试</th>
+                <th>TCP</th>
+                <th>UDP</th>
+                <th></th>
+            </tr></thead>
+            <tbody id="tbody"></tbody></table>
+        </div>
+        <button id="addRowBtn" class="secondary">➕ 手动添加</button>
+    </div>
+
+    <!-- Gost 配置编辑 -->
+    <div class="card">
+        <div class="card-header">📄 Gost 配置 (可直接编辑)</div>
+        <button id="generateBtn">🚀 生成 YAML</button>
+        <button id="copyBtn" class="secondary">📋 复制</button>
+        <button id="saveBtn" class="success">💾 保存到服务器</button>
+        <button id="applyBtn" class="purple">✅ 保存并重载 (推荐)</button>
+        <button id="restartBtn" class="warning">🔄 完全重启</button>
+        <textarea id="yamlOutput" class="yaml-editor" rows="15" placeholder="# 点击生成或自动加载服务器配置"></textarea>
+    </div>
+
+    <!-- 导出 -->
+    <div class="card">
+        <div class="card-header">📤 导出 Clash 配置 (SS节点)</div>
+        <button id="generateClashBtn" class="export">🔮 生成 Clash YAML</button>
+        <button id="copyClashBtn" class="secondary">📋 复制</button>
+        <button id="downloadClashBtn" class="secondary">💾 下载 clash.yaml</button>
+        <pre id="clashOutput" class="yaml-editor" style="margin-top:16px;"># 需先填写服务器 IP</pre>
+    </div>
+    <div class="card">
+        <div class="card-header">🔗 导出 SS 链接 (V2RayN / 小火箭)</div>
+        <button id="generateSSLinksBtn" class="purple">🔗 生成 SS 链接</button>
+        <button id="copySSLinksBtn" class="secondary">📋 复制全部链接</button>
+        <button id="downloadSSLinksBtn" class="secondary">💾 下载 ss.txt</button>
+        <button id="showQRBtn" class="export">📱 显示二维码</button>
+        <pre id="ssLinksOutput" class="yaml-editor" style="margin-top:16px;"># 点击生成按钮</pre>
+    </div>
+
+    <!-- 二维码模态框 -->
+    <div id="qrModal" class="modal-overlay" style="display:none;">
+        <div class="modal-box" style="width:90%; max-width:700px; max-height:80vh; overflow-y:auto;">
+            <h3>📱 节点二维码</h3>
+            <div id="qrContainer" style="display:flex; flex-wrap:wrap; gap:20px; justify-content:center;"></div>
+            <div style="text-align:center; margin-top:20px;">
+                <button id="closeQRBtn" class="secondary">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="toastContainer"></div>
+
+<script>
+(function(){
+    if (typeof jsyaml === 'undefined') {
+        document.body.innerHTML = '<h1 style="color:red;text-align:center;margin-top:100px">依赖库 js-yaml 加载失败，请检查网络或切换CDN</h1>';
+        return;
+    }
+    let nodes = [];
+    let currentYaml = '';
+    let currentClashYaml = '';
+    let currentSSLinks = '';
+
+    function toast(msg, type='success') {
+        const t = document.createElement('div');
+        t.className = `toast toast-${type}`;
+        t.textContent = msg;
+        document.getElementById('toastContainer').appendChild(t);
+        setTimeout(() => t.remove(), 3000);
+    }
+
+    function copyTextToClipboard(text, successMsg) {
+        if (!text) { toast('没有内容可复制', 'error'); return; }
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(text).then(
+                () => toast(successMsg),
+                () => fallbackCopy(text, successMsg)
+            );
+        } else {
+            fallbackCopy(text, successMsg);
+        }
+    }
+    function fallbackCopy(text, successMsg) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.top = '0';
+        textarea.style.left = '0';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+        try {
+            const success = document.execCommand('copy');
+            if (success) toast(successMsg);
+            else toast('复制失败，请手动选择文本复制', 'error');
+        } catch (err) {
+            toast('复制出错，请手动复制', 'error');
+        }
+        document.body.removeChild(textarea);
+    }
+
+    async function checkLoginStatus() {
+        try {
+            const res = await fetch('/check-login');
+            const data = await res.json();
+            data.logged_in ? showMain() : showLogin();
+        } catch(e) { showLogin(); }
+    }
+
+    function showLogin() {
+        document.getElementById('loginBox').style.display = 'flex';
+        document.getElementById('mainContent').style.display = 'none';
+    }
+
+    async function showMain() {
+        document.getElementById('loginBox').style.display = 'none';
+        document.getElementById('mainContent').style.display = 'block';
+        await loadServerConfig();
+        await fetchServerIP();
+        if (!nodes.length) loadCacheFallback();
+    }
+
+    async function fetchServerIP() {
+        const ipInput = document.getElementById('serverIP');
+        try {
+            const res = await authFetch('/get-server-ip');
+            if (!res) return;
+            const data = await res.json();
+            if (data.status === 'success' && data.ip) {
+                ipInput.value = data.ip;
+            } else {
+                toast('无法获取公网IP，请手动填写', 'error');
+                ipInput.readOnly = false;
+            }
+        } catch (e) {
+            toast('获取公网IP失败', 'error');
+            ipInput.readOnly = false;
+        }
+    }
+
+    function loadCacheFallback() {
+        const raw = localStorage.getItem('gostFullConfig');
+        if (raw) {
+            const d = JSON.parse(raw);
+            document.getElementById('ssMethod').value = d.ssMethod || 'chacha20-ietf-poly1305';
+            document.getElementById('ssPassword').value = d.ssPassword || '123456';
+            document.getElementById('startPort').value = d.startPort || 46001;
+            document.getElementById('dnsUpstream').value = d.dnsUpstream || '8.8.8.8:53';
+            nodes = (d.nodes || []).map(n => ({ ...n, listenPort: n.listenPort || '', remark: n.remark || '' }));
+            render();
+        } else {
+            document.getElementById('dnsUpstream').value = '8.8.8.8:53';
+            nodes = [];
+            render();
+        }
+    }
+
+    document.getElementById('loginBtn').onclick = async () => {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        try {
+            const res = await fetch('/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({username, password})
+            });
+            const data = await res.json();
+            if (data.status === 'success') {
+                showMain();
+                toast('登录成功');
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        } catch(e) { toast('网络错误','error'); }
+    };
+    document.getElementById('logoutBtn').onclick = async () => {
+        await fetch('/logout', {method: 'POST'});
+        showLogin();
+        toast('已退出');
+    };
+    document.getElementById('changePwdBtn').onclick = () => {
+        document.getElementById('changePwdModal').style.display = 'flex';
+    };
+    document.getElementById('cancelChangeBtn').onclick = () => {
+        document.getElementById('changePwdModal').style.display = 'none';
+    };
+    document.getElementById('submitChangeBtn').onclick = async () => {
+        const old = document.getElementById('oldPassword').value;
+        const newUser = document.getElementById('newUsername').value.trim();
+        const newPass = document.getElementById('newPassword').value;
+        if (!old || !newPass) { toast('请填写完整','error'); return; }
+        try {
+            const res = await fetch('/change-password', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({old_password: old, new_username: newUser || undefined, new_password: newPass})
+            });
+            const data = await res.json();
+            if (data.status === 'success') {
+                toast('修改成功，请重新登录');
+                document.getElementById('changePwdModal').style.display = 'none';
+                document.getElementById('oldPassword').value = '';
+                document.getElementById('newUsername').value = '';
+                document.getElementById('newPassword').value = '';
+                showLogin();
+            } else {
+                toast(data.message, 'error');
+            }
+        } catch(e) { toast('请求失败','error'); }
+    };
+
+    async function authFetch(url, options = {}) {
+        try {
+            const res = await fetch(url, options);
+            if (res.status === 401) {
+                showLogin();
+                toast('登录过期，请重新登录', 'error');
+                return null;
+            }
+            return res;
+        } catch (e) {
+            toast(`网络错误: ${e.message}`, 'error');
+            return null;
+        }
+    }
+
+    async function loadServerConfig() {
+        try {
+            const res = await authFetch('/get-config');
+            if (!res) return;
+            const data = await res.json();
+            if (data.status === 'success' && data.yaml) {
+                document.getElementById('yamlOutput').value = data.yaml;
+                currentYaml = data.yaml;
+                parseNodesFromYaml(data.yaml);
+            } else {
+                document.getElementById('yamlOutput').value = '';
+                currentYaml = '';
+                nodes = [];
+                render();
+                document.getElementById('dnsUpstream').value = '8.8.8.8:53';
+            }
+        } catch (e) { console.error('加载服务器配置失败', e); }
+    }
+
+    // 从 YAML 解析节点，提取监听端口、备注以及 DNS 上游
+    function parseNodesFromYaml(yamlText) {
+        try {
+            const config = jsyaml.load(yamlText);
+            const chains = config?.chains || [];
+            const services = config?.services || [];
+            const newNodes = [];
+
+            // 提取 DNS 上游地址（从第一个服务中获取）
+            let dnsUpstream = '8.8.8.8:53';
+            if (services.length) {
+                const first = services[0];
+                const dnsArr = first.handler?.dns;
+                if (Array.isArray(dnsArr) && dnsArr.length && dnsArr[0].addr) {
+                    dnsUpstream = dnsArr[0].addr;
+                }
+            }
+            document.getElementById('dnsUpstream').value = dnsUpstream;
+
+            const chainPortMap = {};
+            services.forEach(s => {
+                const portMatch = s.addr?.match(/:(\d+)$/);
+                const port = portMatch ? parseInt(portMatch[1]) : null;
+                const chain = s.handler?.chain;
+                if (port && chain && !chainPortMap[chain]) {
+                    chainPortMap[chain] = port;
+                }
+            });
+
+            chains.forEach(chain => {
+                const chainName = chain.name;
+                const listenPort = chainPortMap[chainName] || '';
+                chain.hops?.forEach(hop => {
+                    hop.nodes?.forEach(node => {
+                        if (node.connector?.type === 'socks5' && node.addr) {
+                            newNodes.push({
+                                addr: node.addr,
+                                username: node.connector.auth?.username || '',
+                                password: node.connector.auth?.password || '',
+                                retry: node.connector.retry || 2,
+                                remark: node.connector?.metadata?.remark || '',
+                                listenPort: listenPort
+                            });
+                        }
+                    });
+                });
+            });
+            nodes = newNodes;
+            render();
+
+            const firstSS = services.find(s => s.handler?.type === 'ss' || s.handler?.type === 'ssu');
+            if (firstSS) {
+                document.getElementById('ssMethod').value = firstSS.handler.auth?.username || '';
+                document.getElementById('ssPassword').value = firstSS.handler.auth?.password || '';
+                if (nodes.length && nodes[0].listenPort) {
+                    document.getElementById('startPort').value = nodes[0].listenPort;
+                } else {
+                    document.getElementById('startPort').value = parseInt(firstSS.addr?.split(':')[1]) || 46001;
+                }
+            }
+            saveCache();
+        } catch (e) { console.error('解析 YAML 失败', e); toast('服务器配置格式错误', 'error'); }
+    }
+
+    async function checkNode(index) {
+        const node = nodes[index];
+        const tcpCell = document.querySelector(`#tcp-${index}`);
+        const udpCell = document.querySelector(`#udp-${index}`);
+        if (!tcpCell || !udpCell) return;
+        tcpCell.innerHTML = '⏳ 检测中...';
+        udpCell.innerHTML = '⏳ 检测中...';
+
+        try {
+            const res = await authFetch('/check-node', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({addr: node.addr, username: node.username, password: node.password})
+            });
+            if (res) {
+                const data = await res.json();
+                let tcpHtml = data.tcp
+                    ? `<span class="node-status" style="background:#dcfce7;color:#166534;">🟢 TCP</span><br><small>${data.tcp_latency}ms</small>`
+                    : `<span class="node-status" style="background:#fee2e2;color:#991b1b;" title="${data.tcp_msg}">🔴 TCP</span><br><small>${data.tcp_latency}ms</small>`;
+                let udpHtml = data.udp
+                    ? `<span class="node-status" style="background:#dcfce7;color:#166534;">🟢 UDP</span><br><small>${data.udp_latency}ms</small>`
+                    : `<span class="node-status" style="background:#fee2e2;color:#991b1b;" title="${data.udp_msg}">🔴 UDP</span><br><small>${data.udp_latency}ms</small>`;
+                tcpCell.innerHTML = tcpHtml;
+                udpCell.innerHTML = udpHtml;
+            } else {
+                tcpCell.innerHTML = '<span class="node-status" style="background:#fef3c7;color:#92400e;">❓</span>';
+                udpCell.innerHTML = '<span class="node-status" style="background:#fef3c7;color:#92400e;">❓</span>';
+            }
+        } catch (e) {
+            tcpCell.innerHTML = '<span class="node-status" style="background:#fef3c7;color:#92400e;">❓</span>';
+            udpCell.innerHTML = '<span class="node-status" style="background:#fef3c7;color:#92400e;">❓</span>';
+        }
+    }
+
+    async function checkAllNodes() {
+        const btn = document.getElementById('checkAllBtn');
+        btn.disabled = true;
+        btn.textContent = '⏳ 检测中...';
+        for (let i = 0; i < nodes.length; i++) {
+            await checkNode(i);
+        }
+        btn.disabled = false;
+        btn.textContent = '🔍 检测所有节点';
+        toast('所有节点检测完成');
+    }
+
+    function render() {
+        const tbody = document.getElementById('tbody');
+        if (!nodes.length) {
+            tbody.innerHTML = '<tr><td colspan="10" style="text-align:center">暂无节点</td></tr>';
+            document.getElementById('nodeCount').textContent = '0 个节点';
+            return;
+        }
+        tbody.innerHTML = nodes.map((n,i) => `
+            <tr>
+                <td>${i+1}</td>
+                <td><input class="listenPort" type="number" value="${n.listenPort || ''}" placeholder="自动" style="width:80px;"></td>
+                <td><input class="addr" value="${escHtml(n.addr)}"></td>
+                <td><input class="user" value="${escHtml(n.username)}"></td>
+                <td><input class="pass" value="${escHtml(n.password)}"></td>
+                <td><input class="remark" value="${escHtml(n.remark || '')}" placeholder="备注"></td>
+                <td><input class="retry" type="number" min="0" max="10" value="${n.retry ?? 2}" style="width:60px;"></td>
+                <td id="tcp-${i}" class="node-status-td">-</td>
+                <td id="udp-${i}" class="node-status-td">-</td>
+                <td>
+                    <button class="check-single" data-idx="${i}" title="检测节点">🔍</button>
+                    <button class="del" data-idx="${i}">🗑️</button>
+                </td>
+            </tr>`).join('');
+        document.querySelectorAll('.listenPort').forEach((inp,i) => inp.onchange = () => { nodes[i].listenPort = parseInt(inp.value) || ''; saveCache(); });
+        document.querySelectorAll('.addr').forEach((inp,i) => inp.onchange = () => { nodes[i].addr = inp.value; saveCache(); });
+        document.querySelectorAll('.user').forEach((inp,i) => inp.onchange = () => { nodes[i].username = inp.value; saveCache(); });
+        document.querySelectorAll('.pass').forEach((inp,i) => inp.onchange = () => { nodes[i].password = inp.value; saveCache(); });
+        document.querySelectorAll('.remark').forEach((inp,i) => inp.onchange = () => { nodes[i].remark = inp.value; saveCache(); });
+        document.querySelectorAll('.retry').forEach((inp,i) => inp.onchange = () => { nodes[i].retry = parseInt(inp.value) || 2; saveCache(); });
+        document.querySelectorAll('.check-single').forEach(btn => {
+            btn.onclick = () => checkNode(parseInt(btn.dataset.idx));
+        });
+        document.querySelectorAll('.del').forEach(btn => btn.onclick = () => {
+            const idx = parseInt(btn.dataset.idx);
+            nodes.splice(idx, 1);
+            render();
+            saveCache();
+        });
+        document.getElementById('nodeCount').textContent = `${nodes.length} 个节点`;
+    }
+
+    function escHtml(str) { return str.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'})[m]); }
+
+    function saveCache() {
+        localStorage.setItem('gostFullConfig', JSON.stringify({
+            ssMethod: document.getElementById('ssMethod').value,
+            ssPassword: document.getElementById('ssPassword').value,
+            startPort: document.getElementById('startPort').value,
+            dnsUpstream: document.getElementById('dnsUpstream').value,
+            nodes
+        }));
+    }
+
+    // 解析添加：自动分配监听端口
+    function parseBatch() {
+        const text = document.getElementById('batchInput').value;
+        const lines = text.split(/\r?\n/);
+        let added = 0;
+
+        let nextPort = parseInt(document.getElementById('startPort').value) || 46001;
+        nodes.forEach(n => {
+            if (n.listenPort && !isNaN(n.listenPort) && n.listenPort >= nextPort) {
+                nextPort = Math.max(nextPort, n.listenPort + 1);
+            }
+        });
+
+        for (let line of lines) {
+            line = line.trim();
+            if (!line) continue;
+            let raw = line.startsWith('socks5://') ? line.slice(9) : line;
+            let parts = raw.split(':');
+            if (parts.length >= 4) {
+                let host = parts[0], port = parts[1], user = parts[2], pass = parts.slice(3).join(':');
+                if (host && port && user && pass && !isNaN(parseInt(port))) {
+                    let addr = `${host}:${port}`;
+                    if (!nodes.some(n => n.addr === addr && n.username === user)) {
+                        nodes.push({
+                            addr,
+                            username: user,
+                            password: pass,
+                            retry: 2,
+                            remark: '',
+                            listenPort: nextPort
+                        });
+                        nextPort++;
+                        added++;
+                    }
+                }
+            }
+        }
+        if (added > 0) {
+            render();
+            saveCache();
+            toast(`成功添加 ${added} 个节点，已自动分配监听端口`);
+        } else {
+            toast('未添加新节点，检查格式', 'error');
+        }
+    }
+
+    function extractToBatchInput() {
+        const yamlText = document.getElementById('yamlOutput').value.trim();
+        if (!yamlText) { toast('YAML 编辑器为空', 'error'); return; }
+        try {
+            const config = jsyaml.load(yamlText);
+            const chains = config?.chains || [];
+            const services = config?.services || [];
+            const chainPortMap = {};
+            services.forEach(s => {
+                const portMatch = s.addr?.match(/:(\d+)$/);
+                const port = portMatch ? parseInt(portMatch[1]) : null;
+                const chain = s.handler?.chain;
+                if (port && chain && !chainPortMap[chain]) {
+                    chainPortMap[chain] = port;
+                }
+            });
+            const newNodes = [];
+            chains.forEach(chain => {
+                const listenPort = chainPortMap[chain.name] || '';
+                chain.hops?.forEach(hop => {
+                    hop.nodes?.forEach(node => {
+                        if (node.connector?.type === 'socks5' && node.addr) {
+                            newNodes.push({
+                                addr: node.addr,
+                                username: node.connector.auth?.username || '',
+                                password: node.connector.auth?.password || '',
+                                retry: node.connector.retry || 2,
+                                remark: node.connector?.metadata?.remark || '',
+                                listenPort: listenPort
+                            });
+                        }
+                    });
+                });
+            });
+            if (newNodes.length === 0) { toast('YAML 中没有 socks5 节点', 'error'); return; }
+            nodes = newNodes;
+            render();
+            saveCache();
+            const lines = nodes.map(n => `${n.addr}:${n.username}:${n.password}`);
+            document.getElementById('batchInput').value = lines.join('\n');
+            toast(`已从 YAML 提取 ${nodes.length} 个节点`);
+        } catch (e) { toast('YAML 格式错误', 'error'); }
+    }
+
+    // 生成 YAML，包含 DNS 代理配置
+    function generateYaml() {
+        const startPort = parseInt(document.getElementById('startPort').value);
+        const method = document.getElementById('ssMethod').value.trim() || 'chacha20-ietf-poly1305';
+        const pass = document.getElementById('ssPassword').value || '123456';
+        const dnsUpstream = document.getElementById('dnsUpstream').value.trim() || '8.8.8.8:53';
+        if (!nodes.length) { toast('请先添加节点','error'); return; }
+
+        let services = [], chains = [];
+        nodes.forEach((n,i) => {
+            const port = (n.listenPort && !isNaN(n.listenPort)) ? parseInt(n.listenPort) : (startPort + i);
+            // TCP 服务，handler 加入 dns
+            services.push({
+                name: `ss-tcp-${port}`,
+                addr: `:${port}`,
+                handler: {
+                    type: "ss",
+                    auth: { username: method, password: pass },
+                    chain: `chain-${port}`,
+                    dns: [
+                        { addr: dnsUpstream, chain: `chain-${port}` }
+                    ]
+                },
+                listener: { type: "tcp" }
+            });
+            // UDP 服务，handler 加入 dns
+            services.push({
+                name: `ss-udp-${port}`,
+                addr: `:${port}`,
+                handler: {
+                    type: "ssu",
+                    auth: { username: method, password: pass },
+                    chain: `chain-${port}`,
+                    dns: [
+                        { addr: dnsUpstream, chain: `chain-${port}` }
+                    ]
+                },
+                listener: { type: "udp" }
+            });
+            const metadata = { udp: true, udpBufferSize: 8192, notls: true };
+            if (n.remark) metadata.remark = n.remark;
+            chains.push({
+                name: `chain-${port}`,
+                hops: [{
+                    name: "hop-0",
+                    nodes: [{
+                        name: "node-0",
+                        addr: n.addr,
+                        connector: {
+                            type: "socks5",
+                            auth: { username: n.username, password: n.password },
+                            metadata: metadata,
+                            mux: { type: "socks5", idleTimeout: "60s" },
+                            dialer: { type: "tcp", timeout: "15s" },
+                            retry: n.retry ?? 2
+                        }
+                    }]
+                }]
+            });
+        });
+        currentYaml = jsyaml.dump({ services, chains }, { indent: 2, lineWidth: -1 });
+        document.getElementById('yamlOutput').value = currentYaml;
+    }
+
+    document.getElementById('generateBtn').onclick = generateYaml;
+    document.getElementById('copyBtn').onclick = () => { copyTextToClipboard(document.getElementById('yamlOutput').value, 'YAML 已复制'); };
+    document.getElementById('applyBtn').onclick = async () => {
+        const btn = document.getElementById('applyBtn');
+        const yaml = document.getElementById('yamlOutput').value.trim();
+        if (!yaml) { toast('配置为空','error'); return; }
+        btn.disabled = true; btn.textContent = '⏳ 保存并重载...';
+        try {
+            const resSave = await authFetch('/save-config', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({yaml}) });
+            if (!resSave) { btn.disabled = false; btn.textContent = '✅ 保存并重载 (推荐)'; return; }
+            const dataSave = await resSave.json();
+            if (dataSave.status !== 'success') { toast(`保存失败: ${dataSave.message}`, 'error'); btn.disabled = false; btn.textContent = '✅ 保存并重载 (推荐)'; return; }
+            currentYaml = yaml;
+            const resReload = await authFetch('/reload-gost', { method:'POST' });
+            if (resReload) {
+                const dataReload = await resReload.json();
+                if (dataReload.status === 'success') toast('✅ 配置已保存并重载 (零中断)');
+                else toast(`保存成功，但重载失败: ${dataReload.message}`, 'error');
+            }
+        } catch (e) { toast(`操作出错: ${e.message}`, 'error'); }
+        finally { btn.disabled = false; btn.textContent = '✅ 保存并重载 (推荐)'; }
+    };
+    document.getElementById('saveBtn').onclick = async () => {
+        const btn = document.getElementById('saveBtn');
+        const yaml = document.getElementById('yamlOutput').value.trim();
+        if (!yaml) { toast('配置为空','error'); return; }
+        btn.disabled = true; btn.textContent = '⏳ 保存中...';
+        try {
+            const res = await authFetch('/save-config', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({yaml}) });
+            if (!res) { btn.disabled = false; btn.textContent = '💾 保存到服务器'; return; }
+            const data = await res.json();
+            if (data.status === 'success') { currentYaml = yaml; toast('✅ 配置已保存到服务器'); }
+            else toast(`保存失败: ${data.message}`, 'error');
+        } catch (e) { toast(`保存出错: ${e.message}`, 'error'); }
+        finally { btn.disabled = false; btn.textContent = '💾 保存到服务器'; }
+    };
+    document.getElementById('restartBtn').onclick = async () => {
+        const btn = document.getElementById('restartBtn');
+        btn.disabled = true; btn.textContent = '⏳ 重启中...';
+        try {
+            const res = await authFetch('/restart-gost', { method:'POST' });
+            if (res) {
+                const data = await res.json();
+                if (data.status === 'success') toast('✅ Gost 已重启 (有短暂中断)');
+                else toast(`重启失败: ${data.message}`, 'error');
+            }
+        } catch (e) { toast(`重启出错: ${e.message}`, 'error'); }
+        finally { btn.disabled = false; btn.textContent = '🔄 完全重启'; }
+    };
+    document.getElementById('parseBtn').onclick = parseBatch;
+    document.getElementById('extractFromYamlBtn').onclick = extractToBatchInput;
+    document.getElementById('clearBtn').onclick = () => { nodes = []; render(); saveCache(); toast('已清空'); };
+    document.getElementById('addRowBtn').onclick = () => { nodes.push({addr:'new:1080', username:'user', password:'pass', retry:2, remark:'', listenPort:''}); render(); saveCache(); };
+    document.getElementById('checkAllBtn').onclick = checkAllNodes;
+
+    function getPortForNode(index) {
+        const n = nodes[index];
+        if (n.listenPort && !isNaN(n.listenPort)) return parseInt(n.listenPort);
+        const startPort = parseInt(document.getElementById('startPort').value);
+        return startPort + index;
+    }
+    document.getElementById('generateClashBtn').onclick = () => {
+        const serverIP = document.getElementById('serverIP').value.trim();
+        if (!serverIP) { toast('请先获取服务器 IP','error'); return; }
+        if (!nodes.length) { toast('请添加节点','error'); return; }
+        const method = document.getElementById('ssMethod').value.trim() || 'chacha20-ietf-poly1305';
+        const password = document.getElementById('ssPassword').value || '123456';
+        const proxies = nodes.map((n,i) => {
+            const port = getPortForNode(i);
+            let name = `Gost-SS-${port}`;
+            if (n.remark) name += ` [${n.remark}]`;
+            return {name, type: "ss", server: serverIP, port: port, cipher: method, password: password, udp: true};
+        });
+        const config = {port: 7890, 'socks-port': 7891, 'allow-lan': false, mode: 'rule', 'log-level': 'info', proxies: proxies, 'proxy-groups': [{name: "🚀 自动选择", type: "select", proxies: proxies.map(p => p.name)}]};
+        currentClashYaml = jsyaml.dump(config, {indent:2, lineWidth:-1});
+        document.getElementById('clashOutput').textContent = currentClashYaml;
+    };
+    document.getElementById('copyClashBtn').onclick = () => { if (!currentClashYaml) document.getElementById('generateClashBtn').click(); copyTextToClipboard(currentClashYaml, 'Clash YAML 已复制'); };
+    document.getElementById('downloadClashBtn').onclick = () => { if (!currentClashYaml) document.getElementById('generateClashBtn').click(); const b = new Blob([currentClashYaml],{type:'text/yaml'}); const a = document.createElement('a'); a.href=URL.createObjectURL(b); a.download='clash.yaml'; a.click(); };
+    document.getElementById('generateSSLinksBtn').onclick = () => {
+        const serverIP = document.getElementById('serverIP').value.trim();
+        if (!serverIP) { toast('请先获取服务器 IP','error'); return; }
+        const method = document.getElementById('ssMethod').value.trim() || 'chacha20-ietf-poly1305';
+        const password = document.getElementById('ssPassword').value || '123456';
+        const links = nodes.map((n,i) => {
+            const port = getPortForNode(i);
+            let name = `Gost-SS-${port} (${n.addr})`;
+            if (n.remark) name += ` [${n.remark}]`;
+            const encoded = btoa(`${method}:${password}`);
+            return `ss://${encoded}@${serverIP}:${port}#${name}`;
+        });
+        currentSSLinks = links.join('\n');
+        document.getElementById('ssLinksOutput').textContent = currentSSLinks;
+    };
+    document.getElementById('copySSLinksBtn').onclick = () => { if (!currentSSLinks) document.getElementById('generateSSLinksBtn').click(); copyTextToClipboard(currentSSLinks, '全部 SS 链接已复制'); };
+    document.getElementById('downloadSSLinksBtn').onclick = () => { if (!currentSSLinks) document.getElementById('generateSSLinksBtn').click(); const b = new Blob([currentSSLinks],{type:'text/plain'}); const a = document.createElement('a'); a.href=URL.createObjectURL(b); a.download='ss.txt'; a.click(); };
+    document.getElementById('showQRBtn').onclick = () => {
+        const container = document.getElementById('qrContainer');
+        container.innerHTML = '';
+        if (typeof QRCode === 'undefined') { container.innerHTML='<p style="color:red;">二维码库加载失败</p>'; document.getElementById('qrModal').style.display='flex'; return; }
+        if (!currentSSLinks) document.getElementById('generateSSLinksBtn').click();
+        const links = currentSSLinks.split('\n').filter(l => l.trim());
+        links.forEach(link => {
+            const wrapper = document.createElement('div');
+            const qrDiv = document.createElement('div');
+            wrapper.appendChild(qrDiv);
+            try { new QRCode(qrDiv, {text: link, width: 150, height: 150, colorDark: "#000000", colorLight: "#ffffff", correctLevel: QRCode.CorrectLevel.M}); }
+            catch (e) { qrDiv.innerHTML='<p style="color:red;">生成失败</p>'; }
+            const name = link.split('#')[1] || link;
+            const label = document.createElement('p'); label.style.marginTop='5px'; label.style.fontSize='0.8rem'; label.textContent=name;
+            wrapper.appendChild(label);
+            container.appendChild(wrapper);
+        });
+        document.getElementById('qrModal').style.display='flex';
+    };
+    document.getElementById('closeQRBtn').onclick = () => { document.getElementById('qrModal').style.display='none'; };
+
+    // 监听所有基础设置项的变化并缓存
+    ['ssMethod','ssPassword','startPort','dnsUpstream'].forEach(id => document.getElementById(id).onchange = saveCache);
+    checkLoginStatus();
+})();
+</script>
+</body>
+</html>

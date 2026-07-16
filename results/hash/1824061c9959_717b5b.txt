@@ -1,0 +1,96 @@
+mixed-port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+
+dns:
+  enable: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
+  fallback:
+    - https://dns.google/dns-query
+    - https://1.0.0.1/dns-query
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+
+proxies:
+  - name: "US-SS"
+    type: ss
+    server: 67.230.179.124
+    port: 51001
+    cipher: aes-256-gcm
+    password: "Tk9yPmR4Wz7bQcLvHs3nJf6xAe2gKu8w"
+    udp: true
+
+  - name: "Tokyo-SS"
+    type: ss
+    server: 43.165.168.222
+    port: 51001
+    cipher: aes-256-gcm
+    password: "Tk9yPmR4Wz7bQcLvHs3nJf6xAe2gKu8w"
+    udp: true
+
+proxy-groups:
+  - name: "Proxy"
+    type: select
+    proxies:
+      - Auto
+      - US-SS
+      - Tokyo-SS
+      - DIRECT
+
+  - name: "Auto"
+    type: url-test
+    proxies:
+      - US-SS
+      - Tokyo-SS
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+
+  - name: "Amazon"
+    type: select
+    proxies:
+      - US-SS
+      - Tokyo-SS
+      - DIRECT
+
+  - name: "Streaming"
+    type: select
+    proxies:
+      - US-SS
+      - Tokyo-SS
+
+rules:
+  - DOMAIN-SUFFIX,amazon.com,Amazon
+  - DOMAIN-SUFFIX,amazon.co.jp,Amazon
+  - DOMAIN-SUFFIX,amazonaws.com,Amazon
+  - DOMAIN-KEYWORD,amazon,Amazon
+  - DOMAIN-SUFFIX,netflix.com,Streaming
+  - DOMAIN-SUFFIX,youtube.com,Streaming
+  - DOMAIN-SUFFIX,googlevideo.com,Streaming
+  - DOMAIN-SUFFIX,google.com,Proxy
+  - DOMAIN-SUFFIX,google.co.jp,Proxy
+  - DOMAIN-SUFFIX,googleapis.com,Proxy
+  - DOMAIN-SUFFIX,gstatic.com,Proxy
+  - DOMAIN-SUFFIX,github.com,Proxy
+  - DOMAIN-SUFFIX,githubusercontent.com,Proxy
+  - DOMAIN-SUFFIX,openai.com,Proxy
+  - DOMAIN-SUFFIX,anthropic.com,Proxy
+  - DOMAIN-SUFFIX,claude.ai,Proxy
+  - DOMAIN-SUFFIX,chatgpt.com,Proxy
+  - DOMAIN-SUFFIX,twitter.com,Proxy
+  - DOMAIN-SUFFIX,x.com,Proxy
+  - DOMAIN-SUFFIX,telegram.org,Proxy
+  - DOMAIN-SUFFIX,t.me,Proxy
+  - DOMAIN-SUFFIX,whatsapp.com,Proxy
+  - DOMAIN-SUFFIX,facebook.com,Proxy
+  - DOMAIN-SUFFIX,instagram.com,Proxy
+  - GEOIP,CN,DIRECT
+  - MATCH,Proxy
+
