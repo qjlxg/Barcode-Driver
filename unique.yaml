@@ -3,7 +3,6 @@ proxy-groups:
   type: fallback
   url: https://cp.cloudflare.com/generate_204
   interval: 300
-  tolerance: 50
   proxies:
   - Windows-VPN
   - reality-www.microsoft.com
