@@ -1,0 +1,140 @@
+# ============================================================
+#  VLESS + Reality 节点配置 (BBR加速 + 稳定兼容版)
+#  服务器: 43.108.22.136:8443
+# ============================================================
+mixed-port: 7890
+allow-lan: false
+bind-address: "*"
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+ipv6: true
+geodata-mode: true
+tcp-concurrent: true
+find-process-mode: strict
+global-client-fingerprint: chrome
+keep-alive-interval: 15
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+sniffer:
+  enable: true
+  sniff:
+    HTTP: { ports: [80, 8080-8880], override-destination: true }
+    TLS: { ports: [443, 8443] }
+    QUIC: { ports: [443, 8443] }
+  skip-domain:
+    - "Mijia Cloud"
+    - "+.push.apple.com"
+
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - "*.lan"
+    - "*.local"
+    - "*.localhost"
+    - "dns.msftncsi.com"
+    - "+.stun.*.*"
+    - "lens.l.google.com"
+    - "time.*.com"
+    - "ntp.*.com"
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  fallback:
+    - https://dns.cloudflare.com/dns-query
+    - https://dns.google/dns-query
+    - tls://8.8.4.4:853
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    geosite: [gfw]
+    ipcidr: [240.0.0.0/4]
+
+proxies:
+  - name: "VPS节点"
+    type: vless
+    server: 43.108.22.136
+    port: 8443
+    uuid: 55f00627-e200-415c-a80e-0ce3a288a27f
+    network: tcp
+    tls: true
+    udp: true
+    flow: xtls-rprx-vision
+    servername: www.microsoft.com
+    reality-opts:
+      public-key: 3YOwiMpM77A2gHrmQVKpvq6EcHeaM3ywk-koH0OpUUQ
+      short-id: 0cfac61beddf1a52
+    client-fingerprint: chrome
+
+proxy-groups:
+  - name: "🚀 节点选择"
+    type: select
+    proxies: ["VPS节点", "DIRECT"]
+
+  - name: "🤖 AI 服务"
+    type: select
+    proxies: ["🚀 节点选择", "VPS节点"]
+
+  - name: "🎬 流媒体"
+    type: select
+    proxies: ["🚀 节点选择", "VPS节点", "DIRECT"]
+
+  - name: "🌍 国外网站"
+    type: select
+    proxies: ["🚀 节点选择", "VPS节点"]
+
+  - name: "🐟 漏网之鱼"
+    type: select
+    proxies: ["🚀 节点选择", "DIRECT", "VPS节点"]
+
+rules:
+  - DOMAIN-SUFFIX,local,DIRECT
+  - DOMAIN-SUFFIX,localhost,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - DOMAIN-SUFFIX,openai.com,🤖 AI 服务
+  - DOMAIN-SUFFIX,anthropic.com,🤖 AI 服务
+  - DOMAIN-SUFFIX,claude.ai,🤖 AI 服务
+  - DOMAIN-SUFFIX,chatgpt.com,🤖 AI 服务
+  - DOMAIN-KEYWORD,gemini,🤖 AI 服务
+  - DOMAIN-SUFFIX,githubcopilot.com,🤖 AI 服务
+  - DOMAIN-SUFFIX,netflix.com,🎬 流媒体
+  - DOMAIN-SUFFIX,youtube.com,🎬 流媒体
+  - DOMAIN-SUFFIX,spotify.com,🎬 流媒体
+  - DOMAIN-SUFFIX,disneyplus.com,🎬 流媒体
+  - DOMAIN-SUFFIX,tiktokv.com,🎬 流媒体
+  - DOMAIN-SUFFIX,google.com,🌍 国外网站
+  - DOMAIN-SUFFIX,gmail.com,🌍 国外网站
+  - DOMAIN-SUFFIX,github.com,🌍 国外网站
+  - DOMAIN-SUFFIX,githubusercontent.com,🌍 国外网站
+  - DOMAIN-SUFFIX,twitter.com,🌍 国外网站
+  - DOMAIN-SUFFIX,x.com,🌍 国外网站
+  - DOMAIN-SUFFIX,facebook.com,🌍 国外网站
+  - DOMAIN-SUFFIX,instagram.com,🌍 国外网站
+  - DOMAIN-SUFFIX,telegram.org,🌍 国外网站
+  - DOMAIN-SUFFIX,reddit.com,🌍 国外网站
+  - DOMAIN-SUFFIX,discord.com,🌍 国外网站
+  - DOMAIN-SUFFIX,whatsapp.com,🌍 国外网站
+  - DOMAIN-SUFFIX,wikipedia.org,🌍 国外网站
+  - DOMAIN-SUFFIX,amazonaws.com,🌍 国外网站
+  - DOMAIN-SUFFIX,cloudfront.net,🌍 国外网站
+  - DOMAIN-SUFFIX,stackoverflow.com,🌍 国外网站
+  - DOMAIN-SUFFIX,docker.com,🌍 国外网站
+  - DOMAIN-SUFFIX,notion.so,🌍 国外网站
+  - DOMAIN-SUFFIX,vercel.com,🌍 国外网站
+  - DOMAIN-SUFFIX,npmjs.com,🌍 国外网站
+  - GEOSITE,cn,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,🐟 漏网之鱼

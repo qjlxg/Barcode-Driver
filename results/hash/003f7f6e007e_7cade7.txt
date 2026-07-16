@@ -1,0 +1,46 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+geodata-mode: true
+geo-auto-update: true
+geo-update-interval: 24
+geox-url:
+  geoip: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+  geosite: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+  mmdb: "https://testingcf.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/country.mmdb"
+
+proxies:
+  - name: HK-VPS-3-NEW
+    type: vless
+    server: 38.207.177.236
+    port: 443
+    uuid: 9c64064c-aaaf-449f-9344-77632fc9ff1c
+    udp: true
+    tls: true
+    network: tcp
+    servername: www.cloudflare.com
+    flow: xtls-rprx-vision
+    client-fingerprint: chrome
+    skip-cert-verify: false
+    reality-opts:
+      public-key: maES4RMEtsm5emBCixDRa6Y5GvmVwmwZNBL2G4Q03D4
+      short-id: 47de54e71fee3451
+    encryption: none
+
+proxy-groups:
+  - name: PROXY
+    type: select
+    proxies:
+      - HK-VPS-3-NEW
+      - DIRECT
+
+rules:
+  - PROCESS-NAME,Telegram.exe,PROXY
+  - GEOSITE,geolocation-!cn,PROXY
+  - GEOSITE,private,DIRECT
+  - GEOSITE,cn,DIRECT
+  - GEOIP,private,DIRECT,no-resolve
+  - GEOIP,CN,DIRECT
+  - MATCH,PROXY
