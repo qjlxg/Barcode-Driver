@@ -13,7 +13,7 @@ from typing import Any, Dict, List, Tuple
 
 # --- 配置 ---
 INPUT_CSV = 'scan_results.csv'    # 从 CSV 读取 URL
-OUTPUT_FILE = 'nodes.yaml'        # 最终合并的节点文件
+OUTPUT_FILE = 'unique.yaml'        # 最终合并的节点文件
 CSV_FILE = 'scan_stats.csv'       # 统计报告
 UNIQUE_URLS_FILE = 'unique_urls.txt' # 去重后的链接清单
 RULES_FILE = 'rules.yaml'         # 基础规则文件(可选)
