@@ -1,0 +1,99 @@
+mixed-port: 7890
+allow-lan: true
+mode: rule
+log-level: info
+ipv6: false
+
+proxies:
+  - name: vless-reality
+    type: vless
+    server: 216.238.54.188
+    port: 31000
+    uuid: 93657c8c-d5c0-4aee-b5b5-600e1a126ae6
+    flow: xtls-rprx-vision
+    tls: true
+    servername: www.bing.com
+    reality-opts:
+      public-key: QlkRper4xpeS7VcrZ-AMILFuPHLsVAXvE2iK3Ny2BUk
+      short-id: 8437128de115af05
+    client-fingerprint: chrome
+  - name: hysteria2
+    type: hysteria2
+    server: 216.238.54.188
+    port: 31001
+    password: 64I2J0JhrE
+    sni: amd.com
+    skip-cert-verify: true
+    obfs: salamander
+    obfs-password: 76vBm5guJ7
+
+
+  - name: tuic
+    type: tuic
+    server: 216.238.54.188
+    port: 31002
+    uuid: 1a22a2d3-cba5-4b1e-bd10-88b5e1ea9518
+    password: bdf7a8f8cf346d21
+    sni: amd.com
+    skip-cert-verify: true
+    udp-relay: true
+    congestion-controller: bbr
+    alpn: [h3, h2, http/1.1]
+
+
+  - name: shadowsocks
+    type: ss
+    server: 216.238.54.188
+    port: 31003
+    cipher: aes-256-gcm
+    password: "a21094a1adbfa0bdb10b2377d7948887"
+    udp: true
+
+
+  - name: vmess-ws-tls
+    type: vmess
+    server: 216.238.54.188
+    port: 443
+    uuid: 5d09cf43-fcca-44f1-9149-645b2239deda
+    alterId: 0
+    cipher: auto
+    tls: true
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: "/87ad4af2"
+
+  - name: vless-ws-tls
+    type: vless
+    server: 216.238.54.188
+    port: 443
+    uuid: 9b505f4a-e0b6-4a92-bae9-a3ee4af0f966
+    tls: true
+    skip-cert-verify: true
+    network: ws
+    ws-opts:
+      path: "/62a259ee"
+
+  - name: shadowsocks-tls
+    type: ss
+    server: 216.238.54.188
+    port: 31007
+    cipher: aes-256-gcm
+    password: "b288c0582b11bd370091480ba432af55"
+    udp: true
+    tls: true
+    skip-cert-verify: true
+
+proxy-groups:
+  - name: Proxy
+    type: select
+    proxies: [Auto, vmess-ws-tls, vless-ws-tls, shadowsocks-tls, vless-reality, shadowsocks, hysteria2, tuic]
+  - name: Auto
+    type: url-test
+    proxies: [vless-reality, hysteria2]
+    url: http://cp.cloudflare.com/generate_204
+    interval: 300
+
+rules:
+  - GEOIP,Private,DIRECT
+  - MATCH,Proxy
