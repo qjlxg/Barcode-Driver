@@ -1,0 +1,204 @@
+mixed-port: 7890
+allow-lan: false
+bind-address: 127.0.0.1
+mode: rule
+log-level: warning
+ipv6: false
+dns:
+  enable: true
+  listen: 127.0.0.1:1053
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+  - '*.lan'
+  - '*.localdomain'
+  - '*.example'
+  - '*.invalid'
+  - '*.localhost'
+  - '*.test'
+  - '*.local'
+  - '*.home.arpa'
+  - time.*.com
+  - time.*.gov
+  - time.*.apple.com
+  - time1.*.com
+  - time2.*.com
+  - time3.*.com
+  - time4.*.com
+  - time5.*.com
+  - time6.*.com
+  - time7.*.com
+  - ntp.*.com
+  - +.stun.*
+  - stun.*
+  default-nameserver:
+  - 119.29.29.29
+  - 223.5.5.5
+  - 114.114.114.114
+  nameserver:
+  - https://dns.superjay.cc:8445/dns-query
+  - https://doh.pub/dns-query
+  - https://8.8.8.8/dns-query
+  proxy-server-nameserver:
+  - https://doh.pub/dns-query
+  nameserver-policy:
+    +.buaa.edu.cn: udp://202.112.128.50
+    geosite:cn: https://doh.pub/dns-query
+    geosite:geolocation-!cn: https://dns.superjay.cc:8445/dns-query
+proxies:
+- name: Los Angeles - Hysteria2
+  type: hysteria2
+  server: 38.148.249.252
+  port: 8443
+  password: user1:lhBCuvh5lxKoj5NJ
+  up: 100
+  down: 1000
+  sni: superjay.cc
+  skip-cert-verify: false
+- name: Los Angeles - VLESS-Reality
+  type: vless
+  server: 38.148.249.252
+  port: 2053
+  udp: true
+  uuid: 6d6abf69-fbef-42a6-a112-23188a1423cf
+  tls: true
+  servername: www.bing.com
+  reality-opts:
+    public-key: 4_VuFKKyFD9p5wM8izK2Etjwm_g-MxiOVyRupzZVWlc
+    short-id: 5f3eb6bd0d6a99a9
+  client-fingerprint: chrome
+  network: tcp
+  flow: xtls-rprx-vision
+proxy-groups:
+- name: Proxy
+  type: select
+  proxies:
+  - Los Angeles - Hysteria2
+  - Los Angeles - VLESS-Reality
+  - DIRECT
+- name: Auto
+  type: url-test
+  proxies:
+  - Los Angeles - Hysteria2
+  - Los Angeles - VLESS-Reality
+  url: https://www.gstatic.com/generate_204
+  interval: 300
+  tolerance: 50
+rule-providers:
+  AWAvenue-Ads:
+    type: http
+    behavior: classical
+    format: yaml
+    path: ./rule_provider/AWAvenue-Ads.yaml
+    url: https://ghfast.top/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash-Classical.yaml
+    interval: 86400
+rules:
+- DOMAIN,sub.superjay.cc,DIRECT
+- DOMAIN-SUFFIX,superjay.cc,DIRECT
+- RULE-SET,AWAvenue-Ads,REJECT
+- DOMAIN-SUFFIX,zhangyuyidong.cn,REJECT
+- DOMAIN-SUFFIX,volces.com,REJECT
+- DOMAIN,sdkquic.e.qq.com,REJECT
+- DOMAIN-REGEX,^t\d+\.baidu\.com$,REJECT
+- DOMAIN,webcast-open.douyin.com,REJECT
+- DOMAIN,tnc3-alisc1.zijieapi.com,REJECT
+- DOMAIN,link-edge-azure.yunxinfw.com,REJECT
+- DOMAIN,toblog.ctobsnssdk.com,REJECT
+- DOMAIN,link-ga-hz.yunxinfw.com,REJECT
+- DOMAIN-SUFFIX,logtake.weidian.com,REJECT
+- DOMAIN-SUFFIX,adservice.sigmob.cn,REJECT
+- DOMAIN-SUFFIX,sdk.e.qq.com,REJECT
+- DOMAIN-SUFFIX,gdt.qq.com,REJECT
+- DOMAIN-SUFFIX,pro.bugly.qq.com,REJECT
+- DOMAIN-SUFFIX,pangolin-sdk-toutiao.com,REJECT
+- DOMAIN-SUFFIX,pglstatp-toutiao.com,REJECT
+- DOMAIN-SUFFIX,beizi.biz,REJECT
+- DOMAIN-SUFFIX,jpush.cn,REJECT
+- DOMAIN-SUFFIX,lrtb.com,REJECT
+- DOMAIN-SUFFIX,fengkongcloud.com,REJECT
+- DOMAIN-SUFFIX,getui.com,REJECT
+- DOMAIN-SUFFIX,tobidad.cn,REJECT
+- DOMAIN-SUFFIX,statistic.live.126.net,REJECT
+- DOMAIN-SUFFIX,app-analytics-services.com,REJECT
+- DOMAIN-KEYWORD,sigmob,REJECT
+- DOMAIN-KEYWORD,toutiao,REJECT
+- DOMAIN-KEYWORD,beizi,REJECT
+- DOMAIN-KEYWORD,getui,REJECT
+- DOMAIN-SUFFIX,openai.com,Proxy
+- DOMAIN-SUFFIX,oaistatic.com,Proxy
+- DOMAIN-SUFFIX,oaiusercontent.com,Proxy
+- DOMAIN-SUFFIX,chatgpt.com,Proxy
+- DOMAIN-SUFFIX,claude.ai,Proxy
+- DOMAIN-SUFFIX,anthropic.com,Proxy
+- DOMAIN-SUFFIX,perplexity.ai,Proxy
+- DOMAIN-SUFFIX,groq.com,Proxy
+- DOMAIN-SUFFIX,mistral.ai,Proxy
+- DOMAIN-SUFFIX,deepseek.com,DIRECT
+- DOMAIN-SUFFIX,bigmodel.cn,DIRECT
+- DOMAIN-SUFFIX,zhipuai.cn,DIRECT
+- GEOSITE,google,Proxy
+- GEOSITE,youtube,Proxy
+- GEOSITE,twitter,Proxy
+- GEOSITE,facebook,Proxy
+- GEOSITE,telegram,Proxy
+- GEOSITE,netflix,Proxy
+- GEOSITE,disney,Proxy
+- GEOSITE,tiktok,Proxy
+- GEOSITE,spotify,Proxy
+- GEOSITE,github,Proxy
+- GEOSITE,microsoft,DIRECT
+- DOMAIN-SUFFIX,wikipedia.org,Proxy
+- DOMAIN-SUFFIX,wikimedia.org,Proxy
+- GEOSITE,reddit,Proxy
+- GEOSITE,bahamut,Proxy
+- GEOSITE,pixiv,Proxy
+- GEOSITE,apple,DIRECT
+- GEOSITE,private,DIRECT
+- GEOSITE,tencent,DIRECT
+- GEOSITE,cn,DIRECT
+- DOMAIN,dns.msftncsi.com,DIRECT
+- DOMAIN,www.msftconnecttest.com,DIRECT
+- DOMAIN-SUFFIX,local,DIRECT
+- DOMAIN-SUFFIX,localhost,DIRECT
+- DOMAIN-SUFFIX,lan,DIRECT
+- DOMAIN-SUFFIX,home.arpa,DIRECT
+- IP-CIDR,10.0.0.0/8,DIRECT,no-resolve
+- IP-CIDR,127.0.0.0/8,DIRECT,no-resolve
+- IP-CIDR,172.16.0.0/12,DIRECT,no-resolve
+- IP-CIDR,192.168.0.0/16,DIRECT,no-resolve
+- IP-CIDR,100.64.0.0/10,DIRECT,no-resolve
+- IP-CIDR,224.0.0.0/4,DIRECT,no-resolve
+- IP-CIDR,240.0.0.0/4,DIRECT,no-resolve
+- GEOIP,CN,DIRECT
+- MATCH,Proxy
+unified-delay: true
+tcp-concurrent: true
+sniffer:
+  enable: true
+  sniff:
+    HTTP:
+      ports:
+      - 80
+      - 8080-8880
+    TLS:
+      ports:
+      - 443
+      - 8443
+  skip-domain:
+  - +.push.apple.com
+  force-dns-mapping: true
+  override-destination: true
+  parse-pure-ip: false
+profile:
+  store-selected: true
+  store-fake-ip: true
+ntp:
+  enable: true
+  server: time.apple.com
+  port: 123
+  interval: 30
+geodata-mode: true
+geox-url:
+  geoip: https://ghfast.top/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat
+  geosite: https://ghfast.top/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat
+  mmdb: https://ghfast.top/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb

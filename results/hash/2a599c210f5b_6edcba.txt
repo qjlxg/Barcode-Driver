@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SN Digital</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <link href="/static/digitalapp/css/homeCiudadanoBase.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+    <!-- Toastr -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.20/dist/sweetalert2.all.min.js"></script>
+    <style>
+        #toast-container > .toast-error { background-color: #BE665C; }
+
+        #toast-container > .toast-info { background-color: #68A6BF; }
+
+        #toast-success > .toast-info { background-color: #64895A; }
+
+        #toast-success > .toast-warning { background-color: #EDAB48; }
+    </style>
+    
+    <link rel="stylesheet" href="/static/digitalapp/css/homeCiudadano.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Teko:wght@300..700&display=swap" rel="stylesheet">    
+</head>
+<body>
+    <header>
+            <div class="headerInformativo">
+                <a class="linkPagina" href="/">SN.GOB.MX</a>
+                <div class="contenedorEscudo">
+                    <h6>Gobierno de <br/>San Nicolás</h6>
+                    <div class="innerEscudo">
+                        <a class="navbar-brand escudo" href="https://sn.gob.mx/"><img class="escudo" src="/static/digitalapp/img/icons/LOGO.png" alt="logo San Nicolas"></a>
+                    </div>                
+                </div>            
+            </div>
+            <div class="navHeader">
+                <div class="titulo">
+                    <h1>Oficina Virtual de <span>Trámites</span></h1>
+                    <h6 style="background-color: #2465AE;
+                    color: #eee; padding: 5px;
+                    border-radius: 5px;"><strong>Catálogo de trámites y servicios de San Nicolás de los Garza</strong></h6>
+                    <!-- <p>San Nicolás | <span id="smallWatch"></span></p> -->
+                </div>
+                
+                    <div class="menuLogin">
+                        <a href="/login/" class="btnInicioSesion">Ingresar</a>
+                        <a href="/registro_seleccion/" class="btnInicioSesion">Registrarse</a>
+                    </div>
+                
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-lg mt-3" style="background-color: rgb(0, 7, 44);">
+                <div class="container-fluid">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                <div class="collapse navbar-collapse" id="navbarNav" style="display: flex; justify-content: center;">
+                    <ul class="navbar-nav" style="width: 75%; justify-content: space-evenly; padding: 5px 10px; gap: 5px;">
+                        <li class="nav-item btn-menu">
+                            <a class="nav-link active btn-menu" style="display: flex; flex-direction: column;
+                            justify-content: center; align-items: center; gap: 5px;" aria-current="page" href="/">
+                                <img class="iconoMenu" src="/static/digitalapp/img/iconos/home.svg" alt="">
+                                <span>Inicio</span>
+                            </a>
+                        </li>
+                        <li class="nav-item btn-menu">
+                            <a class="nav-link btn-menu" 
+                            style="display: flex; flex-direction: column;
+                            justify-content: center; align-items: center; gap: 5px;"
+                            href="/tramites">
+                                <img class="iconoMenu" src="/static/digitalapp/img/iconos/tramites.svg" alt="">
+                                <span>Trámites</span></a>
+                        </li>
+                        <li class="nav-item btn-menu">
+                            <a class="nav-link btn-menu" 
+                            style="display: flex; flex-direction: column;
+                            justify-content: center; align-items: center; gap: 5px;"
+                            href="https://transparencia.sn.gob.mx/#/" target="_blank">
+                                <img class="iconoMenu" src="/static/digitalapp/img/iconos/transparencia.svg" alt="">
+                                <span>Transparencia</span></a>
+                        </li>
+                        <li class="nav-item btn-menu">
+                            <a class="nav-link btn-menu"
+                            style="display: flex; flex-direction: column;
+                            justify-content: center; align-items: center; gap: 5px;"
+                            href="https://decidimos.sanicolas.gob.mx//#/" target="_blank">
+                                <img class="iconoMenu" src="/static/digitalapp/img/iconos/participacion.svg" alt="">
+                                <span>Participación</span></a>
+                        </li>
+                        <li class="nav-item btn-menu">
+                            <a class="nav-link btn-menu"
+                            style="display: flex; flex-direction: column;
+                            justify-content: center; align-items: center; gap: 5px;"
+                             href="/#faqs">
+                                <img class="iconoMenu" src="/static/digitalapp/img/iconos/preguntas_frecuentes.svg" alt="">
+                                <span>Tutoriales</span></a>
+                        </li>
+                        <li class="nav-item btn-menu">
+                            <a class="nav-link btn-menu"
+                            style="display: flex; flex-direction: column;
+                            justify-content: center; align-items: center; gap: 5px;"
+                             href="https://sn.gob.mx/" target="_blank">
+                                <img class="iconoMenu" src="/static/digitalapp/img/iconos/gobierno.svg" alt="">
+                                <span>Municipio</span></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>          
+    </header>
+    
+<div class="containerBanner">
+    <div class="containerBuscador">
+        <h1 class="titleBuscador"><strong>BUSCADOR</strong></h1>
+        <h4><strong>¡Selecciona aquí el trámite o servicio que deseas solicitar!</strong></h4>
+        <form class="d-flex w-75" role="search" onsubmit="return buscarTramite()">
+            <input class="form-control me-2 w-100" id="busquedaInput" type="search" placeholder="Buscar trámite o servicio" aria-label="Search">
+            <button class="btn btn-light" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+    </div>
+</div>
+<div class="container" style="margin-top: 80px;">
+    <div class="row">
+        <div class="col-12 col-md-6 " style="display: flex; flex-direction: column; justify-content: center;align-items: end; 
+        background: rgb(2,0,36);
+        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgb(13, 29, 32) 100%);
+        border-radius: 20px;">
+        <img src="/static/digitalapp/img/fondo_pasos.png" width="100%" alt="">
+        </div>
+        <div class="col-12 col-md-6" style="display: flex; flex-direction: column;">
+            <div class="container d-flex justify-content-center">
+                <h4 style="margin-top: 40px; padding: 0;"><b>Pasos para realizar tu Trámite:</b></h4>
+            </div>
+            <img src="/static/digitalapp/img/pasos.svg" width="100%" alt="pasos" style="margin: 0;">
+        </div>
+    </div>
+</div>
+<div class="tramitesFrecuentes container mt-5">
+    <div class="container d-flex justify-content-center">
+        <h3><b>Trámites más Frecuentes:</b></h3>
+    </div>
+    <div class="container cardsContainer mt-5">
+        <div class="row rowTarjetasFrecuentes">
+            
+                <div class="tarjetaTramite">
+                    <div class="encabezadoTarjeta">
+                        <div class="identidadTramite">
+                            <h5 style="font-size: 16px;"><strong>Notas Declaratorias de ISAI</strong></h5>
+                            <span style="font-size: 14px; font-family: 600;">FOMERREY</span><br>
+                            <small style="font-size: 11px;">SFyT-2023-10116-011-C</small>
+                        </div>
+                        <div style="width: 70%; height: 1px; background-color: #666666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                        <div class="costo" style="margin-top: 8px;">
+                            <p style="font-size: 11px; margin-bottom: 3px;"><b>Costo del trámite: </b></p>
+                            
+                                
+                                <span style="font-size: 13px; display: inline-block;">$726.00 Pesos Mexicanos</span>
+                                
+                             
+
+                            <div style="width: 70%; height: 1px; background-color: #666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                            <p style="font-size: 10px; margin-top: 8px; margin-bottom: 3px;"><b>Tiempo de resolución: </b></p>
+                            
+                                
+                                    <p  style="margin-top: 8px; font-size: 13px;">Tiempo de resolución: 10 Días hábiles</p>
+                                
+                            
+                            <div style="width: 70%; height: 1px; background-color: #666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                            <p style="font-size: 10px; margin-top: 8px; margin-bottom: 3px;"><b>canales de atención: </b></p>
+                            <ul>
+                                
+                                    
+                                    <li style="font-size: 13px;">Presencial</li>
+                                    
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footerTarjeta">
+                        <a href="/ficha_tramite/606">Ver Ficha</a>
+                    </div>
+                </div>
+            
+                <div class="tarjetaTramite">
+                    <div class="encabezadoTarjeta">
+                        <div class="identidadTramite">
+                            <h5 style="font-size: 16px;"><strong>LICENCIA DE CONSTRUCCIÓN DE CASA HABITACIÓN UNIFAMILIAR OBRA NUEVA MAYOR  A 250 M2</strong></h5>
+                            <span style="font-size: 14px; font-family: 600;">PRESENCIAL</span><br>
+                            <small style="font-size: 11px;">T-07-SDU-CH-06</small>
+                        </div>
+                        <div style="width: 70%; height: 1px; background-color: #666666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                        <div class="costo" style="margin-top: 8px;">
+                            <p style="font-size: 11px; margin-bottom: 3px;"><b>Costo del trámite: </b></p>
+                            
+                                
+                                <span style="font-size: 13px; display: inline-block;"> None -  None Actualización (UMA)</span>
+                                
+                             
+
+                            <div style="width: 70%; height: 1px; background-color: #666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                            <p style="font-size: 10px; margin-top: 8px; margin-bottom: 3px;"><b>Tiempo de resolución: </b></p>
+                            
+                                
+                                    <p  style="margin-top: 8px; font-size: 13px;">Tiempo de resolución: 10 Días hábiles</p>
+                                
+                            
+                            <div style="width: 70%; height: 1px; background-color: #666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                            <p style="font-size: 10px; margin-top: 8px; margin-bottom: 3px;"><b>canales de atención: </b></p>
+                            <ul>
+                                
+                                    
+                                    <li style="font-size: 13px;">Medios electrónicos</li>
+                                    
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footerTarjeta">
+                        <a href="/ficha_tramite/829">Ver Ficha</a>
+                    </div>
+                </div>
+            
+                <div class="tarjetaTramite">
+                    <div class="encabezadoTarjeta">
+                        <div class="identidadTramite">
+                            <h5 style="font-size: 16px;"><strong>Licencia de Demolición</strong></h5>
+                            <span style="font-size: 14px; font-family: 600;">No Aplica</span><br>
+                            <small style="font-size: 11px;">OPyDU-2023-10119-022-A</small>
+                        </div>
+                        <div style="width: 70%; height: 1px; background-color: #666666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                        <div class="costo" style="margin-top: 8px;">
+                            <p style="font-size: 11px; margin-bottom: 3px;"><b>Costo del trámite: </b></p>
+                            
+                                
+                                <span style="font-size: 13px; display: inline-block;">$ 104.21 - $ 454.05 Pesos Mexicanos</span>
+                                
+                             
+
+                            <div style="width: 70%; height: 1px; background-color: #666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                            <p style="font-size: 10px; margin-top: 8px; margin-bottom: 3px;"><b>Tiempo de resolución: </b></p>
+                            
+                                
+                                    <p  style="margin-top: 8px; font-size: 13px;">Tiempo de resolución: 8 Días hábiles</p>
+                                
+                            
+                            <div style="width: 70%; height: 1px; background-color: #666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                            <p style="font-size: 10px; margin-top: 8px; margin-bottom: 3px;"><b>canales de atención: </b></p>
+                            <ul>
+                                
+                                    
+                                    <li style="font-size: 13px;">Presencial</li>
+                                    
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footerTarjeta">
+                        <a href="/ficha_tramite/571">Ver Ficha</a>
+                    </div>
+                </div>
+            
+                <div class="tarjetaTramite">
+                    <div class="encabezadoTarjeta">
+                        <div class="identidadTramite">
+                            <h5 style="font-size: 16px;"><strong>Permiso Volanteo Casa por Casa</strong></h5>
+                            <span style="font-size: 14px; font-family: 600;">No Aplica</span><br>
+                            <small style="font-size: 11px;">SA-2023-10115-028-A</small>
+                        </div>
+                        <div style="width: 70%; height: 1px; background-color: #666666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                        <div class="costo" style="margin-top: 8px;">
+                            <p style="font-size: 11px; margin-bottom: 3px;"><b>Costo del trámite: </b></p>
+                            
+                                
+                                <span style="font-size: 13px; display: inline-block;">2,262.80 Actualización (UMA)</span>
+                                
+                             
+
+                            <div style="width: 70%; height: 1px; background-color: #666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                            <p style="font-size: 10px; margin-top: 8px; margin-bottom: 3px;"><b>Tiempo de resolución: </b></p>
+                            
+                                
+                                    <p  style="margin-top: 8px; font-size: 13px;">Tiempo de resolución: 2 Días hábiles</p>
+                                
+                            
+                            <div style="width: 70%; height: 1px; background-color: #666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                            <p style="font-size: 10px; margin-top: 8px; margin-bottom: 3px;"><b>canales de atención: </b></p>
+                            <ul>
+                                
+                                    
+                                    <li style="font-size: 13px;">Presencial</li>
+                                    
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footerTarjeta">
+                        <a href="/ficha_tramite/531">Ver Ficha</a>
+                    </div>
+                </div>
+            
+                <div class="tarjetaTramite">
+                    <div class="encabezadoTarjeta">
+                        <div class="identidadTramite">
+                            <h5 style="font-size: 16px;"><strong>Refrendo de Estacionamiento Exclusivo</strong></h5>
+                            <span style="font-size: 14px; font-family: 600;">Discapacidad </span><br>
+                            <small style="font-size: 11px;">SFyT-2023-10116-013-B</small>
+                        </div>
+                        <div style="width: 70%; height: 1px; background-color: #666666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                        <div class="costo" style="margin-top: 8px;">
+                            <p style="font-size: 11px; margin-bottom: 3px;"><b>Costo del trámite: </b></p>
+                            
+                                
+                                <span style="font-size: 13px; display: inline-block;"> None -  None Actualización (UMA)</span>
+                                
+                             
+
+                            <div style="width: 70%; height: 1px; background-color: #666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                            <p style="font-size: 10px; margin-top: 8px; margin-bottom: 3px;"><b>Tiempo de resolución: </b></p>
+                            
+                                
+                                    <p  style="margin-top: 8px; font-size: 13px;">Tiempo de resolución: Inmediato</p>
+                                
+                            
+                            <div style="width: 70%; height: 1px; background-color: #666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                            <p style="font-size: 10px; margin-top: 8px; margin-bottom: 3px;"><b>canales de atención: </b></p>
+                            <ul>
+                                
+                                    
+                                    <li style="font-size: 13px;">Presencial</li>
+                                    
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footerTarjeta">
+                        <a href="/ficha_tramite/3018">Ver Ficha</a>
+                    </div>
+                </div>
+            
+                <div class="tarjetaTramite">
+                    <div class="encabezadoTarjeta">
+                        <div class="identidadTramite">
+                            <h5 style="font-size: 16px;"><strong>TERMINACIÓN DE OBRAS, LIBERACIÓN DE GARANTÍAS Y MUNICIPALIZACIÓN - FRACCIONAMIENTO</strong></h5>
+                            <span style="font-size: 14px; font-family: 600;">PRESENCIAL / EN LÍNEA</span><br>
+                            <small style="font-size: 11px;">T-07-SDU-FR-14</small>
+                        </div>
+                        <div style="width: 70%; height: 1px; background-color: #666666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                        <div class="costo" style="margin-top: 8px;">
+                            <p style="font-size: 11px; margin-bottom: 3px;"><b>Costo del trámite: </b></p>
+                            
+                                
+                                <span style="font-size: 13px; display: inline-block;">$ None - $ None Pesos Mexicanos</span>
+                                
+                             
+
+                            <div style="width: 70%; height: 1px; background-color: #666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                            <p style="font-size: 10px; margin-top: 8px; margin-bottom: 3px;"><b>Tiempo de resolución: </b></p>
+                            
+                                
+                                    <p  style="margin-top: 8px; font-size: 13px;">Tiempo de resolución: 20 Días naturales</p>
+                                
+                            
+                            <div style="width: 70%; height: 1px; background-color: #666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                            <p style="font-size: 10px; margin-top: 8px; margin-bottom: 3px;"><b>canales de atención: </b></p>
+                            <ul>
+                                
+                                    
+                                    <li style="font-size: 13px;">Medios electrónicos</li>
+                                    
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footerTarjeta">
+                        <a href="/ficha_tramite/3447">Ver Ficha</a>
+                    </div>
+                </div>
+            
+                <div class="tarjetaTramite">
+                    <div class="encabezadoTarjeta">
+                        <div class="identidadTramite">
+                            <h5 style="font-size: 16px;"><strong>Padrón de Proveedores y Prestadores de Servicios</strong></h5>
+                            <span style="font-size: 14px; font-family: 600;">Refrendo</span><br>
+                            <small style="font-size: 11px;">SFyT-2023-10116-007-C</small>
+                        </div>
+                        <div style="width: 70%; height: 1px; background-color: #666666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                        <div class="costo" style="margin-top: 8px;">
+                            <p style="font-size: 11px; margin-bottom: 3px;"><b>Costo del trámite: </b></p>
+                            
+                            <span style="font-size: 13px; display: inline-block;">Sin Costo</span>
+                             
+
+                            <div style="width: 70%; height: 1px; background-color: #666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                            <p style="font-size: 10px; margin-top: 8px; margin-bottom: 3px;"><b>Tiempo de resolución: </b></p>
+                            
+                                
+                                    <p  style="margin-top: 8px; font-size: 13px;">Tiempo de resolución: 10 Días hábiles</p>
+                                
+                            
+                            <div style="width: 70%; height: 1px; background-color: #666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                            <p style="font-size: 10px; margin-top: 8px; margin-bottom: 3px;"><b>canales de atención: </b></p>
+                            <ul>
+                                
+                                    
+                                    <li style="font-size: 13px;">Medios electrónicos</li>
+                                    
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footerTarjeta">
+                        <a href="/ficha_tramite/3097">Ver Ficha</a>
+                    </div>
+                </div>
+            
+                <div class="tarjetaTramite">
+                    <div class="encabezadoTarjeta">
+                        <div class="identidadTramite">
+                            <h5 style="font-size: 16px;"><strong>Refrendo de Estacionamiento Exclusivo</strong></h5>
+                            <span style="font-size: 14px; font-family: 600;">Residencial </span><br>
+                            <small style="font-size: 11px;">SFyT-2023-10116-013-A</small>
+                        </div>
+                        <div style="width: 70%; height: 1px; background-color: #666666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                        <div class="costo" style="margin-top: 8px;">
+                            <p style="font-size: 11px; margin-bottom: 3px;"><b>Costo del trámite: </b></p>
+                            
+                                
+                                <span style="font-size: 13px; display: inline-block;"> 378.27 -  104,209.26 Actualización (UMA)</span>
+                                
+                             
+
+                            <div style="width: 70%; height: 1px; background-color: #666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                            <p style="font-size: 10px; margin-top: 8px; margin-bottom: 3px;"><b>Tiempo de resolución: </b></p>
+                            
+                                
+                                    <p  style="margin-top: 8px; font-size: 13px;">Tiempo de resolución: Inmediato</p>
+                                
+                            
+                            <div style="width: 70%; height: 1px; background-color: #666; margin-top: 8px; margin-left: auto; margin-right:  auto;"></div>
+                            <p style="font-size: 10px; margin-top: 8px; margin-bottom: 3px;"><b>canales de atención: </b></p>
+                            <ul>
+                                
+                                    
+                                    <li style="font-size: 13px;">Presencial</li>
+                                    
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footerTarjeta">
+                        <a href="/ficha_tramite/1987">Ver Ficha</a>
+                    </div>
+                </div>
+            
+        </div>        
+        <a href="/tramites" class="btn-TodosTramites">Ver todos los Trámites</a>
+    </div>
+</div>
+<!-- <div class="mt-5 containerDestacados">
+    <div class="row">
+        <div class="col-12">
+            <h3 class="z mt-3">Categorías Destacadas</h3>
+            <div class="cajaDestacados">
+                <div class="destacados1">
+                    
+                        <a href="/tramites?categoria=Hacienda y Finanzas" class="btnDestacado">Hacienda y Finanzas</a>
+                    
+                        <a href="/tramites?categoria=Seguridad y justicia" class="btnDestacado">Seguridad y justicia</a>
+                    
+                        <a href="/tramites?categoria=Obras públicas" class="btnDestacado">Obras públicas</a>
+                    
+                </div>
+                <div class="destacados1">      
+                    
+                        <a href="/tramites?categoria=Ciencia y educación" class="btnDestacado">Ciencia y educación</a>
+                    
+                        <a href="/tramites?categoria=Ayuntamiento" class="btnDestacado">Ayuntamiento</a>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="containerNicky">
+    <div class="row rowNicky">
+        <div class="col-12 col-md-6 infoNicky">
+            <div class="separadorNicky"></div>
+            <div class="infoNickyTexto">
+                <h4>¿Tienes dudas de tu trámite?</h4>
+                <p>También puedes consultar el estatus de tus trámites y reportes a través de nuestros canales de comunicación, como teléfono, Messenger y WhatsApp.
+                    Nicky estará encantada de poder brindarte toda la información que necesites.
+                </p>
+                <button id="chatNiki">Envíale un mensaje a Nicky</button>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 avatarNicky">
+            <img class="nicky" style="mask-image: linear-gradient(black 80%,transparent);" src="https://res.cloudinary.com/bcedrez/image/upload/v1711476801/raxrjgmu0hvfrghdkylh.png" alt="">
+        </div>
+    </div>
+</div>
+<div class="mt-5 contenedorEspacioPersonal" id="faqs">
+    <div class="container d-flex justify-content-center">
+        <h4><strong>Preguntas Frecuentes (FAQ's): </strong></h4>
+    </div>
+    <div class="infoEspacioPersonal row">
+        <div class="suInformacion col-12 col-md-6" style="height: 200px;">
+            <div><i class="bi bi-info-square-fill"></i></div>
+            <div>
+                <h5><strong>¿Cómo registrarse?</strong></h5>
+                <p>
+                    <!-- Solo necesitas tu nombre, CURP y teléfono, ve nuestro tutorial <br> <a href="/tutorial/1">ver tutorial</a>  -->
+                    Solo necesitas tu nombre, CURP y teléfono, ve nuestro tutorial <br> <a href="/tutorial/1">ver tutorial</a> 
+
+                </p>
+            </div>
+        </div>
+        <div class="beneficioPersonal col-12 col-md-6" style="height: 200px;">
+            <div><i class="bi bi-info-square-fill"></i></div>
+            <div>
+                <h5><strong>¿Cómo realizo mi trámite en línea?</strong></h5>
+                <p>
+                Ve nuestro tutorial de como puedes realizar tu reporte ciudadano y trámites desde cualquier dispositivo <br> <a href="/tutorial/3">ver tutorial</a> 
+                </p>
+            </div>
+        </div>
+
+        <div class="beneficioPersonal col-12 col-md-6" style="height: 200px;">
+            <div><i class="bi bi-info-square-fill"></i></div>
+            <div>
+                <h5><strong>¿Cómo recupero mi contraseña si la olvide?</strong></h5>
+                <p>
+                    ¿Olvidaste tu contraseña? Sigue este tutorial para recuperar tu acceso a tu oficina virtual <br> <a href="/tutorial/2">ver tutorial</a> 
+                </p>
+            </div>
+        </div>
+
+        <div class="beneficioPersonal col-12 col-md-6" style="height: 200px;">
+            <div><i class="bi bi-info-square-fill"></i></div>
+            <div>
+                <h5><strong>¿Puedo ver el estatus de mis trámites en línea?</strong></h5>
+                <p>
+                    Consulta en tiempo real el estatus de tus trámites <br> <a href="/tutorial/4">ver tutorial</a> 
+                </p>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6" style="height: 200px; display: flex; flex-direction: column; gap: 10px;">
+            <label for="pregunta"><h4>¿Tienes otra pregunta?</h4></label>
+            <input style="height: 50px;" type="text" id="inputPregunta" class="form-control" placeholder="Escribe tu pregunta ...">
+            <button type="button" id="enviar_pregunta" class="btn btn-sm btn-primary" style="height: 50px;">Enviar pregunta</button>
+        </div>
+
+
+            <!-- <a href="/office" > Ver Tutoriales</a> -->
+
+    </div>
+</div>
+
+    <footer class="d-flex">
+        <div class="logoFooter col-12 col-md-4">
+            <a class="navbar-brand escudo" href="https://sn.gob.mx/"><img class="escudoFooter" src="/static/digitalapp/img/icons/LOGO.png" alt="logo San Nicolas"></a>
+            <p>DIGITAL + </p>
+        </div>
+        <div class="mapaSitio col-12 col-md-4">
+            <p><b>Mapa del sitio</b></p>
+            <div class="separador"></div>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/tramites">Trámites</a></li>
+                <li><a href="/registro_fisico">Registro</a></li>
+                <li><a href="https://transparencia.sn.gob.mx/#/" target="_blank">Transparencia</a></li>
+                <li><a href="https://decidimos.sanicolas.gob.mx/" target="_blank">Participación</a></li>
+                <li><a href="/aviso_privacidad_cd">Aviso de privacidad integral CONSULTA DIRECTA</a></li>
+                <li><a href="/aviso_privacidad_si">Aviso de privacidad SOLICITUDES DE INFORMACIÓN</a></li>
+                <li><a href="/info-eliminacion-datos">Información sobre solicitud de eliminación de datos personales</a></li>
+            </ul>
+        </div>
+        <div class="contactos col-12 col-md-4">
+            <div class="contacto-tel">
+                <i class="bi bi-headset"></i>
+                <p class="call">Atención ciudadana</p>
+                <p class="tel">+52 81 8158 1290</p>
+            </div>
+            <!-- <div class="redes">
+                <a href=""><i class="bi bi-facebook"></i></a>
+                <a href=""><i class="bi bi-instagram"></i></a>
+                <a href=""><i class="bi bi-tiktok"></i></a>
+            </div> -->
+        </div>
+    </footer>
+    <script>
+        function obtenerFechaHoraFormateada() {
+            const fechaHoraActual = new Date();
+            const opciones = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false,
+                weekday: 'long'
+            };
+
+            const fechaHoraFormateada = fechaHoraActual.toLocaleDateString('es-ES', opciones);
+
+            return fechaHoraFormateada;
+        }
+
+        // function actualizarReloj() {
+        //     const fechaHoraFormateada = obtenerFechaHoraFormateada();
+        //     const reloj = document.getElementById('smallWatch');
+        //     reloj.textContent = fechaHoraFormateada;
+        // }
+
+        // setInterval(actualizarReloj, 1000);
+    </script>
+    <!-- JQuery -->
+    <script type="text/javascript" src="/static/digitalapp/js/jquery-3.2.1.min.js"></script>
+    <!-- Toastr -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    
+    <script>
+        window.VoxKitWidgetSettings = {
+            host: 'kit-im-us.voximplant.com',
+            channel_uuid: 'f1adf540-eff5-4cd5-900e-667c3b025942',
+            token: 'c64100419a2990e4210798a1618b3db9',
+            client_data: {
+                client_id: '', // Customer ID
+                client_phone: '', // Customer phone number
+                client_avatar: ''  , // Customer avatar link
+                client_display_name: '',  // Customer name
+                client_email: '', // Customer email
+                client_language: 'es' // Interface language: 'en' or 'ru'
+            }
+        };
+    </script>
+    <script>
+        function validateFileNameLength(input) {
+            const maxLength = 800; // Set your limit
+            if (input.files.length > 0) {
+                const fileName = input.files[0].name;
+                if (fileName.length > maxLength) {
+                    var message = `El nombre del archivo es muy largo! Solo se permiten ${maxLength} caractéres máximo.`
+                    toastr.options = {"closeButton": true, "newestOnTop": true, "positionClass": "toast-top-center"};
+                    toastr.warning(message);
+                    input.value = ""; // Reset the input to prevent submission
+                }
+            }
+        }
+    </script>
+    <script>var l=function(){var t=function(){"object"==typeof VoxKitWidget&&"object"==typeof VoxKitWidgetSettings&&VoxKitWidget.init(VoxKitWidgetSettings)},e=document.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://kit.voximplant.com/static/widgets/web-chat.js?"+(new Date).valueOf(),e.readyState?e.onreadystatechange=function(){"loaded"!==e.readyState&&"complete"!==e.readyState||(e.onreadystatechange=null,t())}:e.onload=function(){t()};var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(e,a)};window.attachEvent?window.attachEvent("onload",l):window.addEventListener("load",l,!1);
+    </script>
+     <!-- <script async defer crossorigin="anonymous" src="https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v22.0&appId=1194718685445173"></script> -->
+
+    <script>
+        window.fbAsyncInit = function () {
+          FB.init({
+            appId: '1194718685445173',
+            cookie: true,
+            xfbml: true,
+            version: 'v22.0'
+          });
+      
+          FB.AppEvents.logPageView();
+      
+          window.fbReady = true;
+          document.dispatchEvent(new Event('fb-sdk-ready'));
+        };
+      
+        (function (d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "https://connect.facebook.net/en_US/sdk.js";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+
+//         function statusChangeCallback(response) {  // Called with the results from FB.getLoginStatus().
+//     console.log('statusChangeCallback');
+//     console.log(response);                   // The current login status of the person.
+//     if (response.status === 'connected') {   // Logged into your webpage and Facebook.
+//       testAPI();  
+//     } else {                                 // Not logged into your webpage or we are unable to tell.
+//       document.getElementById('status').innerHTML = 'Please log ' +
+//         'into this webpage.';
+//     }
+//   }
+
+
+//   function checkLoginState() {               // Called when a person is finished with the Login Button.
+//     FB.getLoginStatus(function(response) {   // See the onlogin handler
+//       statusChangeCallback(response);
+//     });
+//   }
+
+
+//   window.fbAsyncInit = function() {
+//     FB.init({
+//       appId      : '1194718685445173',
+//       cookie     : true,                     // Enable cookies to allow the server to access the session.
+//       xfbml      : true,                     // Parse social plugins on this webpage.
+//       version    : 'v22.0'           // Use this Graph API version for this call.
+//     });
+
+
+//     FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+//       statusChangeCallback(response);        // Returns the login status.
+//     });
+//   };
+ 
+//   function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
+//     console.log('Welcome!  Fetching your information.... ');
+//     FB.api('/me', function(response) {
+//       console.log('Successful login for: ' + response.name);
+//       document.getElementById('status').innerHTML =
+//         'Thanks for logging in, ' + response.name + '!';
+//     });
+//   }
+      </script>
+    
+    <script src="/static/digitalapp/js/homeCiudadano.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded",()=>{
+            const btnNicky = document.getElementById("chatNiki")
+            const enviar_pregunta = document.getElementById("enviar_pregunta")
+            const inputPregunta = document.getElementById("inputPregunta")
+            
+            btnNicky.addEventListener("click",()=>{
+                const btnChat  = document.querySelector(".widget-btn")
+                btnChat.click()
+            })
+
+            enviar_pregunta.addEventListener("click", async () => {
+                const pregunta = inputPregunta.value;
+                const btnChat  = document.querySelector(".widget-btn");
+                btnChat.click();
+
+                const waitForElement = (selector) => {
+                    return new Promise((resolve) => {
+                        const interval = setInterval(() => {
+                            const element = document.querySelector(selector);
+                            if (element) {
+                                clearInterval(interval);
+                                resolve(element);
+                            }
+                        }, 100); 
+                    });
+                };
+
+                const inputChat = await waitForElement("#editable");
+                const sendButton = await waitForElement(".kit-widget-chat-input__send-btn");
+
+                inputChat.textContent = pregunta;
+                const event = new Event('input', { bubbles: true });
+                inputChat.dispatchEvent(event);
+
+                setTimeout(() => {
+                    sendButton.click();
+                }, 500);
+            });
+            
+        })
+    </script>
+
+
+</body>
+</html>

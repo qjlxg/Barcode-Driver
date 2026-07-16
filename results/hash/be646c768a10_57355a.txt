@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hcli 配置生成</title>
+    <style>
+        :root { color-scheme: dark }
+        * { box-sizing: border-box }
+        body { margin: 0; min-height: 100vh; background: #18181B; color: #e4e4e7; display: flex; justify-content: center; padding: 32px 16px;
+               font: 14px/1.5 -apple-system, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif }
+        .card { width: 100%; max-width: 760px }
+        h1 { font-size: 20px; margin: 0 0 4px }
+        .sub { color: #a1a1aa; margin: 0 0 24px; font-size: 13px }
+        label { display: block; margin: 16px 0 6px; color: #d4d4d8; font-weight: 600 }
+        textarea { width: 100%; min-height: 320px; resize: vertical; padding: 10px 12px; border-radius: 8px;
+                   background: #27272a; color: #e4e4e7; border: 1px solid #3f3f46; font: 13px ui-monospace, "SF Mono", Menlo, monospace }
+        button { padding: 11px 20px; border: 0; border-radius: 8px; background: #4f46e5; color: #fff; cursor: pointer;
+                 font-size: 14px; font-weight: 600; white-space: nowrap }
+        button:hover { background: #4338ca }
+        button:disabled { background: #3f3f46; color: #71717a; cursor: not-allowed }
+        button.secondary { background: #27272a; border: 1px solid #3f3f46; color: #e4e4e7 }
+        button.secondary:hover { background: #3f3f46 }
+        #status { margin-top: 14px; min-height: 20px; font-size: 13px }
+        .ok { color: #4ade80 }
+        .err { color: #f87171 }
+        .srvver { font-size: 12px; color: #a1a1aa; font-weight: 400 }
+        /* 目标平台：四组单选（系统/架构/版本/协议）。标签与 pill 同 34px 行高 → 垂直对齐 */
+        .picker { display: flex; flex-direction: column; gap: 10px; margin: 8px 0 }
+        .pick-group { display: flex; align-items: center; gap: 14px }
+        .pick-label { flex: none; width: 40px; height: 34px; display: flex; align-items: center; color: #a1a1aa; font-size: 13px; font-weight: 600 }
+        .opts { display: flex; gap: 8px; flex-wrap: wrap }
+        .opt { margin: 0 }  /* .opt 是 label，须覆盖全局 label 的 margin:16px 0 6px，否则 pill 被下推、与标签错位 */
+        .opt input { position: absolute; opacity: 0 }
+        .opt span { display: flex; align-items: center; justify-content: center; height: 34px; padding: 0 18px; border-radius: 8px;
+                    cursor: pointer; background: #27272a; color: #d4d4d8; border: 1px solid #3f3f46; font: 13px ui-monospace, Menlo, monospace }
+        .opt span:hover { border-color: #6366f1 }
+        .opt input:checked + span { background: #4f46e5; border-color: #4f46e5; color: #fff }
+        .opt input:disabled + span { opacity: .35; cursor: not-allowed }
+        .gen-row { display: flex; gap: 10px; margin-top: 22px }
+        #dllink { margin-top: 12px; font-size: 13px; word-break: break-all }
+        #dllink a { color: #818cf8 }
+    </style>
+</head>
+<body>
+<div class="card">
+    <h1>hcli 配置生成 <span class="srvver" id="srvver"></span></h1>
+    <p class="sub">编辑配置 → 选目标平台 → 生成内置该配置的 hcli 可执行（开箱即用）。</p>
+
+    <label for="cfg">配置（YAML）</label>
+    <textarea id="cfg" spellcheck="false" placeholder="log: {}
+dns:
+  direct: [223.5.5.5]
+proxies:
+  - {name: n1, type: vless, server: 1.2.3.4, port: 443, uuid: ...}
+rules:
+  - GEO-SITE,CN,direct
+  - GEO-IP,CN,direct
+  - MATCH,n1"></textarea>
+
+    <label>目标平台</label>
+    <div class="picker">
+        <div class="pick-group"><span class="pick-label">系统</span><span class="opts" id="os-opts"></span></div>
+        <div class="pick-group"><span class="pick-label">架构</span><span class="opts" id="arch-opts"></span></div>
+        <div class="pick-group"><span class="pick-label">版本</span><span class="opts" id="ver-opts"></span></div>
+        <div class="pick-group"><span class="pick-label">协议</span><span class="opts" id="proto-opts"></span></div>
+    </div>
+    <div class="gen-row">
+        <button id="genlink" class="secondary">生成下载链接</button>
+        <button id="gen">生成并下载</button>
+    </div>
+
+    <div id="status"></div>
+    <div id="dllink"></div>
+</div>
+
+<script>
+    const $ = (id) => document.getElementById(id);
+    const status = $("status");
+
+    // ── 目标平台：系统/架构/版本/协议四组单选，从已缓存壳（/api/shells）动态生成。壳由 `make deploy-shells` 上传 ──
+    let SHELLS = [];
+    const splitArch = (a) => { const i = a.lastIndexOf("-"); return [a.slice(0, i), a.slice(i + 1)]; };
+    const uniq = (a) => [...new Set(a)].sort();
+    const picked = (name) => {
+        const el = document.querySelector(`input[name="${name}"]:checked`);
+        return el ? el.value : "";
+    };
+
+    function fillGroup(elId, name, vals, prev) {
+        const box = $(elId);
+        box.innerHTML = "";
+        vals.forEach((v, i) => {
+            const on = prev ? v === prev : i === 0;
+            const lab = document.createElement("label");
+            lab.className = "opt";
+            lab.innerHTML = `<input type="radio" name="${name}" value="${v}"${on ? " checked" : ""}><span>${v}</span>`;
+            lab.querySelector("input").onchange = onPick;
+            box.appendChild(lab);
+        });
+    }
+
+    function renderPicker() {
+        fillGroup("os-opts", "os", uniq(SHELLS.map(s => splitArch(s.arch)[0])), picked("os"));
+        fillGroup("arch-opts", "arch", uniq(SHELLS.map(s => splitArch(s.arch)[1])), picked("arch"));
+        fillGroup("ver-opts", "ver", uniq(SHELLS.map(s => s.version)), picked("ver"));
+        fillGroup("proto-opts", "proto", uniq(SHELLS.map(s => s.proto || "none")), picked("proto"));
+        onPick();
+    }
+
+    // 选中的 系统-架构 + 版本 + 协议 → 对应已缓存壳（可能不存在，如 macos+amd64）。
+    function currentShell() {
+        return SHELLS.find(s => s.arch === picked("os") + "-" + picked("arch")
+            && s.version === picked("ver") && (s.proto || "none") === picked("proto"));
+    }
+
+    function onPick() {
+        const s = currentShell();
+        $("gen").disabled = !s;
+        $("genlink").disabled = !s;
+        $("dllink").innerHTML = "";
+        if (!SHELLS.length) {
+            status.className = "err"; status.textContent = "无缓存壳（用 make deploy-shells 上传）";
+        } else if (!s) {
+            status.className = "err";
+            status.textContent = `该组合（${picked("os")}-${picked("arch")} · v${picked("ver")} · ${picked("proto")}）暂无壳`;
+        } else {
+            status.className = ""; status.textContent = "选中：" + s.name;
+        }
+    }
+
+    // base64(utf8(str))：TextEncoder 出 UTF-8 字节 → binary string → btoa（btoa 不收非 latin1，故先转字节）。
+    function b64utf8(str) {
+        const bytes = new TextEncoder().encode(str);
+        let bin = "";
+        for (const b of bytes) bin += String.fromCharCode(b);
+        return btoa(bin);
+    }
+
+    // 提交 {conf: base64(yaml), os, arch, ver, proto} → 后端清洗 + 注入选中壳 → 直接下载。
+    async function build() {
+        const yaml = $("cfg").value.trim();
+        const s = currentShell();
+        if (!yaml) { status.className = "err"; status.textContent = "请先填写配置"; return; }
+        if (!s) return;
+        const [os, arch] = splitArch(s.arch);  // s.arch="linux-amd64" → [linux, amd64]
+        $("gen").disabled = true; $("genlink").disabled = true;
+        $("dllink").innerHTML = "";
+        status.className = ""; status.textContent = "生成中…";
+        try {
+            const resp = await fetch("/api/build", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({conf: b64utf8(yaml), os, arch, ver: s.version, proto: s.proto || "all"}),
+            });
+            if (!resp.ok) {
+                status.className = "err";
+                status.textContent = "失败：" + (await resp.text() || resp.status);
+                return;
+            }
+            const blob = await resp.blob();
+            const u = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = u; a.download = s.name; a.click();
+            URL.revokeObjectURL(u);
+            status.className = "ok"; status.textContent = "已生成，开始下载。";
+        } catch (e) {
+            status.className = "err"; status.textContent = "出错：" + e;
+        } finally {
+            onPick();
+        }
+    }
+
+    $("gen").onclick = build;
+    $("genlink").onclick = build;
+
+    async function loadShells() {
+        try {
+            const r = await fetch("/api/shells");
+            if (!r.ok) return;
+            const d = await r.json();
+            $("srvver").textContent = "server v" + d.server;
+            SHELLS = d.shells || [];
+            renderPicker();
+        } catch (e) {
+            /* 静默；状态走 #status */
+        }
+    }
+
+    loadShells();
+</script>
+</body>
+</html>
