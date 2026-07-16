@@ -37,7 +37,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           # 添加生成的产物
-          git add unique_yaml scan_stats.csv unique_urls.txt
+          git add unique.yaml scan_stats.csv unique_urls.txt
           
           # 仅在有变动时提交
           if ! git diff --cached --quiet; then
