@@ -1,0 +1,76 @@
+port: 7890
+socks-port: 7891
+allow-lan: false
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+
+dns:
+  enable: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  fallback:
+    - 8.8.8.8
+    - 1.1.1.1
+
+proxies:
+  - name: 🔥 V2Ray-WS
+    type: vmess
+    server: zt-ai.cloud
+    port: 443
+    uuid: fce3d6a4-0f12-49b5-a810-84bcf0fde202
+    alterId: 0
+    cipher: auto
+    network: ws
+    ws-opts:
+      path: /v2ray
+    tls: true
+    skip-cert-verify: true
+    servername: zt-ai.cloud
+
+proxy-groups:
+  - name: 🔀 节点选择
+    type: select
+    proxies:
+      - 🔥 V2Ray-WS
+      - DIRECT
+  - name: 🛡️ 漏网之鱼
+    type: select
+    proxies:
+      - 🔥 V2Ray-WS
+      - 🔀 节点选择
+      - DIRECT
+  - name: 🌐 Google
+    type: url-test
+    proxies:
+      - 🔥 V2Ray-WS
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+  - name: 🏠 国内直连
+    type: select
+    proxies:
+      - DIRECT
+      - 🔀 节点选择
+  - name: 🎯 自动选择
+    type: url-test
+    proxies:
+      - 🔥 V2Ray-WS
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+  - name: 🌍 国外流量
+    type: select
+    proxies:
+      - 🔥 V2Ray-WS
+      - 🔀 节点选择
+
+rules:
+  - GEOIP,CN,🏠 国内直连,no-resolve
+  - DOMAIN-SUFFIX,google.com,🌐 Google
+  - DOMAIN-SUFFIX,youtube.com,🌐 Google
+  - DOMAIN-SUFFIX,github.com,🌍 国外流量
+  - DOMAIN-SUFFIX,telegram.org,🌍 国外流量
+  - DOMAIN-KEYWORD,google,🌐 Google
+  - MATCH,🛡️ 漏网之鱼

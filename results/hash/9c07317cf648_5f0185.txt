@@ -1,0 +1,607 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>🔐 代理订阅 | 绝绝牛牛子</title><meta name="author" content="粟悟饭与龟波功,885609063@qq.com"><meta name="copyright" content="粟悟饭与龟波功"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content=":root {   --bg: #0d1117;   --card-bg: #161b22;   --border: #30363d;   --text: #e6edf3;   --text-secondary: #8b949e;   --primary: #4F6FEE;   --success: #10A37F;   --danger: #f85149;   --radius: 14px;">
+<meta property="og:type" content="website">
+<meta property="og:title" content="🔐 代理订阅">
+<meta property="og:url" content="http://jjnnz.top/sub/index.html">
+<meta property="og:site_name" content="绝绝牛牛子">
+<meta property="og:description" content=":root {   --bg: #0d1117;   --card-bg: #161b22;   --border: #30363d;   --text: #e6edf3;   --text-secondary: #8b949e;   --primary: #4F6FEE;   --success: #10A37F;   --danger: #f85149;   --radius: 14px;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ooo.0x0.ooo/2025/03/30/O0OCxU.jpg">
+<meta property="article:published_time" content="2026-06-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-06-21T17:28:24.628Z">
+<meta property="article:author" content="粟悟饭与龟波功">
+<meta property="article:tag" content="💖,粟悟饭与龟波功,瞎搞,龟龟,博客,blog,VRchat">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ooo.0x0.ooo/2025/03/30/O0OCxU.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="http://jjnnz.top/sub/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          const hour = new Date().getHours()
+          const isNight = hour <= 6 || hour >= 18
+          if (theme === undefined) isNight ? activateDarkMode() : activateLightMode()
+          else theme === 'light' ? activateLightMode() : activateDarkMode()
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '🔐 代理订阅',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'page'
+}</script><link rel="stylesheet" href="/css/universe.css"><link rel="stylesheet" href="/css/custom.css" media="defer" onload="this.media='all'"><span id="fps"></span><link rel="stylesheet" href="/css/cat.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sakana-widget@2.7.1/lib/sakana.min.css"><div id="myscoll"></div><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg" style="background-image: url(https://ooo.0x0.ooo/2025/03/30/O0OI8p.png);"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="https://ooo.0x0.ooo/2025/03/30/O0OCxU.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/japanese/"><i class="fa-fw fas fa-book"></i><span> 日语</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/upload/"><i class="fa-fw fas fa-video"></i><span> 直链</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-heart"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/dashboard/"><i class="fa-fw fas fa-chart-line"></i><span> 仪表盘</span></a></div><div class="menus_item"><a class="site-page" href="/sub/"><i class="fa-fw fas fa-rocket"></i><span> 代理</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header" style="background-image: url(https://ooo.0x0.ooo/2025/03/30/O0OuDj.png);"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">绝绝牛牛子</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/japanese/"><i class="fa-fw fas fa-book"></i><span> 日语</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/upload/"><i class="fa-fw fas fa-video"></i><span> 直链</span></a></div><div class="menus_item"><a class="site-page" href="/comments/"><i class="fa-fw fas fa-heart"></i><span> 留言</span></a></div><div class="menus_item"><a class="site-page" href="/dashboard/"><i class="fa-fw fas fa-chart-line"></i><span> 仪表盘</span></a></div><div class="menus_item"><a class="site-page" href="/sub/"><i class="fa-fw fas fa-rocket"></i><span> 代理</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">🔐 代理订阅</h1></div></header><main class="layout" id="content-inner"><div id="page"><div class="container" id="article-container"><style>
+:root {
+  --bg: #0d1117;
+  --card-bg: #161b22;
+  --border: #30363d;
+  --text: #e6edf3;
+  --text-secondary: #8b949e;
+  --primary: #4F6FEE;
+  --success: #10A37F;
+  --danger: #f85149;
+  --radius: 14px;
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+}
+.sub-container {
+  max-width: 680px;
+  margin: 0 auto;
+  font-family: var(--font);
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 10px 0 20px;
+}
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px;
+}
+.card h3 {
+  margin: 0 0 12px 0;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+.form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.input-row {
+  display: flex;
+  gap: 8px;
+}
+.input-row input {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  color: var(--text);
+  font-size: 14px;
+  font-family: var(--font);
+  outline: none;
+  transition: border-color 0.2s;
+}
+.input-row input:focus {
+  border-color: var(--primary);
+}
+.input-row input::placeholder {
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+.btn {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font);
+  white-space: nowrap;
+  transition: opacity 0.2s;
+}
+.btn:hover {
+  opacity: 0.85;
+}
+.btn-outline {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+.url-display {
+  display: none;
+  margin-top: 12px;
+  padding: 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.url-display.show {
+  display: block;
+}
+.url-display .label {
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+.url-display code {
+  display: block;
+  padding: 10px;
+  background: #0d1117;
+  border-radius: 6px;
+  font-size: 11px;
+  word-break: break-all;
+  color: var(--success);
+  font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+  line-height: 1.5;
+}
+.copy-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.copy-row button {
+  flex: 1;
+  font-size: 11px;
+  padding: 7px 12px;
+}
+.manual-section {
+  display: none;
+  margin-top: 14px;
+}
+.manual-section.show {
+  display: block;
+}
+.manual-section h4 {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0 0 8px 0;
+}
+.manual-config {
+  background: #0d1117;
+  border-radius: 8px;
+  padding: 14px;
+  font-size: 11px;
+  font-family: "SF Mono", "Fira Code", "Consolas", monospace;
+  line-height: 1.6;
+  color: var(--text);
+  overflow-x: auto;
+  white-space: pre;
+  border: 1px solid var(--border);
+}
+.toast {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-120px);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-size: 12px;
+  color: var(--text);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+  transition: transform 0.3s ease;
+  z-index: 9999;
+  pointer-events: none;
+}
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+}
+.steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+.step {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.step-num {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.step code {
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  color: var(--success);
+}
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+}
+.badge.primary {
+  background: rgba(79,111,238,0.2);
+  color: var(--primary);
+}
+.badge.warn {
+  background: rgba(210,153,29,0.2);
+  color: #d2991d;
+}
+</style>
+
+<div class="toast" id="toast"></div>
+<div class="sub-container">
+
+  <div class="card">
+    <h3>🔑 获取订阅链接</h3>
+    <p>输入密码生成订阅链接，导入 Clash Verge / Nekobox 等客户端即可使用。<br>
+      当前节点：<span class="badge primary">VLESS+WS+TLS</span> 主节点 (TCP) &nbsp;
+      <span class="badge warn">Hysteria2</span> 备用 (UDP)</p>
+    <div class="form-group" style="margin-top:14px;">
+      <label>订阅密码</label>
+      <div class="input-row">
+        <input type="password" id="tokenInput" placeholder="请输入订阅密码..." autocomplete="off">
+        <button class="btn" id="showTokenBtn" title="显示/隐藏">👁️</button>
+      </div>
+    </div>
+    <button class="btn" id="generateBtn" style="width:100%;">✨ 生成订阅链接</button>
+    <div class="url-display" id="urlDisplay">
+      <div class="label">📋 订阅链接 (Clash / Nekobox / V2RayN 通用)</div>
+      <code id="subUrl"></code>
+      <div class="copy-row">
+        <button class="btn btn-outline" id="copyUrlBtn">📋 复制订阅链接</button>
+        <button class="btn btn-outline" id="copyYamlBtn">📄 复制 YAML 配置</button>
+      </div>
+      <div class="manual-section" id="manualSection">
+        <h4>📝 VLESS 直连 URI (Nekobox 可直接导入)</h4>
+        <div class="manual-config" id="manualVless"></div>
+        <h4 style="margin-top:12px;">📝 Hysteria2 直连 URI (备用)</h4>
+        <div class="manual-config" id="manualHysteria"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📱 客户端导入教程</h3>
+    <div class="steps">
+      <div class="step">
+        <span class="step-num">1</span>
+        <span>在上面输入密码，点击 <strong>生成订阅链接</strong></span>
+      </div>
+      <div class="step">
+        <span class="step-num">2</span>
+        <span>复制生成的 <code>订阅链接</code></span>
+      </div>
+      <div class="step">
+        <span class="step-num">3</span>
+        <span>
+          <strong>Clash Verge</strong>：配置 → 订阅 → 新建 → 粘贴链接 → 保存<br>
+          <strong>Nekobox</strong>：分组 → 新建分组 → 类型选 <code>Clash</code> → 粘贴链接<br>
+          <strong>V2RayN</strong>：订阅 → 订阅设置 → 添加 → 粘贴链接
+        </span>
+      </div>
+      <div class="step">
+        <span class="step-num">4</span>
+        <span>更新订阅，选择 <strong>JJNNZ-VLESS</strong> 节点（TCP，稳定），开启系统代理</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var SERVER = 'jjnnz.top';
+  var VLESS_UUID = '687b6fab-16d5-466b-968c-1b11729c5f56';
+  var VLESS_WS_PATH = '/ws-67ca4006';
+  var HYSTERIA_PASSWORD = '1Yc0zjGexrjk6yAOrbZyVmipzNCbO7AR';
+  var SUB_TOKEN = 'jjnnz-proxy-2026';
+
+  function toast(msg) {
+    var t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    setTimeout(function() { t.classList.remove('show'); }, 2000);
+  }
+
+  function buildClashYaml() {
+    return 'mixed-port: 7890\n' +
+      'allow-lan: true\n' +
+      'mode: rule\n' +
+      'log-level: info\n' +
+      'ipv6: true\n' +
+      '\n' +
+      'proxies:\n' +
+      '  - name: "JJNNZ-VLESS"\n' +
+      '    type: vless\n' +
+      '    server: ' + SERVER + '\n' +
+      '    port: 443\n' +
+      '    uuid: ' + VLESS_UUID + '\n' +
+      '    network: ws\n' +
+      '    tls: true\n' +
+      '    udp: true\n' +
+      '    ws-opts:\n' +
+      '      path: "' + VLESS_WS_PATH + '"\n' +
+      '\n' +
+      '  - name: "JJNNZ-Hysteria2"\n' +
+      '    type: hysteria2\n' +
+      '    server: ' + SERVER + '\n' +
+      '    port: 443\n' +
+      '    password: "' + HYSTERIA_PASSWORD + '"\n' +
+      '    sni: ' + SERVER + '\n' +
+      '    skip-cert-verify: true\n' +
+      '\n' +
+      'proxy-groups:\n' +
+      '  - name: "🚀 代理"\n' +
+      '    type: select\n' +
+      '    proxies:\n' +
+      '      - "JJNNZ-VLESS"\n' +
+      '      - "JJNNZ-Hysteria2"\n' +
+      '      - DIRECT\n' +
+      '\n' +
+      '  - name: "🌐 国外流量"\n' +
+      '    type: select\n' +
+      '    proxies:\n' +
+      '      - "JJNNZ-VLESS"\n' +
+      '      - "JJNNZ-Hysteria2"\n' +
+      '      - DIRECT\n' +
+      '\n' +
+      'rules:\n' +
+      '  - DOMAIN-SUFFIX,cn,DIRECT\n' +
+      '  - GEOIP,CN,DIRECT\n' +
+      '  - MATCH,🚀 代理\n';
+  }
+
+  document.getElementById('generateBtn').addEventListener('click', function() {
+    var token = document.getElementById('tokenInput').value.trim();
+    if (!token) { toast('⚠️ 请先输入订阅密码'); return; }
+    if (token !== SUB_TOKEN) { toast('❌ 密码错误'); return; }
+
+    var subUrl = 'https://' + SERVER + '/sub/get.php?token=' + encodeURIComponent(token);
+    document.getElementById('subUrl').textContent = subUrl;
+    document.getElementById('urlDisplay').classList.add('show');
+    document.getElementById('manualVless').textContent =
+      'vless://' + VLESS_UUID + '@' + SERVER + ':443?encryption=none&security=tls&type=ws&path=' + VLESS_WS_PATH + '#JJNNZ-VLESS';
+    document.getElementById('manualHysteria').textContent =
+      'hysteria2://' + HYSTERIA_PASSWORD + '@' + SERVER + ':443/?insecure=1&sni=' + SERVER + '#JJNNZ-Hysteria2';
+    document.getElementById('manualSection').classList.add('show');
+    toast('✅ 订阅链接已生成');
+  });
+
+  document.getElementById('copyUrlBtn').addEventListener('click', function() {
+    var url = document.getElementById('subUrl').textContent;
+    if (!url) return;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(url).then(function() { toast('📋 订阅链接已复制'); });
+    } else { toast('⚠️ 请手动复制'); }
+  });
+
+  document.getElementById('copyYamlBtn').addEventListener('click', function() {
+    var token = document.getElementById('tokenInput').value.trim();
+    if (token !== SUB_TOKEN) { toast('⚠️ 请先验证密码'); return; }
+    var yaml = buildClashYaml();
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(yaml).then(function() { toast('📄 YAML 已复制'); });
+    } else { toast('⚠️ 请手动复制'); }
+  });
+
+  document.getElementById('showTokenBtn').addEventListener('click', function() {
+    var input = document.getElementById('tokenInput');
+    if (input.type === 'password') { input.type = 'text'; this.textContent = '🙈'; }
+    else { input.type = 'password'; this.textContent = '👁️'; }
+  });
+
+  document.getElementById('tokenInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') document.getElementById('generateBtn').click();
+  });
+})();
+</script>
+</div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="https://ooo.0x0.ooo/2025/03/30/O0OCxU.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">粟悟饭与龟波功</div><div class="author-info-description">忍不住想给所有VRC好友发50块钱，虽然不多，但是忍住了。</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">77</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">9</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://qm.qq.com/cgi-bin/qm/qr?k=kQhppq6t70dTISdCdA8AuDOFairEVKkm"><i class="fa fa-smile-o"></i><span>可以加我扣扣</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">富贵我就淫，贫贱我就移。威武我就屈，色诱我就从，不打我就招。打我我就哭，有气我就生，有钱我就花。有逼我就装，饿了我就吃，渴了我就喝。困了我就睡，有活我不干，有苦我不吃。我上网就是来当皇帝的，顺我者昌，逆我者亡，能面赐寡人之过者，诛九族！上网谏寡人者，处极刑！谤讥于朝闻寡人之耳者，赐自尽！</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/06/22/%E5%9C%A8%E6%97%B6%E9%97%B4%E7%9A%84%E7%BC%9D%E9%9A%99%E9%87%8C%E5%86%99%E7%82%B9%E4%BB%80%E4%B9%88/" title="在时间的缝隙里写点什么">在时间的缝隙里写点什么</a><time datetime="2026-06-22T10:24:30.000Z" title="发表于 2026-06-22 18:24:30">2026-06-22</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/12/01/no70/" title="语法60 复合格助词-其他">语法60 复合格助词-其他</a><time datetime="2025-12-01T13:15:01.000Z" title="发表于 2025-12-01 21:15:01">2025-12-01</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/30/no69/" title="语法59 复合格助词-状况3">语法59 复合格助词-状况3</a><time datetime="2025-11-30T01:46:01.000Z" title="发表于 2025-11-30 09:46:01">2025-11-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/28/no68/" title="语法58 复合格助词-状况2">语法58 复合格助词-状况2</a><time datetime="2025-11-28T02:48:01.000Z" title="发表于 2025-11-28 10:48:01">2025-11-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/11/27/2112n2/" title="N2 真题练习 2112">N2 真题练习 2112</a><time datetime="2025-11-27T01:54:01.000Z" title="发表于 2025-11-27 09:54:01">2025-11-27</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            
+          </div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E5%AD%A6%E4%B9%A0/"><span class="card-category-list-name">学习</span><span class="card-category-list-count">10</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%8A%98%E8%85%BE/"><span class="card-category-list-name">折腾</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%97%A5%E5%B8%B8/"><span class="card-category-list-name">日常</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%97%A5%E8%AF%AD%E8%AF%AD%E6%B3%95/"><span class="card-category-list-name">日语语法</span><span class="card-category-list-count">61</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%9B%B4%E6%96%B0/"><span class="card-category-list-name">更新</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E8%83%A1%E6%80%9D%E4%B9%B1%E6%83%B3/"><span class="card-category-list-name">胡思乱想</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%96%87%E6%A1%88/" style="font-size: 1.1em; color: #999">文案</a> <a href="/tags/%E9%9A%8F%E7%AC%94/" style="font-size: 1.1em; color: #999">随笔</a> <a href="/tags/%E5%AD%A6%E4%B9%A0/" style="font-size: 1.5em; color: #99a9bf">学习</a> <a href="/tags/%E5%86%99%E4%BD%9C/" style="font-size: 1.1em; color: #999">写作</a> <a href="/tags/%E6%97%A5%E5%B8%B8-%E5%AD%A6%E4%B9%A0/" style="font-size: 1.23em; color: #999ea6">日常 学习</a> <a href="/tags/%E6%8A%98%E8%85%BE/" style="font-size: 1.1em; color: #999">折腾</a> <a href="/tags/%E5%8D%9A%E5%AE%A2/" style="font-size: 1.1em; color: #999">博客</a> <a href="/tags/%E6%97%A5%E5%B8%B8/" style="font-size: 1.23em; color: #999ea6">日常</a> <a href="/tags/%E6%97%A5%E8%AF%AD/" style="font-size: 1.37em; color: #99a4b2">日语</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/06/">
+            <span class="card-archive-list-date">
+              六月 2026
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/12/">
+            <span class="card-archive-list-date">
+              十二月 2025
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/11/">
+            <span class="card-archive-list-date">
+              十一月 2025
+            </span>
+            <span class="card-archive-list-count">69</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/04/">
+            <span class="card-archive-list-date">
+              四月 2025
+            </span>
+            <span class="card-archive-list-count">4</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/03/">
+            <span class="card-archive-list-date">
+              三月 2025
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">77</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-06-24T12:33:29.272Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2025 - 2026 By 粟悟饭与龟波功</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.3.5</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><canvas id="universe"></canvas><script defer src="/js/universe.js"></script><script async src="/js/title.js"></script><script async src="/js/fps.js"></script><script defer src="https://npm.elemecdn.com/jquery@latest/dist/jquery.min.js"></script><script defer data-pjax src="/js/cat.js"></script><div id="sakana-widget" style="position: fixed; bottom: 10px; right: 20px; z-index: 999;"></div><script>function initSakanaWidget(){new SakanaWidget().mount("#sakana-widget")}</script><script async onload="initSakanaWidget()" src="https://cdn.jsdelivr.net/npm/sakana-widget@2.7.1/lib/sakana.min.js"></script><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/fireworks.min.js"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"log":false});</script></body></html>
