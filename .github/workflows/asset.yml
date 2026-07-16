@@ -72,7 +72,7 @@ jobs:
           fi
           
           # 2. 精简后的 Git add
-          git add progress.json alive_latest.txt alive_history.txt scan_results.csv alive_new.txt results/hash/ archive/hash/ || true
+          git add progress.json alive_latest.txt alive_history.txt scan_results.csv targets.txt alive_new.txt results/hash/ archive/hash/ || true
           
           # 3. 判断是否有改动并执行提交
           if [[ -n $(git status -s) ]]; then
