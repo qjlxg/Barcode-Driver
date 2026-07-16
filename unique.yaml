@@ -327,22 +327,6 @@ proxy-groups:
   - 🇷🇴罗马尼亚RO 061 4.9MB/s TG@jcnode
   - 🇯🇵日本JP005 0.2MB/s中性 TG@jcnode
   - 🇩🇪德国DE012 3.0MB/s纯净 TG@jcnode
-  - 韩国A1｜阿里云中转｜HY2｜备用
-  - 韩国A1｜阿里云中转｜TUIC｜游戏实验
-  - 韩国A1｜直连｜TUIC｜新IP
-  - 韩国A1｜阿里云中转｜HY2混淆｜主用
-  - 韩国A1｜直连｜HY2
-  - 韩国A1｜Cloudflare CDN｜WS｜下载备用
-  - 韩国A1｜直连｜HY2混淆
-  - 韩国E2｜直连｜Reality
-  - 美国A1｜阿里云中转｜HY2混淆｜新IP主用
-  - 美国A1｜阿里云中转｜HY2｜新IP备用
-  - 美国A1｜阿里云中转｜TUIC｜新IP备用
-  - 美国A1｜直连｜HY2混淆｜新IP主用
-  - 美国A1｜直连｜HY2｜新IP备用
-  - 美国A1｜直连｜TUIC｜新IP备用
-  - 美国A1｜直连｜Reality旧IP备用
-  - 美国E2｜直连｜Reality
   - US-Trojan
   - DO-VPS-Hysteria2
   - DO-VPS-Reality
@@ -470,13 +454,6 @@ proxy-groups:
   - '[CF] CF官方优选31'
   - '[CF] CF官方优选32'
   - xray-reality-159.54.181.175
-  - 🇺🇸 US|84.4|M1564ms|159.65.79.184|GPT+YT|hysteria2
-  - 🇺🇸 US|60|M940ms|2604:a880:2:d1:0:1:677c:8001|GPT+YT|anytls
-  - 🇳🇱 NL-AMS HY2
-  - 🇳🇱 NL-AMS AnyTLS
-  - 🇸🇬 SG|95|M341ms|2400:6180:0:d2:0:2:f62c:e000|YT|hysteria2
-  - 🇸🇬 SG|95|M316ms|2400:6180:0:d2:0:2:f62c:e000|YT|anytls
-  - 🇭🇰 HK|75|M282ms|123.254.107.195|YT|anytls
   - US01
   - 免费-日本1-Ver.7
   - 免费-日本2-Ver.8
@@ -524,6 +501,8 @@ proxy-groups:
   - 🇦🇺 澳大利亚W01
   - 🇫🇷 法国W01
   - 🇺🇦 乌克兰W01
+  - 🇸🇬 SG|95|M341ms|2400:6180:0:d2:0:2:f62c:e000|YT|hysteria2
+  - 🇸🇬 SG|95|M316ms|2400:6180:0:d2:0:2:f62c:e000|YT|anytls
   - 🇯🇵 JP|88|M236ms|45.32.49.228|YT|vless
   - 🇸🇬 SG|88|M340ms|164.52.1.182|GPT+YT|trojan
   - 🇸🇬 SG|88|M389ms|43.134.174.114|GPT+YT|trojan
@@ -534,6 +513,7 @@ proxy-groups:
   - 🇯🇵 JP|88|M435ms|85.149.218.210|YT|ss
   - 🇸🇬 SG|88|M337ms|139.59.238.97|YT|trojan
   - 🇸🇬 SG|88|M527ms|164.52.1.179|YT|vless
+  - 🇺🇸 US|84.4|M1564ms|159.65.79.184|GPT+YT|hysteria2
   - 🇨🇦 CA|81.5|M843ms|147.5.104.226|GPT+YT|tuic
   - 🇯🇵 JP|75|M457ms|31.76.91.71|YT|vless
   - 🇺🇸 US|75|M630ms|192.204.46.230|GPT+YT|vmess
@@ -543,6 +523,7 @@ proxy-groups:
   - 🇺🇸 US|75|M579ms|104.28.202.178|YT|vless
   - 🇺🇸 US|75|M815ms|18.190.176.112|GPT+YT|ss
   - 🇺🇸 US|75|M956ms|150.136.219.11|GPT+YT|vless
+  - 🇭🇰 HK|75|M282ms|123.254.107.195|YT|anytls
   - 🇺🇸 US|75|M1046ms|206.189.182.239|GPT+YT|vless
   - 🇸🇬 SG|75|M844ms|43.133.61.219|YT|vless
   - 🇩🇪 DE|75|M601ms|81.31.211.110|YT|vless
@@ -605,6 +586,7 @@ proxy-groups:
   - 🇺🇸 US|60|M1014ms|172.190.157.189|YT|vless
   - 🇺🇸 US|60|M1025ms|107.172.6.224|GPT+YT|vless
   - 🇮🇪 IE|60|M808ms|84.247.48.66|YT|ss
+  - 🇺🇸 US|60|M940ms|2604:a880:2:d1:0:1:677c:8001|GPT+YT|anytls
   - 🇩🇪 DE|60|M741ms|51.195.94.187|YT|vless
   - 🇩🇪 DE|60|M876ms|2a05:d014:1701:f201:a448:4f7d:a8d1:2bc|YT|trojan
   - NoCF-Reality-80
@@ -631,8 +613,6 @@ proxy-groups:
   - Ubuntu-Proxy
   - 硅谷-VLESS
   - 硅谷-SS
-  - Tokyo-HY2
-  - Tokyo-VLESS
   - ycyun_Proxy
   - ycyun_Proxy_IPv6
   - 🏆 台湾4.30双重代理 (服务端直链)
@@ -807,6 +787,8 @@ proxy-groups:
   - ???-???
   - ????-???2053
   - 美国|新泽西 01
+  - US-SS
+  - Tokyo-SS
   - LA-RackNerd-6T
   - LA-DMIT-CMIN2-1.5T
   - SouthCarolina-Google-0.2T
@@ -1187,22 +1169,6 @@ proxy-groups:
   - 🇷🇴罗马尼亚RO 061 4.9MB/s TG@jcnode
   - 🇯🇵日本JP005 0.2MB/s中性 TG@jcnode
   - 🇩🇪德国DE012 3.0MB/s纯净 TG@jcnode
-  - 韩国A1｜阿里云中转｜HY2｜备用
-  - 韩国A1｜阿里云中转｜TUIC｜游戏实验
-  - 韩国A1｜直连｜TUIC｜新IP
-  - 韩国A1｜阿里云中转｜HY2混淆｜主用
-  - 韩国A1｜直连｜HY2
-  - 韩国A1｜Cloudflare CDN｜WS｜下载备用
-  - 韩国A1｜直连｜HY2混淆
-  - 韩国E2｜直连｜Reality
-  - 美国A1｜阿里云中转｜HY2混淆｜新IP主用
-  - 美国A1｜阿里云中转｜HY2｜新IP备用
-  - 美国A1｜阿里云中转｜TUIC｜新IP备用
-  - 美国A1｜直连｜HY2混淆｜新IP主用
-  - 美国A1｜直连｜HY2｜新IP备用
-  - 美国A1｜直连｜TUIC｜新IP备用
-  - 美国A1｜直连｜Reality旧IP备用
-  - 美国E2｜直连｜Reality
   - US-Trojan
   - DO-VPS-Hysteria2
   - DO-VPS-Reality
@@ -1330,13 +1296,6 @@ proxy-groups:
   - '[CF] CF官方优选31'
   - '[CF] CF官方优选32'
   - xray-reality-159.54.181.175
-  - 🇺🇸 US|84.4|M1564ms|159.65.79.184|GPT+YT|hysteria2
-  - 🇺🇸 US|60|M940ms|2604:a880:2:d1:0:1:677c:8001|GPT+YT|anytls
-  - 🇳🇱 NL-AMS HY2
-  - 🇳🇱 NL-AMS AnyTLS
-  - 🇸🇬 SG|95|M341ms|2400:6180:0:d2:0:2:f62c:e000|YT|hysteria2
-  - 🇸🇬 SG|95|M316ms|2400:6180:0:d2:0:2:f62c:e000|YT|anytls
-  - 🇭🇰 HK|75|M282ms|123.254.107.195|YT|anytls
   - US01
   - 免费-日本1-Ver.7
   - 免费-日本2-Ver.8
@@ -1384,6 +1343,8 @@ proxy-groups:
   - 🇦🇺 澳大利亚W01
   - 🇫🇷 法国W01
   - 🇺🇦 乌克兰W01
+  - 🇸🇬 SG|95|M341ms|2400:6180:0:d2:0:2:f62c:e000|YT|hysteria2
+  - 🇸🇬 SG|95|M316ms|2400:6180:0:d2:0:2:f62c:e000|YT|anytls
   - 🇯🇵 JP|88|M236ms|45.32.49.228|YT|vless
   - 🇸🇬 SG|88|M340ms|164.52.1.182|GPT+YT|trojan
   - 🇸🇬 SG|88|M389ms|43.134.174.114|GPT+YT|trojan
@@ -1394,6 +1355,7 @@ proxy-groups:
   - 🇯🇵 JP|88|M435ms|85.149.218.210|YT|ss
   - 🇸🇬 SG|88|M337ms|139.59.238.97|YT|trojan
   - 🇸🇬 SG|88|M527ms|164.52.1.179|YT|vless
+  - 🇺🇸 US|84.4|M1564ms|159.65.79.184|GPT+YT|hysteria2
   - 🇨🇦 CA|81.5|M843ms|147.5.104.226|GPT+YT|tuic
   - 🇯🇵 JP|75|M457ms|31.76.91.71|YT|vless
   - 🇺🇸 US|75|M630ms|192.204.46.230|GPT+YT|vmess
@@ -1403,6 +1365,7 @@ proxy-groups:
   - 🇺🇸 US|75|M579ms|104.28.202.178|YT|vless
   - 🇺🇸 US|75|M815ms|18.190.176.112|GPT+YT|ss
   - 🇺🇸 US|75|M956ms|150.136.219.11|GPT+YT|vless
+  - 🇭🇰 HK|75|M282ms|123.254.107.195|YT|anytls
   - 🇺🇸 US|75|M1046ms|206.189.182.239|GPT+YT|vless
   - 🇸🇬 SG|75|M844ms|43.133.61.219|YT|vless
   - 🇩🇪 DE|75|M601ms|81.31.211.110|YT|vless
@@ -1465,6 +1428,7 @@ proxy-groups:
   - 🇺🇸 US|60|M1014ms|172.190.157.189|YT|vless
   - 🇺🇸 US|60|M1025ms|107.172.6.224|GPT+YT|vless
   - 🇮🇪 IE|60|M808ms|84.247.48.66|YT|ss
+  - 🇺🇸 US|60|M940ms|2604:a880:2:d1:0:1:677c:8001|GPT+YT|anytls
   - 🇩🇪 DE|60|M741ms|51.195.94.187|YT|vless
   - 🇩🇪 DE|60|M876ms|2a05:d014:1701:f201:a448:4f7d:a8d1:2bc|YT|trojan
   - NoCF-Reality-80
@@ -1491,8 +1455,6 @@ proxy-groups:
   - Ubuntu-Proxy
   - 硅谷-VLESS
   - 硅谷-SS
-  - Tokyo-HY2
-  - Tokyo-VLESS
   - ycyun_Proxy
   - ycyun_Proxy_IPv6
   - 🏆 台湾4.30双重代理 (服务端直链)
@@ -1667,6 +1629,8 @@ proxy-groups:
   - ???-???
   - ????-???2053
   - 美国|新泽西 01
+  - US-SS
+  - Tokyo-SS
   - LA-RackNerd-6T
   - LA-DMIT-CMIN2-1.5T
   - SouthCarolina-Google-0.2T
@@ -5379,199 +5343,6 @@ proxies:
   skip-cert-verify: true
   alpn:
   - h3
-- name: 韩国A1｜阿里云中转｜HY2｜备用
-  type: hysteria2
-  server: 8.148.4.25
-  port: 55020
-  password: d5m-5bGOsVbFgRlxsEyO3pCF
-  sni: 140.245.74.46.sslip.io
-  alpn:
-  - h3
-  skip-cert-verify: true
-- name: 韩国A1｜阿里云中转｜TUIC｜游戏实验
-  type: tuic
-  server: 8.148.4.25
-  port: 443
-  uuid: 4bc8d192-663e-492b-8e3b-ed4bf5ff4a9e
-  password: AJG8Rck0ArSLQg6Q9mS7m6c6
-  sni: 140.245.74.46.sslip.io
-  alpn: &id001
-  - h3
-  skip-cert-verify: true
-  udp-relay-mode: native
-  congestion-controller: bbr
-  reduce-rtt: true
-- name: 韩国A1｜直连｜TUIC｜新IP
-  type: tuic
-  server: 138.2.116.23
-  port: 56020
-  uuid: 4bc8d192-663e-492b-8e3b-ed4bf5ff4a9e
-  password: AJG8Rck0ArSLQg6Q9mS7m6c6
-  sni: 140.245.74.46.sslip.io
-  alpn: *id001
-  skip-cert-verify: true
-  udp-relay-mode: native
-  congestion-controller: bbr
-  reduce-rtt: true
-- name: 韩国A1｜阿里云中转｜HY2混淆｜主用
-  type: hysteria2
-  server: 8.148.4.25
-  port: 55021
-  password: d5m-5bGOsVbFgRlxsEyO3pCF
-  sni: 140.245.74.46.sslip.io
-  alpn:
-  - h3
-  skip-cert-verify: true
-  obfs: salamander
-  obfs-password: sS0TATd_LFteT6aCbJWhxFLq
-- name: 韩国A1｜直连｜HY2
-  type: hysteria2
-  server: 138.2.116.23
-  port: 55020
-  password: d5m-5bGOsVbFgRlxsEyO3pCF
-  sni: 140.245.74.46.sslip.io
-  alpn:
-  - h3
-  skip-cert-verify: true
-- name: 韩国A1｜Cloudflare CDN｜WS｜下载备用
-  type: vless
-  server: kr-cdn.aong.xyz
-  port: 8443
-  uuid: f49bfb03-4efe-446a-9098-1bf0b4a33132
-  udp: true
-  tls: true
-  servername: kr-cdn.aong.xyz
-  client-fingerprint: chrome
-  network: ws
-  skip-cert-verify: false
-  ws-opts:
-    path: /cdn-vless
-    headers:
-      Host: kr-cdn.aong.xyz
-- name: 韩国A1｜直连｜HY2混淆
-  type: hysteria2
-  server: 138.2.116.23
-  port: 55021
-  password: d5m-5bGOsVbFgRlxsEyO3pCF
-  sni: 140.245.74.46.sslip.io
-  alpn:
-  - h3
-  skip-cert-verify: true
-  obfs: salamander
-  obfs-password: sS0TATd_LFteT6aCbJWhxFLq
-- name: 韩国E2｜直连｜Reality
-  type: vless
-  server: 134.185.110.238
-  port: 24443
-  uuid: 1338f29f-a7ad-4cae-b12d-095a6664fdea
-  udp: true
-  tls: true
-  servername: www.microsoft.com
-  client-fingerprint: chrome
-  flow: xtls-rprx-vision
-  network: tcp
-  packet-encoding: xudp
-  skip-cert-verify: true
-  reality-opts:
-    public-key: NXtOeMO2tMYeVmzEn73i5Lgz6KxHGSocSjtV4Be8d1c
-    short-id: df38cbb392c0479c
-- name: 美国A1｜阿里云中转｜HY2混淆｜新IP主用
-  type: hysteria2
-  server: 8.148.4.25
-  port: 55023
-  password: hy2_zxlA_gZ5N1KzZlsyBKW-3sfR
-  sni: 129.146.243.146.sslip.io
-  alpn:
-  - h3
-  skip-cert-verify: true
-  obfs: salamander
-  obfs-password: sal_snnZE2WzH4kCUxEFOTdOCenB
-- name: 美国A1｜阿里云中转｜HY2｜新IP备用
-  type: hysteria2
-  server: 8.148.4.25
-  port: 55022
-  password: hy2_zxlA_gZ5N1KzZlsyBKW-3sfR
-  sni: 129.146.243.146.sslip.io
-  alpn:
-  - h3
-  skip-cert-verify: true
-- name: 美国A1｜阿里云中转｜TUIC｜新IP备用
-  type: tuic
-  server: 8.148.4.25
-  port: 444
-  uuid: 25a54c97-c3c3-4505-8d11-93d742eff8fb
-  password: RBK3FbuEqeWNvM5JxAtKV0bI
-  sni: 129.146.243.146.sslip.io
-  alpn:
-  - h3
-  skip-cert-verify: true
-  udp-relay-mode: native
-  congestion-controller: bbr
-  reduce-rtt: true
-- name: 美国A1｜直连｜HY2混淆｜新IP主用
-  type: hysteria2
-  server: 147.224.251.52
-  port: 55021
-  password: hy2_zxlA_gZ5N1KzZlsyBKW-3sfR
-  sni: 129.146.243.146.sslip.io
-  alpn:
-  - h3
-  skip-cert-verify: true
-  obfs: salamander
-  obfs-password: sal_snnZE2WzH4kCUxEFOTdOCenB
-- name: 美国A1｜直连｜HY2｜新IP备用
-  type: hysteria2
-  server: 147.224.251.52
-  port: 55020
-  password: hy2_zxlA_gZ5N1KzZlsyBKW-3sfR
-  sni: 129.146.243.146.sslip.io
-  alpn:
-  - h3
-  skip-cert-verify: true
-- name: 美国A1｜直连｜TUIC｜新IP备用
-  type: tuic
-  server: 147.224.251.52
-  port: 443
-  uuid: 25a54c97-c3c3-4505-8d11-93d742eff8fb
-  password: RBK3FbuEqeWNvM5JxAtKV0bI
-  sni: 129.146.243.146.sslip.io
-  alpn:
-  - h3
-  skip-cert-verify: true
-  udp-relay-mode: native
-  congestion-controller: bbr
-  reduce-rtt: true
-- name: 美国A1｜直连｜Reality旧IP备用
-  type: vless
-  server: 129.146.243.146
-  port: 24443
-  uuid: 8f40e392-a1db-4dc3-a8ba-6fe2dfed92fd
-  tls: true
-  servername: www.microsoft.com
-  client-fingerprint: chrome
-  flow: xtls-rprx-vision
-  network: tcp
-  packet-encoding: xudp
-  skip-cert-verify: true
-  reality-opts:
-    public-key: FE9AMiz1SeIopraVRDBI4XRLSq-vpfsAlHuymKZvb0w
-    short-id: e4387e9ce66ee98b
-- name: 美国E2｜直连｜Reality
-  type: vless
-  server: 129.146.140.147
-  port: 24443
-  uuid: 13a3f0a3-efd8-4af9-bc0b-e98e7fb97b23
-  udp: true
-  tls: true
-  servername: www.microsoft.com
-  client-fingerprint: chrome
-  flow: xtls-rprx-vision
-  network: tcp
-  packet-encoding: xudp
-  skip-cert-verify: true
-  reality-opts:
-    public-key: P-WvaA14mvv-_3XD4u8c3QrtXOjhyhT79x_ESFGCh30
-    short-id: f41582ec0d9c4ddc
 - name: US-Trojan
   type: trojan
   server: 154.21.92.132
@@ -7149,80 +6920,6 @@ proxies:
     public-key: nCVhbo1TjJFrHIhHI9DRdqllNwdY7EIp8n6HgLtE5gA
     short-id: ''
   client-fingerprint: chrome
-- name: 🇺🇸 US|84.4|M1564ms|159.65.79.184|GPT+YT|hysteria2
-  type: hysteria2
-  server: 159.65.79.184
-  port: 443
-  password: 7466549e-812f-4b33-b09b-c3e132e6e51b
-  sni: addons.mozilla.org
-  skip-cert-verify: false
-- client-fingerprint: chrome
-  fingerprint: D2:0B:C6:72:35:F3:99:35:1B:4E:81:EE:4C:16:12:51:0E:52:AE:9E:FE:2C:84:65:76:62:10:DD:F2:1C:2C:3C
-  idle-session-check-interval: 30
-  idle-session-timeout: 30
-  name: 🇺🇸 US|60|M940ms|2604:a880:2:d1:0:1:677c:8001|GPT+YT|anytls
-  password: 7466549e-812f-4b33-b09b-c3e132e6e51b
-  port: 444
-  server: 159.65.79.184
-  skip-cert-verify: false
-  sni: addons.mozilla.org
-  type: anytls
-  udp: true
-- name: 🇳🇱 NL-AMS HY2
-  type: hysteria2
-  server: 159.223.12.0
-  port: 443
-  ports: 20000-50000
-  hop-interval: 30
-  up: 100 Mbps
-  down: 500 Mbps
-  password: 4aeedead-1354-45a4-935d-8bba5e7f82b5
-  sni: addons.mozilla.org
-  skip-cert-verify: false
-  fingerprint: E9:33:97:A7:BF:A5:AF:2A:2D:B2:AF:02:08:2B:0A:42:19:C2:54:A3:5B:9B:50:20:F8:D3:41:EF:F6:1C:55:82
-- name: 🇳🇱 NL-AMS AnyTLS
-  type: anytls
-  server: 159.223.12.0
-  port: 444
-  password: 4aeedead-1354-45a4-935d-8bba5e7f82b5
-  client-fingerprint: chrome
-  udp: true
-  idle-session-check-interval: 30
-  idle-session-timeout: 30
-  sni: addons.mozilla.org
-  skip-cert-verify: false
-  fingerprint: E9:33:97:A7:BF:A5:AF:2A:2D:B2:AF:02:08:2B:0A:42:19:C2:54:A3:5B:9B:50:20:F8:D3:41:EF:F6:1C:55:82
-- name: 🇸🇬 SG|95|M341ms|2400:6180:0:d2:0:2:f62c:e000|YT|hysteria2
-  type: hysteria2
-  server: 139.59.98.251
-  port: 443
-  password: b547b58b-6628-4127-b67d-40aa0be26c67
-  sni: addons.mozilla.org
-  skip-cert-verify: false
-- client-fingerprint: chrome
-  fingerprint: 8A:24:AD:B1:0F:73:00:69:BF:83:37:62:FF:D0:B4:75:6E:79:85:73:05:A5:CC:D3:A0:DA:C7:84:0B:BF:98:DC
-  idle-session-check-interval: 30
-  idle-session-timeout: 30
-  name: 🇸🇬 SG|95|M316ms|2400:6180:0:d2:0:2:f62c:e000|YT|anytls
-  password: b547b58b-6628-4127-b67d-40aa0be26c67
-  port: 444
-  server: 139.59.98.251
-  skip-cert-verify: false
-  sni: addons.mozilla.org
-  type: anytls
-  udp: true
-- client-fingerprint: chrome
-  fingerprint: 50:D8:C8:9C:4F:90:44:3E:BA:2F:52:0A:4C:DF:FC:16:34:F5:5E:6B:06:1B:05:1D:BD:71:38:BF:69:B0:6A:B9
-  idle-session-check-interval: 30
-  idle-session-timeout: 30
-  name: 🇭🇰 HK|75|M282ms|123.254.107.195|YT|anytls
-  password: e9064dc5-f755-4579-a284-d60bf2d4e322
-  port: 444
-  server: 123.254.107.195
-  skip-cert-verify: false
-  sni: addons.mozilla.org
-  type: anytls
-  udp: true
 - name: US01
   server: cn00.somethingstranges.com
   port: 8803
@@ -7601,6 +7298,25 @@ proxies:
   cipher: aes-256-gcm
   password: ac72b60f-7f43-3f34-9bf8-943a137be5bd
   udp: true
+- name: 🇸🇬 SG|95|M341ms|2400:6180:0:d2:0:2:f62c:e000|YT|hysteria2
+  type: hysteria2
+  server: 139.59.98.251
+  port: 443
+  password: b547b58b-6628-4127-b67d-40aa0be26c67
+  sni: addons.mozilla.org
+  skip-cert-verify: false
+- client-fingerprint: chrome
+  fingerprint: 8A:24:AD:B1:0F:73:00:69:BF:83:37:62:FF:D0:B4:75:6E:79:85:73:05:A5:CC:D3:A0:DA:C7:84:0B:BF:98:DC
+  idle-session-check-interval: 30
+  idle-session-timeout: 30
+  name: 🇸🇬 SG|95|M316ms|2400:6180:0:d2:0:2:f62c:e000|YT|anytls
+  password: b547b58b-6628-4127-b67d-40aa0be26c67
+  port: 444
+  server: 139.59.98.251
+  skip-cert-verify: false
+  sni: addons.mozilla.org
+  type: anytls
+  udp: true
 - name: 🇯🇵 JP|88|M236ms|45.32.49.228|YT|vless
   type: vless
   server: 104.17.191.15
@@ -7699,6 +7415,13 @@ proxies:
     path: /glasspanel/guest000_0_5de14443985f/
     headers:
       Host: c8ge1.ev01.2x1.hh.hhyf.kdns.fr
+- name: 🇺🇸 US|84.4|M1564ms|159.65.79.184|GPT+YT|hysteria2
+  type: hysteria2
+  server: 159.65.79.184
+  port: 443
+  password: 7466549e-812f-4b33-b09b-c3e132e6e51b
+  sni: addons.mozilla.org
+  skip-cert-verify: false
 - name: 🇨🇦 CA|81.5|M843ms|147.5.104.226|GPT+YT|tuic
   type: tuic
   server: 33ca.networklinkpro.net
@@ -7801,6 +7524,18 @@ proxies:
     path: /pyip=ProxyIP.US.CMLiussss.net
     headers:
       Host: sparkling-shadow-481d.342-429.workers.dev
+- client-fingerprint: chrome
+  fingerprint: 50:D8:C8:9C:4F:90:44:3E:BA:2F:52:0A:4C:DF:FC:16:34:F5:5E:6B:06:1B:05:1D:BD:71:38:BF:69:B0:6A:B9
+  idle-session-check-interval: 30
+  idle-session-timeout: 30
+  name: 🇭🇰 HK|75|M282ms|123.254.107.195|YT|anytls
+  password: e9064dc5-f755-4579-a284-d60bf2d4e322
+  port: 444
+  server: 123.254.107.195
+  skip-cert-verify: false
+  sni: addons.mozilla.org
+  type: anytls
+  udp: true
 - name: 🇺🇸 US|75|M1046ms|206.189.182.239|GPT+YT|vless
   type: vless
   server: 173.245.58.253
@@ -8565,6 +8300,18 @@ proxies:
   cipher: chacha20-ietf-poly1305
   password: Vr06rU_v1vFPYeXq9zbsAA
 - client-fingerprint: chrome
+  fingerprint: D2:0B:C6:72:35:F3:99:35:1B:4E:81:EE:4C:16:12:51:0E:52:AE:9E:FE:2C:84:65:76:62:10:DD:F2:1C:2C:3C
+  idle-session-check-interval: 30
+  idle-session-timeout: 30
+  name: 🇺🇸 US|60|M940ms|2604:a880:2:d1:0:1:677c:8001|GPT+YT|anytls
+  password: 7466549e-812f-4b33-b09b-c3e132e6e51b
+  port: 444
+  server: 159.65.79.184
+  skip-cert-verify: false
+  sni: addons.mozilla.org
+  type: anytls
+  udp: true
+- client-fingerprint: chrome
   encryption: none
   flow: xtls-rprx-vision
   name: 🇩🇪 DE|60|M741ms|51.195.94.187|YT|vless
@@ -8857,31 +8604,6 @@ proxies:
   password: 3t21e/P6fxeSULmI2S4f0mJ3q3b2TiQO
   tfo: true
   udp: true
-- name: Tokyo-HY2
-  type: hysteria2
-  server: 43.239.249.156
-  port: 443
-  ports: 20000-40000
-  hop-interval: 30
-  password: A+zMlq4oyj1Oze/w9lke1A==
-  sni: www.microsoft.com
-  skip-cert-verify: true
-  up: '20'
-  down: '80'
-  alpn:
-  - h3
-- name: Tokyo-VLESS
-  type: vless
-  server: 43.239.249.156
-  port: 443
-  uuid: b3d281cb-1c75-403a-8517-a682607ace72
-  network: tcp
-  tls: true
-  servername: gateway.icloud.com
-  reality-opts:
-    public-key: 4_AWBtYfkzZ5iNS_2cYNi7Atj2sjgoYTXGvS9AZPa0I
-    short-id: ac11a3684276d50e
-  client-fingerprint: chrome
 - name: ycyun_Proxy
   type: anytls
   server: 45.144.136.244
@@ -9534,7 +9256,7 @@ proxies:
 - name: '[3个月后过期] HK2-HY2'
   type: hysteria2
   server: hk2.dexlos.com
-  port: 20309
+  port: 20339
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: hk2.dexlos.com
   skip-cert-verify: false
@@ -9543,7 +9265,7 @@ proxies:
 - name: '[3个月后过期] HK3-HY2'
   type: hysteria2
   server: hk3.dexlos.com
-  port: 20453
+  port: 20575
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: hk3.dexlos.com
   skip-cert-verify: false
@@ -9552,7 +9274,7 @@ proxies:
 - name: '[3个月后过期] HK4-HY2'
   type: hysteria2
   server: hk4.dexlos.com
-  port: 20648
+  port: 20758
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: hk4.dexlos.com
   skip-cert-verify: false
@@ -9561,7 +9283,7 @@ proxies:
 - name: '[3个月后过期] HK5-HY2'
   type: hysteria2
   server: hk5.dexlos.com
-  port: 20952
+  port: 20935
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: hk5.dexlos.com
   skip-cert-verify: false
@@ -9672,7 +9394,7 @@ proxies:
 - name: '[JP-3个月二跳 US6-HY2] JP6-HY2'
   type: hysteria2
   server: jp6.dexlos.com
-  port: 21167
+  port: 21047
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp6.dexlos.com
   skip-cert-verify: false
@@ -9682,7 +9404,7 @@ proxies:
 - name: '[3个月后过期] JP7-HY2'
   type: hysteria2
   server: jp7.dexlos.com
-  port: 21390
+  port: 21368
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp7.dexlos.com
   skip-cert-verify: false
@@ -9691,7 +9413,7 @@ proxies:
 - name: '[3个月后过期] JP8-HY2'
   type: hysteria2
   server: jp8.dexlos.com
-  port: 21496
+  port: 21478
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp8.dexlos.com
   skip-cert-verify: false
@@ -9700,7 +9422,7 @@ proxies:
 - name: '[3个月后过期] JP9-HY2'
   type: hysteria2
   server: jp9.dexlos.com
-  port: 21616
+  port: 21726
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp9.dexlos.com
   skip-cert-verify: false
@@ -9709,7 +9431,7 @@ proxies:
 - name: '[3个月后过期] JP10-HY2'
   type: hysteria2
   server: jp10.dexlos.com
-  port: 21975
+  port: 21981
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp10.dexlos.com
   skip-cert-verify: false
@@ -9854,7 +9576,7 @@ proxies:
 - name: '[3个月后过期] SG1-HY2'
   type: hysteria2
   server: sg1.dexlos.com
-  port: 20012
+  port: 20155
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: sg1.dexlos.com
   skip-cert-verify: false
@@ -9863,7 +9585,7 @@ proxies:
 - name: '[3个月后过期] SG2-HY2'
   type: hysteria2
   server: sg2.dexlos.com
-  port: 20287
+  port: 20367
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: sg2.dexlos.com
   skip-cert-verify: false
@@ -9957,7 +9679,7 @@ proxies:
 - name: '[3个月后过期] US1-HY2'
   type: hysteria2
   server: us1.dexlos.com
-  port: 20037
+  port: 20186
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us1.dexlos.com
   skip-cert-verify: false
@@ -9966,7 +9688,7 @@ proxies:
 - name: '[3个月后过期] US2-HY2'
   type: hysteria2
   server: us2.dexlos.com
-  port: 20207
+  port: 20371
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us2.dexlos.com
   skip-cert-verify: false
@@ -9975,7 +9697,7 @@ proxies:
 - name: '[3个月后过期] US3-HY2'
   type: hysteria2
   server: us3.dexlos.com
-  port: 20461
+  port: 20597
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us3.dexlos.com
   skip-cert-verify: false
@@ -9984,7 +9706,7 @@ proxies:
 - name: '[3个月后过期] US4-HY2'
   type: hysteria2
   server: us4.dexlos.com
-  port: 20649
+  port: 20670
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us4.dexlos.com
   skip-cert-verify: false
@@ -9993,7 +9715,7 @@ proxies:
 - name: '[3个月后过期] US5-HY2'
   type: hysteria2
   server: us5.dexlos.com
-  port: 20913
+  port: 20890
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us5.dexlos.com
   skip-cert-verify: false
@@ -10002,7 +9724,7 @@ proxies:
 - name: '[3个月后过期] US6-HY2'
   type: hysteria2
   server: us6.dexlos.com
-  port: 21063
+  port: 21149
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us6.dexlos.com
   skip-cert-verify: false
@@ -10854,6 +10576,20 @@ proxies:
   udp: true
   skip-cert-verify: true
   client-fingerprint: chrome
+- name: US-SS
+  type: ss
+  server: 67.230.179.124
+  port: 51001
+  cipher: aes-256-gcm
+  password: Tk9yPmR4Wz7bQcLvHs3nJf6xAe2gKu8w
+  udp: true
+- name: Tokyo-SS
+  type: ss
+  server: 43.165.168.222
+  port: 51001
+  cipher: aes-256-gcm
+  password: Tk9yPmR4Wz7bQcLvHs3nJf6xAe2gKu8w
+  udp: true
 - name: LA-RackNerd-6T
   type: vless
   server: 142.171.228.203
