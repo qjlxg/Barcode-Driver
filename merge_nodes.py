@@ -4,6 +4,7 @@ import hashlib
 import json
 import os
 from datetime import datetime, timedelta
+import itertools
 
 REGISTRY_FILE = 'node_registry.json'
 MAX_IDLE_DAYS = 30
@@ -66,7 +67,8 @@ def merge_yaml_nodes():
     all_nodes, seen_hashes = [], set()
     raw_total, valid_total = 0, 0
     
-    files = glob.glob("results/hash/*.yaml")
+    # 修改此处：合并读取 yaml 和 txt 文件
+    files = itertools.chain(glob.glob("results/hash/*.yaml"), glob.glob("results/hash/*.txt"))
     for file_path in files:
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -101,7 +103,7 @@ def merge_yaml_nodes():
     save_registry(registry)
 
     all_nodes.sort(key=lambda x: score_node(x, registry), reverse=True)
-    merged_proxies = all_nodes[:300]
+    merged_proxies = all_nodes[:800]
     
     # 最终输出配置
     config = {
