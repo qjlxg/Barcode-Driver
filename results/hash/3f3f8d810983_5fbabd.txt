@@ -1,0 +1,114 @@
+# Clash.Meta (mihomo) subscription
+# 包含 vless/reality/xhttp 节点，请使用 Clash.Meta / mihomo / Clash Verge Rev / FlClash 等内核
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+external-controller: 127.0.0.1:9090
+
+dns:
+  enable: true
+  ipv6: false
+  # 用 redir-host：域名解析成真实 IP，避免节点域名被解析成假 IP 导致全部连不上
+  enhanced-mode: redir-host
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+    - https://223.5.5.5/dns-query
+
+proxies:
+  - name: "32a1yma8-vmess-ws"
+    type: vmess
+    server: ban.dengdengbadeng.top
+    port: 443
+    uuid: 4950ebfb-3be5-4399-ac18-65416864f028
+    alterId: 0
+    cipher: auto
+    udp: true
+    tls: true
+    servername: ban.dengdengbadeng.top
+    skip-cert-verify: false
+    client-fingerprint: chrome
+    network: ws
+    ws-opts:
+      path: /sd
+      headers:
+        Host: ban.dengdengbadeng.top
+
+  - name: "zwj856ey-vless-ws"
+    type: vless
+    server: ban.dengdengbadeng.top
+    port: 2053
+    uuid: d3dabbd2-72d7-4fa3-a03c-b2824e3ce109
+    udp: true
+    tls: true
+    servername: ban.dengdengbadeng.top
+    skip-cert-verify: false
+    client-fingerprint: chrome
+    network: ws
+    ws-opts:
+      path: /sx
+      headers:
+        Host: ban.dengdengbadeng.top
+
+  - name: "7pp8wxnc-vless-reality"
+    type: vless
+    server: ban.dengdengbadeng.top
+    port: 45139
+    uuid: 6443423b-dfb6-47a2-be44-5267a68a0559
+    udp: true
+    tls: true
+    network: tcp
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: vpGRfDDlfXFOmWifIIGmKh6pQOTZeTAE8bmJZQE6MQ0
+      short-id: "70711a4eb1d4"
+
+  - name: "9kxlec66-vless-xhttp-reality"
+    type: vless
+    server: ban.dengdengbadeng.top
+    port: 33920
+    uuid: 2a905778-f09f-46c1-837c-7b8f7bc44598
+    udp: true
+    tls: true
+    network: xhttp
+    servername: www.apple.com
+    client-fingerprint: chrome
+    reality-opts:
+      public-key: rgBOnur5yC45U51WI65DS7YqRIjEGI-zpapY3PyZTkg
+      short-id: "361ec4b76eab4e"
+    xhttp-opts:
+      path: /sdsd
+      mode: auto
+
+proxy-groups:
+  - name: "🚀 节点选择"
+    type: select
+    proxies:
+      - "♻️ 自动选择"
+      - "32a1yma8-vmess-ws"
+      - "zwj856ey-vless-ws"
+      - "7pp8wxnc-vless-reality"
+      - "9kxlec66-vless-xhttp-reality"
+      - DIRECT
+
+  - name: "♻️ 自动选择"
+    type: url-test
+    url: http://www.gstatic.com/generate_204
+    interval: 300
+    tolerance: 50
+    proxies:
+      - "32a1yma8-vmess-ws"
+      - "zwj856ey-vless-ws"
+      - "7pp8wxnc-vless-reality"
+      - "9kxlec66-vless-xhttp-reality"
+
+rules:
+  - GEOIP,LAN,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,🚀 节点选择
