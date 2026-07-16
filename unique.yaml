@@ -119,17 +119,17 @@ proxy-groups:
   - 🇺🇸美国US024 5.3MB/s中性 TG@jcnode
   - 🇺🇸美国US036 5.4MB/s中性 TG@jcnode
   - 🇺🇸美国US056 6.0MB/s中性 TG@jcnode
-  - 🇺🇸 US|60|M1090ms|104.28.165.54|YT|vless
+  - 🇺🇸 US|60|M1090ms|104.28.165.54|GPT+YT|vless
   - 🇺🇸美国US051 3.2MB/s中性 TG@jcnode
   - 🇺🇸美国US 079 8.5MB/s TG@jcnode
   - 🇺🇸美国US020 5.9MB/s中性 TG@jcnode
   - 🇩🇪德国DE008 6.1MB/s中性 TG@jcnode
-  - 🇺🇸 US|75|M1114ms|159.203.180.17|GPT+YT|vless
+  - 🇺🇸 US|75|M1114ms|159.203.180.17|YT|vless
   - 🇺🇸 US|67.4|M1626ms|159.203.180.17|GPT+YT|vless
   - 🇺🇸美国US012 6.1MB/s中性 TG@jcnode
   - 🇺🇸美国US034 5.8MB/s中性 TG@jcnode
   - 🇺🇸美国US049 5.5MB/s中性 TG@jcnode
-  - 🇺🇸 US|75|M1005ms|192.119.83.187|YT|vless
+  - 🇺🇸 US|75|M1005ms|192.119.83.187|GPT+YT|vless
   - 🇦🇪阿联酋AE001 1.7MB/s纯净 TG@jcnode
   - 🇺🇸美国US057 6.1MB/s中性 TG@jcnode
   - 🇺🇸美国US023 5.5MB/s中性 TG@jcnode
@@ -525,8 +525,8 @@ proxy-groups:
   - 🇫🇷 法国W01
   - 🇺🇦 乌克兰W01
   - 🇯🇵 JP|88|M236ms|45.32.49.228|YT|vless
-  - 🇸🇬 SG|88|M340ms|164.52.1.182|YT|trojan
-  - 🇸🇬 SG|88|M389ms|43.134.174.114|YT|trojan
+  - 🇸🇬 SG|88|M340ms|164.52.1.182|GPT+YT|trojan
+  - 🇸🇬 SG|88|M389ms|43.134.174.114|GPT+YT|trojan
   - 🇭🇰 HK|88|M358ms|43.100.43.112|YT|socks5
   - 🇸🇬 SG|88|M354ms|2406:da18:653:f101:a9bf:6140:a741:242f|YT|trojan
   - 🇺🇸 US|88|M427ms|107.172.6.224|YT|vless
@@ -538,11 +538,12 @@ proxy-groups:
   - 🇯🇵 JP|75|M457ms|31.76.91.71|YT|vless
   - 🇺🇸 US|75|M630ms|192.204.46.230|GPT+YT|vmess
   - 🇯🇵 JP|75|M566ms|103.106.228.187|YT|trojan
+  - 🇺🇸 US|75|M1065ms|51.81.223.184|GPT+YT|vless
   - 🇺🇸 US|75|M684ms|88.210.36.109|GPT+YT|ss
   - 🇺🇸 US|75|M579ms|104.28.202.178|YT|vless
   - 🇺🇸 US|75|M815ms|18.190.176.112|GPT+YT|ss
-  - 🇺🇸 US|75|M956ms|150.136.219.11|YT|vless
-  - 🇺🇸 US|75|M1046ms|206.189.182.239|YT|vless
+  - 🇺🇸 US|75|M956ms|150.136.219.11|GPT+YT|vless
+  - 🇺🇸 US|75|M1046ms|206.189.182.239|GPT+YT|vless
   - 🇸🇬 SG|75|M844ms|43.133.61.219|YT|vless
   - 🇩🇪 DE|75|M601ms|81.31.211.110|YT|vless
   - 🇺🇸 US|75|M1009ms|172.190.157.189|GPT+YT|vless
@@ -559,7 +560,7 @@ proxy-groups:
   - 🇳🇱 NL|71|M856ms|45.143.166.41|YT|vless
   - 🇫🇷 FR|70.9|M935ms|2001:bc8:32d7:17b::100|YT|hysteria2
   - 🇷🇸 RS|70.3|M873ms|146.70.221.226|YT|ss
-  - 🇫🇷 FR|69.5|M842ms|195.154.200.13|GPT+YT|tuic
+  - 🇫🇷 FR|69.5|M842ms|195.154.200.13|YT|tuic
   - 🇭🇰 HK|69.4|M896ms|194.99.79.13|YT|trojan
   - 🇭🇰 HK|68.9|M910ms|185.244.208.64|YT|trojan
   - 🇵🇱 PL|68.3|M926ms|185.16.36.200|YT|vless
@@ -573,27 +574,27 @@ proxy-groups:
   - 🇸🇬 SG|62|M299ms|164.52.1.182|YT|trojan
   - 🇸🇬 SG|62|M302ms|139.59.105.158|YT|vless
   - 🇸🇬 SG|62|M346ms|164.52.1.179|YT|trojan
-  - 🇺🇸 US|62|M1009ms|137.220.62.149|YT|trojan
+  - 🇺🇸 US|62|M1009ms|137.220.62.149|GPT+YT|trojan
   - 🇺🇸 US|62|M1022ms|107.174.131.32|YT|vless
   - 🇳🇱 NL|62|M1058ms|144.31.237.89|YT|vless
   - 🇩🇪 DE|62|M1079ms|31.169.127.70|YT|trojan
-  - 🇺🇸 US|62|M1085ms|206.189.182.239|YT|vless
-  - 🇺🇸 US|62|M1086ms|150.136.219.11|YT|trojan
+  - 🇺🇸 US|62|M1085ms|206.189.182.239|GPT+YT|vless
+  - 🇺🇸 US|62|M1086ms|150.136.219.11|GPT+YT|trojan
   - 🇬🇧 GB|62|M1108ms|51.89.225.225|YT|hysteria2
   - 🇺🇸 US|62|M1112ms|192.119.83.187|YT|vless
   - 🇺🇸 US|62|M1138ms|38.180.204.104|YT|trojan
   - 🇺🇸 US|62|M1150ms|172.190.157.189|YT|trojan
-  - 🇺🇸 US|62|M1217ms|104.28.166.30|GPT+YT|vless
+  - 🇺🇸 US|62|M1217ms|104.28.166.30|YT|vless
   - 🇺🇸 US|62|M1249ms|165.22.32.120|YT|vless
   - 🇺🇸 US|62|M1280ms|206.189.182.239|YT|trojan
   - 🇺🇸 US|62|M1318ms|162.243.23.145|YT|trojan
   - 🇫🇮 FI|61.8|M1173ms|147.78.181.194|YT|hysteria2
   - 🇳🇱 NL|61.5|M1103ms|82.41.131.23|YT|vless
-  - 🇺🇸 US|60|M986ms|107.172.6.224|YT|vless
+  - 🇺🇸 US|60|M986ms|107.172.6.224|GPT+YT|vless
   - 🇺🇸 US|60|M1487ms|38.180.204.104|YT|vless
   - 🇩🇪 DE|60|M737ms|81.31.211.116|YT|vless
   - 🇯🇵 JP|60|M411ms|147.45.220.146|YT|anytls
-  - 🇺🇸 US|60|M1035ms|2602:f988:210:c4f::7f4|YT|vless
+  - 🇺🇸 US|60|M1035ms|2602:f988:210:c4f::7f4|GPT+YT|vless
   - 🇺🇸 US|60|M817ms|18.216.55.100|YT|vless
   - 🇺🇸 US|60|M1228ms|185.33.84.173|YT|vless
   - 🇬🇧 GB|60|M801ms|195.12.48.126|YT|ss
@@ -602,11 +603,10 @@ proxy-groups:
   - 🇫🇷 FR|60|M754ms|2001:bc8:610:0:224:ecff:fef2:c267|YT|ss
   - 🇺🇸 US|60|M1224ms|47.90.139.129|YT|trojan
   - 🇺🇸 US|60|M1014ms|172.190.157.189|YT|vless
-  - 🇺🇸 US|60|M1025ms|107.172.6.224|YT|vless
+  - 🇺🇸 US|60|M1025ms|107.172.6.224|GPT+YT|vless
   - 🇮🇪 IE|60|M808ms|84.247.48.66|YT|ss
   - 🇩🇪 DE|60|M741ms|51.195.94.187|YT|vless
   - 🇩🇪 DE|60|M876ms|2a05:d014:1701:f201:a448:4f7d:a8d1:2bc|YT|trojan
-  - 🇳🇱 NL|60|M816ms|89.105.219.132|YT|vless
   - NoCF-Reality-80
   - NoCF-VMESS-WS-2053
   - CF-VLESS-TLS-443
@@ -972,17 +972,17 @@ proxy-groups:
   - 🇺🇸美国US024 5.3MB/s中性 TG@jcnode
   - 🇺🇸美国US036 5.4MB/s中性 TG@jcnode
   - 🇺🇸美国US056 6.0MB/s中性 TG@jcnode
-  - 🇺🇸 US|60|M1090ms|104.28.165.54|YT|vless
+  - 🇺🇸 US|60|M1090ms|104.28.165.54|GPT+YT|vless
   - 🇺🇸美国US051 3.2MB/s中性 TG@jcnode
   - 🇺🇸美国US 079 8.5MB/s TG@jcnode
   - 🇺🇸美国US020 5.9MB/s中性 TG@jcnode
   - 🇩🇪德国DE008 6.1MB/s中性 TG@jcnode
-  - 🇺🇸 US|75|M1114ms|159.203.180.17|GPT+YT|vless
+  - 🇺🇸 US|75|M1114ms|159.203.180.17|YT|vless
   - 🇺🇸 US|67.4|M1626ms|159.203.180.17|GPT+YT|vless
   - 🇺🇸美国US012 6.1MB/s中性 TG@jcnode
   - 🇺🇸美国US034 5.8MB/s中性 TG@jcnode
   - 🇺🇸美国US049 5.5MB/s中性 TG@jcnode
-  - 🇺🇸 US|75|M1005ms|192.119.83.187|YT|vless
+  - 🇺🇸 US|75|M1005ms|192.119.83.187|GPT+YT|vless
   - 🇦🇪阿联酋AE001 1.7MB/s纯净 TG@jcnode
   - 🇺🇸美国US057 6.1MB/s中性 TG@jcnode
   - 🇺🇸美国US023 5.5MB/s中性 TG@jcnode
@@ -1378,8 +1378,8 @@ proxy-groups:
   - 🇫🇷 法国W01
   - 🇺🇦 乌克兰W01
   - 🇯🇵 JP|88|M236ms|45.32.49.228|YT|vless
-  - 🇸🇬 SG|88|M340ms|164.52.1.182|YT|trojan
-  - 🇸🇬 SG|88|M389ms|43.134.174.114|YT|trojan
+  - 🇸🇬 SG|88|M340ms|164.52.1.182|GPT+YT|trojan
+  - 🇸🇬 SG|88|M389ms|43.134.174.114|GPT+YT|trojan
   - 🇭🇰 HK|88|M358ms|43.100.43.112|YT|socks5
   - 🇸🇬 SG|88|M354ms|2406:da18:653:f101:a9bf:6140:a741:242f|YT|trojan
   - 🇺🇸 US|88|M427ms|107.172.6.224|YT|vless
@@ -1391,11 +1391,12 @@ proxy-groups:
   - 🇯🇵 JP|75|M457ms|31.76.91.71|YT|vless
   - 🇺🇸 US|75|M630ms|192.204.46.230|GPT+YT|vmess
   - 🇯🇵 JP|75|M566ms|103.106.228.187|YT|trojan
+  - 🇺🇸 US|75|M1065ms|51.81.223.184|GPT+YT|vless
   - 🇺🇸 US|75|M684ms|88.210.36.109|GPT+YT|ss
   - 🇺🇸 US|75|M579ms|104.28.202.178|YT|vless
   - 🇺🇸 US|75|M815ms|18.190.176.112|GPT+YT|ss
-  - 🇺🇸 US|75|M956ms|150.136.219.11|YT|vless
-  - 🇺🇸 US|75|M1046ms|206.189.182.239|YT|vless
+  - 🇺🇸 US|75|M956ms|150.136.219.11|GPT+YT|vless
+  - 🇺🇸 US|75|M1046ms|206.189.182.239|GPT+YT|vless
   - 🇸🇬 SG|75|M844ms|43.133.61.219|YT|vless
   - 🇩🇪 DE|75|M601ms|81.31.211.110|YT|vless
   - 🇺🇸 US|75|M1009ms|172.190.157.189|GPT+YT|vless
@@ -1412,7 +1413,7 @@ proxy-groups:
   - 🇳🇱 NL|71|M856ms|45.143.166.41|YT|vless
   - 🇫🇷 FR|70.9|M935ms|2001:bc8:32d7:17b::100|YT|hysteria2
   - 🇷🇸 RS|70.3|M873ms|146.70.221.226|YT|ss
-  - 🇫🇷 FR|69.5|M842ms|195.154.200.13|GPT+YT|tuic
+  - 🇫🇷 FR|69.5|M842ms|195.154.200.13|YT|tuic
   - 🇭🇰 HK|69.4|M896ms|194.99.79.13|YT|trojan
   - 🇭🇰 HK|68.9|M910ms|185.244.208.64|YT|trojan
   - 🇵🇱 PL|68.3|M926ms|185.16.36.200|YT|vless
@@ -1426,27 +1427,27 @@ proxy-groups:
   - 🇸🇬 SG|62|M299ms|164.52.1.182|YT|trojan
   - 🇸🇬 SG|62|M302ms|139.59.105.158|YT|vless
   - 🇸🇬 SG|62|M346ms|164.52.1.179|YT|trojan
-  - 🇺🇸 US|62|M1009ms|137.220.62.149|YT|trojan
+  - 🇺🇸 US|62|M1009ms|137.220.62.149|GPT+YT|trojan
   - 🇺🇸 US|62|M1022ms|107.174.131.32|YT|vless
   - 🇳🇱 NL|62|M1058ms|144.31.237.89|YT|vless
   - 🇩🇪 DE|62|M1079ms|31.169.127.70|YT|trojan
-  - 🇺🇸 US|62|M1085ms|206.189.182.239|YT|vless
-  - 🇺🇸 US|62|M1086ms|150.136.219.11|YT|trojan
+  - 🇺🇸 US|62|M1085ms|206.189.182.239|GPT+YT|vless
+  - 🇺🇸 US|62|M1086ms|150.136.219.11|GPT+YT|trojan
   - 🇬🇧 GB|62|M1108ms|51.89.225.225|YT|hysteria2
   - 🇺🇸 US|62|M1112ms|192.119.83.187|YT|vless
   - 🇺🇸 US|62|M1138ms|38.180.204.104|YT|trojan
   - 🇺🇸 US|62|M1150ms|172.190.157.189|YT|trojan
-  - 🇺🇸 US|62|M1217ms|104.28.166.30|GPT+YT|vless
+  - 🇺🇸 US|62|M1217ms|104.28.166.30|YT|vless
   - 🇺🇸 US|62|M1249ms|165.22.32.120|YT|vless
   - 🇺🇸 US|62|M1280ms|206.189.182.239|YT|trojan
   - 🇺🇸 US|62|M1318ms|162.243.23.145|YT|trojan
   - 🇫🇮 FI|61.8|M1173ms|147.78.181.194|YT|hysteria2
   - 🇳🇱 NL|61.5|M1103ms|82.41.131.23|YT|vless
-  - 🇺🇸 US|60|M986ms|107.172.6.224|YT|vless
+  - 🇺🇸 US|60|M986ms|107.172.6.224|GPT+YT|vless
   - 🇺🇸 US|60|M1487ms|38.180.204.104|YT|vless
   - 🇩🇪 DE|60|M737ms|81.31.211.116|YT|vless
   - 🇯🇵 JP|60|M411ms|147.45.220.146|YT|anytls
-  - 🇺🇸 US|60|M1035ms|2602:f988:210:c4f::7f4|YT|vless
+  - 🇺🇸 US|60|M1035ms|2602:f988:210:c4f::7f4|GPT+YT|vless
   - 🇺🇸 US|60|M817ms|18.216.55.100|YT|vless
   - 🇺🇸 US|60|M1228ms|185.33.84.173|YT|vless
   - 🇬🇧 GB|60|M801ms|195.12.48.126|YT|ss
@@ -1455,11 +1456,10 @@ proxy-groups:
   - 🇫🇷 FR|60|M754ms|2001:bc8:610:0:224:ecff:fef2:c267|YT|ss
   - 🇺🇸 US|60|M1224ms|47.90.139.129|YT|trojan
   - 🇺🇸 US|60|M1014ms|172.190.157.189|YT|vless
-  - 🇺🇸 US|60|M1025ms|107.172.6.224|YT|vless
+  - 🇺🇸 US|60|M1025ms|107.172.6.224|GPT+YT|vless
   - 🇮🇪 IE|60|M808ms|84.247.48.66|YT|ss
   - 🇩🇪 DE|60|M741ms|51.195.94.187|YT|vless
   - 🇩🇪 DE|60|M876ms|2a05:d014:1701:f201:a448:4f7d:a8d1:2bc|YT|trojan
-  - 🇳🇱 NL|60|M816ms|89.105.219.132|YT|vless
   - NoCF-Reality-80
   - NoCF-VMESS-WS-2053
   - CF-VLESS-TLS-443
@@ -3285,7 +3285,7 @@ proxies:
     query-server-name: cloudflare-ech.com
   encryption: none
   packet-encoding: xudp
-- name: 🇺🇸 US|60|M1090ms|104.28.165.54|YT|vless
+- name: 🇺🇸 US|60|M1090ms|104.28.165.54|GPT+YT|vless
   type: vless
   server: 172.64.52.240
   port: 443
@@ -3364,7 +3364,7 @@ proxies:
   servername: povrat-spedstava.com
   client-fingerprint: firefox
   name: 🇩🇪德国DE008 6.1MB/s中性 TG@jcnode
-- name: 🇺🇸 US|75|M1114ms|159.203.180.17|GPT+YT|vless
+- name: 🇺🇸 US|75|M1114ms|159.203.180.17|YT|vless
   type: vless
   server: 162.159.42.182
   port: 443
@@ -3458,21 +3458,23 @@ proxies:
   ech-opts:
     enable: true
     query-server-name: cloudflare-ech.com
-- client-fingerprint: chrome
-  name: 🇺🇸 US|75|M1005ms|192.119.83.187|YT|vless
-  network: ws
-  port: 443
-  server: 172.64.53.65
-  servername: t1s1.rittbo.kdns.fr
-  skip-cert-verify: true
-  tls: true
+- name: 🇺🇸 US|75|M1005ms|192.119.83.187|GPT+YT|vless
   type: vless
-  udp: true
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
+  server: 172.64.53.65
+  port: 443
+  client-fingerprint: chrome
+  tls: true
+  servername: t1s1.rittbo.kdns.fr
+  network: ws
   ws-opts:
     headers:
       Host: t1s1.rittbo.kdns.fr
     path: /
+  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
+  packet-encoding: xudp
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare-ech.com
 - type: vless
   server: 176.109.85.89
   port: 2443
@@ -7589,14 +7591,13 @@ proxies:
   type: vless
   server: 104.17.191.15
   port: 8880
+  uuid: 812b1aeb-c6f7-43cb-8d8b-981711fea21a
   network: ws
   ws-opts:
+    path: /pyip=ProxyIP.JP.CMLiussss.net
     headers:
       Host: dark-cake-4743.198-46c.workers.dev
-    path: /pyip=ProxyIP.JP.CMLiussss.net
-  uuid: 812b1aeb-c6f7-43cb-8d8b-981711fea21a
-  packet-encoding: xudp
-- name: 🇸🇬 SG|88|M340ms|164.52.1.182|YT|trojan
+- name: 🇸🇬 SG|88|M340ms|164.52.1.182|GPT+YT|trojan
   type: trojan
   server: 104.18.40.134
   port: 443
@@ -7607,7 +7608,7 @@ proxies:
       Host: 31f49.y8kc.1qj.hh.hhhdl.kdns.fr
     path: /glasspanel/guest000_0_5de14443985f/
   sni: 31f49.y8kc.1qj.hh.hhhdl.kdns.fr
-- name: 🇸🇬 SG|88|M389ms|43.134.174.114|YT|trojan
+- name: 🇸🇬 SG|88|M389ms|43.134.174.114|GPT+YT|trojan
   type: trojan
   server: 104.17.162.3
   port: 443
@@ -7730,6 +7731,19 @@ proxies:
   password: u2sVknrSIFjDojeqAUjgYk89m9szHcMQ
   sni: 103.106.228.187
   skip-cert-verify: true
+- name: 🇺🇸 US|75|M1065ms|51.81.223.184|GPT+YT|vless
+  type: vless
+  server: da.mfa.gov.ua
+  port: 443
+  uuid: 68eee13f-1a7a-4761-b71e-83b997eeccf9
+  tls: true
+  servername: c8ge1.ev01.2x1.hh.hhyf.kdns.fr
+  sni: c8ge1.ev01.2x1.hh.hhyf.kdns.fr
+  network: ws
+  ws-opts:
+    path: /glasspanel/guest000_0_5de14443985f/
+    headers:
+      Host: c8ge1.ev01.2x1.hh.hhyf.kdns.fr
 - cipher: chacha20-ietf-poly1305
   name: 🇺🇸 US|75|M684ms|88.210.36.109|GPT+YT|ss
   password: t0srmdxrm3xyjnvqz9ewlxb2myq7rjuv
@@ -7752,9 +7766,10 @@ proxies:
   ws-opts:
     headers:
       Host: lucky-sunset-d12e.201-98c.workers.dev
-      User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36
+      User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.109 Safari/537.36
     path: /pyip=ProxyIP.US.CMLiussss.net
   xudp: true
+  packet-encoding: xudp
 - cipher: aes-256-cfb
   name: 🇺🇸 US|75|M815ms|18.190.176.112|GPT+YT|ss
   password: amazonskr05
@@ -7762,7 +7777,7 @@ proxies:
   server: 18.190.176.112
   type: ss
   udp: true
-- name: 🇺🇸 US|75|M956ms|150.136.219.11|YT|vless
+- name: 🇺🇸 US|75|M956ms|150.136.219.11|GPT+YT|vless
   type: vless
   server: anydesk.com
   port: 8880
@@ -7772,7 +7787,7 @@ proxies:
     path: /pyip=ProxyIP.US.CMLiussss.net
     headers:
       Host: sparkling-shadow-481d.342-429.workers.dev
-- name: 🇺🇸 US|75|M1046ms|206.189.182.239|YT|vless
+- name: 🇺🇸 US|75|M1046ms|206.189.182.239|GPT+YT|vless
   type: vless
   server: 173.245.58.253
   port: 2083
@@ -7795,7 +7810,7 @@ proxies:
   ws-opts:
     headers:
       Host: old-violet-a5ce.29-440.workers.dev
-      User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 Safari/537.36
+      User-Agent: Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36
     path: /pyip=ProxyIP.SG.CMLiussss.net
   xudp: true
   packet-encoding: xudp
@@ -7984,7 +7999,7 @@ proxies:
 - alpn:
   - h3
   congestion-controller: cubic
-  name: 🇫🇷 FR|69.5|M842ms|195.154.200.13|GPT+YT|tuic
+  name: 🇫🇷 FR|69.5|M842ms|195.154.200.13|YT|tuic
   password: dongtaiwang.com
   port: 33888
   server: 62.210.24.143
@@ -8110,15 +8125,20 @@ proxies:
   packet-encoding: xudp
   servername: osnl4.ghast.sbs
 - name: 🇸🇬 SG|62|M268ms|164.52.1.179|YT|vless
-  type: vless
-  server: themeforest.net
-  port: 8880
-  uuid: 1563ad16-9ac7-4214-8eb7-303f745efb07
   network: ws
+  packet-encoding: xudp
+  port: 8880
+  server: themeforest.net
+  type: vless
+  udp: true
+  uuid: 1563ad16-9ac7-4214-8eb7-303f745efb07
   ws-opts:
-    path: /pyip=ProxyIP.SG.CMLiussss.net
     headers:
       Host: silent-cake-fb8d.69-a76.workers.dev
+      User-Agent: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36
+    path: /pyip=ProxyIP.SG.CMLiussss.net
+  xudp: true
+  client-fingerprint: chrome
 - name: 🇸🇬 SG|62|M299ms|164.52.1.182|YT|trojan
   type: trojan
   server: cf.090227.xyz
@@ -8153,7 +8173,7 @@ proxies:
       Host: 31f49.y8kc.1qj.hh.hhhdl.kdns.fr
     path: /glasspanel/guest000_0_5de14443985f/
   sni: 31f49.y8kc.1qj.hh.hhhdl.kdns.fr
-- name: 🇺🇸 US|62|M1009ms|137.220.62.149|YT|trojan
+- name: 🇺🇸 US|62|M1009ms|137.220.62.149|GPT+YT|trojan
   type: trojan
   server: 8.35.211.193
   port: 443
@@ -8200,7 +8220,7 @@ proxies:
       Host: 31f49.y8kc.1qj.hh.hhhdl.kdns.fr
     path: /glasspanel/guest000_0_5de14443985f/
   sni: 31f49.y8kc.1qj.hh.hhhdl.kdns.fr
-- name: 🇺🇸 US|62|M1085ms|206.189.182.239|YT|vless
+- name: 🇺🇸 US|62|M1085ms|206.189.182.239|GPT+YT|vless
   network: ws
   port: 443
   server: 104.25.46.11
@@ -8213,7 +8233,7 @@ proxies:
       Host: ourfast.ccwu.cc
     path: /
   servername: ourfast.ccwu.cc
-- name: 🇺🇸 US|62|M1086ms|150.136.219.11|YT|trojan
+- name: 🇺🇸 US|62|M1086ms|150.136.219.11|GPT+YT|trojan
   type: trojan
   server: 162.159.58.65
   port: 443
@@ -8269,7 +8289,7 @@ proxies:
   sni: 31f49.y8kc.1qj.hh.hhhdl.kdns.fr
   skip-cert-verify: true
   network: ws
-- name: 🇺🇸 US|62|M1217ms|104.28.166.30|GPT+YT|vless
+- name: 🇺🇸 US|62|M1217ms|104.28.166.30|YT|vless
   network: ws
   port: 443
   server: 172.67.222.64
@@ -8345,7 +8365,7 @@ proxies:
   servername: pypi.org
   network: tcp
   skip-cert-verify: true
-- name: 🇺🇸 US|60|M986ms|107.172.6.224|YT|vless
+- name: 🇺🇸 US|60|M986ms|107.172.6.224|GPT+YT|vless
   type: vless
   server: 162.159.44.113
   port: 8443
@@ -8396,7 +8416,7 @@ proxies:
   udp: true
   skip-cert-verify: true
   sni: www.microsoft.com
-- name: 🇺🇸 US|60|M1035ms|2602:f988:210:c4f::7f4|YT|vless
+- name: 🇺🇸 US|60|M1035ms|2602:f988:210:c4f::7f4|GPT+YT|vless
   type: vless
   server: 162.159.18.228
   port: 2087
@@ -8492,24 +8512,24 @@ proxies:
   password: '3632736327'
   network: tcp
   sni: us04172204.tmdsb.org
-- client-fingerprint: chrome
-  encryption: none
-  name: 🇺🇸 US|60|M1014ms|172.190.157.189|YT|vless
-  network: ws
-  port: 2083
-  server: 162.159.44.172
-  servername: t1s1.rittbo.kdns.fr
-  tls: true
+- name: 🇺🇸 US|60|M1014ms|172.190.157.189|YT|vless
   type: vless
-  udp: true
-  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
+  server: 162.159.44.172
+  port: 2083
+  client-fingerprint: chrome
+  tls: true
+  servername: t1s1.rittbo.kdns.fr
+  network: ws
   ws-opts:
     headers:
       Host: t1s1.rittbo.kdns.fr
-      User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36
     path: /
-  xudp: true
-- name: 🇺🇸 US|60|M1025ms|107.172.6.224|YT|vless
+  uuid: eeb6823c-b926-4ea2-866a-5542edd26e59
+  packet-encoding: xudp
+  ech-opts:
+    enable: true
+    query-server-name: cloudflare-ech.com
+- name: 🇺🇸 US|60|M1025ms|107.172.6.224|GPT+YT|vless
   type: vless
   server: 173.245.58.198
   port: 443
@@ -8554,22 +8574,6 @@ proxies:
   password: OD90375861
   sni: busy-hermit.rooster465.autos
   skip-cert-verify: true
-- client-fingerprint: qq
-  flow: xtls-rprx-vision
-  name: 🇳🇱 NL|60|M816ms|89.105.219.132|YT|vless
-  network: raw
-  port: 443
-  reality-opts:
-    public-key: 10rVZPoOUP1TlQviIAsQ_jAROX0fRQxH0C92nq_zGQc
-    short-id: 43dcff53849b81e6
-  server: 89.105.219.132
-  tls: true
-  type: vless
-  udp: true
-  uuid: ecad47b0-249e-4f6f-adff-e3c8f02b1897
-  xudp: true
-  packet-encoding: xudp
-  servername: nl.quattro-tech.ru
 - name: NoCF-Reality-80
   type: vless
   server: 198.23.254.116
@@ -9443,7 +9447,7 @@ proxies:
 - name: '[3个月后过期] HK2-HY2'
   type: hysteria2
   server: hk2.dexlos.com
-  port: 20369
+  port: 20259
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: hk2.dexlos.com
   skip-cert-verify: false
@@ -9452,7 +9456,7 @@ proxies:
 - name: '[3个月后过期] HK3-HY2'
   type: hysteria2
   server: hk3.dexlos.com
-  port: 20476
+  port: 20520
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: hk3.dexlos.com
   skip-cert-verify: false
@@ -9461,7 +9465,7 @@ proxies:
 - name: '[3个月后过期] HK4-HY2'
   type: hysteria2
   server: hk4.dexlos.com
-  port: 20738
+  port: 20739
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: hk4.dexlos.com
   skip-cert-verify: false
@@ -9470,7 +9474,7 @@ proxies:
 - name: '[3个月后过期] HK5-HY2'
   type: hysteria2
   server: hk5.dexlos.com
-  port: 20938
+  port: 20833
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: hk5.dexlos.com
   skip-cert-verify: false
@@ -9581,7 +9585,7 @@ proxies:
 - name: '[JP-3个月二跳 US6-HY2] JP6-HY2'
   type: hysteria2
   server: jp6.dexlos.com
-  port: 21027
+  port: 21090
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp6.dexlos.com
   skip-cert-verify: false
@@ -9591,7 +9595,7 @@ proxies:
 - name: '[3个月后过期] JP7-HY2'
   type: hysteria2
   server: jp7.dexlos.com
-  port: 21211
+  port: 21228
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp7.dexlos.com
   skip-cert-verify: false
@@ -9600,7 +9604,7 @@ proxies:
 - name: '[3个月后过期] JP8-HY2'
   type: hysteria2
   server: jp8.dexlos.com
-  port: 21535
+  port: 21544
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp8.dexlos.com
   skip-cert-verify: false
@@ -9609,7 +9613,7 @@ proxies:
 - name: '[3个月后过期] JP9-HY2'
   type: hysteria2
   server: jp9.dexlos.com
-  port: 21670
+  port: 21704
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp9.dexlos.com
   skip-cert-verify: false
@@ -9618,7 +9622,7 @@ proxies:
 - name: '[3个月后过期] JP10-HY2'
   type: hysteria2
   server: jp10.dexlos.com
-  port: 21860
+  port: 21916
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp10.dexlos.com
   skip-cert-verify: false
@@ -9763,7 +9767,7 @@ proxies:
 - name: '[3个月后过期] SG1-HY2'
   type: hysteria2
   server: sg1.dexlos.com
-  port: 20042
+  port: 20151
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: sg1.dexlos.com
   skip-cert-verify: false
@@ -9772,7 +9776,7 @@ proxies:
 - name: '[3个月后过期] SG2-HY2'
   type: hysteria2
   server: sg2.dexlos.com
-  port: 20290
+  port: 20297
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: sg2.dexlos.com
   skip-cert-verify: false
@@ -9866,7 +9870,7 @@ proxies:
 - name: '[3个月后过期] US1-HY2'
   type: hysteria2
   server: us1.dexlos.com
-  port: 20170
+  port: 20111
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us1.dexlos.com
   skip-cert-verify: false
@@ -9875,7 +9879,7 @@ proxies:
 - name: '[3个月后过期] US2-HY2'
   type: hysteria2
   server: us2.dexlos.com
-  port: 20343
+  port: 20314
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us2.dexlos.com
   skip-cert-verify: false
@@ -9884,7 +9888,7 @@ proxies:
 - name: '[3个月后过期] US3-HY2'
   type: hysteria2
   server: us3.dexlos.com
-  port: 20482
+  port: 20567
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us3.dexlos.com
   skip-cert-verify: false
@@ -9893,7 +9897,7 @@ proxies:
 - name: '[3个月后过期] US4-HY2'
   type: hysteria2
   server: us4.dexlos.com
-  port: 20771
+  port: 20700
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us4.dexlos.com
   skip-cert-verify: false
@@ -9902,7 +9906,7 @@ proxies:
 - name: '[3个月后过期] US5-HY2'
   type: hysteria2
   server: us5.dexlos.com
-  port: 20859
+  port: 20954
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us5.dexlos.com
   skip-cert-verify: false
@@ -9911,7 +9915,7 @@ proxies:
 - name: '[3个月后过期] US6-HY2'
   type: hysteria2
   server: us6.dexlos.com
-  port: 21035
+  port: 21099
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us6.dexlos.com
   skip-cert-verify: false
