@@ -3,7 +3,7 @@ name: 流水线
 
 concurrency:
   group: asset-pipeline-lock
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 on:
   workflow_dispatch:
