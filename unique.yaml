@@ -1,9 +1,10 @@
 proxy-groups:
 - name: 自动优选
   type: url-test
-  url: http://www.gstatic.com/generate_204
+  url: https://cp.cloudflare.com/generate_204
   interval: 300
-  proxies: &id001
+  tolerance: 50
+  proxies:
   - Windows-VPN
   - reality-www.microsoft.com
   - 🇨🇦26加拿大-全网优化(Tuic)
@@ -854,33 +855,890 @@ proxy-groups:
   - 🇺🇸 LAX-Reality
 - name: 手动选择
   type: select
-  proxies: *id001
+  proxies:
+  - 自动优选
+  - DIRECT
+  - Windows-VPN
+  - reality-www.microsoft.com
+  - 🇨🇦26加拿大-全网优化(Tuic)
+  - 🇫🇷23法国-全网优化(Tuic)
+  - 🇬🇧17英国-全网优化(Tuic)
+  - 🇨🇦18加拿大-全网优化(Tuic)
+  - 🇦🇪13迪拜-电信/移动/南方联通(Tuic)
+  - 🇨🇱21智利-全网优化(Tuic)
+  - 🇮🇱30以色列-全网优化(Tuic)
+  - 🇪🇸31西班牙-全网优化(Tuic)
+  - 🇰🇷8韩国集群-全网优化(M)
+  - 🇺🇸11美国西集群-全网优化(M)
+  - 🇺🇸12美国旧金山-全网优化(M)
+  - 🇸🇬15新加坡-全网优化(M)
+  - 🇩🇪16德国-电信/联通(M)
+  - 🇬🇧17英国-全网优化(M)
+  - 🇨🇦18加拿大-全网优化(M)
+  - 🇦🇺19澳洲-移动优化(M)
+  - 🇧🇷20巴西-全网优化(M)
+  - 🇨🇱21智利-全网优化(M)
+  - 🇫🇷23法国-全网优化(M)
+  - 🇲🇽27墨西哥-全网优化(M)
+  - 🇳🇱28荷兰-全网优化(M)
+  - 🇺🇸29美国旧金山-全网优化(M)
+  - 🇪🇸31西班牙-全网优化(M)
+  - 🇲🇾35马来西亚-移动/联通(M)
+  - 🇺🇸39美国华盛顿-全网优化(M)
+  - 🇨🇭41瑞士-全网优化(M)
+  - 🇿🇦43南非-约翰内斯堡(M)
+  - 🇭🇰1香港集群-全网优化(M)
+  - 🇭🇰3香港集群-全网优化(M)
+  - 4台湾-联通优化(M)
+  - 5台湾-联通/移动(M)
+  - 🇰🇷8韩国集群-全网优化(AnyTLS)
+  - 🇰🇷25韩国-全网优化(AnyTLS)
+  - 🇯🇵10日本-全网优化(AnyTLS)
+  - 🇺🇸12美国旧金山-全网优化(AnyTLS)
+  - 🇺🇸29美国旧金山-全网优化(AnyTLS)
+  - 🇦🇪13迪拜-电信/移动/南方联通(AnyTLS)
+  - 🇮🇳14印度-移动/南方联通(AnyTLS)
+  - 🇸🇬6新加坡-联通/移动(AnyTLS)
+  - 🇬🇧17英国-全网优化(AnyTLS)
+  - 🇨🇦26加拿大-全网优化(AnyTLS)
+  - 🇷🇺32俄罗斯-全网优化(AnyTLS)
+  - 🇭🇰2香港集群-全网优化(AnyTLS)
+  - 🇺🇸11美国西集群-全网优化(hy2)
+  - 🇺🇸12美国旧金山-全网优化(hy2)
+  - 🇺🇸29美国旧金山-全网优化(hy2)
+  - 🇺🇸39美国华盛顿-全网优化(hy2)
+  - 44美国维加斯-全网优化(hy2)
+  - 🇺🇸39美国华盛顿-全网优化(AnyTLS)
+  - 44美国维加斯-全网优化(AnyTLS)
+  - 🇺🇸11美国西集群-全网优化(AnyTLS)
+  - '官网: go.dgivn.click'
+  - Shanghai-IP
+  - Shanghai-SOCKS
+  - standalone-60003-no-telegram
+  - tg-vless-reality-6002
+  - 🇰🇷韩国KR006 0.8MB/s中性 TG@jcnode
+  - 🇸🇬新加坡SG001 16.6MB/s中性 TG@jcnode
+  - 🇸🇬新加坡SG002 0.7MB/s中性 TG@jcnode
+  - 🇯🇵 JP|88|M540ms|43.165.183.74|YT|vless
+  - 🇷🇺俄罗斯RU008 4.9MB/s中性 TG@jcnode
+  - 🇷🇺俄罗斯RU009 3.7MB/s中性 TG@jcnode
+  - 🇯🇵日本JP002 11.1MB/s中性 TG@jcnode
+  - 🇯🇵日本JP001 11.7MB/s中性 TG@jcnode
+  - 🇳🇱荷兰NL002 3.0MB/s中性 TG@jcnode
+  - 🇺🇸美国US062 4.2MB/s纯净 TG@jcnode
+  - 🇳🇱荷兰NL004 3.0MB/s中性 TG@jcnode
+  - 🇸🇪瑞典SE001 0.3MB/s中性 TG@jcnode
+  - 🇰🇷韩国KR003 3.7MB/s中性 TG@jcnode
+  - 🇰🇷韩国KR004 4.7MB/s中性 TG@jcnode
+  - 🇰🇷韩国KR001 6.0MB/s中性 TG@jcnode
+  - 🇯🇵 JP|75|M634ms|212.135.210.133|YT|vless
+  - 🇬🇧英国GB002 0.8MB/s中性 TG@jcnode
+  - 🇰🇷韩国KR002 3.7MB/s中性 TG@jcnode
+  - 🇺🇸美国US 063 0.1MB/s TG@jcnode
+  - 🇺🇸 US|75|M1300ms|88.210.36.109|GPT+YT|ss
+  - 🇭🇰香港HK002 2.1MB/s纯净 TG@jcnode
+  - 🇺🇸美国US 066 5.6MB/s TG@jcnode
+  - 🇺🇸美国US004 1.8MB/s中性 TG@jcnode
+  - 🇺🇸美国US047 5.5MB/s中性 TG@jcnode
+  - 🇷🇺俄罗斯RU001 8.6MB/s纯净 TG@jcnode
+  - 🇯🇵日本JP006 3.6MB/s中性 TG@jcnode
+  - 🇫🇷法国FR001 3.1MB/s中性 TG@jcnode
+  - 🇺🇸美国US045 5.5MB/s中性 TG@jcnode
+  - 🇺🇸美国US017 2.6MB/s中性 TG@jcnode
+  - 🇺🇸美国US 026 5.5MB/s TG@jcnode
+  - 🇺🇸美国US030 6.1MB/s中性 TG@jcnode
+  - 🇺🇸美国US003 6.2MB/s中性 TG@jcnode
+  - 🇺🇸美国US021 5.5MB/s中性 TG@jcnode
+  - 🇺🇸美国US058 5.9MB/s中性 TG@jcnode
+  - 🇺🇸美国US027 5.7MB/s中性 TG@jcnode
+  - 🇨🇦加拿大CA001 1.8MB/s中性 TG@jcnode
+  - 🇺🇸美国US046 6.1MB/s中性 TG@jcnode
+  - 🇺🇸 US|67|M1641ms|192.119.83.187|GPT+YT|vless
+  - 🇺🇸美国US 002 6.0MB/s TG@jcnode
+  - 🇺🇸美国US037 5.8MB/s中性 TG@jcnode
+  - 🇩🇪德国DE009 1.2MB/s纯净 TG@jcnode
+  - 🇷🇺俄罗斯RU007 0.4MB/s中性 TG@jcnode
+  - 🇺🇸美国US050 5.5MB/s中性 TG@jcnode
+  - 🇺🇸美国US025 5.5MB/s中性 TG@jcnode
+  - 🇺🇸美国US022 5.5MB/s中性 TG@jcnode
+  - 🇺🇸美国US013 6.1MB/s中性 TG@jcnode
+  - 🇷🇺俄罗斯RU006 2.6MB/s中性 TG@jcnode
+  - 🇺🇸美国US054 5.5MB/s中性 TG@jcnode
+  - 🇺🇸美国US052 5.5MB/s中性 TG@jcnode
+  - 🇺🇸美国US015 4.9MB/s中性 TG@jcnode
+  - 🇺🇸美国US 001 5.5MB/s TG@jcnode
+  - 🇺🇸美国US053 6.1MB/s中性 TG@jcnode
+  - 🇸🇬 SG|81.2|M1920ms|164.52.1.182|YT|vless
+  - 🇺🇸美国US032 6.1MB/s中性 TG@jcnode
+  - 🇺🇸美国US024 5.3MB/s中性 TG@jcnode
+  - 🇺🇸美国US036 5.4MB/s中性 TG@jcnode
+  - 🇺🇸美国US056 6.0MB/s中性 TG@jcnode
+  - 🇺🇸 US|60|M1090ms|104.28.165.54|YT|vless
+  - 🇺🇸美国US051 3.2MB/s中性 TG@jcnode
+  - 🇺🇸美国US 079 8.5MB/s TG@jcnode
+  - 🇺🇸美国US020 5.9MB/s中性 TG@jcnode
+  - 🇩🇪德国DE008 6.1MB/s中性 TG@jcnode
+  - 🇺🇸 US|75|M1114ms|159.203.180.17|GPT+YT|vless
+  - 🇺🇸 US|67.4|M1626ms|159.203.180.17|GPT+YT|vless
+  - 🇺🇸美国US012 6.1MB/s中性 TG@jcnode
+  - 🇺🇸美国US034 5.8MB/s中性 TG@jcnode
+  - 🇺🇸美国US049 5.5MB/s中性 TG@jcnode
+  - 🇺🇸 US|75|M1005ms|192.119.83.187|YT|vless
+  - 🇦🇪阿联酋AE001 1.7MB/s纯净 TG@jcnode
+  - 🇺🇸美国US057 6.1MB/s中性 TG@jcnode
+  - 🇺🇸美国US023 5.5MB/s中性 TG@jcnode
+  - 🇺🇸美国US055 5.5MB/s中性 TG@jcnode
+  - 🇺🇸美国US031 5.0MB/s中性 TG@jcnode
+  - 🇺🇸美国US014 6.1MB/s中性 TG@jcnode
+  - 🇺🇸美国US092 6.1MB/s中性 TG@jcnode
+  - 🇺🇸美国US 033 4.3MB/s TG@jcnode
+  - 🇺🇸 US|68|M1141ms|138.199.35.199|GPT+YT|http
+  - 🇺🇸美国US 042 6.8MB/s TG@jcnode
+  - 🇺🇸美国US040 5.5MB/s中性 TG@jcnode
+  - 🇦🇺 AU|60.2|M981ms|159.13.44.228|YT|http
+  - 🇺🇸美国US 085 6.8MB/s TG@jcnode
+  - 🇺🇸美国US038 6.1MB/s中性 TG@jcnode
+  - 🇺🇸美国US 076 7.4MB/s TG@jcnode
+  - 🇫🇮芬兰FI004 3.7MB/s中性 TG@jcnode
+  - 🇺🇸美国US064 0.2MB/s中性 TG@jcnode
+  - 🇺🇸美国US093 5.5MB/s中性 TG@jcnode
+  - 🇺🇸美国US008 4.0MB/s中性 TG@jcnode
+  - 🇺🇸美国US011 4.9MB/s中性 TG@jcnode
+  - 🇺🇸美国US007 3.9MB/s中性 TG@jcnode
+  - 🇳🇱荷兰NL 001 6.2MB/s TG@jcnode
+  - 🇺🇸 US|68|M1114ms|204.1.108.90|GPT+YT|http
+  - 🇺🇸美国US 059 6.8MB/s TG@jcnode
+  - 🇺🇸美国US 084 7.4MB/s TG@jcnode
+  - 🇭🇰香港HK004 1.8MB/s纯净 TG@jcnode
+  - 🇬🇧英国GB001 1.8MB/s中性 TG@jcnode
+  - 🇺🇸美国US009 3.7MB/s中性 TG@jcnode
+  - 🇺🇸美国US 088 6.8MB/s TG@jcnode
+  - 🇺🇸美国US 077 6.8MB/s TG@jcnode
+  - 🇺🇸美国US 083 5.5MB/s TG@jcnode
+  - 🇳🇱荷兰NL 009 6.2MB/s TG@jcnode
+  - 🇳🇱荷兰NL 006 6.1MB/s TG@jcnode
+  - 🇩🇪德国DE011 4.3MB/s中性 TG@jcnode
+  - 🇺🇸美国US 070 8.0MB/s TG@jcnode
+  - 🇺🇸美国US 087 6.1MB/s TG@jcnode
+  - 🇺🇸美国US 069 6.1MB/s TG@jcnode
+  - 🇺🇸美国US 080 7.4MB/s TG@jcnode
+  - 🇺🇸美国US 075 6.8MB/s TG@jcnode
+  - 🇳🇱荷兰NL 007 8.6MB/s TG@jcnode
+  - 🇺🇸美国US 078 7.4MB/s TG@jcnode
+  - 🇺🇸美国US 089 0.3MB/s TG@jcnode
+  - 🇩🇪德国DE013 3.1MB/s纯净 TG@jcnode
+  - 🇳🇱荷兰NL 005 6.8MB/s TG@jcnode
+  - 🇺🇸美国US 044 8.0MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 073 1.2MB/s TG@jcnode
+  - 🇺🇸美国US 043 7.4MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 029 3.1MB/s TG@jcnode
+  - 🇺🇸美国US 081 8.0MB/s TG@jcnode
+  - 🇺🇸美国US 086 0.5MB/s TG@jcnode
+  - 🇺🇸美国US006 5.5MB/s中性 TG@jcnode
+  - 🇪🇪爱沙尼亚EE 001 2.5MB/s TG@jcnode
+  - 🇫🇷法国FR 002 5.8MB/s TG@jcnode
+  - 🇩🇪德国DE004 3.4MB/s中性 TG@jcnode
+  - 🇺🇸美国US061 2.5MB/s中性 TG@jcnode
+  - 🇩🇪德国DE006 0.3MB/s中性 TG@jcnode
+  - 🇺🇸美国US 082 6.8MB/s TG@jcnode
+  - 🇺🇸美国US 072 6.1MB/s TG@jcnode
+  - 🇺🇸美国US 073 7.4MB/s TG@jcnode
+  - 🇳🇱荷兰NL 008 8.0MB/s TG@jcnode
+  - 🇵🇱波兰PL001 0.6MB/s中性 TG@jcnode
+  - 🇷🇴罗马尼亚RO 093 3.1MB/s TG@jcnode
+  - 🇯🇵日本JP004 2.9MB/s中性 TG@jcnode
+  - 🇩🇪德国DE002 3.4MB/s中性 TG@jcnode
+  - 🇺🇸美国US041 5.5MB/s中性 TG@jcnode
+  - 🇷🇴罗马尼亚RO 003 2.4MB/s TG@jcnode
+  - 🇺🇸美国US 090 7.4MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 077 3.1MB/s TG@jcnode
+  - 🇭🇰香港HK003 2.5MB/s纯净 TG@jcnode
+  - 🇷🇴罗马尼亚RO 027 2.5MB/s TG@jcnode
+  - 🇺🇸美国US 071 6.8MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 070 6.2MB/s TG@jcnode
+  - 🇫🇮芬兰FI001 3.7MB/s中性 TG@jcnode
+  - 🇷🇴罗马尼亚RO 075 1.7MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 089 2.6MB/s TG@jcnode
+  - 🇷🇺俄罗斯RU002 0.8MB/s危险 TG@jcnode
+  - 🇷🇴罗马尼亚RO 094 5.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 016 5.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 005 4.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 086 5.5MB/s TG@jcnode
+  - 🇳🇱荷兰NL003 3.7MB/s中性 TG@jcnode
+  - 🇷🇴罗马尼亚RO 099 3.1MB/s TG@jcnode
+  - 🇷🇺俄罗斯RU011 6.1MB/s中性 TG@jcnode
+  - 🇺🇸美国US065 0.5MB/s中性 TG@jcnode
+  - 🇷🇴罗马尼亚RO 054 2.5MB/s TG@jcnode
+  - 🇯🇵日本JP003 4.3MB/s中性 TG@jcnode
+  - 🇷🇴罗马尼亚RO 098 4.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 017 4.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 072 4.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 056 2.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 009 6.6MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 013 6.2MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 065 3.1MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 097 6.1MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 060 6.0MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 071 5.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 107 6.2MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 087 5.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 052 5.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 038 4.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 023 4.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 015 6.2MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 043 2.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 050 5.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 001 2.7MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 081 4.9MB/s TG@jcnode
+  - 🇺🇸美国US 067 4.2MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 101 6.0MB/s TG@jcnode
+  - 🇫🇷法国FR003 1.2MB/s中性 TG@jcnode
+  - 🇷🇴罗马尼亚RO 046 3.1MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 069 6.2MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 034 5.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 095 4.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 062 3.0MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 067 3.1MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 032 4.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 019 6.2MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 006 3.3MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 007 6.2MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 058 4.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 022 3.1MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 014 2.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 057 6.2MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 055 5.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 036 3.7MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 049 2.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 044 4.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 106 0.8MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 020 2.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 002 5.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 108 2.1MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 085 4.3MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 051 5.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 084 2.7MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 076 3.4MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 074 4.9MB/s TG@jcnode
+  - 🇩🇪德国DE010 0.2MB/s有风险 TG@jcnode
+  - 🇩🇪德国DE005 0.3MB/s中性 TG@jcnode
+  - 🇷🇴罗马尼亚RO 035 4.3MB/s TG@jcnode
+  - 🇺🇸美国US 091 2.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 026 4.9MB/s TG@jcnode
+  - 🇺🇸美国US010 4.3MB/s中性 TG@jcnode
+  - 🇩🇪德国DE001 0.4MB/s中性 TG@jcnode
+  - 🇷🇴罗马尼亚RO 041 5.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 025 4.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 030 4.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 080 3.1MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 100 2.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 104 3.4MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 045 6.2MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 079 2.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 039 4.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 047 5.5MB/s TG@jcnode
+  - 🇨🇿捷克CZ001 3.7MB/s中性 TG@jcnode
+  - 🇷🇴罗马尼亚RO 021 3.1MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 068 2.0MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 053 3.7MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 102 1.8MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 011 4.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 083 3.1MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 064 5.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 008 3.1MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 105 4.8MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 037 3.7MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 040 4.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 031 3.1MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 048 3.1MB/s TG@jcnode
+  - 🇷🇺俄罗斯RU003 3.1MB/s纯净 TG@jcnode
+  - 🇷🇴罗马尼亚RO 024 4.3MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 010 3.1MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 042 3.7MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 090 2.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 018 5.0MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 092 5.5MB/s TG@jcnode
+  - 🇩🇪德国DE007 3.6MB/s中性 TG@jcnode
+  - 🇷🇴罗马尼亚RO 012 5.5MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 033 4.9MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 004 6.1MB/s TG@jcnode
+  - 🇸🇬新加坡SG005 3.1MB/s有风险 TG@jcnode
+  - 🇷🇴罗马尼亚RO 063 3.1MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 059 2.5MB/s TG@jcnode
+  - 🇩🇪德国DE003 3.7MB/s中性 TG@jcnode
+  - 🇷🇴罗马尼亚RO 028 3.1MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 082 3.7MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 088 3.7MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 078 6.8MB/s TG@jcnode
+  - 🇷🇴罗马尼亚RO 103 5.0MB/s TG@jcnode
+  - 🇸🇬新加坡SG004 0.3MB/s危险 TG@jcnode
+  - 🇨🇿捷克CZ003 3.3MB/s中性 TG@jcnode
+  - 🇷🇴罗马尼亚RO 096 3.5MB/s TG@jcnode
+  - 🇭🇰香港HK001 1.9MB/s纯净 TG@jcnode
+  - 🇷🇺俄罗斯RU010 0.2MB/s中性 TG@jcnode
+  - 🇨🇿捷克CZ002 0.6MB/s中性 TG@jcnode
+  - 🇺🇸美国US019 6.0MB/s中性 TG@jcnode
+  - 🇷🇴罗马尼亚RO 061 4.9MB/s TG@jcnode
+  - 🇯🇵日本JP005 0.2MB/s中性 TG@jcnode
+  - 🇩🇪德国DE012 3.0MB/s纯净 TG@jcnode
+  - 韩国A1｜阿里云中转｜HY2｜备用
+  - 韩国A1｜阿里云中转｜TUIC｜游戏实验
+  - 韩国A1｜直连｜TUIC｜新IP
+  - 韩国A1｜阿里云中转｜HY2混淆｜主用
+  - 韩国A1｜直连｜HY2
+  - 韩国A1｜Cloudflare CDN｜WS｜下载备用
+  - 韩国A1｜直连｜HY2混淆
+  - 韩国E2｜直连｜Reality
+  - 美国A1｜阿里云中转｜HY2混淆｜新IP主用
+  - 美国A1｜阿里云中转｜HY2｜新IP备用
+  - 美国A1｜阿里云中转｜TUIC｜新IP备用
+  - 美国A1｜直连｜HY2混淆｜新IP主用
+  - 美国A1｜直连｜HY2｜新IP备用
+  - 美国A1｜直连｜TUIC｜新IP备用
+  - 美国A1｜直连｜Reality旧IP备用
+  - 美国E2｜直连｜Reality
+  - US-Trojan
+  - DO-VPS-Hysteria2
+  - DO-VPS-Reality
+  - '[PQ] 🇯🇵日本东京05-0.1倍 | 电信联通推荐'
+  - '[PQ] 🇺🇸美国洛杉矶08-0.1倍'
+  - '[PQ] 🇺🇸美国05 | 合适下载使用-0.01倍'
+  - '[PQ] 🇯🇵日本东京01 | 移动联通推荐'
+  - '[PQ] 🇯🇵日本东京02 | 移动联通推荐'
+  - '[PQ] 🇯🇵日本东京03 | 移动联通推荐'
+  - '[PQ] 🇯🇵日本东京04 | 移动联通推荐'
+  - '[PQ] 🇯🇵日本东京05 | 移动联通推荐'
+  - '[PQ] 🇸🇬AWS新加坡02 | 移动联通推荐'
+  - '[PQ] 🇸🇬AWS新加坡03 | 移动联通推荐'
+  - '[PQ] 🇺🇸美国01-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国02-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国03-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国04-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国05-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国06-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国07-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇺🇸美国08-0.1倍 | 电信联通移动推荐'
+  - '[PQ] 🇭🇰香港01 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港02 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港03 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港04 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港05 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港06 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港07 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港08 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港09 | 移动联通推荐'
+  - '[PQ] 🇭🇰香港10 | 移动联通推荐'
+  - '[PQ] 🇰🇷韩国 | 高速专线-hy2'
+  - '[PQ] 🇦🇪迪拜 | 高速专线-hy2'
+  - '[PQ] 🇨🇭瑞士苏黎世 | 高速专线-hy2'
+  - '[PQ] 🇦🇺澳大利亚 | 高速专线-hy2'
+  - '[PQ] 🇦🇺澳大利亚2 | 高速专线-hy2'
+  - '[PQ] 🇦🇺澳大利亚3 | 高速专线-hy2'
+  - '[PQ] 🇸🇬新加坡2 | 高速专线-hy2'
+  - '[PQ] 🇸🇬新加坡3 | 高速专线-hy2'
+  - '[PQ] 🇸🇬新加坡4 | 高速专线-hy2'
+  - '[PQ] 🇯🇵日本东京 | 移动联通推荐-hy2'
+  - '[PQ] 🇯🇵日本东京2 | 移动联通推荐-hy2'
+  - '[PQ] 🇯🇵日本东京3 | 移动联通推荐-hy2'
+  - '[PQ] 🇯🇵日本东京4 | 移动联通推荐-hy2'
+  - '[PQ] 🇯🇵日本东京5 | 移动联通推荐-hy2'
+  - '[PQ] 🇺🇸美国阿什本03-0.1倍'
+  - '[PQ] 🇰🇷韩国首尔01'
+  - '[PQ] 🇹🇼台湾 | 避免晚高峰使用'
+  - '[PQ] 🇹🇼台湾2 | 避免晚高峰使用'
+  - '[PQ] 🇹🇼台湾3 | 避免晚高峰使用'
+  - '[PQ] 🇯🇵日本高速01-0.1倍'
+  - '[PQ] 🇺🇸美国圣何塞01 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞02 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞03 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞04 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞05 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞06 | 三网推荐'
+  - '[PQ] 🇺🇸美国圣何塞07 | 三网推荐'
+  - '[PQ] 🇺🇸美国洛杉矶08 | 三网推荐'
+  - '[LX] 🇬🇧英国伦敦|CTCU|0.1x'
+  - '[LX] 🇭🇰香港高速01|BGP|CMCU'
+  - '[LX] 🇭🇰香港高速02|BGP|CMCU'
+  - '[LX] 🇭🇰香港高速03|BGP|CMCU'
+  - '[LX] 🇭🇰香港高速04|BGP|CMCU'
+  - '[LX] 🇭🇰香港高速05|BGP|CMCU'
+  - '[LX] 🇭🇰香港高速06|BGP|CMCU'
+  - '[LX] 🇸🇬新加坡高速01|BGP|CTCUCM'
+  - '[LX] 🇸🇬新加坡高速02|BGP|CTCUCM'
+  - '[LX] 🇸🇬新加坡高速03|BGP|CTCUCM'
+  - '[LX] 🇸🇬新加坡高速04|BGP|CTCUCM'
+  - '[LX] 🇸🇬新加坡高速05|BGP|CTCUCM'
+  - '[LX] 🇯🇵日本高速01|BGP|CUCM'
+  - '[LX] 🇯🇵日本高速02|BGP|CUCM'
+  - '[LX] 🇯🇵日本高速03|BGP|CUCM'
+  - '[LX] 🇯🇵日本高速04|BGP|CUCM'
+  - '[LX] 🇯🇵日本高速05|BGP|CUCM'
+  - '[LX] 🇰🇷韩国高速01|BGP|流媒体'
+  - '[LX] 🇨🇳台湾高速01|BGP|流媒体'
+  - '[LX] 🇭🇰香港专线01|BGP|流媒体'
+  - '[LX] 🇭🇰香港专线02|BGP|流媒体'
+  - '[LX] 🇭🇰香港专线03|BGP|流媒体'
+  - '[LX] 🇭🇰香港专线04|BGP|流媒体'
+  - '[LX] 🇸🇬新加坡专线01|BGP|流媒体'
+  - '[LX] 🇸🇬新加坡专线02|BGP|流媒体'
+  - '[LX] 🇸🇬新加坡专线03|BGP|流媒体'
+  - '[LX] 🇸🇬新加坡专线04|BGP|流媒体'
+  - '[LX] 🇯🇵日本专线01|BGP|流媒体'
+  - '[LX] 🇯🇵日本专线02|BGP|流媒体'
+  - '[LX] 🇯🇵日本专线03|BGP|流媒体'
+  - '[LX] 🇯🇵日本专线04|BGP|流媒体'
+  - '[LX] 🇰🇷韩国专线01|BGP|流媒体'
+  - '[LX] 🇨🇳台湾专线01|BGP|流媒体'
+  - '[LX] 🇬🇧英国伦敦02|流媒体|0.1x'
+  - '[LX] 🇺🇸美国01|流媒体'
+  - '[CF] CF官方优选1'
+  - '[CF] CF官方优选2'
+  - '[CF] CF官方优选3'
+  - '[CF] CF官方优选4'
+  - '[CF] CF官方优选5'
+  - '[CF] CF官方优选6'
+  - '[CF] CF官方优选7'
+  - '[CF] CF官方优选8'
+  - '[CF] CF官方优选9'
+  - '[CF] CF官方优选10'
+  - '[CF] CF官方优选11'
+  - '[CF] CF官方优选12'
+  - '[CF] CF官方优选13'
+  - '[CF] CF官方优选14'
+  - '[CF] CF官方优选15'
+  - '[CF] CF官方优选16'
+  - '[CF] CF官方优选17'
+  - '[CF] CF官方优选18'
+  - '[CF] CF官方优选19'
+  - '[CF] CF官方优选20'
+  - '[CF] CF官方优选21'
+  - '[CF] CF官方优选22'
+  - '[CF] CF官方优选23'
+  - '[CF] CF官方优选24'
+  - '[CF] CF官方优选25'
+  - '[CF] CF官方优选26'
+  - '[CF] CF官方优选27'
+  - '[CF] CF官方优选28'
+  - '[CF] CF官方优选29'
+  - '[CF] CF官方优选30'
+  - '[CF] CF官方优选31'
+  - '[CF] CF官方优选32'
+  - xray-reality-159.54.181.175
+  - 🇺🇸 US|84.4|M1564ms|159.65.79.184|GPT+YT|hysteria2
+  - 🇺🇸 US|60|M940ms|2604:a880:2:d1:0:1:677c:8001|GPT+YT|anytls
+  - 🇳🇱 NL-AMS HY2
+  - 🇳🇱 NL-AMS AnyTLS
+  - 🇸🇬 SG|95|M341ms|2400:6180:0:d2:0:2:f62c:e000|YT|hysteria2
+  - 🇸🇬 SG|95|M316ms|2400:6180:0:d2:0:2:f62c:e000|YT|anytls
+  - 🇭🇰 HK|75|M282ms|123.254.107.195|YT|anytls
+  - US01
+  - 免费-日本1-Ver.7
+  - 免费-日本2-Ver.8
+  - 免费-日本3-Ver.7
+  - 免费-日本4-Ver.8
+  - 免费-日本5-Ver.9
+  - 免费-日本6-Ver.8
+  - 免费-日本7-Ver.2
+  - 🇭🇰 香港W01
+  - 🇯🇵 日本W01 | IEPL
+  - 🇭🇰 香港W02 | IEPL
+  - 🇯🇵 日本W02 | IEPL
+  - 🇭🇰 香港W03 | IEPL
+  - 🇯🇵 日本W03 | IEPL
+  - 🇭🇰 香港W04 | IEPL
+  - 🇯🇵 日本W04 | IEPL
+  - 🇭🇰 香港W05 | IEPL
+  - 🇯🇵 日本W05 | 下载专用 | x0.01
+  - 🇭🇰 香港W06 | x0.8
+  - 🇯🇵 日本W06 | 下载专用 | x0.01
+  - 🇭🇰 香港W07 | x0.8
+  - 🇯🇵 日本W07 | IEPL
+  - 🇭🇰 香港W08 | x0.8
+  - 🇯🇵 日本W08 | IEPL
+  - 🇭🇰 香港W09 | IEPL
+  - 🇯🇵 日本W09 | IEPL
+  - 🇭🇰 香港W10 | IEPL
+  - 🇯🇵 日本W10 | IEPL
+  - 🇭🇰 香港W11 | IEPL
+  - 🇯🇵 日本W11 | IEPL
+  - 🇸🇬 新加坡W01 | IEPL | x2
+  - 🇸🇬 新加坡W02 | IEPL | x2
+  - 🇸🇬 新加坡W03 | IEPL | x2
+  - 🇨🇳 台湾W01 | IEPL | x2
+  - 🇺🇲 美国W01 | IEPL | x1.5
+  - 🇺🇲 美国W02 | IEPL | x1.5
+  - 🇬🇧 英国W01
+  - 🇦🇷 阿根廷W01
+  - 🇷🇺 俄罗斯W01
+  - 🇹🇷 土耳其W01
+  - 🇰🇷 韩国W01
+  - 🇮🇳 印度W01
+  - 🇩🇪 德国W01
+  - 🇨🇦 加拿大W01
+  - 🇦🇺 澳大利亚W01
+  - 🇫🇷 法国W01
+  - 🇺🇦 乌克兰W01
+  - 🇯🇵 JP|88|M236ms|45.32.49.228|YT|vless
+  - 🇸🇬 SG|88|M340ms|164.52.1.182|YT|trojan
+  - 🇸🇬 SG|88|M389ms|43.134.174.114|YT|trojan
+  - 🇭🇰 HK|88|M358ms|43.100.43.112|YT|socks5
+  - 🇸🇬 SG|88|M354ms|2406:da18:653:f101:a9bf:6140:a741:242f|YT|trojan
+  - 🇺🇸 US|88|M427ms|107.172.6.224|YT|vless
+  - 🇯🇵 JP|88|M407ms|168.138.46.67|YT|trojan
+  - 🇯🇵 JP|88|M435ms|85.149.218.210|YT|ss
+  - 🇸🇬 SG|88|M337ms|139.59.238.97|YT|trojan
+  - 🇸🇬 SG|88|M527ms|164.52.1.179|YT|vless
+  - 🇨🇦 CA|81.5|M843ms|147.5.104.226|GPT+YT|tuic
+  - 🇯🇵 JP|75|M457ms|31.76.91.71|YT|vless
+  - 🇺🇸 US|75|M630ms|192.204.46.230|GPT+YT|vmess
+  - 🇯🇵 JP|75|M566ms|103.106.228.187|YT|trojan
+  - 🇺🇸 US|75|M684ms|88.210.36.109|GPT+YT|ss
+  - 🇺🇸 US|75|M579ms|104.28.202.178|YT|vless
+  - 🇺🇸 US|75|M815ms|18.190.176.112|GPT+YT|ss
+  - 🇺🇸 US|75|M956ms|150.136.219.11|YT|vless
+  - 🇺🇸 US|75|M1046ms|206.189.182.239|YT|vless
+  - 🇸🇬 SG|75|M844ms|43.133.61.219|YT|vless
+  - 🇩🇪 DE|75|M601ms|81.31.211.110|YT|vless
+  - 🇺🇸 US|75|M1009ms|172.190.157.189|GPT+YT|vless
+  - 🇺🇸 US|75|M626ms|104.168.76.144|YT|vless
+  - 🇺🇸 US|75|M1105ms|23.94.41.146|YT|vless
+  - 🇺🇸 US|75|M806ms|104.168.76.144|YT|vless
+  - 🇯🇵 JP|75|M1440ms|137.220.225.56|YT|trojan
+  - 🇰🇷 KR|75|M537ms|151.245.106.49|YT|vless
+  - 🇺🇸 US|75|M1106ms|204.44.74.241|YT|vless
+  - 🇺🇸 US|75|M981ms|157.254.223.44|GPT+YT|mieru
+  - 🇫🇷 FR|73.7|M862ms|45.155.103.217|YT|hysteria2
+  - 🇺🇸 US|71.7|M1489ms|198.12.120.194|YT|vless
+  - 🇰🇷 KR|71.5|M843ms|161.118.158.9|YT|vless
+  - 🇳🇱 NL|71|M856ms|45.143.166.41|YT|vless
+  - 🇫🇷 FR|70.9|M935ms|2001:bc8:32d7:17b::100|YT|hysteria2
+  - 🇷🇸 RS|70.3|M873ms|146.70.221.226|YT|ss
+  - 🇫🇷 FR|69.5|M842ms|195.154.200.13|GPT+YT|tuic
+  - 🇭🇰 HK|69.4|M896ms|194.99.79.13|YT|trojan
+  - 🇭🇰 HK|68.9|M910ms|185.244.208.64|YT|trojan
+  - 🇵🇱 PL|68.3|M926ms|185.16.36.200|YT|vless
+  - 🇺🇸 US|68|M879ms|44.253.54.238|YT|http
+  - 🇵🇱 PL|67.1|M1034ms|57.128.195.136|YT|hysteria2
+  - 🇳🇱 NL|66.4|M975ms|89.105.210.100|YT|vless
+  - 🇨🇭 CH|66|M986ms|152.233.31.70|YT|vless
+  - 🇷🇺 RU|64.4|M1026ms|217.168.247.209|YT|vless
+  - 🇳🇱 NL|62.8|M1068ms|81.31.210.92|YT|vless
+  - 🇸🇬 SG|62|M268ms|164.52.1.179|YT|vless
+  - 🇸🇬 SG|62|M299ms|164.52.1.182|YT|trojan
+  - 🇸🇬 SG|62|M302ms|139.59.105.158|YT|vless
+  - 🇸🇬 SG|62|M346ms|164.52.1.179|YT|trojan
+  - 🇺🇸 US|62|M1009ms|137.220.62.149|YT|trojan
+  - 🇺🇸 US|62|M1022ms|107.174.131.32|YT|vless
+  - 🇳🇱 NL|62|M1058ms|144.31.237.89|YT|vless
+  - 🇩🇪 DE|62|M1079ms|31.169.127.70|YT|trojan
+  - 🇺🇸 US|62|M1085ms|206.189.182.239|YT|vless
+  - 🇺🇸 US|62|M1086ms|150.136.219.11|YT|trojan
+  - 🇬🇧 GB|62|M1108ms|51.89.225.225|YT|hysteria2
+  - 🇺🇸 US|62|M1112ms|192.119.83.187|YT|vless
+  - 🇺🇸 US|62|M1138ms|38.180.204.104|YT|trojan
+  - 🇺🇸 US|62|M1150ms|172.190.157.189|YT|trojan
+  - 🇺🇸 US|62|M1217ms|104.28.166.30|GPT+YT|vless
+  - 🇺🇸 US|62|M1249ms|165.22.32.120|YT|vless
+  - 🇺🇸 US|62|M1280ms|206.189.182.239|YT|trojan
+  - 🇺🇸 US|62|M1318ms|162.243.23.145|YT|trojan
+  - 🇫🇮 FI|61.8|M1173ms|147.78.181.194|YT|hysteria2
+  - 🇳🇱 NL|61.5|M1103ms|82.41.131.23|YT|vless
+  - 🇺🇸 US|60|M986ms|107.172.6.224|YT|vless
+  - 🇺🇸 US|60|M1487ms|38.180.204.104|YT|vless
+  - 🇩🇪 DE|60|M737ms|81.31.211.116|YT|vless
+  - 🇯🇵 JP|60|M411ms|147.45.220.146|YT|anytls
+  - 🇺🇸 US|60|M1035ms|2602:f988:210:c4f::7f4|YT|vless
+  - 🇺🇸 US|60|M817ms|18.216.55.100|YT|vless
+  - 🇺🇸 US|60|M1228ms|185.33.84.173|YT|vless
+  - 🇬🇧 GB|60|M801ms|195.12.48.126|YT|ss
+  - 🇺🇸 US|60|M1362ms|86.109.75.147|GPT+YT|vless
+  - 🇺🇸 US|60|M1249ms|198.12.120.194|YT|vless
+  - 🇫🇷 FR|60|M754ms|2001:bc8:610:0:224:ecff:fef2:c267|YT|ss
+  - 🇺🇸 US|60|M1224ms|47.90.139.129|YT|trojan
+  - 🇺🇸 US|60|M1014ms|172.190.157.189|YT|vless
+  - 🇺🇸 US|60|M1025ms|107.172.6.224|YT|vless
+  - 🇮🇪 IE|60|M808ms|84.247.48.66|YT|ss
+  - 🇩🇪 DE|60|M741ms|51.195.94.187|YT|vless
+  - 🇩🇪 DE|60|M876ms|2a05:d014:1701:f201:a448:4f7d:a8d1:2bc|YT|trojan
+  - 🇳🇱 NL|60|M816ms|89.105.219.132|YT|vless
+  - NoCF-Reality-80
+  - NoCF-VMESS-WS-2053
+  - CF-VLESS-TLS-443
+  - SG-Hysteria2
+  - SG-VLESS-Reality
+  - hk-vps-38.147.172.53
+  - HK-VPS-3-NEW
+  - US_Residential
+  - VPS节点
+  - 🇺🇸 硅谷VPS-Hysteria2
+  - ☁️ CF-VLESS
+  - ☁️ CF-优选1
+  - ☁️ CF-优选2
+  - 新加坡-REALITY
+  - Ubuntu-Proxy
+  - 硅谷-VLESS
+  - 硅谷-SS
+  - Tokyo-HY2
+  - Tokyo-VLESS
+  - ycyun_Proxy
+  - ycyun_Proxy_IPv6
+  - 🏆 台湾4.30双重代理 (服务端直链)
+  - 防失联QQ群：201152805
+  - 🇭🇰香港-01
+  - 🇭🇰香港-02
+  - 🇸🇬新加坡-01
+  - 🇸🇬新加坡-02
+  - 🇯🇵日本-01
+  - 🇯🇵日本-02
+  - 🇨🇳台湾-01
+  - 🇨🇳台湾-02
+  - 🇺🇸美国-01
+  - 🇺🇸美国-02
+  - 🇦🇺澳大利亚-01
+  - 🇰🇷韩国-01
+  - 🇬🇧英国-01
+  - 🇲🇾马来西亚-01
+  - 🇭🇰香港01
+  - 🇭🇰香港02
+  - 🇭🇰香港03
+  - 🇸🇬新加坡01
+  - 🇸🇬新加坡02
+  - 🇸🇬新加坡03
+  - 🇯🇵日本01
+  - 🇯🇵日本02
+  - 🇯🇵日本03
+  - 🇨🇳台湾03
+  - 🇨🇳台湾02
+  - 🇺🇸美国01
+  - 🇺🇸美国02
+  - 🇭🇰香港01-BGP
+  - 🇸🇬新加坡01-BGP
+  - 🇯🇵日本01-BGP
+  - 🇨🇳台湾01-BGP
+  - 🇺🇸美国01-BGP
+  - '[限量] 🇭🇰香港1 按量不限时'
+  - '[限量] 🇭🇰香港｜直连 按量不限时'
+  - '[限量] 🇨🇳台湾1 按量不限时'
+  - '[限量] 🇨🇳台湾｜直连 按量不限时'
+  - '[限量] 🇯🇵日本1 按量不限时'
+  - '[限量] 🇯🇵日本2 按量不限时'
+  - '[限量] 🇯🇵日本｜直连 按量不限时'
+  - '[限量] 🇸🇬新加坡1 按量不限时'
+  - '[限量] 🇸🇬新加坡｜直连 按量不限时'
+  - '[限量] 🇺🇸美国1 按量不限时'
+  - '[限量] 🇺🇸美国｜直连 按量不限时'
+  - '[限量] 🇲🇾马来西亚 按量不限时'
+  - '[限量] 🇮🇳印度 按量不限时'
+  - '[限量] 🇰🇷韩国 按量不限时'
+  - '[限量] 🇦🇺澳大利亚 按量不限时'
+  - '[限量] 🇮🇹意大利 按量不限时'
+  - '[限量] 🇫🇷法国 按量不限时'
+  - '[限量] 🇬🇧英国 按量不限时'
+  - '[限量] 🇧🇷巴西 按量不限时'
+  - '[限量] 🇹🇷土耳其 按量不限时'
+  - '[限量] 🇵🇹葡萄牙 按量不限时'
+  - '[限量] 🇬🇷希腊 按量不限时'
+  - '[限量] 🇮🇸冰岛 按量不限时'
+  - '[3个月后过期] HK-1'
+  - '[3个月后过期] HK-2'
+  - '[3个月后过期] HK-3'
+  - '[3个月后过期] HK-4'
+  - '[3个月后过期] HK-5'
+  - '[3个月后过期] HK-6'
+  - '[3个月后过期] HK2-HY2'
+  - '[3个月后过期] HK3-HY2'
+  - '[3个月后过期] HK4-HY2'
+  - '[3个月后过期] HK5-HY2'
+  - '[3个月后过期] JP-1'
+  - '[3个月后过期] JP-2'
+  - '[3个月后过期] JP-3'
+  - '[3个月后过期] JP-4'
+  - '[3个月后过期] JP-5'
+  - '[3个月后过期] JP-6'
+  - '[JP-3个月二跳 US6-HY2] JP6-HY2'
+  - '[3个月后过期] JP7-HY2'
+  - '[3个月后过期] JP8-HY2'
+  - '[3个月后过期] JP9-HY2'
+  - '[3个月后过期] JP10-HY2'
+  - '[3个月后过期] KR-1'
+  - '[3个月后过期] KR-2'
+  - '[3个月后过期] KR-3'
+  - '[3个月后过期] KR-4'
+  - '[3个月后过期] KR-5'
+  - '[3个月后过期] SG-1'
+  - '[3个月后过期] SG-2'
+  - '[3个月后过期] SG-3'
+  - '[3个月后过期] SG1-HY2'
+  - '[3个月后过期] SG2-HY2'
+  - '[3个月后过期] US-1TCP'
+  - '[3个月后过期] US-2TCP'
+  - '[3个月后过期] US-3TCP'
+  - '[3个月后过期] US-4TCP'
+  - '[3个月后过期] US-5TCP'
+  - '[3个月后过期] US1-HY2'
+  - '[3个月后过期] US2-HY2'
+  - '[3个月后过期] US3-HY2'
+  - '[3个月后过期] US4-HY2'
+  - '[3个月后过期] US5-HY2'
+  - '[3个月后过期] US6-HY2'
+  - '[良心云便宜] 🇬🇧英国伦敦|CTCU|0.1x'
+  - '[良心云便宜] 🇭🇰香港高速02|BGP|CMCU'
+  - '[良心云便宜] 🇭🇰香港高速03|BGP|CMCU'
+  - '[良心云便宜] 🇭🇰香港高速04|BGP|CMCU'
+  - '[良心云便宜] 🇭🇰香港高速05|BGP|CMCU'
+  - '[良心云便宜] 🇭🇰香港高速06|BGP|CMCU'
+  - '[良心云便宜] 🇸🇬新加坡高速01|BGP|CTCUCM'
+  - '[良心云便宜] 🇸🇬新加坡高速02|BGP|CTCUCM'
+  - '[良心云便宜] 🇸🇬新加坡高速03|BGP|CTCUCM'
+  - '[良心云便宜] 🇸🇬新加坡高速04|BGP|CTCUCM'
+  - '[良心云便宜] 🇸🇬新加坡高速05|BGP|CTCUCM'
+  - '[良心云便宜] 🇯🇵日本高速01|BGP|CUCM'
+  - '[良心云便宜] 🇯🇵日本高速02|BGP|CUCM'
+  - '[良心云便宜] 🇯🇵日本高速03|BGP|CUCM'
+  - '[良心云便宜] 🇯🇵日本高速04|BGP|CUCM'
+  - '[良心云便宜] 🇯🇵日本高速05|BGP|CUCM'
+  - '[良心云便宜] 🇰🇷韩国高速01|BGP|流媒体'
+  - '[良心云便宜] 🇨🇳台湾高速01|BGP|流媒体'
+  - '[良心云便宜] 🇭🇰香港专线01|BGP|流媒体'
+  - '[良心云便宜] 🇭🇰香港专线02|BGP|流媒体'
+  - '[良心云便宜] 🇭🇰香港专线03|BGP|流媒体'
+  - '[良心云便宜] 🇭🇰香港专线04|BGP|流媒体'
+  - '[良心云便宜] 🇸🇬新加坡专线01|BGP|流媒体'
+  - '[良心云便宜] 🇸🇬新加坡专线02|BGP|流媒体'
+  - '[良心云便宜] 🇸🇬新加坡专线03|BGP|流媒体'
+  - '[良心云便宜] 🇸🇬新加坡专线04|BGP|流媒体'
+  - '[良心云便宜] 🇯🇵日本专线01|BGP|流媒体'
+  - '[良心云便宜] 🇯🇵日本专线02|BGP|流媒体'
+  - '[良心云便宜] 🇯🇵日本专线03|BGP|流媒体'
+  - '[良心云便宜] 🇯🇵日本专线04|BGP|流媒体'
+  - '[良心云便宜] 🇰🇷韩国专线01|BGP|流媒体'
+  - '[良心云便宜] 🇨🇳台湾专线01|BGP|流媒体'
+  - '[良心云便宜] 🇬🇧英国伦敦02|流媒体|0.1x'
+  - '[良心云便宜] 🇺🇸美国01|流媒体'
+  - '[限量新订阅二跳] 🇭🇰香港1'
+  - '[限量新订阅二跳] 🇭🇰香港2'
+  - '[限量新订阅二跳] 🇭🇰香港3'
+  - '[限量新订阅二跳] 🇭🇰香港4'
+  - '[限量新订阅二跳] 🇨🇳台湾1'
+  - '[限量新订阅二跳] 🇨🇳台湾2'
+  - '[限量新订阅二跳] 🇨🇳台湾3'
+  - '[限量新订阅二跳] 🇯🇵日本1'
+  - '[限量新订阅二跳] 🇯🇵日本2'
+  - '[限量新订阅二跳] 🇸🇬新加坡1'
+  - '[限量新订阅二跳] 🇸🇬新加坡2'
+  - '[限量新订阅二跳] 🇺🇸美国1'
+  - '[限量新订阅二跳] 🇺🇸美国2'
+  - '[限量新订阅二跳] 🇺🇸美国3'
+  - '[限量新订阅二跳] 🇹🇭泰国'
+  - '[限量新订阅二跳] 🇻🇳越南'
+  - '[限量新订阅二跳] 🇲🇾马来西亚'
+  - '[限量新订阅二跳] 🇰🇭柬埔寨'
+  - '[限量新订阅二跳] 🇮🇳印度'
+  - '[限量新订阅二跳] 🇵🇭菲律宾'
+  - '[限量新订阅二跳] 🇪🇬埃及'
+  - '[限量新订阅二跳] 🇦🇺澳大利亚'
+  - '[限量新订阅二跳] 🇬🇧英国'
+  - '[限量新订阅二跳] 🇫🇷法国'
+  - '[限量新订阅二跳] 🇩🇪德国'
+  - Tokyo-Reality
+  - VPS-VLESS
+  - Bandwagon-Osaka
+  - 阿里云-VMess
+  - SV-Hysteria2
+  - SV-VMess-WS
+  - SV-VMess-KCP
+  - SV-Shadowsocks
+  - 🔥 V2Ray-WS
+  - ??-??443
+  - ??-??8443
+  - ???-???
+  - ????-???2053
+  - 美国|新泽西 01
+  - LA-RackNerd-6T
+  - LA-DMIT-CMIN2-1.5T
+  - SouthCarolina-Google-0.2T
+  - Oregon-Google-0.2T
+  - Singapore-AWS-0.2T
+  - vless-reality-vision-vps-10462-7605.example.com
+  - vmess-ws-vps-10462-7605.example.com
+  - hysteria2-vps-10462-7605.example.com
+  - tuic5-vps-10462-7605.example.com
+  - VPS-Xray
+  - 新加坡-SIN-02-TR
+  - 美国-SJC-03-TR
+  - 新加坡-SIN-03-VL
+  - 香港-HKG-02-VL
+  - 新加坡-SIN-01-VL
+  - 日本-TYO-03-TR
+  - 美国-SJC-03-VL
+  - 美国-SJC-01-TR
+  - 台湾-TPE-HiNet-01-VL
+  - 香港-HKG-02-TR
+  - 台湾-TPE-HiNet-02-TR
+  - 台湾-TPE-HiNet-01-TR
+  - 香港-HKG-03-VL
+  - 德国-FRA-03-TR
+  - 新加坡-SIN-03-TR
+  - 香港-HKT-01-TR
+  - 日本-TYO-01-TR
+  - 德国-FRA-02-TR
+  - 日本-TYO-03-VL
+  - 香港-HKT-01-VL
+  - 香港-HKT-02-VL
+  - 新加坡-SIN-02-VL
+  - 美国-SJC-01-VL
+  - 台湾-TPE-HiNet-02-VL
+  - 日本-TYO-01-VL
+  - 香港-HKG-03-TR
+  - 香港-HKG-01-VL
+  - 香港-HKT-02-TR
+  - 新加坡-SIN-01-TR
+  - 美国-SJC-02-TR
+  - 香港-HKG-01-TR
+  - 德国-FRA-01-TR
+  - 德国-FRA-02-VL
+  - 美国-SJC-02-VL
+  - 日本-TYO-02-VL
+  - 日本-TYO-02-TR
+  - 德国-FRA-03-VL
+  - 德国-FRA-01-VL
+  - VPS-REALITY
+  - Malaysia-Reality
+  - 🇺🇸 LAX-Hy2
+  - 🇺🇸 LAX-Reality
 rule-providers:
   reject:
     type: http
     behavior: domain
-    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt
+    url: https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/reject.txt
     interval: 86400
   cncidr:
     type: http
     behavior: ipcidr
-    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt
+    url: https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/cncidr.txt
     interval: 86400
   lancidr:
     type: http
     behavior: ipcidr
-    url: https://cdn.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt
+    url: https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/lancidr.txt
+    interval: 86400
+  private:
+    type: http
+    behavior: domain
+    url: https://fastly.jsdelivr.net/gh/Loyalsoldier/clash-rules@release/private.txt
     interval: 86400
   cn:
     type: http
     behavior: domain
-    url: https://cdn.jsdelivr.net/gh/xuhuanxxx/network-rules@release/cn.txt
+    url: https://fastly.jsdelivr.net/gh/xuhuanxxx/network-rules@release/cn.txt
     interval: 86400
 rules:
 - RULE-SET,reject,REJECT
+- RULE-SET,private,DIRECT
 - RULE-SET,lancidr,DIRECT
 - RULE-SET,cncidr,DIRECT
 - RULE-SET,cn,DIRECT
+- GEOIP,LAN,DIRECT
 - MATCH,自动优选
 proxies:
 - name: Windows-VPN
@@ -4523,7 +5381,7 @@ proxies:
   uuid: 4bc8d192-663e-492b-8e3b-ed4bf5ff4a9e
   password: AJG8Rck0ArSLQg6Q9mS7m6c6
   sni: 140.245.74.46.sslip.io
-  alpn: &id002
+  alpn: &id001
   - h3
   skip-cert-verify: true
   udp-relay-mode: native
@@ -4536,7 +5394,7 @@ proxies:
   uuid: 4bc8d192-663e-492b-8e3b-ed4bf5ff4a9e
   password: AJG8Rck0ArSLQg6Q9mS7m6c6
   sni: 140.245.74.46.sslip.io
-  alpn: *id002
+  alpn: *id001
   skip-cert-verify: true
   udp-relay-mode: native
   congestion-controller: bbr
