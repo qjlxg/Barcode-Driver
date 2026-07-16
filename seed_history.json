@@ -1,1 +1,152 @@
-{}
+{
+  "38.207.174.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "43.155.228.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "23.35.210.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "66.29.132.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "47.77.239.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "54.248.36.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "47.243.164.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "35.213.57.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "43.130.7.0/24": {
+    "last_total_hits": 2,
+    "no_hit_rounds": 0,
+    "has_historical_hit": true
+  },
+  "67.230.179.0/24": {
+    "last_total_hits": 2,
+    "no_hit_rounds": 0,
+    "has_historical_hit": true
+  },
+  "34.4.109.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "64.90.14.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "38.64.59.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "38.84.202.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "47.80.61.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "47.242.163.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "64.90.44.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "64.118.155.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "43.163.64.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "60.168.4.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "35.169.172.0/24": {
+    "last_total_hits": 2,
+    "no_hit_rounds": 0,
+    "has_historical_hit": true
+  },
+  "38.65.93.0/24": {
+    "last_total_hits": 3,
+    "no_hit_rounds": 0,
+    "has_historical_hit": true
+  },
+  "43.131.242.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "43.159.51.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "47.89.186.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "67.230.185.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "65.1.189.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "64.186.245.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "60.168.5.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  },
+  "66.254.114.0/24": {
+    "last_total_hits": 0,
+    "no_hit_rounds": 0,
+    "has_historical_hit": false
+  }
+}
