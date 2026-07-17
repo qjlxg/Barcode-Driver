@@ -470,6 +470,7 @@ def manage_seeds():
                 f"[!] 警告：删除 IP 数量占比超过 50% "
                 f"({len(removed_ips)}/{len(original_ips)})，放弃清理操作。"
             )
+            save_history(history)
             return
 
         # 安全检查 2：保留列表为空
