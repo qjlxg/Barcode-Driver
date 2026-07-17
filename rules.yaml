@@ -19,6 +19,17 @@ proxy-groups:
       - "DIRECT"
       # 占位符：Python 脚本将按测速结果排序后的节点追加到此列表下方
 
+# DNS 配置 (移至顶层，确保生效)
+dns:
+  enable: true
+  enhanced-mode: fake-ip
+  nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  sniffing:
+    enable: true # 必须开启嗅探，否则分流可能不准
+    parse-pure-ip: true
+
 # 2. 规则提供者 (Rule Providers)：从云端同步分流规则
 rule-providers:
   # 广告拦截：过滤常见的广告追踪域名
@@ -53,7 +64,7 @@ rule-providers:
   cn:
     type: http
     behavior: domain
-    url: "https://fastly.jsdelivr.net/gh/xuhuanxxx/network-rules@release/cn是.txt"
+    url: "https://fastly.jsdelivr.net/gh/xuhuanxxx/network-rules@release/cn.txt"
     interval: 86400
 
 # 3. 流量分流逻辑：从上往下匹配，命中即停止
@@ -63,4 +74,5 @@ rules:
   - RULE-SET,lancidr,DIRECT       # 内网 IP 直连
   - RULE-SET,cncidr,DIRECT        # 大陆 IP 直连
   - RULE-SET,cn,DIRECT            # 大陆域名直连
+  - GEOIP,CN,DIRECT
   - MATCH,自动优选                # 剩余所有流量（默认视为国外/代理流量）走自动优选
