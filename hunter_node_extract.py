@@ -18,6 +18,7 @@ CSV_FILE = 'scan_stats.csv'       # 统计报告
 UNIQUE_URLS_FILE = 'unique_urls.txt' # 去重后的链接清单
 RULES_FILE = 'rules.yaml'         # 基础规则文件(可选)
 EXCLUDE_FILE = 'exclude.txt'      # 排除列表(可选)
+BAD_WORDS = ["cf优选", "cf官方优选", "cloudflare优选", "免费测速", "剩余流量", "官网"]
 
 # 抓取参数
 CONCURRENCY = 100
@@ -71,7 +72,14 @@ def extract_yaml_nodes(text: str) -> List[Dict]:
         if "proxies:" in text.lower():
             data = yaml.safe_load(text)
             if isinstance(data, dict) and "proxies" in data:
-                return [n for n in data["proxies"] if isinstance(n, dict) and is_valid_server(n.get("server"))]
+                nodes = []
+                for n in data["proxies"]:
+                    if isinstance(n, dict) and is_valid_server(n.get("server")):
+                        node_name = str(n.get("name", ""))
+                        if any(bad in node_name for bad in BAD_WORDS):
+                            continue
+                        nodes.append(n)
+                return nodes
     except Exception: pass
     return []
 
