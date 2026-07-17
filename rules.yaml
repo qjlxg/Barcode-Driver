@@ -53,7 +53,7 @@ rule-providers:
   cn:
     type: http
     behavior: domain
-    url: "https://fastly.jsdelivr.net/gh/xuhuanxxx/network-rules@release/cn.txt"
+    url: "https://fastly.jsdelivr.net/gh/xuhuanxxx/network-rules@release/cn是.txt"
     interval: 86400
 
 # 3. 流量分流逻辑：从上往下匹配，命中即停止
