@@ -14,7 +14,7 @@ MAX_IDLE_DAYS = 30
 EXPORT_TYPES = {'vless', 'hysteria', 'hysteria2', 'tuic', 'anytls'}
 # 优化：增强哈希因子
 HASH_KEYS = ["type", "server", "port", "uuid", "password", "flow", "network", "tls", "reality-opts", "sni", "servername", "client-fingerprint"]
-BAD_WORDS = ["cf优选", "cloudflare优选", "免费测速", "剩余流量", "官网"]
+BAD_WORDS = ["cf优选","cf官方优选", "cloudflare优选", "免费测速", "剩余流量", "官网"]
 TODAY = datetime.now().strftime("%Y-%m-%d")
 
 def load_registry():
