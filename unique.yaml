@@ -1220,7 +1220,7 @@ proxies:
 - name: JP | Tokyo Pro 3 | VLESS
   type: vless
   server: 3.114.220.22
-  port: 17195
+  port: 15274
   uuid: 814bd064-544d-4255-a070-5705c03f6da9
   udp: true
   tls: true
@@ -1233,7 +1233,7 @@ proxies:
 - name: JP | Tokyo Pro 4 | VLESS
   type: vless
   server: 103.75.118.228
-  port: 15614
+  port: 15974
   uuid: 814bd064-544d-4255-a070-5705c03f6da9
   udp: true
   tls: true
@@ -1246,7 +1246,7 @@ proxies:
 - name: KR | Seoul Pro 1 | VLESS
   type: vless
   server: 3.39.4.109
-  port: 10253
+  port: 17448
   uuid: 814bd064-544d-4255-a070-5705c03f6da9
   udp: true
   tls: true
@@ -1259,7 +1259,7 @@ proxies:
 - name: SG | Singapore Pro 1 | VLESS
   type: vless
   server: 103.106.229.190
-  port: 13306
+  port: 11482
   uuid: 814bd064-544d-4255-a070-5705c03f6da9
   udp: true
   tls: true
@@ -1272,7 +1272,7 @@ proxies:
 - name: SG | Singapore Pro 3 | VLESS
   type: vless
   server: 3.0.111.82
-  port: 15070
+  port: 15717
   uuid: 814bd064-544d-4255-a070-5705c03f6da9
   udp: true
   tls: true
@@ -1285,7 +1285,7 @@ proxies:
 - name: US | Chicago Pro 5 | VLESS
   type: vless
   server: 67.220.73.204
-  port: 12690
+  port: 16632
   uuid: 814bd064-544d-4255-a070-5705c03f6da9
   udp: true
   tls: true
@@ -5486,7 +5486,7 @@ proxies:
 - name: '[3个月后过期] HK2-HY2'
   type: hysteria2
   server: hk2.dexlos.com
-  port: 20341
+  port: 20254
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: hk2.dexlos.com
   skip-cert-verify: false
@@ -5495,7 +5495,7 @@ proxies:
 - name: '[3个月后过期] HK3-HY2'
   type: hysteria2
   server: hk3.dexlos.com
-  port: 20469
+  port: 20481
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: hk3.dexlos.com
   skip-cert-verify: false
@@ -5504,7 +5504,7 @@ proxies:
 - name: '[3个月后过期] HK4-HY2'
   type: hysteria2
   server: hk4.dexlos.com
-  port: 20606
+  port: 20604
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: hk4.dexlos.com
   skip-cert-verify: false
@@ -5513,7 +5513,7 @@ proxies:
 - name: '[3个月后过期] HK5-HY2'
   type: hysteria2
   server: hk5.dexlos.com
-  port: 20871
+  port: 20993
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: hk5.dexlos.com
   skip-cert-verify: false
@@ -5624,7 +5624,7 @@ proxies:
 - name: '[JP-3个月二跳 US6-HY2] JP6-HY2'
   type: hysteria2
   server: jp6.dexlos.com
-  port: 21079
+  port: 21150
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp6.dexlos.com
   skip-cert-verify: false
@@ -5634,7 +5634,7 @@ proxies:
 - name: '[3个月后过期] JP7-HY2'
   type: hysteria2
   server: jp7.dexlos.com
-  port: 21301
+  port: 21255
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp7.dexlos.com
   skip-cert-verify: false
@@ -5643,7 +5643,7 @@ proxies:
 - name: '[3个月后过期] JP8-HY2'
   type: hysteria2
   server: jp8.dexlos.com
-  port: 21431
+  port: 21569
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp8.dexlos.com
   skip-cert-verify: false
@@ -5652,7 +5652,7 @@ proxies:
 - name: '[3个月后过期] JP9-HY2'
   type: hysteria2
   server: jp9.dexlos.com
-  port: 21629
+  port: 21625
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp9.dexlos.com
   skip-cert-verify: false
@@ -5661,7 +5661,7 @@ proxies:
 - name: '[3个月后过期] JP10-HY2'
   type: hysteria2
   server: jp10.dexlos.com
-  port: 21830
+  port: 21878
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: jp10.dexlos.com
   skip-cert-verify: false
@@ -5806,7 +5806,7 @@ proxies:
 - name: '[3个月后过期] SG1-HY2'
   type: hysteria2
   server: sg1.dexlos.com
-  port: 20108
+  port: 20069
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: sg1.dexlos.com
   skip-cert-verify: false
@@ -5815,7 +5815,7 @@ proxies:
 - name: '[3个月后过期] SG2-HY2'
   type: hysteria2
   server: sg2.dexlos.com
-  port: 20212
+  port: 20264
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: sg2.dexlos.com
   skip-cert-verify: false
@@ -5909,7 +5909,7 @@ proxies:
 - name: '[3个月后过期] US1-HY2'
   type: hysteria2
   server: us1.dexlos.com
-  port: 20149
+  port: 20103
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us1.dexlos.com
   skip-cert-verify: false
@@ -5918,7 +5918,7 @@ proxies:
 - name: '[3个月后过期] US2-HY2'
   type: hysteria2
   server: us2.dexlos.com
-  port: 20297
+  port: 20317
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us2.dexlos.com
   skip-cert-verify: false
@@ -5927,7 +5927,7 @@ proxies:
 - name: '[3个月后过期] US3-HY2'
   type: hysteria2
   server: us3.dexlos.com
-  port: 20530
+  port: 20578
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us3.dexlos.com
   skip-cert-verify: false
@@ -5936,7 +5936,7 @@ proxies:
 - name: '[3个月后过期] US4-HY2'
   type: hysteria2
   server: us4.dexlos.com
-  port: 20672
+  port: 20648
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us4.dexlos.com
   skip-cert-verify: false
@@ -5945,7 +5945,7 @@ proxies:
 - name: '[3个月后过期] US5-HY2'
   type: hysteria2
   server: us5.dexlos.com
-  port: 20926
+  port: 20845
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us5.dexlos.com
   skip-cert-verify: false
@@ -5954,7 +5954,7 @@ proxies:
 - name: '[3个月后过期] US6-HY2'
   type: hysteria2
   server: us6.dexlos.com
-  port: 21092
+  port: 21181
   password: C31F0D7D-C51C-45F6-9984-963AA3CAF860
   sni: us6.dexlos.com
   skip-cert-verify: false
