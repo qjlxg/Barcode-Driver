@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login - Adminer</title>
+<link rel="stylesheet" href="all?file=default.css&amp;version=5.4.2">
+<link rel='stylesheet' media='(prefers-color-scheme: dark)' href='all?file=dark.css&amp;version=5.4.2'>
+<meta name='color-scheme' content='light dark'>
+<script src='all?file=functions.js&amp;version=5.4.2' nonce="Mzg1MjY2OTlmMDg0NGExOWI3NGM2ZjVhOWVhMDc4Yzk="></script>
+<link rel='icon' href='data:image/gif;base64,R0lGODlhEAAQAJEAAAQCBPz+/PwCBAROZCH5BAEAAAAALAAAAAAQABAAAAI2hI+pGO1rmghihiUdvUBnZ3XBQA7f05mOak1RWXrNq5nQWHMKvuoJ37BhVEEfYxQzHjWQ5qIAADs='>
+<link rel='apple-touch-icon' href='all?file=logo.png&amp;version=5.4.2'>
+
+<body class='ltr nojs adminer'>
+<script nonce="Mzg1MjY2OTlmMDg0NGExOWI3NGM2ZjVhOWVhMDc4Yzk=">mixin(document.body, {onkeydown: bodyKeydown, onclick: bodyClick, onload: partial(verifyVersion, '5.4.2')});
+document.body.classList.replace('nojs', 'js');
+const offlineMessage = 'You are offline.';
+const thousandsSeparator = ',';</script>
+<div id='help' class='jush-sql jsonly hidden'></div>
+<script nonce="Mzg1MjY2OTlmMDg0NGExOWI3NGM2ZjVhOWVhMDc4Yzk=">mixin(qs('#help'), {onmouseover: () => { helpOpen = 1; }, onmouseout: helpMouseout});</script>
+<div id='content'>
+<span id='menuopen' class='jsonly'><button type='submit' name='' title='' class='icon icon-move'><span>menu</span></button></span><script nonce="Mzg1MjY2OTlmMDg0NGExOWI3NGM2ZjVhOWVhMDc4Yzk=">qs('#menuopen').onclick = event => { qs('#foot').classList.toggle('foot'); event.stopPropagation(); }</script>
+<h2>Login</h2>
+<div id='ajaxstatus' class='jsonly hidden'></div>
+<form action='' method='post'>
+<div></div>
+<table class='layout'>
+<tr><th>System<td><select name='auth[driver]'><option value="server" selected>MySQL / MariaDB<option value="sqlite">SQLite<option value="pgsql">PostgreSQL<option value="oracle">Oracle (beta)<option value="mssql">MS SQL</select><script nonce="Mzg1MjY2OTlmMDg0NGExOWI3NGM2ZjVhOWVhMDc4Yzk=">qsl('select').onchange = function () { loginDriver(this); };</script>
+<tr><th>Server<td><input name="auth[server]" value="postgres" title="hostname[:port] or :socket" placeholder="localhost" autocapitalize="off">
+<tr><th>Username<td><input name="auth[username]" id="username" autofocus value="" autocomplete="username" autocapitalize="off"><script nonce="Mzg1MjY2OTlmMDg0NGExOWI3NGM2ZjVhOWVhMDc4Yzk=">const authDriver = qs('#username').form['auth[driver]']; authDriver && authDriver.onchange();</script>
+
+<tr><th>Password<td><input type="password" name="auth[password]" autocomplete="current-password">
+<tr><th>Database<td><input name="auth[db]" value="" autocapitalize="off">
+</table>
+<p><input type='submit' value='Login'>
+<label><input type='checkbox' name='auth[permanent]' value='1'>Permanent login</label>
+</form>
+</div>
+
+<div id='foot' class='foot'>
+<div id='menu'>
+<h1><a href='https://www.adminer.org/' target="_blank" rel="noreferrer noopener" id='h1'><img src='all?file=logo.png&amp;version=5.4.2' width='24' height='24' alt='' id='logo'>Adminer</a> <span class='version'>5.4.2 <a href='https://www.adminer.org/#download' target="_blank" rel="noreferrer noopener" id='version'></a></span></h1>
+<form action='' method='post'>
+<div id='lang'><label>Language: <select name='lang'><option value="en" selected>English<option value="ar">العربية<option value="bg">Български<option value="bn">বাংলা<option value="bs">Bosanski<option value="ca">Català<option value="cs">Čeština<option value="da">Dansk<option value="de">Deutsch<option value="el">Ελληνικά<option value="es">Español<option value="et">Eesti<option value="fa">فارسی<option value="fi">Suomi<option value="fr">Français<option value="gl">Galego<option value="he">עברית<option value="hi">हिन्दी<option value="hu">Magyar<option value="id">Bahasa Indonesia<option value="it">Italiano<option value="ja">日本語<option value="ka">ქართული<option value="ko">한국어<option value="lt">Lietuvių<option value="lv">Latviešu<option value="ms">Bahasa Melayu<option value="nl">Nederlands<option value="no">Norsk<option value="pl">Polski<option value="pt">Português<option value="pt-br">Português (Brazil)<option value="ro">Limba Română<option value="ru">Русский<option value="sk">Slovenčina<option value="sl">Slovenski<option value="sr">Српски<option value="sv">Svenska<option value="ta">த‌மிழ்<option value="th">ภาษาไทย<option value="tr">Türkçe<option value="uk">Українська<option value="uz">Oʻzbekcha<option value="vi">Tiếng Việt<option value="zh">简体中文<option value="zh-tw">繁體中文</select><script nonce="Mzg1MjY2OTlmMDg0NGExOWI3NGM2ZjVhOWVhMDc4Yzk=">qsl('select').onchange = function () { this.form.submit(); };</script></label> <input type='submit' value='Use' class='hidden'>
+<input type='hidden' name='token' value='248426:369035'>
+</div>
+</form>
+</div>
+</div>
+
+<script nonce="Mzg1MjY2OTlmMDg0NGExOWI3NGM2ZjVhOWVhMDc4Yzk=">setupSubmitHighlight(document);</script>

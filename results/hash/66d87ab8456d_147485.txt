@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="fa-IR" data-website-id="1" data-main-object="website.page(4,)" dir="rtl">
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="generator" content="Odoo"/>
+            
+        <meta property="og:type" content="website"/>
+        <meta property="og:title" content="Home | My Website"/>
+        <meta property="og:site_name" content="My Website"/>
+        <meta property="og:url" content="https://95.38.60.127/"/>
+        <meta property="og:image" content="https://95.38.60.127/web/image/website/1/logo?unique=6f6254b"/>
+            
+        <meta name="twitter:card" content="summary_large_image"/>
+        <meta name="twitter:title" content="Home | My Website"/>
+        <meta name="twitter:image" content="https://95.38.60.127/web/image/website/1/logo/300x300?unique=6f6254b"/>
+        
+        <link rel="canonical" href="https://odoo.nestech-automation.ir/"/>
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin=""/>
+        <title>Home | My Website</title>
+        <link type="image/x-icon" rel="shortcut icon" href="/web/image/website/1/favicon?unique=6f6254b"/>
+        <link rel="preload" href="/web/static/src/libs/fontawesome/fonts/fontawesome-webfont.woff2?v=4.7.0" as="font" crossorigin=""/>
+        <link type="text/css" rel="stylesheet" href="/web/assets/1/d29eae0/web.assets_frontend.rtl.min.css"/>
+        <script id="web.layout.odooscript" type="text/javascript">
+            var odoo = {
+                csrf_token: 'a7ed5e48017a283293b649ac620e60047405dbeeo1816259816',
+                debug: "",
+            };
+        </script>
+        <script type="text/javascript">
+            odoo.__session_info__ = {"is_admin": false, "is_system": false, "is_public": true, "is_internal_user": false, "is_website_user": true, "uid": null, "registry_hash": "51440507ea82bcf7e8a18920cd61f5b7327046d3afcde9659adf005ff96f3443", "is_frontend": true, "profile_session": null, "profile_collectors": null, "profile_params": null, "show_effect": true, "currencies": {"127": {"name": "AED", "symbol": "\u062f.\u0625", "position": "after", "digits": [69, 2]}, "7": {"name": "CNY", "symbol": "\u00a5", "position": "before", "digits": [69, 2]}, "1": {"name": "EUR", "symbol": "\u20ac", "position": "after", "digits": [69, 2]}, "86": {"name": "IRR", "symbol": "\u0631\u06cc\u0627\u0644", "position": "after", "digits": [69, 0]}, "2": {"name": "USD", "symbol": "$", "position": "before", "digits": [69, 2]}}, "quick_login": true, "bundle_params": {"lang": "fa_IR", "website_id": 1}, "test_mode": false, "websocket_worker_version": "19.0-2", "translationURL": "/website/translations", "user_calendar_type": "jalaali", "geoip_country_code": null, "geoip_phone_code": null, "lang_url_code": "fa", "add_to_cart_action": "stay"};
+            if (!/(^|;\s)tz=/.test(document.cookie)) {
+                const userTZ = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                document.cookie = `tz=${userTZ}; path=/`;
+            }
+        </script>
+        <script type="text/javascript" defer="defer" src="/web/assets/1/e30f6b7/web.assets_frontend_minimal.min.js" onerror="__odooAssetError=1"></script>
+        <script type="text/javascript" data-src="/web/assets/1/87ac6fa/web.assets_frontend_lazy.min.js" onerror="__odooAssetError=1"></script>
+        
+            
+            <script type="application/ld+json">
+{
+    "@context": "http://schema.org",
+    "@type": "Organization",
+    "name": "نوین سازان تارا کاوش (نستک)",
+    "logo": "https://odoo.nestech-automation.ir/logo.png?company=1",
+    "url": "https://odoo.nestech-automation.ir"
+}
+            </script>
+
+             
+                    <script>
+            
+                if (!window.odoo) {
+                    window.odoo = {};
+                }
+                odoo.__session_info__ = odoo.__session_info__ || {
+                    websocket_worker_version: "19.0-2"
+                }
+                odoo.__session_info__ = Object.assign(odoo.__session_info__, {
+                    livechatData: {
+                        can_load_livechat: false,
+                        serverUrl: "https://odoo.nestech-automation.ir",
+                        options: {},
+                    },
+                    test_mode: false,
+                });
+            
+                    </script>
+        
+    </head>
+    <body>
+        
+
+
+
+        <div id="wrapwrap" class="homepage o_rtl   o_footer_effect_enable">
+            <a class="o_skip_to_content btn btn-primary rounded-0 visually-hidden-focusable position-absolute start-0" href="#wrap">Skip to Content</a>
+                <header id="top" data-anchor="true" data-name="Header" data-extra-items-toggle-aria-label="دکمه آیتم‌های اضافی" class="   o_header_standard" style=" ">
+    <nav data-name="Navbar" aria-label="Main" class="navbar navbar-expand-lg navbar-light o_colored_level o_cc o_header_force_no_radius d-none d-lg-block p-0 shadow-sm ">
+        
+            <div id="o_main_nav" class="o_main_nav">
+                <div class="o_header_hide_on_scroll">
+                    <div aria-label="بالا" class="o_header_sales_two_top py-1">
+                        <ul class="container navbar-nav d-grid h-100 px-3 o_grid_header_3_cols">
+                            
+                            <li class="o_header_sales_two_lang_selector_placeholder"></li>
+                            
+                            
+                            
+        <li class="d-flex align-items-center">
+                <div data-name="Text" class="s_text_block d-flex align-items-center mx-auto">
+                    <small>بازگشت رایگان و حمل و نقل استاندارد</small>
+                </div>
+        </li>
+                            
+                            
+                            <li class="o_header_sales_two_social_links_placeholder"></li>
+                        </ul>
+                    </div>
+                    <div aria-label="وسط" class="container d-flex justify-content-between align-items-center py-1">
+                        
+    <a data-name="Navbar Logo" href="/" class="navbar-brand logo me-4">
+            
+            <span role="img" aria-label="Logo of My Website" title="My Website"><img src="/web/image/website/1/logo/My%20Website?unique=6f6254b" class="img img-fluid" width="95" height="40" alt="My Website" loading="lazy"/></span>
+        </a>
+    
+                        <ul class="navbar-nav align-items-center gap-1">
+                            
+        <li class="">
+    <form method="get" class="o_searchbar_form s_searchbar_input " action="/website/search" data-snippet="s_searchbar_input">
+            <div role="search" class="input-group ">
+        <input type="search" name="search" class="search-query form-control oe_search_box rounded-start-pill ps-3 text-bg-light border-0 bg-light" placeholder="جستجو..." data-search-type="all" data-limit="5" data-display-image="true" data-display-description="true" data-display-extra-link="true" data-display-detail="true" data-order-by="name asc"/>
+        <button type="submit" aria-label="جستجو" title="جستجو" class="btn oe_search_button rounded-end-pill p-3 bg-o-color-3 lh-1">
+            <i class="oi oi-search"></i>
+        </button>
+    </div>
+
+            <input name="order" type="hidden" class="o_search_order_by oe_unremovable" value="name asc"/>
+            
+        </form>
+        </li>
+                            
+        <li class=" divider d-none"></li> 
+        <li class="o_wsale_my_cart  ">
+            <a href="/shop/cart" aria-label="سبد خرید تجارت الکترونیک" class="o_navlink_trigger_hover btn d-flex align-items-center fw-bold text-reset">
+                <div class="o_navlink_background position-relative me-2 rounded-circle p-2 transition-base">
+                    <i class="fa fa-shopping-cart fa-stack"></i>
+                    <sup class="my_cart_quantity badge bg-primary position-absolute top-0 end-0 mt-n1 me-n1 rounded-pill d-none">0</sup>
+                </div>
+                <span class="small">سبد من</span>
+            </a>
+        </li>
+        <li class="o_wsale_my_wish d-none  o_wsale_my_wish_hide_empty">
+            <a href="/shop/wishlist" class="o_navlink_trigger_hover btn d-flex align-items-center fw-bold text-reset">
+                <div class="o_navlink_background position-relative me-2 rounded-circle p-2 transition-base">
+                    <i class="fa fa-1x fa-heart fa-stack"></i>
+                    <sup class="my_wish_quantity o_animate_blink badge bg-primary position-absolute top-0 end-0 mt-n1 me-n1 rounded-pill d-none">0</sup>
+                </div>
+                <span class="small">علاقه‌مندی‌ها</span>
+            </a>
+        </li>
+            <li class=" o_no_autohide_item">
+                <a href="/web/login" class="nav-link o_nav_link_btn ms-2 border px-3">ورود به سیستم</a>
+            </li>
+                            
+        
+        
+                        </ul>
+                    </div>
+                </div>
+                <div aria-label="پایین" class="border-top o_border_contrast">
+                    <div class="container d-flex justify-content-between">
+                        
+    <ul role="menu" id="top_menu" class="nav navbar-nav top_menu o_menu_loading  align-items-center me-4 py-1 nav-pills">
+        
+                            
+
+    <li role="presentation" class="nav-item ">
+        <a role="menuitem" href="/" class="nav-link active">
+            <span>خانه</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item ">
+        <a role="menuitem" href="/shop" class="nav-link ">
+            <span>فروشگاه</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item ">
+        <a role="menuitem" href="/smart-home" class="nav-link ">
+            <span>​هوشمند سازی ساختمان</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item ">
+        <a role="menuitem" href="/support" class="nav-link ">
+            <span>پشتیبانی</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item ">
+        <a role="menuitem" href="/about-us" class="nav-link ">
+            <span>درباره ما</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item ">
+        <a role="menuitem" href="/crm" class="nav-link ">
+            <span>راهنمای خرید</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item ">
+        <a role="menuitem" href="/contactus" class="nav-link ">
+            <span>تماس با ما</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item ">
+        <a role="menuitem" href="/helpdesk/nestech-service-1" class="nav-link ">
+            <span>نستک سرویس</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item ">
+        <a role="menuitem" href="/helpdesk/thbt-sfrsh-w-hml-khl-mshtryn-2" class="nav-link ">
+            <span>فرصت ها و ثبت سفارش فروش و حمل کالا مشتریان</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item ">
+        <a role="menuitem" href="/helpdesk/srnkh-hy-w-mshwrh-frwsh-3" class="nav-link ">
+            <span>سرنخ های و مشاوره فروش </span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item ">
+        <a role="menuitem" href="/jobs" class="nav-link ">
+            <span>شغل</span>
+        </a>
+    </li>
+                        
+    </ul>
+                        
+                        <ul class="navbar-nav">
+        <div class="oe_structure oe_structure_solo ">​​​​<section class="oe_unremovable oe_unmovable s_text_block" data-snippet="s_text_block" data-name="Text">
+                        <div class="container h-100">
+                            <a href="/contactus" class="oe_unremovable btn btn-primary btn_cta d-flex align-items-center h-100 rounded-0">تماس با ما</a>
+                        </div>
+                    </section></div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        
+    </nav>
+
+    <nav data-name="Navbar" aria-label="Mobile" class="navbar  navbar-light o_colored_level o_cc o_header_mobile d-block d-lg-none shadow-sm o_header_force_no_radius">
+        
+
+        <div class="o_main_nav container flex-wrap justify-content-between">
+            <div class="d-flex flex-grow-1">
+                
+    <a data-name="Navbar Logo" href="/" class="navbar-brand logo ">
+            
+            <span role="img" aria-label="Logo of My Website" title="My Website"><img src="/web/image/website/1/logo/My%20Website?unique=6f6254b" class="img img-fluid" width="95" height="40" alt="My Website" loading="lazy"/></span>
+        </a>
+    
+                <ul class="o_header_mobile_buttons_wrap navbar-nav d-flex flex-row align-items-center gap-2 mb-0 ms-auto">
+        <li class=" divider d-none"></li> 
+        <li class="o_wsale_my_cart  ">
+            <a href="/shop/cart" aria-label="سبد خرید تجارت الکترونیک" class="o_navlink_background_hover btn position-relative rounded-circle border-0 p-1 text-reset">
+                <div class="">
+                    <i class="fa fa-shopping-cart fa-stack"></i>
+                    <sup class="my_cart_quantity badge bg-primary position-absolute top-0 end-0 mt-n1 me-n1 rounded-pill d-none">0</sup>
+                </div>
+            </a>
+        </li>
+        <li class="o_wsale_my_wish d-none  o_wsale_my_wish_hide_empty">
+            <a href="/shop/wishlist" class="o_navlink_background_hover btn position-relative rounded-circle border-0 p-1 text-reset">
+                <div class="">
+                    <i class="fa fa-1x fa-heart fa-stack"></i>
+                    <sup class="my_wish_quantity o_animate_blink badge bg-primary position-absolute top-0 end-0 mt-n1 me-n1 d-none">0</sup>
+                </div>
+            </a>
+        </li></ul>
+            </div>
+            <button class="nav-link btn p-2 o_not_editable" type="button" data-bs-toggle="offcanvas" data-bs-target="#top_menu_collapse_mobile" aria-controls="top_menu_collapse_mobile" aria-expanded="false" aria-label="تغییر پیمایش">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="top_menu_collapse_mobile" class="offcanvas offcanvas-end o_navbar_mobile">
+                <div class="offcanvas-header justify-content-end o_not_editable">
+                    <button type="button" class="nav-link btn-close" data-bs-dismiss="offcanvas" aria-label="بستن"></button>
+                </div>
+                <div class="offcanvas-body d-flex flex-column justify-content-between h-100 w-100 pt-0">
+                    <ul class="navbar-nav">
+                        
+        <li class="">
+    <form method="get" class="o_searchbar_form s_searchbar_input " action="/website/search" data-snippet="s_searchbar_input">
+            <div role="search" class="input-group mb-3">
+        <input type="search" name="search" class="search-query form-control oe_search_box rounded-start-pill text-bg-light ps-3 border-0 bg-light" placeholder="جستجو..." data-search-type="all" data-limit="0" data-display-image="true" data-display-description="true" data-display-extra-link="true" data-display-detail="true" data-order-by="name asc"/>
+        <button type="submit" aria-label="جستجو" title="جستجو" class="btn oe_search_button rounded-end-pill bg-o-color-3 pe-3">
+            <i class="oi oi-search"></i>
+        </button>
+    </div>
+
+            <input name="order" type="hidden" class="o_search_order_by oe_unremovable" value="name asc"/>
+            
+        </form>
+        </li>
+                        
+                        <li>
+    <ul role="menu" class="nav navbar-nav top_menu  o_mega_menu_is_offcanvas mx-n3  ">
+        
+                                
+
+    <li role="presentation" class="nav-item border-top  px-0">
+        <a role="menuitem" href="/" class="nav-link p-3 text-wrap active">
+            <span>خانه</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item border-top  px-0">
+        <a role="menuitem" href="/shop" class="nav-link p-3 text-wrap ">
+            <span>فروشگاه</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item border-top  px-0">
+        <a role="menuitem" href="/smart-home" class="nav-link p-3 text-wrap ">
+            <span>​هوشمند سازی ساختمان</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item border-top  px-0">
+        <a role="menuitem" href="/support" class="nav-link p-3 text-wrap ">
+            <span>پشتیبانی</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item border-top  px-0">
+        <a role="menuitem" href="/about-us" class="nav-link p-3 text-wrap ">
+            <span>درباره ما</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item border-top  px-0">
+        <a role="menuitem" href="/crm" class="nav-link p-3 text-wrap ">
+            <span>راهنمای خرید</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item border-top  px-0">
+        <a role="menuitem" href="/contactus" class="nav-link p-3 text-wrap ">
+            <span>تماس با ما</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item border-top  px-0">
+        <a role="menuitem" href="/helpdesk/nestech-service-1" class="nav-link p-3 text-wrap ">
+            <span>نستک سرویس</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item border-top  px-0">
+        <a role="menuitem" href="/helpdesk/thbt-sfrsh-w-hml-khl-mshtryn-2" class="nav-link p-3 text-wrap ">
+            <span>فرصت ها و ثبت سفارش فروش و حمل کالا مشتریان</span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item border-top  px-0">
+        <a role="menuitem" href="/helpdesk/srnkh-hy-w-mshwrh-frwsh-3" class="nav-link p-3 text-wrap ">
+            <span>سرنخ های و مشاوره فروش </span>
+        </a>
+    </li>
+
+    <li role="presentation" class="nav-item border-top border-bottom px-0">
+        <a role="menuitem" href="/jobs" class="nav-link p-3 text-wrap ">
+            <span>شغل</span>
+        </a>
+    </li>
+                            
+    </ul>
+                        </li>
+                        
+        <li class="">
+                <div data-name="Text" class="s_text_block mt-2">
+                    <small>بازگشت رایگان و حمل و نقل استاندارد</small>
+                </div>
+        </li>
+                        
+                    </ul>
+                    <ul class="navbar-nav gap-2 mt-3 w-100">
+                        
+                        
+            <li class=" o_no_autohide_item">
+                <a href="/web/login" class="nav-link o_nav_link_btn w-100 border text-center">ورود به سیستم</a>
+            </li>
+                        
+        
+        
+                        
+        <div class="oe_structure oe_structure_solo ">​​​​<section class="oe_unremovable oe_unmovable s_text_block" data-snippet="s_text_block" data-name="Text">
+                        <div class="container">
+                            <a href="/contactus" class="oe_unremovable btn btn-primary btn_cta w-100">تماس با ما</a>
+                        </div>
+                    </section></div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+    </nav>
+    </header>
+                <main>
+                    
+        <div id="wrap" class="oe_structure oe_empty"><section class="s_cover_2 o_colored_level" data-snippet="s_cover_2" data-name="Cover - 2" style="background-image: none;">
+            <div class="s_carousel tp-custom-carousel s_carousel_rounded carousel slide" data-bs-interval="10000" id="myCarousel1697957097715" style="background-image: none;">
+                
+                <ol class="carousel-indicators o_we_no_overlay">
+                    <li data-bs-slide-to="0" data-bs-target="#myCarousel1697957097715" class="active" aria-current="true"></li>
+                    <li data-bs-slide-to="1" data-bs-target="#myCarousel1697957097715"></li>
+                </ol>
+                
+                <div class="carousel-inner">
+                    
+                    <div class="carousel-item pt192 pb192 o_colored_level oe_img_bg o_bg_img_center active" style="background-image: url(&#34;/web/image/theme_prime.s_cover_2_1&#34;);" data-name="Slide">
+                        <div class="container">
+                            <div class="row content">
+                                <div class="carousel-content col-lg-5 o_colored_level">
+                                    <h4 class="o_default_snippet_text">JUST NEWLY ARRIVED!</h4>
+                                    <h2 class="display-4 fw-bold">High Quality Fabric Collection</h2>
+                                    <p class="lead"><font style="font-size: 20px;" class="o_default_snippet_text">In hac habitasse platea dictumst. Praesent cursus congue felis, nec pellentesque nulla ornare sed.</font></p>
+                                    <a href="/shop" class="btn btn-primary mt-2 o_default_snippet_text">بیشتر بخوانید</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-item o_colored_level oe_img_bg o_bg_img_center pt16 pb16" style="background-image: url(&#34;/web/image/theme_prime.s_cover_2_2&#34;);" data-name="Slide">
+                        <div class="container">
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <a class="carousel-control-prev o_not_editable o_we_no_overlay" data-bs-slide="prev" role="img" aria-label="قبلی" title="قبلی" href="#myCarousel1697957097715">
+                    <span class="fa fa-chevron-left tp-icon-center-2 dr-p-icon border-0 shadow rounded-circle"></span>
+                    <span class="visually-hidden o_default_snippet_text">Previous</span>
+                </a>
+                <a class="carousel-control-next o_not_editable o_we_no_overlay" data-bs-slide="next" role="img" aria-label="بعدی" title="بعدی" href="#myCarousel1697957097715">
+                    <span class="fa fa-chevron-right tp-icon-center-2 dr-p-icon border-0 shadow rounded-circle"></span>
+                    <span class="visually-hidden o_default_snippet_text">Next</span>
+                </a>
+            </div>
+        </section><section class="s_d_single_product_count_down_wrapper dr_not_editable tp-droggol-dynamic-snippet o_colored_level pb0 pt0" data-tp-snippet-id="s_d_single_product_count_down" data-snippet="s_d_single_product_count_down" data-name="Product Countdown Slider" style="background-image: none;">
+            <div class="s_d_single_product_count_down container-fluid o_not_editable"></div>
+        </section></div>
+    
+        <div id="o_shared_blocks" class="oe_unremovable"></div>
+                </main>
+                <footer id="bottom" data-anchor="true" data-name="Footer" class="o_footer o_colored_level o_cc  o_footer_slideout">
+                    <div id="footer" class="oe_structure oe_structure_solo">
+            <section class="s_text_block pt32" data-snippet="s_text_block" data-name="Text" style="background-image: none;">
+                <div class="container s_allow_columns">
+                    <div class="s_social_media mb-4 o_not_editable text-center" data-snippet="s_social_media" data-name="Social Media">
+                        <h5 class="s_social_media_title d-none">ما را دنبال کنید</h5>
+<a href="/website/social/linkedin" class="s_social_media_linkedin" target="_blank">
+                            <i class="fa fa-linkedin rounded-circle rounded shadow-sm o_editable_media"></i>
+                        </a>
+<a href="/website/social/instagram" class="s_social_media_instagram" target="_blank">
+                            <i class="fa rounded-circle rounded shadow-sm o_editable_media fa-instagram"></i>
+                        </a>
+<a href="https://www.google.com/" target="_blank" class="s_social_media_google">
+                            <i class="fa rounded-circle rounded shadow-sm o_editable_media fa-google"></i>
+                        </a>
+<a href="/https://web.telegram.org" target="_blank" class="s_social_media_telegram">
+                            <i class="fa rounded-circle rounded shadow-sm o_editable_media fa-telegram text-o-color-1"></i>
+                        </a>
+</div>
+                    <p class="text-center mb-1">
+تهران، خیابان شریعتی، کوچه نورمحمدی، پلاک ۲۳، واحد ۵
+
+<br/></p>
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item mx-3"><i class="fa fa-1x fa-fw fa-phone me-2"></i><span class="o_force_ltr">
+<a href="tel:02126713906" data-bs-original-title="" title="">02126713906</a></span></li>
+                        <li class="list-inline-item mx-3"><i class="fa fa-1x fa-fw fa-envelope me-2"></i><a href="https://info@iswitchland.com" data-bs-original-title="" title="">info@iswitchland.com</a></li>
+                    </ul>
+                </div>
+            </section>
+            <section class="s_text_block pt16 pb16" data-snippet="s_text_block" data-name="Logo">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2 offset-lg-5 o_colored_level">
+                            <a href="/" class="o_footer_logo logo" data-bs-original-title="" title="">
+                                <img src="/web/image/8638-73b8a099/switchland-logo.png" alt="" class="img-fluid mx-auto img o_we_custom_image" data-original-id="8637" data-original-src="/web/image/8637-65982948/switchland-logo.png" data-mimetype="image/png" data-resize-width="690" loading="lazy"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+                </footer>
+            </div>
+        
+        </body>
+</html>
