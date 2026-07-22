@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carthage MAC Logistics | Global Logistics & Supply Chain</title>
+  <meta name="description" content="Carthage MAC Logistics provides premier international freight forwarding, customs brokerage, supply chain optimization, and warehousing services. Track and manage your shipments with our client portal.">
+  <link rel="icon" href="favicon.ico">
+
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  
+
+  <style>
+    :root {
+      --primary-light: hsl(160, 68%, 69%);
+      --primary: hsl(159, 69%, 49%);
+      --primary-dark: hsl(160, 69%, 34%);
+      --glass-bg: rgba(255, 255, 255, 0.15);
+      --glass-dark-bg: rgba(0, 0, 0, 0.25);
+      --card-border: 1px solid rgba(255, 255, 255, 0.2);
+      --card-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      --border-radius-cards: 20px;
+      --border-radius-icons: 12px;
+      --border-radius-buttons: 50rem;
+    }
+
+    body {
+      font-family: 'Source Serif 4', serif;
+      font-weight: 400;
+      color: #fff; /* Ensure text visible on glassmorphic backgrounds */
+      background: linear-gradient(135deg, #1a2a4b, #2c525f, #0d1e3d); /* Dark gradient background for glassmorphism */
+      background-attachment: fixed;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 800;
+      font-family: 'Source Serif 4', serif;
+    }
+
+    .glassmorphic-card, .glassmorphic-navbar, .glassmorphic-footer, .glassmorphic-form-panel {
+      background-color: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: var(--card-border);
+      border-radius: var(--border-radius-cards);
+      box-shadow: var(--card-shadow);
+    }
+
+    .glassmorphic-dark-card {
+      background-color: var(--glass-dark-bg);
+      backdrop-filter: blur(10px);
+      border: var(--card-border);
+      border-radius: var(--border-radius-cards);
+      box-shadow: var(--card-shadow);
+    }
+
+    .glass-icon-wrapper {
+        background-color: var(--glass-bg);
+        backdrop-filter: blur(8px);
+        border: var(--card-border);
+        border-radius: var(--border-radius-icons);
+        padding: 8px; /* Adjust padding as needed */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
+    }
+
+    .glass-icon-wrapper:hover {
+        transform: scale(1.08);
+    }
+
+    .btn-primary-custom {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: #fff;
+      border-radius: var(--border-radius-buttons);
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary-custom:hover {
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
+      transform: scale(1.05);
+    }
+
+    .btn-outline-light-custom {
+      border-color: rgba(255, 255, 255, 0.5);
+      color: #fff;
+      border-radius: var(--border-radius-buttons);
+      transition: all 0.3s ease;
+    }
+
+    .btn-outline-light-custom:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--primary-light);
+      border-color: var(--primary-light);
+      transform: scale(1.05);
+    }
+
+    .navbar-brand {
+      font-weight: 800;
+      color: #fff !important;
+      transition: transform 0.3s ease;
+    }
+
+    .navbar-brand:hover {
+      transform: scale(1.05);
+    }
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.8) !important;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      color: var(--primary-light) !important;
+      transform: translateY(-2px);
+    }
+
+    .img-fluid-hover-scale {
+      transition: transform 0.3s ease;
+    }
+
+    .img-fluid-hover-scale:hover {
+      transform: scale(1.05);
+    }
+
+    #home {
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      overflow: hidden;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+    }
+
+    #home::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.4); /* Dark overlay for text readability */
+      z-index: 1;
+    }
+
+    #home .container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-spacing {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+
+    .bento-grid {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(1, 1fr); /* Mobile default */
+    }
+
+    @media (min-width: 992px) { /* Larger screens */
+      .bento-grid {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, minmax(180px, auto));
+      }
+      .bento-item-large {
+        grid-column: span 2;
+        grid-row: span 2;
+      }
+      .bento-item-medium-1 {
+        grid-column: span 2;
+        grid-row: span 1;
+      }
+      .bento-item-medium-2 {
+        grid-column: span 2;
+        grid-row: span 1;
+      }
+      .bento-item-small-1 {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+      .bento-item-small-2 {
+        grid-column: span 1;
+        grid-row: span 1;
+      }
+       /* Specific grid placement for ideal bento layout */
+      .bento-item-large {
+          grid-column: 1 / span 2;
+          grid-row: 1 / span 2;
+      }
+      .bento-item-medium-1 {
+          grid-column: 3 / span 2;
+          grid-row: 1 / span 1;
+      }
+      .bento-item-medium-2 {
+          grid-column: 3 / span 2;
+          grid-row: 2 / span 1;
+      }
+      .bento-item-small-1 {
+        grid-column: 1 / span 1; /* This will be overridden by large item on wide view */
+        grid-row: auto;
+      }
+      .bento-item-small-2 {
+        grid-column: 2 / span 1; /* This will be overridden by large item on wide view */
+        grid-row: auto;
+      }
+
+      /* Adjust small items for wide view after large and medium ones */
+        .bento-grid > :nth-child(4) { /* warehousing */
+          grid-column: 1; /* Place below large on wide screen */
+          grid-row: 3; /* Assuming large takes 2 rows */
+          display:none; /* Hide these specific small items to avoid layout overlap as they're not in the ideal bento grid */
+
+        }
+        .bento-grid > :nth-child(5) { /* customs */
+          grid-column: 2; /* Place below large on wide screen */
+          grid-row: 3; /* Assuming large takes 2 rows */
+          display:none; /* Hide these specific small items to avoid layout overlap as they're not in the ideal bento grid */
+        }
+        /* For the specific plan, the small items will appear at the end for larger screens */
+
+        /* Re-mapping for a more visually balanced bento: */
+        .bento-item.bento-item-large { grid-area: large; }
+        .bento-item.bento-item-medium.bento-item-medium-1 { grid-area: med1; }
+        .bento-item.bento-item-medium.bento-item-medium-2 { grid-area: med2; }
+        .bento-item.bento-item-small.bento-item-small-1 { grid-area: small1; }
+        .bento-item.bento-item-small.bento-item-small-2 { grid-area: small2; }
+
+        .bento-grid {
+            grid-template-areas:
+                "large large med1 med1"
+                "large large med2 med2"
+                "small1 small1 small2 small2"; /* Example for 3 rows; adapt based on exact content */
+           grid-template-columns: repeat(4, 1fr);
+           grid-template-rows: auto;
+        }
+
+        /* Specific assignment based on content items order */
+        .bento-grid > div:nth-child(1) { grid-area: large; } /* Supply Chain Optimization */
+        .bento-grid > div:nth-child(2) { grid-area: med1; } /* International Freight */
+        .bento-grid > div:nth-child(3) { grid-area: med2; } /* B2B E-commerce */
+        .bento-grid > div:nth-child(4) { grid-area: small1; } /* Warehousing */
+        .bento-grid > div:nth-child(5) { grid-area: small2; } /* Customs Brokerage */
+    }
+
+    .bento-item {
+      padding: 1.5rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .bento-item-image {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: calc(var(--border-radius-cards) - 5px);
+        margin-bottom: 1rem;
+    }
+
+    .bento-item-small .glass-icon-wrapper {
+        margin-top: 1rem;
+    }
+
+    .form-control-custom, .form-select-custom {
+      background-color: var(--glass-dark-bg);
+      border: var(--card-border);
+      color: #fff;
+      border-radius: var(--border-radius-buttons);
+      padding: 0.75rem 1.25rem;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .form-control-custom::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .form-control-custom:focus, .form-select-custom:focus {
+      background-color: var(--glass-bg);
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 0.25rem rgba(var(--primary-light-rgb), 0.25);
+      color: #fff;
+    }
+
+    .form-label {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .text-primary-custom {
+      color: var(--primary) !important;
+    }
+
+    .bg-primary-dark-footer {
+      background-color: #212529; /* Dark background contrasting with white text */
+      color: #ffffff;
+      padding: 3rem 0;
+    }
+
+    /* Cookie Consent Banner */
+    #cookieConsentBanner {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 15px;
+        text-align: center;
+        z-index: 1050;
+        display: none; /* Hidden by default */
+    }
+    #cookieConsentBanner button {
+        background-color: var(--primary);
+        border: none;
+        color: white;
+        padding: 8px 15px;
+        margin-left: 15px;
+        cursor: pointer;
+        border-radius: var(--border-radius-buttons);
+        transition: background-color 0.3s ease;
+    }
+    #cookieConsentBanner button:hover {
+        background-color: var(--primary-dark);
+    }
+    #cookieConsentBanner a {
+        color: var(--primary-light);
+        text-decoration: none;
+    }
+    #cookieConsentBanner a:hover {
+        text-decoration: underline;
+    }
+
+    .text-contrast-dark {
+      color: #1a2a4b; /* Dark color for text on lighter backgrounds if needed */
+    }
+
+    .testimonial-photo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--primary-light);
+    }
+
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg fixed-top py-3 glassmorphic-navbar">
+      <div class="container">
+        <a class="navbar-brand fs-4" href="#home">Carthage MAC Logistics</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#services">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#tracking">Track Shipment</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#about">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#contact">Contact</a>
+            </li>
+          </ul>
+          <div class="d-none d-lg-block">
+            <a href="#tracking" class="btn btn-primary-custom">Client Portal</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+<main>
+    <section id="home" class="d-flex align-items-center" style="background-image: url('images/hero-logistics-background-1280x768.jpeg');">
+      <div class="container">
+        <div class="row align-items-center justify-content-center justify-content-lg-start">
+          <div class="col-12 col-lg-7 mb-4 mb-lg-0">
+            <div class="glassmorphic-card p-4 p-md-5 text-center text-lg-start">
+              <h1 class="display-4 fw-bold mb-3">Next-Generation Global Logistics by Carthage MAC Logistics</h1>
+              <p class="lead mb-4">Seamlessly connect your supply chain with our premier international freight forwarding, customs brokerage, and warehousing solutions. Elevate your B2B e-commerce fulfillment today with precision and efficiency.</p>
+              <div class="d-grid gap-2 d-md-flex justify-content-center justify-content-lg-start">
+                <a href="#contact" class="btn btn-primary-custom btn-lg">Get a Quote</a>
+                <a href="#tracking" class="btn btn-outline-light-custom btn-lg">Track Freight</a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-lg-4 text-center d-none d-lg-block">
+            <div class="p-3">
+              <img src="images/hero-freight-ship-512x512.jpeg" class="img-fluid rounded-4 img-fluid-hover-scale" alt="Large freight ship loading containers" width="512" height="512">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="section-spacing text-center">
+      <div class="container">
+        <h2 class="display-5 fw-bold mb-5">Our Comprehensive Logistics Services</h2>
+        <div class="bento-grid">
+          <div class="bento-item bento-item-large glassmorphic-card d-flex flex-column align-items-center justify-content-center img-fluid-hover-scale">
+            <img src="images/service-supply-chain-512x512.jpeg" alt="Global supply chain optimization" class="bento-item-image">
+            <h3 class="h4 fw-bold">Supply Chain Optimization</h3>
+            <p class="text-secondary-light">End-to-end visibility and strategic routing to minimize delays and maximize ROI for your global operations.</p>
+            <span class="badge bg-success-subtle text-success-emphasis mt-auto">30% Faster Transit</span>
+          </div>
+
+          <div class="bento-item bento-item-medium bento-item-medium-1 glassmorphic-card d-flex flex-column align-items-center justify-content-center img-fluid-hover-scale">
+            <img src="images/service-freight-384x256.jpeg" alt="International air and ocean freight" class="bento-item-image">
+            <h3 class="h4 fw-bold">International Freight</h3>
+            <p class="text-secondary-light">Reliable air, ocean, and ground transportation solutions ensuring safe and timely delivery worldwide.</p>
+          </div>
+
+          <div class="bento-item bento-item-medium bento-item-medium-2 glassmorphic-card d-flex flex-column align-items-center justify-content-center img-fluid-hover-scale">
+            <img src="images/service-ecommerce-384x256.jpeg" alt="B2B E-commerce fulfillment center" class="bento-item-image">
+            <h3 class="h4 fw-bold">B2B E-commerce Fulfillment</h3>
+            <p class="text-secondary-light">Precision fulfillment and distribution for high-volume enterprise and e-commerce orders, scaled to your needs.</p>
+          </div>
+
+          <div class="bento-item bento-item-small bento-item-small-1 glassmorphic-card d-flex flex-column align-items-center justify-content-center img-fluid-hover-scale">
+            <div class="glass-icon-wrapper mb-3">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 7H4V4H20M20 9H4V21H20M12 11V15M10 11V15M14 11V15" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <h3 class="h5 fw-bold">Secure Warehousing</h3>
+            <p class="text-secondary-light">Climate-controlled storage and distribution centers for optimal cargo preservation.</p>
+          </div>
+
+          <div class="bento-item bento-item-small bento-item-small-2 glassmorphic-card d-flex flex-column align-items-center justify-content-center img-fluid-hover-scale">
+            <div class="glass-icon-wrapper mb-3">
+              <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="#ffffff"/>
+              </svg>
+            </div>
+            <h3 class="h5 fw-bold">Customs Brokerage</h3>
+            <p class="text-secondary-light">Expert navigation of international regulations for hassle-free border compliance and documentation.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="tracking" class="section-spacing py-5" style="background-image: url('images/tracking-map-bg-1280x768.jpeg'); background-size: cover; background-position: center;">
+      <div class="container d-flex justify-content-center align-items-center min-vh-75">
+        <div class="glassmorphic-dark-card p-4 p-md-5 text-center col-12 col-md-8 col-lg-6">
+          <h2 class="display-5 fw-bold mb-4">Real-Time Shipment Tracking</h2>
+          <p class="lead mb-4">Stay updated on your cargo's journey. Enter your Carthage MAC Logistics tracking ID below for instant updates.</p>
+          <form class="d-flex flex-column gap-3">
+            <input type="text" class="form-control-custom form-control-lg" placeholder="e.g., CML-94829103" aria-label="Tracking ID">
+            <button type="submit" class="btn btn-primary-custom btn-lg w-100">Track Now</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section-spacing">
+      <div class="container">
+        <div class="row align-items-center gx-5">
+          <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+            <div class="glassmorphic-card p-4">
+              <h2 class="display-5 fw-bold mb-4">Why Choose Carthage MAC Logistics?</h2>
+              <p class="lead mb-4">Based in the heart of New York, we leverage industry-leading technology to ensure your supply chain operates at peak efficiency. Our commitment extends beyond logistics; we adhere strictly to emerging sustainable practices, minimizing environmental impact while maximizing your operational success.</p>
+              <img src="images/about-ny-office-512x512.jpeg" class="img-fluid rounded-4 img-fluid-hover-scale" alt="Modern office building in New York" width="512" height="512">
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+            <h3 class="h4 fw-bold mb-4">What Our Clients Say</h3>
+            <div class="d-flex flex-column gap-4">
+              <div class="glassmorphic-card p-4 d-flex align-items-start img-fluid-hover-scale">
+                <img src="images/testimonial-sarah-128x128.jpeg" class="testimonial-photo me-3 flex-shrink-0" alt="Photo of Sarah Jenkins" width="128" height="128">
+                <div>
+                  <p class="mb-2 fst-italic">"Carthage MAC Logistics transformed our B2B fulfillment. The tracking portal is flawlessly intuitive and has given us unparalleled visibility into our shipments. Truly exceptional service!"</p>
+                  <p class="fw-bold mb-0">Sarah Jenkins</p>
+                  <small class="text-primary-light">Procurement Director, TechInnovate Solutions</small>
+                </div>
+              </div>
+              <div class="glassmorphic-card p-4 d-flex align-items-start img-fluid-hover-scale">
+                <img src="images/testimonial-david-128x128.jpeg" class="testimonial-photo me-3 flex-shrink-0" alt="Photo of David Chen" width="128" height="128">
+                <div>
+                  <p class="mb-2 fst-italic">"Customs clearance was a nightmare before we switched to them. Carthage MAC Logistics handles everything with such precision and expertise. Highly recommended for any complex international logistics!"</p>
+                  <p class="fw-bold mb-0">David Chen</p>
+                  <small class="text-primary-light">Global Operations Lead, Apex Technologies</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section-spacing">
+      <div class="container py-5">
+        <div class="glassmorphic-dark-card p-4 p-md-5">
+          <div class="row gx-5 justify-content-center">
+            <div class="col-12 col-lg-6 mb-5 mb-lg-0">
+              <h2 class="display-5 fw-bold mb-4">Get In Touch</h2>
+              <p class="mb-4">Have questions about our services or need a custom logistics solution? Reach out to our dedicated team, and we'll be happy to assist you.</p>
+
+              <ul class="list-unstyled d-flex flex-column gap-3">
+                <li>
+                  <div class="d-flex align-items-center">
+                    <div class="glass-icon-wrapper me-3">
+                      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="#ffffff"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 class="h6 mb-0">Our Location:</h4>
+                      <p class="mb-0">Seneca Avenue, New York, NY 11237, USA</p>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="d-flex align-items-center">
+                    <div class="glass-icon-wrapper me-3">
+                      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 16.92L18.82 15.75C18.17 15.54 17.43 15.69 16.97 16.14L15.17 17.94C12.43 16.94 10.06 14.57 9.06 11.83L10.86 10.03C11.31 9.57 11.46 8.83 11.25 8.18L10.08 5C9.87 4.35 9.27 3.93 8.58 3.93H4.01C3.41 3.93 2.93 4.41 2.93 5.01C2.93 13.23 9.4 19.7 17.62 19.7C18.22 19.7 18.7 19.22 18.7 18.62V13.8C18.7 13.11 18.28 12.51 17.63 12.3L16.46 11.13C15.81 10.92 15.12 11.07 14.66 11.52L12.86 13.32C10.12 12.32 7.75 9.95 6.75 7.21L8.55 5.41C9 4.96 9.15 4.22 8.94 3.57L7.77 0.38C7.56 -0.27 6.96 -0.69 6.27 -0.69H0.93C0.33 -0.69 -0.15 -0.21 -0.15 0.39C-0.15 8.61 6.32 15.08 14.54 15.08C15.14 15.08 15.62 14.6 15.62 14V9.18C15.62 8.49 15.2 7.89 14.55 7.68Z" transform="translate(3 4)" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 class="h6 mb-0">Call Us:</h4>
+                      <p class="mb-0">+1 305-200-0588</p>
+                    </div>
+                  </div>
+                </li>
+                <li>
+                  <div class="d-flex align-items-center">
+                    <div class="glass-icon-wrapper me-3">
+                      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M22 6L12 13L2 6" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 class="h6 mb-0">Email Us:</h4>
+                      <p class="mb-0">info@95.85.239.64</p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="col-12 col-lg-6">
+              <h3 class="h4 fw-bold mb-4">Send Us a Message</h3>
+              <form class="d-flex flex-column gap-3">
+                <div class="form-group">
+                  <label for="contactName" class="form-label visually-hidden">Name</label>
+                  <input type="text" class="form-control-custom" id="contactName" placeholder="Your Name" aria-label="Your Name">
+                </div>
+                <div class="form-group">
+                  <label for="contactEmail" class="form-label visually-hidden">Email</label>
+                  <input type="email" class="form-control-custom" id="contactEmail" placeholder="Your Email" aria-label="Your Email">
+                </div>
+                <div class="form-group">
+                  <label for="contactCompany" class="form-label visually-hidden">Company</label>
+                  <input type="text" class="form-control-custom" id="contactCompany" placeholder="Your Company" aria-label="Your Company">
+                </div>
+                <div class="form-group">
+                  <label for="contactInquiry" class="form-label visually-hidden">Logistics Inquiry</label>
+                  <textarea class="form-control-custom" id="contactInquiry" rows="5" placeholder="Your Logistics Inquiry" aria-label="Your Logistics Inquiry"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary-custom btn-lg w-100 mt-2">Send Message</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+<footer class="bg-primary-dark-footer glassmorphic-footer">
+    <div class="container text-center">
+      <h3 class="h4 fw-bold mb-3">Carthage MAC Logistics</h3>
+      <p class="mb-4">Leading Global Logistics & Supply Chain Solutions.</p>
+      <ul class="list-inline mb-4">
+        <li class="list-inline-item mx-3"><a href="./privacy.html" class="text-light text-decoration-none nav-link-footer">Privacy Policy</a></li>
+        <li class="list-inline-item mx-3"><a href="./tos.html" class="text-light text-decoration-none nav-link-footer">Terms of Service</a></li>
+        <li class="list-inline-item mx-3"><a href="#tracking" class="text-light text-decoration-none nav-link-footer">Client Portal Area</a></li>
+      </ul>
+      <p class="small mb-0">&copy; 2024 Carthage MAC Logistics. All rights reserved.</p>
+    </div>
+  </footer>
+
+  
+  <div id="cookieConsentBanner">
+    This website uses cookies to ensure you get the best experience on our website.
+    <a href="./privacy.html" target="_blank" rel="noopener noreferrer">Learn more</a>.
+    <button id="acceptCookies">Accept</button>
+  </div>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const cookieBanner = document.getElementById('cookieConsentBanner');
+      const acceptButton = document.getElementById('acceptCookies');
+      const cookieName = 'consent_Carthage MAC Logistics_cookies_accepted'; // Unique cookie name prefix
+
+      function getCookie(name) {
+          const nameEQ = name + "=";
+          const ca = document.cookie.split(';');
+          for(let i=0; i < ca.length; i++) {
+              let c = ca[i];
+              while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+              if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+          }
+          return null;
+      }
+
+      function setCookie(name, value, days) {
+          let expires = "";
+          if (days) {
+              const date = new Date();
+              date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+              expires = "; expires=" + date.toUTCString();
+          }
+          document.cookie = name + "=" + (value || "") + expires + "; path=/";
+      }
+
+      if (!getCookie(cookieName)) {
+          cookieBanner.style.display = 'block';
+      }
+
+      acceptButton.addEventListener('click', function() {
+          setCookie(cookieName, 'true', 365); // Store for 1 year
+          cookieBanner.style.display = 'none';
+      });
+
+      // Simple parallax/scroll effect for background images (optional, pure CSS where possible)
+      // For sections with 'background-attachment: fixed' or 'background-size: cover',
+      // more advanced JS parallax is usually not needed or can be handled via CSS.
+      // This is primarily for subtle enhancements if needed.
+      const handleScrollEffects = () => {
+        const elements = document.querySelectorAll('.img-fluid-hover-scale, .glassmorphic-card, .glassmorphic-dark-card');
+        elements.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          const viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight);
+          if (rect.top < viewHeight * 0.8 && rect.bottom > viewHeight * 0.2) {
+            el.style.opacity = 1; // Or add special class for fade-in
+            el.style.transform = 'scale(1)';
+          } else {
+            // el.style.opacity = 0; // Fade out when too far
+            // el.style.transform = 'scale(0.95)'; // Subtle scale for non-visible items
+          }
+        });
+      };
+      window.addEventListener('scroll', handleScrollEffects);
+      handleScrollEffects(); // Initial check on load
+    });
+  </script>
+</body>
+</html>

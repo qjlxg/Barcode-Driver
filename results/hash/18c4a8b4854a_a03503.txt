@@ -1,0 +1,928 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Каталог упражнений и конструктор матчей МК-снайпинга (.22LR)">
+<title>Каталог упражнений МК-снайпинга</title>
+<style>
+  :root{
+    --bg:#EAECEA; --surface:#F7F8F6; --surface-2:#EFF1EE;
+    --ink:#15191600; --ink:#141816; --muted:#59605B; --faint:#828a84;
+    --line:#D2D7D1; --line-strong:#BEC4BD;
+    --accent:#D0561A; --accent-ink:#fff;
+    --steel:#3B6A85; --hit:#4C7A4E; --silh:#8A6A34; --warn:#B5711A;
+    --shadow:0 1px 0 rgba(0,0,0,.03),0 2px 8px rgba(20,30,24,.05);
+    --mono:ui-monospace,"SF Mono","JetBrains Mono","Roboto Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0F1211; --surface:#171B19; --surface-2:#1C211E;
+      --ink:#E7EAE6; --muted:#98A099; --faint:#6f776f;
+      --line:#282E29; --line-strong:#333A34;
+      --accent:#F07B39; --accent-ink:#160c05;
+      --steel:#71A7C6; --hit:#72B276; --silh:#C39A54; --warn:#E0A24C;
+      --shadow:0 1px 0 rgba(0,0,0,.2),0 3px 14px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0F1211; --surface:#171B19; --surface-2:#1C211E;
+    --ink:#E7EAE6; --muted:#98A099; --faint:#6f776f;
+    --line:#282E29; --line-strong:#333A34;
+    --accent:#F07B39; --accent-ink:#160c05;
+    --steel:#71A7C6; --hit:#72B276; --silh:#C39A54; --warn:#E0A24C;
+    --shadow:0 1px 0 rgba(0,0,0,.2),0 3px 14px rgba(0,0,0,.35);
+  }
+  :root[data-theme="light"]{
+    --bg:#EAECEA; --surface:#F7F8F6; --surface-2:#EFF1EE;
+    --ink:#141816; --muted:#59605B; --faint:#828a84;
+    --line:#D2D7D1; --line-strong:#BEC4BD;
+    --accent:#D0561A; --accent-ink:#fff;
+    --steel:#3B6A85; --hit:#4C7A4E; --silh:#8A6A34; --warn:#B5711A;
+    --shadow:0 1px 0 rgba(0,0,0,.03),0 2px 8px rgba(20,30,24,.05);
+  }
+
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+    line-height:1.5;-webkit-font-smoothing:antialiased;font-size:15px}
+  .wrap{max-width:1180px;margin:0 auto;padding:clamp(18px,4vw,46px) clamp(14px,4vw,40px) 80px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  .eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--faint);display:flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:26px;height:1px;background:var(--accent)}
+
+  h1{font-size:clamp(30px,5.4vw,52px);line-height:1.02;letter-spacing:-.02em;margin:.35em 0 0;
+    text-wrap:balance;font-weight:800}
+  h1 .accent{color:var(--accent)}
+  .lede{color:var(--muted);max-width:66ch;margin:16px 0 0;font-size:clamp(15px,1.7vw,17px)}
+  .src{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:12px}
+
+  /* stat strip */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;
+    background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;
+    margin-top:56px;box-shadow:var(--shadow)}
+  .stat{background:var(--surface);padding:16px 18px}
+  .stat b{font-family:var(--mono);font-size:27px;font-weight:700;letter-spacing:-.02em;
+    display:block;font-variant-numeric:tabular-nums;line-height:1}
+  .stat span{font-size:11.5px;font-family:var(--mono);letter-spacing:.06em;text-transform:uppercase;
+    color:var(--faint);margin-top:7px;display:block}
+
+  section{margin-top:52px}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;flex-wrap:wrap;
+    border-bottom:1px solid var(--line-strong);padding-bottom:10px;margin-bottom:20px}
+  .sec-head h2{font-size:16px;margin:0;font-family:var(--mono);letter-spacing:.02em;font-weight:700;
+    text-transform:uppercase}
+  .sec-head .hint{font-family:var(--mono);font-size:12px;color:var(--faint)}
+
+  /* controls */
+  .controls{display:flex;flex-direction:column;gap:14px;position:sticky;top:0;z-index:5;
+    background:var(--bg);padding:14px 0 12px;margin-bottom:2px}
+  .search{display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--line-strong);
+    border-radius:9px;padding:9px 13px;box-shadow:var(--shadow)}
+  .search svg{flex:none;color:var(--faint)}
+  .search input{border:0;background:transparent;color:var(--ink);font-family:var(--sans);
+    font-size:15px;width:100%;outline:none}
+  .search input::placeholder{color:var(--faint)}
+  .search kbd{font-family:var(--mono);font-size:11px;color:var(--faint);border:1px solid var(--line-strong);
+    border-radius:5px;padding:2px 6px;flex:none}
+
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{font-family:var(--mono);font-size:12px;letter-spacing:.02em;border:1px solid var(--line-strong);
+    background:var(--surface);color:var(--muted);padding:6px 11px;border-radius:999px;cursor:pointer;
+    display:inline-flex;align-items:center;gap:7px;transition:.12s;user-select:none}
+  .chip:hover{border-color:var(--faint);color:var(--ink)}
+  .chip .dot{width:8px;height:8px;border-radius:50%;background:var(--fc,var(--faint));flex:none}
+  .chip .ct{color:var(--faint);font-size:11px}
+  .chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+  .chip[aria-pressed="true"] .ct{color:var(--bg);opacity:.7}
+  .chip.all[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+
+  /* table */
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);
+    background:var(--surface)}
+  table{border-collapse:collapse;width:100%;min-width:920px;font-size:13.5px}
+  thead th{position:sticky;top:0;background:var(--surface-2);text-align:left;
+    font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint);
+    font-weight:600;padding:11px 12px;border-bottom:1px solid var(--line-strong);white-space:nowrap}
+  tbody td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr:hover{background:var(--surface-2)}
+  .c-ev{font-family:var(--mono);font-size:11.5px;color:var(--muted);white-space:nowrap}
+  .c-ev b{color:var(--ink);font-weight:600;display:block}
+  .c-name{font-weight:600;min-width:150px}
+  .c-name .fam{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:10.5px;
+    letter-spacing:.04em;text-transform:uppercase;color:var(--faint);margin-top:3px}
+  .c-name .fam .dot{width:7px;height:7px;border-radius:50%;background:var(--fc)}
+  .num{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .c-dist{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--steel);white-space:nowrap}
+  .c-pts{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right;font-weight:600}
+  .c-tgt{color:var(--muted);min-width:170px}
+  .c-pos{color:var(--muted);font-size:12.5px;min-width:120px}
+  td.n0{color:var(--faint)}
+  .flag{color:var(--warn);font-weight:700;cursor:help}
+  .empty{padding:40px;text-align:center;color:var(--faint);font-family:var(--mono);font-size:13px}
+
+  /* family grid */
+  .fam-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+  .fam-card{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:14px 15px;
+    box-shadow:var(--shadow);border-left:3px solid var(--fc)}
+  .fam-card h3{margin:0;font-size:14.5px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .fam-card h3 .n{font-family:var(--mono);font-size:12px;color:var(--faint);font-weight:600}
+  .fam-card p{margin:8px 0 0;font-size:12.5px;color:var(--muted);line-height:1.45}
+
+  /* events */
+  .ev-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+  .ev-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 14px;
+    box-shadow:var(--shadow);display:flex;flex-direction:column;gap:4px}
+  .ev-card .d{font-family:var(--mono);font-size:11.5px;color:var(--accent);letter-spacing:.04em}
+  .ev-card .t{font-weight:600;font-size:13.5px;line-height:1.3}
+  .ev-card .m{font-family:var(--mono);font-size:11.5px;color:var(--faint);display:flex;gap:8px;
+    flex-wrap:wrap;margin-top:2px}
+  .ev-card .m .b{color:var(--muted)}
+
+  .notes{background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:18px 20px;
+    box-shadow:var(--shadow)}
+  .notes ul{margin:0;padding-left:18px}
+  .notes li{margin:7px 0;color:var(--muted);font-size:13.5px}
+  .notes li b{color:var(--ink)}
+  .notes .flag{margin-right:4px}
+
+  footer{margin-top:56px;padding-top:18px;border-top:1px solid var(--line);
+    font-family:var(--mono);font-size:11.5px;color:var(--faint);display:flex;justify-content:space-between;
+    gap:12px;flex-wrap:wrap}
+
+  .toolbar{position:fixed;top:14px;right:14px;z-index:20;display:flex;gap:9px;align-items:center}
+  .theme-btn{width:38px;height:38px;border-radius:9px;flex:none;
+    border:1px solid var(--line-strong);background:var(--surface);color:var(--muted);cursor:pointer;
+    display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow)}
+  .theme-btn:hover{color:var(--ink)}
+  .gen-btn{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:var(--accent-ink);
+    border:0;border-radius:9px;padding:10px 15px;font-family:var(--mono);font-size:12.5px;font-weight:600;
+    letter-spacing:.01em;cursor:pointer;box-shadow:var(--shadow);white-space:nowrap}
+  .gen-btn:hover{filter:brightness(1.07)}
+  .gen-btn svg{flex:none}
+
+  /* modal */
+  .modal{position:fixed;inset:0;z-index:50;display:none}
+  .modal.open{display:block}
+  .modal-backdrop{position:absolute;inset:0;background:rgba(10,14,12,.55)}
+  .modal-panel{position:absolute;inset:clamp(8px,2.5vw,34px);background:var(--bg);border:1px solid var(--line-strong);
+    border-radius:14px;box-shadow:0 24px 70px rgba(0,0,0,.45);display:flex;flex-direction:column;overflow:hidden}
+  .modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 18px;
+    border-bottom:1px solid var(--line);flex:none}
+  .modal-head h2{margin:0;font-size:15px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.03em}
+  .modal-head .sub{font-family:var(--mono);font-size:11.5px;color:var(--faint);margin-top:3px}
+  .modal-close{width:34px;height:34px;border-radius:8px;border:1px solid var(--line-strong);background:var(--surface);
+    color:var(--muted);cursor:pointer;font-size:15px;flex:none}
+  .modal-close:hover{color:var(--ink)}
+  .modal-body{flex:1;display:grid;grid-template-columns:1fr 306px;min-height:0}
+  .gallery-wrap{overflow:auto;padding:18px;background:var(--surface-2);min-height:0;
+    display:flex;justify-content:center;align-items:flex-start}
+  #galleryStage{max-width:100%}
+  #galleryStage svg{display:block;max-width:100%}
+  #galleryStage text{font-family:var(--mono)}
+  .g-field{fill:var(--surface);stroke:var(--line-strong)}
+  .g-grid{stroke:var(--line)}
+  .g-axis{fill:var(--faint)}
+  .g-rubezh{stroke:var(--accent)}
+  .g-rubezh-t{fill:var(--accent)}
+  .g-dist{fill:var(--muted)}
+  .g-paper{fill:var(--surface)}
+  .g-cell{fill:none;stroke:var(--line-strong);stroke-width:1}
+  .g-slot{fill:var(--surface-2);stroke:var(--accent);stroke-width:1.3}
+  .g-slot-n{fill:var(--muted)}
+  .tgt{cursor:pointer}
+
+  .settings{border-left:1px solid var(--line);padding:16px;overflow:auto;background:var(--surface);
+    display:flex;flex-direction:column;gap:15px;min-height:0}
+  .set-label{font-family:var(--mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;
+    align-items:baseline;margin-bottom:8px;text-transform:uppercase;letter-spacing:.04em}
+  .set-label b{font-size:17px;color:var(--accent);font-variant-numeric:tabular-nums}
+  input[type=range]{width:100%;accent-color:var(--accent)}
+  .firing-row{display:flex;gap:10px;margin-top:9px}
+  .fr-lbl{flex:1;font-family:var(--mono);font-size:10px;letter-spacing:.03em;text-transform:uppercase;
+    color:var(--faint);display:flex;flex-direction:column;gap:5px}
+  .fr-lbl select{font-family:var(--sans);font-size:13.5px;padding:7px 9px;border-radius:7px;
+    border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);cursor:pointer}
+  .principles{background:var(--surface-2);border:1px solid var(--line);border-radius:9px;padding:12px 13px}
+  .pr-title{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--faint);margin-bottom:7px}
+  .principles ul{margin:0;padding-left:16px}
+  .principles li{font-size:12px;color:var(--muted);margin:4px 0;line-height:1.4}
+  .gl{display:flex;flex-direction:column;gap:6px}
+  .gl-item{display:flex;gap:9px;align-items:flex-start;padding:7px 8px;border:1px solid var(--line);
+    border-radius:8px;background:var(--surface-2);cursor:default}
+  .gl-no{width:20px;height:20px;border-radius:5px;flex:none;color:#fff;font-family:var(--mono);font-size:11px;
+    font-weight:700;display:flex;align-items:center;justify-content:center}
+  .gl-name{font-size:13px;font-weight:600;line-height:1.2}
+  .gl-meta{font-family:var(--mono);font-size:10.5px;color:var(--faint);margin-top:2px}
+
+  .tip{position:fixed;z-index:60;max-width:278px;background:var(--surface);border:1px solid var(--line-strong);
+    border-radius:9px;box-shadow:0 8px 24px rgba(0,0,0,.28);padding:11px 13px;font-size:12.5px;
+    pointer-events:none;display:none}
+  .tip b{font-size:13px}
+
+  @media (max-width:640px){
+    .modal-panel{inset:6px}
+    .modal-body{grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}
+    .settings{order:-1;border-left:0;border-bottom:1px solid var(--line);
+      flex-direction:row;flex-wrap:wrap;align-items:center;gap:9px;padding:11px 12px;
+      max-height:none;overflow:visible}
+    .set-wrap{flex:1 1 100%}
+    #doGen{flex:1 1 45%;width:auto}
+    #exportPdf{flex:1 1 45%;width:auto}
+    .principles,.set-stations{display:none}
+    .gallery-wrap{padding:10px}
+    .gen-btn .btn-label{display:none}
+    .gen-btn{padding:10px}
+  }
+
+  @media (max-width:560px){
+    .stat b{font-size:22px}
+    h1{font-size:30px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+  .ghost-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;
+    background:transparent;color:var(--accent);border:1px solid var(--accent);border-radius:9px;
+    padding:9px 14px;font-family:var(--mono);font-size:12.5px;font-weight:600;cursor:pointer}
+  .ghost-btn:hover{background:var(--accent);color:var(--accent-ink)}
+  .ghost-btn svg{flex:none}
+
+  /* briefing export document (print only) */
+  #briefingDoc{display:none}
+  #briefingDoc .bf-head{border-bottom:2px solid #16110c;padding-bottom:10px;margin-bottom:14px}
+  #briefingDoc .bf-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#c9531b}
+  #briefingDoc .bf-title{font-size:25px;margin:6px 0 5px;color:#16110c;font-weight:800;letter-spacing:-.01em}
+  #briefingDoc .bf-meta{font-family:var(--mono);font-size:12px;color:#555}
+  #briefingDoc .bf-plan{margin:12px 0 16px;break-inside:avoid;text-align:center}
+  #briefingDoc .bf-plan svg{height:150mm;max-height:150mm;width:auto;max-width:100%}
+  #briefingDoc text{font-family:var(--mono)}
+  #briefingDoc .g-field{fill:#f4f4f1;stroke:#c9c9c3}
+  #briefingDoc .g-grid{stroke:#dcdcd6}
+  #briefingDoc .g-axis,#briefingDoc .g-dist{fill:#555}
+  #briefingDoc .g-rubezh{stroke:#c9531b}
+  #briefingDoc .g-rubezh-t{fill:#c9531b}
+  #briefingDoc .g-paper{fill:#fff}
+  #briefingDoc .g-cell{stroke:#c9c9c3}
+  #briefingDoc .g-slot{fill:#fff;stroke:#c9531b}
+  #briefingDoc .g-slot-n{fill:#555}
+  #briefingDoc .bf-sec{font-size:12px;font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;
+    color:#16110c;margin:0 0 7px;font-weight:700}
+  #briefingDoc .bf-rules{margin-bottom:16px;break-inside:avoid}
+  #briefingDoc .bf-rules ul{margin:0;padding-left:16px}
+  #briefingDoc .bf-rules li{font-size:12px;color:#333;margin:3px 0;line-height:1.42}
+  #briefingDoc .bf-ex{break-inside:avoid;page-break-inside:avoid;border:1px solid #dcdcd6;border-radius:8px;
+    padding:11px 13px;margin-bottom:9px}
+  #briefingDoc .bf-ex-head{display:flex;align-items:center;gap:10px}
+  #briefingDoc .bf-no{width:24px;height:24px;border-radius:5px;color:#fff;font-family:var(--mono);font-weight:700;
+    font-size:13px;display:flex;align-items:center;justify-content:center;flex:none}
+  #briefingDoc .bf-ex-name{font-size:15px;font-weight:700;color:#16110c}
+  #briefingDoc .bf-ex-fam{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.04em;color:#8a8a84}
+  #briefingDoc .bf-ex-pts{margin-left:auto;font-family:var(--mono);font-weight:700;font-size:17px;color:#16110c;
+    white-space:nowrap}
+  #briefingDoc .bf-ex-pts span{font-size:9px;color:#8a8a84;font-weight:400;margin-left:3px}
+  #briefingDoc .bf-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px 18px;margin:9px 0 6px}
+  #briefingDoc .bf-row{display:flex;gap:8px;font-size:12px}
+  #briefingDoc .bf-k{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.04em;
+    color:#9a9a94;min-width:104px;flex:none}
+  #briefingDoc .bf-v{color:#222}
+  #briefingDoc .bf-proc{font-size:12px;color:#333;line-height:1.42;border-top:1px solid #eee;padding-top:6px;margin-top:5px}
+  #briefingDoc .bf-proc .bf-k{display:inline;min-width:0;margin-right:5px}
+  #briefingDoc .bf-foot{margin-top:16px;padding-top:8px;border-top:1px solid #e2e2dc;
+    font-family:var(--mono);font-size:10px;color:#9a9a94;text-align:center}
+
+  @media print{
+    :root{color-scheme:light}
+    html,body{background:#fff !important}
+    body > *{display:none !important}
+    #briefingDoc{display:block !important;color:#16110c;font-family:var(--sans)}
+    @page{size:A4;margin:13mm}
+  }
+</style>
+
+<div class="toolbar">
+  <button class="gen-btn" id="openGen">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="2.4" fill="currentColor" stroke="none"/></svg>
+    <span class="btn-label">Сгенерировать упражнения</span>
+  </button>
+</head>
+<body>
+  <button class="theme-btn" id="themeBtn" aria-label="Переключить тему" title="Тема">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+  </button>
+</div>
+
+<div class="modal" id="genModal" aria-hidden="true">
+  <div class="modal-backdrop" id="genBackdrop"></div>
+  <div class="modal-panel" role="dialog" aria-modal="true" aria-label="Генератор упражнений">
+    <div class="modal-head">
+      <div>
+        <h2>Генератор упражнений</h2>
+        <div class="sub">галерея 315 × 50 м · раскладка по принципам брифингов</div>
+      </div>
+      <button class="modal-close" id="closeGen" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="gallery-wrap"><div id="galleryStage"></div></div>
+      <aside class="settings">
+        <div class="set-wrap">
+          <label class="set-label" for="genCount">Упражнений <b id="genCountVal">6</b></label>
+          <input type="range" id="genCount" min="1" max="10" value="6">
+        </div>
+        <div class="set-wrap">
+          <label class="set-label">Стрелковые места <b id="firingTotal">12</b></label>
+          <div class="firing-row">
+            <label class="fr-lbl">Ячеек
+              <select id="cellCount"><option>1</option><option>2</option><option>3</option><option selected>4</option></select></label>
+            <label class="fr-lbl">Мест в ячейке
+              <select id="cellSize"><option>1</option><option>2</option><option selected>3</option><option>4</option></select></label>
+          </div>
+        </div>
+        <button class="gen-btn" id="doGen" style="width:100%;justify-content:center">Сгенерировать</button>
+        <button class="ghost-btn" id="exportPdf">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12M7 11l5 5 5-5M5 21h14"/></svg>
+          Экспорт брифинга · PDF
+        </button>
+        <div class="principles">
+          <div class="pr-title">Принципы раскладки</div>
+          <ul>
+            <li>холодный выстрел — станция №1</li>
+            <li>зонирование: ближняя 25–70 м · средняя 80–200 м · дальняя 300 м</li>
+            <li>баланс семейств: точность / скорость / позиционка / дальняк</li>
+            <li>каждое упражнение — свой коридор, мишени не перекрываются</li>
+          </ul>
+        </div>
+        <div class="set-stations">
+          <div class="pr-title">Станции · наведи на мишень</div>
+          <div id="genList" class="gl"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+<div class="tip" id="genTip"></div>
+<div id="briefingDoc"></div>
+
+<div class="wrap">
+  <header>
+    <div class="stats">
+      <div class="stat"><b>12</b><span>брифингов</span></div>
+      <div class="stat"><b id="s-rows">91</b><span>упражнений</span></div>
+      <div class="stat"><b id="s-fam">13</b><span>семейств</span></div>
+      <div class="stat"><b>2</b><span>года · 2024–26</span></div>
+      <div class="stat"><b>35–304</b><span>метров</span></div>
+    </div>
+  </header>
+
+  <section id="catalog">
+    <div class="sec-head">
+      <h2>Реестр упражнений</h2>
+      <span class="hint" id="showing">показано 91 из 91</span>
+    </div>
+
+    <div class="controls">
+      <label class="search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+        <input id="q" type="search" placeholder="Поиск: название, реквизит, дистанция… (ёж, крутилка, штатив, 300)" autocomplete="off">
+        <kbd>/</kbd>
+      </label>
+      <div class="chips" id="chips"></div>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead><tr>
+          <th>Событие</th><th>№</th><th>Упражнение</th><th>Дистанция, м</th>
+          <th>Цели</th><th>Выстр.</th><th>Время</th><th>Позиция</th><th style="text-align:right">Очки</th>
+        </tr></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="families">
+    <div class="sec-head"><h2>Семейства упражнений</h2><span class="hint">одна идея — много вариаций</span></div>
+    <div class="fam-grid" id="famGrid"></div>
+  </section>
+
+  <section id="events">
+    <div class="sec-head"><h2>События-источники</h2><span class="hint">12 брифингов</span></div>
+    <div class="ev-grid" id="evGrid"></div>
+  </section>
+
+  <section id="notes">
+    <div class="sec-head"><h2>Оговорки к данным</h2></div>
+    <div class="notes">
+      <ul>
+        <li><span class="flag">⚠</span><b>Семинар Стерлитамак 30.05.26</b> (силуэты Курица/Кабан/Индюшка/Баран) на сайте показывает дистанцию «1 м» и размер мишени «1 см» — почти наверняка баг данных карточки; реальный силуэтный МК ведётся на десятки метров. Значения приведены как есть.</li>
+        <li><span class="flag">⚠</span><b>Размеры и схемы очков</b> некоторых упражнений (напр. «Перенос» в «Играх Патриотов 4», таблицы Стерлитамака) в брифинге не расписаны или свёрнуты — где данных нет, ячейка помечена «—», не додумано.</li>
+        <li><b>Извлечение через веб-версию брифинга</b> (/html/) суммируется моделью — для абсолютно точной посимвольной цитаты конкретного упражнения открой первоисточник или PDF (/briefing/&lt;slug&gt;/file/).</li>
+        <li><b>Будущие матчи без брифинга</b> (Кубок-2026 матч 1 и 2, МК Снайпинг лето-2026 на НСК «Ранчо») в реестр не вошли — брифинги ещё не опубликованы.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <span>МК-снайпинг · каталог упражнений · .22LR</span>
+    <span>конструктор матча</span>
+  </footer>
+</div>
+
+<script>
+const FAM={
+  COLD:{c:"#C64B3B",t:"Холодный / точный выстрел",d:"Одиночное точное поражение с холодного ствола: 1–3 выстрела, короткое время, часто «до первого попадания»."},
+  PREC:{c:"#7A863A",t:"Точность / бумага / разрушаемые",d:"Работа по бумаге, спичкам, кабелям, меткостным гонгам — приоритет кучности над скоростью."},
+  TRANS:{c:"#B5711A",t:"Перенос по фронту",d:"Много гонгов по фронту, поражение в заданном судьёй порядке, переход после хита/промахов."},
+  LADDER:{c:"#3B6A85",t:"Качалки / убывающие",d:"Ряд целей по убыванию размера или по нарастанию дистанции — от большой/ближней к малой/дальней."},
+  SPIN:{c:"#5A6ABF",t:"Крутилки",d:"Вращающиеся мишени/катушки: цель должна провернуться, часто зачёт времени в очки."},
+  HEDGE:{c:"#7E5AA6",t:"«Ёж»",d:"Многопозиционная радиальная платформа: смена позиции/ветви ежа между выстрелами."},
+  DALLAS:{c:"#A8552B",t:"«Даллас» / скорость",d:"3 гонга на 53/73/81 м (или аналог) на скорость — с бочки, стола или лёжа, хит-фактор по времени."},
+  BARR:{c:"#4E7A4E",t:"Штатив / барикада",d:"Стрельба со штатива, треноги, опор и бочек стоя/сидя — неустойчивые положения."},
+  FAR:{c:"#2E7D8A",t:"Дальняк",d:"Большие гонги на 300+ м, серии выстрелов, чтение ветра и вертикальных поправок."},
+  STRUCT:{c:"#9A6A2E",t:"Конструкции / порты",d:"Лестницы, порты, перила, упавшая лестница, колонны — стрельба из/через сооружения."},
+  MIX:{c:"#B85C7A",t:"Гонг + крутилка",d:"Чередование дальних гонгов и близкой крутилки строгим порядком в одном упражнении."},
+  NOV:{c:"#8A6A34",t:"Игровые / новелти",d:"Нестандартные сценарии: кости (шеш-беш), смайлики, карточки с номерами целей."},
+  SILH:{c:"#8A6A34",t:"Металлический силуэт",d:"Классический силуэт: курица/кабан/индюшка/баран, стоя без опоры, 1 очко за сбитую."}
+};
+// ev: [короткий код, дата]
+const D=[
+ // === match-1-2025 · 25.01.25 ===
+ ["М1","25.01.25",1,"Холодный выстрел «Сюрприз»","COLD","—","скрытые условия","1","—","—","3.60"],
+ ["М1","25.01.25",2,"Сильный или слабый?","BARR","130 / 180","2 гонга 15 и 20 см","12","140 с","2 стула + штатив, смена плеча","12.00"],
+ ["М1","25.01.25",3,"Бешенный штатив и бочки","BARR","100 / 200","2 гонга 15 и 20 см","12","120 с","3 опоры, бочки, монопод","12.00"],
+ ["М1","25.01.25",4,"Ёж","HEDGE","145 / 180","2 ромба 15 и 20 см","12","130 с","ёж, 3 позиции, дальний→ближний","12.00"],
+ ["М1","25.01.25",5,"Крутилки","SPIN","50","5 крутилок ≥50 мм","5–10","80 с","стоя с треноги","8.00"],
+ ["М1","25.01.25",6,"Best Long Range","FAR","~300","2 гонга 30 см","12","120 с","сидя с треноги","12.00"],
+ ["М1","25.01.25",7,"Открой счёт","NOV","100–250","5 гонгов 15/20 см по карточке","10","150 с","со штатива","10.00"],
+ // === match-2-2025 · 22.03.25 ===
+ ["М2","22.03.25",1,"Большой перенос ЦВС","TRANS","50–200","12 круглых гонгов 10 см","18","45 с ×3","лёжа со штатива ≥1 м","9.00"],
+ ["М2","22.03.25",2,"Снайпер 200","COLD","200","гонг 15 см","2","30 с","лёжа","1.00"],
+ ["М2","22.03.25",3,"Далеко паровоз","LADDER","200–300","4 гонга 15/20/25/30 см","10","120 с","лёжа, ближний→дальний","10.00"],
+ ["М2","22.03.25",4,"Холодный, найди меня","NOV","100 / 50","гонг 10 см + 3 смайла на А4","4","45 с","лёжа","3.00"],
+ ["М2","22.03.25",5,"Качалки","LADDER","180–200","5 гонгов 25→7 см","10","120 с","лёжа, большой→малый","10.00"],
+ ["М2","22.03.25",6,"Крутилка классика","SPIN","35","крутилка, 6 гонгов 5 см","15","60 с","лёжа, оружие заряжено","7.00"],
+ ["М2","22.03.25",7,"ШТАТИВ СТЕНА","BARR","100–140","2 гонга 10 и 15 см","12","180 с","штатив у стены с портами, 3 поз.","12.00"],
+ ["М2","22.03.25",8,"Даллас — классика","DALLAS","53 / 73 / 81","3 гонга 10 см","3","45 с","сидя за столом (подоконник)","5.00"],
+ ["М2","22.03.25",9,"Подтверди успех","MIX","90 / 120 + 35","2 гонга 10 см + крутилка 5×5 см","12","180 с","лёжа, строгий порядок","10.00"],
+ ["М2","22.03.25",10,"Шеш-беш","NOV","80–150","6 гонгов 10 см (грани костей)","12","180 с","лёжа, 3 подхода, переворот костей","12.00"],
+ // === match-3-2025 (семинар ч.3) · 16.08.25 ===
+ ["М3","16.08.25",1,"Большой перенос ЦВС","TRANS","50–200","9 гонгов по фронту","18","45 с ×3","лёжа со штатива, дальномеры","45"],
+ ["М3","16.08.25",2,"Качалки","LADDER","180–200","5 гонгов 25→7 см","10","120 с","лёжа","10"],
+ ["М3","16.08.25",3,"Крутилка классика","SPIN","35","крутилка, 6 гонгов","15","60 с","лёжа","7"],
+ ["М3","16.08.25",4,"Подтверди успех","MIX","90 / 120 + 35","2 гонга 10 см + крутилка","12","180 с","лёжа","10"],
+ ["М3","16.08.25",5,"Далеко паровоз","LADDER","200–300","4 гонга 15/20/25/30 см","10","120 с","лёжа","10"],
+ ["М3","16.08.25",6,"Ёж","HEDGE","145–180","2 синих ромба 15 и 20 см","12","120 с","ёж, 3 поз., дальний→ближний","12"],
+ ["М3","16.08.25",7,"Между портами","STRUCT","80 / 120","гонги 10 и 15 см","9","120 с","2 порта с лестницами + бочка","9"],
+ ["М3","16.08.25",8,"Даллас («Крабы Мосада»)","DALLAS","53 / 73 / 81","3 гонга 15 см","3–10","до 60 с","лёжа, любые мешки, угол 90°","3"],
+ // === match-4 · 11.10.25 ===
+ ["М4","11.10.25",1,"Большой перенос ЦВС","TRANS","50–200","9 гонгов 10–20 см","18","45 с","лёжа","9"],
+ ["М4","11.10.25",2,"Качалки","LADDER","180–200","5 гонгов 25→7 см","10","120 с","лёжа","10"],
+ ["М4","11.10.25",3,"Крутилка классика","SPIN","35","крутилка, 6 гонгов","15","60 с","лёжа","7"],
+ ["М4","11.10.25",4,"Даллас — классика","DALLAS","53 / 73 / 81","3 гонга 10 см","3","45 с","сидя за столом","5"],
+ ["М4","11.10.25",5,"Ёж","HEDGE","145–180","2 ромба 15 и 20 см","10","120 с","ёж, 3 поз., ближний→дальний","6"],
+ ["М4","11.10.25",6,"ШТАТИВ СТЕНА","BARR","100–140","2 гонга 10 и 15 см","8","180 с","со штатива, стена с портами","12"],
+ ["М4","11.10.25",7,"Крутись как хочешь","MIX","90–120","гонг + крутилка 5 целей + гонг","10","180 с","лёжа","10"],
+ ["М4","11.10.25",8,"Платформа","BARR","120","гонг 15 см","10","180 с","сидя за столом/платформа","12"],
+ ["М4","11.10.25",9,"Далеко","FAR","~300","2 гонга 30 см (розовый+оранж.)","10","120 с","лёжа, слева направо","10"],
+ ["М4","11.10.25",10,"Бешенный штатив и бочки (запас)","BARR","120–180","2 гонга 15 и 20 см","12","120 с","3 опоры, бочки, монопод","12"],
+ // === Игры Патриотов 1 · 10.02.24 ===
+ ["ИП1","10.02.24",1,"Холодный","COLD","130","гонг 15 см","3","10 с","сидя с треноги, патрон в патроннике","1"],
+ ["ИП1","10.02.24",2,"Лестница","STRUCT","120","гонг 10 см","∞","90 с","с верхней ступени, по 2 со ступени","6"],
+ ["ИП1","10.02.24",3,"Рея и перила","STRUCT","110","гонг 15 см","15","120 с","1 с реи + 1 с перил, смена позиции","15"],
+ ["ИП1","10.02.24",4,"Вижу цели","BARR","100–200","гонги (порядок задаёт судья)","6","150 с","со штатива, сидя/на коленях","6"],
+ ["ИП1","10.02.24",5,"Ёж","HEDGE","100 / 120","гонг 10 см, точки отмечены","10","—","ёж с 10 ногами, по 1 с ноги","10"],
+ ["ИП1","10.02.24",6,"Деньги на бочку","DALLAS","53 / 73 / 81","3 цели","—","10 с","с бочки, бонус лучшему по времени","4"],
+ ["ИП1","10.02.24",7,"Крутятся катушки","SPIN","35","крутилки 50/40/30/20/15 мм","12","90 с","сидя, 2 прохода, большой→малый","10"],
+ // === Игры Патриотов 2 · 18.05.24 ===
+ ["ИП2","18.05.24",1,"Вспомни всё","STRUCT","35–130","гонги 15 см + крутилка 15 мм","6","120 с","5 позиций: перила/лестница/ёж/бочка/крутилка","6"],
+ ["ИП2","18.05.24",2,"Сурки","LADDER","100–105","5 гонгов 10 см (глубина 1 м)","10","60 с","сидя, ближний→дальний, ×2","10"],
+ ["ИП2","18.05.24",3,"Укрытие","STRUCT","80–180","2 гонга 10 и 20 см","10","120 с","упавшая лестница, 4 позиции","10"],
+ ["ИП2","18.05.24",4,"Охота на шакала","BARR","130–200","3 гонга 15/20/20 см","12","120 с","сидя/на коленях за штативом","12"],
+ ["ИП2","18.05.24",5,"Ёж","HEDGE","130–200","3 гонга 15/20/20 см","18","120 с","ёж, 3 поз., дальний→ближний ×6","18"],
+ ["ИП2","18.05.24",6,"Крутилки","SPIN","70","5 крутилок 50→15 мм","15","150 с","сидя с треноги","5"],
+ ["ИП2","18.05.24",7,"Best long range","FAR","300+","2 гонга 20 и 30 см","10","60 с","лёжа, по 5 в каждый","10"],
+ // === Игры Патриотов 4 · 28.09.24 ===
+ ["ИП4","28.09.24",1,"Холодный выстрел","PREC","50","бумага, круги 20 и 15 мм","3","60 с","лёжа с сошек","2"],
+ ["ИП4","28.09.24",2,"Звенья цепи","PREC","50","бумага, 5 кругов с убыв. центром","5","60 с","лёжа, без разрыва цепи","5"],
+ ["ИП4","28.09.24",3,"Спички, карты","PREC","25","5 спичек + карта боком","∞","30–45 с","лёжа, свободный порядок","8"],
+ ["ИП4","28.09.24",4,"Самый быстрый","COLD","100","силуэт «курица»","3","30 с","лёжа, старт спиной к цели","4"],
+ ["ИП4","28.09.24",5,"Жадный Ёж","HEDGE","60 / 77 / 100","силуэты курица/кабан/индейка","10","90 с","ёж, новая ветвь каждый выстрел","9"],
+ ["ИП4","28.09.24",6,"Охота на шакала","BARR","130 / 170 / 210","3 гонга 15/20/20 см","6","120 с","сидя/на коленях со штатива","6"],
+ ["ИП4","28.09.24",7,"Снайпер 1000 футов","COLD","~304","гонг 10 см","2","20 с","лёжа с сошек","1"],
+ ["ИП4","28.09.24",8,"Перенос","TRANS","50–200","5 гонгов (размеры на брифинге)","10","120 с","лёжа","8"],
+ ["ИП4","28.09.24",9,"Далеко","FAR","~304","гонги 30 и 20 см","10","180 с","лёжа, по 5 в каждый","10"],
+ ["ИП4","28.09.24",10,"Даллас","DALLAS","53 / 73 / 81","3 гонга 10 см","3","10 с","лёжа, бонус ≤6 с","5"],
+ // === Игры Патриотов 5 · 30.11.24 ===
+ ["ИП5","30.11.24",1,"Холодный хит","COLD","120","гонг 10 см","1–2","30 с","лёжа, до первого попадания","2"],
+ ["ИП5","30.11.24",2,"Звенья цепи","PREC","50 / 100 / 200","бумага 5 мишеней + гонги 10/20","5–6","60 с","лёжа, +10 мин пристрелка","5"],
+ ["ИП5","30.11.24",3,"1000 ярд","COLD","300","гонг 20 см","1–2","30 с","лёжа, до первого попадания","1"],
+ ["ИП5","30.11.24",4,"Кабельщик","PREC","35","5 кабелей ПУ 0,75 мм²","5–10","40 с","лёжа, перебить жилу","5"],
+ ["ИП5","30.11.24",5,"Далеко","FAR","300","гонги 30 и 20 см","6–12","120 с","лёжа, ≤3 хита в каждый","6"],
+ ["ИП5","30.11.24",6,"Даллас с бочки","DALLAS","53 / 73 / 81","3 гонга 10 см","3–5","10 с","с бочки, хит-фактор ≤6 с","4"],
+ ["ИП5","30.11.24",7,"Охота на шакалов","BARR","70–230","6 гонгов 5/10/15/20/20/30 см","6–12","150 с","стоя со штатива, порядок 1-3-5-2-4-6","6"],
+ ["ИП5","30.11.24",8,"Злой ёж","HEDGE","35 / 140 / 200","гонги 3/15/20 см","6–12","150 с","ёж, 3 поз., порядок 5-0-3-0-5-3","6"],
+ ["ИП5","30.11.24",9,"В лесу","STRUCT","120","гонг 10 см","3","40 с","стоя с опорой на колонну, из чехла","2"],
+ // === Чемпионат Стерлитамак Снайпинг МК · 22.02.25 ===
+ ["ЧЕ·Стер","22.02.25",1,"1 МОА","COLD","100","квадрат. гонг 3 см","1–2","30 с","лёжа","3.00"],
+ ["ЧЕ·Стер","22.02.25",2,"Перенос","TRANS","120 / 80 / 50","6 квадр. гонгов 10/8/8/5/5/3 см","6–12","100 с","лёжа","5.00"],
+ ["ЧЕ·Стер","22.02.25",3,"Пианино","LADDER","50","5 прямоуг. гонгов 5→1 см","5–10","60 с","лёжа, большой→малый","15.00"],
+ ["ЧЕ·Стер","22.02.25",4,"На меткость","PREC","100","10 круглых гонгов 1–12 см","10","300 с","лёжа, квалификация","0"],
+ // === Семинар Стерлитамак · 31.08.25 ===
+ ["Сем·Стер","31.08.25",1,"Дубль V","TRANS","50–80","5 квадр. гонгов 2/3 см","5–10","100 с","лёжа, последовательно 1→5","43.25"],
+ ["Сем·Стер","31.08.25",2,"Перенос","TRANS","100 / 50 / 80","6 гонгов (большие+малые)","6–12","120 с","лёжа","52.90"],
+ ["Сем·Стер","31.08.25",3,"Карусель","TRANS","30","10 круглых гонгов 4 и 2 см","10","100 с","лёжа, слева→направо, большие→малые","83.50"],
+ ["Сем·Стер","31.08.25",4,"Пианино","LADDER","70","5 квадр. гонгов 5→1 см","5–10","100 с","лёжа, большой→малый","44.75"],
+ ["Сем·Стер","31.08.25",5,"Кто дальше","LADDER","50→100","5 квадр. гонгов 2 и 3 см","5–10","100 с","лёжа, ближний→дальний","44.95"],
+ ["Сем·Стер","31.08.25",6,"Снайпер 100","COLD","100","квадр. гонг 2 см","1–2","20 с","лёжа","6.00"],
+ ["Сем·Стер","31.08.25",7,"Автограф 5","PREC","100","бумага 10 см","5","100 с","лёжа, на точность","50.00"],
+ ["Сем·Стер","31.08.25",8,"Даллас","DALLAS","50 / 70 / 100","3 квадр. гонга 5/8/10 см","3","10 с","сидя за столом, по 1 на дист.","26.35"],
+ // === Семинар Стерлитамак (силуэт) · 30.05.26 ===
+ ["Сем·Стер*","30.05.26",1,"Курица","SILH","1 ⚠","гонг спец. 1 см ⚠","5","150 с","стоя без опоры","1.00"],
+ ["Сем·Стер*","30.05.26",2,"Курица · 2-й подход","SILH","1 ⚠","гонг спец. 1 см ⚠","5","150 с","стоя без опоры","1.00"],
+ ["Сем·Стер*","30.05.26",3,"Кабан","SILH","1 ⚠","силуэт кабана 1 см ⚠","5","150 с","стоя без опоры","1.00"],
+ ["Сем·Стер*","30.05.26",4,"Кабан · 2-й подход","SILH","1 ⚠","силуэт кабана 1 см ⚠","5","150 с","стоя без опоры","1.00"],
+ ["Сем·Стер*","30.05.26",5,"Индюшка","SILH","1 ⚠","гонг спец. 1 см ⚠","5","150 с","стоя без опоры","1.00"],
+ ["Сем·Стер*","30.05.26",6,"Индюшка · 2-й подход","SILH","1 ⚠","гонг спец. 1 см ⚠","5","150 с","стоя без опоры","1.00"],
+ ["Сем·Стер*","30.05.26",7,"Баран","SILH","1 ⚠","силуэт барана 1 см ⚠","5","150 с","стоя без опоры","1.00"],
+ ["Сем·Стер*","30.05.26",8,"Баран · 2-й подход","SILH","1 ⚠","силуэт барана 1 см ⚠","5","150 с","стоя без опоры","1.00"],
+ // === 22LR Силуэтная стрельба и снайпинг · 17.02.24 ===
+ ["22LR","17.02.24",1,"1 этап · Силуэт (силуэт)","SILH","—","40 металл. силуэтов (сталь 6 мм)","40","2,5 мин/серия","стоя без опоры, слева→направо","40"],
+ ["22LR","17.02.24",2,"2 этап · Снайпинг 77 м","LADDER","77","5 гонгов 100→20 мм","5","2,5 мин","стоя без опоры, большой→малый","15"],
+ ["22LR","17.02.24",3,"3 этап · Снайпинг 220 м","FAR","220","гонг-звезда","3","1,5 мин","сидя за столом, сошки/мешки","15"]
+];
+
+// event meta for cards
+const EV=[
+ ["М1","МК Снайпинг · Кубок 22LR, матч 1","25.01.25","7","mk-snajping-match-1-2025"],
+ ["М2","МК Снайпинг · Кубок 22LR, матч 2","22.03.25","10","mk-snajping-match-2-2025"],
+ ["М3","Семинар · Кубок 22LR, часть 3","16.08.25","8","mk-snajping-match-3-2025"],
+ ["М4","МК Снайпинг · Кубок 22LR, матч 4","11.10.25","10","mk-snajping-kubok-snipingru-i-kluba-22lr-match-4"],
+ ["ИП1","МК Снайпинг · Игры Патриотов 1","10.02.24","7","mk-snajping-igryi-patriotov-1-2024"],
+ ["ИП2","МК Снайпинг · Игры Патриотов 2","18.05.24","7","mk-snajping-igryi-patriotov-2-2024"],
+ ["ИП4","МК Снайпинг · Игры Патриотов 4","28.09.24","10","mk-snajping-igryi-patriotov-4-2024"],
+ ["ИП5","МК Снайпинг · Игры Патриотов 5","30.11.24","9","mk-snajping--igryi-patriotov-5-2024"],
+ ["ЧЕ·Стер","Чемпионат г. Стерлитамак, Снайпинг МК","22.02.25","4","chempionat-gsterlitamak-snajping-mk"],
+ ["Сем·Стер","Тренировочный семинар МК снайпинг, Стерлитамак","31.08.25","8","trenirovochnyij-seminar-mk-snajping-gsterlitamak"],
+ ["Сем·Стер*","Тренировочный семинар МК снайпинг (силуэт), Стерлитамак","30.05.26","8","trenirovochnyij-seminar-mk-snajping-gsterlitamak-1"],
+ ["22LR","22LR · Силуэтная стрельба и снайпинг","17.02.24","3","22lr-siluetnaya-strelba-i-snajping-2024"]
+];
+
+const tbody=document.getElementById('tbody');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+// counts per family
+const counts={}; D.forEach(r=>counts[r[4]]=(counts[r[4]]||0)+1);
+
+// chips
+const chips=document.getElementById('chips');
+let active="ALL";
+function chip(key,label,color,ct,cls){
+  const b=document.createElement('button');
+  b.className='chip'+(cls?' '+cls:'');
+  b.setAttribute('aria-pressed',key===active);
+  b.dataset.k=key;
+  b.innerHTML=(color?`<span class="dot" style="--fc:${color}"></span>`:'')+esc(label)+(ct!=null?` <span class="ct">${ct}</span>`:'');
+  b.onclick=()=>{active=key;[...chips.children].forEach(c=>c.setAttribute('aria-pressed',c.dataset.k===active));render();};
+  chips.appendChild(b);
+}
+chip("ALL","Все","",D.length,"all");
+Object.keys(FAM).forEach(k=>chip(k,FAM[k].t.split(' / ')[0].replace('«','').replace('»',''),FAM[k].c,counts[k]||0));
+
+const q=document.getElementById('q');
+q.addEventListener('input',render);
+document.addEventListener('keydown',e=>{if(e.key==='/'&&document.activeElement!==q){e.preventDefault();q.focus();}});
+
+function render(){
+  const term=q.value.trim().toLowerCase();
+  let rows=D.filter(r=>{
+    if(active!=="ALL"&&r[4]!==active)return false;
+    if(!term)return true;
+    return (r[0]+' '+r[3]+' '+r[5]+' '+r[8]+' '+r[9]+' '+r[6]+' '+FAM[r[4]].t).toLowerCase().includes(term);
+  });
+  tbody.innerHTML = rows.length ? rows.map(r=>{
+    const f=FAM[r[4]];
+    const flag=s=>String(s).includes('⚠')?String(s).replace('⚠','<span class="flag" title="вероятная ошибка данных сайта">⚠</span>'):esc(s);
+    return `<tr>
+      <td class="c-ev"><b>${esc(r[0])}</b>${esc(r[1])}</td>
+      <td class="num n0">${r[2]}</td>
+      <td class="c-name">${esc(r[3])}<span class="fam" style="--fc:${f.c}"><span class="dot"></span>${esc(f.t.split(' / ')[0])}</span></td>
+      <td class="c-dist">${flag(r[4]==='SILH'?r[5]:r[5])}</td>
+      <td class="c-tgt">${flag(r[6])}</td>
+      <td class="num">${esc(r[7])}</td>
+      <td class="num">${esc(r[8])}</td>
+      <td class="c-pos">${esc(r[9])}</td>
+      <td class="c-pts">${esc(r[10])}</td>
+    </tr>`;
+  }).join('') : `<tr><td colspan="9" class="empty">Ничего не найдено — сбрось фильтр или поиск.</td></tr>`;
+  document.getElementById('showing').textContent=`показано ${rows.length} из ${D.length}`;
+}
+render();
+document.getElementById('s-rows').textContent=D.length;
+document.getElementById('s-fam').textContent=Object.keys(FAM).length;
+
+// family grid
+document.getElementById('famGrid').innerHTML=Object.keys(FAM).map(k=>{
+  const f=FAM[k];
+  return `<div class="fam-card" style="--fc:${f.c}">
+    <h3>${esc(f.t)}<span class="n">${counts[k]||0}</span></h3>
+    <p>${esc(f.d)}</p></div>`;
+}).join('');
+
+// events grid
+document.getElementById('evGrid').innerHTML=EV.map(e=>`
+  <div class="ev-card">
+    <span class="d">${esc(e[2])}</span>
+    <span class="t">${esc(e[1])}</span>
+    <span class="m"><span class="b">код ${esc(e[0])}</span> · <span>${esc(e[3])} упр.</span></span>
+  </div>`).join('');
+
+// theme toggle
+const rootEl=document.documentElement, tb=document.getElementById('themeBtn');
+tb.onclick=()=>{
+  const cur=rootEl.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+  rootEl.setAttribute('data-theme',cur==='dark'?'light':'dark');
+};
+
+/* ===================== ГЕНЕРАТОР УПРАЖНЕНИЙ ===================== */
+const GX={S:2.4,LEN:315,WID:50};
+const ri=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+const pk=a=>a[Math.floor(Math.random()*a.length)];
+
+// шаблоны семейств — параметры и раскладка целей по принципам реальных брифингов
+const TPL={
+ COLD:()=>{const d=pk([100,120,130,200,300]);const s=d>=300?20:pk([15,10,3]);
+   return{targets:[{d,size:s,shape:'circle'}],shots:'1–2',time:'30 с',pos:'лёжа',pts:d>=300?'1':'3',
+   proc:'Холодный выстрел с непрогретого ствола: одиночное поражение до первого попадания, корректировка запрещена. Ставится станцией №1.'};},
+ DALLAS:()=>({targets:[{d:53,size:10,shape:'circle'},{d:73,size:10,shape:'circle'},{d:81,size:10,shape:'circle'}],
+   shots:'3',time:'45 с',pos:pk(['сидя за столом','с бочки','лёжа']),pts:'5',
+   proc:'Скоростная серия по трём гонгам от ближнего к дальнему; хит-фактор — бонус за укладку в 6 секунд.'}),
+ LADDER:()=>{const b=ri(170,190);const sz=[25,20,15,10,7];
+   return{targets:sz.map((s,i)=>({d:b+i*5,size:s,shape:'circle'})),shots:'10',time:'120 с',pos:'лёжа',pts:'10',
+   proc:'Качалки по убыванию размера — от большой к малой, переход после поражения или двух промахов.'};},
+ SPIN:()=>{const d=pk([35,50,70]);const n=pk([5,6]);
+   return{targets:Array.from({length:n},(_,i)=>({d,size:5,shape:'ring',lat:(i-(n-1)/2)*2.4})),
+   shots:'12–15',time:pk(['60 с','80 с']),pos:pk(['лёжа','сидя с треноги']),pts:'7',
+   proc:'Вращающиеся мишени: попадание засчитывается при полном обороте; время конвертируется в очки.'};},
+ HEDGE:()=>{const b=ri(140,160);const t=[{d:b,size:15,shape:'diamond'},{d:b+20,size:20,shape:'diamond'}];
+   if(Math.random()<.5)t.push({d:b+40,size:20,shape:'diamond'});
+   return{targets:t,shots:'12',time:'120 с',pos:'«ёж», 3 позиции',pts:'12',
+   proc:'Стрельба с трёх ветвей «ежа» со сменой позиции между выстрелами; порядок ветвей назначает судья.'};},
+ BARR:()=>{const all=[[70,5],[120,10],[150,15],[180,20],[230,30]];const n=pk([3,4,5]);
+   const t=all.slice(0,n).map(([d,s])=>({d,size:s,shape:'diamond',lat:ri(-3,3)}));
+   return{targets:t,shots:'6–12',time:'150 с',pos:'стоя со штатива',pts:String(n),
+   proc:'Неустойчивая стрельба со штатива по разнесённым гонгам; порядок вразнобой (1-3-5-2-4-6).'};},
+ TRANS:()=>{const n=pk([6,8,9]);
+   const t=Array.from({length:n},(_,i)=>({d:Math.round(50+i*(150/(n-1))),size:10,shape:'square',lat:(i%2?1:-1)*ri(2,6)}));
+   return{targets:t,shots:'18',time:'45 с ×3',pos:'лёжа со штатива',pts:String(n),
+   proc:'Большой перенос огня по фронту гонгов в порядке, который называет судья; переход после хита или двух промахов.'};},
+ FAR:()=>({targets:[{d:300,size:30,shape:'circle',lat:-4},{d:300,size:20,shape:'circle',lat:4}],
+   shots:'10',time:'120 с',pos:'лёжа',pts:'10',
+   proc:'Дальние гонги сериями по 5; серьёзные вертикальные поправки и чтение ветра на 300 м.'}),
+ PREC:()=>{const d=pk([25,35,50]);return{targets:[{d,size:10,shape:'rect'}],shots:'3–5',time:'60 с',pos:'лёжа с сошек',pts:'5',
+   proc:'Кучность по бумаге или разрушаемым целям (спички, кабели, «звенья цепи») — приоритет точности над скоростью.'};},
+ STRUCT:()=>{const d=pk([110,120,130]);const t=[{d,size:10,shape:'circle'}];
+   if(Math.random()<.4)t.push({d:d-30,size:15,shape:'circle',lat:4});
+   return{targets:t,shots:'6–15',time:'120 с',pos:pk(['с лестницы','через порты','с опорой на колонну']),pts:'9',
+   proc:'Стрельба из/через сооружение со сменой уровней (лестница, порты, перила, упавшая лестница).'};},
+ MIX:()=>{const t=[{d:90,size:10,shape:'circle',lat:-5},{d:120,size:10,shape:'circle',lat:5}];
+   for(let i=0;i<5;i++)t.push({d:35,size:5,shape:'ring',lat:(i-2)*2.2});
+   return{targets:t,shots:'10–12',time:'180 с',pos:'лёжа',pts:'10',
+   proc:'Строгое чередование дальних гонгов и близкой крутилки в одном упражнении.'};},
+ NOV:()=>{const t=Array.from({length:6},()=>({d:ri(80,150),size:10,shape:'square',lat:ri(-6,6)}));
+   return{targets:t,shots:'12',time:'180 с',pos:'лёжа',pts:'12',
+   proc:'Игровой сценарий («шеш-беш» с костями / смайлики / карточка с номерами) — нестандартный порядок целей.'};},
+ SILH:()=>{const t=[50,75,100].map(d=>({d,size:12,shape:'silh'}));
+   if(Math.random()<.5)t.push({d:60,size:12,shape:'silh',lat:5});
+   return{targets:t,shots:'5–10',time:'150 с',pos:'стоя без опоры',pts:String(t.length),
+   proc:'Металлический силуэт (курица/кабан/индюшка/баран), стоя без опоры, 1 очко за сбитую цель.'};}
+};
+const FAM_NAMES={
+ COLD:['Холодный выстрел','Снайпер','1 МОА','1000 ярд'],DALLAS:['Даллас','Деньги на бочку'],
+ LADDER:['Качалки','Сурки','Кто дальше'],SPIN:['Крутилки','Крутилка классика','Карусель'],
+ HEDGE:['Ёж','Злой ёж','Жадный ёж'],BARR:['Охота на шакала','Штатив-стена','Бешеный штатив'],
+ TRANS:['Большой перенос ЦВС','Перенос'],FAR:['Далеко','Best Long Range'],
+ PREC:['Звенья цепи','Кабельщик','Автограф'],STRUCT:['Лестница','Между портами','В лесу'],
+ MIX:['Подтверди успех','Крутись как хочешь'],NOV:['Шеш-беш','Холодный, найди меня','Открой счёт'],SILH:['Силуэт']
+};
+
+// план семейств: холодный первым, затем перемешанный баланс остальных
+function planFamilies(n){
+  const others=Object.keys(TPL).filter(k=>k!=='COLD');
+  for(let i=others.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[others[i],others[j]]=[others[j],others[i]];}
+  const seq=['COLD']; let pool=others.slice();
+  while(seq.length<n){ if(!pool.length)pool=others.slice(); seq.push(pool.shift()); }
+  return seq.slice(0,n);
+}
+
+let genState=[];
+function generate(n){
+  genState=planFamilies(n).map((f,i)=>({no:i+1,fam:f,name:pk(FAM_NAMES[f]),...TPL[f]()}));
+  drawGallery(); fillList();
+}
+
+function marker(shape,cx,cy,col){
+  const st=`fill="${col}" stroke="rgba(0,0,0,.28)" stroke-width=".6"`;
+  if(shape==='diamond')return `<path d="M${cx} ${cy-5} L${cx+5} ${cy} L${cx} ${cy+5} L${cx-5} ${cy} Z" ${st}/>`;
+  if(shape==='square') return `<rect x="${cx-4}" y="${cy-4}" width="8" height="8" rx="1.4" ${st}/>`;
+  if(shape==='ring')   return `<circle cx="${cx}" cy="${cy}" r="4.6" fill="none" stroke="${col}" stroke-width="2.1"/>`;
+  if(shape==='rect')   return `<rect class="g-paper" x="${cx-3.5}" y="${cy-5}" width="7" height="10" rx="1" stroke="${col}" stroke-width="1.6"/>`;
+  if(shape==='silh')   return `<path d="M${cx-4} ${cy+4} L${cx-4} ${cy-2} L${cx-1} ${cy-2} L${cx-1} ${cy-5} L${cx+2} ${cy-5} L${cx+2} ${cy-2} L${cx+4} ${cy-2} L${cx+4} ${cy+4} Z" ${st}/>`;
+  return `<circle cx="${cx}" cy="${cy}" r="4.6" ${st}/>`;
+}
+
+// конфигурация стрелковых мест на рубеже (ячейки × мест в ячейке)
+function firingCfg(){
+  const c=+((document.getElementById('cellCount')||{}).value||4);
+  const p=+((document.getElementById('cellSize')||{}).value||3);
+  return {cells:Math.max(1,c||4), per:Math.max(1,p||3)};
+}
+// вертикальная ориентация: рубеж снизу, дистанция растёт вверх; упражнения — колонки-коридоры по ширине 50 м
+// availW — ширина области в px: галерея заполняет окно, поперечная ось растягивается, дистанция — фикс. масштаб
+function galleryMarkup(availW){
+  const {LEN,WID}=GX;
+  const ML=40, MR=18, MT=16, MB=58, vsy=2.4;
+  const avail=Math.max(300, availW||760);
+  const plotW=Math.max(120,(avail-ML-MR)/2), plotH=LEN*vsy;  // горизонтальный масштаб сжат 2× → узкая, вытянутая вверх
+  const W=ML+plotW+MR, H=MT+plotH+MB;
+  const sx=plotW/WID;           // px/м поперёк
+  const x=m=>ML+m*sx;           // поперёк (0..50 м)
+  const y=d=>MT+(LEN-d)*vsy;    // дистанция (0 внизу, 315 вверху)
+  let s=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
+  s+=`<rect class="g-field" x="${ML}" y="${MT}" width="${plotW}" height="${plotH}"/>`;
+  for(let d=0;d<=300;d+=50){
+    s+=`<line class="g-grid" x1="${ML}" y1="${y(d)}" x2="${ML+plotW}" y2="${y(d)}" stroke-dasharray="3 4"/>`;
+    s+=`<text class="g-dist" x="${ML-6}" y="${y(d)+3}" font-size="10" text-anchor="end">${d}</text>`;
+  }
+  s+=`<text class="g-dist" x="${ML-6}" y="${y(315)+3}" font-size="9" text-anchor="end">315</text>`;
+  s+=`<text class="g-axis" x="${ML-6}" y="${MT-5}" font-size="9" text-anchor="end">м</text>`;
+  // рубеж (снизу) + стрелковые места: 4 ячейки × 3 = 12 мест в ряд
+  s+=`<line class="g-rubezh" x1="${ML-5}" y1="${y(0)}" x2="${ML+plotW+5}" y2="${y(0)}" stroke-width="2.5"/>`;
+  const fc=firingCfg();
+  const fx0=ML+2, fw=plotW-4, cellsN=fc.cells, perCell=fc.per, cg=Math.max(6,fw*0.03), cw=(fw-cg*(cellsN-1))/cellsN;
+  const by=y(0)+8, bh=22, cym=by+bh/2;
+  let slot=0;
+  for(let c=0;c<cellsN;c++){
+    const cx0=fx0+c*(cw+cg);
+    s+=`<rect class="g-cell" x="${cx0}" y="${by}" width="${cw}" height="${bh}" rx="4"/>`;
+    const sw=Math.max(6,Math.min(14,cw/perCell-3));
+    for(let p=0;p<perCell;p++){ slot++;
+      const pxm=cx0+cw*(p+0.5)/perCell;
+      s+=`<rect class="g-slot" x="${pxm-sw/2}" y="${cym-sw/2}" width="${sw}" height="${sw}" rx="2.2"/>`;
+      if(sw>=9) s+=`<text class="g-slot-n" x="${pxm}" y="${cym+3}" font-size="8" text-anchor="middle">${slot}</text>`;
+    }
+  }
+  const total=cellsN*perCell;
+  s+=`<text class="g-rubezh-t" x="${ML+plotW/2}" y="${by+bh+15}" font-size="10" text-anchor="middle">РУБЕЖ · 0 м · ${total} ${plural(total,'стрелковое место','стрелковых места','стрелковых мест')} · ${cellsN}×${perCell}</text>`;
+  const N=genState.length, lo=3, hi=WID-3, band=(hi-lo)/N, half=band/2;
+  genState.forEach((ex,i)=>{
+    const cx=lo+band*(i+0.5), col=FAM[ex.fam].c;
+    const far=Math.max(...ex.targets.map(t=>t.d));
+    // коридор снизу вверх до дальней цели
+    s+=`<line x1="${x(cx)}" y1="${y(0)}" x2="${x(cx)}" y2="${y(far)}" stroke="${col}" stroke-opacity=".26" stroke-width="1"/>`;
+    // база коридора на рубеже (латеральная позиция упражнения) + номер
+    s+=`<circle cx="${x(cx)}" cy="${y(0)}" r="3" fill="${col}"/>`;
+    s+=`<text x="${x(cx)+6}" y="${y(0)-5}" fill="${col}" font-size="9" font-weight="700">${ex.no}</text>`;
+    const seenD=new Set();
+    ex.targets.forEach(t=>{
+      let lat=t.lat||0; lat=Math.max(-(half-0.6),Math.min(half-0.6,lat));
+      const tx=Math.max(1.6,Math.min(WID-1.6,cx+lat));
+      const cxp=x(tx), cyp=y(t.d);
+      s+=marker(t.shape,cxp,cyp,col);
+      if(!seenD.has(t.d)){seenD.add(t.d);
+        const rightmost=Math.max(...ex.targets.filter(o=>o.d===t.d).map(o=>Math.max(-(half-0.6),Math.min(half-0.6,o.lat||0))));
+        s+=`<text class="g-dist" x="${x(Math.min(WID-1.6,cx+rightmost))+8}" y="${cyp+3}" font-size="8.5" text-anchor="start">${t.d}</text>`;}
+      s+=`<circle class="tgt" cx="${cxp}" cy="${cyp}" r="8" fill="transparent" data-ex="${i}"/>`;
+    });
+  });
+  s+=`</svg>`;
+  return s;
+}
+function stageWidth(){
+  const wrap=document.querySelector('.gallery-wrap');
+  if(wrap){const cs=getComputedStyle(wrap);
+    const w=wrap.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+    if(w>240)return w;}
+  return 720;
+}
+function drawGallery(){
+  document.getElementById('galleryStage').innerHTML=galleryMarkup(stageWidth());
+  wireTips();
+}
+
+function tipHTML(ex){
+  const f=FAM[ex.fam];
+  const dists=ex.targets.map(t=>`${t.d}м/${t.size}см`).join(', ');
+  const row=(k,v)=>`<tr><td style="padding:1px 8px 1px 0;color:var(--faint);white-space:nowrap">${k}</td><td>${esc(v)}</td></tr>`;
+  return `<div style="display:flex;align-items:center;gap:7px;margin-bottom:5px">
+    <span style="width:9px;height:9px;border-radius:50%;background:${f.c};flex:none"></span>
+    <b>№${ex.no} · ${esc(ex.name)}</b></div>
+    <div style="font-family:var(--mono);font-size:10.5px;color:var(--faint);text-transform:uppercase;letter-spacing:.04em;margin-bottom:6px">${esc(f.t)}</div>
+    <table style="font-size:11.5px;color:var(--muted);border-collapse:collapse;font-variant-numeric:tabular-nums">
+    ${row('цели',dists)}${row('выстр.',ex.shots)}${row('время',ex.time)}${row('позиция',ex.pos)}${row('очки',ex.pts)}</table>
+    <div style="margin-top:7px;font-size:11.5px;line-height:1.42;color:var(--ink)">${esc(ex.proc)}</div>`;
+}
+function wireTips(){
+  const tip=document.getElementById('genTip');
+  document.querySelectorAll('#galleryStage .tgt').forEach(el=>{
+    const show=e=>{tip.innerHTML=tipHTML(genState[+el.dataset.ex]);tip.style.display='block';move(e);};
+    const move=e=>{const t=(e.touches&&e.touches[0])||e;
+      tip.style.left=Math.min(t.clientX+14,innerWidth-290)+'px';
+      tip.style.top=Math.min(t.clientY+14,innerHeight-tip.offsetHeight-10)+'px';};
+    el.addEventListener('mouseenter',show); el.addEventListener('mousemove',move);
+    el.addEventListener('mouseleave',()=>tip.style.display='none');
+    el.addEventListener('touchstart',show,{passive:true});
+  });
+}
+function fillList(){
+  document.getElementById('genList').innerHTML=genState.map(ex=>{
+    const f=FAM[ex.fam], ds=ex.targets.map(t=>t.d);
+    const near=Math.min(...ds), far=Math.max(...ds), rng=near===far?`${near} м`:`${near}–${far} м`;
+    return `<div class="gl-item">
+      <span class="gl-no" style="background:${f.c}">${ex.no}</span>
+      <div><div class="gl-name">${esc(ex.name)}</div>
+      <div class="gl-meta">${esc(f.t.split(' / ')[0])} · ${rng} · ${ex.targets.length} цел. · ${esc(ex.time)}</div></div></div>`;
+  }).join('');
+}
+
+// wiring
+const gm=document.getElementById('genModal');
+document.getElementById('openGen').onclick=()=>{gm.classList.add('open');if(!genState.length)generate(+document.getElementById('genCount').value);};
+document.getElementById('closeGen').onclick=()=>gm.classList.remove('open');
+document.getElementById('genBackdrop').onclick=()=>gm.classList.remove('open');
+document.addEventListener('keydown',e=>{if(e.key==='Escape')gm.classList.remove('open');});
+const gc=document.getElementById('genCount');
+gc.oninput=()=>document.getElementById('genCountVal').textContent=gc.value;
+document.getElementById('doGen').onclick=()=>generate(+gc.value);
+// стрелковые места на рубеже (выбираемо)
+function updFiring(){const c=firingCfg();document.getElementById('firingTotal').textContent=c.cells*c.per;
+  if(genState.length&&gm.classList.contains('open'))drawGallery();}
+document.getElementById('cellCount').onchange=updFiring;
+document.getElementById('cellSize').onchange=updFiring;
+
+// экспорт полноценного брифинга в PDF (через системную печать)
+function buildBriefing(){
+  const doc=document.getElementById('briefingDoc');
+  const maxN=s=>{const m=String(s).match(/\d+/g);return m?Math.max(...m.map(Number)):0;};
+  const shots=genState.reduce((a,e)=>a+maxN(e.shots),0);
+  const pts=genState.reduce((a,e)=>a+(parseFloat(e.pts)||0),0);
+  const ptsStr=(Math.round(pts*100)/100).toString();
+  let h=`<div class="bf-head">
+    <div class="bf-kicker">Брифинг матча · МК-снайпинг · .22LR</div>
+    <div class="bf-title">План огня — ${genState.length} ${plural(genState.length,'упражнение','упражнения','упражнений')}</div>
+    <div class="bf-meta">галерея 315 × 50 м · настрел ≈ ${shots} патр. · макс. ${ptsStr} очк.</div>
+  </div>`;
+  h+=`<div class="bf-plan">${galleryMarkup(700)}</div>`;
+  h+=`<div class="bf-rules"><div class="bf-sec">Общие правила</div><ul>
+    <li>Угол безопасности — 90°. Перенос и обслуживание оружия — только стволом в направлении мишеней, затвор открыт.</li>
+    <li>Стартовое положение объявляется на каждом упражнении; по умолчанию — стоя на отметке, оружие разряжено, ствол вверх, затвор открыт, магазин присоединён.</li>
+    <li>Начало по команде судьи «ОГОНЬ», окончание — по истечении времени или команде «СТОП».</li>
+    <li>Поражение целей вне указанного порядка засчитывается как промах.</li>
+    <li>Дальномеры разрешены; дистанции стрелок уточняет самостоятельно.</li>
+    <li>За нарушение техники безопасности или регламента судья вправе назначить штраф.</li>
+  </ul></div>`;
+  h+=`<div class="bf-sec">Упражнения</div>`;
+  h+=genState.map(ex=>{
+    const f=FAM[ex.fam];
+    const tg=ex.targets.map(t=>`${t.d} м / ${t.size} см`).join(' · ');
+    const row=(k,v)=>`<div class="bf-row"><span class="bf-k">${k}</span><span class="bf-v">${esc(v)}</span></div>`;
+    return `<div class="bf-ex">
+      <div class="bf-ex-head">
+        <span class="bf-no" style="background:${f.c}">${ex.no}</span>
+        <div><div class="bf-ex-name">${esc(ex.name)}</div><div class="bf-ex-fam">${esc(f.t)}</div></div>
+        <div class="bf-ex-pts">${esc(ex.pts)}<span>очк.</span></div>
+      </div>
+      <div class="bf-grid">
+        ${row('Дистанция / цели',tg)}
+        ${row('Выстрелов',ex.shots)}
+        ${row('Время',ex.time)}
+        ${row('Позиция',ex.pos)}
+      </div>
+      <div class="bf-proc"><span class="bf-k">Порядок</span>${esc(ex.proc)}</div>
+    </div>`;
+  }).join('');
+  h+=`<div class="bf-foot">Сформировано конструктором матча · раскладка по принципам практического МК-снайпинга</div>`;
+  doc.innerHTML=h;
+}
+function plural(n,a,b,c){const n1=n%10,n2=n%100;return n1===1&&n2!==11?a:(n1>=2&&n1<=4&&(n2<10||n2>=20)?b:c);}
+document.getElementById('exportPdf').onclick=()=>{
+  if(!genState.length)generate(+gc.value);
+  buildBriefing();
+  window.print();
+};
+// авто-перерисовка галереи под реальную ширину (модалка/окно) через ResizeObserver
+(()=>{const wrap=document.querySelector('.gallery-wrap'); let last=0;
+  if(window.ResizeObserver && wrap){
+    const ro=new ResizeObserver(()=>{const w=stageWidth();
+      if(Math.abs(w-last)>4 && genState.length && gm.classList.contains('open')){
+        last=w; drawGallery();
+      }});
+    ro.observe(wrap);
+  }
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #242424;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        #lottie-animation {
+            scale: 2;
+        }
+        
+        .loader {
+            display: none;
+        }
+    </style>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie.min.js"></script>
+</head>
+<body>
+    <script>
+        document.addEventListener('dblclick', (e) => {
+            e.preventDefault();
+        }, { passive: false });
+    </script>
+    <script>
+        // Проверка хоста для тестирования
+        const hostname = window.location.hostname;
+        const isLocalhost = hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '192.168.0.109';
+        
+        let userId, userName;
+        
+        if (isLocalhost) {
+            // Тестовые значения для localhost
+            userId = "6616327061";
+            userName = "Dan_4rt0x";
+            console.log("Test mode: Using test user ID and username");
+        } else {
+            // Инициализация Telegram WebApp
+            const tg = window.Telegram.WebApp;
+            
+            // Показываем кнопку "Back" (если нужно)
+            tg.BackButton.show();
+            
+            // Получаем данные пользователя
+            userId = tg.initDataUnsafe.user?.id;
+            userName = tg.initDataUnsafe.user?.username;
+            
+            // Обработчик кнопки "Back" (если нужно)
+            tg.BackButton.onClick(() => {
+                tg.close();
+            });
+        }
+        
+        console.log("User ID:", userId);
+        console.log("Username:", userName);
+        
+        // Проверяем, что user_id есть
+        if (!userId && !isLocalhost) {
+            console.error("User ID not found!");
+            window.location.href = "app-error/";
+        }
+    </script>
+    <div class="loader"></div>
+    <div id="lottie-animation"></div>
+    <script>
+    lottie.loadAnimation({
+        container: document.getElementById("lottie-animation"),
+        renderer: "svg",
+        loop: true,
+        autoplay: true,
+        path: "/static/lottie/ashoo.json"
+    });
+    </script>
+    <script>        
+        // Функция для выполнения проверок после задержки
+        function performChecks() {
+            fetch(`/api/user/${userId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.city) {
+                        window.location.href = "/main/?user_id="+userId;
+                    } else {
+                        window.location.href = "/main/?city=yes&user_id="+userId;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // Можно добавить обработку ошибки, например:
+                    document.body.innerHTML = `<h1>Произошла ошибка. Пожалуйста, обновите страницу.</h1>`;
+                });
+        }
+
+        // Устанавливаем задержку в 1 секунду перед выполнением проверок
+        setTimeout(performChecks, 900);
+    </script>
+</body>
+</html>

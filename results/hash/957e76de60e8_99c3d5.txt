@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Файловый сервер</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(120deg, #1e3c72, #2a5298);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #fff;
+            z-index: 10;
+        }
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: #00d4ff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #111;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 1.8em;
+            font-weight: 600;
+        }
+        .lang-switch {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .lang-switch button {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            color: #fff;
+            padding: 8px 16px;
+            margin: 0 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+        .lang-switch button:hover, .lang-switch button.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+            opacity: 0.9;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px 14px;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 1em;
+            transition: box-shadow 0.3s;
+        }
+        input[type="text"]::placeholder,
+        input[type="password"]::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5);
+        }
+        .error {
+            color: #ff6b6b;
+            font-size: 0.9em;
+            margin-top: 8px;
+            display: none;
+        }
+        button.btn {
+            width: 100%;
+            padding: 14px;
+            background: #00d4ff;
+            color: #111;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button.btn:hover {
+            background: #00b8e6;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Логотип и название в левом верхнем углу -->
+    <div class="header">
+        <div class="logo">F</div>
+        <span>Free Word</span>
+    </div>
+
+    <div class="container" id="auth-container">
+        <h1 id="title">Файловый сервер</h1>
+
+        <div class="lang-switch">
+            <button id="ru-btn" class="active" onclick="switchLang('ru')">Русский</button>
+            <button id="en-btn" onclick="switchLang('en')">English</button>
+        </div>
+
+        <form id="login-form" onsubmit="handleLogin(event)">
+            <div class="form-group">
+                <label for="username" id="username-label">Имя пользователя</label>
+                <input type="text" id="username" placeholder="Введите имя пользователя" required />
+                <div id="username-error" class="error"></div>
+            </div>
+            <div class="form-group">
+                <label for="password" id="password-label">Пароль</label>
+                <input type="password" id="password" placeholder="Введите пароль" required />
+                <div id="password-error" class="error"></div>
+            </div>
+            <div id="general-error" class="error"></div>
+            <button type="submit" class="btn" id="submit-btn">Войти</button>
+        </form>
+
+        <div class="footer">
+            &copy; <span id="year">2026</span> — Файловый сервер. Все права защищены.
+        </div>
+    </div>
+
+    <script>
+        // Переключение языков
+        function switchLang(lang) {
+            const setLang = (texts) => {
+                document.getElementById('title').textContent = texts.title;
+                document.getElementById('username-label').textContent = texts.username;
+                document.getElementById('password-label').textContent = texts.password;
+                document.getElementById('submit-btn').textContent = texts.submit;
+                document.getElementById('ru-btn').classList.toggle('active', lang === 'ru');
+                document.getElementById('en-btn').classList.toggle('active', lang === 'en');
+                // Обновляем текст ошибки, если она была
+                if (document.getElementById('general-error').style.display !== 'none') {
+                    document.getElementById('general-error').textContent = texts.error;
+                }
+            };
+
+            const translations = {
+                ru: {
+                    title: 'Файловый сервер',
+                    username: 'Имя пользователя',
+                    password: 'Пароль',
+                    submit: 'Войти',
+                    error: 'Ошибка: неверный логин или пароль'
+                },
+                en: {
+                    title: 'File Server',
+                    username: 'Username',
+                    password: 'Password',
+                    submit: 'Log In',
+                    error: 'Error: invalid username or password'
+                }
+            };
+
+            setLang(translations[lang]);
+        }
+
+        // Обработка входа
+        function handleLogin(e) {
+            e.preventDefault();
+            // Сброс ошибок
+            document.getElementById('username-error').style.display = 'none';
+            document.getElementById('password-error').style.display = 'none';
+            document.getElementById('general-error').style.display = 'none';
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+
+            const lang = document.getElementById('ru-btn').classList.contains('active') ? 'ru' : 'en';
+            const errorMsg = lang === 'ru' ? 'Ошибка: неверный логин или пароль' : 'Error: invalid username or password';
+
+            if (!username) {
+                document.getElementById('username-error').textContent = lang === 'ru' ? 'Введите имя пользователя' : 'Enter username';
+                document.getElementById('username-error').style.display = 'block';
+                return;
+            }
+            if (!password) {
+                document.getElementById('password-error').textContent = lang === 'ru' ? 'Введите пароль' : 'Enter password';
+                document.getElementById('password-error').style.display = 'block';
+                return;
+            }
+
+            // Показываем ошибку при попытке входа
+            document.getElementById('general-error').textContent = errorMsg;
+            document.getElementById('general-error').style.display = 'block';
+        }
+
+        // Установка текущего года
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

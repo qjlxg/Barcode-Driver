@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Яндекс.Формы → SPSS</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #1e1e2e;
+    --surface: #2a2a3e;
+    --surface2: #313148;
+    --border: #44445a;
+    --accent: #1f538d;
+    --accent-hover: #2563a8;
+    --accent-light: #3b82c4;
+    --text: #e0e0f0;
+    --text-dim: #8888aa;
+    --green: #22c55e;
+    --red: #ef4444;
+    --orange: #f97316;
+    --radius: 8px;
+  }
+
+  body {
+    font-family: "Segoe UI", system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Header ── */
+  header {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 20px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  header h1 { font-size: 16px; font-weight: 700; flex: 1; }
+
+  /* ── Toolbar ── */
+  .toolbar {
+    background: var(--surface2);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+  .toolbar label { font-size: 13px; color: var(--text-dim); }
+
+  /* ── Form bar ── */
+  .formbar {
+    background: #252535;
+    border-bottom: 1px solid var(--border);
+    padding: 7px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+  }
+  .formbar label { font-size: 13px; color: var(--text-dim); white-space: nowrap; }
+
+  /* ── Main ── */
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 12px 20px 8px;
+    overflow: hidden;
+  }
+  .section-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    margin-bottom: 6px;
+  }
+
+  /* ── Preview table ── */
+  .table-wrap {
+    flex: 1;
+    overflow: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+  table {
+    border-collapse: collapse;
+    font-size: 12px;
+    white-space: nowrap;
+    min-width: 100%;
+  }
+  thead th {
+    position: sticky;
+    top: 0;
+    background: var(--accent);
+    color: #fff;
+    padding: 7px 12px;
+    text-align: left;
+    font-weight: 600;
+    border-right: 1px solid var(--accent-hover);
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  tbody tr:nth-child(even) { background: var(--surface2); }
+  tbody td {
+    padding: 5px 12px;
+    border-right: 1px solid var(--border);
+    max-width: 220px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text);
+  }
+  .empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: var(--text-dim);
+    font-size: 14px;
+  }
+
+  /* ── Status bar ── */
+  .statusbar {
+    background: var(--surface2);
+    border-top: 1px solid var(--border);
+    padding: 5px 20px;
+    font-size: 12px;
+    color: var(--text-dim);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .statusbar .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--text-dim);
+    flex-shrink: 0;
+  }
+  .statusbar .dot.ok { background: var(--green); }
+  .statusbar .dot.err { background: var(--red); }
+  .statusbar .dot.busy { background: var(--orange); animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  /* ── Buttons ── */
+  .btn {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s;
+    white-space: nowrap;
+  }
+  .btn:disabled { opacity: .45; cursor: not-allowed; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:not(:disabled):hover { background: var(--accent-hover); }
+  .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:not(:disabled):hover { background: var(--border); }
+  .btn-green { background: #166534; color: #fff; }
+  .btn-green:not(:disabled):hover { background: #15803d; }
+
+  /* ── Inputs ── */
+  input[type=text], select {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    padding: 5px 10px;
+    font-size: 13px;
+    outline: none;
+  }
+  input[type=text]:focus, select:focus { border-color: var(--accent-light); }
+  select option { background: var(--surface2); }
+
+  /* ── Segmented ── */
+  .seg { display: flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  .seg button {
+    flex: 1;
+    padding: 5px 12px;
+    border: none;
+    background: var(--surface);
+    color: var(--text-dim);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+  }
+  .seg button.active { background: var(--accent); color: #fff; }
+  .seg button:not(.active):hover { background: var(--surface2); color: var(--text); }
+
+  /* ── Upload drop zone ── */
+  #drop-zone {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 10px 18px;
+    cursor: pointer;
+    font-size: 13px;
+    color: var(--text-dim);
+    transition: border-color .15s, background .15s;
+    white-space: nowrap;
+  }
+  #drop-zone:hover, #drop-zone.drag-over { border-color: var(--accent-light); background: rgba(31,83,141,.15); color: var(--text); }
+  #drop-zone.loaded { border-color: var(--green); color: var(--green); }
+
+  /* ── Tooltip ── */
+  .th-wrap { position: relative; }
+  .th-wrap:hover .th-tip {
+    display: block;
+  }
+  .th-tip {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 100;
+    background: #111;
+    color: #eee;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 11px;
+    white-space: normal;
+    max-width: 300px;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Яндекс.Формы → SPSS</h1>
+  <button class="btn btn-primary" id="btn-convert" disabled>▶ Конвертировать</button>
+</header>
+
+<div class="toolbar">
+  <label>Файл:</label>
+  <div id="drop-zone" title="Нажмите или перетащите .xlsx файл">📂 Загрузить .xlsx</div>
+  <input type="file" id="file-input" accept=".xlsx,.xls" style="display:none">
+
+  <label>Лист:</label>
+  <select id="sheet-select" disabled>
+    <option>—</option>
+  </select>
+
+  <label>Строк превью:</label>
+  <select id="rows-select">
+    <option value="5">5</option>
+    <option value="10" selected>10</option>
+    <option value="20">20</option>
+    <option value="50">50</option>
+  </select>
+
+  <label>Режим МВО:</label>
+  <div class="seg" id="mode-seg">
+    <button class="active" data-val="categorical">Категориальный</button>
+    <button data-val="dichotomous">Дихотомический</button>
+  </div>
+</div>
+
+<div class="formbar">
+  <label>Яндекс.Форма:</label>
+  <input type="text" id="form-url" placeholder="https://forms.yandex.ru/cloud/…" style="width:340px">
+  <button class="btn btn-secondary" id="btn-scrape">Загрузить порядок из формы</button>
+  <span id="form-status" style="font-size:13px;color:var(--text-dim)"></span>
+</div>
+
+<main>
+  <div class="section-title">Превью данных</div>
+  <div class="table-wrap" id="table-wrap">
+    <div class="empty-state" id="empty-state">Загрузите .xlsx файл для начала работы</div>
+    <table id="preview-table" style="display:none">
+      <thead id="preview-head"></thead>
+      <tbody id="preview-body"></tbody>
+    </table>
+  </div>
+</main>
+
+<div class="statusbar">
+  <div class="dot" id="status-dot"></div>
+  <span id="status-text">Загрузите .xlsx файл</span>
+</div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+const state = {
+  fileId: null,
+  filename: null,
+  sheets: [],
+  sheet: null,
+  dichotomous: false,
+  orderMap: null,      // {varname: [options]} после скрейпинга
+  scrapeTaskId: null,
+  convertTaskId: null,
+};
+
+// ── DOM refs ───────────────────────────────────────────────────────────────
+const dropZone      = document.getElementById("drop-zone");
+const fileInput     = document.getElementById("file-input");
+const sheetSelect   = document.getElementById("sheet-select");
+const rowsSelect    = document.getElementById("rows-select");
+const modeSeg       = document.getElementById("mode-seg");
+const formUrl       = document.getElementById("form-url");
+const btnScrape     = document.getElementById("btn-scrape");
+const formStatus    = document.getElementById("form-status");
+const btnConvert    = document.getElementById("btn-convert");
+const tableWrap     = document.getElementById("table-wrap");
+const emptyState    = document.getElementById("empty-state");
+const previewTable  = document.getElementById("preview-table");
+const previewHead   = document.getElementById("preview-head");
+const previewBody   = document.getElementById("preview-body");
+const statusDot     = document.getElementById("status-dot");
+const statusText    = document.getElementById("status-text");
+
+// ── Status helpers ─────────────────────────────────────────────────────────
+function setStatus(msg, kind = "") {
+  statusText.textContent = msg;
+  statusDot.className = "dot" + (kind ? " " + kind : "");
+}
+
+function setFormStatus(msg, color = "var(--text-dim)") {
+  formStatus.textContent = msg;
+  formStatus.style.color = color;
+}
+
+// ── File upload ────────────────────────────────────────────────────────────
+dropZone.addEventListener("click", () => fileInput.click());
+dropZone.addEventListener("dragover", e => { e.preventDefault(); dropZone.classList.add("drag-over"); });
+dropZone.addEventListener("dragleave", () => dropZone.classList.remove("drag-over"));
+dropZone.addEventListener("drop", e => {
+  e.preventDefault();
+  dropZone.classList.remove("drag-over");
+  const f = e.dataTransfer.files[0];
+  if (f) uploadFile(f);
+});
+fileInput.addEventListener("change", () => {
+  if (fileInput.files[0]) uploadFile(fileInput.files[0]);
+});
+
+async function uploadFile(file) {
+  setStatus("Загружаем файл…", "busy");
+  dropZone.textContent = "Загружаем…";
+  dropZone.className = "";
+
+  const fd = new FormData();
+  fd.append("file", file);
+
+  try {
+    const res = await fetch("/upload", { method: "POST", body: fd });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || "Ошибка загрузки");
+
+    state.fileId = data.file_id;
+    state.filename = data.filename;
+    state.sheets = data.sheets;
+    state.sheet = data.best_sheet;
+    state.orderMap = null;
+
+    dropZone.textContent = "📄 " + data.filename;
+    dropZone.className = "loaded";
+
+    sheetSelect.innerHTML = data.sheets.map(s =>
+      `<option${s === data.best_sheet ? " selected" : ""}>${s}</option>`
+    ).join("");
+    sheetSelect.disabled = false;
+    btnConvert.disabled = false;
+
+    setStatus(`${data.filename} | листов: ${data.sheets.length}`, "ok");
+    loadPreview();
+  } catch (e) {
+    setStatus("Ошибка: " + e.message, "err");
+    dropZone.textContent = "📂 Загрузить .xlsx";
+    dropZone.className = "";
+  }
+}
+
+// ── Sheet / rows change ────────────────────────────────────────────────────
+sheetSelect.addEventListener("change", () => {
+  state.sheet = sheetSelect.value;
+  loadPreview();
+});
+rowsSelect.addEventListener("change", loadPreview);
+
+// ── Mode segmented ─────────────────────────────────────────────────────────
+modeSeg.querySelectorAll("button").forEach(btn => {
+  btn.addEventListener("click", () => {
+    modeSeg.querySelectorAll("button").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    state.dichotomous = btn.dataset.val === "dichotomous";
+  });
+});
+
+// ── Preview ────────────────────────────────────────────────────────────────
+async function loadPreview() {
+  if (!state.fileId) return;
+  const sheet = sheetSelect.value;
+  const rows = rowsSelect.value;
+  setStatus("Загружаем превью…", "busy");
+
+  try {
+    const res = await fetch(`/preview/${state.fileId}?sheet=${encodeURIComponent(sheet)}&rows=${rows}`);
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    renderPreview(data.rows, data.total_rows, data.total_cols, sheet);
+    setStatus(
+      `${state.filename} | лист: ${sheet} | строк: ${data.total_rows - 1} | колонок: ${data.total_cols}`,
+      "ok"
+    );
+  } catch (e) {
+    setStatus("Ошибка превью: " + e.message, "err");
+  }
+}
+
+function renderPreview(rows, totalRows, totalCols, sheet) {
+  if (!rows || rows.length === 0) {
+    emptyState.textContent = "Нет данных";
+    emptyState.style.display = "flex";
+    previewTable.style.display = "none";
+    return;
+  }
+
+  const MAX_COLS = 50;
+  const headers = rows[0].slice(0, MAX_COLS);
+
+  previewHead.innerHTML = "<tr>" + headers.map(h => {
+    const short = h.length > 60 ? h.slice(0, 60) + "…" : h;
+    return `<th><div class="th-wrap">${escHtml(short)}<span class="th-tip">${escHtml(h)}</span></div></th>`;
+  }).join("") + "</tr>";
+
+  previewBody.innerHTML = rows.slice(1).map(row =>
+    "<tr>" + row.slice(0, MAX_COLS).map(v => `<td>${escHtml(v)}</td>`).join("") + "</tr>"
+  ).join("");
+
+  emptyState.style.display = "none";
+  previewTable.style.display = "";
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+// ── Scrape ─────────────────────────────────────────────────────────────────
+btnScrape.addEventListener("click", startScrape);
+
+async function startScrape() {
+  const url = formUrl.value.trim();
+  if (!url) { setFormStatus("Введите ссылку на форму", "var(--red)"); return; }
+
+  btnScrape.disabled = true;
+  btnScrape.textContent = "Загружаю…";
+  setFormStatus("Подключаюсь…", "var(--text-dim)");
+
+  try {
+    const res = await fetch("/scrape", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    state.scrapeTaskId = data.task_id;
+    listenScrape(data.task_id);
+  } catch (e) {
+    setFormStatus("Ошибка: " + e.message, "var(--red)");
+    btnScrape.disabled = false;
+    btnScrape.textContent = "Загрузить порядок из формы";
+  }
+}
+
+function listenScrape(taskId) {
+  const es = new EventSource(`/status/${taskId}`);
+
+  es.addEventListener("status", e => {
+    const d = JSON.parse(e.data);
+    setFormStatus(d.message, "var(--text-dim)");
+  });
+
+  es.addEventListener("done", e => {
+    es.close();
+    btnScrape.disabled = false;
+    btnScrape.textContent = "Загрузить порядок из формы";
+
+    const d = JSON.parse(e.data);
+    if (!d.ok) {
+      if (d.error === "captcha_exhausted") {
+        setFormStatus("Не удалось получить доступ к форме — Яндекс блокирует запросы. Попробуйте позже или добавьте прокси.", "var(--orange)");
+      } else {
+        setFormStatus("Ошибка: " + d.error, "var(--red)");
+      }
+      return;
+    }
+    const questions = d.result.questions;
+    state.scrapeQuestions = questions;
+    setFormStatus(`✓ Загружено ${questions.length} вопросов`, "var(--green)");
+  });
+
+  es.onerror = () => {
+    es.close();
+    btnScrape.disabled = false;
+    btnScrape.textContent = "Загрузить порядок из формы";
+    setFormStatus("Соединение прервано", "var(--red)");
+  };
+}
+
+// ── Convert ────────────────────────────────────────────────────────────────
+btnConvert.addEventListener("click", startConvert);
+
+async function startConvert() {
+  if (!state.fileId) return;
+
+  btnConvert.disabled = true;
+  btnConvert.textContent = "Конвертирую…";
+  setStatus("Конвертация…", "busy");
+
+  const body = {
+    file_id: state.fileId,
+    sheet: sheetSelect.value,
+    dichotomous: state.dichotomous,
+  };
+
+  // Если есть результат скрейпинга — передаём вопросы для сопоставления
+  if (state.scrapeQuestions) {
+    body.scrape_questions = state.scrapeQuestions;
+  }
+
+  try {
+    const res = await fetch("/convert", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error);
+    state.convertTaskId = data.task_id;
+    listenConvert(data.task_id);
+  } catch (e) {
+    setStatus("Ошибка: " + e.message, "err");
+    btnConvert.disabled = false;
+    btnConvert.textContent = "▶ Конвертировать";
+  }
+}
+
+function listenConvert(taskId) {
+  const es = new EventSource(`/status/${taskId}`);
+
+  es.addEventListener("status", e => {
+    const d = JSON.parse(e.data);
+    setStatus(d.message, "busy");
+  });
+
+  es.addEventListener("done", e => {
+    es.close();
+    btnConvert.disabled = false;
+    btnConvert.textContent = "▶ Конвертировать";
+
+    const d = JSON.parse(e.data);
+    if (!d.ok) {
+      setStatus("Ошибка: " + d.error, "err");
+      return;
+    }
+
+    setStatus("Готово! Скачиваю файл…", "ok");
+    const filename = (state.filename || "result").replace(/\.[^.]+$/, "") + ".sav";
+    const a = document.createElement("a");
+    a.href = `/download/${taskId}?filename=${encodeURIComponent(filename)}`;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setStatus(`Готово → ${filename}`, "ok");
+  });
+
+  es.onerror = () => {
+    es.close();
+    btnConvert.disabled = false;
+    btnConvert.textContent = "▶ Конвертировать";
+    setStatus("Соединение прервано", "err");
+  };
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Veya Connect</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f7f5;
+      --ink: #15201b;
+      --muted: #637169;
+      --line: #dbe4de;
+      --panel: #ffffff;
+      --accent: #147d64;
+      --accent-2: #225d8f;
+      --warn: #b56a14;
+      --bad: #b43232;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font: 16px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #e8f0eb 0, var(--bg) 280px);
+    }
+    main {
+      width: min(720px, 100%);
+      margin: 0 auto;
+      padding: 20px 16px 36px;
+    }
+    .hero, .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 14px 0;
+      box-shadow: 0 14px 34px rgba(22, 45, 34, .08);
+    }
+    .eyebrow {
+      margin: 0 0 6px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0;
+    }
+    h1, h2 { margin: 0 0 14px; line-height: 1.16; letter-spacing: 0; }
+    h1 { font-size: 32px; }
+    h2 { font-size: 20px; }
+    p { margin: 0; color: var(--muted); }
+    .section-note { margin: -4px 0 12px; }
+    .status {
+      display: inline-flex;
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      background: #e7f4ef;
+      color: var(--accent);
+    }
+    .status.limited, em.limited { color: var(--warn); background: #fff2df; }
+    .status.off, em.off { color: var(--bad); background: #fdeaea; }
+    .metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .metrics div {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      min-width: 0;
+    }
+    span, label { color: var(--muted); }
+    strong { display: block; margin-top: 2px; overflow-wrap: anywhere; }
+    .notice {
+      border-radius: 8px;
+      padding: 14px 16px;
+      background: #eaf2fa;
+      border: 1px solid #cfe0ef;
+      color: var(--accent-2);
+      margin: 14px 0;
+      font-weight: 700;
+    }
+    .notice.good { background: #e7f4ef; border-color: #cce7dd; color: var(--accent); }
+    .notice.bad { background: #fdeaea; border-color: #f4c9c9; color: var(--bad); }
+    form { display: grid; gap: 10px; }
+    .payrow {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+    }
+    input, select, button, .actions a {
+      min-height: 46px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      font: inherit;
+    }
+    input, select { width: 100%; padding: 0 12px; background: white; }
+    .checkrow {
+      display: grid;
+      grid-template-columns: 22px 1fr;
+      align-items: start;
+      gap: 10px;
+      color: var(--ink);
+    }
+    .checkrow input { width: 18px; min-height: 18px; margin-top: 2px; }
+    .checkrow a, .footer-links a, .doc a, small a { color: var(--accent-2); }
+    button, .actions a {
+      cursor: pointer;
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      font-weight: 700;
+      padding: 0 16px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    button.ghost {
+      min-height: 38px;
+      padding: 0 12px;
+      background: #f6faf8;
+      color: var(--accent);
+      border-color: #cfe2d8;
+    }
+    button.danger {
+      color: var(--bad);
+      border-color: #f0cdcd;
+      background: #fff7f7;
+    }
+    .chips {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .chips button {
+      background: #eef5f1;
+      color: var(--accent);
+      border-color: #cfe2d8;
+    }
+    ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+    li {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      display: grid;
+      gap: 3px;
+    }
+    li form { margin-top: 8px; }
+    em {
+      justify-self: start;
+      border-radius: 999px;
+      padding: 4px 8px;
+      font-style: normal;
+      font-weight: 700;
+      color: var(--accent);
+      background: #e7f4ef;
+    }
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .actions.single { grid-template-columns: 1fr; margin-bottom: 0; }
+    .actions a:nth-child(2) { background: var(--accent-2); border-color: var(--accent-2); }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin: 18px 0 0;
+      color: var(--muted);
+    }
+    .pager {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .pager a, .pager span {
+      min-height: 42px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .pager a {
+      background: #eef5f1;
+      color: var(--accent);
+      border-color: #cfe2d8;
+    }
+    .pager span {
+      color: var(--muted);
+      background: #f6faf8;
+    }
+    .steps {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 10px;
+    }
+    .steps li {
+      grid-template-columns: 1fr;
+    }
+    .doc p + p, .doc h2 + p {
+      margin-top: 10px;
+    }
+    .cookie-banner {
+      position: fixed;
+      left: 16px;
+      right: 16px;
+      bottom: 16px;
+      z-index: 20;
+      display: none;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 14px;
+      background: rgba(255, 255, 255, .98);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 16px 40px rgba(22, 45, 34, .18);
+    }
+    .cookie-banner p { color: var(--ink); }
+    .cookie-banner a { color: var(--accent-2); }
+    .cookie-banner button { min-height: 38px; }
+    .copybox {
+      display: grid;
+      grid-template-columns: minmax(110px, auto) 1fr;
+      gap: 8px 12px;
+      margin-top: 14px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfdfc;
+    }
+    .copybox a, .notice a { color: var(--accent-2); overflow-wrap: anywhere; }
+    .copybox code { overflow-wrap: anywhere; user-select: all; }
+    .instruction-text {
+      color: var(--ink);
+      white-space: pre-wrap;
+    }
+    .web-chat {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 60;
+      font: 14px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      box-sizing: border-box;
+    }
+    .web-chat *, .web-chat *::before, .web-chat *::after {
+      box-sizing: border-box;
+    }
+    .web-chat-button {
+      width: 56px;
+      height: 56px;
+      min-height: 56px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      padding: 0;
+      background: #18b46b;
+      border-color: #18b46b;
+      color: white;
+      box-shadow: 0 14px 34px rgba(24, 180, 107, .35);
+    }
+    .web-chat-button svg {
+      width: 28px;
+      height: 28px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .web-chat-button:hover {
+      background: #129d5c;
+      border-color: #129d5c;
+    }
+    .web-chat-panel {
+      position: absolute;
+      right: 0;
+      bottom: 72px;
+      width: min(340px, calc(100vw - 24px));
+      max-width: calc(100vw - 24px);
+      max-height: min(500px, calc(100vh - 108px));
+      display: grid;
+      grid-template-rows: auto minmax(150px, 1fr) auto auto auto;
+      overflow: hidden;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 18px 46px rgba(22, 45, 34, .18);
+    }
+    .web-chat-panel[hidden] { display: none; }
+    .web-chat-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 8px;
+      padding: 12px;
+      border-bottom: 1px solid var(--line);
+      background: #fbfdfc;
+    }
+    .web-chat-header strong {
+      min-width: 0;
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+    .web-chat-header div { display: flex; gap: 6px; align-items: center; }
+    .web-chat-close-dialog, .web-chat-hide {
+      min-height: 32px;
+      padding: 0 10px;
+      background: #eef5f1;
+      color: var(--accent);
+      border-color: #cfe2d8;
+      font-size: 13px;
+    }
+    .web-chat-hide {
+      width: 32px;
+      padding: 0;
+      line-height: 1;
+    }
+    .web-chat-hide svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+    .web-chat-messages {
+      display: grid;
+      align-content: start;
+      gap: 8px;
+      overflow: auto;
+      padding: 12px;
+      background: #f6faf8;
+    }
+    .web-chat-message {
+      max-width: 86%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      overflow-wrap: anywhere;
+      white-space: pre-wrap;
+      border: 1px solid var(--line);
+      background: white;
+    }
+    .web-chat-message.client {
+      justify-self: end;
+      background: #e7f4ef;
+      border-color: #cce7dd;
+      color: var(--ink);
+    }
+    .web-chat-message.support {
+      justify-self: start;
+    }
+    .web-chat-message.system {
+      justify-self: center;
+      max-width: 100%;
+      color: var(--muted);
+      background: transparent;
+      border: 0;
+      text-align: center;
+    }
+    .web-chat-message a {
+      color: var(--accent);
+      text-decoration: underline;
+      overflow-wrap: anywhere;
+    }
+    .web-chat-media {
+      display: block;
+      width: 100%;
+      max-width: 230px;
+      max-height: 260px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: #eef5f1;
+    }
+    video.web-chat-media {
+      max-height: 300px;
+    }
+    .web-chat-new-dialog {
+      justify-self: center;
+      margin: 10px 12px 0;
+      min-height: 34px;
+      padding: 0 14px;
+      background: #18b46b;
+      border-color: #18b46b;
+      color: white;
+      font-size: 13px;
+    }
+    .web-chat-form {
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr) auto;
+      gap: 8px;
+      padding: 10px;
+      border-top: 1px solid var(--line);
+      background: white;
+    }
+    .web-chat-file-button {
+      width: 38px;
+      height: 44px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #cfe2d8;
+      border-radius: 8px;
+      background: #eef5f1;
+      color: var(--accent);
+      cursor: pointer;
+      flex: 0 0 auto;
+    }
+    .web-chat-file-button svg {
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .web-chat-form textarea {
+      width: 100%;
+      min-width: 0;
+      min-height: 44px;
+      max-height: 120px;
+      resize: vertical;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font: inherit;
+    }
+    .web-chat-form button {
+      min-height: 44px;
+      align-self: end;
+      white-space: nowrap;
+    }
+    .web-chat-status {
+      min-height: 20px;
+      padding: 0 12px 10px;
+      font-size: 13px;
+      color: var(--muted);
+      background: white;
+    }
+    small { color: var(--muted); }
+    @media (max-width: 520px) {
+      html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+      }
+      main { padding: 12px 10px 28px; }
+      h1 { font-size: 28px; }
+      .metrics, .payrow, .actions { grid-template-columns: 1fr; }
+      .copybox { grid-template-columns: 1fr; }
+      .cookie-banner { grid-template-columns: 1fr; left: 10px; right: 10px; }
+      .web-chat {
+        left: auto;
+        right: max(14px, env(safe-area-inset-right));
+        bottom: max(14px, env(safe-area-inset-bottom));
+        width: 54px;
+        height: 54px;
+      }
+      .web-chat-button {
+        width: 54px;
+        height: 54px;
+        min-height: 54px;
+      }
+      .web-chat-panel {
+        position: fixed;
+        left: max(10px, env(safe-area-inset-left));
+        right: max(10px, env(safe-area-inset-right));
+        bottom: calc(76px + env(safe-area-inset-bottom));
+        width: auto;
+        min-width: 0;
+        max-width: none;
+        height: min(560px, calc(100svh - 106px));
+        max-height: calc(100svh - 106px);
+        border-radius: 12px;
+      }
+      @supports not (height: 100svh) {
+        .web-chat-panel {
+          height: min(560px, calc(100vh - 106px));
+          max-height: calc(100vh - 106px);
+        }
+      }
+      .web-chat-header {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+      .web-chat-close-dialog {
+        max-width: 132px;
+        white-space: normal;
+        line-height: 1.15;
+      }
+      .web-chat-form {
+        grid-template-columns: 38px minmax(0, 1fr);
+      }
+      .web-chat-form textarea,
+      .web-chat-form button {
+        font-size: 16px;
+      }
+      .web-chat-form button {
+        grid-column: 1 / -1;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main><section class="hero public-hero"><p class="eyebrow">Veya Connect</p><h1>Защищенное подключение для ваших устройств</h1><p>Получите пробный доступ на 3 дня, добавьте профиль подключения и привяжите Telegram уже после подключения.</p></section><section class="panel"><h2>Получить 3 дня бесплатно</h2><form method="post" action="/"><input type="hidden" name="ref" value=""><label>Email</label><input type="email" name="email" autocomplete="email" placeholder="you@example.com" required><label>Тип устройства</label><select name="device_type"><option value="iPhone">iPhone</option><option value="Android">Android</option><option value="Windows">Windows</option><option value="macOS">macOS</option></select><label class="checkrow"><input type="checkbox" name="agree" value="1" required><span>Я ознакомлен и согласен с <a href="https://veyaconnect.su:8443/terms">пользовательским соглашением</a> и <a href="https://veyaconnect.su:8443/privacy">политикой обработки персональных данных</a></span></label><button type="submit">Отправить ссылку на email</button><small>На один email доступен один пробный профиль. Токен устройства приходит в письме и позже доступен в личном кабинете.</small></form></section><section class="panel"><h2>Войти по токену</h2><form method="post" action="/login"><label>Токен из письма или ссылка кабинета</label><div class="payrow"><input name="token" autocomplete="one-time-code" placeholder="VC-XXXXXXXXXX"><button type="submit">Открыть кабинет</button></div></form></section><section class="panel"><h2>Как начать</h2><ol class="steps"><li><strong>Введите email.</strong><span>Мы отправим ссылку кабинета и токен для входа.</span></li><li><strong>Откройте кабинет.</strong><span>Нажмите кнопку добавления профиля в подходящее приложение.</span></li><li><strong>Подключитесь.</strong><span>После подключения привяжите Telegram, чтобы оплачивать и восстанавливать доступ.</span></li></ol></section><section class="actions"><a href="https://apps.apple.com/ru/app/happ-proxy-utility/id6783623643">Happ для iPhone и Mac</a><a href="https://www.happ.su/main">Happ для Android и Windows</a><a href="https://t.me/veyavpn_bot">Поддержка</a></section><footer class="footer-links"><a href="/terms">Пользовательское соглашение</a><a href="/privacy">Политика персональных данных</a></footer></main>
+  <div class="cookie-banner" id="cookieBanner">
+    <p>Мы используем технические cookies для входа, безопасности и ограничения повторных пробников. <a href="/privacy">Политика персональных данных</a></p>
+    <button type="button" id="cookieAccept">Понятно</button>
+  </div>
+  <script>
+    (function() {
+      var name = "veya_cookie_consent=1";
+      var banner = document.getElementById("cookieBanner");
+      if (!document.cookie.split("; ").includes(name) && banner) {
+        banner.style.display = "grid";
+      }
+      document.getElementById("cookieAccept")?.addEventListener("click", function() {
+        document.cookie = name + "; max-age=31536000; path=/; SameSite=Lax";
+        if (location.protocol === "https:") {
+          document.cookie = name + "; max-age=31536000; path=/; SameSite=Lax; Secure";
+        }
+        banner.style.display = "none";
+      });
+    })();
+  </script>
+
+  <div class="web-chat" id="webChat" data-enabled="1">
+    <button class="web-chat-button" id="webChatOpen" type="button" aria-label="Открыть чат поддержки" title="Поддержка">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21 11.5a8.4 8.4 0 0 1-9 8.3 8.6 8.6 0 0 1-3.8-.9L3 20l1.2-4.6A8.2 8.2 0 0 1 3 11.5 8.4 8.4 0 0 1 12 3.2a8.4 8.4 0 0 1 9 8.3Z"/>
+        <path d="M8 10.4h8M8 13.6h5"/>
+      </svg>
+    </button>
+    <section class="web-chat-panel" id="webChatPanel" hidden>
+      <header class="web-chat-header">
+        <strong>Поддержка Veya Connect</strong>
+        <div>
+          <button class="web-chat-close-dialog" id="webChatEnd" type="button">Закрыть диалог</button>
+          <button class="web-chat-hide" id="webChatHide" type="button" aria-label="Свернуть" title="Свернуть">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 12h12"/></svg>
+          </button>
+        </div>
+      </header>
+      <div class="web-chat-messages" id="webChatMessages" aria-live="polite"></div>
+      <button class="web-chat-new-dialog" id="webChatNew" type="button" hidden>Новый диалог</button>
+      <form class="web-chat-form" id="webChatForm">
+        <label class="web-chat-file-button" for="webChatFile" aria-label="Прикрепить скриншот" title="Прикрепить скриншот">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M21.4 11.2 12 20.6a5.2 5.2 0 0 1-7.4-7.4l9.4-9.4a3.5 3.5 0 1 1 5 5l-9.5 9.4a1.8 1.8 0 0 1-2.5-2.5l8.8-8.8"/>
+          </svg>
+        </label>
+        <input id="webChatFile" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+        <textarea id="webChatInput" maxlength="2000" rows="2" placeholder="Напишите сообщение"></textarea>
+        <button type="submit">Отправить</button>
+      </form>
+      <p class="web-chat-status" id="webChatStatus"></p>
+    </section>
+  </div>
+  <script>
+    (function() {
+      var root = document.getElementById("webChat");
+      if (!root) return;
+      var openButton = document.getElementById("webChatOpen");
+      var panel = document.getElementById("webChatPanel");
+      var hideButton = document.getElementById("webChatHide");
+      var endButton = document.getElementById("webChatEnd");
+      var newButton = document.getElementById("webChatNew");
+      var form = document.getElementById("webChatForm");
+      var input = document.getElementById("webChatInput");
+      var fileInput = document.getElementById("webChatFile");
+      var messages = document.getElementById("webChatMessages");
+      var status = document.getElementById("webChatStatus");
+      var lastId = 0;
+      var pollTimer = null;
+      var chatStatus = "new";
+      var renderedIds = {};
+
+      function setStatus(text) {
+        status.textContent = text || "";
+      }
+
+      function appendTextWithLinks(container, text) {
+        var value = text || "";
+        var urlRe = /(https?:\/\/[^\s<>"']+)/g;
+        var lastIndex = 0;
+        var match;
+        while ((match = urlRe.exec(value)) !== null) {
+          if (match.index > lastIndex) {
+            container.appendChild(document.createTextNode(value.slice(lastIndex, match.index)));
+          }
+          var link = document.createElement("a");
+          link.href = match[0];
+          link.target = "_blank";
+          link.rel = "noopener noreferrer";
+          link.textContent = match[0];
+          container.appendChild(link);
+          lastIndex = match.index + match[0].length;
+        }
+        if (lastIndex < value.length) {
+          container.appendChild(document.createTextNode(value.slice(lastIndex)));
+        }
+      }
+
+      function resetMessages() {
+        messages.innerHTML = "";
+        renderedIds = {};
+        lastId = 0;
+      }
+
+      function renderMessage(item) {
+        if (item.id && renderedIds[item.id]) return;
+        var row = document.createElement("div");
+        row.className = "web-chat-message " + (item.direction === "support" ? "support" : "client");
+        if (item.id) renderedIds[item.id] = true;
+        if (item.media_url && item.media_type === "photo") {
+          var image = document.createElement("img");
+          image.className = "web-chat-media";
+          image.src = item.media_url;
+          image.alt = item.media_name || "Фото от поддержки";
+          image.loading = "lazy";
+          row.appendChild(image);
+        } else if (item.media_url && item.media_type === "video") {
+          var video = document.createElement("video");
+          video.className = "web-chat-media";
+          video.src = item.media_url;
+          video.controls = true;
+          video.preload = "metadata";
+          row.appendChild(video);
+        }
+        if (item.text) {
+          if (row.childNodes.length) row.appendChild(document.createElement("br"));
+          appendTextWithLinks(row, item.text);
+        }
+        if (!row.childNodes.length) row.textContent = "Сообщение";
+        messages.appendChild(row);
+        messages.scrollTop = messages.scrollHeight;
+        if (item.id && item.id > lastId) lastId = item.id;
+      }
+
+      function setClosed() {
+        chatStatus = "closed";
+        resetMessages();
+        var row = document.createElement("div");
+        row.className = "web-chat-message system";
+        row.textContent = "Диалог закрыт.";
+        messages.appendChild(row);
+        input.disabled = true;
+        fileInput.disabled = true;
+        form.querySelector("button").disabled = true;
+        newButton.hidden = false;
+        setStatus("");
+      }
+
+      async function call(path, options) {
+        var response = await fetch(path, Object.assign({
+          credentials: "same-origin",
+          headers: {"Content-Type": "application/json"}
+        }, options || {}));
+        if (!response.ok) throw new Error("request failed");
+        return await response.json();
+      }
+
+      function safePagePath() {
+        return (location.pathname || "/").replace(/\/transfer\/[^\/?#]+/i, "/transfer/[скрыт-токен]");
+      }
+
+      async function ensureSession(reset) {
+        var data = await call("/chat/session", {
+          method: "POST",
+          body: JSON.stringify({page_path: safePagePath(), reset: !!reset})
+        });
+        if (data.status === "closed") {
+          setClosed();
+          return data;
+        }
+        chatStatus = data.status || "open";
+        input.disabled = false;
+        fileInput.disabled = false;
+        form.querySelector("button").disabled = false;
+        newButton.hidden = true;
+        resetMessages();
+        (data.messages || []).forEach(renderMessage);
+        return data;
+      }
+
+      async function poll() {
+        if (chatStatus === "closed" || panel.hidden) return;
+        try {
+          var data = await fetch("/chat/messages?after_id=" + encodeURIComponent(String(lastId)), {
+            credentials: "same-origin"
+          }).then(function(r) { return r.json(); });
+          if (data.status === "closed") {
+            setClosed();
+            return;
+          }
+          (data.messages || []).forEach(renderMessage);
+        } catch (e) {}
+      }
+
+      function startPolling() {
+        if (pollTimer) clearInterval(pollTimer);
+        pollTimer = setInterval(poll, 4000);
+      }
+
+      function focusComposer() {
+        var coarsePointer = window.matchMedia && window.matchMedia("(pointer: coarse)").matches;
+        var smallScreen = window.matchMedia && window.matchMedia("(max-width: 520px)").matches;
+        if (coarsePointer || smallScreen) return;
+        try {
+          input.focus({preventScroll: true});
+        } catch (e) {
+          input.focus();
+        }
+      }
+
+      openButton.addEventListener("click", async function() {
+        panel.hidden = false;
+        focusComposer();
+        setStatus("Открываем чат...");
+        try {
+          await ensureSession(false);
+          setStatus("");
+          startPolling();
+          poll();
+        } catch (e) {
+          setStatus("Чат временно недоступен. Попробуйте позже.");
+        }
+      });
+
+      hideButton.addEventListener("click", function() {
+        panel.hidden = true;
+      });
+
+      document.addEventListener("click", function(event) {
+        if (panel.hidden) return;
+        if (!root.contains(event.target)) {
+          panel.hidden = true;
+        }
+      });
+
+      endButton.addEventListener("click", async function() {
+        if (chatStatus === "closed") return;
+        try {
+          await call("/chat/close", {method: "POST", body: JSON.stringify({})});
+        } catch (e) {}
+        setClosed();
+      });
+
+      newButton.addEventListener("click", async function() {
+        resetMessages();
+        chatStatus = "new";
+        setStatus("Открываем новый диалог...");
+        try {
+          await ensureSession(true);
+          setStatus("");
+          focusComposer();
+          startPolling();
+          poll();
+        } catch (e) {
+          setStatus("Чат временно недоступен. Попробуйте позже.");
+        }
+      });
+
+      fileInput.addEventListener("change", function() {
+        if (fileInput.files && fileInput.files[0]) {
+          setStatus("Скриншот выбран: " + fileInput.files[0].name);
+        }
+      });
+
+      form.addEventListener("submit", async function(event) {
+        event.preventDefault();
+        var text = input.value.trim();
+        var file = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
+        if ((!text && !file) || chatStatus === "closed") return;
+        input.value = "";
+        setStatus("Отправляем...");
+        try {
+          var data;
+          if (file) {
+            var formData = new FormData();
+            formData.append("text", text);
+            formData.append("page_path", safePagePath());
+            formData.append("screenshot", file);
+            var response = await fetch("/chat/upload", {
+              method: "POST",
+              credentials: "same-origin",
+              body: formData
+            });
+            if (!response.ok) throw new Error("upload failed");
+            data = await response.json();
+            fileInput.value = "";
+          } else {
+            data = await call("/chat/messages", {
+              method: "POST",
+              body: JSON.stringify({text: text, page_path: safePagePath()})
+            });
+          }
+          if (data.status === "closed") {
+            setClosed();
+            return;
+          }
+          (data.messages || []).forEach(renderMessage);
+          setStatus("");
+          poll();
+        } catch (e) {
+          input.value = text;
+          setStatus(file ? "Не удалось отправить скриншот. Проверьте размер и формат." : "Не удалось отправить. Попробуйте еще раз.");
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

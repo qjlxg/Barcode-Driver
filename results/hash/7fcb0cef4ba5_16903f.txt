@@ -1,0 +1,2769 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>BIAM — AI Business System Builder</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="/biam/lenis.min.js"></script>
+<script src="/biam/i18n.js" defer></script>
+<style>
+  :root{
+    --bg:#05070C;
+    --bg-2:#080B12;
+    --panel:#0B0F18;
+    --panel-2:#0E1320;
+    --line:rgba(255,255,255,0.06);
+    --line-2:rgba(255,255,255,0.10);
+    --text:#EEF2F8;
+    --text-2:#B6C1D1;
+    --text-3:#7C8699;
+    --blue:#5EBEFB;
+    --blue-2:#3FA9F5;
+    --blue-deep:#1F6FE0;
+    --blue-soft:rgba(94,190,251,0.12);
+    --amber:#FFB05B;
+    --shadow-blue:0 0 60px rgba(94,190,251,0.35);
+    --radius:14px;
+    --sb-w:232px;
+    --gutter:64px;
+    --maxw:1080px;
+    font-family:"Sora",ui-sans-serif,system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+  /* Global keyboard focus indicator */
+  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{
+    outline:2px solid var(--blue);outline-offset:3px;border-radius:6px
+  }
+  .sb-link:focus-visible,.sb-cta:focus-visible,.btn-primary:focus-visible,.btn-ghost:focus-visible,.pick:focus-visible{outline-offset:2px}
+
+  /* Reduced motion — kill perpetual animations and Lenis-driven smooth scroll */
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{
+      animation-duration:.001ms !important;
+      animation-iteration-count:1 !important;
+      transition-duration:.001ms !important;
+      scroll-behavior:auto !important
+    }
+    html.lenis,html.lenis body{scroll-behavior:auto !important}
+  }
+
+  /* Lenis smooth scroll */
+  html.lenis,html.lenis body{height:auto}
+  .lenis.lenis-smooth{scroll-behavior:auto!important}
+  .lenis.lenis-smooth [data-lenis-prevent]{overscroll-behavior:contain}
+  .lenis.lenis-stopped{overflow:hidden}
+  .lenis.lenis-smooth iframe{pointer-events:none}
+
+  /* Site-wide scrollbar */
+  html{scrollbar-width:thin;scrollbar-color:rgba(94,190,251,0.35) transparent}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-track{background:rgba(7,10,17,0.6);border-left:1px solid var(--line)}
+  ::-webkit-scrollbar-thumb{
+    background:linear-gradient(180deg,rgba(94,190,251,0.45),rgba(31,111,224,0.5));
+    border-radius:999px;border:2px solid transparent;background-clip:padding-box;
+    box-shadow:inset 0 0 0 1px rgba(94,190,251,0.15)
+  }
+  ::-webkit-scrollbar-thumb:hover{
+    background:linear-gradient(180deg,rgba(94,190,251,0.7),rgba(31,111,224,0.75));
+    background-clip:padding-box
+  }
+  ::-webkit-scrollbar-corner{background:transparent}
+
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:"Sora",sans-serif;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01","ss02","cv11";letter-spacing:-0.005em}
+  body{min-width:1280px;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer}
+  .mono{font-family:"JetBrains Mono",ui-monospace,monospace;letter-spacing:0;font-feature-settings:"ss01","ss02","cv11"}
+
+  /* ---------- LAYOUT ---------- */
+  .app{min-height:100vh;position:relative}
+
+  /* ---------- SIDEBAR ---------- */
+  .sidebar{
+    position:fixed;left:0;top:0;bottom:0;width:var(--sb-w);
+    background:linear-gradient(180deg,#070A11 0%,#05070C 100%);
+    border-right:1px solid var(--line);
+    display:flex;flex-direction:column;padding:24px 22px;z-index:50;
+    overflow-y:auto;
+  }
+  .sidebar::-webkit-scrollbar{width:4px}
+  .sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.06);border-radius:4px}
+
+  .sb-brand{display:flex;align-items:center;gap:10px;padding:4px 6px 20px}
+  .sb-brand .mark{width:30px;height:30px;display:grid;place-items:center;flex-shrink:0}
+  .sb-brand .mark svg{width:100%;height:100%;display:block}
+  .biam-logo-anim{shape-rendering:geometricPrecision;overflow:visible}
+  .sb-brand .name{font-size:22px;font-weight:600;letter-spacing:-0.02em}
+  .sb-brand .name b{color:#fff}
+  .sb-brand .sb-tag{margin:0 0 0 4px;padding:3px 8px;font-size:9.5px}
+  .sb-tag{
+    display:inline-flex;align-self:flex-start;align-items:center;gap:6px;
+    border:1px solid var(--line-2);background:rgba(255,255,255,0.02);
+    padding:6px 10px;border-radius:999px;font-size:10.5px;
+    text-transform:uppercase;letter-spacing:0.14em;color:var(--text-3);
+    margin:6px 6px 20px
+  }
+  .sb-tag .dot{width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 8px var(--blue)}
+  .sb-section-label{
+    font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.18em;
+    text-transform:uppercase;color:var(--text-3);padding:0 8px;margin:14px 0 6px
+  }
+  .sb-nav{display:flex;flex-direction:column;gap:1px}
+  .sb-link{
+    display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;
+    color:var(--text-2);font-size:14px;font-weight:400;position:relative;
+    transition:background .2s,color .2s
+  }
+  .sb-link .num{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--text-3);width:22px}
+  .sb-link .ico{width:16px;height:16px;color:var(--text-3);display:grid;place-items:center;flex-shrink:0}
+  .sb-link .ico svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.6}
+  .sb-link .arrow{margin-left:auto;color:var(--text-3);opacity:0;transition:opacity .2s, transform .2s}
+  .sb-link:hover{background:rgba(255,255,255,0.03);color:#fff}
+  .sb-link:hover .arrow{opacity:1;transform:translateX(2px)}
+  .sb-link.active{
+    background:linear-gradient(180deg,rgba(94,190,251,0.10),rgba(94,190,251,0.02));
+    color:#fff;border:1px solid rgba(94,190,251,0.25)
+  }
+  .sb-link.active::before{
+    content:"";position:absolute;left:-22px;top:50%;transform:translateY(-50%);
+    width:3px;height:18px;background:var(--blue);border-radius:0 3px 3px 0;box-shadow:0 0 12px var(--blue)
+  }
+  .sb-link.active .ico,.sb-link.active .num{color:var(--blue)}
+
+  .sb-foot{margin-top:auto;display:flex;flex-direction:column;gap:14px;padding-top:18px}
+  .sb-status{
+    border:1px solid var(--line);border-radius:12px;padding:14px;
+    background:linear-gradient(180deg,rgba(94,190,251,0.06),rgba(94,190,251,0));
+  }
+  .sb-status .row{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:0.14em;font-family:"JetBrains Mono",monospace}
+  .sb-status .v{color:#fff;font-size:13px;font-family:"Sora";text-transform:none;letter-spacing:-0.01em;margin-top:6px;font-weight:500;display:flex;align-items:center;gap:8px}
+  .sb-status .v .live{width:8px;height:8px;border-radius:50%;background:var(--blue);position:relative}
+  .sb-status .v .live::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:1px solid var(--blue);opacity:.6;animation:pulse 1.8s infinite ease-out}
+  @keyframes pulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(2.2);opacity:0}}
+
+  .sb-cta{
+    display:flex;align-items:center;justify-content:space-between;gap:8px;
+    background:#fff;color:#06080D;padding:12px 14px;border-radius:12px;
+    font-size:14px;font-weight:600;border:0
+  }
+  .sb-cta:hover{background:#E9F4FF}
+  .sb-cta .arr{display:inline-block;width:18px;height:18px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:11px}
+
+  /* ---------- MAIN ---------- */
+  main{margin-left:var(--sb-w);position:relative}
+
+  /* Top utility bar */
+  .topbar{
+    position:sticky;top:0;z-index:30;
+    backdrop-filter:blur(14px);background:rgba(5,7,12,0.72);
+    border-bottom:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 36px;font-size:13px;color:var(--text-3);
+  }
+  .crumb{display:flex;align-items:center;gap:10px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase}
+  .crumb .sep{opacity:.5}
+  .crumb .cur{color:var(--blue)}
+  .top-right{display:flex;align-items:center;gap:18px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase}
+  .top-right .pill{border:1px solid var(--line-2);padding:6px 10px;border-radius:999px;color:var(--text-2);display:flex;align-items:center;gap:8px}
+  .top-right .pill .dot{width:6px;height:6px;border-radius:50%;background:#3CD17A;box-shadow:0 0 8px #3CD17A}
+
+  section.s{
+    padding:120px 64px 140px;position:relative;border-bottom:1px solid var(--line);
+    scroll-margin-top:0;
+  }
+  .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:48px;margin-bottom:64px}
+  .eyebrow{
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.22em;
+    text-transform:uppercase;color:var(--blue);display:inline-flex;align-items:center;gap:10px
+  }
+  .eyebrow::before{content:"";width:24px;height:1px;background:var(--blue)}
+  h2.section-title{font-size:60px;font-weight:500;line-height:0.98;letter-spacing:-0.035em;margin:18px 0 0;max-width:780px}
+  h2.section-title em{font-style:normal;color:var(--text-3);font-weight:300}
+  h2.section-title .blue-grad{
+    background:linear-gradient(180deg,#fff 0%,#5EBEFB 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .section-meta{color:var(--text-3);font-size:13px;font-family:"JetBrains Mono",monospace;letter-spacing:0.08em;text-align:right;min-width:220px}
+  .section-meta b{color:#fff;font-weight:500}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:40px 64px;height:calc(100vh - 57px);min-height:680px;
+    display:flex;flex-direction:column;justify-content:center;
+    position:relative;overflow:hidden;border-bottom:1px solid var(--line);
+  }
+  .hero-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .hero-bg .stars{position:absolute;inset:0;background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.6) 50%, transparent 51%),
+    radial-gradient(1px 1px at 70% 65%, rgba(255,255,255,0.5) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 40% 80%, rgba(94,190,251,0.7) 50%, transparent 51%),
+    radial-gradient(1px 1px at 85% 20%, rgba(255,255,255,0.6) 50%, transparent 51%),
+    radial-gradient(1px 1px at 15% 70%, rgba(255,255,255,0.4) 50%, transparent 51%),
+    radial-gradient(1px 1px at 55% 15%, rgba(255,255,255,0.5) 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 90% 50%, rgba(94,190,251,0.6) 50%, transparent 51%),
+    radial-gradient(1px 1px at 30% 50%, rgba(255,255,255,0.4) 50%, transparent 51%),
+    radial-gradient(1px 1px at 75% 85%, rgba(255,255,255,0.5) 50%, transparent 51%),
+    radial-gradient(1px 1px at 50% 40%, rgba(255,255,255,0.3) 50%, transparent 51%);
+    background-size:100% 100%}
+  .hero-bg .laser{display:none}
+  .hero-bg .laser-2{
+    position:absolute;left:78%;top:0;bottom:0;width:600px;transform:translateX(-50%);
+    background:radial-gradient(ellipse at center, rgba(94,190,251,0.16) 0%, transparent 60%);
+    filter:blur(60px);
+  }
+  .hero-bg .grid{
+    position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);
+    background-size:80px 80px;
+    mask-image:radial-gradient(ellipse at 70% 50%, #000 20%, transparent 70%);
+  }
+  .hero-bg .floor{
+    position:absolute;left:0;right:0;bottom:0;height:38%;
+    background:linear-gradient(180deg,transparent,rgba(94,190,251,0.05) 50%,rgba(94,190,251,0.08));
+    pointer-events:none;
+  }
+
+  .hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr 1fr;gap:80px;align-items:center;max-width:1380px}
+  .hero-left{max-width:680px}
+  .hero-eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    border:1px solid var(--line-2);background:rgba(255,255,255,0.02);
+    padding:8px 14px 8px 10px;border-radius:999px;color:var(--text-2);
+    font-size:12px;letter-spacing:0.04em;backdrop-filter:blur(8px);
+  }
+  .hero-eyebrow .badge{
+    display:inline-flex;align-items:center;gap:6px;font-size:10px;font-family:"JetBrains Mono",monospace;
+    letter-spacing:0.18em;color:var(--blue);text-transform:uppercase;
+    padding:3px 8px;border-radius:999px;background:rgba(94,190,251,0.10);border:1px solid rgba(94,190,251,0.25)
+  }
+  .hero-eyebrow .badge .d{width:5px;height:5px;border-radius:50%;background:var(--blue);box-shadow:0 0 8px var(--blue)}
+  h1.hero-title{
+    font-size:clamp(44px,5vw,72px);line-height:1;letter-spacing:-0.04em;font-weight:400;
+    margin:20px 0 0;
+  }
+  h1.hero-title span.thin{font-weight:300;color:var(--text-3)}
+  h1.hero-title span.blue{
+    background:linear-gradient(180deg,#fff 0%,#9ED7FE 55%,#5EBEFB 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero-sub{
+    margin-top:22px;font-size:17px;color:var(--text-2);max-width:560px;line-height:1.5;font-weight:300
+  }
+  .hero-sub b{color:#fff;font-weight:500}
+  .hero-cta{
+    margin-top:28px;display:flex;align-items:center;gap:14px;flex-wrap:wrap
+  }
+  .input-shell{
+    display:flex;align-items:center;gap:4px;padding:6px 6px 6px 18px;
+    background:rgba(255,255,255,0.03);border:1px solid var(--line-2);border-radius:999px;
+    width:500px;backdrop-filter:blur(8px);box-shadow:0 30px 60px -30px rgba(94,190,251,0.4), inset 0 0 0 1px rgba(94,190,251,0.05)
+  }
+  .input-shell svg{color:var(--text-3);flex-shrink:0}
+  .input-shell input{
+    flex:1;background:transparent;border:0;outline:0;color:#fff;font-family:inherit;font-size:14.5px;padding:14px 12px;letter-spacing:-0.01em
+  }
+  .input-shell input::placeholder{color:var(--text-3)}
+  .btn-primary{
+    background:linear-gradient(180deg,#7CCAFB,#3FA9F5);
+    color:#03192C;border:0;padding:14px 24px;border-radius:999px;
+    font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:10px;
+    box-shadow:0 10px 30px -8px rgba(94,190,251,0.55), inset 0 1px 0 rgba(255,255,255,0.4)
+  }
+  .btn-primary:hover{filter:brightness(1.08)}
+  .btn-ghost{
+    background:transparent;color:#fff;border:1px solid var(--line-2);
+    padding:14px 22px;border-radius:999px;font-weight:500;font-size:14px;
+    display:inline-flex;align-items:center;gap:10px
+  }
+  .btn-ghost:hover{background:rgba(255,255,255,0.04)}
+
+  .hero-meta{
+    margin-top:34px;display:flex;align-items:center;gap:28px;
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.16em;
+    text-transform:uppercase;color:var(--text-3);flex-wrap:wrap
+  }
+  .hero-meta .m{display:flex;align-items:center;gap:10px}
+  .hero-meta .m b{color:#fff;font-family:"Sora";font-weight:500;font-size:14px;letter-spacing:-0.01em;text-transform:none}
+  .hero-meta .sep{width:1px;height:18px;background:var(--line-2)}
+
+  /* HERO RIGHT — chat-builder mock */
+  .builder-mock{
+    position:relative;z-index:2;border:1px solid var(--line-2);border-radius:22px;
+    background:linear-gradient(180deg,rgba(11,15,24,0.92),rgba(7,10,17,0.92));
+    backdrop-filter:blur(20px);box-shadow:0 60px 120px -40px rgba(0,0,0,0.7),0 0 100px -20px rgba(94,190,251,0.35);
+    overflow:hidden;width:100%;
+  }
+  .bm-head{display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line);background:rgba(255,255,255,0.015)}
+  .bm-head .badge{display:inline-flex;align-items:center;gap:8px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.18em;color:var(--blue);text-transform:uppercase;padding:5px 10px;border-radius:999px;background:rgba(94,190,251,0.10);border:1px solid rgba(94,190,251,0.25)}
+  .bm-head .badge .d{width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 8px var(--blue);animation:pulse-soft 1.6s infinite alternate}
+  @keyframes pulse-soft{from{opacity:.6}to{opacity:1}}
+  .bm-head .title{font-size:13px;color:var(--text-2);font-weight:400}
+  .bm-head .title b{color:#fff;font-weight:500}
+  .bm-head .right{margin-left:auto;font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--text-3);letter-spacing:0.12em}
+
+  .bm-body{padding:22px;display:flex;flex-direction:column;gap:14px;max-height:520px}
+  .bm-msg{display:flex;gap:12px;align-items:flex-start}
+  .bm-msg .av{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;flex-shrink:0}
+  .bm-msg.user .av{background:rgba(255,255,255,0.06);color:#fff;border:1px solid var(--line-2)}
+  .bm-msg.ai .av{background:linear-gradient(135deg,#5EBEFB,#1F6FE0);color:#03192C}
+  .bm-msg .bubble{
+    flex:1;font-size:14px;line-height:1.55;color:var(--text-2);
+    padding:12px 16px;border-radius:14px;
+    background:rgba(255,255,255,0.025);border:1px solid var(--line)
+  }
+  .bm-msg.user .bubble{background:rgba(255,255,255,0.04)}
+  .bm-msg.ai .bubble{background:linear-gradient(180deg,rgba(94,190,251,0.06),rgba(94,190,251,0.02));border-color:rgba(94,190,251,0.18)}
+  .bm-msg .bubble b{color:#fff;font-weight:500}
+
+  .bm-build{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+  .bm-build .step{display:flex;align-items:center;gap:10px;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--text-2);letter-spacing:0.02em}
+  .bm-build .step .tick{width:14px;height:14px;border-radius:50%;border:1px solid var(--blue);background:rgba(94,190,251,0.15);color:var(--blue);display:grid;place-items:center;font-size:9px;flex-shrink:0}
+  .bm-build .step.run .tick{background:transparent;border-color:var(--text-3);color:transparent}
+  .bm-build .step.run .tick::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulse-soft 1s infinite alternate}
+  .bm-build .tok{margin-left:auto;color:var(--text-3);font-size:10.5px}
+
+  /* Builder mock — placeholder */
+  .builder-placeholder .bm-placeholder{
+    position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:14px;min-height:480px;padding:48px 32px;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);
+    background-size:24px 24px
+  }
+  .builder-placeholder .bm-placeholder::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse at center,transparent 30%,rgba(11,15,24,0.85) 85%);
+    pointer-events:none
+  }
+  .bm-placeholder-tag{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.24em;
+    text-transform:uppercase;color:var(--blue);
+    padding:6px 14px;border-radius:999px;
+    border:1px solid rgba(94,190,251,0.35);background:rgba(94,190,251,0.08);
+    backdrop-filter:blur(4px);position:relative;z-index:1
+  }
+  .bm-placeholder-dot{
+    width:6px;height:6px;border-radius:50%;background:var(--blue);
+    box-shadow:0 0 10px var(--blue);
+    animation:pulse-soft 1.6s ease-in-out infinite alternate
+  }
+  .bm-placeholder-title{
+    font-size:22px;font-weight:500;letter-spacing:-0.02em;color:#fff;
+    position:relative;z-index:1
+  }
+  .bm-placeholder-sub{
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.18em;
+    text-transform:uppercase;color:var(--text-3);
+    position:relative;z-index:1
+  }
+
+  /* Builder mock — video demo */
+  .builder-video{padding:14px;display:flex;flex-direction:column;gap:12px}
+  .bv-frame{
+    position:relative;width:100%;aspect-ratio:160/73;
+    border-radius:14px;overflow:hidden;background:#000;
+    border:1px solid var(--line);cursor:pointer;
+    transition:border-color .2s,box-shadow .2s
+  }
+  .bv-frame:hover{border-color:rgba(94,190,251,0.45);box-shadow:0 0 0 1px rgba(94,190,251,0.18) inset}
+  .bv-video{width:100%;height:100%;object-fit:contain;display:block;pointer-events:none}
+  .bv-expand{
+    position:absolute;right:10px;bottom:10px;width:32px;height:32px;
+    border-radius:8px;background:rgba(7,10,17,0.65);backdrop-filter:blur(6px);
+    border:1px solid rgba(255,255,255,0.12);color:#fff;
+    display:grid;place-items:center;pointer-events:none;
+    opacity:0;transform:translateY(4px);transition:opacity .2s,transform .2s
+  }
+  .bv-frame:hover .bv-expand{opacity:1;transform:translateY(0)}
+  @media (hover:none){ .bv-expand{opacity:1;transform:none} }
+  .bv-caption{
+    display:flex;align-items:center;gap:12px;padding:0 4px 2px;
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.18em;
+    text-transform:uppercase;color:var(--text-3)
+  }
+  .bv-tag{
+    display:inline-flex;align-items:center;gap:8px;
+    color:var(--blue);padding:5px 10px;border-radius:999px;
+    border:1px solid rgba(94,190,251,0.35);background:rgba(94,190,251,0.08);
+    font-size:10px;letter-spacing:0.24em
+  }
+  .bv-dot{
+    width:6px;height:6px;border-radius:50%;background:var(--blue);
+    box-shadow:0 0 10px var(--blue);
+    animation:pulse-soft 1.6s ease-in-out infinite alternate
+  }
+
+  .bm-input{display:flex;align-items:center;gap:8px;padding:10px 14px;border-top:1px solid var(--line);background:rgba(255,255,255,0.015)}
+  .bm-input .field{flex:1;font-size:13px;color:var(--text-3)}
+  .bm-input .kbd{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--text-3);padding:3px 7px;border:1px solid var(--line-2);border-radius:6px}
+  .bm-input .send{width:28px;height:28px;border-radius:50%;background:var(--blue);color:#03192C;display:grid;place-items:center;font-size:12px;font-weight:700}
+
+  /* ticker */
+  .ticker{
+    position:relative;z-index:2;padding:18px 64px;
+    border-bottom:1px solid var(--line);background:rgba(7,10,17,0.4);
+    display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+    color:var(--text-3);font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.18em;text-transform:uppercase
+  }
+  .ticker .logos{display:flex;align-items:center;gap:14px 28px;opacity:.7;flex-wrap:wrap}
+  .ticker .logos span{color:#fff;font-family:"Sora";font-weight:500;font-size:15px;letter-spacing:-0.02em;text-transform:none;opacity:.7}
+
+  /* ---------- TWO AI ---------- */
+  .twoai-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative}
+  .twoai-grid::before{
+    content:"";position:absolute;left:50%;top:30px;bottom:30px;width:1px;
+    background:linear-gradient(180deg,transparent,rgba(94,190,251,0.4) 30%,rgba(94,190,251,0.4) 70%,transparent);
+  }
+  .twoai-grid::after{
+    content:"+";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    width:56px;height:56px;border-radius:50%;border:1px solid rgba(94,190,251,0.4);
+    background:#05070C;display:grid;place-items:center;
+    font-family:"JetBrains Mono",monospace;font-size:22px;color:var(--blue);font-weight:300;
+    box-shadow:0 0 40px rgba(94,190,251,0.5),inset 0 0 20px rgba(94,190,251,0.15)
+  }
+  .ai-card{
+    border:1px solid var(--line-2);border-radius:24px;padding:44px 40px;
+    background:linear-gradient(180deg,#0A0F1B,#06090F);
+    position:relative;overflow:hidden;display:flex;flex-direction:column;gap:24px;min-height:580px
+  }
+  .ai-card .glow{position:absolute;inset:auto;top:-80px;width:300px;height:300px;border-radius:50%;filter:blur(80px);opacity:.4;pointer-events:none}
+  .ai-card.builder .glow{left:-60px;background:radial-gradient(circle,#3FA9F5 0%,transparent 70%)}
+  .ai-card.operator .glow{right:-60px;background:radial-gradient(circle,#5EBEFB 0%,transparent 70%)}
+  .ai-card .ix{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--blue);letter-spacing:0.18em;text-transform:uppercase;display:flex;align-items:center;gap:10px;position:relative;z-index:1}
+  .ai-card .ix .sym{
+    width:40px;height:40px;border-radius:12px;
+    background:linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.015));
+    border:1px solid var(--line-2);
+    color:var(--text);display:grid;place-items:center;font-size:19px;
+    font-feature-settings:"ss01";
+    /* Force text rendering for emoji glyphs so they don't show colored */
+    font-variant-emoji:text;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.06),0 2px 6px rgba(0,0,0,0.4);
+    text-shadow:0 0 12px rgba(94,190,251,0.25)
+  }
+  .ai-card h3{margin:0;font-size:40px;font-weight:500;letter-spacing:-0.025em;line-height:1.05;position:relative;z-index:1}
+  .ai-card h3 b{font-weight:600;background:linear-gradient(180deg,#fff,#5EBEFB);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .ai-card .lead{font-size:17px;line-height:1.55;color:var(--text-2);position:relative;z-index:1;font-weight:300}
+  .ai-card .lead b{color:#fff;font-weight:500}
+  .ai-card .meta-table{margin-top:auto;border-top:1px solid var(--line);padding-top:22px;display:grid;grid-template-columns:auto 1fr;gap:14px 24px;position:relative;z-index:1;font-size:13px}
+  .ai-card .meta-table .k{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--text-3);letter-spacing:0.14em;text-transform:uppercase;padding-top:2px}
+  .ai-card .meta-table .v{color:#fff}
+  .ai-card .meta-table .v.dim{color:var(--text-2)}
+  .ai-card .tier-badges{display:flex;gap:6px;flex-wrap:wrap}
+  .ai-card .tier-badges .b{font-family:"JetBrains Mono",monospace;font-size:10px;padding:3px 8px;border-radius:999px;border:1px solid var(--line-2);color:var(--text-3);letter-spacing:0.06em}
+  .ai-card .tier-badges .b.on{background:rgba(94,190,251,0.10);border-color:rgba(94,190,251,0.35);color:var(--blue)}
+  .ai-card .tier-badges .b.off{opacity:.4;text-decoration:line-through}
+
+  .twoai-foot{margin-top:36px;border:1px solid var(--line);border-radius:18px;padding:24px 32px;background:rgba(255,255,255,0.015);display:flex;align-items:center;justify-content:space-between;gap:32px}
+  .twoai-foot .left{display:flex;align-items:center;gap:18px}
+  .twoai-foot .l-mark{width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#5EBEFB,#1F6FE0);display:grid;place-items:center;color:#03192C;font-weight:700;font-family:"JetBrains Mono",monospace}
+  .twoai-foot h4{margin:0;font-size:18px;font-weight:500;letter-spacing:-0.01em}
+  .twoai-foot p{margin:4px 0 0;color:var(--text-3);font-size:13px}
+
+  /* ---------- INDUSTRIES ---------- */
+  .ind-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .ind{
+    border:1px solid var(--line);border-radius:16px;padding:24px;
+    background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0));
+    position:relative;overflow:hidden;min-height:200px;
+    display:flex;flex-direction:column;gap:14px;justify-content:space-between;
+    transition:border-color .2s,background .2s
+  }
+  .ind:hover{border-color:rgba(94,190,251,0.30);background:linear-gradient(180deg,rgba(94,190,251,0.06),rgba(94,190,251,0))}
+  .ind .head{display:flex;align-items:center;justify-content:space-between}
+  .ind .code{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--text-3);letter-spacing:0.18em}
+  .ind .mark{
+    width:42px;height:42px;border-radius:12px;
+    background:linear-gradient(135deg,rgba(94,190,251,0.15),rgba(94,190,251,0.03));
+    border:1px solid rgba(94,190,251,0.25);
+    display:grid;place-items:center;color:var(--blue);
+    font-family:"JetBrains Mono",monospace;font-weight:600;font-size:14px;letter-spacing:0
+  }
+  .ind h4{margin:0;font-size:19px;font-weight:500;letter-spacing:-0.015em;line-height:1.15}
+  .ind .meta{display:flex;align-items:center;justify-content:space-between;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--text-3);letter-spacing:0.08em;text-transform:uppercase;padding-top:14px;border-top:1px dashed var(--line);margin-top:auto}
+  .ind .meta b{color:#fff;font-weight:500}
+  .ind.featured{
+    background:radial-gradient(circle at 100% 0%, rgba(94,190,251,0.20), transparent 60%),#07101F;
+    border-color:rgba(94,190,251,0.30);grid-column:span 2
+  }
+  .ind.featured h4{font-size:24px}
+  .ind.featured .desc{color:var(--text-2);font-size:13.5px;line-height:1.55}
+
+  /* ---------- WORKFLOW (3 steps) ---------- */
+  .wf-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;position:relative}
+  .wf{
+    border:1px solid var(--line);border-radius:20px;padding:36px 32px;
+    background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0));
+    position:relative;overflow:hidden;min-height:420px;display:flex;flex-direction:column
+  }
+  .wf.accent{background:radial-gradient(circle at 90% 0%, rgba(94,190,251,0.20), transparent 60%),#07101F;border-color:rgba(94,190,251,0.25)}
+  .wf .ix{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--text-3);letter-spacing:0.18em;text-transform:uppercase}
+  .wf .num{font-family:"JetBrains Mono",monospace;font-size:108px;font-weight:300;background:linear-gradient(180deg,#fff,#3FA9F5);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-0.06em;line-height:0.9;margin:20px 0 32px}
+  .wf.accent .num{background:linear-gradient(180deg,#fff,#5EBEFB);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .wf h3{margin:0 0 12px;font-size:24px;font-weight:500;letter-spacing:-0.02em;line-height:1.2}
+  .wf p{color:var(--text-3);font-size:14px;line-height:1.6;margin:0 0 24px;max-width:34ch}
+  .wf .visual{margin-top:auto;border-top:1px dashed var(--line);padding-top:18px;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--text-2);letter-spacing:0.02em;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .wf .visual .pill{padding:4px 8px;border:1px solid var(--line-2);border-radius:999px;color:var(--text-3);white-space:nowrap;line-height:1.2}
+  .wf .visual .pill.on{color:var(--blue);border-color:rgba(94,190,251,0.30);background:rgba(94,190,251,0.08)}
+
+  /* ---------- MARKETPLACE ---------- */
+  .mp-head{display:flex;align-items:center;justify-content:space-between;border:1px solid var(--line);background:rgba(255,255,255,0.015);border-radius:16px;padding:18px 22px;margin-bottom:24px}
+  .mp-head .l{display:flex;align-items:center;gap:14px}
+  .mp-head .l .ico{width:36px;height:36px;border-radius:50%;background:rgba(94,190,251,0.10);border:1px solid rgba(94,190,251,0.3);color:var(--blue);display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-weight:600;font-size:13px;flex-shrink:0}
+  .mp-head h4{margin:0;font-size:17px;font-weight:500;letter-spacing:-0.01em}
+  .mp-head h4 b{color:var(--blue);font-weight:500;font-family:"JetBrains Mono",monospace;font-size:14px;letter-spacing:0.06em;text-transform:uppercase;margin-left:14px}
+  .mp-head .r{display:flex;align-items:center;gap:14px;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--text-3);letter-spacing:0.1em;text-transform:uppercase}
+  .mp-head .r b{color:#fff;font-weight:500}
+
+  .mp-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:18px}
+  .mp-card{
+    border:1px solid var(--line);border-radius:16px;background:rgba(255,255,255,0.015);
+    overflow:hidden;display:flex;flex-direction:column;transition:transform .2s,border-color .2s
+  }
+  .mp-card:hover{transform:translateY(-2px);border-color:rgba(94,190,251,0.3)}
+  .mp-card .preview{height:130px;position:relative;border-bottom:1px solid var(--line);overflow:hidden;background:linear-gradient(135deg,#0B1322,#05070C)}
+  .mp-card .preview .grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:20px 20px;opacity:.6}
+  .mp-card .preview .blob{position:absolute;width:140px;height:140px;border-radius:50%;filter:blur(40px);opacity:.5}
+  .mp-card .label{position:absolute;top:10px;left:10px;font-size:13px;color:var(--blue);background:rgba(5,7,12,0.7);width:28px;height:28px;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(94,190,251,0.35);backdrop-filter:blur(4px);z-index:2;line-height:1}
+  .mp-card .biam-tag{position:absolute;top:10px;right:10px;font-size:13px;color:#FFD58A;background:rgba(5,7,12,0.7);width:28px;height:28px;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(255,213,138,0.45);backdrop-filter:blur(4px);z-index:2;line-height:1}
+  .mp-card .biam-tag.official{color:#FFD58A;border-color:rgba(255,213,138,0.3)}
+  .mp-card .body{padding:14px 16px;display:flex;flex-direction:column;gap:8px;flex:1}
+  .mp-card .body h5{margin:0;font-size:14px;font-weight:500;line-height:1.3;letter-spacing:-0.01em}
+  .mp-card .body p{margin:0;font-size:12px;color:var(--text-3);line-height:1.45}
+  .mp-card .foot{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-top:1px solid var(--line);background:rgba(255,255,255,0.01);font-family:"JetBrains Mono",monospace}
+
+  /* ===== Marketplace card previews — mini product mockups ===== */
+  .mp-card .preview .mock{
+    position:absolute;inset:0;z-index:1;
+    display:grid;padding:14px 16px;
+    font-family:"JetBrains Mono",monospace;font-size:8.5px;
+    letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);
+    pointer-events:none;
+  }
+
+  /* Oil Mill ERP — production line */
+  .mock-erp{grid-template-rows:auto 1fr}
+  .mock-erp .erp-head{display:flex;justify-content:space-between;align-items:center;color:var(--blue);font-weight:500}
+  .mock-erp .erp-head .live{display:inline-flex;align-items:center;gap:5px;color:#3CD17A}
+  .mock-erp .erp-head .live::before{content:"";width:5px;height:5px;border-radius:50%;background:#3CD17A;box-shadow:0 0 6px #3CD17A;animation:erpPulse 1.6s ease-in-out infinite}
+  @keyframes erpPulse{0%,100%{opacity:1}50%{opacity:.35}}
+  .mock-erp .erp-lines{display:grid;gap:5px;align-content:center;margin-top:8px}
+  .mock-erp .erp-line{display:grid;grid-template-columns:46px 1fr 22px;gap:8px;align-items:center;font-size:7.5px}
+  .mock-erp .erp-line .erp-stage{color:var(--text-2)}
+  .mock-erp .erp-line .erp-bar{height:5px;border-radius:3px;background:rgba(255,255,255,0.05);overflow:hidden;position:relative}
+  .mock-erp .erp-line .erp-bar::after{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--p,50%);background:linear-gradient(90deg,#5EBEFB,#1F6FE0);border-radius:3px;box-shadow:0 0 6px rgba(94,190,251,0.4)}
+  .mock-erp .erp-line .erp-pct{text-align:right;color:#fff;font-size:8px}
+
+  /* Café — 3 location dashboard */
+  .mock-cafe{grid-template-rows:auto 1fr auto;gap:6px}
+  .mock-cafe .cf-locs{display:flex;gap:5px}
+  .mock-cafe .cf-loc{display:flex;align-items:center;gap:4px;padding:3px 7px;border:1px solid var(--line-2);border-radius:999px;font-size:7px;color:var(--text-3)}
+  .mock-cafe .cf-loc .d{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.2)}
+  .mock-cafe .cf-loc.on{color:var(--blue);border-color:rgba(94,190,251,0.4)}
+  .mock-cafe .cf-loc.on .d{background:var(--blue);box-shadow:0 0 5px var(--blue)}
+  .mock-cafe .cf-chart{display:flex;align-items:flex-end;gap:3px;height:100%;padding:6px 0 2px}
+  .mock-cafe .cf-chart i{flex:1;background:linear-gradient(180deg,#5EBEFB,#1F6FE0);border-radius:1.5px 1.5px 0 0;height:var(--h,40%);min-height:3px;opacity:.9}
+  .mock-cafe .cf-foot{display:flex;justify-content:space-between;font-size:7.5px}
+  .mock-cafe .cf-foot b{color:#3CD17A;font-weight:500}
+
+  /* KPI Dashboard pack — 2x2 widget grid */
+  .mock-kpi{grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4px;padding:10px 12px}
+  .mock-kpi .tile{
+    border:1px solid var(--line);border-radius:5px;
+    background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0));
+    padding:5px 7px;display:flex;flex-direction:column;justify-content:space-between;
+    font-size:7px;overflow:hidden;position:relative
+  }
+  .mock-kpi .tile .l{color:var(--text-3);font-size:6.5px}
+  .mock-kpi .tile.num .n{font-family:"Sora",sans-serif;font-size:13px;color:#fff;font-weight:500;line-height:1;letter-spacing:-0.02em;text-transform:none}
+  .mock-kpi .tile.num .delta{color:#3CD17A;font-size:6.5px;margin-top:1px}
+  .mock-kpi .tile.spark{justify-content:space-between}
+  .mock-kpi .tile.spark .sk{flex:1;display:flex;align-items:flex-end;gap:1.5px;padding-top:2px}
+  .mock-kpi .tile.spark .sk i{flex:1;background:var(--blue);border-radius:1px;height:var(--h,40%);min-height:2px;opacity:.85}
+  .mock-kpi .tile.donut{align-items:flex-start}
+  .mock-kpi .tile.donut .dn{
+    width:22px;height:22px;border-radius:50%;align-self:center;margin:auto 0;position:relative;
+    background:conic-gradient(var(--blue) 0 62%,#1F6FE0 62% 80%,rgba(255,255,255,0.08) 80% 100%);
+  }
+  .mock-kpi .tile.donut .dn::after{content:"";position:absolute;inset:5px;border-radius:50%;background:#0B1322}
+  .mock-kpi .tile.bars .br{display:flex;flex-direction:column;justify-content:center;gap:3px;flex:1}
+  .mock-kpi .tile.bars .br i{display:block;height:2.5px;background:var(--blue);border-radius:2px}
+  .mock-kpi .tile.bars .br i:nth-child(1){width:80%}
+  .mock-kpi .tile.bars .br i:nth-child(2){width:55%;opacity:.7}
+  .mock-kpi .tile.bars .br i:nth-child(3){width:68%;opacity:.5}
+
+  /* Desert Sand theme — palette swatches */
+  .mock-theme{grid-template-rows:auto 1fr auto;gap:7px;padding:12px 14px}
+  .mock-theme .th-lbl{color:#E9C896;font-size:7.5px}
+  .mock-theme .th-swatches{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;align-self:center}
+  .mock-theme .th-swatches i{
+    height:36px;border-radius:5px;position:relative;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,0.08), inset 0 0 0 1px rgba(0,0,0,0.04)
+  }
+  .mock-theme .th-swatches i.s1{background:#F7EBD3}
+  .mock-theme .th-swatches i.s2{background:#E5C087}
+  .mock-theme .th-swatches i.s3{background:#C2884B}
+  .mock-theme .th-swatches i.s4{background:#7B4B22}
+  .mock-theme .th-swatches i.s5{background:#322015}
+  .mock-theme .th-aa{display:flex;justify-content:space-between;align-items:baseline;font-family:Georgia,serif;font-size:12px;color:#F7EBD3;text-transform:none;letter-spacing:0}
+  .mock-theme .th-aa span{font-size:7.5px;color:#C2884B;font-family:"JetBrains Mono",monospace;letter-spacing:0.1em;text-transform:uppercase}
+
+  /* VAT invoice — floating paper document */
+  .mock-invoice{
+    inset:12px;padding:9px 11px;
+    background:linear-gradient(180deg,rgba(255,255,255,0.035),rgba(255,255,255,0.005));
+    border:1px solid var(--line-2);border-radius:6px;
+    grid-template-rows:auto 1fr auto;gap:4px;
+    box-shadow:0 6px 18px -10px rgba(0,0,0,0.6),inset 0 1px 0 rgba(255,255,255,0.04)
+  }
+  .mock-invoice .inv-head{display:flex;justify-content:space-between;font-size:7px;border-bottom:1px dashed var(--line);padding-bottom:4px}
+  .mock-invoice .inv-head .num{color:#fff;font-weight:500;letter-spacing:0.1em}
+  .mock-invoice .inv-head .dt{color:var(--blue)}
+  .mock-invoice .inv-rows{display:flex;flex-direction:column;gap:3px;justify-content:center;padding:2px 0}
+  .mock-invoice .inv-row{display:grid;grid-template-columns:1fr 26px;gap:6px;align-items:center}
+  .mock-invoice .inv-row .lbl{height:2px;background:rgba(255,255,255,0.10);border-radius:2px}
+  .mock-invoice .inv-row .lbl.l1{width:75%}
+  .mock-invoice .inv-row .lbl.l2{width:60%}
+  .mock-invoice .inv-row .lbl.l3{width:85%}
+  .mock-invoice .inv-row .v{font-size:6.5px;text-align:right;color:var(--text-2);font-family:"JetBrains Mono",monospace;letter-spacing:0}
+  .mock-invoice .inv-tot{border-top:1px solid var(--line);padding-top:4px;display:flex;justify-content:space-between;font-size:7.5px;color:var(--blue);font-weight:500}
+  .mock-invoice .inv-tot b{color:#fff;letter-spacing:0.05em}
+  .mp-card .price{font-size:14px;color:#fff;font-weight:500;letter-spacing:0}
+  .mp-card .price span{color:var(--text-3);font-size:11px;font-weight:400}
+  .mp-card .by{font-size:10px;color:var(--text-3);letter-spacing:0.06em}
+
+  .mp-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:rgba(255,255,255,0.01)}
+  .mp-stat{padding:24px 22px;border-right:1px solid var(--line)}
+  .mp-stat:last-child{border-right:0}
+  .mp-stat .v{font-size:32px;font-weight:400;letter-spacing:-0.03em;line-height:1;color:#fff}
+  .mp-stat .v small{font-size:14px;color:var(--text-3);margin-left:4px;font-family:"JetBrains Mono",monospace}
+  .mp-stat .l{color:var(--text-3);font-size:11px;margin-top:10px;font-family:"JetBrains Mono",monospace;letter-spacing:0.08em;text-transform:uppercase}
+
+  /* ---------- PRICING ---------- */
+  .price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .plan{border:1px solid var(--line);border-radius:20px;padding:28px 24px;background:rgba(255,255,255,0.01);display:flex;flex-direction:column;gap:18px;position:relative;min-height:580px}
+  .plan.pop{border-color:rgba(94,190,251,0.4);background:linear-gradient(180deg,rgba(94,190,251,0.10),rgba(94,190,251,0.02));box-shadow:0 60px 100px -40px rgba(94,190,251,0.4)}
+  .plan .pop-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:0.16em;color:#03192C;background:#5EBEFB;padding:5px 12px;border-radius:999px;text-transform:uppercase;font-weight:600;white-space:nowrap}
+  .plan h3{margin:0;font-size:18px;font-weight:500;letter-spacing:-0.01em;display:flex;align-items:center;justify-content:space-between}
+  .plan h3 .code{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--text-3);letter-spacing:0.16em;font-weight:400}
+  .plan .desc{color:var(--text-3);font-size:12.5px;line-height:1.5;margin:-6px 0 0;min-height:54px}
+  .plan .price{font-size:48px;font-weight:300;letter-spacing:-0.04em;line-height:1;display:flex;align-items:flex-start;gap:4px}
+  .plan .price .cur{font-size:18px;margin-top:6px;color:var(--text-2)}
+  .plan .price .per{font-size:11.5px;color:var(--text-3);margin-top:auto;align-self:flex-end;font-family:"JetBrains Mono",monospace;letter-spacing:0.06em;padding-bottom:6px;text-transform:uppercase}
+  .plan .multi-currency{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--text-3);letter-spacing:0.08em;margin-top:-10px}
+  .plan .multi-currency b{color:var(--text-2);font-weight:500}
+  .plan .ai-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .plan .ai-pill{border:1px solid var(--line-2);border-radius:10px;padding:8px 10px;background:rgba(255,255,255,0.015)}
+  .plan .ai-pill .l{font-family:"JetBrains Mono",monospace;font-size:9.5px;color:var(--text-3);letter-spacing:0.12em;text-transform:uppercase;display:flex;align-items:center;gap:5px}
+  .plan .ai-pill .l .dot{width:6px;height:6px;border-radius:50%;background:#3CD17A;box-shadow:0 0 8px #3CD17A}
+  .plan .ai-pill.off .l .dot{background:var(--text-3);box-shadow:none}
+  .plan .ai-pill .v{font-size:12px;color:#fff;margin-top:3px;font-weight:500}
+  .plan .ai-pill.off .v{color:var(--text-3);text-decoration:line-through}
+  .plan .ai-pill.acc{background:linear-gradient(180deg,rgba(94,190,251,0.10),rgba(94,190,251,0.02));border-color:rgba(94,190,251,0.30)}
+  .plan .ai-pill.acc .l{color:var(--blue)}
+  .plan ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:11px}
+  .plan li{display:flex;align-items:flex-start;gap:10px;color:var(--text-2);font-size:13px;line-height:1.45}
+  .plan li svg{flex-shrink:0;margin-top:3px;color:var(--blue)}
+  .plan li.mute{color:var(--text-3)}
+  .plan .pick{padding:12px;border-radius:10px;font-size:13.5px;font-weight:500;text-align:center;border:1px solid var(--line-2);color:#fff;background:transparent;transition:all .2s;margin-top:auto}
+  .plan .pick:hover{background:rgba(255,255,255,0.04)}
+  .plan.pop .pick{background:#fff;color:#03192C;border:0}
+  .plan.pop .pick:hover{background:#E9F4FF}
+
+  .tokens{margin-top:24px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,rgba(94,190,251,0.04),rgba(255,255,255,0));overflow:hidden}
+  .tokens-head{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--line)}
+  .tokens-head .l{display:flex;align-items:center;gap:14px}
+  .tokens-head .l .ico{width:36px;height:36px;border-radius:10px;background:rgba(94,190,251,0.10);border:1px solid rgba(94,190,251,0.3);color:var(--blue);display:grid;place-items:center;font-family:"JetBrains Mono",monospace;font-weight:600}
+  .tokens-head h4{margin:0;font-size:17px;font-weight:500;letter-spacing:-0.01em}
+  .tokens-head h4 b{color:var(--text-3);font-weight:400;font-size:13px;letter-spacing:0;margin-left:10px}
+  .tokens-head .r{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--text-3);letter-spacing:0.1em;text-transform:uppercase}
+  .tokens-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  .tok{padding:22px 24px;border-right:1px solid var(--line);position:relative}
+  .tok:last-child{border-right:0}
+  .tok .qty{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--text-3);letter-spacing:0.14em;text-transform:uppercase}
+  .tok .price{font-size:32px;font-weight:400;letter-spacing:-0.03em;line-height:1;margin-top:12px}
+  .tok .ppr{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--text-2);margin-top:8px}
+  .tok .disc{position:absolute;top:18px;right:18px;font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--blue);background:rgba(94,190,251,0.10);border:1px solid rgba(94,190,251,0.3);padding:3px 8px;border-radius:999px;letter-spacing:0.06em}
+
+  /* ---------- TRUST ---------- */
+  .trust-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:36px}
+  .trust-card{
+    border:1px solid var(--line);border-radius:18px;padding:32px;
+    background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0));
+    display:flex;flex-direction:column;gap:18px;position:relative;overflow:hidden;min-height:240px
+  }
+  .trust-card h4{margin:0;font-size:22px;font-weight:500;letter-spacing:-0.02em;line-height:1.2}
+  .trust-card p{margin:0;color:var(--text-3);font-size:14px;line-height:1.55;max-width:42ch}
+  .trust-card .row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:auto;padding-top:14px;border-top:1px dashed var(--line)}
+  .trust-card .row .item{display:flex;flex-direction:column;gap:2px;font-family:"JetBrains Mono",monospace}
+  .trust-card .row .item .k{font-size:10px;color:var(--text-3);letter-spacing:0.14em;text-transform:uppercase}
+  .trust-card .row .item .v{font-size:13px;color:#fff;font-family:"Sora";font-weight:500;letter-spacing:-0.005em}
+
+  .compliance-bar{display:grid;grid-template-columns:repeat(6,1fr);gap:0;border:1px solid var(--line);border-radius:18px;overflow:hidden}
+  .cmp{padding:24px;border-right:1px solid var(--line);position:relative;background:rgba(255,255,255,0.01)}
+  .cmp:last-child{border-right:0}
+  .cmp .badge{font-family:"JetBrains Mono",monospace;font-size:9.5px;color:var(--text-3);letter-spacing:0.16em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid var(--line-2);display:inline-block;background:rgba(255,255,255,0.02)}
+  .cmp .badge.live{color:var(--blue);border-color:rgba(94,190,251,0.30);background:rgba(94,190,251,0.10)}
+  .cmp .badge.amber{color:var(--amber);border-color:rgba(255,176,91,0.30);background:rgba(255,176,91,0.10)}
+  .cmp h5{margin:14px 0 6px;font-size:14.5px;font-weight:500;letter-spacing:-0.01em}
+  .cmp p{margin:0;color:var(--text-3);font-size:11.5px;line-height:1.5;font-family:"JetBrains Mono",monospace;letter-spacing:0.04em}
+
+  /* ---------- FAQ ---------- */
+  .faq{display:grid;grid-template-columns:1fr 1fr;gap:0 80px}
+  .faq .q{padding:24px 0;border-top:1px solid var(--line);display:flex;gap:20px;align-items:flex-start}
+  .faq .q:nth-last-child(-n+1),.faq .q:nth-last-child(-n+2){border-bottom:1px solid var(--line)}
+  .faq .q .num{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--blue);letter-spacing:0.14em;padding-top:4px;min-width:36px}
+  .faq .q .body{flex:1}
+  .faq .q h4{margin:0 0 8px;font-size:17px;font-weight:500;letter-spacing:-0.01em;color:#fff}
+  .faq .q p{margin:0;color:var(--text-3);font-size:13.5px;line-height:1.6}
+  .faq .q .x{color:var(--text-3);font-family:"JetBrains Mono",monospace;font-size:18px;font-weight:300}
+
+  /* Final CTA panel */
+  .final{
+    margin-top:80px;border:1px solid rgba(94,190,251,0.3);border-radius:24px;padding:72px 56px;
+    background:radial-gradient(ellipse at 70% 0%, rgba(94,190,251,0.20), transparent 60%),linear-gradient(180deg,#080F1C,#05070C);
+    position:relative;overflow:hidden
+  }
+  .final::before{content:"";position:absolute;top:0;left:30%;right:30%;height:1px;background:linear-gradient(90deg,transparent,#5EBEFB,transparent);box-shadow:0 0 60px 4px rgba(94,190,251,0.5)}
+  .final h2{font-size:clamp(40px,4.5vw,64px);line-height:1;letter-spacing:-0.04em;font-weight:400;margin:0;max-width:18ch;overflow-wrap:anywhere}
+  .final h2 .blue{background:linear-gradient(180deg,#fff,#5EBEFB);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .final .row{display:flex;align-items:flex-end;justify-content:space-between;gap:60px;flex-wrap:wrap}
+  .final .row > *{min-width:0}
+  .final .col-r{display:flex;flex-direction:column;gap:24px;max-width:380px;flex:1 1 280px}
+  .final p{color:var(--text-2);font-size:15px;line-height:1.55;margin:0}
+
+  /* ---------- FOOTER ---------- */
+  .hero-section-eyebrow{display:none}
+  section.s .section-head .eyebrow{display:none}
+  section.s h2.section-title{margin-top:0}
+
+  /* All sections fit one viewport */
+  section.s{
+    height:calc(100vh - 57px);min-height:680px;
+    padding:40px 64px;display:flex;flex-direction:column;justify-content:center;
+    overflow:hidden
+  }
+  section.s .section-head{margin-bottom:24px;gap:32px}
+  section.s h2.section-title{font-size:clamp(34px,4vw,48px);line-height:1.04;margin-top:10px}
+
+  /* Two AI */
+  #two-ai .twoai-grid{gap:18px}
+  #two-ai .ai-card{min-height:0;padding:24px 26px;gap:14px;border-radius:18px}
+  #two-ai .ai-card h3{font-size:24px;line-height:1.2;letter-spacing:-0.02em}
+  #two-ai .ai-card .lead{font-size:14px;line-height:1.5}
+  #two-ai .ai-card .meta-table{padding-top:14px;gap:8px 18px;font-size:12px}
+  #two-ai .ai-card .meta-table .k{font-size:9.5px;padding-top:1px}
+  #two-ai .twoai-foot{margin-top:16px;padding:14px 22px;border-radius:14px;gap:18px}
+  #two-ai .twoai-foot .l-mark{width:38px;height:38px;border-radius:10px}
+  #two-ai .twoai-foot h4{font-size:15px}
+  #two-ai .twoai-foot p{font-size:12px;margin-top:2px}
+  #two-ai .twoai-foot .btn-ghost,
+  #two-ai .twoai-foot .btn-primary{padding:10px 16px;font-size:13px}
+
+  /* Workflow */
+  #workflow .wf-grid{gap:14px}
+  #workflow .wf{min-height:0;padding:24px 26px;border-radius:16px}
+  #workflow .wf .num{font-size:72px;margin:12px 0 18px}
+  #workflow .wf h3{font-size:20px;margin:0 0 8px}
+  #workflow .wf p{font-size:13px;line-height:1.5;margin:0 0 18px}
+  #workflow .wf .visual{padding-top:14px;font-size:10.5px}
+
+  /* Security */
+  #security .sec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+  #security .sec-card{
+    border:1px solid var(--line);border-radius:16px;padding:22px 22px;
+    background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0));
+    display:flex;flex-direction:column;gap:10px;min-height:0
+  }
+  #security .sec-ico{
+    width:38px;height:38px;border-radius:11px;display:grid;place-items:center;
+    background:rgba(94,190,251,0.10);border:1px solid rgba(94,190,251,0.30);
+    color:var(--blue);font-size:18px;line-height:1
+  }
+  #security .sec-card h3{margin:0;font-size:18px;font-weight:500;letter-spacing:-0.01em;line-height:1.2}
+  #security .sec-card p{margin:0;font-size:13px;line-height:1.5;color:var(--text-2)}
+
+  #security .sec-compare{
+    border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,0.015);
+    overflow:hidden
+  }
+  #security .sec-row{
+    display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:0;
+    border-top:1px solid var(--line);font-size:13px;color:var(--text-2)
+  }
+  #security .sec-row:first-child{border-top:0}
+  #security .sec-row>div{padding:10px 18px;border-left:1px solid var(--line)}
+  #security .sec-row>div:first-child{border-left:0;color:var(--text-3);font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;display:flex;align-items:center}
+  #security .sec-row.sec-head{background:rgba(255,255,255,0.025)}
+  #security .sec-row.sec-head>div{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-3)}
+  #security .sec-row .sec-us{color:#fff;font-weight:500;background:rgba(94,190,251,0.05)}
+  #security .sec-row.sec-head .sec-us{color:var(--blue)}
+
+  /* Industries */
+  #industries .ind-grid{gap:10px}
+  #industries .ind{min-height:0;padding:16px 18px;gap:8px;border-radius:14px}
+  #industries .ind h4{font-size:16px}
+  #industries .ind .mark{width:34px;height:34px;border-radius:10px;font-size:12px}
+  #industries .ind .meta{padding-top:10px;font-size:9.5px}
+  #industries .ind.featured{padding:22px 24px}
+  #industries .ind.featured h4{font-size:21px}
+  #industries .ind.featured .desc{font-size:12.5px;line-height:1.5}
+
+  /* Marketplace */
+  #marketplace .mp-head{padding:12px 18px;margin-bottom:14px;border-radius:12px}
+  #marketplace .mp-head h4{font-size:15px}
+  #marketplace .mp-row{gap:10px;margin-bottom:12px}
+  #marketplace .mp-card{border-radius:12px}
+  #marketplace .mp-card .preview{height:120px}
+  #marketplace .mp-card .body{padding:10px 14px;gap:5px}
+  #marketplace .mp-card .body h5{font-size:13px;line-height:1.25}
+  #marketplace .mp-card .body p{font-size:11px;line-height:1.4}
+  #marketplace .mp-card .foot{padding:8px 14px}
+  #marketplace .mp-card .price{font-size:13px}
+  #marketplace .mp-stat{padding:14px 18px}
+  #marketplace .mp-stat .v{font-size:24px}
+  #marketplace .mp-stat .l{font-size:10px;margin-top:6px}
+
+  /* Workshop — generative console aesthetic */
+  #workshop .ws-console{
+    display:flex;align-items:center;gap:14px;
+    padding:10px 18px;margin:0 0 14px;
+    border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(180deg,rgba(94,190,251,0.04),rgba(255,255,255,0));
+    font-family:"JetBrains Mono",monospace;font-size:12px;overflow:hidden
+  }
+  #workshop .ws-console .prefix{color:var(--blue);letter-spacing:0.12em;text-transform:uppercase;font-size:10.5px;flex-shrink:0}
+  #workshop .ws-console .prompts{position:relative;flex:1;height:1.4em;line-height:1.4em;color:var(--text-2)}
+  #workshop .ws-console .prompts>span{position:absolute;inset:0;opacity:0;animation:wsCycle 12s infinite;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  #workshop .ws-console .prompts>span:nth-child(1){animation-delay:0s}
+  #workshop .ws-console .prompts>span:nth-child(2){animation-delay:3s}
+  #workshop .ws-console .prompts>span:nth-child(3){animation-delay:6s}
+  #workshop .ws-console .prompts>span:nth-child(4){animation-delay:9s}
+  @keyframes wsCycle{0%,2%{opacity:0;transform:translateY(4px)}5%,22%{opacity:1;transform:translateY(0)}25%,100%{opacity:0;transform:translateY(-4px)}}
+  #workshop .ws-console .cursor{
+    display:inline-block;width:7px;height:14px;background:var(--blue);
+    animation:wsBlink 1.1s steps(2,end) infinite;flex-shrink:0
+  }
+  @keyframes wsBlink{0%,50%{opacity:1}50.01%,100%{opacity:0}}
+
+  #workshop .ws-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  #workshop .ws-card{
+    border:1px solid var(--line);border-radius:18px;
+    background:linear-gradient(180deg,rgba(255,255,255,0.025),rgba(255,255,255,0.005));
+    display:flex;flex-direction:column;min-height:0;overflow:hidden;position:relative;
+    transition:transform .3s,border-color .3s,box-shadow .3s
+  }
+  #workshop .ws-card:hover{transform:translateY(-2px);border-color:rgba(94,190,251,0.35);box-shadow:0 30px 60px -30px rgba(94,190,251,0.3)}
+  #workshop .ws-preview{
+    position:relative;height:160px;min-height:160px;max-height:160px;flex:none;
+    background:radial-gradient(circle at 50% 110%,rgba(94,190,251,0.16),transparent 70%),
+               linear-gradient(180deg,#0B1322,#070A11);
+    border-bottom:1px solid var(--line);overflow:hidden
+  }
+  #workshop .ws-preview::before{
+    content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),
+                     linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);
+    background-size:14px 14px;
+    mask-image:radial-gradient(ellipse at center,#000 25%,transparent 80%);
+    pointer-events:none
+  }
+  #workshop .ws-tag{
+    position:absolute;top:12px;left:12px;z-index:2;
+    font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:0.18em;
+    text-transform:uppercase;color:var(--blue);
+    padding:3px 8px;border-radius:999px;background:rgba(5,7,12,.55);
+    border:1px solid rgba(94,190,251,.3);backdrop-filter:blur(4px)
+  }
+  #workshop .ws-ico{
+    position:absolute;top:12px;right:12px;z-index:2;
+    width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
+    background:rgba(5,7,12,.55);border:1px solid rgba(94,190,251,.35);
+    color:var(--blue);font-size:13px;backdrop-filter:blur(4px)
+  }
+  #workshop .ws-body{padding:14px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+  #workshop .ws-card h3{margin:0;font-size:17px;font-weight:500;letter-spacing:-0.01em;line-height:1.2}
+  #workshop .ws-card p{margin:0;font-size:12.5px;line-height:1.5;color:var(--text-2);flex:1}
+  #workshop .ws-pills{display:flex;gap:5px;flex-wrap:wrap;padding-top:8px;border-top:1px dashed var(--line);margin-top:auto}
+  #workshop .ws-pills span{
+    font-family:"JetBrains Mono",monospace;font-size:10px;
+    padding:3px 8px;border:1px solid var(--line-2);border-radius:999px;
+    color:var(--text-3);letter-spacing:0.02em
+  }
+
+  /* Live preview animations */
+  #workshop .ws-preview-widget{display:flex;align-items:flex-end;justify-content:center;gap:7px;padding:24px 28px 0;height:100%}
+  #workshop .ws-preview-widget>i{
+    width:11px;border-radius:3px 3px 0 0;
+    background:linear-gradient(180deg,#7CCAFB,#1F6FE0);
+    transform-origin:bottom;height:var(--h,50%);
+    animation:wsBar 2.8s cubic-bezier(.4,0,.2,1) infinite;animation-delay:var(--d,0s);
+    box-shadow:0 0 12px rgba(94,190,251,.25)
+  }
+  @keyframes wsBar{0%,100%{transform:scaleY(.2);opacity:.4}50%{transform:scaleY(1);opacity:1}}
+
+  #workshop .ws-preview-motion{position:relative}
+  #workshop .ws-preview-motion .track{
+    position:absolute;top:50%;left:18px;right:18px;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(94,190,251,.5),transparent)
+  }
+  #workshop .ws-preview-motion .dot{
+    position:absolute;top:50%;width:14px;height:14px;border-radius:50%;
+    background:#5EBEFB;box-shadow:0 0 18px #5EBEFB,0 0 36px rgba(94,190,251,.5);
+    transform:translate(-50%,-50%);
+    animation:wsGlide 2.8s cubic-bezier(.4,0,.6,1) infinite;animation-delay:var(--d,0s);
+    opacity:var(--o,1);filter:blur(var(--b,0))
+  }
+  @keyframes wsGlide{0%{left:8%;opacity:0}10%{opacity:1}90%{opacity:1}100%{left:92%;opacity:0}}
+
+  #workshop .ws-preview-theme{display:flex;gap:5px;padding:22px 24px;height:100%;align-items:stretch}
+  #workshop .ws-preview-theme>i{
+    flex:1;border-radius:7px;background:var(--c,#5EBEFB);
+    animation:wsMorph 6s ease-in-out infinite;animation-delay:var(--d,0s);
+    box-shadow:0 0 24px -8px var(--c,#5EBEFB)
+  }
+  @keyframes wsMorph{
+    0%,100%{filter:hue-rotate(0deg) brightness(1)}
+    50%{filter:hue-rotate(180deg) brightness(1.2)}
+  }
+
+  /* CTA input shell */
+  #workshop .ws-cta{
+    margin-top:14px;display:flex;flex-direction:column;gap:9px;
+    border:1px solid rgba(94,190,251,0.3);border-radius:14px;padding:14px 16px;
+    background:linear-gradient(180deg,rgba(94,190,251,0.08),rgba(94,190,251,0.02))
+  }
+  #workshop .ws-cta-input{
+    display:flex;align-items:center;gap:6px;
+    background:rgba(5,7,12,0.55);border:1px solid var(--line-2);border-radius:999px;
+    padding:4px 4px 4px 14px
+  }
+  #workshop .ws-cta-input .mono{
+    font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--blue);
+    letter-spacing:0.16em;text-transform:uppercase;flex-shrink:0;
+    padding-right:12px;border-right:1px solid var(--line-2)
+  }
+  #workshop .ws-cta-input input{
+    flex:1;background:transparent;border:0;outline:0;color:#fff;
+    font-family:inherit;font-size:13px;padding:8px 12px;letter-spacing:-0.005em;min-width:0
+  }
+  #workshop .ws-cta-input input::placeholder{color:var(--text-3)}
+  #workshop .ws-cta-input .btn-primary{padding:9px 18px;font-size:13px}
+  #workshop .ws-cta-foot{
+    display:flex;align-items:center;gap:8px;padding:0 4px;
+    font-family:"JetBrains Mono",monospace;font-size:10.5px;
+    color:var(--text-3);letter-spacing:0.06em
+  }
+  #workshop .ws-cta-foot .live{
+    width:7px;height:7px;border-radius:50%;background:var(--blue);
+    box-shadow:0 0 10px var(--blue);
+    animation:wsBlink 1.8s ease-in-out infinite alternate
+  }
+  #workshop .ws-cta-foot b{color:#fff;font-weight:500}
+
+  /* Hackathons — value-circuit aesthetic */
+
+  /* Value equation banner */
+  #hackathons .hk-equation{
+    display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+    border:1px solid var(--line);border-radius:14px;padding:12px 18px;
+    margin-bottom:18px;
+    background:linear-gradient(90deg,rgba(94,190,251,0.06),rgba(255,255,255,0.01) 40%,rgba(255,255,255,0))
+  }
+  #hackathons .hk-eq-pay{
+    display:flex;flex-direction:column;align-items:flex-start;gap:1px;
+    padding:6px 14px;border:1px solid rgba(94,190,251,0.3);border-radius:10px;
+    background:rgba(94,190,251,0.08)
+  }
+  #hackathons .hk-eq-label{
+    font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:0.18em;
+    text-transform:uppercase;color:var(--blue)
+  }
+  #hackathons .hk-eq-val{font-size:18px;font-weight:500;color:#fff;letter-spacing:-0.015em;line-height:1.1}
+  #hackathons .hk-eq-op{
+    font-family:"JetBrains Mono",monospace;font-size:22px;color:var(--text-3);
+    font-weight:300;line-height:1
+  }
+  #hackathons .hk-eq-bundle{display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex:1}
+  #hackathons .hk-eq-item{
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.04em;
+    padding:5px 10px;border-radius:999px;border:1px solid var(--line-2);
+    background:rgba(255,255,255,0.02);color:var(--text-2)
+  }
+  #hackathons .hk-eq-item-blue{color:var(--blue);border-color:rgba(94,190,251,0.35);background:rgba(94,190,251,0.08)}
+  #hackathons .hk-eq-plus{
+    font-family:"JetBrains Mono",monospace;font-size:14px;color:var(--text-3);
+    font-weight:300;line-height:1
+  }
+
+  /* Flow circuit — 3 steps with pulsing arrows */
+  #hackathons .hk-flow{
+    display:grid;
+    grid-template-columns:1fr auto 1fr auto 1fr;
+    align-items:stretch;gap:0;margin-bottom:18px
+  }
+  #hackathons .hk-step{
+    border:1px solid var(--line);border-radius:18px;padding:18px 20px;
+    background:linear-gradient(180deg,rgba(255,255,255,0.025),rgba(255,255,255,0.005));
+    display:flex;flex-direction:column;gap:8px;position:relative;overflow:hidden
+  }
+  #hackathons .hk-step.hk-step-accent{
+    border-color:rgba(94,190,251,0.35);
+    background:radial-gradient(circle at 70% 0%,rgba(94,190,251,0.14),transparent 60%),
+               linear-gradient(180deg,rgba(94,190,251,0.06),rgba(94,190,251,0.01));
+    box-shadow:0 30px 60px -40px rgba(94,190,251,0.4)
+  }
+  #hackathons .hk-step::after{
+    content:"";position:absolute;top:0;left:0;right:0;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(94,190,251,0.4),transparent);
+    opacity:0;transition:opacity .4s
+  }
+  #hackathons .hk-step:hover::after,#hackathons .hk-step-accent::after{opacity:1}
+  #hackathons .hk-step-num{
+    font-family:"JetBrains Mono",monospace;font-size:32px;font-weight:300;
+    color:var(--text-3);letter-spacing:-0.04em;line-height:1
+  }
+  #hackathons .hk-step-accent .hk-step-num{
+    background:linear-gradient(180deg,#fff,#5EBEFB);
+    -webkit-background-clip:text;background-clip:text;color:transparent
+  }
+  #hackathons .hk-step-tag{
+    font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:0.2em;
+    text-transform:uppercase;color:var(--text-3)
+  }
+  #hackathons .hk-step-accent .hk-step-tag{color:var(--blue)}
+  #hackathons .hk-step h3{margin:0;font-size:16px;font-weight:500;letter-spacing:-0.015em;line-height:1.25}
+  #hackathons .hk-step p{margin:0;font-size:12px;line-height:1.5;color:var(--text-2);flex:1}
+  #hackathons .hk-step-stat{
+    margin-top:6px;padding-top:8px;border-top:1px dashed var(--line);
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.04em;
+    color:var(--blue);display:flex;align-items:center;gap:8px
+  }
+  #hackathons .hk-step-stat .pulse{
+    width:6px;height:6px;border-radius:50%;background:var(--blue);
+    box-shadow:0 0 8px var(--blue);
+    animation:hkPulse 1.6s ease-in-out infinite
+  }
+  @keyframes hkPulse{0%,100%{opacity:.5;transform:scale(.85)}50%{opacity:1;transform:scale(1.1)}}
+
+  /* Chase-arrow between steps */
+  #hackathons .hk-chase{
+    display:flex;align-items:center;justify-content:center;gap:5px;
+    padding:0 10px;position:relative
+  }
+  #hackathons .hk-chase>span{
+    width:6px;height:6px;border-radius:50%;background:var(--blue);opacity:.25;
+    animation:hkChase 1.6s infinite
+  }
+  #hackathons .hk-chase>span:nth-child(2){animation-delay:.18s}
+  #hackathons .hk-chase>span:nth-child(3){animation-delay:.36s}
+  @keyframes hkChase{
+    0%,100%{opacity:.2;transform:scale(.8);box-shadow:none}
+    50%{opacity:1;transform:scale(1.3);box-shadow:0 0 14px var(--blue)}
+  }
+
+  /* Quarters timeline with progress */
+  #hackathons .hk-quarters{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    border:1px solid var(--line);border-radius:14px;padding:12px 22px;
+    background:linear-gradient(90deg,rgba(94,190,251,0.05),rgba(94,190,251,0) 60%);
+    position:relative
+  }
+  #hackathons .hk-q{
+    display:flex;align-items:baseline;gap:8px;
+    padding:5px 14px;border:1px solid var(--line-2);border-radius:999px;
+    background:rgba(255,255,255,0.02)
+  }
+  #hackathons .hk-q-label{
+    font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:0.14em;
+    color:var(--blue);text-transform:uppercase
+  }
+  #hackathons .hk-q-name{font-size:13px;font-weight:500;color:#fff;letter-spacing:-0.005em}
+  #hackathons .hk-arrow{
+    color:var(--blue);font-family:"JetBrains Mono",monospace;font-size:14px;opacity:.6;
+    animation:hkArrowFlow 2s ease-in-out infinite
+  }
+  #hackathons .hk-arrow:nth-of-type(1){animation-delay:0s}
+  #hackathons .hk-arrow:nth-of-type(2){animation-delay:.3s}
+  #hackathons .hk-arrow:nth-of-type(3){animation-delay:.6s}
+  @keyframes hkArrowFlow{0%,100%{opacity:.3;transform:translateX(0)}50%{opacity:1;transform:translateX(2px)}}
+  #hackathons .hk-foot{
+    margin-left:auto;
+    font-family:"JetBrains Mono",monospace;font-size:10.5px;
+    letter-spacing:0.14em;text-transform:uppercase;color:var(--text-3);
+    display:flex;align-items:center;gap:8px
+  }
+  #hackathons .hk-foot::before{
+    content:"";width:6px;height:6px;border-radius:50%;background:var(--blue);
+    box-shadow:0 0 10px var(--blue);
+    animation:hkPulse 1.8s ease-in-out infinite
+  }
+
+  /* Pricing — compact single-screen layout, DESKTOP ONLY (≥1200px).
+     Below 1200 the section flows (height:auto), so these compactions are
+     dropped and the comfortable base .plan rules apply — otherwise cards
+     stretch wide while text & buttons stay tiny, which looks broken. */
+  @media (min-width:1200px){
+  #pricing .price-grid{gap:10px}
+  #pricing .plan{min-height:0;padding:12px 14px;gap:7px;border-radius:14px}
+  #pricing .plan h3{font-size:14px}
+  #pricing .plan .desc{min-height:auto;font-size:11px;line-height:1.35}
+  #pricing .plan .price{font-size:26px}
+  #pricing .plan .multi-currency{font-size:9.5px;margin-top:-4px}
+  #pricing .plan .ai-row{padding:6px 0;gap:5px}
+  #pricing .plan .ai-pill{padding:4px 6px;border-radius:8px}
+  #pricing .plan .ai-pill .l{font-size:8.5px}
+  #pricing .plan .ai-pill .v{font-size:10.5px}
+  #pricing .plan ul{gap:4px}
+  #pricing .plan li{font-size:11px;line-height:1.3}
+  #pricing .plan .pick{padding:8px;font-size:12px}
+  #pricing .tokens{margin-top:14px;border-radius:14px;flex-shrink:0}
+  #pricing .price-grid{flex-shrink:1;min-height:0}
+  #pricing .tokens-head{padding:12px 20px}
+  #pricing .tokens-head h4{font-size:14px}
+  #pricing .tok{padding:14px 18px}
+  #pricing .tok .price{font-size:24px;margin-top:8px}
+  #pricing .tok .qty{font-size:10px}
+  #pricing .tok .ppr{font-size:10px;margin-top:6px}
+  }
+
+  /* Trust */
+  #trust .trust-grid{gap:14px;margin-bottom:14px}
+  #trust .trust-card{min-height:0;padding:20px 22px;gap:12px;border-radius:14px}
+  #trust .trust-card h4{font-size:18px;letter-spacing:-0.01em}
+  #trust .trust-card p{font-size:13px;line-height:1.5;max-width:100%}
+  #trust .cmp{padding:14px 16px}
+  #trust .cmp h5{font-size:13px;margin:8px 0 4px}
+  #trust .cmp p{font-size:10.5px;line-height:1.4}
+
+  /* Support */
+  #support .section-head{margin-bottom:18px}
+  #support .faq{gap:0 40px}
+  #support .q{padding:10px 0;gap:14px}
+  #support .q .num{font-size:10px;min-width:30px}
+  #support .q h4{font-size:14px;margin:0 0 4px}
+  #support .q p{font-size:11.5px;line-height:1.45}
+  /* Support and Workshop are content-heavy — let them grow past one viewport */
+  #support.s,#workshop.s{height:auto;min-height:0;overflow:visible;display:block}
+  #support .final{margin-top:24px;padding:32px 32px;border-radius:18px;overflow:hidden}
+  #support .final .row{flex-direction:column;align-items:flex-start;gap:18px;flex-wrap:nowrap}
+  #support .final h2{font-size:clamp(22px,2.6vw,32px);line-height:1.2;letter-spacing:-0.02em;max-width:100%;flex:none;min-width:0;overflow-wrap:anywhere}
+  #support .final .col-r{max-width:100%;flex:none;min-width:0;width:100%}
+  #support .final .col-r p{margin:0}
+  #support .final p{font-size:12.5px;line-height:1.5;margin:0 0 12px}
+
+  /* Language switcher */
+  .lang-switch{display:inline-flex;gap:2px;border:1px solid var(--line-2);border-radius:999px;padding:3px;background:rgba(255,255,255,0.02)}
+  .lang-switch .lng{
+    background:transparent;border:0;color:var(--text-3);
+    font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.14em;
+    padding:5px 10px;border-radius:999px;text-transform:uppercase;transition:background .2s,color .2s
+  }
+  .lang-switch .lng:hover{color:var(--text-2)}
+  .lang-switch .lng.on{background:var(--blue);color:#03192C;font-weight:600}
+
+  /* RTL adjustments */
+  html[dir="rtl"]{font-family:"Noto Sans Arabic","Sora",ui-sans-serif,system-ui,sans-serif}
+  html[dir="rtl"] body{font-family:"Noto Sans Arabic","Sora",sans-serif}
+  html[dir="rtl"] .sidebar{left:auto;right:0;border-right:0;border-left:1px solid var(--line)}
+  html[dir="rtl"] main{margin-left:0;margin-right:var(--sb-w)}
+  html[dir="rtl"] .sb-link.active::before{left:auto;right:-22px;border-radius:3px 0 0 3px}
+  html[dir="rtl"] .sb-link .arrow{transform:scaleX(-1)}
+  html[dir="rtl"] .sb-cta .arr,
+  html[dir="rtl"] .bm-input .send{transform:scaleX(-1)}
+  html[dir="rtl"] .eyebrow::before{margin-left:0;margin-right:0}
+  html[dir="rtl"] h1.hero-title,
+  html[dir="rtl"] h2.section-title,
+  html[dir="rtl"] h3,
+  html[dir="rtl"] h4,
+  html[dir="rtl"] h5{letter-spacing:0}
+  html[dir="rtl"] .mono,
+  html[dir="rtl"] .eyebrow,
+  html[dir="rtl"] .crumb,
+  html[dir="rtl"] .sb-section-label,
+  html[dir="rtl"] .top-right,
+  html[dir="rtl"] .section-meta,
+  html[dir="rtl"] .hero-eyebrow .badge,
+  html[dir="rtl"] .bm-head .badge,
+  html[dir="rtl"] .bm-head .right,
+  html[dir="rtl"] .hero-meta,
+  html[dir="rtl"] .ix,
+  html[dir="rtl"] .meta-table .k,
+  html[dir="rtl"] .ai-pill .l,
+  html[dir="rtl"] .multi-currency,
+  html[dir="rtl"] .qty,
+  html[dir="rtl"] .ppr,
+  html[dir="rtl"] .disc,
+  html[dir="rtl"] .item .k,
+  html[dir="rtl"] .badge,
+  html[dir="rtl"] .cmp p,
+  html[dir="rtl"] .num,
+  html[dir="rtl"] .wf .ix,
+  html[dir="rtl"] .ind .code,
+  html[dir="rtl"] .ind .mark,
+  html[dir="rtl"] .ind .meta,
+  html[dir="rtl"] .mp-card .label,
+  html[dir="rtl"] .mp-card .biam-tag,
+  html[dir="rtl"] .mp-card .price,
+  html[dir="rtl"] .mp-card .by,
+  html[dir="rtl"] .mp-stat .v small,
+  html[dir="rtl"] .mp-stat .l,
+  html[dir="rtl"] .plan h3 .code,
+  html[dir="rtl"] .plan .price .per{font-family:"JetBrains Mono","Noto Sans Arabic",monospace}
+
+  /* RTL — mirror directional arrows inside CTAs */
+  html[dir="rtl"] .btn-primary > span{display:inline-block;transform:scaleX(-1)}
+  html[dir="rtl"] .hk-arrow,
+  html[dir="rtl"] #hackathons .hk-flow .arrow{transform:scaleX(-1)}
+  /* Marketplace card price/by — keep Latin currency LTR-flow inside RTL card */
+  html[dir="rtl"] .mp-card .price,
+  html[dir="rtl"] .mp-card .by,
+  html[dir="rtl"] .plan .price,
+  html[dir="rtl"] .multi-currency{unicode-bidi:plaintext}
+  /* Hero meta line: when AR is enabled, eyebrow underscore should sit on the right */
+  html[dir="rtl"] .eyebrow{flex-direction:row-reverse}
+  /* Section meta column on RTL — meta text should align right (the natural inline-end) */
+  html[dir="rtl"] .section-meta{text-align:right}
+  /* Crumb separator chevron · stays neutral — no mirror needed */
+
+  /* RTL — mobile drawer slides in from the RIGHT */
+  @media (max-width: 1199px){
+    html[dir="rtl"] .sidebar{
+      left:auto;right:0;
+      transform:translateX(100%);
+      border-left:0;border-right:1px solid var(--line);
+    }
+    html[dir="rtl"] .sidebar.open{
+      transform:translateX(0);
+      box-shadow:-30px 0 60px rgba(0,0,0,.55)
+    }
+    html[dir="rtl"] main{margin-right:0;margin-left:0}
+    /* Topbar — hamburger sits on the right (start of RTL row), lang switch on the left */
+    /* flex order handles itself via dir=rtl; no override needed */
+  }
+
+  footer{padding:60px 64px 50px;color:var(--text-3);font-size:13px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line)}
+  footer .left{display:flex;align-items:center;gap:18px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase}
+  footer .right{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;display:flex;gap:20px}
+  footer .marquee-mark{width:18px;height:18px}
+
+  /* ---------- HAMBURGER + BACKDROP (desktop-hidden by default) ---------- */
+  .crumb-wrap{display:flex;align-items:center;gap:12px;min-width:0}
+  .sb-trigger{
+    display:none;align-items:center;justify-content:center;
+    width:38px;height:38px;border-radius:10px;flex-shrink:0;
+    background:rgba(255,255,255,0.02);border:1px solid var(--line-2);
+    padding:0;gap:4px;flex-direction:column;color:var(--text-2);
+    transition:background .15s,border-color .15s
+  }
+  .sb-trigger:hover{background:rgba(94,190,251,0.08);border-color:rgba(94,190,251,0.30);color:var(--blue)}
+  .sb-trigger-bar{display:block;width:16px;height:1.5px;background:currentColor;border-radius:2px;transition:transform .25s ease,opacity .2s ease}
+  body.nav-open .sb-trigger-bar:nth-child(1){transform:translateY(5.5px) rotate(45deg)}
+  body.nav-open .sb-trigger-bar:nth-child(2){opacity:0}
+  body.nav-open .sb-trigger-bar:nth-child(3){transform:translateY(-5.5px) rotate(-45deg)}
+  .sb-backdrop{
+    display:none;position:fixed;inset:0;z-index:40;
+    background:rgba(5,7,12,0.65);backdrop-filter:blur(2px);
+    opacity:0;transition:opacity .2s ease
+  }
+  .sb-backdrop.show{opacity:1}
+
+  /* ============================================================
+     RESPONSIVE — tablet (≤1199px) + mobile (≤640px)
+     Desktop verticals stay untouched; only override here.
+     ============================================================ */
+
+  @media (max-width:1199px){
+    /* Allow shrink */
+    body{min-width:0;overflow-x:hidden}
+
+    /* Sidebar → drawer */
+    .sidebar{
+      transform:translateX(-100%);
+      transition:transform .28s ease;
+      width:min(280px, 86vw);
+      box-shadow:none;
+    }
+    .sidebar.open{transform:translateX(0);box-shadow:30px 0 60px rgba(0,0,0,.55)}
+    main{margin-left:0}
+
+    .sb-backdrop.show{display:block}
+    body.nav-open{overflow:hidden}
+
+    /* Topbar compact + auto-hide on scroll */
+    .topbar{padding:10px 16px;transition:transform .26s ease;will-change:transform}
+    .topbar.is-hidden{transform:translateY(-100%)}
+    .sb-trigger{display:inline-flex;width:44px;height:44px}
+    .crumb{font-size:10px;letter-spacing:0.12em;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .top-right{gap:10px}
+    .top-right .pill{padding:5px 8px;font-size:10px}
+    .lang-switch{padding:3px}
+    .lang-switch .lng{padding:8px 12px;font-size:10.5px;min-height:32px;min-width:36px}
+
+    /* Sidebar nav links — comfortable tap area inside drawer */
+    .sb-link{padding:13px 14px;min-height:44px}
+    .sb-cta{min-height:48px}
+
+    /* Drop fixed 100vh on every section */
+    section.s{
+      height:auto !important;
+      min-height:0 !important;
+      overflow:visible !important;
+      padding:56px 32px !important;
+      display:block !important;
+    }
+    section.s .section-head{
+      flex-direction:column;align-items:flex-start;
+      gap:14px;margin-bottom:32px
+    }
+    .section-meta{text-align:left;min-width:0}
+
+    /* Show eyebrows again (desktop hides them inside 100vh layout) */
+    .hero-section-eyebrow{display:inline-flex !important;margin-bottom:18px}
+    .hero-left .hero-eyebrow{margin-top:0}
+    section.s .section-head .eyebrow{display:inline-flex !important}
+    section.s h2.section-title{margin-top:14px}
+
+    /* Hero */
+    .hero{
+      height:auto !important;min-height:0 !important;
+      padding:48px 32px 64px !important;overflow:hidden;
+    }
+    .hero-grid{
+      grid-template-columns:1fr !important;gap:36px;
+      max-width:100%;align-items:stretch
+    }
+    .hero-grid > *{min-width:0}
+    .hero-left{max-width:100% !important}
+    h1.hero-title{font-size:clamp(40px,7vw,68px) !important;line-height:1 !important}
+    .hero-sub{font-size:15px}
+    .hero-cta{flex-direction:column;align-items:stretch;gap:14px;flex-wrap:nowrap}
+    .input-shell{width:100% !important;max-width:100%}
+    .hero-cta .btn-ghost{width:100%;justify-content:center}
+    .builder-mock{min-height:320px;width:100%;max-width:100%}
+
+    /* Typography */
+    h2.section-title{font-size:clamp(30px,4.6vw,48px) !important;line-height:1.05 !important}
+
+    /* Section-specific grid downgrades */
+    .twoai-grid{grid-template-columns:1fr !important}
+    .twoai-grid::before,.twoai-grid::after{display:none !important}
+    .wf-grid{grid-template-columns:1fr !important}
+    #security .sec-grid{grid-template-columns:1fr !important}
+    .ind-grid{grid-template-columns:repeat(2,1fr) !important}
+    .mp-row{grid-template-columns:repeat(2,1fr) !important}
+    .mp-strip{grid-template-columns:repeat(3,1fr) !important}
+    /* mp-head stacks: title + chip-row underneath, no horizontal squeeze */
+    #marketplace .mp-head{flex-direction:column;align-items:flex-start;gap:12px;padding:14px 16px}
+    #marketplace .mp-head .l{align-items:center;flex-wrap:wrap;gap:12px}
+    #marketplace .mp-head h4{font-size:15px;line-height:1.25}
+    #marketplace .mp-head h4 b{margin-left:8px;font-size:11px}
+    #marketplace .mp-head .r{font-size:10px;letter-spacing:0.08em;line-height:1.6;flex-wrap:wrap;gap:6px 0}
+    #workshop .ws-grid{grid-template-columns:1fr !important}
+    /* Preview area: keep proportions consistent on tablet/mobile */
+    #workshop .ws-preview{height:170px;min-height:170px;max-height:170px}
+    #workshop .ws-preview-widget>i{width:13px}
+    #hackathons .hk-flow{
+      grid-template-columns:1fr !important;
+      gap:14px !important
+    }
+    #hackathons .hk-flow .hk-arrow,
+    #hackathons .hk-flow > .hk-arr,
+    #hackathons .hk-flow > .arrow{transform:rotate(90deg);justify-self:center}
+    #hackathons .hk-quarters{
+      grid-template-columns:repeat(2,1fr) !important;
+      gap:12px !important
+    }
+    #hackathons .hk-equation{flex-wrap:wrap;gap:10px}
+    .price-grid{grid-template-columns:repeat(2,1fr) !important}
+    .tokens-row{grid-template-columns:repeat(2,1fr) !important}
+    .trust-grid{grid-template-columns:1fr !important}
+    .compliance-bar{grid-template-columns:repeat(3,1fr) !important}
+    .faq{grid-template-columns:1fr !important;gap:0 !important}
+
+    /* AI cards: tighten internal table */
+    .ai-card .meta-table{grid-template-columns:1fr;gap:6px 0}
+    .ai-card .meta-table .k{padding-top:6px;border-top:1px dashed var(--line)}
+    .ai-card .meta-table .k:first-child{border-top:0;padding-top:0}
+
+    /* Security comparison: stack each row into label + values */
+    #security .sec-row{grid-template-columns:1fr !important}
+    #security .sec-row > div{border-left:0;border-top:1px solid var(--line);padding:10px 16px}
+    #security .sec-row:first-child > div:first-child{border-top:0}
+    #security .sec-row.sec-head{display:none}
+    #security .sec-row > div:nth-child(2)::before{content:var(--sec-label-dev,"Dev + AI app — ");color:var(--text-3);font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;margin-right:6px}
+    #security .sec-row > div:nth-child(3)::before{content:var(--sec-label-us,"BIAM — ");color:var(--blue);font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;margin-right:6px}
+
+    /* Final CTA row — stack on tablet/mobile */
+    .final{padding:48px 28px !important}
+    .final .row{flex-direction:column !important;align-items:flex-start !important;gap:24px !important}
+    .final h2{font-size:clamp(28px,6vw,42px) !important;max-width:100% !important;line-height:1.05 !important}
+    .final .col-r{max-width:100% !important;flex:none}
+    #support .final h2{font-size:clamp(22px,5vw,28px) !important;max-width:100% !important}
+
+    /* Footer */
+    footer{padding:40px 32px 36px;flex-direction:column;gap:14px;text-align:center}
+  }
+
+  @media (max-width:640px){
+    section.s{padding:48px 18px !important}
+    .hero{padding:36px 18px 48px !important}
+    .topbar{padding:9px 12px}
+
+    .hero-grid{gap:28px}
+    h1.hero-title{font-size:clamp(34px,9vw,46px) !important}
+    .hero-sub{font-size:14px}
+    .builder-mock{min-height:260px}
+
+    /* Input-shell: stack input + button vertically, both full-width pill */
+    .input-shell{
+      flex-direction:column;align-items:stretch;gap:10px;
+      padding:14px 14px;border-radius:22px;
+    }
+    .input-shell svg{display:none}
+    .input-shell input{padding:10px 4px;font-size:14px;text-align:center}
+    .input-shell .btn-primary{width:100%;justify-content:center;padding:14px 18px}
+
+    h2.section-title{font-size:clamp(26px,7vw,34px) !important}
+    .section-head{margin-bottom:24px !important}
+    .eyebrow{font-size:10px;letter-spacing:0.18em}
+
+    /* Single column where tablet was 2 */
+    .ind-grid{grid-template-columns:1fr !important}
+    .mp-row{grid-template-columns:1fr !important}
+    .mp-strip{grid-template-columns:repeat(2,1fr) !important}
+    .price-grid{grid-template-columns:1fr !important}
+    .compliance-bar{grid-template-columns:repeat(2,1fr) !important}
+
+    /* Topbar — hide live pill, condense crumb */
+    .top-right .pill{display:none}
+    .crumb{font-size:10px}
+
+    /* AI card lead/meta tighten */
+    .ai-card{padding:22px !important}
+    .ai-card h3{font-size:20px !important}
+    .ai-card .lead{font-size:13px !important}
+
+    /* Pricing plan card slimmer; size to content (no equal-height needed when stacked) */
+    .plan{padding:22px !important;min-height:auto}
+    .plan .desc{min-height:auto}
+
+    /* Hackathons — stack quarters too */
+    #hackathons .hk-quarters{grid-template-columns:1fr !important}
+
+    /* FAQ items */
+    .faq h4{font-size:15px}
+    .faq p{font-size:13px}
+  }
+
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Mobile drawer backdrop -->
+  <div class="sb-backdrop" aria-hidden="true"></div>
+
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="biam-sidebar">
+    <div class="sb-brand">
+      <div class="mark">
+        <svg viewBox="0 0 1965 1965" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="biam-logo-anim">
+          <rect rx="150" fill="#5EBEFB" x="0" y="0" width="756" height="1209"></rect>
+          <rect rx="150" fill="#5EBEFB" x="831" y="0" width="1134" height="769"></rect>
+          <rect rx="150" fill="#5EBEFB" x="831" y="831" width="1134" height="1134"></rect>
+        </svg>
+      </div>
+      <div class="name"><b>BIAM</b></div>
+      <div class="sb-tag"><span class="dot"></span> Beta</div>
+    </div>
+
+    <div class="sb-section-label">Navigate</div>
+    <nav class="sb-nav" id="sb-nav">
+      <a class="sb-link active" href="#home" data-target="home">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M3 10l9-7 9 7v11H3z"/><path d="M9 21V12h6v9"/></svg></span>
+        Home
+        <span class="arrow">›</span>
+      </a>
+      <a class="sb-link" href="#two-ai" data-target="two-ai">
+        <span class="ico"><svg viewBox="0 0 24 24"><circle cx="8" cy="12" r="4"/><circle cx="16" cy="12" r="4"/><path d="M8 8v8M16 8v8"/></svg></span>
+        Two AI
+        <span class="arrow">›</span>
+      </a>
+      <a class="sb-link" href="#workflow" data-target="workflow">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h16"/><circle cx="18" cy="12" r="2"/></svg></span>
+        Workflow
+        <span class="arrow">›</span>
+      </a>
+      <a class="sb-link" href="#security" data-target="security">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8.5-8 9-4.5-.5-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        Security
+        <span class="arrow">›</span>
+      </a>
+      <a class="sb-link" href="#industries" data-target="industries">
+        <span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span>
+        Industries
+        <span class="arrow">›</span>
+      </a>
+      <a class="sb-link" href="#marketplace" data-target="marketplace">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M3 7h18l-2 12H5z"/><path d="M8 7V4h8v3"/></svg></span>
+        Marketplace
+        <span class="arrow">›</span>
+      </a>
+      <a class="sb-link" href="#workshop" data-target="workshop">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.7 7.1 18.2 8 12.7 4 8.8 9.5 8z"/></svg></span>
+        Workshop
+        <span class="arrow">›</span>
+      </a>
+      <a class="sb-link" href="#hackathons" data-target="hackathons">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg></span>
+        Hackathons
+        <span class="arrow">›</span>
+      </a>
+      <a class="sb-link" href="#pricing" data-target="pricing">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M20 12V8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1"/><path d="M14 12h7"/><path d="M17 9l3 3-3 3"/></svg></span>
+        Pricing
+        <span class="arrow">›</span>
+      </a>
+      <a class="sb-link" href="#trust" data-target="trust">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        Trust
+        <span class="arrow">›</span>
+      </a>
+      <a class="sb-link" href="#support" data-target="support">
+        <span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 2-2.5 2-2.5 4"/><circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none"/></svg></span>
+        Support
+        <span class="arrow">›</span>
+      </a>
+    </nav>
+
+    <div class="sb-foot">
+      <a class="sb-cta" href="/login">
+        Log in
+        <span class="arr">›</span>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ============ MAIN ============ -->
+  <main>
+
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="crumb-wrap">
+        <button class="sb-trigger" aria-label="Open menu" aria-controls="biam-sidebar" aria-expanded="false">
+          <span class="sb-trigger-bar"></span>
+          <span class="sb-trigger-bar"></span>
+          <span class="sb-trigger-bar"></span>
+        </button>
+        <div class="crumb">
+          <span>BIAM</span> <span class="sep">/</span> <span class="cur">Home · 01</span>
+        </div>
+      </div>
+      <div class="top-right">
+        <span>EN · العربية · ⌘ K</span>
+      </div>
+    </div>
+
+    <!-- ============ HERO / HOME ============ -->
+    <section id="home" class="hero" data-screen-label="Home">
+      <div class="hero-bg">
+        <div class="grid"></div>
+        <div class="stars"></div>
+        <div class="laser-2"></div>
+        <div class="laser"></div>
+        <div class="floor"></div>
+      </div>
+
+      <div class="hero-grid">
+        <div class="hero-left">
+          <span class="eyebrow hero-section-eyebrow">01 — Home</span>
+          <div class="hero-eyebrow">
+            <span class="badge"><span class="d"></span> NEW CATEGORY</span>
+            Business Intelligence and Artificial Management
+          </div>
+
+          <h1 class="hero-title">
+            Describe your<br>
+            <span class="blue">business.</span><br>
+            <span class="thin">AI builds your</span><br>
+            <span class="thin">system.</span>
+          </h1>
+
+          <p class="hero-sub">
+            <b>BIAM</b> is the AI-native operating system for SMBs who outgrew Excel and can't afford SAP. Two AI agents — one builds your ERP/CRM in minutes, the other runs it for you daily.
+          </p>
+
+          <div class="hero-cta">
+            <form class="input-shell" id="hero-form" novalidate>
+              <label for="hero-email" class="sr-only">Email</label>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true" focusable="false">
+                <rect x="3" y="5" width="18" height="14" rx="2"/>
+                <path d="M3 7l9 6 9-6"/>
+              </svg>
+              <input id="hero-email" name="email" type="email" required placeholder="you@company.ae  ·  start free, 10 tokens included">
+              <button type="submit" class="btn-primary">Start free <span aria-hidden="true">→</span></button>
+            </form>
+          </div>
+
+        </div>
+
+        <!-- BUILDER MOCK · video demo -->
+        <div class="builder-mock builder-video">
+          <div class="bv-frame" role="button" tabindex="0" aria-label="Open demo fullscreen">
+            <video
+              class="bv-video"
+              autoplay muted loop playsinline preload="metadata"
+              poster="/biam/assets/demo-poster.jpg"
+              aria-hidden="true">
+              <source src="/biam/assets/demo.webm" type="video/webm">
+              <source src="/biam/assets/demo.mp4" type="video/mp4">
+            </video>
+            <span class="bv-expand" aria-hidden="true">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>
+              </svg>
+            </span>
+          </div>
+          <div class="bv-caption">
+            <span class="bv-tag"><span class="bv-dot"></span> DEMO</span>
+            <span class="bv-label">how BIAM works</span>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============ TWO AI ============ -->
+    <section id="two-ai" class="s" data-screen-label="Two AI">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">02 — The product</span>
+          <h2 class="section-title">Two AI agents. <em>One business system.</em></h2>
+        </div>
+        <div class="section-meta">
+          <div>ENGINE</div>
+          <div style="margin-top:6px"><b>Multi-model · auto-routed</b></div>
+        </div>
+      </div>
+
+      <div class="twoai-grid">
+        <!-- AI BUILDER -->
+        <div class="ai-card builder">
+          <div class="glow"></div>
+          <div class="ix">
+            <span class="sym">⌬</span>
+            01 · AI Builder
+          </div>
+          <h3>The agent that <b>builds your system</b> from a sentence.</h3>
+          <p class="lead">
+            You describe your business in plain English or Arabic. The Builder assembles widgets, pages, tables, and modules into a working ERP/CRM — usually in under ten minutes.
+          </p>
+          <div class="meta-table">
+            <span class="k">When it runs</span><span class="v dim">On creation, on every change, on every request to evolve the system.</span>
+            <span class="k">What it produces</span><span class="v dim">Widgets · pages · modules · tables · forms · automations · dashboards.</span>
+            <span class="k">Token cost</span><span class="v"><b style="font-family:'JetBrains Mono',monospace">1–2 tok</b> per widget · <b style="font-family:'JetBrains Mono',monospace">7–15 tok</b> per page · <b style="font-family:'JetBrains Mono',monospace">30–60 tok</b> per module</span>
+            <span class="k">Included in</span>
+            <span class="v"><div class="tier-badges"><span class="b on">Starter</span><span class="b on">Business</span><span class="b on">Pro</span><span class="b on">Enterprise</span></div></span>
+          </div>
+        </div>
+
+        <!-- AI OPERATOR -->
+        <div class="ai-card operator">
+          <div class="glow"></div>
+          <div class="ix">
+            <span class="sym">↯</span>
+            02 · AI Operator
+          </div>
+          <h3>The agent that <b>runs the system</b> with you, every day.</h3>
+          <p class="lead">
+            Once your system is live, the Operator works inside it: reads your data, answers questions, drafts reports, performs actions, and quietly suggests optimizations as the business runs.
+          </p>
+          <div class="meta-table">
+            <span class="k">When it runs</span><span class="v dim">Every working day. On schedule, on event, or on demand from the team.</span>
+            <span class="k">What it does</span><span class="v dim">Analyses · answers · generates reports · takes actions · proposes optimisations.</span>
+            <span class="k">Token cost</span><span class="v"><b style="font-family:'JetBrains Mono',monospace">80–200 tok/mo</b> small team · <b style="font-family:'JetBrains Mono',monospace">300–800 tok/mo</b> mid-size team</span>
+            <span class="k">Included in</span>
+            <span class="v"><div class="tier-badges"><span class="b off">Starter</span><span class="b on">Business</span><span class="b on">Pro</span><span class="b on">Enterprise</span></div></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="twoai-foot">
+        <div class="left">
+          <div>
+            <h4>One shared memory.</h4>
+            <p>What the Builder ships becomes the Operator's working context. No re-wiring, no glue code, no second tool.</p>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <a class="btn-primary" href="mailto:hello@biam.pro?subject=Early%20access%20%E2%80%94%20AI%20Builder">Try AI Builder free</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WORKFLOW ============ -->
+    <section id="workflow" class="s" data-screen-label="Workflow">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">03 — How it works</span>
+          <h2 class="section-title">From sentence to <em>shipping system.</em></h2>
+        </div>
+        <div class="section-meta">
+          <div>TIME TO FIRST RUN</div>
+          <div style="margin-top:6px"><b>UNDER 10 MIN</b></div>
+        </div>
+      </div>
+
+      <div class="wf-grid">
+        <div class="wf">
+          <div class="ix">Step 01 · You</div>
+          <div class="num">01</div>
+          <h3>Describe your business.</h3>
+          <p>Type or speak it. «Pharmacy with 4 branches, 22 staff, supplier orders weekly.» That's enough for the Builder to start.</p>
+        </div>
+        <div class="wf">
+          <div class="ix">Step 02 · AI Builder</div>
+          <div class="num">02</div>
+          <h3>Watch the system build itself.</h3>
+          <p>Modules, pages, widgets, forms, automations. You see each piece appear, you edit any of them in place. Ship when you're ready.</p>
+        </div>
+        <div class="wf accent">
+          <div class="ix">Step 03 · AI Operator</div>
+          <div class="num">03</div>
+          <h3>Let the Operator run it.</h3>
+          <p>Daily, the Operator reads your data, answers «how are we doing?», drafts reports, files weekly supplier orders, flags drift before it costs you.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SECURITY ============ -->
+    <section id="security" class="s" data-screen-label="Security">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">04 — Security</span>
+          <h2 class="section-title">Speed without sacrificing <em>security.</em></h2>
+        </div>
+        <div class="section-meta">
+          <div>ARCHITECTURE</div>
+          <div style="margin-top:6px"><b>SANDBOXED · AUDITED</b></div>
+        </div>
+      </div>
+
+      <div class="sec-grid">
+        <div class="sec-card">
+          <div class="sec-ico">⊕</div>
+          <h3>No arbitrary code</h3>
+          <p>Builder doesn't write code. It assembles your system from audited, typed primitives — eliminating entire classes of risk (SQL injection, RCE, credential leaks) that surface when AI writes raw code.</p>
+        </div>
+        <div class="sec-card">
+          <div class="sec-ico">⊞</div>
+          <h3>Sandboxed runtime</h3>
+          <p>Every generated system runs in isolation. No access to other tenants' data, code or infra. AI Operator works through a typed API — never direct SQL on production tables.</p>
+        </div>
+        <div class="sec-card">
+          <div class="sec-ico">⌬</div>
+          <h3>Every action audited</h3>
+          <p>Who, when, which data was read, which report was generated, which action was executed — all logged. AI Operator's action trail is GDPR / PDPL audit-ready out of the box.</p>
+        </div>
+      </div>
+
+      <div class="sec-compare">
+        <div class="sec-row sec-head"><div>What changes</div><div>Dev + AI app</div><div class="sec-us">BIAM</div></div>
+        <div class="sec-row"><div>Time to production</div><div>Days to weeks</div><div class="sec-us">Minutes</div></div>
+        <div class="sec-row"><div>AI writes raw code</div><div>Yes</div><div class="sec-us">No — primitives only</div></div>
+        <div class="sec-row"><div>Security review</div><div>Required, per app</div><div class="sec-us">Built into platform</div></div>
+        <div class="sec-row"><div>Production data access</div><div>Direct</div><div class="sec-us">Sandboxed typed API</div></div>
+      </div>
+    </section>
+
+    <!-- ============ INDUSTRIES ============ -->
+    <section id="industries" class="s" data-screen-label="Industries">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">05 — Industries</span>
+          <h2 class="section-title">Built for the businesses <em>SAP forgot about.</em></h2>
+        </div>
+        <div class="section-meta">
+          <div>ICP</div>
+          <div style="margin-top:6px"><b>10–250 STAFF</b></div>
+          <div style="margin-top:6px">UAE · GCC · EU</div>
+        </div>
+      </div>
+
+      <div class="ind-grid">
+        <div class="ind featured">
+          <div class="head">
+            <div class="mark">OIL</div>
+            <span class="code">FLAGSHIP · Q1</span>
+          </div>
+          <h4>ERP for oil mill</h4>
+          <p class="desc">Raw seed intake, batch tracking, refinery line monitoring, bottling and packaging, supplier ledger from farm to shipment.</p>
+          <div class="meta">
+            <span>30–80 staff typical · multi-shift production</span>
+            <b>Template ready →</b>
+          </div>
+        </div>
+        <div class="ind">
+          <div class="head"><div class="mark">HC</div><span class="code">F.02</span></div>
+          <h4>HoReCa · cafés &amp; restaurants</h4>
+          <div class="meta"><span>3-loc median · POS-ready</span><b>Q2</b></div>
+        </div>
+        <div class="ind">
+          <div class="head"><div class="mark">MF</div><span class="code">F.03</span></div>
+          <h4>Light manufacturing</h4>
+          <div class="meta"><span>PoC · 20 staff</span><b>Live</b></div>
+        </div>
+
+        <div class="ind">
+          <div class="head"><div class="mark">AS</div><span class="code">F.04</span></div>
+          <h4>Auto service centres</h4>
+          <div class="meta"><span>Bay scheduling + parts</span><b>Q3</b></div>
+        </div>
+        <div class="ind">
+          <div class="head"><div class="mark">CL</div><span class="code">F.05</span></div>
+          <h4>Cleaning services</h4>
+          <div class="meta"><span>Crew dispatch + recurring</span><b>Q4</b></div>
+        </div>
+        <div class="ind">
+          <div class="head"><div class="mark">RE</div><span class="code">F.06</span></div>
+          <h4>Retail SMB</h4>
+          <div class="meta"><span>Multi-channel · POS</span><b>Q2</b></div>
+        </div>
+        <div class="ind">
+          <div class="head"><div class="mark">CN</div><span class="code">F.07</span></div>
+          <h4>Clinics &amp; dental</h4>
+          <div class="meta"><span>Patient ledger · billing</span><b>Q3</b></div>
+        </div>
+        <div class="ind">
+          <div class="head"><div class="mark">PS</div><span class="code">F.08</span></div>
+          <h4>Professional services</h4>
+          <div class="meta"><span>Hours · invoicing · CRM</span><b>Live</b></div>
+        </div>
+
+        <div class="ind featured" style="grid-column:span 2;background:radial-gradient(circle at 0% 100%, rgba(94,190,251,0.16), transparent 60%),#07101F">
+          <div class="head">
+            <div class="mark" style="background:rgba(255,255,255,0.05);border-color:var(--line-2);color:var(--text-2)">··</div>
+            <span class="code">CUSTOM</span>
+          </div>
+          <h4>Yours — if it isn't on this list.</h4>
+          <p class="desc">The Builder doesn't care which industry you're in. Describe what you do. If we don't have a template, you'll have one within the hour.</p>
+          <div class="meta">
+            <span>250+ widget primitives</span>
+            <b>Start free →</b>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MARKETPLACE ============ -->
+    <section id="marketplace" class="s" data-screen-label="Marketplace">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">06 — Marketplace</span>
+          <h2 class="section-title">A store inside the platform. <em>Buy a head start.</em></h2>
+        </div>
+        <div class="section-meta">
+          <div>OFFICIAL · COMMUNITY</div>
+          <div style="margin-top:6px"><b>100+ ITEMS · YR 1 TGT</b></div>
+        </div>
+      </div>
+
+      <div class="mp-head">
+        <div class="l">
+          <div class="ico">⌬</div>
+          <h4>BIAM Marketplace <b>· 5 types</b></h4>
+        </div>
+        <div class="r">
+          <span>⊞ Systems · ◫ Widgets · ◐ Themes · ◇ Elements · ⟳ Animations</span>
+        </div>
+      </div>
+
+      <div class="mp-row">
+        <div class="mp-card">
+          <div class="preview">
+            <div class="grid"></div>
+            <div class="mock mock-erp" aria-hidden="true">
+              <div class="erp-head"><span>PROD · #047</span><span class="live">LIVE</span></div>
+              <div class="erp-lines">
+                <div class="erp-line"><span class="erp-stage">Intake</span><span class="erp-bar" style="--p:85%"></span><span class="erp-pct">85</span></div>
+                <div class="erp-line"><span class="erp-stage">Batch</span><span class="erp-bar" style="--p:60%"></span><span class="erp-pct">60</span></div>
+                <div class="erp-line"><span class="erp-stage">Refine</span><span class="erp-bar" style="--p:40%"></span><span class="erp-pct">40</span></div>
+                <div class="erp-line"><span class="erp-stage">Bottle</span><span class="erp-bar" style="--p:18%"></span><span class="erp-pct">18</span></div>
+              </div>
+            </div>
+            <span class="label" title="System">⊞</span>
+            <span class="biam-tag official" title="★ BIAM Official">★</span>
+          </div>
+          <div class="body">
+            <h5>Oil Mill ERP 4.0</h5>
+            <p>Seed intake · batch tracking · refinery line · bottling.</p>
+          </div>
+          <div class="foot">
+            <span class="price">$680 <span>USD</span></span>
+            <span class="by">By BIAM</span>
+          </div>
+        </div>
+
+        <div class="mp-card">
+          <div class="preview">
+            <div class="grid"></div>
+            <div class="mock mock-cafe" aria-hidden="true">
+              <div class="cf-locs">
+                <span class="cf-loc on"><span class="d"></span>L1</span>
+                <span class="cf-loc on"><span class="d"></span>L2</span>
+                <span class="cf-loc"><span class="d"></span>L3</span>
+              </div>
+              <div class="cf-chart">
+                <i style="--h:30%"></i><i style="--h:50%"></i><i style="--h:42%"></i><i style="--h:75%"></i><i style="--h:65%"></i><i style="--h:88%"></i><i style="--h:70%"></i><i style="--h:55%"></i>
+              </div>
+              <div class="cf-foot"><span>TODAY</span><span><b>↑ 12%</b> · AED 4,820</span></div>
+            </div>
+            <span class="label" title="System">⊞</span>
+          </div>
+          <div class="body">
+            <h5>Café · 3-location starter</h5>
+            <p>Shifts · revenue dashboard · supplier ledger.</p>
+          </div>
+          <div class="foot">
+            <span class="price">$240 <span>USD</span></span>
+            <span class="by">@cafe-stack</span>
+          </div>
+        </div>
+
+        <div class="mp-card">
+          <div class="preview">
+            <div class="grid"></div>
+            <div class="mock mock-kpi" aria-hidden="true">
+              <div class="tile num"><span class="l">MRR</span><span class="n">$28k</span><span class="delta">↑ 8%</span></div>
+              <div class="tile spark"><span class="l">SIGNUPS</span><span class="sk"><i style="--h:30%"></i><i style="--h:55%"></i><i style="--h:42%"></i><i style="--h:70%"></i><i style="--h:62%"></i><i style="--h:85%"></i></span></div>
+              <div class="tile donut"><span class="l">RETENTION</span><span class="dn"></span></div>
+              <div class="tile bars"><span class="l">TOP COHORT</span><span class="br"><i></i><i></i><i></i></span></div>
+            </div>
+            <span class="label" title="Widget pack">◫</span>
+            <span class="biam-tag official" title="★ BIAM Official">★</span>
+          </div>
+          <div class="body">
+            <h5>KPI Dashboard pack</h5>
+            <p>14 dashboard widgets · revenue, cohort, retention.</p>
+          </div>
+          <div class="foot">
+            <span class="price">$48 <span>USD</span></span>
+            <span class="by">By BIAM</span>
+          </div>
+        </div>
+
+        <div class="mp-card">
+          <div class="preview">
+            <div class="grid"></div>
+            <div class="mock mock-theme" aria-hidden="true">
+              <div class="th-lbl">DESERT SAND · 5</div>
+              <div class="th-swatches"><i class="s1"></i><i class="s2"></i><i class="s3"></i><i class="s4"></i><i class="s5"></i></div>
+              <div class="th-aa">Aa <span>#E5C087</span></div>
+            </div>
+            <span class="label" title="Theme">◐</span>
+          </div>
+          <div class="body">
+            <h5>Desert Sand · light theme</h5>
+            <p>Arabic-first type pairing · warm neutrals.</p>
+          </div>
+          <div class="foot">
+            <span class="price">$18 <span>USD</span></span>
+            <span class="by">@nuun</span>
+          </div>
+        </div>
+
+        <div class="mp-card">
+          <div class="preview">
+            <div class="grid"></div>
+            <div class="mock mock-invoice" aria-hidden="true">
+              <div class="inv-head"><span class="num">INV · 2026/047</span><span class="dt">1447 محرم</span></div>
+              <div class="inv-rows">
+                <div class="inv-row"><span class="lbl l1"></span><span class="v">2,400</span></div>
+                <div class="inv-row"><span class="lbl l2"></span><span class="v">680</span></div>
+                <div class="inv-row"><span class="lbl l3"></span><span class="v">920</span></div>
+              </div>
+              <div class="inv-tot"><span>5% VAT</span><span><b>AED 4,200</b></span></div>
+            </div>
+            <span class="label" title="Element">◇</span>
+          </div>
+          <div class="body">
+            <h5>VAT-aware invoice form</h5>
+            <p>UAE 5% · KSA 15% · Hijri date.</p>
+          </div>
+          <div class="foot">
+            <span class="price">$12 <span>USD</span></span>
+            <span class="by">@gulftax</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="mp-strip">
+        <div class="mp-stat">
+          <div class="v">100<small>+ items · Y1</small></div>
+          <div class="l">Templates &amp; packs target</div>
+        </div>
+        <div class="mp-stat">
+          <div class="v">~$150k<small>/mo GMV</small></div>
+          <div class="l">End of year 1</div>
+        </div>
+        <div class="mp-stat">
+          <div class="v">25%</div>
+          <div class="l">BIAM commission · community</div>
+        </div>
+        <div class="mp-stat">
+          <div class="v">100%</div>
+          <div class="l">BIAM Official revenue</div>
+        </div>
+        <div class="mp-stat">
+          <div class="v">$3 — $800</div>
+          <div class="l">Item price range</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ WORKSHOP ============ -->
+    <section id="workshop" class="s" data-screen-label="Workshop">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">07 — Workshop</span>
+          <h2 class="section-title">Customize anything. <em>Your taste, your colors.</em></h2>
+        </div>
+        <div class="section-meta">
+          <div>GENERATIVE</div>
+          <div style="margin-top:6px"><b>WIDGETS · ANIMATIONS · THEMES</b></div>
+        </div>
+      </div>
+
+      <div class="ws-console">
+        <span class="prefix">$ build</span>
+        <span class="prompts">
+          <span>a KPI gauge that looks like a fuel meter</span>
+          <span>spring-load animations for the cart page</span>
+          <span>a desert-sand theme for our Dubai app</span>
+          <span>a kanban widget grouped by region</span>
+        </span>
+        <span class="cursor"></span>
+      </div>
+
+      <div class="ws-grid">
+        <div class="ws-card">
+          <div class="ws-preview ws-preview-widget">
+            <i style="--h:35%;--d:0s"></i>
+            <i style="--h:65%;--d:.1s"></i>
+            <i style="--h:50%;--d:.2s"></i>
+            <i style="--h:85%;--d:.3s"></i>
+            <i style="--h:45%;--d:.4s"></i>
+            <i style="--h:75%;--d:.5s"></i>
+            <i style="--h:55%;--d:.6s"></i>
+            <i style="--h:90%;--d:.7s"></i>
+          </div>
+          <span class="ws-tag">WIDGET</span>
+          <div class="ws-ico">◫</div>
+          <div class="ws-body">
+            <h3>Widgets to spec</h3>
+            <p>Describe a KPI gauge, kanban, timeline, custom chart. Workshop assembles it from typed primitives and drops it into any system in your workspace.</p>
+            <div class="ws-pills"><span>250+ primitives</span><span>Inline edit</span></div>
+          </div>
+        </div>
+
+        <div class="ws-card">
+          <div class="ws-preview ws-preview-motion">
+            <span class="track"></span>
+            <span class="dot" style="--d:0s"></span>
+            <span class="dot" style="--d:.18s;--o:.6;--b:1px"></span>
+            <span class="dot" style="--d:.36s;--o:.3;--b:2px"></span>
+          </div>
+          <span class="ws-tag">MOTION</span>
+          <div class="ws-ico">⟳</div>
+          <div class="ws-body">
+            <h3>Animations on demand</h3>
+            <p>Tell it the feel — slick, playful, minimal. Workshop ships page transitions, hover micro-states and loading patterns tuned to your tone.</p>
+            <div class="ws-pills"><span>Page · hover · load</span><span>Reduced-motion safe</span></div>
+          </div>
+        </div>
+
+        <div class="ws-card">
+          <div class="ws-preview ws-preview-theme">
+            <i style="--c:#5EBEFB;--d:0s"></i>
+            <i style="--c:#9D7BFB;--d:.6s"></i>
+            <i style="--c:#3FA9F5;--d:1.2s"></i>
+            <i style="--c:#FFB05B;--d:1.8s"></i>
+            <i style="--c:#3CD17A;--d:2.4s"></i>
+          </div>
+          <span class="ws-tag">THEME</span>
+          <div class="ws-ico">◐</div>
+          <div class="ws-body">
+            <h3>Themes & palettes</h3>
+            <p>Brand colour + typography pair. Workshop builds a full theme with light / dark variants and component overrides — applied system-wide instantly.</p>
+            <div class="ws-pills"><span>Light + dark</span><span>WCAG AA</span></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============ HACKATHONS ============ -->
+    <section id="hackathons" class="s" data-screen-label="Hackathons">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">08 — Hackathons</span>
+          <h2 class="section-title">Hackathons that <em>pay for themselves.</em></h2>
+        </div>
+        <div class="section-meta">
+          <div>CYCLE</div>
+          <div style="margin-top:6px"><b>4 / YEAR · REVENUE-NEUTRAL</b></div>
+        </div>
+      </div>
+
+      <div class="hk-equation">
+        <div class="hk-eq-pay">
+          <span class="hk-eq-label">Sponsor pays</span>
+          <span class="hk-eq-val">$5–11k</span>
+        </div>
+        <span class="hk-eq-op">=</span>
+        <div class="hk-eq-bundle">
+          <span class="hk-eq-item">$25k system</span>
+          <span class="hk-eq-plus">+</span>
+          <span class="hk-eq-item">$50k PR</span>
+          <span class="hk-eq-plus">+</span>
+          <span class="hk-eq-item">8–12 prototypes</span>
+          <span class="hk-eq-plus">+</span>
+          <span class="hk-eq-item hk-eq-item-blue">Industry template</span>
+        </div>
+      </div>
+
+      <div class="hk-flow">
+        <div class="hk-step">
+          <div class="hk-step-num">01</div>
+          <div class="hk-step-tag">SPONSOR FUNDS</div>
+          <h3>GCC leader picks a quarter.</h3>
+          <p>A pharmacy chain, restaurant group or auto-service brand from the Gulf signs up. They pay $5–11k for the event and get their name on it.</p>
+          <div class="hk-step-stat"><span class="pulse"></span>$5–11k · branded event</div>
+        </div>
+        <div class="hk-chase"><span></span><span></span><span></span></div>
+        <div class="hk-step hk-step-accent">
+          <div class="hk-step-num">02</div>
+          <div class="hk-step-tag">COMMUNITY BUILDS</div>
+          <h3>8–12 working prototypes.</h3>
+          <p>Open to anyone with internet. Top teams take $1k–$2.5k in prizes and a 75 % royalty on every Marketplace sale of their template.</p>
+          <div class="hk-step-stat"><span class="pulse"></span>80+ apps · 75 % royalty</div>
+        </div>
+        <div class="hk-chase"><span></span><span></span><span></span></div>
+        <div class="hk-step">
+          <div class="hk-step-num">03</div>
+          <div class="hk-step-tag">MARKETPLACE GROWS</div>
+          <h3>Template ships, sponsor signs.</h3>
+          <p>The winning system goes into BIAM Marketplace as an industry asset. The sponsor becomes a paying client. BIAM spends $0 on distribution.</p>
+          <div class="hk-step-stat"><span class="pulse"></span>+1 template · +1 client</div>
+        </div>
+      </div>
+
+      <div class="hk-quarters">
+        <div class="hk-q"><span class="hk-q-label">Q1</span><span class="hk-q-name">Pharmacy</span></div>
+        <span class="hk-arrow">→</span>
+        <div class="hk-q"><span class="hk-q-label">Q2</span><span class="hk-q-name">HoReCa</span></div>
+        <span class="hk-arrow">→</span>
+        <div class="hk-q"><span class="hk-q-label">Q3</span><span class="hk-q-name">Auto service</span></div>
+        <span class="hk-arrow">→</span>
+        <div class="hk-q"><span class="hk-q-label">Q4</span><span class="hk-q-name">Cleaning</span></div>
+        <span class="hk-foot">2026 industry track</span>
+      </div>
+    </section>
+
+    <!-- ============ PRICING ============ -->
+    <section id="pricing" class="s" data-screen-label="Pricing">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">09 — Pricing</span>
+          <h2 class="section-title">Pay for the platform. <em>Token-meter the AI.</em></h2>
+        </div>
+        <div class="section-meta">
+          <div>BILLING</div>
+          <div style="margin-top:6px"><b>USD · AED · EUR</b></div>
+          <div style="margin-top:6px">ANNUAL −17%</div>
+        </div>
+      </div>
+
+      <div class="price-grid">
+        <!-- STARTER -->
+        <div class="plan">
+          <h3>Starter <span class="code">T.01</span></h3>
+          <p class="desc">Full builder, no AI Operator. Build, ship, validate.</p>
+          <div class="price"><span class="cur">$</span>0<span class="per">forever</span></div>
+          <div class="multi-currency"><b>AED 0</b> · <b>€0</b></div>
+          <div class="ai-row">
+            <div class="ai-pill"><div class="l"><span class="dot"></span>AI Builder</div><div class="v">Included</div></div>
+            <div class="ai-pill off"><div class="l"><span class="dot"></span>AI Operator</div><div class="v">Not included</div></div>
+          </div>
+          <ul>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> <b style="color:#fff">10 tokens</b>, one-time</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> 1 workspace</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> <span style="color:var(--text-3)">biam.pro subdomain only</span></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> Marketplace browse + buy</li>
+            <li class="mute"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> Community support</li>
+          </ul>
+          <a class="pick" href="mailto:hello@biam.pro?subject=Start%20free%20%E2%80%94%20Starter%20tier">Start free</a>
+        </div>
+
+        <!-- BUSINESS -->
+        <div class="plan pop">
+          <span class="pop-tag">★ Most BIAM teams</span>
+          <h3>Business <span class="code">T.02</span></h3>
+          <p class="desc">Builder + AI Operator inside your system, daily.</p>
+          <div class="price"><span class="cur">$</span>79<span class="per">/ mo</span></div>
+          <div class="multi-currency"><b>AED 290</b> · <b>€74</b> · annual −17%</div>
+          <div class="ai-row">
+            <div class="ai-pill acc"><div class="l"><span class="dot"></span>AI Builder</div><div class="v">Priority</div></div>
+            <div class="ai-pill acc"><div class="l"><span class="dot"></span>AI Operator</div><div class="v">✓ Active</div></div>
+          </div>
+          <ul>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> <b style="color:#fff">30 tokens / month</b></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> Up to 10 workspaces</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> <b style="color:#fff">Custom domain on deploy</b></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> <b style="color:#fff">Marketplace · sell your own</b></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> Email support · 1-business-day</li>
+          </ul>
+          <a class="pick" href="mailto:hello@biam.pro?subject=14-day%20trial%20%E2%80%94%20Business%20tier">Start 14-day trial</a>
+        </div>
+
+        <!-- PRO / TEAM -->
+        <div class="plan">
+          <h3>Pro / Team <span class="code">T.03</span></h3>
+          <p class="desc">For teams that need API, integrations and scale.</p>
+          <div class="price"><span class="cur">$</span>249<span class="per">/ mo</span></div>
+          <div class="multi-currency"><b>AED 915</b> · <b>€230</b></div>
+          <div class="ai-row">
+            <div class="ai-pill acc"><div class="l"><span class="dot"></span>AI Builder</div><div class="v">Max priority</div></div>
+            <div class="ai-pill acc"><div class="l"><span class="dot"></span>AI Operator</div><div class="v">Max priority</div></div>
+          </div>
+          <ul>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> <b style="color:#fff">100 tokens / month</b></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> Unlimited workspaces</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> <b style="color:#fff">Multiple domains on deploy</b></li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> API + 40+ native integrations</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> Priority support · 4 business hrs</li>
+          </ul>
+          <a class="pick" href="mailto:hello@biam.pro?subject=Pro%20%2F%20Team%20tier%20enquiry">Try Pro</a>
+        </div>
+
+        <!-- ENTERPRISE -->
+        <div class="plan">
+          <h3>Enterprise <span class="code">T.04</span></h3>
+          <p class="desc">White-glove onboarding, SLA, on-prem or VPC.</p>
+          <div class="price">Custom<span class="per">on request</span></div>
+          <div class="multi-currency"><b>+ $1k–$15k setup</b> · one-time</div>
+          <div class="ai-row">
+            <div class="ai-pill acc"><div class="l"><span class="dot"></span>AI Builder</div><div class="v">Max + custom</div></div>
+            <div class="ai-pill acc"><div class="l"><span class="dot"></span>AI Operator</div><div class="v">Max + custom</div></div>
+          </div>
+          <ul>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> Tokens by contract</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> Custom workspaces · integrations</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> Custom domains · wildcard SSL</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> UAE / EU data residency</li>
+            <li><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l5 5L20 7"/></svg> Dedicated CSM · named on-call</li>
+          </ul>
+          <a class="pick" href="mailto:sales@biam.pro?subject=Enterprise%20enquiry">Talk to sales</a>
+        </div>
+      </div>
+
+      <!-- TOKEN PACKS -->
+      <div class="tokens">
+        <div class="tokens-head">
+          <div class="l">
+            <div class="ico">◇</div>
+            <h4>Token packs <b>pay-as-you-go · auto-recharge when balance &lt; 5</b></h4>
+          </div>
+          <div class="r">Extra · usage-based · Up to <b style="color:var(--blue)">−50%</b> bulk</div>
+        </div>
+        <div class="tokens-row">
+          <div class="tok">
+            <div class="qty">100 tokens</div>
+            <div class="price">$8</div>
+            <div class="ppr">$0.08 / token</div>
+          </div>
+          <div class="tok">
+            <div class="qty">500 tokens</div>
+            <div class="price">$32</div>
+            <div class="ppr">$0.064 / token</div>
+            <div class="disc">−17%</div>
+          </div>
+          <div class="tok">
+            <div class="qty">2 000 tokens</div>
+            <div class="price">$100</div>
+            <div class="ppr">$0.050 / token</div>
+            <div class="disc">−33%</div>
+          </div>
+          <div class="tok">
+            <div class="qty">10 000 tokens</div>
+            <div class="price">$400</div>
+            <div class="ppr">$0.040 / token</div>
+            <div class="disc">−50%</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TRUST ============ -->
+    <section id="trust" class="s" data-screen-label="Trust">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">10 — Strategy &amp; compliance</span>
+          <h2 class="section-title">Looking for an anchor investor. <em>Built to the rules that matter.</em></h2>
+        </div>
+        <div class="section-meta">
+          <div>INFRA PLAN</div>
+          <div style="margin-top:6px"><b>G42 · KHAZNA</b> · UAE</div>
+          <div style="margin-top:6px"><b>AWS</b> · Frankfurt</div>
+        </div>
+      </div>
+
+      <div class="trust-grid">
+        <div class="trust-card">
+          <h4>Open to investors and partners.</h4>
+          <p>BIAM is at pre-seed stage. We are looking for an anchor investor and target jurisdiction (Hub71 / ADGM in UAE, or EU equivalent) for registration, licensing, and operations launch. Strategy — clean cap-table for MENA institutional and US Tier-1 LPs.</p>
+          <div class="row">
+            <div class="item"><span class="k">Stage</span><span class="v">Pre-seed</span></div>
+            <div class="item"><span class="k">Target</span><span class="v">Hub71 · ADGM · EU</span></div>
+            <div class="item"><span class="k">Entity</span><span class="v">In formation</span></div>
+          </div>
+        </div>
+        <div class="trust-card">
+          <h4>Data — in the jurisdiction you choose.</h4>
+          <p>Architecture supports multi-region deployment. Once jurisdiction is set, UAE customers will be on G42 / Khazna, EU on AWS Frankfurt, KSA on local infra where required. Tokens, embeddings and audit logs never cross region boundaries.</p>
+          <div class="row">
+            <div class="item"><span class="k">UAE</span><span class="v">G42 / Khazna · planned</span></div>
+            <div class="item"><span class="k">EU</span><span class="v">AWS · Frankfurt · planned</span></div>
+            <div class="item"><span class="k">KSA</span><span class="v">Local · on request</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="compliance-bar">
+        <div class="cmp">
+          <span class="badge amber">In progress</span>
+          <h5>UAE PDPL</h5>
+          <p>Federal Decree-Law No. 45 / 2021 — target Q3 2026</p>
+        </div>
+        <div class="cmp">
+          <span class="badge amber">In progress</span>
+          <h5>GDPR ready</h5>
+          <p>Readiness audit in progress · DPA template ready</p>
+        </div>
+        <div class="cmp">
+          <span class="badge amber">Planned</span>
+          <h5>Saudi PDPL</h5>
+          <p>Compliance kickoff Q4 2026 with local counsel</p>
+        </div>
+        <div class="cmp">
+          <span class="badge amber">Roadmap</span>
+          <h5>ISO 27001</h5>
+          <p>Certification Q1 — Q2 2027 · auditor shortlist</p>
+        </div>
+        <div class="cmp">
+          <span class="badge amber">Roadmap</span>
+          <h5>SOC 2 Type II</h5>
+          <p>Certification Q3 2027 for US / EU enterprise</p>
+        </div>
+        <div class="cmp">
+          <span class="badge amber">In progress</span>
+          <h5>Anti-abuse</h5>
+          <p>Free-tier protection · auto-freeze after 30d</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SUPPORT ============ -->
+    <section id="support" class="s" data-screen-label="Support">
+      <div class="section-head">
+        <div>
+          <span class="eyebrow">11 — Support</span>
+          <h2 class="section-title">Answered <em>before you have to ask.</em></h2>
+        </div>
+        <div class="section-meta">
+          <div>FIRST RESPONSE</div>
+          <div style="margin-top:6px"><b>MEDIAN 4 MIN</b></div>
+          <div style="margin-top:6px">EN · العربية</div>
+        </div>
+      </div>
+
+      <div class="faq">
+        <div class="q">
+          <span class="num">Q.01</span>
+          <div class="body">
+            <h4>What is BIAM, in one line?</h4>
+            <p>An AI-native SaaS builder. You describe what you need — the Builder ships any SaaS: ERP, CRM, internal tools, marketplaces, dashboards. A second AI — the Operator — runs it inside your workspace every day.</p>
+          </div>
+          <span class="x">+</span>
+        </div>
+        <div class="q">
+          <span class="num">Q.02</span>
+          <div class="body">
+            <h4>How fast can I get a working system?</h4>
+            <p>Usually under 10 minutes for the first working version. You describe → Builder generates → you iterate inline. No setup, no DevOps, no contracts. From idea to production — minutes, not weeks.</p>
+          </div>
+          <span class="x">+</span>
+        </div>
+        <div class="q">
+          <span class="num">Q.03</span>
+          <div class="body">
+            <h4>How are tokens priced?</h4>
+            <p>Tokens pay for AI generation. Each tier ships a monthly pack ($79 → 30 tokens, $249 → 100). Top up from $0.04–$0.08 per token in packs of 100 → 10 000 (auto-recharge available).</p>
+          </div>
+          <span class="x">+</span>
+        </div>
+        <div class="q">
+          <span class="num">Q.04</span>
+          <div class="body">
+            <h4>Why not just use Notion, Zoho, or Bubble?</h4>
+            <p>Notion is for notes. Zoho is a toolkit you configure. Bubble is for developers. BIAM is for business owners: describe the business, get a working system, and an AI runs it for you. Different category.</p>
+          </div>
+          <span class="x">+</span>
+        </div>
+        <div class="q">
+          <span class="num">Q.05</span>
+          <div class="body">
+            <h4>Which languages does BIAM support?</h4>
+            <p>Any language. Builder and Operator work natively in English, Russian, Arabic — with French, German and more on the way. Regional defaults like UAE 5% / KSA 15% VAT and Hijri calendar ship inside ledger primitives.</p>
+          </div>
+          <span class="x">+</span>
+        </div>
+        <div class="q">
+          <span class="num">Q.06</span>
+          <div class="body">
+            <h4>Which LLM powers BIAM?</h4>
+            <p>BIAM uses a curated set of frontier models routed automatically per task — heavier prompts go to stronger models, lightweight ones to smaller models. We manage providers, keys and routing; you only pay tokens. Bring-your-own-LLM is not supported by design — this keeps quality, security and pricing predictable.</p>
+          </div>
+          <span class="x">+</span>
+        </div>
+        <div class="q">
+          <span class="num">Q.07</span>
+          <div class="body">
+            <h4>What if my industry isn't on your list?</h4>
+            <p>Describe it. The Builder doesn't care — it works from primitives, not templates. Templates are a head start, not a requirement.</p>
+          </div>
+          <span class="x">+</span>
+        </div>
+        <div class="q">
+          <span class="num">Q.08</span>
+          <div class="body">
+            <h4>What happens to my data if I leave?</h4>
+            <p>Full export to JSON and Markdown the moment you ask. Hard-deleted within 30 days, attestable on request. Standard DPA available.</p>
+          </div>
+          <span class="x">+</span>
+        </div>
+      </div>
+
+      <div class="final">
+        <div class="row">
+          <h2>Stop configuring someone else's CRM. <span class="blue">Build your own.</span></h2>
+          <div class="col-r">
+            <p>14 days of Business tier — Builder + Operator, both live. No card. Provisioning takes about four minutes from your first sign-in.</p>
+            <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+              <a class="btn-primary" href="mailto:hello@biam.pro?subject=Start%20free%20%E2%80%94%20Business%20tier">Start free <span aria-hidden="true">→</span></a>
+              <a class="btn-ghost" href="mailto:hello@biam.pro?subject=Book%20a%20call">Book a call</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="left">
+        <svg class="marquee-mark biam-logo-anim" viewBox="0 0 1965 1965" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect rx="150" fill="#5EBEFB" x="0" y="0" width="756" height="1209"></rect>
+          <rect rx="150" fill="#5EBEFB" x="831" y="0" width="1134" height="769"></rect>
+          <rect rx="150" fill="#5EBEFB" x="831" y="831" width="1134" height="1134"></rect>
+        </svg>
+        BIAM Labs · 2026
+      </div>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // Lenis smooth scroll — skip entirely when the user prefers reduced motion
+  const prefersReducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const lenis = prefersReducedMotion ? null : new Lenis({
+    duration: 1.1,
+    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+    wheelMultiplier: 1
+  });
+  if (lenis) (function raf(time) { lenis.raf(time); requestAnimationFrame(raf); })();
+
+  // Sidebar active state on scroll
+  const sections = ['home','two-ai','workflow','security','industries','marketplace','workshop','hackathons','pricing','trust','support'];
+  const links = document.querySelectorAll('#sb-nav .sb-link');
+
+  // Active link on scroll — crumb text is handled by i18n.js
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        links.forEach(l => l.classList.toggle('active', l.dataset.target === id));
+      }
+    });
+  }, {rootMargin:'-40% 0px -55% 0px', threshold:0});
+
+  sections.forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
+
+  // Hero video — pause off-screen, click to fullscreen, respect reduced-motion
+  (function initHeroVideo(){
+    const video = document.querySelector('.bv-video');
+    const frame = document.querySelector('.bv-frame');
+    if (!video || !frame) return;
+
+    if (prefersReducedMotion) {
+      video.removeAttribute('autoplay');
+      video.pause();
+    } else {
+      const visIO = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) video.play().catch(() => {});
+        else video.pause();
+      }, { threshold: 0.25 });
+      visIO.observe(video);
+    }
+
+    const openFullscreen = () => {
+      const target = frame.requestFullscreen ? frame : video;
+      const req = target.requestFullscreen || target.webkitRequestFullscreen || target.msRequestFullscreen;
+      if (video.webkitEnterFullscreen && !target.requestFullscreen) {
+        try { video.webkitEnterFullscreen(); } catch (e) { console.warn('iOS fullscreen failed', e); }
+        return;
+      }
+      if (!req) { console.warn('Fullscreen API not available'); return; }
+      video.controls = true;
+      Promise.resolve(req.call(target)).catch((err) => {
+        video.controls = false;
+        console.warn('Fullscreen request rejected:', err?.message || err);
+      });
+    };
+
+    frame.addEventListener('click', openFullscreen);
+    frame.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openFullscreen(); }
+    });
+
+    const onFsChange = () => {
+      const fs = document.fullscreenElement || document.webkitFullscreenElement;
+      if (!fs) video.controls = false;
+    };
+    document.addEventListener('fullscreenchange', onFsChange);
+    document.addEventListener('webkitfullscreenchange', onFsChange);
+  })();
+
+  // Smooth-scroll for in-page anchor clicks. Uses Lenis when available, native otherwise.
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const id = a.getAttribute('href').slice(1);
+      if (!id) return;
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      if (lenis) {
+        lenis.scrollTo(target, { offset: -57 });
+      } else {
+        const y = target.getBoundingClientRect().top + window.scrollY - 57;
+        window.scrollTo({ top: y, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+      }
+    });
+  });
+
+  // Hero email form → mailto with typed email in body
+  const heroForm = document.getElementById('hero-form');
+  heroForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.getElementById('hero-email');
+    const email = (input?.value || '').trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      input?.focus();
+      input?.setAttribute('aria-invalid', 'true');
+      return;
+    }
+    input?.removeAttribute('aria-invalid');
+    const subject = encodeURIComponent('Early access · BIAM');
+    const body = encodeURIComponent(`Hi BIAM team,\n\nI'd like to try BIAM. My email: ${email}\n\nThanks.`);
+    window.location.href = `mailto:hello@biam.pro?subject=${subject}&body=${body}`;
+  });
+
+  // Mobile/tablet drawer (≤1199px). Trigger + backdrop come from markup; CSS handles transitions.
+  const sbTrigger = document.querySelector('.sb-trigger');
+  const sbEl = document.querySelector('.sidebar');
+  const sbBackdrop = document.querySelector('.sb-backdrop');
+  const mainEl = document.querySelector('main');
+  const isMobile = () => window.innerWidth <= 1199;
+  const setSidebarInert = () => {
+    if (!sbEl) return;
+    if (isMobile() && !sbEl.classList.contains('open')) {
+      sbEl.setAttribute('inert', '');
+      sbEl.setAttribute('aria-hidden', 'true');
+    } else {
+      sbEl.removeAttribute('inert');
+      sbEl.removeAttribute('aria-hidden');
+    }
+  };
+  setSidebarInert();
+  const closeNav = () => {
+    if (!sbEl?.classList.contains('open')) return;
+    sbEl.classList.remove('open');
+    sbBackdrop?.classList.remove('show');
+    document.body.classList.remove('nav-open');
+    sbTrigger?.setAttribute('aria-expanded', 'false');
+    mainEl?.removeAttribute('inert');
+    setSidebarInert();
+    sbTrigger?.focus({ preventScroll: true });
+  };
+  const openNav = () => {
+    if (!sbEl || sbEl.classList.contains('open')) return;
+    sbEl.classList.add('open');
+    sbBackdrop?.classList.add('show');
+    document.body.classList.add('nav-open');
+    sbTrigger?.setAttribute('aria-expanded', 'true');
+    sbEl.removeAttribute('inert');
+    sbEl.removeAttribute('aria-hidden');
+    if (isMobile()) mainEl?.setAttribute('inert', '');
+    requestAnimationFrame(() => {
+      sbEl.querySelector('.sb-link')?.focus({ preventScroll: true });
+    });
+  };
+  sbTrigger?.addEventListener('click', () => {
+    sbEl?.classList.contains('open') ? closeNav() : openNav();
+  });
+  sbBackdrop?.addEventListener('click', closeNav);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
+  document.querySelectorAll('#sb-nav a').forEach(a => {
+    a.addEventListener('click', () => { if (isMobile()) closeNav(); });
+  });
+  window.addEventListener('resize', () => {
+    if (!isMobile()) closeNav();
+    setSidebarInert();
+  });
+
+  // Topbar auto-hide on ≤1199px: hide on scroll-down, show on scroll-up
+  (() => {
+    const tb = document.querySelector('.topbar');
+    if (!tb) return;
+    const mql = matchMedia('(max-width:1199px)');
+    const THRESHOLD = 6;
+    const TOP_ZONE = 64;
+    let lastY = window.scrollY;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      if (!mql.matches || document.body.classList.contains('nav-open')) {
+        tb.classList.remove('is-hidden');
+        lastY = window.scrollY;
+        return;
+      }
+      const y = window.scrollY;
+      const dy = y - lastY;
+      if (y < TOP_ZONE) {
+        tb.classList.remove('is-hidden');
+      } else if (Math.abs(dy) > THRESHOLD) {
+        tb.classList.toggle('is-hidden', dy > 0);
+      }
+      lastY = y;
+    };
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }, { passive: true });
+    mql.addEventListener('change', update);
+  })();
+
+  // BIAM logo loop animation — applies to every .biam-logo-anim SVG (sidebar mark + footer mark)
+  (() => {
+    const SVGS = document.querySelectorAll('.biam-logo-anim');
+    if (!SVGS.length || prefersReducedMotion) return;
+    const TRACKS = [
+      [ /* r0: TL_TALL → BL → BR_SQ */
+        { t: 0.000, x: 0,   y: 0,    w: 756,  h: 1209 },
+        { t: 0.167, x: 0,   y: 831,  w: 756,  h: 1134 },
+        { t: 0.333, x: 0,   y: 831,  w: 756,  h: 1134 },
+        { t: 0.500, x: 0,   y: 831,  w: 756,  h: 1134 },
+        { t: 0.667, x: 0,   y: 1187, w: 756,  h: 778  },
+        { t: 0.833, x: 831, y: 1187, w: 1134, h: 778  },
+        { t: 1.000, x: 831, y: 831,  w: 1134, h: 1134 },
+      ],
+      [ /* r1: TR_WIDE → TL → TL_TALL */
+        { t: 0.000, x: 831, y: 0, w: 1134, h: 769  },
+        { t: 0.167, x: 831, y: 0, w: 1134, h: 769  },
+        { t: 0.333, x: 0,   y: 0, w: 756,  h: 769  },
+        { t: 0.500, x: 0,   y: 0, w: 756,  h: 769  },
+        { t: 0.667, x: 0,   y: 0, w: 756,  h: 1134 },
+        { t: 0.833, x: 0,   y: 0, w: 756,  h: 1134 },
+        { t: 1.000, x: 0,   y: 0, w: 756,  h: 1209 },
+      ],
+      [ /* r2: BR_SQ → TR_SQ → TR_WIDE */
+        { t: 0.000, x: 831, y: 831, w: 1134, h: 1134 },
+        { t: 0.167, x: 831, y: 831, w: 1134, h: 1134 },
+        { t: 0.333, x: 831, y: 831, w: 1134, h: 1134 },
+        { t: 0.500, x: 831, y: 0,   w: 1134, h: 1134 },
+        { t: 0.667, x: 831, y: 0,   w: 1134, h: 1134 },
+        { t: 0.833, x: 831, y: 0,   w: 1134, h: 1134 },
+        { t: 1.000, x: 831, y: 0,   w: 1134, h: 769  },
+      ],
+    ];
+    const ease = (t) => t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+    const lerp = (a,b,t) => a + (b-a)*t;
+    const sampleTrack = (track, t) => {
+      if (t <= track[0].t) return track[0];
+      if (t >= track[track.length-1].t) return track[track.length-1];
+      for (let i = 0; i < track.length-1; i++) {
+        const a = track[i], b = track[i+1];
+        if (t >= a.t && t <= b.t) {
+          if (a.x === b.x && a.y === b.y && a.w === b.w && a.h === b.h) return a;
+          const e = ease((t - a.t) / (b.t - a.t));
+          return { x: lerp(a.x,b.x,e), y: lerp(a.y,b.y,e), w: lerp(a.w,b.w,e), h: lerp(a.h,b.h,e) };
+        }
+      }
+      return track[track.length-1];
+    };
+    const CYCLE_MS = 5000;
+    const PAUSE_MS = 1500;
+    const TOTAL = CYCLE_MS + PAUSE_MS;
+    const startTime = performance.now();
+    const targets = Array.from(SVGS).map(svg => {
+      const r = svg.querySelectorAll('rect');
+      return r.length === 3 ? [r[0], r[1], r[2]] : null;
+    }).filter(Boolean);
+    if (!targets.length) return;
+    // Snap to integer viewBox units so sub-pixel AA doesn't leave ghost trails when rendered at small sizes.
+    const apply = (el, s) => {
+      el.setAttribute('x', Math.round(s.x));
+      el.setAttribute('y', Math.round(s.y));
+      el.setAttribute('width', Math.round(s.w));
+      el.setAttribute('height', Math.round(s.h));
+    };
+    const tick = (now) => {
+      const within = ((now - startTime) % TOTAL + TOTAL) % TOTAL;
+      const t = within < CYCLE_MS ? within / CYCLE_MS : 0;
+      const s0 = sampleTrack(TRACKS[0], t);
+      const s1 = sampleTrack(TRACKS[1], t);
+      const s2 = sampleTrack(TRACKS[2], t);
+      for (let i = 0; i < targets.length; i++) {
+        apply(targets[i][0], s0);
+        apply(targets[i][1], s1);
+        apply(targets[i][2], s2);
+      }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  })();
+</script>
+</body>
+</html>

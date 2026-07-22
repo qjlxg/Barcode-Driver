@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>سبايس داينمِك — وكالة تسويق و أفكار رقمية</title>
+  <style>
+    :root{
+      --bg:#ffffff;
+      --text:#0f172a;           /* slate-900 */
+      --muted:#475569;          /* slate-600 */
+      --border:#e2e8f0;         /* slate-200 */
+      --brand:#ff3d61;          /* pinkish red */
+      --brand-2:#ff7a2f;        /* orange */
+      --brand-3:#6d9eff;        /* sky / blue accent */
+      --card:#ffffff;
+      --shadow:0 10px 30px rgba(15,23,42,.08);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Kufi Arabic', Tahoma, Arial; color:var(--text); background:var(--bg)}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:auto;padding:24px}
+
+    /* ======= Header ======= */
+    header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.75);backdrop-filter:saturate(180%) blur(12px); border-bottom:1px solid var(--border)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .logo{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:conic-gradient(from 180deg,var(--brand),var(--brand-2));color:#fff;font-weight:900;box-shadow:var(--shadow)}
+    .brand h1{font-size:20px;margin:0}
+    .menu{display:flex;align-items:center;gap:18px}
+    .menu a{padding:10px 12px;border-radius:14px;color:#0f172a}
+    .menu a:hover{background:#f1f5f9}
+    .cta{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:white;border:none;padding:10px 16px;border-radius:999px;font-weight:800;cursor:pointer;box-shadow:var(--shadow)}
+
+    /* ======= Hero ======= */
+    .hero{position:relative;overflow:hidden}
+    .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:26px;align-items:center;padding-top:28px}
+    .eyebrow{letter-spacing:.1em;color:#ef4444;font-weight:800;margin-bottom:10px}
+    .hero h2{font-size:46px;line-height:1.1;margin:0 0 12px}
+    .hero h2 .blue{color:#2563eb}
+    .hero h2 .pink{color:#ef4444}
+    .hero p{color:var(--muted);margin:0 0 18px}
+    .hero .actions{display:flex;gap:10px;flex-wrap:wrap}
+    .input{display:flex;gap:8px;background:#fff;border:1px solid var(--border);padding:8px;border-radius:999px;box-shadow:var(--shadow)}
+    .input input{border:none;outline:none;padding:10px 14px;min-width:220px}
+    .analyze{background:#ffffff;border:2px solid #60a5fa;color:#1e3a8a;border-radius:999px;padding:10px 14px;font-weight:800}
+    .hero-visual{position:relative}
+    .hero-visual .blob{position:absolute;inset:-30% -20% auto auto;z-index:-1;filter:blur(8px);opacity:.9}
+    .hero-visual .figure{border-radius:32px;border:10px solid #fff;box-shadow:var(--shadow)}
+
+    /* Decorative wave */
+    .wave{display:block}
+
+    /* ======= Feature pills row ======= */
+    .pill-row{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff}
+    .pill-row .inner{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .pill{background:rgba(255,255,255,.15);backdrop-filter: blur(2px);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+    .pill h4{margin:0 0 6px;font-size:16px}
+    .pill p{margin:0;color:#fff}
+    @media(max-width:900px){.hero .wrap{grid-template-columns:1fr}.pill-row .inner{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.pill-row .inner{grid-template-columns:1fr}}
+
+    /* ======= Services ======= */
+    .section{padding:60px 0}
+    .title{font-size:28px;margin:0 0 12px}
+    .subtitle{color:var(--muted);margin:0 0 24px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media(max-width:900px){.grid-3{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:600px){.grid-3{grid-template-columns:1fr}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+    .card h3{margin:0 0 6px;font-size:18px}
+    .card p{margin:0;color:var(--muted)}
+
+    /* Progress bars */
+    .bars{display:grid;gap:14px}
+    .bar{background:#f1f5f9;border-radius:14px;padding:10px;border:1px solid var(--border)}
+    .bar .row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+    .bar .track{height:10px;background:#e2e8f0;border-radius:99px;overflow:hidden}
+    .bar .fill{height:100%;background:linear-gradient(90deg,var(--brand),var(--brand-2));width:0}
+
+    /* Offer icons row */
+    .icons{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+    @media(max-width:900px){.icons{grid-template-columns:repeat(3,1fr)}}
+    @media(max-width:600px){.icons{grid-template-columns:repeat(2,1fr)}}
+    .icon-card{border:1px solid var(--border);border-radius:20px;padding:24px;display:grid;place-items:center;box-shadow:var(--shadow)}
+
+    /* Blog cards */
+    .blog{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px}
+    @media(max-width:900px){.blog{grid-template-columns:1fr 1fr}}
+    @media(max-width:600px){.blog{grid-template-columns:1fr}}
+    .post{border:1px solid var(--border);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);background:#fff}
+    .post .meta{padding:14px}
+    .post .meta h4{margin:0 0 6px}
+    .post .meta p{margin:0;color:var(--muted)}
+
+    /* CTA + form */
+    .cta-band{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:#fff;position:relative;overflow:hidden}
+    .cta-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:center}
+    @media(max-width:900px){.cta-grid{grid-template-columns:1fr}}
+    form{background:#fff;border:1px solid var(--border);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media(max-width:600px){.row{grid-template-columns:1fr}}
+    input,textarea{width:100%;border:1px solid var(--border);border-radius:12px;padding:12px;outline:none}
+    textarea{min-height:120px}
+
+    footer{color:#64748b;padding:24px 0;border-top:1px solid var(--border);text-align:center}
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">س</div>
+        <h1>Space Dynamic</h1>
+      </div>
+      <nav class="menu">
+        <a href="#home">الرئيسية</a>
+        <a href="#about">من نحن</a>
+        <a href="#services">الخدمات</a>
+        <a href="#portfolio">الأعمال</a>
+        <a href="#blog">المدونة</a>
+        <a href="#contact" class="cta">اتصل بنا</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="container wrap">
+      <div>
+        <div class="eyebrow">مرحباً بكم في Space Dynamic</div>
+        <h2>نصنع <span class="blue">أفكاراً رقمية</span> و <span class="pink">تسويق SEO</span></h2>
+        <p>قالب HTML نظيف وحديث مستوحى من التصميم اللي وريتي. كل العناصر قابلة للتعديل وسريعة الاستجابة لكل الشاشات.</p>
+        <div class="actions">
+          <div class="input">
+            <input placeholder="أدخل رابط موقعك…"/>
+          </div>
+          <button class="analyze">حلّل الموقع</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <img class="figure" alt="فريق يعمل" src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1400&auto=format&fit=crop"/>
+        <svg class="blob" width="680" height="480" viewBox="0 0 700 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="var(--brand)"/>
+              <stop offset="100%" stop-color="var(--brand-2)"/>
+            </linearGradient>
+          </defs>
+          <path d="M516 28c86 30 161 95 166 170 4 74-64 157-141 208-77 51-162 70-239 52-77-18-147-74-180-141-33-67-29-145 19-198C189 65 280 33 365 22c85-10 165-24 151 6Z" fill="url(#g1)" opacity=".22"/>
+        </svg>
+      </div>
+    </div>
+    <svg class="wave" viewBox="0 0 1440 120" preserveAspectRatio="none"><path fill="url(#waveG)" d="M0,64L60,69.3C120,75,240,85,360,96C480,107,600,117,720,106.7C840,96,960,64,1080,48C1200,32,1320,32,1380,32L1440,32L1440,120L1380,120C1320,120,1200,120,1080,120C960,120,840,120,720,120C600,120,480,120,360,120C240,120,120,120,60,120L0,120Z"></path><defs><linearGradient id="waveG" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="var(--brand)"/><stop offset="100%" stop-color="var(--brand-2)"/></linearGradient></defs></svg>
+  </section>
+
+  <!-- Pills row -->
+  <section class="pill-row">
+    <div class="container inner">
+      <div class="pill"><h4>تحليل البيانات</h4><p>لوحات قياس واضحة واتخاذ قرارات أسرع.</p></div>
+      <div class="pill"><h4>تقارير دورية</h4><p>مؤشرات SEO وGrowth أسبوعياً وشهرياً.</p></div>
+      <div class="pill"><h4>تحليلات الويب</h4><p>خرائط حرارة، مسارات المستخدم، و A/B.</p></div>
+      <div class="pill"><h4>اقتراحات تحسين</h4><p>قائمة مهام قابلة للتنفيذ لرفع الترتيب.</p></div>
+    </div>
+  </section>
+
+  <!-- Services + Progress -->
+  <section id="services" class="section">
+    <div class="container" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start">
+      <div>
+        <h3 class="title">نمّي موقعك بخدمات <span style="color:#2563eb">SEO</span> و أفكار <span style="color:#ef4444">مشاريع</span></h3>
+        <p class="subtitle">هيكلة تقنية صحيحة + محتوى موجّه + باك لينك ذكي = نتائج مستدامة.</p>
+        <div class="bars">
+          <div class="bar"><div class="row"><b>Website Analysis</b><span>84%</span></div><div class="track"><div class="fill" style="width:84%"></div></div></div>
+          <div class="bar"><div class="row"><b>SEO Reports</b><span>88%</span></div><div class="track"><div class="fill" style="width:88%"></div></div></div>
+          <div class="bar"><div class="row"><b>Page Optimizations</b><span>94%</span></div><div class="track"><div class="fill" style="width:94%"></div></div></div>
+        </div>
+      </div>
+      <div class="grid-3">
+        <div class="card"><h3>تدقيق تقني</h3><p>سرعة، Core Web Vitals، خرائط الموقع و Robots.</p></div>
+        <div class="card"><h3>بحث الكلمات</h3><p>Intent، صعوبة، وحجم بحث واقعي لكل نيش.</p></div>
+        <div class="card"><h3>تحسين المحتوى</h3><p>هندسة العناوين والـ FAQs و Snippets.</p></div>
+        <div class="card"><h3>Off‑Page</h3><p>Digital PR و Outreach بطرق آمنة.</p></div>
+        <div class="card"><h3>Analytics</h3><p>تقارير تشرح لك أين تربح وأين تضيّع.</p></div>
+        <div class="card"><h3>استراتيجية</h3><p>خارطة طريق شهرية بالأولويات.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Icons row (Offers/Provide) -->
+  <section id="portfolio" class="section" style="padding-top:0">
+    <div class="container" style="text-align:center">
+      <h3 class="title">شاهد ماذا نقدّم & ماذا نوفر</h3>
+      <p class="subtitle">مكوّنات بسيطة قابلة للتبديل Placeholders.</p>
+      <div class="icons">
+        <div class="icon-card"><img alt="icon" src="https://img.icons8.com/ios-filled/100/1e293b/rocket.png"/></div>
+        <div class="icon-card"><img alt="icon" src="https://img.icons8.com/ios-filled/100/1e293b/graph.png"/></div>
+        <div class="icon-card"><img alt="icon" src="https://img.icons8.com/ios-filled/100/1e293b/optimization.png"/></div>
+        <div class="icon-card"><img alt="icon" src="https://img.icons8.com/ios-filled/100/1e293b/idea.png"/></div>
+        <div class="icon-card"><img alt="icon" src="https://img.icons8.com/ios-filled/100/1e293b/marketing.png"/></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog / News -->
+  <section id="blog" class="section">
+    <div class="container">
+      <h3 class="title">شوف شنو طالع دابا فـ آخر الأخبار</h3>
+      <div class="blog">
+        <article class="post">
+          <img alt="cover" src="https://images.unsplash.com/photo-1529336953121-ad5a0d43d0d2?q=80&w=1400&auto=format&fit=crop"/>
+          <div class="meta"><div style="color:#ef4444;font-weight:700">10 مارس 2025</div><h4>مواقع جديدة وروابط خلفية</h4><p>أفضل الممارسات لثقة غوغل وبناء سمعة دومين قوية.</p></div>
+        </article>
+        <article class="post">
+          <img alt="cover" src="https://images.unsplash.com/photo-1551836022-4b1d6c42a9b8?q=80&w=1200&auto=format&fit=crop"/>
+          <div class="meta"><div style="color:#ef4444;font-weight:700">08 مارس 2025</div><h4>تحليل SEO و أفكار محتوى</h4><p>من أين تبدأ؟ إطار عمل بسيط للبحث وكتابة المقالات.</p></div>
+        </article>
+        <article class="post">
+          <img alt="cover" src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&w=1200&auto=format&fit=crop"/>
+          <div class="meta"><div style="color:#ef4444;font-weight:700">03 مارس 2025</div><h4>نصائح SEO و تسويق رقمي</h4><p>Quick wins لرفع الترتيب وزيادة الزيارات المؤهلة.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA + Contact form -->
+  <section id="contact" class="cta-band section">
+    <div class="container cta-grid">
+      <div>
+        <h3 class="title" style="color:#fff">بغاك شي استشارة؟ راسلنا حول احتياجات موقعك</h3>
+        <p class="subtitle" style="color:#fef2f2">اكتب لينا شنو باغي تطوّر فالموقع ديالك، ونرجعو ليك بخطة واضحة.</p>
+        <div style="margin-top:8px;color:#fff;font-weight:700">لأي استفسار: 06-000-00-00</div>
+      </div>
+      <form onsubmit="event.preventDefault();alert('تم إرسال رسالتك بنجاح (تجريبي)');this.reset();">
+        <div class="row">
+          <input placeholder="الاسم" required>
+          <input placeholder="النسب" required>
+        </div>
+        <input placeholder="بريدك الإلكتروني" type="email" required style="margin:10px 0">
+        <textarea placeholder="اكتب رسالتك…" required></textarea>
+        <div style="display:flex;justify-content:flex-end;margin-top:10px">
+          <button class="cta" type="submit" style="background:#2563eb;border:none;border-radius:12px;padding:10px 16px;color:#fff">إرسال الرسالة</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">© جميع الحقوق محفوظة 2025 — Space Dynamic. تصميم مستوحى من النموذج الذي أرسلته.</div>
+  </footer>
+</body>
+</html>

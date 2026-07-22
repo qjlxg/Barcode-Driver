@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <style>
+      html, body { overflow: hidden; overscroll-behavior: none; touch-action: pan-y; position: fixed; inset: 0; width: 100%; height: 100%; }
+    </style>
+    <meta name="theme-color" content="#0f0f14" />
+    <title>CryptoArena · PvP</title>
+    <link rel="preload" href="/knight.webp?v=2" as="image" type="image/webp" fetchpriority="high" />
+    <link rel="preload" href="/knight-strip.webp?v=1" as="image" type="image/webp" fetchpriority="high" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" />
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script type="module" crossorigin src="/assets/index-5Dn9Vkey.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-B6VWNO8G.css">
+  </head>
+  <body>
+    <style>
+      html, body { background: #07091a; color: #fff; margin: 0; }
+      #boot-splash {
+        position: fixed; inset: 0; display: flex; flex-direction: column;
+        align-items: center; justify-content: center; gap: 14px;
+        background: radial-gradient(circle at 50% 30%, #1a1f3d 0%, #07091a 70%);
+        font-family: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+        z-index: 9999;
+      }
+      #boot-splash .logo {
+        width: 72px; height: 72px; border-radius: 22px;
+        background: url('/knight.webp?v=2') center / contain no-repeat;
+        filter: drop-shadow(0 0 24px rgba(36, 122, 82, 0.45));
+        animation: bp 2.2s ease-in-out infinite;
+      }
+      #boot-splash h1 {
+        font-size: 22px; font-weight: 800; letter-spacing: 1px; margin: 0;
+        background: linear-gradient(90deg, #3a8dff, #247a52, #185931);
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+      }
+      #boot-splash p { font-size: 13px; color: rgba(255,255,255,0.7); margin: 0; }
+      #boot-splash .dots { display: flex; gap: 6px; margin-top: 4px; }
+      #boot-splash .dots i {
+        width: 7px; height: 7px; border-radius: 50%; background: #247a52;
+        box-shadow: 0 0 12px rgba(36, 122, 82, 0.7);
+        animation: bd 1.1s ease-in-out infinite;
+      }
+      #boot-splash .dots i:nth-child(2) { animation-delay: 0.16s; }
+      #boot-splash .dots i:nth-child(3) { animation-delay: 0.32s; }
+      @keyframes bp { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(0.92); opacity: 0.7; } }
+      @keyframes bd { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
+    </style>
+    <div id="root">
+      <div id="boot-splash" aria-live="polite">
+        <div class="logo"></div>
+        <h1>CRYPTOARENA</h1>
+        <p>Идёт подключение…</p>
+        <div class="dots"><i></i><i></i><i></i></div>
+      </div>
+    </div>
+  </body>
+</html>

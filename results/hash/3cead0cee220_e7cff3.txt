@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <title>Leantime</title>
+
+<meta name="requestId" content="k80l">
+<meta name="description" content="Leantime">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-touch-fullscreen" content="yes">
+<meta name="theme-color" content="#006d9f">
+<meta name="color-scheme" content="light">
+<meta name="theme" content="default">
+<meta name="identifier-URL" content="https://las2vka.work">
+<meta name="leantime-version" content="3.8.0">
+
+
+<link rel="shortcut icon" href="https://las2vka.work/dist/images/favicon.png"/>
+<link rel="apple-touch-icon" href="https://las2vka.work/dist/images/apple-touch-icon.png">
+
+<link rel="stylesheet" href="https://las2vka.work/dist/css/main.3.8.0.min.css"/>
+<link rel="stylesheet" href="https://las2vka.work/dist/css/app.3.8.0.min.css"/>
+<link rel="stylesheet" href="https://las2vka.work/dist/css/tiptap-editor.3.8.0.min.css"/>
+<link rel="stylesheet" href="https://las2vka.work/dist/css/katex.min.css"/>
+
+
+<script src="https://las2vka.work/api/i18n?v=3.8.0"></script>
+
+<script src="https://las2vka.work/dist/js/compiled-htmx.3.8.0.min.js"></script>
+<script src="https://las2vka.work/dist/js/compiled-htmx-extensions.3.8.0.min.js"></script>
+
+<!-- libs -->
+<script src="https://las2vka.work/dist/js/compiled-frameworks.3.8.0.min.js"></script>
+<script src="https://las2vka.work/dist/js/compiled-framework-plugins.3.8.0.min.js"></script>
+<script src="https://las2vka.work/dist/js/compiled-global-component.3.8.0.min.js"></script>
+<script src="https://las2vka.work/dist/js/compiled-calendar-component.3.8.0.min.js"></script>
+<script src="https://las2vka.work/dist/js/compiled-table-component.3.8.0.min.js"></script>
+<script src="https://las2vka.work/dist/js/compiled-tiptap-toolbar.3.8.0.min.js"></script>
+<script src="https://las2vka.work/dist/js/compiled-tiptap-editor.3.8.0.min.js"></script>
+<script src="https://las2vka.work/dist/js/compiled-gantt-component.3.8.0.min.js"></script>
+<script src="https://las2vka.work/dist/js/compiled-chart-component.3.8.0.min.js"></script>
+
+
+<!-- app -->
+<script src="https://las2vka.work/dist/js/compiled-app.3.8.0.min.js"></script>
+
+<!--
+//For future file based ref js loading
+<script src="https://las2vka.work/dist/js/Auth/Js/authController.js"></script>
+-->
+
+<!-- theme & custom -->
+    <script src=""></script>
+    <script src=""></script>
+
+    <link rel="stylesheet"  id="themeStyleSheet"  href="https://las2vka.work/theme/default/css/light.css?v=3.8.0"/>
+    <link rel="stylesheet"  href=""/>
+
+
+<!-- Replace main theme colors -->
+<style id="colorSchemeSetter">
+                        :root {
+                --accent1: #006d9f;
+            }
+                                :root {
+                --accent2:  #00a886;
+            }
+                                    </style>
+
+<style id="fontStyleSetter">
+    :root {
+        --primary-font-family: 'roboto', 'Helvetica Neue', Helvetica, sans-serif;
+    }
+</style>
+
+
+<style id="backgroundImageSetter">
+    </style>
+
+
+
+
+<script>
+    window.leantime.currentProject = '';
+</script>
+    <style>
+        .leantimeLogo { position: fixed; bottom: 10px; right: 10px; }
+    </style>
+    </head>
+
+<body class="loginpage" style="height:100%;">
+
+<div class="header hidden-gt-sm tw-p-[10px]" style="background:var(--header-gradient)">
+    <a href="https://las2vka.work" target="_blank">
+        <img src="https://las2vka.work/dist/images/logo.svg" class="tw-h-full "/>
+    </a>
+</div>
+
+<div class="row" style="min-height:100vh; max-width: 98vw; height: auto;">
+    <div class="col-md-4 hidden-phone regLeft">
+
+        <div class="logo">
+            <a href="https://las2vka.work" target="_blank">
+                <img src="https://las2vka.work/dist/images/logo.svg" />
+            </a>
+        </div>
+
+        <div class="welcomeContent">
+            <h1 class="mainWelcome">Welcome Back</h1>        </div>
+
+        
+            <div class="socialProofContent">
+                <i>"We are a small digital marketing agency and have been using Leantime for a couple of months after switching from ClickUp. Getting great feedback from our clients."<br /><br />- CEO</i>
+            </div>
+    
+    </div>
+    <div class="col-md-8 col-sm-12 regRight">
+
+        <div class="regpanel">
+            <div class="regpanelinner">
+
+                                    <a href="https://las2vka.work" target="_blank">
+
+                                            </a>
+                
+                                    
+<div class="pageheader">
+        <div class="pagetitle">
+        <h1>Login</h1>
+    </div>
+    </div>
+
+<div class="regcontent">
+        
+
+            <form id="login" action="https://las2vka.work/auth/login" method="post">
+                    <input type="hidden" name="redirectUrl" value="https%3A%2F%2Flas2vka.work%2Fclash%2Fproxies" />
+
+        <div class="">
+            <label for="username">Email</label>
+            <input type="text" name="username" id="username" class="form-control" placeholder="Enter email address" value=""/>
+        </div>
+        <div class="">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" autocomplete="off" class="form-control" placeholder="Enter password" value=""/>
+            <div class="forgotPwContainer">
+                <a href="https://las2vka.work/auth/resetPw" class="forgotPw">Forgot password?</a>
+            </div>
+        </div>
+                    <div class="">
+            <input type="submit" name="login" value="Login" class="btn btn-primary"/>
+        </div>
+        <div>
+        </div>
+            
+    </form>
+    
+    
+    </div>
+
+                            </div>
+        </div>
+
+    </div>
+    <div class="leantimeLogo">
+        <img style="height: 25px;" src="https://las2vka.work/dist/images/logo-powered-by-leantime.png">
+    </div>
+</div>
+
+<script src="https://las2vka.work/dist/js/compiled-footer.3.8.0.min.js"></script>
+
+</body>
+
+</html>

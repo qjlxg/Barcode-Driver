@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Secure Access Gateway | EdgeStream CDN</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔒</text></svg>">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --error: #dc2626;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #94a3b8;
+            --border: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        
+        .login-header {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+        
+        .node-info {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 0.75rem;
+            background: rgba(255,255,255,0.15);
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .logo-icon {
+            font-size: 1.8rem;
+        }
+        
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        
+        .header-subtitle {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            font-weight: 400;
+            margin-top: 5px;
+        }
+        
+        .login-body {
+            padding: 30px;
+        }
+        
+        .login-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        
+        .login-subtitle {
+            color: var(--gray);
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+            font-size: 0.9rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .btn:hover {
+            background: #1d4ed8;
+        }
+        
+        .error-message {
+            background: #fef2f2;
+            color: var(--error);
+            padding: 14px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border: 1px solid #fecaca;
+            display: none;
+            font-size: 0.9rem;
+        }
+        
+        .error-message.active {
+            display: block;
+        }
+        
+        .security-info {
+            text-align: center;
+            margin-top: 25px;
+            color: var(--gray);
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+        
+        .audit-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+            color: var(--gray);
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="node-info">SP2-RU-04</div>
+            <div class="logo">
+                <div class="logo-icon">🔒</div>
+                <div class="logo-text">EdgeStream</div>
+            </div>
+            <div class="header-subtitle">Secure Access Gateway</div>
+        </div>
+        
+        <div class="login-body">
+            <h2 class="login-title">Node Authentication</h2>
+            <p class="login-subtitle">Operator credentials required</p>
+            
+            <form id="authForm">
+                <div class="form-group">
+                    <label class="form-label">Operator ID</label>
+                    <input type="text" class="form-input" id="operatorId" required autocomplete="off">
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Security Token</label>
+                    <input type="password" class="form-input" id="securityToken" required autocomplete="off">
+                </div>
+                
+                <button type="submit" class="btn">Authenticate</button>
+                
+                <div class="error-message" id="errorMessage">
+                    Authentication failed: Invalid credentials or token expired. 
+                    Contact your CDN administrator for assistance.
+                </div>
+            </form>
+            
+            <div class="security-info">
+                <p>This node handles 12.7+ Gbps traffic with 99.99% uptime SLA</p>
+                <div class="audit-note">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2"/>
+                    </svg>
+                    <span>All access attempts are audited and monitored</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const authForm = document.getElementById('authForm');
+            const errorMessage = document.getElementById('errorMessage');
+            const operatorInput = document.getElementById('operatorId');
+            const tokenInput = document.getElementById('securityToken');
+            
+            authForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                errorMessage.classList.remove('active');
+                
+                const submitBtn = authForm.querySelector('button');
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Verifying...';
+                
+                setTimeout(() => {
+                    const fakeDelay = 800 + Math.random() * 700;
+                    
+                    setTimeout(() => {
+                        submitBtn.textContent = 'Authenticate';
+                        submitBtn.disabled = false;
+                        
+                        errorMessage.classList.add('active');
+                        
+                        operatorInput.value = '';
+                        tokenInput.value = '';
+                    }, fakeDelay);
+                }, 300);
+            });
+            
+            window.setInterval(() => {
+                const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19);
+                document.querySelector('.node-info').textContent = `SP2-RU-04 | ${timestamp}Z`;
+            }, 1000);
+        });
+    </script>
+</body>

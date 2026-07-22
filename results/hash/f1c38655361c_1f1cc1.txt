@@ -1,0 +1,578 @@
+<!DOCTYPE html>  
+<html lang="ru">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+  <title>SimpleTube — закрытое тестирование</title>  
+  <style>  
+    :root {  
+      --bg: #07090d;  
+      --bg-2: #0d1117;  
+      --panel: rgba(19, 24, 34, 0.78);  
+      --panel-2: rgba(25, 31, 44, 0.84);  
+      --text: #f5f7fb;  
+      --muted: #9aa5b8;  
+      --line: rgba(255,255,255,0.08);  
+      --accent: #7c5cff;  
+      --accent-2: #22d3ee;  
+      --accent-3: #8b5cf6;  
+      --success: #7ef0b8;  
+      --shadow: 0 20px 70px rgba(0,0,0,0.45);  
+      --radius: 28px;  
+    }  
+  
+    * { box-sizing: border-box; }  
+  
+    html, body {  
+      margin: 0;  
+      min-height: 100%;  
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;  
+      color: var(--text);  
+      background:  
+        radial-gradient(circle at 12% 18%, rgba(124, 92, 255, 0.22), transparent 25%),  
+        radial-gradient(circle at 88% 16%, rgba(34, 211, 238, 0.12), transparent 22%),  
+        radial-gradient(circle at 50% 95%, rgba(139, 92, 246, 0.10), transparent 28%),  
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);  
+    }  
+  
+    body {  
+      padding: 28px;  
+    }  
+  
+    .glow {  
+      position: fixed;  
+      inset: 0;  
+      pointer-events: none;  
+      background:  
+        radial-gradient(circle at 25% 15%, rgba(124,92,255,0.18), transparent 22%),  
+        radial-gradient(circle at 75% 25%, rgba(34,211,238,0.10), transparent 20%),  
+        radial-gradient(circle at 50% 85%, rgba(126,240,184,0.08), transparent 18%);  
+      filter: blur(12px);  
+    }  
+  
+    .wrap {  
+      width: min(1280px, 100%);  
+      margin: 0 auto;  
+      position: relative;  
+      border: 1px solid var(--line);  
+      border-radius: 32px;  
+      overflow: hidden;  
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));  
+      backdrop-filter: blur(16px);  
+      box-shadow: var(--shadow);  
+    }  
+  
+    .wrap::before {  
+      content: "";  
+      position: absolute;  
+      inset: 0;  
+      pointer-events: none;  
+      background: linear-gradient(135deg, rgba(124,92,255,0.10), transparent 32%, transparent 65%, rgba(34,211,238,0.05));  
+    }  
+  
+    .topbar {  
+      position: relative;  
+      z-index: 1;  
+      display: flex;  
+      justify-content: space-between;  
+      align-items: center;  
+      gap: 16px;  
+      padding: 22px 32px;  
+      border-bottom: 1px solid var(--line);  
+      background: rgba(8, 10, 14, 0.42);  
+    }  
+  
+    .brand {  
+      display: flex;  
+      align-items: center;  
+      gap: 14px;  
+      font-weight: 700;  
+      letter-spacing: -0.02em;  
+    }  
+  
+    .brand-mark {  
+      width: 42px;  
+      height: 42px;  
+      border-radius: 14px;  
+      display: grid;  
+      place-items: center;  
+      font-size: 18px;  
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));  
+      box-shadow: 0 10px 28px rgba(124,92,255,0.35);  
+    }  
+  
+    .beta-badge {  
+      display: inline-flex;  
+      align-items: center;  
+      gap: 10px;  
+      padding: 10px 14px;  
+      font-size: 13px;  
+      color: #dce2f2;  
+      border: 1px solid rgba(255,255,255,0.08);  
+      border-radius: 999px;  
+      background: rgba(255,255,255,0.04);  
+      letter-spacing: 0.02em;  
+      white-space: nowrap;  
+    }  
+  
+    .dot {  
+      width: 9px;  
+      height: 9px;  
+      border-radius: 50%;  
+      background: linear-gradient(135deg, var(--success), var(--accent-2));  
+      box-shadow: 0 0 18px rgba(126,240,184,0.7);  
+    }  
+  
+    .hero {  
+      position: relative;  
+      z-index: 1;  
+      display: grid;  
+      grid-template-columns: 1.2fr 0.8fr;  
+      min-height: 760px;  
+    }  
+  
+    .left, .right {  
+      padding: 56px;  
+    }  
+  
+    .left {  
+      border-right: 1px solid var(--line);  
+      background: linear-gradient(180deg, rgba(10,12,16,0.18), rgba(10,12,16,0.05));  
+    }  
+  
+    .eyebrow {  
+      display: inline-flex;  
+      align-items: center;  
+      gap: 10px;  
+      padding: 10px 14px;  
+      margin-bottom: 28px;  
+      border-radius: 999px;  
+      border: 1px solid rgba(255,255,255,0.08);  
+      background: rgba(255,255,255,0.04);  
+      font-size: 13px;  
+      color: #d8deed;  
+    }  
+  
+    h1 {  
+      margin: 0;  
+      font-size: clamp(44px, 6vw, 76px);  
+      line-height: 0.94;  
+      letter-spacing: -0.05em;  
+      max-width: 760px;  
+    }  
+  
+    .lead {  
+      margin: 24px 0 34px;  
+      max-width: 690px;  
+      font-size: 18px;  
+      line-height: 1.7;  
+      color: var(--muted);  
+    }  
+  
+    .chips {  
+      display: flex;  
+      flex-wrap: wrap;  
+      gap: 12px;  
+      margin-bottom: 34px;  
+    }  
+  
+    .chip {  
+      padding: 12px 16px;  
+      border-radius: 999px;  
+      border: 1px solid rgba(255,255,255,0.08);  
+      background: rgba(255,255,255,0.04);  
+      color: #dbe3f2;  
+      font-size: 14px;  
+    }  
+  
+    .stats {  
+      display: grid;  
+      grid-template-columns: repeat(3, minmax(0, 1fr));  
+      gap: 16px;  
+      margin-bottom: 18px;  
+    }  
+  
+    .stat {  
+      padding: 22px;  
+      border-radius: 22px;  
+      background: var(--panel);  
+      border: 1px solid var(--line);  
+    }  
+  
+    .stat strong {  
+      display: block;  
+      margin-bottom: 6px;  
+      font-size: 30px;  
+      letter-spacing: -0.03em;  
+    }  
+  
+    .stat span {  
+      color: var(--muted);  
+      font-size: 14px;  
+      line-height: 1.5;  
+    }  
+  
+    .features {  
+      display: grid;  
+      grid-template-columns: repeat(2, minmax(0, 1fr));  
+      gap: 16px;  
+      margin-top: 16px;  
+    }  
+  
+    .feature {  
+      padding: 22px;  
+      border-radius: 24px;  
+      background: var(--panel);  
+      border: 1px solid var(--line);  
+      min-height: 150px;  
+    }  
+  
+    .feature-icon {  
+      width: 46px;  
+      height: 46px;  
+      display: grid;  
+      place-items: center;  
+      border-radius: 14px;  
+      margin-bottom: 16px;  
+      font-size: 20px;  
+      background: linear-gradient(135deg, rgba(124,92,255,0.22), rgba(34,211,238,0.16));  
+      border: 1px solid rgba(255,255,255,0.08);  
+    }  
+  
+    .feature h3 {  
+      margin: 0 0 10px;  
+      font-size: 18px;  
+      letter-spacing: -0.02em;  
+    }  
+  
+    .feature p {  
+      margin: 0;  
+      color: var(--muted);  
+      font-size: 15px;  
+      line-height: 1.6;  
+    }  
+  
+    .right {  
+      display: flex;  
+      align-items: center;  
+      justify-content: center;  
+      background: linear-gradient(180deg, rgba(15,18,26,0.70), rgba(8,10,14,0.82));  
+    }  
+  
+    .card {  
+      width: 100%;  
+      max-width: 460px;  
+      position: relative;  
+      padding: 30px;  
+      border-radius: 30px;  
+      background: var(--panel-2);  
+      border: 1px solid rgba(255,255,255,0.09);  
+      box-shadow: 0 18px 50px rgba(0,0,0,0.35);  
+      overflow: hidden;  
+    }  
+  
+    .card::before {  
+      content: "";  
+      position: absolute;  
+      inset: -30% auto auto -15%;  
+      width: 240px;  
+      height: 240px;  
+      border-radius: 50%;  
+      background: radial-gradient(circle, rgba(124,92,255,0.25), transparent 70%);  
+      pointer-events: none;  
+    }  
+  
+    .card .mini {  
+      display: inline-block;  
+      margin-bottom: 14px;  
+      font-size: 12px;  
+      text-transform: uppercase;  
+      letter-spacing: 0.16em;  
+      color: #b7c2d8;  
+    }  
+  
+    .card h2 {  
+      margin: 0 0 14px;  
+      font-size: 34px;  
+      line-height: 1.08;  
+      letter-spacing: -0.04em;  
+    }  
+  
+    .card p {  
+      margin: 0 0 24px;  
+      color: var(--muted);  
+      line-height: 1.7;  
+      font-size: 15px;  
+    }  
+  
+    form {  
+      display: grid;  
+      gap: 14px;  
+      position: relative;  
+      z-index: 1;  
+    }  
+  
+    .input {  
+      width: 100%;  
+      border: 1px solid rgba(255,255,255,0.1);  
+      background: rgba(7,10,14,0.78);  
+      color: var(--text);  
+      padding: 17px 18px;  
+      border-radius: 16px;  
+      outline: none;  
+      font-size: 15px;  
+      transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;  
+    }  
+  
+    .input::placeholder {  
+      color: #7f8ca3;  
+    }  
+  
+    .input:focus {  
+      border-color: rgba(124,92,255,0.78);  
+      box-shadow: 0 0 0 4px rgba(124,92,255,0.14);  
+      transform: translateY(-1px);  
+    }  
+  
+    .btn {  
+      border: 0;  
+      cursor: pointer;  
+      padding: 17px 18px;  
+      border-radius: 16px;  
+      color: white;  
+      font-weight: 700;  
+      font-size: 15px;  
+      letter-spacing: 0.01em;  
+      background: linear-gradient(135deg, var(--accent), #9f67ff 45%, var(--accent-2));  
+      box-shadow: 0 14px 34px rgba(108, 81, 255, 0.34);  
+      transition: transform .2s ease, filter .2s ease;  
+    }  
+  
+    .btn:hover {  
+      transform: translateY(-1px);  
+      filter: brightness(1.05);  
+    }  
+  
+    .subnote {  
+      margin-top: 14px;  
+      font-size: 13px;  
+      color: #8b95a9;  
+      line-height: 1.5;  
+      position: relative;  
+      z-index: 1;  
+    }  
+  
+    .list {  
+      display: grid;  
+      gap: 10px;  
+      margin-top: 24px;  
+      padding-top: 20px;  
+      border-top: 1px solid rgba(255,255,255,0.08);  
+      position: relative;  
+      z-index: 1;  
+    }  
+  
+    .list div {  
+      color: #d7deec;  
+      font-size: 14px;  
+    }  
+  
+    .list span {  
+      color: var(--success);  
+      margin-right: 8px;  
+    }  
+  
+    .footer {  
+      position: relative;  
+      z-index: 1;  
+      display: flex;  
+      justify-content: space-between;  
+      gap: 20px;  
+      align-items: center;  
+      padding: 20px 28px;  
+      border-top: 1px solid var(--line);  
+      color: #7f8aa0;  
+      font-size: 13px;  
+      background: rgba(8,10,14,0.5);  
+    }  
+  
+    @media (max-width: 1080px) {  
+      .hero {  
+        grid-template-columns: 1fr;  
+      }  
+  
+      .left {  
+        border-right: 0;  
+        border-bottom: 1px solid var(--line);  
+      }  
+  
+      .right {  
+        padding-top: 0;  
+      }  
+    }  
+  
+    @media (max-width: 760px) {  
+      body {  
+        padding: 14px;  
+      }  
+  
+      .topbar,  
+      .left,  
+      .right {  
+        padding: 24px;  
+      }  
+  
+      .topbar {  
+        flex-direction: column;  
+        align-items: flex-start;  
+      }  
+  
+      .stats,  
+      .features {  
+        grid-template-columns: 1fr;  
+      }  
+  
+      h1 {  
+        font-size: 42px;  
+      }  
+  
+      .card h2 {  
+        font-size: 28px;  
+      }  
+  
+      .footer {  
+        flex-direction: column;  
+        align-items: flex-start;  
+      }  
+    }  
+  </style>  
+<script>  
+document.addEventListener("DOMContentLoaded", function() {  
+  const form = document.getElementById("leadForm");  
+  
+  if (!form) return; // защита  
+  
+  form.addEventListener("submit", function(e) {  
+    e.preventDefault();  
+  
+    const btn = document.getElementById("submitBtn");  
+    const input = document.getElementById("emailInput");  
+  
+    btn.textContent = "Отправка...";  
+      
+    setTimeout(() => {  
+      btn.textContent = "Спасибо! Заявка принята.";  
+      btn.disabled = true;  
+      input.disabled = true;  
+    }, 600);  
+  });  
+});  
+</script>  
+</head>  
+<body>  
+  <div class="glow"></div>  
+  
+  <main class="wrap">  
+    <div class="topbar">  
+      <div class="brand">  
+        <div class="brand-mark">▶</div>  
+        <div>SimpleTube</div>  
+      </div>  
+      <div class="beta-badge"><span class="dot"></span> Новый видеохостинг для аудитории нового времени</div>  
+    </div>  
+  
+    <section class="hero">  
+      <div class="left">  
+        <div class="eyebrow"><span class="dot"></span> Closed beta • Early access</div>  
+  
+        <h1>SimpleTube<br>видеохостинг нового времени</h1>  
+  
+        <p class="lead">  
+          Платформа для быстрых загрузок, стабильного просмотра и сильных авторов.  
+          SimpleTube делает акцент на скорости из РФ, удобной дистрибуции контента,  
+          качественной рекомендации и комфортной среде для зрителей и видеоблогеров.  
+        </p>  
+  
+        <div class="chips">  
+          <div class="chip">Скорость из РФ</div>  
+          <div class="chip">Топовые каналы</div>  
+          <div class="chip">Новые видеоблогеры</div>  
+          <div class="chip">Умная рекомендация</div>  
+        </div>  
+  
+        <div class="stats">  
+          <div class="stat">  
+            <strong>Fast</strong>  
+            <span>Быстрая загрузка и плавный старт видео для пользователей из РФ.</span>  
+          </div>  
+          <div class="stat">  
+            <strong>Creators</strong>  
+            <span>Контент от топовых каналов, медиа-команд и сильных авторов.</span>  
+          </div>  
+          <div class="stat">  
+            <strong>Modern UI</strong>  
+            <span>Тёмный интерфейс, чистая типографика и фокус на самом контенте.</span>  
+          </div>  
+        </div>  
+  
+        <div class="features">  
+          <article class="feature">  
+            <div class="feature-icon">⚡</div>  
+            <h3>Скорость из РФ</h3>  
+            <p>Минимум ожидания, плавное воспроизведение и акцент на стабильную доставку видео.</p>  
+          </article>  
+  
+          <article class="feature">  
+            <div class="feature-icon">🎬</div>  
+            <h3>Топовые каналы и блогеры</h3>  
+            <p>Заметные авторы, медиа-проекты и новые форматы на одной современной платформе.</p>  
+          </article>  
+  
+          <article class="feature">  
+            <div class="feature-icon">🧠</div>  
+            <h3>Умная лента</h3>  
+            <p>Подборки, рекомендации и быстрый доступ к актуальному контенту без лишнего шума.</p>  
+          </article>  
+  
+          <article class="feature">  
+            <div class="feature-icon">🚀</div>  
+            <h3>Закрытое тестирование</h3>  
+            <p>Ранний доступ, приоритетные приглашения и возможность попасть в число первых участников.</p>  
+          </article>  
+        </div>  
+      </div>  
+  
+      <aside class="right">  
+        <div class="card">  
+          <div class="mini">Closed beta access</div>  
+          <h2>Участвуй в закрытом тестировании видеохостинга SimpleTube</h2>  
+          <p>  
+            Оставь почту, чтобы получить приглашение, новости о запуске  
+            и приоритетный доступ к новым возможностям платформы.  
+          </p>  
+  
+  <form id="leadForm" action="#" method="post">  
+  <input id="emailInput" class="input" type="email" name="email" placeholder="Введите ваш e-mail" autocomplete="email" required>  
+  <button id="submitBtn" class="btn" type="submit">Отправить заявку</button>  
+  </form>  
+  
+          <div class="subnote">  
+            Нажимая кнопку, вы подтверждаете интерес к участию в закрытом тестировании SimpleTube.  
+          </div>  
+  
+          <div class="list">  
+            <div><span>•</span>Ранний доступ к платформе</div>  
+            <div><span>•</span>Приглашения на закрытые обновления</div>  
+            <div><span>•</span>Приоритет для первых тестировщиков</div>  
+          </div>  
+        </div>  
+      </aside>  
+    </section>  
+  
+    <div class="footer">  
+      <div>© 2026 SimpleTube. All rights reserved.</div>  
+      <div>SimpleSmm · Gurgen Harutyunyan · IE 0060 · Yerevan</div>  
+    </div>  
+  </main>  
+</body>  
+</html>  

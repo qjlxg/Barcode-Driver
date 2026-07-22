@@ -1,0 +1,504 @@
+<!DOCTYPE html><!-- Last Published: Mon Jan 05 2026 10:02:02 GMT+0000 (Coordinated Universal Time) --><html data-wf-domain="www.skylabswifi.com" data-wf-page="67dd7415b2d27a2f61100e65" data-wf-site="67dd7415b2d27a2f61100e84" lang="no"><head><meta charset="utf-8"/><link href="https://cdn.prod.website-files.com" rel="preconnect" crossorigin="anonymous"/><title>Sky Labs | Sikker og skalerbar gjestenettløsning for bedrifter og kommuner</title><link rel="alternate" hrefLang="x-default" href="https://www.skylabswifi.com/"/><link rel="alternate" hrefLang="en" href="https://www.skylabswifi.com/"/><link rel="alternate" hrefLang="no" href="https://www.skylabswifi.com/no"/><meta content="Sky Labs leverer sikre, brukervennlige og fleksible gjestenettløsninger for bedrifter og offentlige aktører. Tilby trygg internettilgang og samle verdifull kundedata med sømløs integrasjon mot lojalitetsplattformer." name="description"/><meta content="Sky Labs | Sikker og skalerbar gjestenettløsning for bedrifter og kommuner" property="og:title"/><meta content="Sky Labs leverer sikre, brukervennlige og fleksible gjestenettløsninger for bedrifter og offentlige aktører. Tilby trygg internettilgang og samle verdifull kundedata med sømløs integrasjon mot lojalitetsplattformer." property="og:description"/><meta content="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/6854a7f29532ec7b46b5b888_visual%20hotel.png" property="og:image"/><meta content="Sky Labs | Sikker og skalerbar gjestenettløsning for bedrifter og kommuner" name="twitter:title"/><meta content="Sky Labs leverer sikre, brukervennlige og fleksible gjestenettløsninger for bedrifter og offentlige aktører. Tilby trygg internettilgang og samle verdifull kundedata med sømløs integrasjon mot lojalitetsplattformer." name="twitter:description"/><meta property="og:type" content="website"/><meta content="summary_large_image" name="twitter:card"/><meta content="width=device-width, initial-scale=1" name="viewport"/><link href="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/css/skylabsstaging.webflow.shared.d6712d7fc.css" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="https://fonts.gstatic.com" rel="preconnect" crossorigin="anonymous"/><script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script><script type="text/javascript">WebFont.load({  google: {    families: ["Montserrat:100,100italic,200,200italic,300,300italic,400,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic"]  }});</script><script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script><link href="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67fcec15906634532eeb7dbe_logo%20wtext%2032.png" rel="shortcut icon" type="image/x-icon"/><link href="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67fcebd8dca137d0b6cd75aa_logo%20wtext%20256.png" rel="apple-touch-icon"/><!-- Global site tag (gtag.js) - Google Ads: 816838198 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-816838198"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-816838198');
+</script>
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5BSGCQ77');</script>
+<!-- End Google Tag Manager -->
+
+<script type="text/javascript"> (function(a,l,b,c,r,s){ _nQc=c,r=a.createElement(l),s=a.getElementsByTagName(l)[0]; r.async=1; r.src=l.src=("https:"==a.location.protocol?"https://":"http://")+b; s.parentNode.insertBefore(r,s);}) (document,"script","serve.albacross.com/track.js","89766001"); </script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-P9J8Y37TTL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-P9J8Y37TTL');
+</script>
+
+<!-- Cookie popup script -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/5937199.js"></script>
+
+<!-- Loyco slider script -->
+<script>
+
+const addCommas = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+class LoycoSlider {
+    constructor(config) {
+        this.isDragging = false;
+        this.percentage = 0;
+        this.step = 0;
+        this.step_value = 0;
+
+        this.config = {
+            id: Array.from({ length: 12 }, () => String.fromCharCode(65 + Math.random() * 26)).join(''),
+            currency: 'NOK',
+            language:'EN',
+            budgetSegment: null,
+            programId: null,
+            bar_background_color:'#424242',
+            bar_color: 'linear-gradient(90deg, rgba(56,198,189,1) 0%, rgba(37,167,179,1) 50%, rgba(14,127,166,1) 100%)',
+            grab_color: 'linear-gradient(65deg, rgba(56,198,189,1) 0%, rgba(37,167,179,1) 50%, rgba(14,127,166,1) 100%)',
+            text_color: 'linear-gradient(65deg, rgb(32, 153, 145) 0%, rgba(37,167,179,1) 50%, rgba(14,127,166,1) 100%)',
+            size: '1',
+            API_URL: 'https://ias.loyco.io/pricesteps/',
+            ...config,
+        };
+
+        this.lang = {
+            EN:{
+                members:'contacts',
+                month:'month',
+                pr_mbr:'per contact'
+            },
+            NO:{
+                members: 'kontakter',
+                month: 'måned',
+                pr_mbr: 'per kontakt'
+            }
+        }
+
+        this.id = this.config.id;
+
+        if(this.config.element == null) return;
+
+        const onFetch = (data) => {
+            this.config.steps = data.map((x) => x.members);
+            this.config.price = data.map((x) => x.price);
+            this.step_value = this.config.steps[0]
+            this.create();
+        };
+
+        this.config.API_URL += `?currency=${this.config.currency}&language=${this.config.language}`;
+        if (this.config.budgetSegment !== null) this.config.API_URL += `&budgetsegment=${this.config.budgetSegment}`;
+        if (this.config.programId !== null) this.config.API_URL += `&programid=${this.config.programId}`;
+
+        fetch(this.config.API_URL, { headers: { "Content-Type": "application/json" } })
+            .then((x) => x.json())
+            .then(onFetch);
+    }
+
+    create() {
+        if (!document.querySelector('#loyco_slider_css')) {
+            const css = document.createElement('style');
+            css.id = 'loyco_slider_css';
+            css.innerText = `
+                .loyco_slider {
+					opacity: 0;
+                    animation: fadeIn 0.7s forwards;
+                    height: 30px;
+                    border-radius: 3px;
+                    width: 100%;
+                    outline: 2px solid rgba(126, 126, 126, 0.664);
+                    position: relative;
+                }
+                .loyco_slider > div:nth-child(1) {
+                    border-radius: 3px;
+                    height: 30px;
+                    position: absolute;
+                }
+                .loyco_slider > div:nth-child(2) {
+                    width: 50px;
+                    pointer-events: auto;
+                    height: 50px;
+                    outline: 2px solid rgba(126, 126, 126, 0.664);
+                    position: absolute;
+                    border-radius: 100%;
+                    margin-top: -10px;
+                    margin-left: -10px;
+                    overflow: hidden;
+                    cursor: grab;
+                    z-index: 2;
+                }
+                .loyco_slider_step_line {
+                    width: 4px;
+                    height: 30px;
+                    background-color: rgba(126, 126, 126, 1);
+                    position: absolute;
+                    top: 0;
+                    transform: translateX(-50%);
+                    z-index: 1;
+                }
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                .floating-text {
+                    position: absolute;
+                    top: 60px;
+                    text-rendering: optimizeLegibility;
+                    -webkit-font-smoothing: antialiased; /* For WebKit browsers */
+                    -moz-osx-font-smoothing: grayscale;  /* For macOS Firefox */
+                    transform: translateX(-50%);
+                    width: 230px;
+                    background: rgb(254,254,254); /* Box background */
+                    color: #363738;
+                    padding: 8px;
+                    border-radius: 6px;
+                    text-align: center;
+                    pointer-events: none;
+                    white-space: nowrap;
+                    font-size:19px;
+                    font-family: Arial;
+                    box-shadow: 0 0 0 1.5px #363738; /* White outline around the box */
+                }
+
+                .floating-text > div > a {
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    font-weight:bold;
+                }
+
+                .floating-text > div:nth-child(1){
+                    font-size:25px;
+                }
+
+                .floating-text::before {
+                    content: '';
+                    position: absolute;
+                    top: -12px; /* Slightly above the arrow */
+                    left: var(--arrow-offset, 50%);
+                    transform: translateX(-50%);
+                    width: 0;
+                    height: 0;
+
+                    /* White outline for the arrow */
+                    border-left: 12px solid transparent;
+                    border-right: 12px solid transparent;
+                    border-bottom: 12px solid #363738;
+                    z-index: -1; /* Ensure it's behind the main arrow */
+                }
+
+                .floating-text::after {
+                    content: '';
+                    position: absolute;
+                    top: -10px;
+                    left: var(--arrow-offset, 50%);
+                    transform: translateX(-50%);
+                    width: 0;
+                    height: 0;
+
+                    /* Main white arrow */
+                    border-left: 10px solid transparent;
+                    border-right: 10px solid transparent;
+                    border-bottom: 10px solid rgb(254,254,254); /* Main arrow color */
+                }
+
+            `;
+            document.head.appendChild(css);
+        }
+
+        this.container = document.createElement('div');
+        this.container.id = this.id + '_loyco_slider';
+        this.container.classList.add('loyco_slider');
+        this.container.style.background = this.config.bar_background_color
+
+        this.container.innerHTML = `
+            <div id="${this.id}_loyco_slider_bg" style="background: ${this.config.bar_color}"></div>
+            <div id="${this.id}_loyco_slider_grab" style="background: ${this.config.grab_color}"></div>
+            <div id="${this.id}_floating_text" class="floating-text">0</div>
+        `;
+
+        this.config.element.appendChild(this.container);
+
+        this.grab = document.querySelector(`#${this.id}_loyco_slider_grab`);
+        this.bg = document.querySelector(`#${this.id}_loyco_slider_bg`);
+        this.floatingText = document.querySelector(`#${this.id}_floating_text`);
+        this.max = this.container.clientWidth;
+        this.bg.style.backgroundSize = `${this.max}px 30px`;
+
+        // Add lines for each step
+        if (this.config.steps && this.config.steps.length > 2) {
+            const totalSteps = this.config.steps.length - 1;
+            this.config.steps.forEach((_, index) => {
+                if (index === 0 || index === totalSteps) return; // Skip first and last steps
+
+                const stepPosition = (index / totalSteps) * 100;
+                const stepLine = document.createElement('div');
+                stepLine.classList.add('loyco_slider_step_line');
+                stepLine.style.left = `${stepPosition}%`;
+                this.container.appendChild(stepLine);
+            });
+        }
+
+        const updateFloatingTextPosition = () => {
+            const grabRect = this.grab.getBoundingClientRect();
+            const containerRect = this.container.getBoundingClientRect();
+        
+            const grabCenter = grabRect.left - containerRect.left + grabRect.width / 2; // Exact center of the grab ball
+            const floatingWidth = 230; // Width of the floating text
+            const margin = 20; // Additional margin for offset beyond the bar width
+        
+            // Adjust floating text position to stay within slider boundaries
+            let leftPosition = grabCenter;
+            if (leftPosition - floatingWidth / 2 < -margin) {
+                leftPosition = floatingWidth / 2 - margin;
+            } else if (leftPosition + floatingWidth / 2 > this.max + margin) {
+                leftPosition = this.max - floatingWidth / 2 + margin;
+            }
+        
+            // Set floating text position
+            this.floatingText.style.left = `${leftPosition}px`;
+        
+            // Calculate and set the arrow's offset to point at the grab ball's center
+            const arrowOffset = grabCenter - (leftPosition - floatingWidth / 2); // Relative to floating text
+            this.floatingText.style.setProperty('--arrow-offset', `${arrowOffset}px`);
+        
+            // Update the displayed text
+            this.floatingText.innerHTML = `
+            <div><a style="background:${this.config.text_color};-webkit-background-clip: text;">${addCommas(this.step_value)}</a> ${this.lang[this.config.language].members}</div>
+            <div style="margin-top:4px;"><a style="background:${this.config.text_color};-webkit-background-clip: text;">${this.config.currency} ${addCommas(this.config.price[this.step])}</a> /${this.lang[this.config.language].month}</div>
+            <div><a style="background:${this.config.text_color};-webkit-background-clip: text;">${this.config.currency} ${(this.config.price[this.step]/this.step_value).toFixed(3)}</a> ${this.lang[this.config.language].pr_mbr}</div>`;
+        };
+        
+        const adjustGrabPositionOnResize = () => {
+            this.max = this.container.clientWidth;
+            this.bg.style.backgroundSize = `${this.max}px 30px`;
+            const mouseX = (this.percentage / 100) * this.max;
+            this.grab.style.left = mouseX - 20 + "px";
+            this.bg.style.width = this.percentage + "%";
+            updateFloatingTextPosition();
+        };
+
+        const handleMouseDown = (event) => {
+            event.preventDefault();
+            this.isDragging = true;
+            document.body.style.cursor = "grabbing";
+        };
+
+        const handleMouseUp = () => {
+            this.isDragging = false;
+            document.body.style.cursor = "default";
+            this.snapToStep();
+            updateFloatingTextPosition();
+        };
+
+        const handleMouseMove = (event) => {
+            if (!this.isDragging) return;
+        
+            const containerRect = this.bg.parentElement.getBoundingClientRect();
+            let mouseX = event.clientX - containerRect.left;
+        
+            mouseX = Math.max(0, Math.min(this.max, mouseX));
+        
+            this.percentage = (mouseX / this.max) * 100;
+            this.updateStepOnMove();
+            this.grab.style.left = mouseX - 20 + "px";
+            this.bg.style.width = this.percentage + "%";
+        
+            updateFloatingTextPosition();
+        };
+        
+        this.updateStepOnMove = () => {
+            const totalSteps = this.config.steps.length - 1;
+            const newStep = Math.round((this.percentage / 100) * totalSteps);
+
+            if (newStep !== this.step) {
+                this.step = newStep;
+                this.step_value = this.config.steps[this.step];
+                this.onUpdate(this.step, this.step_value);
+            }
+        };
+
+        this.snapToStep = () => {
+            if (!this.config.steps || this.config.steps.length === 0) return;
+
+            const totalSteps = this.config.steps.length - 1;
+            this.step = Math.round((this.percentage / 100) * totalSteps);
+            this.step_value = this.config.steps[this.step];
+
+            this.percentage = (this.step / totalSteps) * 100;
+            const mouseX = (this.percentage / 100) * this.max;
+            this.grab.style.left = mouseX - 20 + "px";
+            this.bg.style.width = this.percentage + "%";
+
+            this.onUpdate(this.step, this.step_value);
+            updateFloatingTextPosition();
+        };
+
+        this.grab.addEventListener("mousedown", handleMouseDown);
+        document.addEventListener("mouseup", handleMouseUp);
+        document.addEventListener("mousemove", handleMouseMove);
+        window.addEventListener("resize", adjustGrabPositionOnResize);
+
+        this.container.addEventListener("click", (event) => {
+            const containerRect = this.container.getBoundingClientRect();
+            let mouseX = event.clientX - containerRect.left;
+
+            mouseX = Math.max(0, Math.min(this.max, mouseX));
+            this.percentage = (mouseX / this.max) * 100;
+            this.snapToStep();
+        });
+
+        adjustGrabPositionOnResize();
+        this.config.onLoad && this.config.onLoad(this)
+    }
+
+    onUpdate() {
+        this.config.onUpdate && this.config.onUpdate(this.step, this.step_value, this.config?.price?.[this.step], this.percentage, this);
+    }
+}
+
+
+window.onload = () => {
+  
+    const currency = location.href.includes('/no/') ? 'NOK' : 'EUR'
+    const language = location.href.includes('/no/') ? 'NO' : 'EN'
+
+  // Retail slider
+ new LoycoSlider({ 
+        // (*) HTML element that the slider should be created in
+        element: document.querySelector('#slider-container'),
+        // slider ID
+        id:'slider1',
+        // Program ID
+        programId:123,
+        // BudgetSegment
+        budgetSegment:'Retail',
+        // Currency, default is NOK
+        currency,
+        // Language for the text, EN or NO
+        language,
+        // Progress bar style, accepts any valid CSS background
+        bar_color:'linear-gradient(90deg, rgba(56,198,189,1) 0%, rgba(37,167,179,1) 50%, rgba(14,127,166,1) 100%)',
+        // Grab ball style, accepts any valid CSS background
+        grab_color:'linear-gradient(65deg, rgba(56,198,189,1) 0%, rgba(37,167,179,1) 50%, rgba(14,127,166,1) 100%)',
+        // Highlighted text style, accepts any valid CSS background
+        text_color:'linear-gradient(65deg, rgb(32, 153, 145) 0%, rgba(37,167,179,1) 50%, rgba(14,127,166,1) 100%)',
+        // Bar background color below the progress bar, RGB or HEX
+        bar_background_color:'#424242',
+        // Function on event of updating the slider
+        onUpdate:(index, value, price, percentage, slider) => {
+            document.getElementById('price1').innerText = price
+        },
+        // Function on event of the slider being finilized
+        onLoad:(slider) => {
+            document.getElementById('price1').innerText = slider.config.price[slider.step]
+        },
+    })
+  
+  
+  	// Hotel slider
+   new LoycoSlider({ 
+        // (*) HTML element that the slider should be created in
+        element: document.querySelector('#slider-container2'),
+        // slider ID
+        id:'slider2',
+        // Program ID
+        programId:123,
+        // BudgetSegment
+        budgetSegment:'Hotel',
+        // Currency, default is NOK
+        currency,
+        // Language for the text, EN or NO
+        language,
+        // Progress bar style, accepts any valid CSS background
+        bar_color:'linear-gradient(90deg, rgba(56,198,189,1) 0%, rgba(37,167,179,1) 50%, rgba(14,127,166,1) 100%)',
+        // Grab ball style, accepts any valid CSS background
+        grab_color:'linear-gradient(65deg, rgba(56,198,189,1) 0%, rgba(37,167,179,1) 50%, rgba(14,127,166,1) 100%)',
+        // Highlighted text style, accepts any valid CSS background
+        text_color:'linear-gradient(65deg, rgb(32, 153, 145) 0%, rgba(37,167,179,1) 50%, rgba(14,127,166,1) 100%)',
+        // Bar background color below the progress bar, RGB or HEX
+        bar_background_color:'#424242',
+        // Function on event of updating the slider
+        onUpdate:(index, value, price, percentage, slider) => {
+            document.getElementById('price2').innerText = price
+        },
+        // Function on event of the slider being finilized
+        onLoad:(slider) => {
+            document.getElementById('price2').innerText = slider.config.price[slider.step]
+        },
+    })
+}
+</script>
+<script type="text/javascript">window.__WEBFLOW_CURRENCY_SETTINGS = {"currencyCode":"USD","symbol":"$","decimal":".","fractionDigits":2,"group":",","template":"{{wf {\"path\":\"symbol\",\"type\":\"PlainText\"} }} {{wf {\"path\":\"amount\",\"type\":\"CommercePrice\"} }} {{wf {\"path\":\"currencyCode\",\"type\":\"PlainText\"} }}","hideDecimalForWholeNumbers":false};</script></head><body class="body"><div class="top-banner-wrapper"><div class="top-banner-container"><div class="banner-top-left"><div class="w-locales-list"><div role="list" class="locales-list-2 w-locales-items"><div role="listitem" class="locale w-locales-item"><a hreflang="en" href="/" class="lang-switch-wrapper w-inline-block"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61101098_617aa3d3451f415fb4c27acf_gb.svg" loading="lazy" alt="" class="lang-flag"/></a></div><div role="listitem" class="locale w-locales-item"><a hreflang="no" href="/no" aria-current="page" class="lang-switch-wrapper w-inline-block w--current"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61101096_617aa3d3451f416ef4c27ace_no.svg" loading="lazy" alt="" class="lang-flag"/></a></div></div></div></div><div class="banner-top-right"><div data-hover="false" data-delay="0" data-w-id="f81baa48-5d66-7c4a-296e-958a4fac6f3d" class="dropdown w-dropdown"><div class="dropdown-toggle-2 w-dropdown-toggle"><div class="banner-chevron w-icon-dropdown-toggle"></div><div class="menu-text-banner banner">Logg inn</div></div><nav class="dropdown-list-2 w-dropdown-list"><div class="dropdown-content login"><div class="link-box"><a href="https://auth.loyco.io/Identity/Account/Login" target="_blank" class="dropdown-link-2 w-dropdown-link">Loyco Portal</a></div><div class="link-box"><a href="https://admin.skyid.no/" target="_blank" class="dropdown-link-3 w-dropdown-link">WiFi Connect</a></div></div></nav></div></div></div></div><section class="nav-wrapper"><div data-animation="over-right" class="navbar-2 w-nav" data-easing2="ease" data-easing="ease" data-collapse="medium" role="banner" data-no-scroll="1" data-duration="400" data-doc-height="1"><div class="navbar-container"><div class="navbar-left"><a href="/no" aria-current="page" class="navbar-logo w-inline-block w--current"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/6819fa30d3bcde4e48433da5_logo%20skylabs%20full.svg" loading="lazy" alt="" class="image-logo-navbar"/></a><nav role="navigation" class="nav-link-3 w-nav-menu"><div data-hover="true" data-delay="0" data-w-id="1d972007-b0ca-9756-b568-539a9596ba1e" class="dropdown w-dropdown"><div class="dropdown-toggle w-dropdown-toggle"><div class="menu-text">Løsninger</div><div class="icon w-icon-dropdown-toggle"></div></div><nav class="dropdown-list menu-text-14px w-dropdown-list"><div class="dropdown-content"><div data-w-id="0ce34e83-7fb2-d0b9-2360-099c066b912a" class="link-box"><a href="/no/plattform" class="dropdown-link w-dropdown-link">Gjestenett</a><a href="#" class="w-inline-block"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61100f4f_Vectors-Wrapper.svg" loading="lazy" width="16" height="16" alt="" class="button-icon-01 dropdown"/></a></div><div data-w-id="bfa7d10a-5bae-8142-3a55-d9bc3dafab2f" class="link-box"><a href="https://www.loyco.io/" target="_blank" class="dropdown-link w-dropdown-link">Loyco</a><a href="#" class="w-inline-block"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f611010fa_External%20link%20thick.svg" loading="lazy" width="16" height="16" alt="External link" class="button-icon-01 dropdown"/></a></div></div></nav></div><div data-delay="0" data-hover="true" data-w-id="da41a0df-be4e-94b3-737c-14e63efa41b3" class="dropdown w-dropdown"><div class="dropdown-toggle w-dropdown-toggle"><div class="menu-text">Om oss</div><div class="icon w-icon-dropdown-toggle"></div></div><nav class="dropdown-list menu-text-14px w-dropdown-list"><div class="dropdown-content"><div data-w-id="da41a0df-be4e-94b3-737c-14e63efa41ba" class="link-box"><a href="/no/om-oss" class="dropdown-link w-dropdown-link">Om oss</a><a href="/no/om-oss" class="w-inline-block"><img width="16" height="16" alt="" src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61100f4f_Vectors-Wrapper.svg" loading="lazy" class="button-icon-01 dropdown"/></a></div><div data-w-id="da41a0df-be4e-94b3-737c-14e63efa41be" class="link-box"><a href="/no/om-oss#Kontakt-oss" class="dropdown-link w-dropdown-link">Kontakt oss</a><a href="#" class="w-inline-block"><img width="16" height="16" alt="" src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61100f4f_Vectors-Wrapper.svg" loading="lazy" class="button-icon-01 dropdown"/></a></div></div></nav></div><a href="/no/book-en-demo" class="mobile-menu-button w-inline-block"><div class="mobile-menu-c2a"><p class="button-primary-menu text-white">Kom i gang</p><div class="button-icon-wrapper"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61100ee6_arrow-right-02-sharp%20(1).svg" loading="lazy" alt="Arrow 
+" class="button-icon-02"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61100ee6_arrow-right-02-sharp%20(1).svg" loading="lazy" alt="Arrow 
+" class="button-icon-01"/></div></div></a><a href="#" class="buttons mobile-nav w-inline-block"><div class="book-a-demo">Get started</div><div class="arrow"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61100f4f_Vectors-Wrapper.svg" loading="lazy" width="16" height="16" alt="" class="vectors-wrapper"/></div></a><div class="mobile-menu"><div class="mobile-contact-container"><div class="menu-top-text">Kontakt</div><div class="contact-info-wrapper"><div class="mobile-menu-text">Øvre Ole Bulls Plass 1 , <br/>5012 Bergen Norway</div><div class="mobile-menu-text">Support@skylabs.no <br/><a href="#" class="link-7">(+47) 40 42 42 00</a></div></div></div></div></nav></div><div class="navbar-right w-container"><div data-w-id="b845c370-3acf-9777-2a8a-14dac4f3d947" class="menu-button w-nav-button"><div data-w-id="0b743880-39a3-c131-c7d0-0ec797d9e3a9" data-is-ix2-target="1" class="lottie-burger" data-animation-type="lottie" data-src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61101143_Loyco%20hamburger2.json" data-loop="0" data-direction="1" data-autoplay="0" data-renderer="svg" data-default-duration="0" data-duration="1.1166666666666667" data-loading="eager" data-ix2-initial-state="0"></div></div><a href="/no/book-en-demo" class="button-demo-blue-green mobile w-inline-block"><div data-w-id="10b74ce3-4c2f-134f-0635-61f64d0a290d" class="button-area"><p class="button-primary text-white">Kom i gang</p><div class="button-icon-wrapper"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61100ee6_arrow-right-02-sharp%20(1).svg" loading="lazy" alt="Arrow 
+" class="button-icon-02"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61100ee6_arrow-right-02-sharp%20(1).svg" loading="lazy" alt="Arrow 
+" class="button-icon-01"/></div></div></a></div></div></div></section><div class="hero"><div class="w-layout-blockcontainer home-hero-overlay-homepage-copy w-container"><div class="hero-content-wrapper-home"><div class="hero-left-content"><div class="hero-title"><h1 class="display-headig">Gjestenett som skaper verdi</h1><div class="h2-14px">Gi kunder og besøkende trygg tilgang til internett og samle verdifull besøksdata med Sky Labs sin gjestenettløsning.    <br/><br/>En enkel og kostnadseffektiv måte som styrker lojalitet og øker avkastning.<br/></div></div><div class="hero-button-wrapper"><a data-w-id="409be8bc-a0f3-b942-51a1-a1ec1a5ac3e8" href="/no/plattform" class="button-demo-blue-green w-inline-block"><div class="button-area"><p class="button-primary text-white">Våre løsninger</p><div class="button-icon-wrapper"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61100ee6_arrow-right-02-sharp%20(1).svg" loading="lazy" alt="Arrow 
+" class="button-icon-02"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61100ee6_arrow-right-02-sharp%20(1).svg" loading="lazy" alt="Arrow 
+" class="button-icon-01"/></div></div></a><a data-w-id="409be8bc-a0f3-b942-51a1-a1ec1a5ac3e8" href="/no/om-oss#Kontakt-oss" class="button-demo-blue-green w-inline-block"><div class="button-area"><p class="button-primary text-white">Kontakt oss</p><div class="button-icon-wrapper"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61100ee6_arrow-right-02-sharp%20(1).svg" loading="lazy" alt="Arrow 
+" class="button-icon-02"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61100ee6_arrow-right-02-sharp%20(1).svg" loading="lazy" alt="Arrow 
+" class="button-icon-01"/></div></div></a></div></div></div></div></div><section class="brand-section-02"><div class="w-layout-blockcontainer blue-green-backup-cta w-container"><div data-w-id="6ed4264d-dfeb-5e47-011a-f8a81ded294f" class="brand-text"><p class="_18px-500-body">Fra den lille kafeen på hjørnet, til større bedrifter og hele kommuner. Sky Labs leverer gjestenettløsninger til kunder i alle størrelser.</p><a href="#" class="div-block-10 w-inline-block"></a></div></div><div data-w-id="6ed4264d-dfeb-5e47-011a-f8a81ded2953" class="wrapper"><div class="loop-container"><div class="content-holder"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/6824982529275d5c20524d05_klp.webp" loading="lazy" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826f94a32d951cfbe6c_vaernesregionen.webp" loading="lazy" sizes="100vw" srcset="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826f94a32d951cfbe6c_vaernesregionen-p-500.webp 500w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826f94a32d951cfbe6c_vaernesregionen.webp 800w" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/6824982628d6e09631964e7d_teveltunet.webp" loading="lazy" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune.png" loading="lazy" sizes="100vw" srcset="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune-p-500.png 500w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune-p-800.png 800w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune-p-1080.png 1080w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune-p-1600.png 1600w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune-p-2000.png 2000w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune-p-2600.png 2600w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune-p-3200.png 3200w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune.png 5905w" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826bbd978e58712adc8_SINTEF_Logo_Sentrert_Negativ_RGB.svg" loading="lazy" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826415ea9efc566c503_telenor.webp" loading="lazy" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498254146eae4640f58ec_ikt_nordhordaland.png" loading="lazy" sizes="100vw" srcset="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498254146eae4640f58ec_ikt_nordhordaland-p-500.png 500w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498254146eae4640f58ec_ikt_nordhordaland-p-800.png 800w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498254146eae4640f58ec_ikt_nordhordaland.png 1040w" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498256653f0e44d262cef_IKKE%20BRUK%20M%C3%98LLER%20-%20m%C3%B8ller%20mobility%20group.png" loading="lazy" sizes="100vw" srcset="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498256653f0e44d262cef_IKKE%20BRUK%20M%C3%98LLER%20-%20m%C3%B8ller%20mobility%20group-p-500.png 500w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498256653f0e44d262cef_IKKE%20BRUK%20M%C3%98LLER%20-%20m%C3%B8ller%20mobility%20group.png 700w" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498259ff560fe44e9ed49_mera%CC%8Aker%20kurbad.png" loading="lazy" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498264f7e631a81a2a358_Neas%20Logotype%20Black.svg" loading="lazy" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498255ced35091bd34533_diko.png" loading="lazy" sizes="100vw" srcset="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498255ced35091bd34533_diko-p-500.png 500w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498255ced35091bd34533_diko.png 537w" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249825beff7bfd7d32d1f8_malvik_logo.svg" loading="lazy" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249825993f51ce952925cb_advania.webp" loading="lazy" sizes="100vw" srcset="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249825993f51ce952925cb_advania-p-500.webp 500w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249825993f51ce952925cb_advania.webp 800w" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/6824982583c79389a88be997_atea.webp" loading="lazy" sizes="100vw" srcset="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/6824982583c79389a88be997_atea-p-500.webp 500w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/6824982583c79389a88be997_atea.webp 800w" alt="" class="brand-icon"/></div><div class="content-holder"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/6824982529275d5c20524d05_klp.webp" loading="lazy" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826f94a32d951cfbe6c_vaernesregionen.webp" loading="lazy" sizes="100vw" srcset="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826f94a32d951cfbe6c_vaernesregionen-p-500.webp 500w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826f94a32d951cfbe6c_vaernesregionen.webp 800w" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/6824982628d6e09631964e7d_teveltunet.webp" loading="lazy" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune.png" loading="lazy" sizes="100vw" srcset="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune-p-500.png 500w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune-p-800.png 800w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune-p-1080.png 1080w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune-p-1600.png 1600w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune-p-2000.png 2000w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune-p-2600.png 2600w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune-p-3200.png 3200w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826beff7bfd7d32d24a_nord_fron_kommune.png 5905w" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826bbd978e58712adc8_SINTEF_Logo_Sentrert_Negativ_RGB.svg" loading="lazy" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249826415ea9efc566c503_telenor.webp" loading="lazy" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498254146eae4640f58ec_ikt_nordhordaland.png" loading="lazy" sizes="100vw" srcset="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498254146eae4640f58ec_ikt_nordhordaland-p-500.png 500w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498254146eae4640f58ec_ikt_nordhordaland-p-800.png 800w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498254146eae4640f58ec_ikt_nordhordaland.png 1040w" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498256653f0e44d262cef_IKKE%20BRUK%20M%C3%98LLER%20-%20m%C3%B8ller%20mobility%20group.png" loading="lazy" sizes="100vw" srcset="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498256653f0e44d262cef_IKKE%20BRUK%20M%C3%98LLER%20-%20m%C3%B8ller%20mobility%20group-p-500.png 500w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498256653f0e44d262cef_IKKE%20BRUK%20M%C3%98LLER%20-%20m%C3%B8ller%20mobility%20group.png 700w" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498259ff560fe44e9ed49_mera%CC%8Aker%20kurbad.png" loading="lazy" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498264f7e631a81a2a358_Neas%20Logotype%20Black.svg" loading="lazy" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498255ced35091bd34533_diko.png" loading="lazy" sizes="100vw" srcset="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498255ced35091bd34533_diko-p-500.png 500w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682498255ced35091bd34533_diko.png 537w" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249825beff7bfd7d32d1f8_malvik_logo.svg" loading="lazy" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249825993f51ce952925cb_advania.webp" loading="lazy" sizes="100vw" srcset="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249825993f51ce952925cb_advania-p-500.webp 500w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/68249825993f51ce952925cb_advania.webp 800w" alt="" class="brand-icon"/><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/6824982583c79389a88be997_atea.webp" loading="lazy" sizes="100vw" srcset="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/6824982583c79389a88be997_atea-p-500.webp 500w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/6824982583c79389a88be997_atea.webp 800w" alt="" class="brand-icon"/></div></div></div></section><div class="single-feature-platform"><div class="platform-visual-box-skylabs"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/6854a7f29532ec7b46b5b888_visual%20hotel.png" loading="lazy" width="1920" height="1080" alt="" srcset="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/6854a7f29532ec7b46b5b888_visual%20hotel-p-500.png 500w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/6854a7f29532ec7b46b5b888_visual%20hotel.png 501w" sizes="100vw" class="feature-image-higher"/></div><div data-w-id="86e303b3-6bd6-8830-5aed-8f88abfd30a6" style="opacity:0" class="feature-left-content-v1"><div class="feature-section-title"><h2 class="h2-left-black">En enkel og effektiv gjestenettløsning</h2></div><div class="feature-list"><div class="single-feature-list _01"><div class="feature-icon-bg"><img src="https://cdn.prod.website-files.com/6761f4356425c637f55d7288/68249343966a977b17203825_check-skylabs.svg" loading="lazy" width="18.170000076293945" height="18.170000076293945" alt="Checkmark" class="feature-icon-02"/></div><div class="feature-text-v1"><p class="body-16px-400-left">Tilby profesjonell og sikker pålogging for besøkende</p></div></div><div class="single-feature-list"><div class="feature-icon-bg"><img src="https://cdn.prod.website-files.com/6761f4356425c637f55d7288/68249343966a977b17203825_check-skylabs.svg" loading="lazy" width="18.170000076293945" height="18.170000076293945" alt="Checkmark" class="feature-icon-02"/></div><div class="feature-text-v1"><p class="body-16px-400-left">Få oversikt over pålogginger og nettverksbruk</p></div></div><div class="single-feature-list _01"><div class="single-feature-list"><div class="feature-icon-bg"><img src="https://cdn.prod.website-files.com/6761f4356425c637f55d7288/68249343966a977b17203825_check-skylabs.svg" loading="lazy" width="18.170000076293945" height="18.170000076293945" alt="Checkmark" class="feature-icon-02"/></div><div class="feature-text-v1"><p class="body-16px-400-left">Registrer besøkende direkte i medlemsdatabasen din og integrer dataen sømløst.</p></div></div></div><a data-w-id="2e648f8c-4939-19b6-67da-c53f55859d78" href="/no/plattform" class="arrow-button w-inline-block"><div class="read-more-black-20-px">Les mer om vår gjestenettløsning</div><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61100f68_Vectors-Wrapper.svg" loading="lazy" alt="Visual showing arrow"/></a></div></div></div><section class="benefits-card-content"><div class="container-width"><div class="benefits-card-list"><div class="single-benefits-card"><img src="https://cdn.prod.website-files.com/6761f4356425c637f55d7288/67f634c23e64179039c4d950_Group-3.svg" loading="lazy" width="60" height="60" alt="Graph illustration" class="feature-image-bg-small"/><div class="card-text"><div class="_20-px-body-500">Personalisert kommunikasjon og kampanjer</div><div class="_16-px-500-body">Detaljert statistikk over innlogging og nettverksbruk</div></div></div><div class="single-benefits-card-04"><img src="https://cdn.prod.website-files.com/6761f4356425c637f55d7288/67f635f10bcd6b6f3e66d1c0_Group-4.svg" loading="lazy" width="60" height="60" alt="Lightbulb illustration" class="feature-image-bg-small"/><div class="card-text"><p class="_20-px-body-500">Enkelt </p><p class="_16-px-500-body">En intuitiv portal med fokus på skreddersøm</p></div></div><div class="single-benefits-card-02"><img src="https://cdn.prod.website-files.com/6761f4356425c637f55d7288/67f6363e4fd6ccec57e571f7_Group-5.svg" loading="lazy" width="60" height="60" alt="Time saving illustration" class="feature-image-bg-small"/><div class="card-text"><p class="_20-px-body-500">Plug &amp; play<br/></p><p class="_16-px-500-body">Enkelt å sette opp på enhver infrastruktur</p></div></div><div class="single-benefits-card-03"><img src="https://cdn.prod.website-files.com/6761f4356425c637f55d7288/67f6365e904ed568c83be2ae_Group-2.svg" loading="lazy" width="60" height="60" alt="GDPR illustration" class="feature-image-bg-small"/><div class="card-text"><p class="_20-px-body-500">GDPR-kompatibel<br/></p><p class="_16-px-500-body">Trygghet i bruk av innsamlet data. Alltid tilpasset nye GDPR krav.</p></div></div></div></div></section><section class="slider-container-page"><div class="slider testemonial-slider"><div class="customer-testemonial-container"><h3 class="h3-white">&quot;Sky Labs sin SMS-pålogging er å foretrekke – enkelt og raskt å komme seg på nett.&quot;</h3><div class="testemonial-kpi"></div><div class="divider-line"></div><div class="testemonial-client"><div class="client-block"><div class="client"><p class="_20px-left-white">Atle Vestvik </p><p class="kpi-text">IT-direktør<br/>Adresseavisen</p></div><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682b0e607cb6bed1b6632305_black%20Adresseavisen.svg%201%201.png" loading="lazy" sizes="100vw" srcset="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682b0e607cb6bed1b6632305_black%20Adresseavisen.svg%201%201-p-500.png 500w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682b0e607cb6bed1b6632305_black%20Adresseavisen.svg%201%201-p-800.png 800w, https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/682b0e607cb6bed1b6632305_black%20Adresseavisen.svg%201%201.png 1024w" alt="" class="client-testemonial-logo"/></div></div><div class="testemonial-readmore"><a data-w-id="5e95117b-0d95-a99e-c68e-fce3a28d4cc2" href="/no/news/smarthotel-skaper-aktivitet-og-merverdi-med-loycos-mews-integrasjon" class="testemonial-link w-inline-block"></a></div></div></div></section><section id="Blue-Green" data-wf--cta-section--variant="base" class="cta-blue-green"><div class="blue-green-backup-cta bc-blue-green"><div class="hero-section-title-3"><div class="display-heading-white">Kom i gang med gjestenett!</div><div class="left-20-px-400-body-white">Tilby trygg internettilgang til besøkende og samle relevant kundedata .</div></div><a data-w-id="05c9df00-cae3-55e2-0545-c13bc1aa7c8b" href="/no/book-en-demo" class="e-book-white-button w-inline-block"><div class="book-a-demo-10">Kom i gang</div><div class="arrow-4"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f61100f6c_Vectors-Wrapper.svg" loading="lazy" width="16" height="16" alt="Arrow icon" class="vectors-wrapper-22"/></div></a></div></section><section class="footer-section bg-neutral-01"><div class="footer"><div class="content"><div id="w-node-dce3eb1f-57b1-d1ff-5571-cfb7c69a0b71-779d1a0a" class="footer-nav-blocks contact"><div class="footer-top-text">Kontakt</div><div class="link-3"><div class="footer-p">Øvre Ole Bulls Plass 1,<br/>5012 Bergen, Norway<br/> <br/>support@skylabs.no<br/>tlf  (+47) 40 42 42 00</div><div class="footer-socials"><a href="https://www.linkedin.com/company/sky-labs-as/" target="_blank" class="socials-link w-inline-block"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f611010d0_3.png" loading="lazy" alt="" class="socials-icon"/></a><a href="https://www.instagram.com/skylabsas/" target="_blank" class="socials-link w-inline-block"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f611010d2_2.png" loading="lazy" alt="" class="socials-icon"/></a><a href="https://www.facebook.com/SkyLabsAs/" target="_blank" class="socials-link w-inline-block"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/67dd7415b2d27a2f611010d1_1.png" loading="lazy" alt="" class="socials-icon"/></a></div></div></div><div class="footer-nav-blocks"><a href="#" class="footer-top-text">Våre løsninger</a><div class="footer-nav"><a href="/no/plattform" class="footer-text">Gjestenett</a><a href="https://www.loyco.io/" class="footer-text">Loyco</a></div></div><div class="footer-nav-blocks"><div class="footer-top-text">Sky Labs</div><div class="footer-nav"><a href="/no/om-oss" class="footer-text">Om oss</a><a href="/no/om-oss#Kontakt-oss" class="footer-text">Kontakt oss</a></div></div><div class="footer-nav-blocks"><div class="footer-top-text">Juridisk</div><div class="footer-nav"><a href="/no/juridisk/gdpr" class="footer-text">GDPR </a><a href="/no/juridisk/personvernerklaering" class="footer-text">Personvernserklæring</a><a href="/no/juridisk/retningslinjer-for-informasjonskapsler" class="footer-text">Vilkår for informasjonskapsler</a></div></div></div><div class="divider-line _100"></div><div class="footer-bottom"><img src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/6819fa30d3bcde4e48433da5_logo%20skylabs%20full.svg" loading="lazy" alt="" class="skylabs-footer-logo"/><div class="footer-p small"><a href="#" class="link-5"><span class="text-span-3">Copyright 2026 © Sky Labs AS (994 528 599)</span></a></div><div class="footer-p small">All rights reserved.</div></div></div></section><script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.5.1.min.dc5e7f18c8.js?site=67dd7415b2d27a2f61100e84" type="text/javascript" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script><script src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/js/webflow.schunk.758d077e419990f3.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/js/webflow.schunk.c56a115a2827ee20.js" type="text/javascript"></script><script src="https://cdn.prod.website-files.com/67dd7415b2d27a2f61100e84/js/webflow.69cad2af.c917083b49d7bd8e.js" type="text/javascript"></script>
+<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/5937199.js"></script>
+<!-- End of HubSpot Embed Code -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const navbar = document.querySelector(".nav-wrapper");
+    const lottie = document.querySelector(".lottie-animation");
+    
+    let lastScrollTop = 0;
+
+    window.addEventListener("scroll", function () {
+        let scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+        if (scrollTop > 100) { // When scrolling down
+            navbar.classList.add("nav-scroll");
+
+            if (lottie) {
+                lottie.play(); // Play forward
+            }
+        } else { // When scrolling back up
+            navbar.classList.remove("nav-scroll");
+
+            if (lottie) {
+                lottie.setDirection(-1); // Reverse direction
+                lottie.play(); // Play in reverse
+            }
+        }
+
+        lastScrollTop = scrollTop;
+    });
+});
+</script>
+
+<style>
+.nav-wrapper {
+    transition: background-color 0.3s ease, color 0.3s ease, padding 0.3s ease;
+}
+
+.nav-scroll {
+    background-color: white !important;
+    color: black !important;
+}
+</style>
+
+
+<style>
+.ticker-wrapper {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.ticker-track {
+  display: flex;
+  gap: 70px;
+  animation: scrollTicker 20s linear infinite;
+  width: max-content;
+}
+
+@keyframes scrollTicker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+</style></body></html>

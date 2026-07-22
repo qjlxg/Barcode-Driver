@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>Test Page for the HTTP Server on AlmaLinux</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<style type="text/css">
+			/*<![CDATA[*/
+			body {
+				background-color: #fff;
+				color: #000;
+				font-size: 1.1em;
+				font-family: "Red Hat Text", Helvetica, Tahoma, sans-serif;
+				margin: 0;
+				padding: 0;
+                border-bottom: 30px solid #082336;
+				min-height: 100vh;
+				box-sizing: border-box;
+			}
+			:link {
+				color: #304B5E;
+			}
+			:visited {
+				color: #304B5E;
+			}
+			a:hover {
+				color: #0069DA;
+			}
+			h1 {
+				text-align: left;
+				margin: 0;
+				margin-bottom: .6em;
+				padding: 1em 2em 1.5em 2em;
+				background-color: #082336;
+				color: #fff;
+				font-weight: normal;
+				font-size: 2.5em;
+				border-bottom: 2px solid #000;
+			}
+            h1 img {
+                border: none;
+                margin-bottom: .4em;
+            }
+			h1 strong {
+				font-weight: bold;
+			}
+			h2 {
+				font-size: 1.1em;
+				font-weight: bold;
+			}
+			hr {
+				display: none;
+			}
+			.content {
+				padding: 1em 5em;
+			}
+			.content-columns {
+				/* Setting relative positioning allows for
+				absolute positioning for sub-classes */
+				position: relative;
+				padding-top: 1em;
+                display: flex;
+				flex-wrap: wrap;
+			}
+			.content-column-left {
+				/* Value for IE/Win; will be overwritten for other browsers */
+				width: 47%;
+				padding: 15px 30px;
+				margin-right: 30px;
+				padding-bottom: 2em;
+				margin-bottom: 1em;
+				flex: 1;
+			}
+			.content-column-left hr {
+				display: none;
+			}
+			.content-column-right {
+				/* Values for IE/Win; will be overwritten for other browsers */
+				width: 47%;
+				padding: 15px 30px;
+				padding-bottom: 2em;
+                margin-right: 30px;
+				margin-bottom: 1em;
+				flex: 1;
+			}
+			.content-columns>.content-column-left, .content-columns>.content-column-right {
+				/* Non-IE/Win */
+                border: 1px solid #d2d2d2;
+				border-radius: 3px;
+				box-sizing: border-box;
+			}
+			.logos {
+				text-align: left;
+				margin-top: 2em;
+			}
+            .logos a img {
+                padding-right: 1.5em;
+                margin-right: 1.5em;
+                border-right: 1px solid #d2d2d2;
+            }
+			img {
+				border: 2px solid #fff;
+				padding: 2px;
+				margin: 2px;
+			}
+			a:hover img {
+				border: 2px solid #f50;
+			}
+			.footer {
+			    font-size: xx-small;
+                padding: 0 10em;
+			    padding-bottom: 5em;
+			}
+
+            /* Responsive layout */
+            @media (max-width: 800px) {
+                .content-column-right, .content-column-left {
+                flex: 100%;
+                }
+            }
+			/*]]>*/
+		</style>
+	</head>
+
+	<body>
+		<h1>
+            <img src="system_noindex_logo.png" alt="AlmaLinux Logo" /><br />
+            Web Server <strong>Test Page</strong>
+        </h1>
+
+		<div class="content">
+			<div class="content-middle">
+				<p>This page is used to test the proper operation of the HTTP server after it has been installed. If you can read this page, it means that the HTTP server installed at this site is working properly.</p>
+			</div>
+			<hr />
+
+			<div class="content-columns">
+				<div class="content-column-left">
+					<h2>If you are a member of the general public:</h2>
+
+					<p>The fact that you are seeing this page indicates that the website you just visited is either experiencing problems, or is undergoing routine maintenance.</p>
+
+					<p>If you would like to let the administrators of this website know that you've seen this page instead of the page you expected, you should send them e-mail. In general, mail sent to the name "webmaster" and directed to the website's domain should reach the appropriate person.</p>
+
+					<p>For example, if you experienced problems while visiting www.example.com, you should send e-mail to "webmaster@example.com".</p>
+
+					<p>For information on AlmaLinux, please visit the <a href="https://almalinux.org">AlmaLinux website</a>. The documentation for AlmaLinux is <a href="https://wiki.almalinux.org">available in AlmaLinux wiki</a>.</p>
+					<hr />
+				</div>
+
+				<div class="content-column-right">
+					<h2>If you are the website administrator:</h2>
+
+					<p>You may now add content to the webroot directory. Note
+					that until you do so, people visiting your website will see
+					this page, and not your content.</p>
+
+					<p>For systems using the Apache HTTP Server:
+					You may now add content to the directory <tt>/var/www/html/</tt>. Note that until you do so, people visiting your website will see this page, and not your content. To prevent this page from ever being used, follow the instructions in the file <tt>/etc/httpd/conf.d/welcome.conf</tt>.</p>
+
+					<p>For systems using NGINX:
+					You should now put your content in a location of your
+					choice and edit the <code>root</code> configuration directive
+					in the <strong>nginx</strong> configuration file
+					<code>/etc/nginx/nginx.conf</code>.</p>
+
+					<div class="logos">
+						<a href="https://almalinux.org"><img src= "/icons/poweredby.png" alt="[ Powered by AlmaLinux ]" /></a>
+						<img src= "poweredby.png" alt="[ Powered by AlmaLinux ]" />
+					</div>
+				</div>
+			</div>
+		</div>
+	<div class="footer">
+		<a href="https://apache.org">Apache&trade;</a> is a registered trademark of <a href="https://apache.org">the Apache Software Foundation</a> in the United States and/or other countries.
+        <br />
+		<a href="https://nginx.com">NGINX&trade;</a> is a registered trademark of <a href="https://www.f5.com">F5 Networks, Inc.</a>.
+	</div>
+	</body>
+</html>

@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <script src="/assets/config.v3.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dotHub | Цифровая экосистема</title>
+    <meta name="description" content="dotHub — цифровая экосистема проектов. Утилиты, настольные игры и инструменты для продуктивной работы.">
+    <meta name="keywords" content="privacy, decentralized, dotRay, dotHub">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --green:#4ade80;--teal:#22d3ee;--purple:#a78bfa;--gold:#c8a84e;--blue:#3b82f6;--red:#f87171;--pink:#ec4899;
+            --bg:#030406;--s1:#080a0f;--s2:#0c0f16;
+            --glass:rgba(255,255,255,.025);--glass-border:rgba(255,255,255,.06);
+            --text:#e8edf4;--t2:rgba(255,255,255,.5);--t3:rgba(255,255,255,.25)
+        }
+        html{scroll-behavior:smooth}
+        body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;line-height:1.6}
+        a{text-decoration:none;color:inherit}
+        button{cursor:pointer;font-family:inherit;border:none;background:none}
+
+        /* === COSMIC BACKGROUND === */
+        .cosmos{position:fixed;inset:0;z-index:-10;overflow:hidden}
+        .cosmos::before{content:'';position:absolute;inset:0;
+            background:
+                radial-gradient(ellipse 100% 80% at 15% 20%,rgba(74,222,128,.06) 0%,transparent 50%),
+                radial-gradient(ellipse 80% 60% at 80% 15%,rgba(167,139,250,.05) 0%,transparent 45%),
+                radial-gradient(ellipse 90% 70% at 50% 80%,rgba(34,211,238,.04) 0%,transparent 50%),
+                radial-gradient(ellipse 50% 40% at 70% 60%,rgba(74,222,128,.03) 0%,transparent 40%)}
+        .cosmos::after{content:'';position:absolute;inset:0;
+            background-image:url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='g' patternUnits='userSpaceOnUse' width='80' height='80'%3E%3Cpath d='M80 0H0v80' fill='none' stroke='%23ffffff' stroke-opacity='.015' stroke-width='.4'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23g)' width='100%25' height='100%25'/%3E%3C/svg%3E");opacity:.6}
+
+        /* Floating orbs */
+        .orb{position:fixed;border-radius:50%;filter:blur(100px);pointer-events:none;z-index:-5;animation:orbFloat 20s ease-in-out infinite alternate}
+        .orb-1{width:600px;height:600px;background:rgba(74,222,128,.04);top:-10%;left:-5%;animation-duration:25s}
+        .orb-2{width:500px;height:500px;background:rgba(167,139,250,.035);top:40%;right:-10%;animation-duration:22s;animation-delay:-5s}
+        .orb-3{width:400px;height:400px;background:rgba(34,211,238,.03);bottom:-5%;left:30%;animation-duration:28s;animation-delay:-10s}
+        @keyframes orbFloat{0%{transform:translate(0,0) scale(1)}33%{transform:translate(30px,-40px) scale(1.1)}66%{transform:translate(-20px,30px) scale(.95)}100%{transform:translate(10px,-20px) scale(1.05)}}
+
+        /* Stars */
+        .stars{position:fixed;inset:0;z-index:-8;pointer-events:none}
+        .star{position:absolute;width:2px;height:2px;background:white;border-radius:50%;animation:starTwinkle linear infinite}
+        @keyframes starTwinkle{0%,100%{opacity:.1}50%{opacity:.6}}
+
+        /* === SHOOTING STARS === */
+        .shooting-stars{position:fixed;inset:0;z-index:-7;pointer-events:none;overflow:hidden}
+        .shooting-star{position:absolute;width:120px;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.6),transparent);border-radius:50%;opacity:0;filter:blur(0.3px)}
+        .shooting-star::before{content:'';position:absolute;left:0;top:-1px;width:4px;height:3px;background:white;border-radius:50%;box-shadow:0 0 6px 2px rgba(255,255,255,.4)}
+        @keyframes shootingStar{0%{transform:translateX(0) translateY(0);opacity:0}5%{opacity:1}70%{opacity:1}100%{transform:translateX(400px) translateY(200px);opacity:0}}
+
+        /* === FLOATING PARTICLES === */
+        .particles{position:fixed;inset:0;z-index:-6;pointer-events:none;overflow:hidden}
+        .particle{position:absolute;border-radius:50%;opacity:0;animation:floatParticle linear infinite}
+        @keyframes floatParticle{0%{transform:translateY(100vh) translateX(0) scale(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-10vh) translateX(60px) scale(1);opacity:0}}
+
+        /* === AURORA WAVE === */
+        .aurora{position:fixed;bottom:0;left:0;right:0;height:40vh;z-index:-9;pointer-events:none;overflow:hidden;opacity:.5}
+        .aurora-wave{position:absolute;bottom:-50%;left:-10%;width:120%;height:200%;border-radius:40%;filter:blur(80px);opacity:.4}
+        .aurora-wave-1{background:linear-gradient(135deg,rgba(74,222,128,.08),rgba(34,211,238,.06));animation:auroraFloat 15s ease-in-out infinite}
+        .aurora-wave-2{background:linear-gradient(135deg,rgba(167,139,250,.06),rgba(74,222,128,.04));animation:auroraFloat 20s ease-in-out infinite reverse;animation-delay:-5s}
+        .aurora-wave-3{background:linear-gradient(135deg,rgba(34,211,238,.05),rgba(167,139,250,.06));animation:auroraFloat 18s ease-in-out infinite;animation-delay:-10s}
+        @keyframes auroraFloat{0%{transform:translateX(-5%) rotate(0deg) scale(1)}25%{transform:translateX(3%) rotate(2deg) scale(1.05)}50%{transform:translateX(5%) rotate(-1deg) scale(.97)}75%{transform:translateX(-3%) rotate(1deg) scale(1.03)}100%{transform:translateX(-5%) rotate(0deg) scale(1)}}
+
+        /* === NAVIGATION === */
+        .nav{position:fixed;top:0;left:0;right:0;z-index:900;padding:1.5rem 3rem;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
+        .nav.scrolled{background:rgba(3,4,6,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--glass-border);padding:1rem 3rem}
+        .nav-logo{font-size:1.75rem;font-weight:900;letter-spacing:-.04em;cursor:pointer;transition:all .3s}
+        .nav-logo:hover{letter-spacing:0}
+        .nav-logo .dot{color:var(--green)}
+        .nav-actions{display:flex;align-items:center;gap:1rem}
+
+        .btn-ghost{padding:.7rem 1.8rem;border-radius:100px;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--t2);border:1px solid var(--glass-border);background:var(--glass);transition:all .35s}
+        .btn-ghost:hover{background:rgba(255,255,255,.06);color:var(--text);border-color:rgba(255,255,255,.12)}
+
+        /* Profile dropdown */
+        .profile-trigger{display:flex;align-items:center;gap:.8rem;cursor:pointer;padding:.4rem;border-radius:1rem;transition:background .3s}
+        .profile-trigger:hover{background:rgba(255,255,255,.04)}
+        .profile-avatar{width:42px;height:42px;border-radius:14px;overflow:hidden;border:1px solid rgba(255,255,255,.08)}
+        .profile-avatar img{width:100%;height:100%;object-fit:cover}
+        .profile-info{text-align:right}
+        .profile-name{font-size:.85rem;font-weight:700}
+        .profile-tag{font-size:.6rem;opacity:.35;text-transform:uppercase;letter-spacing:.15em}
+
+        .user-dropdown{position:absolute;right:0;top:calc(100% + 12px);background:rgba(8,10,15,.96);backdrop-filter:blur(30px);border:1px solid var(--glass-border);border-radius:1.2rem;min-width:200px;box-shadow:0 30px 60px rgba(0,0,0,.7);overflow:hidden;display:none;animation:dropIn .25s ease}
+        @keyframes dropIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+        .user-dropdown a,.user-dropdown button{display:block;width:100%;text-align:left;padding:.9rem 1.4rem;font-size:.85rem;font-weight:600;transition:background .2s}
+        .user-dropdown a:hover{background:rgba(255,255,255,.04)}
+        .user-dropdown button:hover{background:rgba(248,113,113,.08);color:var(--red)}
+
+        /* === HERO === */
+        .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 6rem;position:relative}
+        .hero-badge{display:inline-flex;align-items:center;gap:.6rem;padding:.5rem 1.2rem;border-radius:100px;background:rgba(74,222,128,.06);border:1px solid rgba(74,222,128,.15);margin-bottom:3rem;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--green);animation:fadeUp .8s ease both}
+        .hero-pulse{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 12px var(--green);animation:pulse 2s ease-in-out infinite}
+        @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+
+        .hero-title{font-size:clamp(3.5rem,8vw,7rem);font-weight:900;letter-spacing:-.06em;line-height:.95;margin-bottom:2rem;animation:fadeUp .8s ease .15s both}
+        .hero-title .line-2{display:block;background:linear-gradient(135deg,var(--green),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .hero-desc{font-size:clamp(1rem,2vw,1.25rem);max-width:640px;color:var(--t2);line-height:1.8;animation:fadeUp .8s ease .3s both}
+
+        .hero-scroll{position:absolute;bottom:3rem;display:flex;flex-direction:column;align-items:center;gap:.5rem;color:var(--t3);font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;animation:fadeUp .8s ease .6s both}
+        .hero-scroll-line{width:1px;height:50px;background:linear-gradient(to bottom,var(--green),transparent);animation:scrollLine 2s ease-in-out infinite}
+        @keyframes scrollLine{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+        /* === SECTION COMMON === */
+        .section{padding:6rem 2rem;max-width:1280px;margin:0 auto}
+        .section-label{display:inline-flex;align-items:center;gap:.5rem;font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.2em;margin-bottom:1rem}
+        .section-label .dot-indicator{width:8px;height:8px;border-radius:50%}
+        .section-title{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;letter-spacing:-.04em;margin-bottom:1rem}
+        .section-desc{font-size:1.05rem;color:var(--t2);max-width:560px;line-height:1.8}
+
+        /* === PROJECT SHOWCASE CARDS === */
+        .showcase-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:2rem;margin-top:4rem}
+        .vpn-card,#calc-card,#dnd-card,#task-card,#playerok-card,#labs-card,#vault-card{display:none!important}
+        .project-card{position:relative;border-radius:2rem;overflow:hidden;border:1px solid var(--glass-border);background:var(--glass);backdrop-filter:blur(16px);transition:all .5s cubic-bezier(.4,0,.2,1);opacity:0;transform:translateY(40px)}
+        .project-card.visible{opacity:1;transform:translateY(0)}
+        .project-card:hover{transform:translateY(-10px);border-color:rgba(255,255,255,.12)}
+        .project-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .5s}
+        .project-card:hover::before{opacity:1}
+        .project-card.card-green:hover{border-color:rgba(74,222,128,.25);box-shadow:0 30px 80px rgba(74,222,128,.08)}
+        .project-card.card-green::before{background:radial-gradient(circle at 30% 20%,rgba(74,222,128,.06) 0%,transparent 60%)}
+        .project-card.card-teal:hover{border-color:rgba(34,211,238,.25);box-shadow:0 30px 80px rgba(34,211,238,.08)}
+        .project-card.card-teal::before{background:radial-gradient(circle at 30% 20%,rgba(34,211,238,.06) 0%,transparent 60%)}
+        .project-card.card-gold:hover{border-color:rgba(200,168,78,.25);box-shadow:0 30px 80px rgba(200,168,78,.08)}
+        .project-card.card-gold::before{background:radial-gradient(circle at 30% 20%,rgba(200,168,78,.06) 0%,transparent 60%)}
+        .project-card.card-blue:hover{border-color:rgba(59,130,246,.25);box-shadow:0 30px 80px rgba(59,130,246,.08)}
+        .project-card.card-blue::before{background:radial-gradient(circle at 30% 20%,rgba(59,130,246,.06) 0%,transparent 60%)}
+        .project-card.card-red:hover{border-color:rgba(248,113,113,.25);box-shadow:0 30px 80px rgba(248,113,113,.08)}
+        .project-card.card-red::before{background:radial-gradient(circle at 30% 20%,rgba(248,113,113,.06) 0%,transparent 60%)}
+        .project-card.card-orange:hover{border-color:rgba(251,146,60,.25);box-shadow:0 30px 80px rgba(251,146,60,.08)}
+        .project-card.card-orange::before{background:radial-gradient(circle at 30% 20%,rgba(251,146,60,.06) 0%,transparent 60%)}
+        .project-card.card-purple:hover{border-color:rgba(167,139,250,.25);box-shadow:0 30px 80px rgba(167,139,250,.08)}
+        .project-card.card-purple::before{background:radial-gradient(circle at 30% 20%,rgba(167,139,250,.06) 0%,transparent 60%)}
+        .project-card.card-pink:hover{border-color:rgba(236,72,153,.25);box-shadow:0 30px 80px rgba(236,72,153,.08)}
+        .project-card.card-pink::before{background:radial-gradient(circle at 30% 20%,rgba(236,72,153,.06) 0%,transparent 60%)}
+        .card-inner{position:relative;z-index:1;padding:2.5rem;display:flex;flex-direction:column;min-height:380px}
+        .card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:2rem}
+        .card-icon{width:56px;height:56px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:1.4rem;color:#000;transition:transform .4s,box-shadow .4s}
+        .project-card:hover .card-icon{transform:rotate(8deg) scale(1.05)}
+        .card-icon.green{background:var(--green);box-shadow:0 0 30px rgba(74,222,128,.35)}
+        .card-icon.teal{background:var(--teal);box-shadow:0 0 30px rgba(34,211,238,.35)}
+        .card-icon.gold{background:linear-gradient(135deg,#8a6d2b,#c8a84e,#e8d48a,#c8a84e);box-shadow:0 0 30px rgba(200,168,78,.35)}
+        .card-icon.blue{background:linear-gradient(135deg,#1d4ed8,#3b82f6,#60a5fa);box-shadow:0 0 30px rgba(59,130,246,.35);color:white}
+        .card-icon.purple{background:linear-gradient(135deg,#7c3aed,#a78bfa,#c4b5fd);box-shadow:0 0 30px rgba(167,139,250,.35);color:white}
+        .card-icon.red{background:linear-gradient(135deg,#b91c1c,#ef4444,#f87171);box-shadow:0 0 30px rgba(248,113,113,.35);color:white}
+        .card-icon.orange{background:linear-gradient(135deg,#c2410c,#f97316,#fb923c);box-shadow:0 0 30px rgba(251,146,60,.35);color:white}
+        .card-icon.pink{background:var(--pink);box-shadow:0 0 30px rgba(236,72,153,.35);color:white}
+        .card-icon.sm{width:48px;height:48px;border-radius:15px;font-size:1.2rem}
+        .card-status{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.15em;color:var(--t3)}
+        .card-title{font-size:2rem;font-weight:800;letter-spacing:-.03em;margin-bottom:.8rem}
+        .card-title .c-green{color:var(--green)}.card-title .c-teal{color:var(--teal)}.card-title .c-gold{color:var(--gold)}.card-title .c-blue{color:var(--blue)}.c-purple{color:var(--purple)}.c-red{color:var(--red)}.c-pink{color:var(--pink)}
+        .card-desc{font-size:.95rem;color:var(--t2);line-height:1.7;flex:1}
+        .card-actions{margin-top:2rem;display:flex;gap:.8rem}
+        .card-btn{flex:1;padding:1rem;border-radius:1rem;font-size:.8rem;font-weight:700;text-align:center;transition:all .3s;display:block}
+        .card-btn.green{background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.25);color:var(--green)}
+        .card-btn.green:hover{background:rgba(74,222,128,.2);box-shadow:0 10px 30px rgba(74,222,128,.1)}
+        .card-btn.teal{background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.25);color:var(--teal)}
+        .card-btn.teal:hover{background:rgba(34,211,238,.2);box-shadow:0 10px 30px rgba(34,211,238,.1)}
+        .card-btn.gold{background:rgba(200,168,78,.12);border:1px solid rgba(200,168,78,.25);color:var(--gold)}
+        .card-btn.gold:hover{background:rgba(200,168,78,.2);box-shadow:0 10px 30px rgba(200,168,78,.1)}
+        .card-btn.gold-bright{background:rgba(200,168,78,.2);border:1px solid rgba(200,168,78,.4);color:#e8d48a}
+        .card-btn.gold-bright:hover{background:rgba(200,168,78,.3)}
+        .card-btn.blue{background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.25);color:#60a5fa}
+        .card-btn.blue:hover{background:rgba(59,130,246,.2);box-shadow:0 10px 30px rgba(59,130,246,.1)}
+        .card-btn.red{background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.25);color:var(--red)}
+        .card-btn.red:hover{background:rgba(248,113,113,.2);box-shadow:0 10px 30px rgba(248,113,113,.1)}
+
+        /* === ROADMAP / FUTURE === */
+        .roadmap{padding:6rem 2rem 8rem;max-width:1280px;margin:0 auto}
+        .roadmap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem}
+        .roadmap-card{padding:2.5rem;border-radius:1.5rem;border:1px solid var(--glass-border);background:var(--glass);backdrop-filter:blur(12px);transition:all .4s;opacity:0;transform:translateY(30px)}
+        .roadmap-card.visible{opacity:1;transform:translateY(0)}
+        .roadmap-card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.1)}
+        .roadmap-card .card-icon{margin-bottom:1.2rem}
+        .roadmap-card:hover .card-icon{transform:rotate(8deg) scale(1.05)}
+        .roadmap-name{font-size:1.4rem;font-weight:800;margin-bottom:.6rem}
+        .roadmap-desc{font-size:.9rem;color:var(--t2);line-height:1.7}
+        .roadmap-tag{display:inline-block;margin-top:1.2rem;padding:.35rem .9rem;border-radius:100px;font-size:.6rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+        .roadmap-tag.tag-blue{background:rgba(59,130,246,.1);color:#60a5fa;border:1px solid rgba(59,130,246,.2)}
+        .roadmap-tag.tag-purple{background:rgba(167,139,250,.1);color:#a78bfa;border:1px solid rgba(167,139,250,.2)}
+        .roadmap-tag.tag-green{background:rgba(74,222,128,.1);color:#4ade80;border:1px solid rgba(74,222,128,.2)}
+
+        /* === LOGIN MODAL === */
+        .login-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(3,4,6,.95);backdrop-filter:blur(30px);align-items:center;justify-content:center}
+        .login-card{background:var(--s1);border:1px solid var(--glass-border);border-radius:2rem;padding:3rem;width:100%;max-width:400px;text-align:center;box-shadow:0 50px 100px rgba(0,0,0,.8);animation:fadeUp .4s ease}
+        .login-card h2{font-size:1.5rem;font-weight:900;margin-bottom:.4rem;letter-spacing:-.03em}
+        .login-card .sub{font-size:.8rem;color:var(--t3);margin-bottom:2rem}
+        .login-input{width:100%;padding:.9rem 1.2rem;border-radius:.9rem;border:1px solid var(--glass-border);background:rgba(255,255,255,.03);color:var(--text);font-size:.9rem;font-family:inherit;outline:none;transition:all .3s}
+        .login-input:focus{border-color:rgba(74,222,128,.3);box-shadow:0 0 25px rgba(74,222,128,.06)}
+        .login-error{display:none;font-size:.75rem;color:var(--red);margin-top:.6rem}
+        .login-btn-primary{width:100%;padding:.9rem;border-radius:.9rem;border:none;background:var(--green);color:#000;font-size:.85rem;font-weight:800;cursor:pointer;transition:all .25s;margin-top:1rem}
+        .login-btn-primary:hover{opacity:.85;box-shadow:0 10px 35px rgba(74,222,128,.25)}
+        .login-btn-secondary{width:100%;padding:.8rem;border-radius:.9rem;border:1px solid var(--glass-border);background:transparent;color:var(--t3);font-size:.75rem;cursor:pointer;transition:all .25s;margin-top:.5rem}
+        .login-btn-secondary:hover{background:rgba(255,255,255,.04);color:var(--t2)}
+
+        /* === LANG SWITCHER === */
+        .lang-container{position:relative;z-index:1000}
+        .planet-btn{width:42px;height:42px;border-radius:12px;background:var(--glass);border:1px solid var(--glass-border);display:flex;align-items:center;justify-content:center;color:var(--t3);transition:all .4s}
+        .planet-btn:hover{background:rgba(74,222,128,.06);color:var(--green);border-color:rgba(74,222,128,.2)}
+        .planet-btn.active{color:var(--green);border-color:rgba(74,222,128,.3)}
+        .lang-dropdown{position:absolute;top:calc(100% + 10px);right:0;background:var(--s1);border:1px solid var(--glass-border);border-radius:1rem;padding:.4rem;width:150px;display:none;flex-direction:column;gap:2px;z-index:1001;box-shadow:0 20px 50px rgba(0,0,0,.7);animation:dropIn .25s ease}
+        .lang-dropdown.show{display:flex}
+        .lang-option{padding:.7rem 1rem;border-radius:.7rem;font-size:.8rem;font-weight:700;color:var(--t2);cursor:pointer;display:flex;align-items:center;justify-content:space-between;transition:all .2s}
+        .lang-option:hover{background:rgba(255,255,255,.04);color:white}
+        .lang-option.selected{color:var(--green);background:rgba(74,222,128,.05)}
+        .lang-option.selected::after{content:"";width:5px;height:5px;background:var(--green);border-radius:50%;box-shadow:0 0 8px var(--green)}
+
+        /* === DOTCALC MODAL === */
+        .dotcalc-overlay{display:none;position:fixed;inset:0;z-index:1500;align-items:center;justify-content:center;background:rgba(0,0,0,.5);backdrop-filter:blur(4px)}
+        .modal-panel{transform:translateY(6px) scale(.98);opacity:0;transition:transform 260ms cubic-bezier(.2,.9,.3,1),opacity 260ms ease;background:var(--s1)!important;border:1px solid var(--glass-border)!important;width:100%;max-width:640px;padding:2rem;border-radius:1.5rem;margin:1rem}
+        .dotcalc-visible .modal-panel{transform:translateY(0) scale(1);opacity:1}
+        @keyframes protoPulse{0%{transform:scale(1)}50%{transform:scale(1.02);box-shadow:0 18px 40px rgba(74,222,128,.1)}100%{transform:scale(1)}}
+        .proto-btn.active{animation:protoPulse 2.2s ease-in-out infinite}
+        #dotcalc-input:focus,#dotcalc-name:focus{outline:none;border-color:rgba(34,211,238,.25)!important;box-shadow:0 10px 30px rgba(34,211,238,.06);transform:translateY(-2px);transition:all 200ms ease}
+        @keyframes resultIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+        .modal-panel.conversion-success #dotcalc-result{animation:resultIn 420ms cubic-bezier(.2,.9,.3,1) both}
+        @keyframes shakeX{0%{transform:translateX(0)}25%{transform:translateX(-8px)}50%{transform:translateX(8px)}75%{transform:translateX(-6px)}100%{transform:translateX(0)}}
+        .modal-panel.conversion-error{animation:shakeX 360ms cubic-bezier(.36,.07,.19,.97)}
+        .proto-toggle{display:inline-flex;gap:4px;background:rgba(255,255,255,.02);padding:5px;border-radius:10px}
+        .proto-toggle button{padding:.5rem 1rem;border-radius:8px;border:1px solid var(--glass-border);background:transparent;color:var(--t2);cursor:pointer;transition:all .2s;font-family:inherit;font-size:.8rem}
+        .proto-toggle button:hover{transform:translateY(-1px)}
+        .proto-toggle button.active{background:var(--teal);color:#000;border-color:rgba(34,211,238,.3);font-weight:800}
+        .dotcalc-input-field{width:100%;padding:.8rem 1rem;border-radius:.7rem;background:rgba(0,0,0,.3);border:1px solid var(--glass-border);color:var(--text);font-family:inherit;font-size:.85rem;outline:none}
+        .dotcalc-btn{padding:.7rem 1.2rem;border-radius:.7rem;font-size:.8rem;font-family:inherit;border:none;cursor:pointer;font-weight:600}
+
+        /* === STATS TICKER === */
+        .stats-section{padding:5rem 2rem;max-width:1280px;margin:0 auto;position:relative}
+        .stats-section::before{content:'';position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,var(--glass-border),transparent)}
+        .stats-section::after{content:'';position:absolute;left:0;right:0;bottom:0;height:1px;background:linear-gradient(90deg,transparent,var(--glass-border),transparent)}
+        .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+        .stat-item{padding:2rem 1rem}
+        .stat-number{font-size:clamp(2.5rem,5vw,3.5rem);font-weight:900;letter-spacing:-.04em;background:linear-gradient(135deg,var(--green),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1}
+        .stat-number .stat-suffix{font-size:.6em;opacity:.7}
+        .stat-label{font-size:.7rem;text-transform:uppercase;letter-spacing:.2em;color:var(--t3);margin-top:.5rem;font-weight:700}
+        .stat-item{opacity:0;transform:translateY(20px);transition:all .5s cubic-bezier(.4,0,.2,1)}
+        .stat-item.visible{opacity:1;transform:translateY(0)}
+        .stat-item:nth-child(2) .stat-number{background:linear-gradient(135deg,var(--teal),var(--purple));-webkit-background-clip:text;background-clip:text}
+        .stat-item:nth-child(3) .stat-number{background:linear-gradient(135deg,var(--purple),var(--gold));-webkit-background-clip:text;background-clip:text}
+        .stat-item:nth-child(4) .stat-number{background:linear-gradient(135deg,var(--gold),var(--green));-webkit-background-clip:text;background-clip:text}
+
+        /* === MANIFESTO / PHILOSOPHY === */
+        .manifesto{padding:8rem 2rem;max-width:900px;margin:0 auto;text-align:center;position:relative}
+        .manifesto-quote{font-size:clamp(1.3rem,3vw,2rem);font-weight:300;line-height:1.8;color:var(--t2);letter-spacing:-.01em;position:relative}
+        .manifesto-quote em{font-style:normal;font-weight:700;color:var(--text);background:linear-gradient(135deg,var(--green),var(--teal));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .manifesto-quote::before{content:'\201C';position:absolute;top:-.6em;left:50%;transform:translateX(-50%);font-size:6rem;font-weight:900;color:rgba(74,222,128,.08);line-height:1;pointer-events:none}
+        .manifesto-attr{margin-top:2rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.3em;color:var(--t3);font-weight:700}
+        .manifesto-divider{width:40px;height:2px;background:linear-gradient(90deg,var(--green),var(--teal));margin:1.5rem auto 0;border-radius:2px}
+        .manifesto{opacity:0;transform:translateY(30px);transition:all .8s cubic-bezier(.4,0,.2,1)}
+        .manifesto.visible{opacity:1;transform:translateY(0)}
+
+        /* === FOOTER === */
+        .footer{padding:4rem 2rem;text-align:center;font-size:.6rem;text-transform:uppercase;letter-spacing:.4em;color:var(--t3);border-top:1px solid var(--glass-border)}
+
+        /* Visibility helpers */
+        .auth-only{display:none}
+        .vpn-card{display:none}
+        .hidden{display:none!important}
+
+        /* === LOADING SCREEN === */
+        #loadingScreen{position:fixed;inset:0;z-index:99999;background:#030406;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s ease,visibility .5s ease}
+        #loadingScreen.fade-out{opacity:0;visibility:hidden;pointer-events:none}
+        .loader-logo{font-size:2.5rem;font-weight:900;letter-spacing:-.04em;margin-bottom:1.5rem;opacity:0;animation:loaderFadeIn .6s ease .1s forwards}
+        .loader-logo .dot{color:#4ade80}
+        .loader-bar-wrap{width:160px;height:3px;background:rgba(255,255,255,.06);border-radius:10px;overflow:hidden;opacity:0;animation:loaderFadeIn .6s ease .3s forwards}
+        .loader-bar{width:0;height:100%;background:linear-gradient(90deg,#4ade80,#22d3ee);border-radius:10px;animation:loaderProgress 1.2s ease .4s forwards}
+        .loader-hint{margin-top:1.2rem;font-size:.6rem;text-transform:uppercase;letter-spacing:.2em;color:rgba(255,255,255,.2);opacity:0;animation:loaderFadeIn .6s ease .5s forwards}
+        @keyframes loaderFadeIn{to{opacity:1}}
+        @keyframes loaderProgress{0%{width:0}60%{width:70%}100%{width:100%}}
+
+        /* === RESPONSIVE === */
+        @media(max-width:768px){
+            .nav{padding:1rem 1.5rem}
+            .nav.scrolled{padding:.8rem 1.5rem}
+            .hero{padding:7rem 1.5rem 5rem}
+            .hero-title{font-size:3rem}
+            .showcase-grid{grid-template-columns:1fr}
+            .roadmap-grid{grid-template-columns:1fr}
+            .profile-info{display:none}
+            .section{padding:4rem 1.5rem}
+            .stats-grid{grid-template-columns:repeat(2,1fr);gap:1rem}
+            .manifesto{padding:5rem 1.5rem}
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen">
+        <div class="loader-logo"><span class="dot">dot</span>Hub</div>
+        <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+        <div class="loader-hint">loading ecosystem</div>
+    </div>
+
+    <!-- Cosmic Background -->
+    <div class="cosmos"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="stars" id="starsContainer"></div>
+    <div class="shooting-stars" id="shootingStarsContainer"></div>
+    <div class="particles" id="particlesContainer"></div>
+    <div class="aurora">
+        <div class="aurora-wave aurora-wave-1"></div>
+        <div class="aurora-wave aurora-wave-2"></div>
+        <div class="aurora-wave aurora-wave-3"></div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="login-overlay" id="loginModal" onclick="if(event.target===this)closeLogin()">
+        <form class="login-card" onclick="event.stopPropagation()" onsubmit="event.preventDefault(); login()">
+            <div style="font-size:3rem;margin-bottom:1rem">&#x1F510;</div>
+            <h2><span data-lang-key="loginTitle">Вход в</span> <span style="color:var(--green)">dotHub</span></h2>
+            <p class="sub" data-lang-key="loginSubtitle">Введи свой ключ доступа для входа в экосистему</p>
+            <input type="password" id="keyInput" class="login-input" placeholder="Введите ключ доступа" data-lang-placeholder="apiKeyPlaceholder" autocomplete="current-password">
+            <div id="loginError" class="login-error"></div>
+            <button type="submit" class="login-btn-primary" data-lang-key="btnLogin">Войти</button>
+            <button type="button" onclick="closeLogin()" class="login-btn-secondary" data-lang-key="btnCancel">Отмена</button>
+        </form>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav" id="mainNav">
+        <div class="nav-logo" onclick="window.location.href='/'">
+            <span class="dot">dot</span>Hub
+        </div>
+        <div class="nav-actions">
+            <div class="lang-container">
+                <button onclick="toggleLangMenu(event)" id="planetBtn" class="planet-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </button>
+                <div id="langDropdown" class="lang-dropdown">
+                    <div onclick="setLang('RU')" class="lang-option" id="optRU">Русский</div>
+                    <div onclick="setLang('EN')" class="lang-option" id="optEN">English</div>
+                    <div onclick="setLang('KZ')" class="lang-option" id="optKZ">Қазақша</div>
+                </div>
+            </div>
+
+            <button id="loginBtn" onclick="openLogin()" class="btn-ghost" data-lang-key="navLogin">Войти в ID</button>
+
+            <div id="profileBtn" class="hidden" style="position:relative">
+                <div class="profile-trigger" onclick="toggleProfileDropdown(event)">
+                    <div class="profile-info">
+                        <p id="navName" class="profile-name">Загрузка...</p>
+                        <p class="profile-tag" data-lang-key="navTagline">Digital Nomad</p>
+                    </div>
+                    <div class="profile-avatar">
+                        <img id="navAvatar" src="/assets/default_avatar.png" alt="">
+                    </div>
+                </div>
+                <div id="userDropdown" class="user-dropdown">
+                    <a href="profile" data-lang-key="menuProfile">Мой профиль</a>
+                    <button onclick="logout()" style="color:var(--red)" data-lang-key="menuLogout">Выйти</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge">
+            <span class="hero-pulse"></span>
+            <span data-lang-key="statusBadge">dotHub Ecosystem v2.0 Active</span>
+        </div>
+        <h1 class="hero-title">
+            <span data-lang-key="heroTitle1">Цифровая</span>
+            <span class="line-2" data-lang-key="heroTitle2">экосистема.</span>
+        </h1>
+        <p class="hero-desc" data-lang-key="heroDesc">dotHub &#x2014; рабочая платформа для dotFunPay и dotAtlas под защитой dotOrbit.</p>
+        <div class="hero-scroll">
+            <span>Scroll</span>
+            <div class="hero-scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <div class="section-label" style="color:var(--green)">
+            <span class="dot-indicator" style="background:var(--green);box-shadow:0 0 10px var(--green)"></span>
+            <span data-lang-key="projectsLabel">Наши проекты</span>
+        </div>
+        <h2 class="section-title" data-lang-key="projectsSectionTitle">Инструменты<br>нового поколения.</h2>
+        <p class="section-desc" data-lang-key="projectsSectionDesc">Оставлены только ключевые сервисы проекта: автоматизация FunPay, управление Atlas и защитный контур Orbit.</p>
+
+        <div class="showcase-grid">
+
+            <!-- dotRay — VPN, hidden for unauth -->
+            <div class="project-card card-green vpn-card" data-delay="0">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="card-icon green">.R</div>
+                        <span class="card-status" data-lang-key="vpnService">VPN Service</span>
+                    </div>
+                    <h3 class="card-title" data-lang-key="cardDotRayTitle"><span class="c-green">dot</span>Ray</h3>
+                    <p class="card-desc" data-lang-key="dotRayDesc">Современный VPN клиент для обхода любых ограничений. Поддержка VLESS Reality и Hysteria2.</p>
+                    <div class="card-actions auth-only">
+                        <a href="javascript:void(0)" onclick="getDotRay()" class="card-btn green" data-lang-key="btnGet">Получить</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- dotCalc — Utility -->
+            <div class="project-card card-teal" data-delay="100" id="calc-card">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="card-icon teal">.C</div>
+                        <span class="card-status" data-lang-key="dotCalcTagline">Utility</span>
+                    </div>
+                    <h3 class="card-title" data-lang-key="cardDotCalcTitle"><span class="c-teal">dot</span>Calc</h3>
+                    <p class="card-desc" data-lang-key="dotCalcDesc">Конвертер прокси-строк в sing-box URI.</p>
+                    <div class="card-actions">
+                        <button onclick="openDotCalcModal()" class="card-btn teal" data-lang-key="dotCalcOpenBtn">Открыть</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- dotD&D -->
+            <div class="project-card card-gold" data-delay="200" id="dnd-card">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="card-icon gold">.D</div>
+                        <span class="card-status" data-lang-key="dotDNDTagline">Tabletop Platform</span>
+                    </div>
+                    <h3 class="card-title" data-lang-key="cardDotDNDTitle"><span class="c-gold">dot</span>D&amp;D</h3>
+                    <p class="card-desc" data-lang-key="dotDNDDesc">Платформа для проведения онлайн и оффлайн D&amp;D партий. Карта мира, персонажи, сессии и кубики.</p>
+                    <div class="card-actions auth-only">
+                        <a href="/dnd" class="card-btn gold" data-lang-key="dotDNDOpenBtn">Презентация</a>
+                        <a href="/dnd/app" class="card-btn gold-bright" data-lang-key="dotDNDBetaBtn">🎲 Бета тест</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- dotTask -->
+            <div class="project-card card-blue" data-delay="300" id="task-card">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="card-icon blue">.T</div>
+                        <span class="card-status" data-lang-key="dotTaskTagline">Project Board</span>
+                    </div>
+                    <h3 class="card-title" data-lang-key="cardDotTaskTitle"><span class="c-blue">dot</span>Task</h3>
+                    <p class="card-desc" data-lang-key="dotTaskDesc">Kanban-доска для управления проектами и задачами. Совместная работа в реальном времени.</p>
+                    <div class="card-actions auth-only">
+                        <a href="/tasks" class="card-btn blue" data-lang-key="dotTaskOpenBtn">📋 Открыть</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- dotAtlas -->
+            <div class="project-card card-orange" data-delay="350" id="atlas-card">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="card-icon orange">.A</div>
+                        <span class="card-status">Phone Farm</span>
+                    </div>
+                    <h3 class="card-title"><span style="color:#fb923c">dot</span>Atlas</h3>
+                    <p class="card-desc">Управление farm-аккаунтами, Discord webhook-каналами и статистикой фарма.</p>
+                    <div class="card-actions auth-only">
+                        <a href="/atlas" class="card-btn blue">📱 Открыть</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- dotFunPay — Automation -->
+            <div class="project-card card-teal" data-delay="380" id="funpay-card">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="card-icon teal">.F</div>
+                        <span class="card-status">Automation</span>
+                    </div>
+                    <h3 class="card-title"><span class="c-teal">dot</span>FunPay</h3>
+                    <p class="card-desc">Автоматизация торговли на FunPay. Авто-ответ, авто-выдача и управление ботом.</p>
+                    <div class="card-actions auth-only">
+                        <a href="/funpay?v=14.81-no-root-redirect" class="card-btn teal">💰 Открыть</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- dotPlayerok — Automation -->
+            <div class="project-card card-teal" data-delay="390" id="playerok-card">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="card-icon teal">.P</div>
+                        <span class="card-status">Marketplace Automation</span>
+                    </div>
+                    <h3 class="card-title"><span class="c-teal">dot</span>Playerok</h3>
+                    <p class="card-desc">Автоматизация продаж на Playerok: сделки, товары, чаты, синхронизация аккаунтов и будущая автовыдача.</p>
+                    <div class="card-actions auth-only">
+                        <a href="/playerok" class="card-btn teal">🛒 Открыть</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- dotOrbit — Security -->
+            <div class="project-card card-red" data-delay="400" id="orbit-card">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="card-icon red">.O</div>
+                        <span class="card-status">Security Shield</span>
+                    </div>
+                    <h3 class="card-title"><span class="c-red">dot</span>Orbit</h3>
+                    <p class="card-desc">Внутренний модуль безопасности экосистемы. WAF, E2E шифрование, защита от DDoS и bruteforce, фильтрация ответов и мониторинг угроз в реальном времени.</p>
+                    <div class="card-actions">
+                        <span class="card-btn red" style="cursor:default;opacity:.7">🛡️ Активен</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- dotLabs -->
+            <div class="project-card card-purple" data-delay="450" id="labs-card">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="card-icon purple">.L</div>
+                        <span class="card-status" data-lang-key="aiManagement">AI Management</span>
+                    </div>
+                    <h3 class="card-title"><span class="c-purple">dot</span>Labs</h3>
+                    <p class="card-desc" data-lang-key="dotLabsDesc">Платформа управления ИИ-агентами dotHub. Роли, правила, память и мониторинг AI-команды dotLabs Studio.</p>
+                    <div class="card-actions auth-only">
+                        <a href="/labs.html" class="card-btn gold">🧪 Открыть</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- dotVault -->
+            <div class="project-card card-pink" data-delay="500" id="vault-card">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <div class="card-icon pink">.V</div>
+                        <span class="card-status">База Знаний</span>
+                    </div>
+                    <h3 class="card-title"><span class="c-pink">dot</span>Vault</h3>
+                    <p class="card-desc">Персональная база знаний с Markdown-редактором, графом связей, canvas-доской и 8 цветовыми темами. Альтернатива Obsidian в экосистеме dotHub.</p>
+                    <div class="card-actions auth-only">
+                        <a href="/vault" class="card-btn green">📚 Открыть</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section class="roadmap" id="roadmap">
+        <div style="text-align:center;margin-bottom:1rem">
+            <div class="section-label" style="color:var(--purple);justify-content:center;display:inline-flex">
+                <span class="dot-indicator" style="background:var(--purple);box-shadow:0 0 10px var(--purple)"></span>
+                <span data-lang-key="roadmapLabel">Roadmap</span>
+            </div>
+        </div>
+        <h2 class="section-title" style="text-align:center" data-lang-key="roadmapTitle">Наше будущее</h2>
+        <p class="section-desc" style="text-align:center;margin:0 auto" data-lang-key="roadmapDesc">Здесь мы показываем идеи и проекты, которые мы планируем выпустить.</p>
+
+        <div class="roadmap-grid">
+            <div class="roadmap-card" data-delay="0">
+                <div class="card-icon sm purple">.A</div>
+                <h3 class="roadmap-name"><span class="c-purple">dot</span>AI Assist</h3>
+                <p class="roadmap-desc">Интеллект-помощник внутри экосистемы: шаблоны, автозадачи и интеграции.</p>
+                <span class="roadmap-tag tag-purple" data-lang-key="comingSoon">COMING LATE 2026</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section" id="stats">
+        <div class="stats-grid">
+            <div class="stat-item" data-delay="0">
+                <div class="stat-number"><span id="statProjects">0</span></div>
+                <div class="stat-label" data-lang-key="statProjects">Активных проектов</div>
+            </div>
+            <div class="stat-item" data-delay="100">
+                <div class="stat-number"><span id="statUptime">0</span><span class="stat-suffix">%</span></div>
+                <div class="stat-label" data-lang-key="statUptime">Uptime серверов</div>
+            </div>
+            <div class="stat-item" data-delay="200">
+                <div class="stat-number"><span id="statCommits">0</span><span class="stat-suffix">+</span></div>
+                <div class="stat-label" data-lang-key="statCommits">Commits за год</div>
+            </div>
+            <div class="stat-item" data-delay="300">
+                <div class="stat-number"><span id="statNodes">0</span></div>
+                <div class="stat-label" data-lang-key="statNodes">Серверных узлов</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Manifesto -->
+    <section class="manifesto" id="manifesto">
+        <p class="manifesto-quote" data-lang-key="manifestoQuote">
+            Мы создаём не просто продукты &#x2014; мы строим <em>цифровую среду</em>, где каждый инструмент работает как часть единого организма. Приватность, скорость и свобода &#x2014; не компромисс, а стандарт.
+        </p>
+        <p class="manifesto-attr" data-lang-key="manifestoAttr">&#x2014; dotHub Labs // Philosophy</p>
+        <div class="manifesto-divider"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" data-lang-key="footerLegal">
+        dotHub Labs &copy; 2026 // Decentralized Services Division
+    </footer>
+
+    <!-- dotCalc Modal -->
+    <div id="dotcalc-modal" class="dotcalc-overlay">
+        <div class="modal-panel">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem">
+                <div style="display:flex;align-items:center;gap:.8rem">
+                    <div class="card-icon teal" style="width:44px;height:44px;font-size:1.2rem">.C</div>
+                    <h4 style="font-size:1.3rem;font-weight:800" data-lang-key="dotCalcTitle">dotCalc</h4>
+                </div>
+                <button onclick="closeDotCalcModal()" style="color:var(--t3);font-size:1.2rem;padding:.5rem;cursor:pointer;background:none;border:none">&#x2715;</button>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:1rem">
+                <label style="font-size:.8rem;color:var(--t2)" data-lang-key="dotCalcProtocol">Protocol</label>
+                <div class="proto-toggle" role="tablist">
+                    <button type="button" class="proto-btn active" data-proto="auto" onclick="selectProto(event)" data-lang-key="dotCalcProtoAuto">Auto</button>
+                    <button type="button" class="proto-btn" data-proto="socks5" onclick="selectProto(event)" data-lang-key="dotCalcProtoSocks5">SOCKS5</button>
+                    <button type="button" class="proto-btn" data-proto="https" onclick="selectProto(event)" data-lang-key="dotCalcProtoHttps">HTTPS</button>
+                </div>
+                <label style="font-size:.8rem;color:var(--t2)" data-lang-key="dotCalcInputLabel">Input proxy string</label>
+                <input id="dotcalc-input" class="dotcalc-input-field" data-lang-placeholder="dotCalcInputPlaceholder" placeholder="host:port:user:pass or socks5://user:pass@host:port">
+                <label style="font-size:.8rem;color:var(--t2)" data-lang-key="dotCalcNameLabel">Name / tag (optional)</label>
+                <input id="dotcalc-name" class="dotcalc-input-field" data-lang-placeholder="dotCalcNamePlaceholder" placeholder="friendly-name (optional)">
+                <div style="display:flex;gap:.6rem">
+                    <button id="dotcalc-convert" onclick="convertDotCalc()" class="dotcalc-btn" style="background:var(--teal);color:#000;font-weight:700" data-lang-key="dotCalcBtnConvert">Convert</button>
+                    <button id="dotcalc-clear" onclick="clearDotCalc()" class="dotcalc-btn" style="background:rgba(255,255,255,.05);color:var(--text)" data-lang-key="dotCalcBtnClear">Clear</button>
+                    <button id="dotcalc-copy" onclick="copyDotCalc()" class="dotcalc-btn" style="margin-left:auto;background:rgba(255,255,255,.05);color:var(--text)" disabled data-lang-key="dotCalcBtnCopy">Copy</button>
+                </div>
+                <label style="font-size:.8rem;color:var(--t2)" data-lang-key="dotCalcResultLabel">Result</label>
+                <textarea id="dotcalc-result" rows="3" class="dotcalc-input-field" style="resize:vertical" readonly></textarea>
+                <p id="dotcalc-error" style="font-size:.8rem;color:var(--red);display:none"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /* ========================================
+           TRANSLATIONS
+        ======================================== */
+        const translations = {
+            RU: {
+                pageTitle: "dotHub | Цифровая экосистема",
+                metaDescription: "dotHub \u2014 платформа для dotFunPay и dotAtlas под защитой dotOrbit.",
+                loginTitle: "Вход в",
+                loginSubtitle: "Введи свой ключ доступа для входа в экосистему",
+                apiKeyPlaceholder: "Введите ключ доступа",
+                btnCancel: "Отмена",
+                btnLogin: "Войти",
+                navLogin: "Войти в ID",
+                navTagline: "Digital Nomad",
+                menuProfile: "Мой профиль",
+                menuLogout: "Выйти",
+                statusBadge: "dotHub Ecosystem v2.0 Active",
+                heroTitle1: "Цифровая",
+                heroTitle2: "экосистема.",
+                heroDesc: "dotHub \u2014 рабочая платформа для dotFunPay и dotAtlas под защитой dotOrbit.",
+                projectsLabel: "Наши проекты",
+                projectsSectionTitle: "Инструменты<br>нового поколения.",
+                projectsSectionDesc: "Оставлены только ключевые сервисы проекта: автоматизация FunPay, управление Atlas и защитный контур Orbit.",
+                dotRayDesc: "Современный VPN клиент для обхода любых ограничений. Поддержка VLESS Reality и Hysteria2.",
+                btnGet: "Получить",
+                vpnService: "VPN Service",
+                cardDotRayTitle: "<span class='c-green'>dot</span>Ray",
+                dotDNDDesc: "Платформа для проведения онлайн и оффлайн D&D партий. Карта мира, персонажи, сессии и кубики.",
+                dotDNDOpenBtn: "Презентация",
+                dotDNDBetaBtn: "\ud83c\udfb2 Бета тест",
+                dotDNDTagline: "Tabletop Platform",
+                cardDotCalcTitle: "<span class='c-teal'>dot</span>Calc",
+                dotCalcDesc: "Конвертер прокси-строк в sing-box URI.",
+                dotCalcOpenBtn: "Открыть",
+                dotCalcTitle: "<span class='c-teal'>dot</span>Calc",
+                dotCalcTagline: "Utility",
+                dotCalcProtocol: "Протокол",
+                dotCalcProtoAuto: "Авто",
+                dotCalcProtoSocks5: "SOCKS5",
+                dotCalcProtoHttps: "HTTPS",
+                dotCalcInputLabel: "Вставьте proxy",
+                dotCalcInputPlaceholder: "host:port:user:pass or socks5://user:pass@host:port",
+                dotCalcNameLabel: "Name / tag (optional)",
+                dotCalcNamePlaceholder: "friendly-name (optional)",
+                dotCalcBtnConvert: "Конвертировать",
+                dotCalcBtnClear: "Очистить",
+                dotCalcBtnCopy: "Копировать",
+                dotCalcBtnCopyed: "Скопировано",
+                dotCalcResultLabel: "Результат",
+                dotCalcErrParse: "Не удалось распознать строку. Ожидается host:port:user:pass или socks5://user:pass@host:port",
+                dotCalcErrCopy: "Не удалось скопировать в буфер обмена",
+                dotTaskTagline: "Project Board",
+                cardDotTaskTitle: "<span class='c-blue'>dot</span>Task",
+                dotTaskDesc: "Kanban-доска для управления проектами и задачами. Совместная работа в реальном времени.",
+                dotTaskOpenBtn: "\ud83d\udccb Открыть",
+                footerLegal: "dotHub Labs &copy; 2026 // Decentralized Services Division",
+                siteTitle: "<span class='dot'>dot</span>Hub",
+                comingSoon: "COMING LATE 2026",
+                productLockedMsg: "Обратитесь к администратору для получения доступа",
+                cardDotDNDTitle: "<span class='c-gold'>dot</span>D&amp;D",
+                roadmapLabel: "Roadmap",
+                roadmapTitle: "Наше будущее",
+                roadmapDesc: "Здесь мы показываем идеи и проекты, которые мы планируем выпустить.",
+                statProjects: "Активных проектов",
+                statUptime: "Uptime серверов",
+                statCommits: "Commits за год",
+                statNodes: "Серверных узлов",
+                manifestoQuote: "Мы создаём не просто продукты \u2014 мы строим <em>цифровую среду</em>, где каждый инструмент работает как часть единого организма. Приватность, скорость и свобода \u2014 не компромисс, а стандарт.",
+                manifestoAttr: "\u2014 dotHub Labs // Philosophy"
+            },
+            EN: {
+                pageTitle: "dotHub | Digital Ecosystem",
+                metaDescription: "dotHub \u2014 a focused platform for dotFunPay and dotAtlas protected by dotOrbit.",
+                loginTitle: "Login to",
+                loginSubtitle: "Enter your access key to join the ecosystem",
+                apiKeyPlaceholder: "Enter access key",
+                btnCancel: "Cancel",
+                btnLogin: "Login",
+                navLogin: "ID Login",
+                navTagline: "Digital Nomad",
+                menuProfile: "My Profile",
+                menuLogout: "Logout",
+                statusBadge: "dotHub Ecosystem v2.0 Active",
+                heroTitle1: "Digital",
+                heroTitle2: "Ecosystem.",
+                heroDesc: "dotHub is a focused platform for dotFunPay and dotAtlas protected by dotOrbit.",
+                projectsLabel: "Our Projects",
+                projectsSectionTitle: "Next-gen<br>instruments.",
+                projectsSectionDesc: "Only the core services remain: FunPay automation, Atlas management and the Orbit security layer.",
+                dotRayDesc: "Modern VPN client to bypass any restrictions. VLESS Reality and Hysteria2 support.",
+                btnGet: "Get",
+                vpnService: "VPN Service",
+                cardDotRayTitle: "<span class='c-green'>dot</span>Ray",
+                dotDNDDesc: "A platform for running online and offline D&D campaigns. World map, characters, sessions and dice.",
+                dotDNDOpenBtn: "Presentation",
+                dotDNDBetaBtn: "\ud83c\udfb2 Beta Test",
+                dotDNDTagline: "Tabletop Platform",
+                cardDotCalcTitle: "<span class='c-teal'>dot</span>Calc",
+                dotCalcDesc: "Convert proxy strings to sing-box URIs.",
+                dotCalcOpenBtn: "Open",
+                dotCalcTitle: "<span class='c-teal'>dot</span>Calc",
+                dotCalcTagline: "Utility",
+                dotCalcProtocol: "Protocol",
+                dotCalcProtoAuto: "Auto",
+                dotCalcProtoSocks5: "SOCKS5",
+                dotCalcProtoHttps: "HTTPS",
+                dotCalcInputLabel: "Input proxy string",
+                dotCalcInputPlaceholder: "host:port:user:pass or socks5://user:pass@host:port",
+                dotCalcNameLabel: "Name / tag (optional)",
+                dotCalcNamePlaceholder: "friendly-name (optional)",
+                dotCalcBtnConvert: "Convert",
+                dotCalcBtnClear: "Clear",
+                dotCalcBtnCopy: "Copy",
+                dotCalcBtnCopyed: "Copied",
+                dotCalcResultLabel: "Result",
+                dotCalcErrParse: "Could not parse string. Expected host:port:user:pass or socks5://user:pass@host:port",
+                dotCalcErrCopy: "Failed to copy to clipboard",
+                dotTaskTagline: "Project Board",
+                cardDotTaskTitle: "<span class='c-blue'>dot</span>Task",
+                dotTaskDesc: "Kanban board for project and task management. Real-time collaboration.",
+                dotTaskOpenBtn: "\ud83d\udccb Open",
+                footerLegal: "dotHub Labs &copy; 2026 // Decentralized Services Division",
+                comingSoon: "COMING LATE 2026",
+                cardDotDNDTitle: "<span class='c-gold'>dot</span>D&amp;D",
+                productLockedMsg: "Contact the administrator for access",
+                roadmapLabel: "Roadmap",
+                roadmapTitle: "Our Future",
+                roadmapDesc: "Ideas and projects we plan to release.",
+                statProjects: "Active projects",
+                statUptime: "Server uptime",
+                statCommits: "Commits per year",
+                statNodes: "Server nodes",
+                manifestoQuote: "We don\u2019t just build products \u2014 we build a <em>digital environment</em> where every tool works as part of a single organism. Privacy, speed and freedom are not a compromise, but the standard.",
+                manifestoAttr: "\u2014 dotHub Labs // Philosophy"
+            },
+            KZ: {
+                pageTitle: "dotHub | \u0426\u0438\u0444\u0440\u043b\u044b\u049b \u044d\u043a\u043e\u0436\u04AF\u0439\u0435",
+                metaDescription: "dotHub \u2014 \u0436\u043e\u0431\u0430\u043b\u0430\u0440\u0434\u044b\u0493\u0430 \u0436\u043e\u0431\u0430\u043b\u0430\u0440\u0434\u044b\u0493\u0430 \u044d\u043a\u043e\u0436\u04AF\u0439\u0435\u0441\u0456.",
+                loginTitle: "\u041a\u0456\u0440\u0443:",
+                loginSubtitle: "\u042d\u043a\u043e\u0436\u04AF\u0439\u0435\u0433\u0435 \u043a\u0456\u0440\u0443 \u04af\u0448\u0456\u043d \u043a\u0456\u0440\u0443 \u043a\u0456\u043b\u0442\u0456\u043d \u0435\u043d\u0433\u0456\u0437\u0456\u04a3\u0456\u0437",
+                apiKeyPlaceholder: "\u041a\u0456\u0440\u0443 \u043a\u0456\u043b\u0442\u0456\u043d \u0435\u043d\u0433\u0456\u0437\u0456\u04a3\u0456\u0437",
+                btnCancel: "\u0411\u0430\u0441 \u0442\u0430\u0440\u0442\u0443",
+                btnLogin: "\u041a\u0456\u0440\u0443",
+                navLogin: "ID-\u0433\u0435 \u043a\u0456\u0440\u0443",
+                navTagline: "Digital Nomad",
+                menuProfile: "\u041f\u0440\u043e\u0444\u0438\u043b\u0456\u043c",
+                menuLogout: "\u0428\u044b\u0493\u0443",
+                statusBadge: "dotHub Ecosystem v2.0 \u0411\u0435\u043b\u0441\u0435\u043d\u0434\u0456",
+                heroTitle1: "\u0426\u0438\u0444\u0440\u043b\u044b\u049b",
+                heroTitle2: "\u044d\u043a\u043e\u0436\u04AF\u0439\u0435.",
+                heroDesc: "dotHub \u2014 \u0431\u0456\u0440 \u043f\u043b\u0430\u0442\u0444о\u0440\u043c\u0430\u0493\u0430 \u0431\u0456\u0440\u0456к\u0442\u0456\u0440\u0456\u043b\u0433\u0435\u043d \u0436\u043e\u0431\u0430\u043b\u0430\u0440 \u043c\u0435\u043d \u049b\u04b1\u0440\u0430\u043b\u0434\u0430\u0440 \u0436\u0438\u043d\u0430\u0493\u044b.",
+                projectsLabel: "\u0411\u0456\u0437\u0434\u0456\u04a3 \u0436\u043e\u0431\u0430\u043b\u0430\u0440",
+                projectsSectionTitle: "\u0416\u0430\u04a9\u0430 \u0431\u0443\u044b\u043d<br>\u049b\u04b1\u0440\u0430\u043b\u0434\u0430\u0440\u044b.",
+                projectsSectionDesc: "\u04d8\u0440\u0431\u0456\u0440 \u0436\u043e\u0431\u0430 \u043d\u0430\u049b\u0442\u044b \u043c\u04d9\u0441\u0435\u043b\u0435\u043b\u0435\u0440\u0434\u0456 \u0448\u0435\u1548\u0443\u0433\u0430 \u0430\u0440\u043d\u0430\u043b\u0493\u0430\u043d.",
+                dotRayDesc: "\u0416\u0435\u043b\u0456\u0433\u0435 \u049b\u043e\u0441\u044b\u043b\u0443 \u043c\u0435\u043d \u0436\u0435\u043a\u0435 \u049b\u0430\u0443\u0456\u043f\u0441\u0456\u0437\u0434\u0456\u043a \u04af\u0448\u0456\u043d \u0430\u0440\u043d\u0430\u043b\u0493\u0430\u043d \u0441\u0435\u0440\u0432\u0438\u0441.",
+                btnGet: "\u0410\u043b\u0443",
+                vpnService: "VPN \u049b\u044b\u0437\u043c\u0435\u0442\u0456",
+                cardDotRayTitle: "<span class='c-green'>dot</span>Ray",
+                dotDNDDesc: "\u041e\u043d\u043b\u0430\u0439\u043d \u0436\u04d9\u043d\u0435 \u043e\u0444\u0444\u0430\u0439\u043d D&D \u043f\u0430\u0440\u0442\u0438\u044f\u043b\u0430\u0440 \u04e9\u0442\u043a\u0456\u0437\u0443\u0433\u0435 \u0430\u0440\u043d\u0430\u043b\u0493\u0430\u043d \u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0430.",
+                dotDNDOpenBtn: "\u041f\u0440\u0435\u0437\u0435\u043d\u0442\u0430\u0446\u0438\u044f",
+                dotDNDBetaBtn: "\ud83c\udfb2 \u0411\u0435\u0442\u0430 \u0442\u0435\u0441\u0442",
+                dotDNDTagline: "Tabletop Platform",
+                cardDotCalcTitle: "<span class='c-teal'>dot</span>Calc",
+                dotCalcDesc: "\u041f\u0440\u043e\u043a\u0441\u0438 \u0436\u043e\u043b\u0434\u0430\u0440\u044b\u043d sing-box URI-\u0433\u0435 \u0442\u04af\u0440\u043b\u0435\u043d\u0434\u0456\u0440\u0443.",
+                dotCalcOpenBtn: "\u0410\u0448\u0443",
+                dotCalcTitle: "<span class='c-teal'>dot</span>Calc",
+                dotCalcTagline: "Utility",
+                dotCalcProtocol: "\u041f\u0440\u043e\u0442\u043e\u043a\u043e\u043b",
+                dotCalcProtoAuto: "\u0410\u0432\u0442\u043e",
+                dotCalcProtoSocks5: "SOCKS5",
+                dotCalcProtoHttps: "HTTPS",
+                dotCalcInputLabel: "Proxy string",
+                dotCalcInputPlaceholder: "host:port:user:pass or socks5://user:pass@host:port",
+                dotCalcNameLabel: "Name / tag (optional)",
+                dotCalcNamePlaceholder: "friendly-name (optional)",
+                dotCalcBtnConvert: "\u0422\u04af\u0440\u043b\u0435\u043d\u0434\u0456\u0440\u0443",
+                dotCalcBtnClear: "\u0422\u0430\u0437\u0430",
+                dotCalcBtnCopy: "\u041a\u04e9\u0448\u0456\u0440\u0443",
+                dotCalcBtnCopyed: "\u041a\u04e9\u0448\u0456\u0440\u0456\u043b\u0434\u0456",
+                dotCalcResultLabel: "\u041d\u04d9\u0442\u0438\u0436\u0435",
+                dotCalcErrParse: "\u0421\u0442\u0440\u043e\u043a\u0430\u043d\u044b \u0442\u0430\u043b\u0434\u0430\u0443 \u043c\u04af\u043c\u043a\u0456\u043d \u0431\u043e\u043b\u043c\u0430\u0434\u044b.",
+                dotCalcErrCopy: "\u0411\u0443\u0444\u0435\u0440\u0433\u0435 \u043a\u04e9\u0448\u0456\u0440\u0443 \u043c\u04af\u043c\u043a\u0456\u043d \u0431\u043e\u043b\u043c\u0430\u0434\u044b",
+                dotTaskTagline: "Project Board",
+                cardDotTaskTitle: "<span class='c-blue'>dot</span>Task",
+                dotTaskDesc: "\u0416\u043e\u0431\u0430\u043b\u0430\u0440 \u043c\u0435\u043d \u0442\u0430\u043f\u0441\u044b\u0440\u043c\u0430\u043b\u0430\u0440\u0434\u044b \u0431\u0430\u0441\u049b\u0430\u0440\u0443\u0493\u0430 \u0430\u0440\u043d\u0430\u043b\u0493\u0430\u043d Kanban-\u0442\u0430\u049b\u0442\u0430.",
+                dotTaskOpenBtn: "\ud83d\udccb \u0410\u0448\u0443",
+                footerLegal: "dotHub Labs &copy; 2026 // Decentralized Services Division",
+                comingSoon: "COMING LATE 2026",
+                cardDotDNDTitle: "<span class='c-gold'>dot</span>D&amp;D",
+                productLockedMsg: "\u049a\u043e\u043b\u0436\u0435\u0442\u0456\u043c\u0434\u0456\u043b\u0456\u043a \u04af\u0448\u0456\u043d \u04d9\u043a\u0456\u043c\u0448\u0456\u0433\u0435 \u0445\u0430\u0431\u0430\u0440\u043b\u0430\u0441\u044b\u04a3\u044b\u0437",
+                roadmapLabel: "Roadmap",
+                roadmapTitle: "\u0411\u0456\u0437\u0434\u0456\u04a3 \u0431\u043e\u043b\u0430\u0448\u0430\u049c",
+                roadmapDesc: "\u0411\u0456\u0437 \u0448\u1446\u0493\u0430\u0440\u0443\u0434\u044b \u0436\u043e\u0441\u043f\u0430\u0440\u043b\u0430\u0439\u0442\u044b\u043d \u0438\u0434\u0435\u1548\u043b\u0430\u0440 \u043c\u0435\u043d \u0436\u043e\u0431\u0430\u043b\u0430\u0440.",
+                statProjects: "\u0411\u0435\u043b\u0441\u0435\u043d\u0434\u0456 \u0436\u043e\u0431\u0430\u043b\u0430\u0440",
+                statUptime: "\u0421\u0435\u1548\u0432\u0435\u1548 uptime",
+                statCommits: "\u0416\u044b\u043b\u0434\u044b\u049b commits",
+                statNodes: "\u0421\u0435\u1548\u0432\u0435\u0440 \u0442\u04af\u0439\u0456\u043d\u0434\u0435\u1548\u043b\u0430\u0440",
+                manifestoQuote: "\u0411\u0456\u0437 \u0436\u0430\u0439 \u04e9\u043d\u0456\u043c\u0434\u0435\u0440 \u0436\u0430\u0441\u0430\u0439\u043c\u044b\u0437 \u2014 \u04d9\u0440\u0431\u0456\u0440 \u049b\u04b1\u0440\u0430\u043b \u0431\u0456\u0440\u0442\u04b1\u0442\u0430\u0441 \u043e\u0440\u0433\u0430\u043d\u0438\u0437\u043d\u0456\u04a3 \u0431\u04e9\u043b\u0456\u0433\u0456 \u0440\u0435\u0442\u0456\u043d\u0434\u0435 \u0436\u04b1\u043c\u044b\u0441 \u0456\u0441\u0442\u0435\u0439\u0442\u0456\u043d <em>\u0446\u0438\u0444\u0440\u043b\u044b\u049b \u043e\u0440\u0442\u0430</em> \u049b\u04b1\u0440\u0430\u043c\u044b\u0437.",
+                manifestoAttr: "\u2014 dotHub Labs // Philosophy"
+            }
+        };
+
+        let currentLang = localStorage.getItem('dot_lang') || 'RU';
+
+        /* ========================================
+           INITIALIZATION
+        ======================================== */
+        window.onload = async function() {
+            generateStars();
+            generateShootingStars();
+            generateParticles();
+            initScrollObserver();
+            initNavScroll();
+            initCounters();
+            updateUI();
+            await checkAuth();
+            var ls = document.getElementById('loadingScreen');
+            if (ls) ls.classList.add('fade-out');
+        };
+
+        /* Stars generator */
+        function generateStars() {
+            var container = document.getElementById('starsContainer');
+            for (var i = 0; i < 80; i++) {
+                var star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = (Math.random() * 2 + 1) + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDuration = (Math.random() * 4 + 2) + 's';
+                star.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(star);
+            }
+        }
+
+        /* Shooting stars generator */
+        function generateShootingStars() {
+            var container = document.getElementById('shootingStarsContainer');
+            function launchStar() {
+                var star = document.createElement('div');
+                star.className = 'shooting-star';
+                star.style.top = Math.random() * 50 + '%';
+                star.style.left = Math.random() * 60 + '%';
+                var angle = 25 + Math.random() * 20;
+                star.style.transform = 'rotate(' + angle + 'deg)';
+                var duration = 0.8 + Math.random() * 0.6;
+                star.style.animation = 'shootingStar ' + duration + 's linear forwards';
+                container.appendChild(star);
+                setTimeout(function() { star.remove(); }, duration * 1000 + 200);
+                setTimeout(launchStar, 3000 + Math.random() * 6000);
+            }
+            setTimeout(launchStar, 1000);
+            setTimeout(launchStar, 4000);
+        }
+
+        /* Floating particles generator */
+        function generateParticles() {
+            var container = document.getElementById('particlesContainer');
+            var colors = ['rgba(74,222,128,.3)', 'rgba(34,211,238,.25)', 'rgba(167,139,250,.25)', 'rgba(200,168,78,.2)'];
+            function spawnParticle() {
+                var p = document.createElement('div');
+                p.className = 'particle';
+                p.style.left = Math.random() * 100 + '%';
+                p.style.width = (2 + Math.random() * 3) + 'px';
+                p.style.height = p.style.width;
+                p.style.background = colors[Math.floor(Math.random() * colors.length)];
+                var dur = 8 + Math.random() * 12;
+                p.style.animationDuration = dur + 's';
+                p.style.animationDelay = '0s';
+                container.appendChild(p);
+                setTimeout(function() { p.remove(); }, dur * 1000);
+            }
+            for (var i = 0; i < 15; i++) { setTimeout(spawnParticle, i * 600); }
+            setInterval(function() { if (container.childElementCount < 20) spawnParticle(); }, 1200);
+        }
+
+        /* Animated counters */
+        function initCounters() {
+            var targets = { statProjects: 3, statUptime: 99.9, statCommits: 2400, statNodes: 1 };
+            var animated = {};
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting && !animated[entry.target.id]) {
+                        animated[entry.target.id] = true;
+                        animateCounter(entry.target.id, targets[entry.target.id]);
+                    }
+                });
+            }, { threshold: 0.5 });
+            Object.keys(targets).forEach(function(id) {
+                var el = document.getElementById(id);
+                if (el) observer.observe(el);
+            });
+        }
+        function animateCounter(id, target) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            var isFloat = target % 1 !== 0;
+            var duration = 1800;
+            var start = performance.now();
+            function step(now) {
+                var progress = Math.min((now - start) / duration, 1);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                var val = eased * target;
+                el.textContent = isFloat ? val.toFixed(1) : Math.round(val);
+                if (progress < 1) requestAnimationFrame(step);
+            }
+            requestAnimationFrame(step);
+        }
+
+        /* Scroll observer for card animations */
+        function initScrollObserver() {
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var delay = parseInt(entry.target.dataset.delay || 0);
+                        setTimeout(function() { entry.target.classList.add('visible'); }, delay);
+                    }
+                });
+            }, { threshold: 0.15 });
+            document.querySelectorAll('.project-card, .roadmap-card, .stat-item, .manifesto').forEach(function(card) { observer.observe(card); });
+        }
+
+        /* Sticky nav on scroll */
+        function initNavScroll() {
+            var nav = document.getElementById('mainNav');
+            window.addEventListener('scroll', function() {
+                nav.classList.toggle('scrolled', window.scrollY > 60);
+            });
+        }
+
+        /* ========================================
+           LANGUAGE
+        ======================================== */
+        function toggleLangMenu(e) {
+            e.stopPropagation();
+            document.getElementById('langDropdown').classList.toggle('show');
+            document.getElementById('planetBtn').classList.toggle('active');
+        }
+
+        function setLang(lang) {
+            currentLang = lang;
+            localStorage.setItem('dot_lang', lang);
+            document.getElementById('langDropdown').classList.remove('show');
+            document.getElementById('planetBtn').classList.remove('active');
+            updateUI();
+        }
+
+        function updateUI() {
+            document.querySelectorAll('.lang-option').forEach(function(opt) {
+                opt.classList.remove('selected');
+                if (opt.id === 'opt' + currentLang) opt.classList.add('selected');
+            });
+            var dict = translations[currentLang] || {};
+            if (dict.pageTitle) document.title = dict.pageTitle;
+            try { var md = document.querySelector('meta[name="description"]'); if (md && dict.metaDescription) md.content = dict.metaDescription; } catch (e) {}
+            document.querySelectorAll('[data-lang-key]').forEach(function(el) {
+                var key = el.getAttribute('data-lang-key');
+                if (key && dict[key] !== undefined) el.innerHTML = dict[key];
+            });
+            document.querySelectorAll('[data-lang-placeholder]').forEach(function(el) {
+                var key = el.getAttribute('data-lang-placeholder');
+                if (key && dict[key] !== undefined) el.placeholder = dict[key];
+            });
+        }
+
+        /* ========================================
+           AUTH (Nexus session > legacy key)
+        ======================================== */
+        function _authHeaders() {
+            var s = localStorage.getItem('dot_session');
+            var k = localStorage.getItem('dot_key');
+            if (s) return {'X-Session-Token': s};
+            if (k) return {'X-API-Key': k};
+            return {};
+        }
+
+        async function checkAuth() {
+            var hdr = _authHeaders();
+            var hasAuth = hdr['X-Session-Token'] || hdr['X-API-Key'];
+            document.querySelectorAll('.auth-only').forEach(function(el) { el.style.display = 'none'; });
+            document.querySelectorAll('.vpn-card').forEach(function(el) { el.style.display = 'none'; });
+            if (!hasAuth) return;
+
+            try {
+                var res = await fetch(DOTID + '/me', {headers: hdr});
+                if (res.status === 401) { localStorage.removeItem('dot_session'); return; }
+                if (res.ok) {
+                    var user = await res.json();
+                    document.getElementById('loginBtn').classList.add('hidden');
+                    var profileBtn = document.getElementById('profileBtn');
+                    profileBtn.classList.remove('hidden');
+                    var userDropdown = document.getElementById('userDropdown');
+                    if (userDropdown) userDropdown.style.display = 'none';
+                    document.getElementById('navName').innerText = user.username;
+                    document.querySelectorAll('.auth-only').forEach(function(el) { el.style.display = 'flex'; });
+                    document.querySelectorAll('.vpn-card').forEach(function(el) { el.style.display = 'block'; });
+                    if (user.avatar) document.getElementById('navAvatar').src = user.avatar;
+                }
+            } catch (e) {}
+        }
+
+        function openLogin() {
+            document.getElementById('loginModal').style.display = 'flex';
+            document.getElementById('loginError').style.display = 'none';
+            document.getElementById('keyInput').value = '';
+            setTimeout(function() { document.getElementById('keyInput').focus(); }, 100);
+        }
+        function closeLogin() {
+            document.getElementById('loginModal').style.display = 'none';
+            window._loginRedirect = null;
+        }
+
+        window._loginRedirect = null;
+
+        function getDotRay() {
+            var hasAuth = localStorage.getItem('dot_session') || localStorage.getItem('dot_key');
+            if (hasAuth) {
+                location.href = '/profile#dotray';
+            } else {
+                window._loginRedirect = '/profile#dotray';
+                openLogin();
+            }
+        }
+
+        async function login() {
+            var key = document.getElementById('keyInput').value.trim();
+            var errorEl = document.getElementById('loginError');
+            if (!key) {
+                errorEl.textContent = currentLang === 'EN' ? 'Enter your access key' : (currentLang === 'KZ' ? '\u041a\u0456\u043b\u0442\u0442\u0456 \u0435\u043d\u0433\u0456\u0437\u0456\u04a3\u0456\u0437' : '\u0412\u0432\u0435\u0434\u0438 \u043a\u043b\u044e\u0447 \u0434\u043e\u0441\u0442\u0443\u043f\u0430');
+                errorEl.style.display = 'block';
+                return;
+            }
+            errorEl.style.display = 'none';
+            try {
+                // Nexus login — получаем session token
+                var forceLogin = false;
+                async function doNexusLogin() {
+                    var nxRes = await fetch(DOTID + '/nexus/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ api_key: key, client_type: 'web', force: forceLogin })
+                    });
+                    if (nxRes.status === 401 || nxRes.status === 404) {
+                        errorEl.textContent = currentLang === 'EN' ? 'Invalid key!' : (currentLang === 'KZ' ? '\u041a\u0456\u043b\u0442 \u049b\u0430\u0442\u0435!' : '\u041d\u0435\u0432\u0435\u0440\u043d\u044b\u0439 \u043a\u043b\u044e\u0447!');
+                        errorEl.style.display = 'block';
+                        errorEl.style.color = 'var(--red)';
+                        return null;
+                    }
+                    if (!nxRes.ok) {
+                        errorEl.textContent = currentLang === 'EN' ? 'Server error' : (currentLang === 'KZ' ? 'Сервер қатесі' : 'Ошибка сервера');
+                        errorEl.style.display = 'block';
+                        errorEl.style.color = 'var(--red)';
+                        return null;
+                    }
+                    return await nxRes.json();
+                }
+
+                var nxData = await doNexusLogin();
+                if (!nxData) return;
+
+                // Конфликт — сессия на другом устройстве
+                if (nxData.status === 'conflict') {
+                    var confirmMsg = currentLang === 'EN'
+                        ? 'You are already logged in on another device (' + nxData.existing_ip + '). Log out there and continue here?'
+                        : (currentLang === 'KZ'
+                            ? 'Сіз басқа құрылғыда кіргенсіз (' + nxData.existing_ip + '). Сол жерден шығып, осында жалғастырасыз ба?'
+                            : 'Вы уже авторизованы на другом устройстве (' + nxData.existing_ip + '). Выйти там и продолжить здесь?');
+                    if (confirm(confirmMsg)) {
+                        forceLogin = true;
+                        nxData = await doNexusLogin();
+                        if (!nxData) return;
+                    } else {
+                        return;
+                    }
+                }
+
+                // 2FA required
+                if (nxData.requires_2fa) {
+                    errorEl.textContent = currentLang === 'EN' ? '📱 Check Telegram to confirm login...' : (currentLang === 'KZ' ? '📱 Кіруді Telegram-да растаңыз...' : '📱 Подтвердите вход в Telegram...');
+                    errorEl.style.display = 'block';
+                    errorEl.style.color = 'var(--teal)';
+                    await waitFor2FA(key, errorEl);
+                    return;
+                }
+
+                // Сессия создана — сохраняем
+                if (nxData.session_token) {
+                    localStorage.setItem('dot_session', nxData.session_token);
+                    localStorage.removeItem('dot_key'); // больше не нужен
+                    var redirect = window._loginRedirect;
+                    window._loginRedirect = null;
+                    if (redirect) { location.href = redirect; } else { location.reload(); }
+                } else {
+                    // Fallback — если Nexus отключен на сервере
+                    localStorage.setItem('dot_key', key);
+                    var redirect = window._loginRedirect;
+                    window._loginRedirect = null;
+                    if (redirect) { location.href = redirect; } else { location.reload(); }
+                }
+            } catch (e) {
+                errorEl.textContent = currentLang === 'EN' ? 'Server error' : (currentLang === 'KZ' ? 'Сервер қатесі' : 'Ошибка сервера');
+                errorEl.style.display = 'block';
+                errorEl.style.color = 'var(--red)';
+            }
+        }
+
+        async function waitFor2FA(key, errorEl) {
+            var attempts = 0;
+            var maxAttempts = 60;
+            var errors = 0;
+            var interval = setInterval(async function() {
+                attempts++;
+                try {
+                    // Используем Nexus confirm — сразу получаем session_token при approved
+                    var res = await fetch(DOTID + '/nexus/confirm', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ api_key: key, client_type: 'web' })
+                    });
+                    if (res.status === 429) {
+                        errors++;
+                        if (errors >= 3) {
+                            clearInterval(interval);
+                            errorEl.textContent = currentLang === 'EN' ? '\u26a0\ufe0f Too many requests, try again later' : (currentLang === 'KZ' ? '\u26a0\ufe0f \u0422\u044b\u043c \u043a\u04e9\u043f \u0441\u04b1\u0440\u0430\u0443, \u043a\u0435\u0439\u0456\u043d\u0456\u0440\u0435\u043a \u049b\u0430\u0439\u0442\u0430\u043b\u0430\u04a3\u044b\u0437' : '\u26a0\ufe0f \u0421\u043b\u0438\u0448\u043a\u043e\u043c \u043c\u043d\u043e\u0433\u043e \u0437\u0430\u043f\u0440\u043e\u0441\u043e\u0432, \u043f\u043e\u043f\u0440\u043e\u0431\u0443\u0439 \u043f\u043e\u0437\u0436\u0435');
+                            errorEl.style.color = 'var(--red)';
+                        }
+                        return;
+                    }
+                    errors = 0;
+                    var data = await res.json();
+                    if (data.status === 'approved' && data.session_token) {
+                        clearInterval(interval);
+                        localStorage.setItem('dot_session', data.session_token);
+                        localStorage.removeItem('dot_key');
+                        var redirect = window._loginRedirect;
+                        window._loginRedirect = null;
+                        if (redirect) { location.href = redirect; } else { location.reload(); }
+                    } else if (data.status === 'denied') {
+                        clearInterval(interval);
+                        errorEl.textContent = currentLang === 'EN' ? '\u274c Login denied via Telegram' : (currentLang === 'KZ' ? '\u274c \u041a\u0456\u0440\u0443 Telegram \u0430\u0440\u049b\u044b\u043b\u044b \u049b\u0430\u0431\u044b\u043b\u0434\u0430\u043d\u0431\u0430\u0434\u044b' : '\u274c \u0412\u0445\u043e\u0434 \u043e\u0442\u043a\u043b\u043e\u043d\u0451\u043d \u0447\u0435\u0440\u0435\u0437 Telegram');
+                        errorEl.style.color = 'var(--red)';
+                    }
+                } catch (e) {
+                    errors++;
+                    if (errors >= 5) {
+                        clearInterval(interval);
+                        errorEl.textContent = currentLang === 'EN' ? '\u26a0\ufe0f Connection error' : (currentLang === 'KZ' ? '\u26a0\ufe0f \u0411\u0430\u0439\u043b\u0430\u043d\u044b\u0441 \u049b\u0430\u0442\u0435\u0441\u0456' : '\u26a0\ufe0f \u041e\u0448\u0438\u0431\u043a\u0430 \u0441\u043e\u0435\u0434\u0438\u043d\u0435\u043d\u0438\u044f');
+                        errorEl.style.color = 'var(--red)';
+                    }
+                }
+                if (attempts >= maxAttempts) {
+                    clearInterval(interval);
+                    errorEl.textContent = currentLang === 'EN' ? '⏳ 2FA timeout' : (currentLang === 'KZ' ? '⏳ Уақыт аяқталды' : '⏳ Время ожидания истекло');
+                    errorEl.style.color = 'var(--red)';
+                }
+            }, 2000);
+        }
+
+        function toggleProfileDropdown(e) {
+            e.stopPropagation();
+            var dd = document.getElementById('userDropdown');
+            if (!dd) return;
+            dd.style.display = dd.style.display === 'block' ? 'none' : 'block';
+
+        }
+
+        function logout() {
+            var session = localStorage.getItem('dot_session');
+            if (session) {
+                try { fetch(DOTID + '/nexus/logout', {method: 'POST', headers: {'X-Session-Token': session}}); } catch(e) {}
+            }
+            localStorage.removeItem('dot_session');
+            localStorage.removeItem('dot_key');
+            location.href = '/';
+        }
+
+        /* ========================================
+           DOTCALC MODAL
+        ======================================== */
+        var selectedProto = 'auto';
+
+        function openDotCalcModal() {
+            var md = document.getElementById('dotcalc-modal');
+            md.style.display = 'flex';
+            setTimeout(function() { md.classList.add('dotcalc-visible'); }, 10);
+            try { updateUI(); } catch (e) {}
+            setTimeout(function() { document.getElementById('dotcalc-input').focus(); }, 80);
+        }
+
+        function closeDotCalcModal() {
+            var md = document.getElementById('dotcalc-modal');
+            md.classList.remove('dotcalc-visible');
+            setTimeout(function() { md.style.display = 'none'; }, 260);
+        }
+
+        function clearDotCalc() {
+            document.getElementById('dotcalc-input').value = '';
+            document.getElementById('dotcalc-name').value = '';
+            document.getElementById('dotcalc-result').value = '';
+            document.getElementById('dotcalc-error').style.display = 'none';
+            document.getElementById('dotcalc-copy').disabled = true;
+        }
+
+        function showDotCalcError(msg) {
+            var el = document.getElementById('dotcalc-error');
+            el.textContent = msg;
+            el.style.display = 'block';
+        }
+
+        function parseHostPortUserPass(input) {
+            input = input.trim();
+            if (!input) return null;
+            try {
+                if (input.startsWith('socks5:') || input.startsWith('http:') || input.startsWith('https:')) {
+                    var url = new URL(input);
+                    var scheme = url.protocol.replace(':', '');
+                    var host = url.hostname;
+                    var port = url.port || (scheme === 'https' ? '443' : '80');
+                    var username = decodeURIComponent(url.username || '');
+                    var password = decodeURIComponent(url.password || '');
+                    return { scheme: scheme, host: host, port: port, user: username, pass: password };
+                }
+            } catch (e) {}
+
+            var parts = input.split(':');
+            if (parts.length === 4) {
+                return { scheme: 'socks5', host: parts[0].trim(), port: parts[1].trim(), user: decodeURIComponent(parts[2].trim()), pass: decodeURIComponent(parts[3].trim()) };
+            }
+            return null;
+        }
+
+        function selectProto(e) {
+            var btn = e.currentTarget || e.target;
+            document.querySelectorAll('.proto-btn').forEach(function(b) { b.classList.remove('active'); });
+            btn.classList.add('active');
+            selectedProto = btn.getAttribute('data-proto') || 'auto';
+        }
+
+        function convertDotCalc() {
+            var inp = document.getElementById('dotcalc-input').value;
+            var name = (document.getElementById('dotcalc-name').value || '').trim();
+            document.getElementById('dotcalc-error').style.display = 'none';
+            var parsed = parseHostPortUserPass(inp);
+            if (!parsed) {
+                var dict = translations[currentLang] || {};
+                showDotCalcError(dict.dotCalcErrParse || 'Parse error');
+                var panel = document.querySelector('.modal-panel');
+                if (panel) {
+                    panel.classList.remove('conversion-success');
+                    panel.classList.add('conversion-error');
+                    setTimeout(function() { panel.classList.remove('conversion-error'); }, 600);
+                }
+                return;
+            }
+
+            var userPart = parsed.user ? encodeURIComponent(parsed.user) : '';
+            var passPart = parsed.pass ? encodeURIComponent(parsed.pass) : '';
+            var auth = userPart || passPart ? userPart + ':' + passPart + '@' : '';
+            var scheme = selectedProto === 'auto' ? (parsed.scheme || 'socks5') : selectedProto;
+            var tag = name ? '#' + encodeURIComponent(name) : '';
+            var uri = scheme + '://' + auth + parsed.host + ':' + parsed.port + tag;
+            document.getElementById('dotcalc-result').value = uri;
+            document.getElementById('dotcalc-copy').disabled = false;
+
+            var panel2 = document.querySelector('.modal-panel');
+            if (panel2) {
+                panel2.classList.remove('conversion-error');
+                panel2.classList.add('conversion-success');
+                setTimeout(function() { panel2.classList.remove('conversion-success'); }, 800);
+            }
+        }
+
+        async function copyDotCalc() {
+            var text = document.getElementById('dotcalc-result').value;
+            if (!text) return;
+            try {
+                await navigator.clipboard.writeText(text);
+                var btn = document.getElementById('dotcalc-copy');
+                var old = btn.textContent;
+                btn.textContent = (translations[currentLang] || {}).dotCalcBtnCopyed || 'Copied';
+                setTimeout(function() { btn.textContent = old; }, 1500);
+            } catch (e) {
+                var dict = translations[currentLang] || {};
+                showDotCalcError(dict.dotCalcErrCopy || 'Copy failed');
+            }
+        }
+
+        window.onclick = function(e) {
+            var dropdown = document.getElementById('langDropdown');
+            var btn = document.getElementById('planetBtn');
+            if (dropdown && dropdown.classList.contains('show')) {
+                if (!btn.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.classList.remove('show');
+                    btn.classList.remove('active');
+                }
+            }
+            if (document.getElementById('userDropdown')) document.getElementById('userDropdown').style.display = 'none';
+        };
+
+    </script>
+</body>
+</html>

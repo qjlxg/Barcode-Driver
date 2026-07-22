@@ -1,0 +1,1399 @@
+
+
+<!doctype html>
+<html dir="rtl" lang="fa-IR">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<!-- Mobile Specific Metas & Favicons -->
+<meta name="viewport" content="width=1200" /><link rel="shortcut icon" href="https://mapnadigital.com/wp-content/uploads/2022/10/mapna-icon.png"><link rel="apple-touch-icon" href="https://mapnadigital.com/wp-content/uploads/2022/10/mapna-icon.png">	<!-- Countdown Shortcode -->
+	
+<!-- WordPress Stuff -->
+<meta name='robots' content='index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1' />
+
+	<!-- This site is optimized with the Yoast SEO plugin v25.2 - https://yoast.com/wordpress/plugins/seo/ -->
+	<title>خانه - MAPNA Digital</title>
+	<meta name="description" content="راهکار هوشمند اینترنت اشیا و اینترنت اشیاء صنعتی.خدمات هوش مصنوعی تحلیل آنلاین داده ها و گزارش های پایش وضعیت. راهکار ارتباط انسان و ماشین HMI" />
+	<link rel="canonical" href="https://mapnadigital.com/" />
+	<meta property="og:locale" content="fa_IR" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="خانه - MAPNA Digital" />
+	<meta property="og:description" content="راهکار هوشمند اینترنت اشیا و اینترنت اشیاء صنعتی.خدمات هوش مصنوعی تحلیل آنلاین داده ها و گزارش های پایش وضعیت. راهکار ارتباط انسان و ماشین HMI" />
+	<meta property="og:url" content="https://mapnadigital.com/" />
+	<meta property="og:site_name" content="MAPNA Digital" />
+	<meta property="article:modified_time" content="2025-08-05T05:15:58+00:00" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<script type="application/ld+json" class="yoast-schema-graph">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://mapnadigital.com/","url":"https://mapnadigital.com/","name":"خانه - MAPNA Digital","isPartOf":{"@id":"https://mapnadigital.com/#website"},"about":{"@id":"https://mapnadigital.com/#organization"},"datePublished":"2013-01-06T09:13:15+00:00","dateModified":"2025-08-05T05:15:58+00:00","description":"راهکار هوشمند اینترنت اشیا و اینترنت اشیاء صنعتی.خدمات هوش مصنوعی تحلیل آنلاین داده ها و گزارش های پایش وضعیت. راهکار ارتباط انسان و ماشین HMI","breadcrumb":{"@id":"https://mapnadigital.com/#breadcrumb"},"inLanguage":"fa-IR","potentialAction":[{"@type":"ReadAction","target":["https://mapnadigital.com/"]}]},{"@type":"BreadcrumbList","@id":"https://mapnadigital.com/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"خانه"}]},{"@type":"WebSite","@id":"https://mapnadigital.com/#website","url":"https://mapnadigital.com/","name":"MAPNA Digital","description":"توسعه فناوری‌های دیجیتال مپنا","publisher":{"@id":"https://mapnadigital.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://mapnadigital.com/?s={search_term_string}"},"query-input":{"@type":"PropertyValueSpecification","valueRequired":true,"valueName":"search_term_string"}}],"inLanguage":"fa-IR"},{"@type":"Organization","@id":"https://mapnadigital.com/#organization","name":"MAPNA Digital","url":"https://mapnadigital.com/","logo":{"@type":"ImageObject","inLanguage":"fa-IR","@id":"https://mapnadigital.com/#/schema/logo/image/","url":"http://mapnadigital.com/wp-content/uploads/2022/10/MapnaMind-Logo-1.png","contentUrl":"http://mapnadigital.com/wp-content/uploads/2022/10/MapnaMind-Logo-1.png","width":400,"height":58,"caption":"MAPNA Digital"},"image":{"@id":"https://mapnadigital.com/#/schema/logo/image/"},"sameAs":["https://www.linkedin.com/in/mapnamind/","https://www.instagram.com/mapna_digital"]}]}</script>
+	<!-- / Yoast SEO plugin. -->
+
+
+<link rel="alternate" type="application/rss+xml" title="MAPNA Digital &raquo; خوراک" href="https://mapnadigital.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="MAPNA Digital &raquo; خوراک دیدگاه‌ها" href="https://mapnadigital.com/comments/feed/" />
+<link rel="alternate" title="oEmbed (JSON)" type="application/json+oembed" href="https://mapnadigital.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmapnadigital.com%2F" />
+<link rel="alternate" title="oEmbed (XML)" type="text/xml+oembed" href="https://mapnadigital.com/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fmapnadigital.com%2F&#038;format=xml" />
+<style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<link rel='stylesheet' id='wpa-css-css' href='https://mapnadigital.com/wp-content/plugins/wp-attachments/styles/0/wpa.css?ver=7.0.2' media='all' />
+<link rel='stylesheet' id='gs-swiper-css' href='https://mapnadigital.com/wp-content/plugins/gs-logo-slider/assets/libs/swiper-js/swiper.min.css?ver=3.7.4' media='all' />
+<link rel='stylesheet' id='gs-tippyjs-css' href='https://mapnadigital.com/wp-content/plugins/gs-logo-slider/assets/libs/tippyjs/tippy.css?ver=3.7.4' media='all' />
+<link rel='stylesheet' id='gs-logo-public-css' href='https://mapnadigital.com/wp-content/plugins/gs-logo-slider/assets/css/gs-logo.min.css?ver=3.7.4' media='all' />
+<style id="gs-logo-public-inline-css">
+#gs_logo_area_1:not(.verticaltickerdown):not(.verticalticker) .gs_logo_container{margin-left:-5px}#gs_logo_area_1:not(.verticaltickerdown):not(.verticalticker) .gs_logo_container{margin-right:-5px}#gs_logo_area_1:not(.verticaltickerdown):not(.verticalticker) .gs_logo_single--wrapper{padding:5px}#gs_logo_area_1 ul.gs-logo-filter-cats{text-align:center!important}#gs_logo_area_1 .gs_logo_single--wrapper{width:16.666666666667%}@media (max-width:1023px){#gs_logo_area_1 .gs_logo_single--wrapper{width:33.333333333333%}}@media (max-width:767px){#gs_logo_area_1 .gs_logo_single--wrapper{width:50%}}
+/*# sourceURL=gs-logo-public-inline-css */
+</style>
+<style id="wp-emoji-styles-inline-css">
+
+	img.wp-smiley, img.emoji {
+		display: inline !important;
+		border: none !important;
+		box-shadow: none !important;
+		height: 1em !important;
+		width: 1em !important;
+		margin: 0 0.07em !important;
+		vertical-align: -0.1em !important;
+		background: none !important;
+		padding: 0 !important;
+	}
+/*# sourceURL=wp-emoji-styles-inline-css */
+</style>
+<style id="wp-block-library-inline-css">
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style*=border-color]){border-style:solid}html :where([style*=border-top-color]){border-top-style:solid}html :where([style*=border-right-color]){border-right-style:solid}html :where([style*=border-bottom-color]){border-bottom-style:solid}html :where([style*=border-left-color]){border-left-style:solid}html :where([style*=border-width]){border-style:solid}html :where([style*=border-top-width]){border-top-style:solid}html :where([style*=border-right-width]){border-right-style:solid}html :where([style*=border-bottom-width]){border-bottom-style:solid}html :where([style*=border-left-width]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+
+/*# sourceURL=/wp-includes/css/dist/block-library/common.min.css */
+</style>
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<link rel='stylesheet' id='contact-form-7-css' href='https://mapnadigital.com/wp-content/plugins/contact-form-7/includes/css/styles.css?ver=6.0.6' media='all' />
+<style id="contact-form-7-inline-css">
+.wpcf7 .wpcf7-recaptcha iframe {margin-bottom: 0;}.wpcf7 .wpcf7-recaptcha[data-align="center"] > div {margin: 0 auto;}.wpcf7 .wpcf7-recaptcha[data-align="right"] > div {margin: 0 0 0 auto;}
+/*# sourceURL=contact-form-7-inline-css */
+</style>
+<link rel='stylesheet' id='contact-form-7-rtl-css' href='https://mapnadigital.com/wp-content/plugins/contact-form-7/includes/css/styles-rtl.css?ver=6.0.6' media='all' />
+<link rel='stylesheet' id='image-hover-effects-css-css' href='https://mapnadigital.com/wp-content/plugins/mega-addons-for-visual-composer/css/ihover.css?ver=7.0.2' media='all' />
+<link rel='stylesheet' id='style-css-css' href='https://mapnadigital.com/wp-content/plugins/mega-addons-for-visual-composer/css/style.css?ver=7.0.2' media='all' />
+<link rel='stylesheet' id='font-awesome-latest-css' href='https://mapnadigital.com/wp-content/plugins/mega-addons-for-visual-composer/css/font-awesome/css/all.css?ver=7.0.2' media='all' />
+<link rel='stylesheet' id='nd_options_style-css' href='https://mapnadigital.com/wp-content/plugins/nd-shortcodes/css/style.css?ver=7.0.2' media='all' />
+<link rel='stylesheet' id='font-awesome-css' href='https://mapnadigital.com/wp-content/plugins/post-carousel/public/assets/css/font-awesome.min.css?ver=3.0.6' media='all' />
+<link rel='stylesheet' id='pcp_swiper-css' href='https://mapnadigital.com/wp-content/plugins/post-carousel/public/assets/css/swiper-bundle.min.css?ver=3.0.6' media='all' />
+<link rel='stylesheet' id='pcp_fonttello_icon-css' href='https://mapnadigital.com/wp-content/plugins/post-carousel/admin/assets/css/fontello.min.css?ver=3.0.6' media='all' />
+<link rel='stylesheet' id='pcp-style-css' href='https://mapnadigital.com/wp-content/plugins/post-carousel/public/assets/css/style.min.css?ver=3.0.6' media='all' />
+<style id="pcp-style-inline-css">
+#pcp_wrapper-16835:not(.sps-glossary-layout) .sp-pcp-row,#pcp_wrapper-16835 .sps-glossary-items-group .sps-glossary-items-content {margin-right: -10px;margin-left: -10px;}#pcp_wrapper-16835 .sp-pcp-row [class*='sp-pcp-col-']{padding-right: 10px;padding-left: 10px; padding-bottom:20px;}.pcp-wrapper-16835 .sp-pcp-title a {color: #111;display: inherit;} .pcp-wrapper-16835 .sp-pcp-title a:hover {color: #2575a7;}#pcp_wrapper-16835 .dots .swiper-pagination-bullet{ background: #cccccc; } #pcp_wrapper-16835 .dots .swiper-pagination-bullet-active { background: #D64224; }#pcp_wrapper-16835 .pcp-button-prev,#pcp_wrapper-16835 .pcp-button-next{ background-image: none; background-size: auto; background-color: #fff; height: 33px; width: 33px; margin-top: 8px; border: 1px solid #aaa; text-align: center; line-height: 30px; -webkit-transition: 0.3s; border-radius: 3px; }#pcp_wrapper-16835 .pcp-button-prev:hover, #pcp_wrapper-16835 .pcp-button-next:hover{ background-color: #D64224; border-color: #D64224; } #pcp_wrapper-16835 .pcp-button-prev .fa, #pcp_wrapper-16835 .pcp-button-next .fa { color: #aaa; } #pcp_wrapper-16835 .pcp-button-prev:hover .fa, #pcp_wrapper-16835 .pcp-button-next:hover .fa { color: #fff; } #pcp_wrapper-16835.pcp-carousel-wrapper .sp-pcp-post{ margin-top: 0; }#pcp_wrapper-16835 .sp-pcp-post {padding: 0 0 0 0;}#pcp_wrapper-16835.sp-slider_layout .sp-pcp-post .sp-pcp-post-details {top: 0; right:0; bottom:0; left:0;}#pcp_wrapper-16835 .sp-pcp-post {border: 0px solid #e2e2e2; border-radius: px }#pcp_wrapper-16835 .sp-pcp-post{background-color: transparent;}#pcp_wrapper-16835 .pcp-post-thumb-wrapper{border: 0px solid #dddddd;border-radius:0px;}.pcp-wrapper-16835 .sp-pcp-post-meta li,.pcp-wrapper-16835 .sp-pcp-post-meta ul,.pcp-wrapper-16835 .sp-pcp-post-meta li a{color: #888;}.pcp-wrapper-16835 .sp-pcp-post-meta li a:hover{color: #2575a7;}#pcp_wrapper-16835 .pcp-readmore-link{ background: transparent; color: #2575a7; border: 1px solid #2575a7; border-radius: 0px; } #pcp_wrapper-16835 .pcp-readmore-link:hover { background-color: #2575a7; color: #fff; border-color: #2575a7; }#pcp_wrapper-16835 .pcp-post-pagination .page-numbers.current, #pcp_wrapper-16835 .pcp-post-pagination a.active , #pcp_wrapper-16835 .pcp-post-pagination a:hover{ color: #ffffff; background: #e1624b; border-color: #e1624b; }#pcp_wrapper-16835 .pcp-post-pagination .page-numbers, .pcp-post-pagination a{ background: #ffffff; color:#5e5e5e; border: 2px solid #bbbbbb;border-radius: 2px; }#pcp_wrapper-16835 .pcp-post-pagination{text-align: left;}@media (min-width: 1200px) {.sp-pcp-row .sp-pcp-col-xl-1 {flex: 0 0 100%;}.sp-pcp-row .sp-pcp-col-xl-2 {flex: 1 1 calc( 50% - 20px);}.sp-pcp-row .sp-pcp-col-xl-3 {flex: 1 1 calc( 33.333% - 20px);}.sp-pcp-row .sp-pcp-col-xl-4 {flex: 1 1 calc( 25% - 20px);}.sp-pcp-row .sp-pcp-col-xl-5 { flex: 1 1 calc( 20% - 20px);}.sp-pcp-row .sp-pcp-col-xl-6 {flex: 1 1 calc( 16.66666666666667% - 20px);}.sp-pcp-row .sp-pcp-col-xl-7 {flex: 1 1 calc( 14.28571428% - 20px);}.sp-pcp-row .sp-pcp-col-xl-8 {flex: 1 1 calc( 12.5% - 20px);}}@media (max-width: 1200px) {.sp-pcp-row .sp-pcp-col-lg-1 {flex: 0 0 100%;}.sp-pcp-row .sp-pcp-col-lg-2 {flex: 1 1 calc( 50% - 20px);}.sp-pcp-row .sp-pcp-col-lg-3 {flex: 1 1 calc( 33.333% - 20px);}.sp-pcp-row .sp-pcp-col-lg-4 {flex: 1 1 calc( 25% - 20px);}.sp-pcp-row .sp-pcp-col-lg-5 { flex: 1 1 calc( 20% - 20px);}.sp-pcp-row .sp-pcp-col-lg-6 {flex: 1 1 calc( 16.66666666666667% - 20px);}.sp-pcp-row .sp-pcp-col-lg-7 {flex: 1 1 calc( 14.28571428% - 20px);}.sp-pcp-row .sp-pcp-col-lg-8 {flex: 1 1 calc( 12.5% - 20px);}}@media (max-width: 992px) {.sp-pcp-row .sp-pcp-col-md-1 {flex: 0 0 100%;}.sp-pcp-row .sp-pcp-col-md-2 {flex: 1 1 calc( 50% - 20px);}.sp-pcp-row .sp-pcp-col-md-2-5 {flex: 0 0 75%;}.sp-pcp-row .sp-pcp-col-md-3 {flex: 1 1 calc( 33.333% - 20px);}.sp-pcp-row .sp-pcp-col-md-4 {flex: 1 1 calc( 25% - 20px);}.sp-pcp-row .sp-pcp-col-md-5 { flex: 1 1 calc( 20% - 20px);}.sp-pcp-row .sp-pcp-col-md-6 {flex: 1 1 calc( 16.66666666666667% - 20px);}.sp-pcp-row .sp-pcp-col-md-7 {flex: 1 1 calc( 14.28571428% - 20px);}.sp-pcp-row .sp-pcp-col-md-8 {flex: 1 1 calc( 12.5% - 20px);}}@media (max-width: 768px) {.sp-pcp-row .sp-pcp-col-sm-1 {flex: 0 0 100%;}.sp-pcp-row .sp-pcp-col-sm-2 {flex: 1 1 calc( 50% - 20px);}.sp-pcp-row .sp-pcp-col-sm-2-5 {flex: 0 0 75%;}.sp-pcp-row .sp-pcp-col-sm-3 {flex: 1 1 calc( 33.333% - 20px);}.sp-pcp-row .sp-pcp-col-sm-4 {flex: 1 1 calc( 25% - 20px);}.sp-pcp-row .sp-pcp-col-sm-5 { flex: 1 1 calc( 20% - 20px);}.sp-pcp-row .sp-pcp-col-sm-6 {flex: 1 1 calc( 16.66666666666667% - 20px);}.sp-pcp-row .sp-pcp-col-sm-7 {flex: 1 1 calc( 14.28571428% - 20px);}.sp-pcp-row .sp-pcp-col-sm-8 {flex: 1 1 calc( 12.5% - 20px);}}@media (max-width: 420px) {.sp-pcp-row .sp-pcp-col-xs-1 {flex: 0 0 100%;}.sp-pcp-row .sp-pcp-col-xs-2 {flex: 1 1 calc( 50% - 20px);}.sp-pcp-row .sp-pcp-col-xs-3 {flex: 1 1 calc( 33.333% - 20px);}.sp-pcp-row .sp-pcp-col-xs-4 {flex: 1 1 calc( 25% - 20px);}.sp-pcp-row .sp-pcp-col-xs-5 { flex: 1 1 calc( 20% - 20px);}.sp-pcp-row .sp-pcp-col-xs-6 {flex: 1 1 calc( 16.66666666666667% - 20px);}.sp-pcp-row .sp-pcp-col-xs-7 {flex: 1 1 calc( 14.28571428% - 20px);}.sp-pcp-row .sp-pcp-col-xs-8 {flex: 1 1 calc( 12.5% - 20px);}}
+/*# sourceURL=pcp-style-inline-css */
+</style>
+<link rel='stylesheet' id='gpls-wpsctr-simple-countdown-timer-front-flipdown-css-css' href='https://mapnadigital.com/wp-content/plugins/simple-countdown/assets/libs/flipdown.min.css?ver=1.0.3' media='all' />
+<link rel='stylesheet' id='stylesheet-css' href='https://mapnadigital.com/wp-content/themes/unicon/style.css?ver=1' media='all' />
+<link rel='stylesheet' id='js_composer_front-css' href='https://mapnadigital.com/wp-content/plugins/js_composer/assets/css/js_composer.min.css?ver=6.6.0' media='all' />
+<link rel='stylesheet' id='shortcodes-css' href='https://mapnadigital.com/wp-content/themes/unicon/framework/css/shortcodes.css?ver=7.0.2' media='all' />
+<link rel='stylesheet' id='responsive-css' href='https://mapnadigital.com/wp-content/themes/unicon/framework/css/responsive.css?ver=7.0.2' media='all' />
+<script id="jquery-core-js" src="https://mapnadigital.com/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"></script>
+<script id="jquery-migrate-js" src="https://mapnadigital.com/wp-includes/js/jquery/jquery-migrate.min.js?ver=3.4.1"></script>
+<script async id="tp-tools-js" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/js/rbtools.min.js?ver=6.7.29"></script>
+<script async id="revmin-js" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/js/rs6.min.js?ver=6.7.32"></script>
+<link rel="https://api.w.org/" href="https://mapnadigital.com/wp-json/" /><link rel="alternate" title="JSON" type="application/json" href="https://mapnadigital.com/wp-json/wp/v2/pages/419" /><link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://mapnadigital.com/xmlrpc.php?rsd" />
+<link rel="stylesheet" href="https://mapnadigital.com/wp-content/themes/unicon/rtl.css" media="screen" /><meta name="generator" content="WordPress 7.0.2" />
+<link rel='shortlink' href='https://mapnadigital.com/' />
+<!-- Analytics by WP Statistics - https://wp-statistics.com -->
+<style type="text/css">
+body{font:400 16px iranyekan,Arial,Helvetica,sans-serif;color:#777777;line-height:1.9;}.wrapall,.boxed-layout{background-color:#f6f6f6;}body.page-template-page-blank-php{background:#f6f6f6 !important;}h1,.title-h1{font:700 28px iranyekan,Arial,Helvetica,sans-serif;color:#1c1c1c;}h2{font:700 24px iranyekan,Arial,Helvetica,sans-serif;color:#1c1c1c;}h3{font:700 20px iranyekan,Arial,Helvetica,sans-serif;color:#1c1c1c;}h4{font:700 16px iranyekan,Arial,Helvetica,sans-serif;color:#1c1c1c;}h5{font:700 16px iranyekan,Arial,Helvetica,sans-serif;color:#1c1c1c;}h6{font:700 16px iranyekan,Arial,Helvetica,sans-serif;color:#1c1c1c;}.title{font-family:'iranyekan',Arial,Helvetica,sans-serif;}h1 a,h2 a,h3 a,h4 a,h5 a,h6 a{font-weight:inherit;color:inherit;}h1 a:hover,h2 a:hover,h3 a:hover,h4 a:hover,h5 a:hover,h6 a:hover,a:hover h1,a:hover h2,a:hover h3,a:hover h4,a:hover h5,a:hover h6{color:#333333;}a{color:#2d8fcd;}a:hover{color:#333333;}input[type='text'],input[type='password'],input[type='email'],input[type='tel'],input[type='date'],input[type='number'],textarea,select{font-family:iranyekan,Arial,Helvetica,sans-serif;font-size:16px;}#sidebar .widget h3{font:14px iranyekan,Arial,Helvetica,sans-serif;color:#444444;}.container .twelve.alt.sidebar-right,.container .twelve.alt.sidebar-left,#sidebar.sidebar-right #sidebar-widgets,#sidebar.sidebar-left #sidebar-widgets{border-color:#efefef;}#topbar{background:#f5f5f5;color:#777777;}#topbar a{color:#999999;}#topbar a:hover{color:#333333;}@media only screen and (max-width:767px){#topbar .topbar-col1{background:#f5f5f5;}} #navigation > ul > li > a{font:400 13px iranyekan,Arial,Helvetica,sans-serif;color:#777777;}#navigation > ul > li:hover > a,#navigation > ul > li > a:hover{color:#1cbac8;}#navigation li.current-menu-item > a:hover,#navigation li.current-page-ancestor > a:hover,#navigation li.current-menu-ancestor > a:hover,#navigation li.current-menu-parent > a:hover,#navigation li.current_page_ancestor > a:hover,#navigation > ul > li.sfHover > a{color:#1cbac8;}#navigation li.current-menu-item > a,#navigation li.current-page-ancestor > a,#navigation li.current-menu-ancestor > a,#navigation li.current-menu-parent > a,#navigation li.current_page_ancestor > a{color:#1cbac8;}#navigation ul li:hover{border-color:#1cbac8;}#navigation li.current-menu-item,#navigation li.current-page-ancestor,#navigation li.current-menu-ancestor,#navigation li.current-menu-parent,#navigation li.current_page_ancestor{border-color:#1cbac8;}#navigation .sub-menu{background:#666666;}#navigation .sub-menu li a{font:13px iranyekan,Arial,Helvetica,sans-serif;color:#bbbbbb;}#navigation .sub-menu li a:hover{color:#ffffff;}#navigation .sub-menu li.current_page_item > a,#navigation .sub-menu li.current_page_item > a:hover,#navigation .sub-menu li.current-menu-item > a,#navigation .sub-menu li.current-menu-item > a:hover,#navigation .sub-menu li.current-page-ancestor > a,#navigation .sub-menu li.current-page-ancestor > a:hover,#navigation .sub-menu li.current-menu-ancestor > a,#navigation .sub-menu li.current-menu-ancestor > a:hover,#navigation .sub-menu li.current-menu-parent > a,#navigation .sub-menu li.current-menu-parent > a:hover,#navigation .sub-menu li.current_page_ancestor > a,#navigation .sub-menu li.current_page_ancestor > a:hover{color:#ffffff;}#navigation .sub-menu li a,#navigation .sub-menu ul li a{border-color:#333333;}#navigation > ul > li.megamenu > ul.sub-menu{background:#666666;border-color:#1cbac8;}#navigation > ul > li.megamenu > ul > li{border-right-color:#333333 !important;}#navigation > ul > li.megamenu ul li a{color:#bbbbbb;}#navigation > ul > li.megamenu > ul > li > a{color:#ffffff;}#navigation > ul > li.megamenu > ul ul li a:hover,#header #navigation > ul > li.megamenu > ul ul li.current-menu-item a{color:#ffffff !important;background-color:#333333 !important;} #search-btn,#shopping-btn,#close-search-btn{color:#bbbbbb;}#search-btn:hover,#shopping-btn:hover,#close-search-btn:hover{color:#999999;}#slogan{font:400 20px Open Sans,Arial,Helvetica,sans-serif;color:#777777;margin-top:26px;} #mobile-navigation{background:#666666;}#mobile-navigation ul li a{font:13px iranyekan,Arial,Helvetica,sans-serif;color:#bbbbbb;border-bottom-color:#333333 !important;}#mobile-navigation ul li a:hover,#mobile-navigation ul li a:hover [class^='fa-'],#mobile-navigation li.open > a,#mobile-navigation ul li.current-menu-item > a,#mobile-navigation ul li.current-menu-ancestor > a{color:#ffffff;}body #mobile-navigation li.open > a [class^='fa-']{color:#ffffff;}#mobile-navigation form,#mobile-navigation form input{background:#444444;color:#cccccc;}#mobile-navigation form:before{color:#cccccc;}#mobile-header{background:#ffffff;height:100px;}#mobile-navigation-btn,#mobile-cart-btn,#mobile-shopping-btn{color:#bbbbbb;line-height:100px;}#mobile-navigation-btn:hover,#mobile-cart-btn:hover,#mobile-shopping-btn:hover{color:#999999;}#mobile-header .logo{margin-top:0;} #header.header-v1{height:100px;background:#ffffff;}.header-v1 .logo{margin-top:0;}.header-v1 #navigation > ul > li{height:100px;padding-top:40px;}.header-v1 #navigation .sub-menu{top:100px;}.header-v1 .header-icons-divider{line-height:100px;background:#efefef;}#header.header-v1 .widget_shopping_cart{top:100px;}.header-v1 #search-btn,.header-v1 #close-search-btn,.header-v1 #shopping-btn{line-height:100px;}.header-v1 #search-top,.header-v1 #search-top input{height:100px;}.header-v1 #search-top input{color:#666666;font-family:iranyekan,Arial,Helvetica,sans-serif;} #header.header-v3{background:#ffffff;}.header-v3 .navigation-wrap{background:#ffffff;border-top:1px solid #efefef;}.header-v3 .logo{margin-top:30px;margin-bottom:30px;} #header.header-v4{background:#ffffff;}.header-v4 .navigation-wrap{background:#ffffff;border-top:1px solid #efefef;}.header-v4 .logo{margin-top:30px;margin-bottom:30px;} #transparentimage{padding:100px 0 0 0;}.header-is-transparent #mobile-navigation{top:100px;} .stuck{background:#ffffff;} .titlebar h1,.title-h1{font:22px iranyekan,Arial,Helvetica,sans-serif;color:#777777;}#fulltitle{background:#f9f9f9;border-bottom:1px solid #efefef;}#breadcrumbs{margin-top:6px;}#breadcrumbs,#breadcrumbs a{font:13px iranyekan,Arial,Helvetica,sans-serif;color:#aaaaaa;}#breadcrumbs a:hover{color:#666666;}#fullimagecenter h1,#transparentimage h1,#fullimagecenter .title-h1,#transparentimage .title-h1{font:42px iranyekan,Arial,Helvetica,sans-serif;color:#ffffff;text-transform:uppercase;letter-spacing:1px;text-align:center;} #footer .widget h3{font:13px iranyekan,Arial,Helvetica,sans-serif;color:#ffffff;}#footer{color:#888888;border-top:4px none #1cbac8;}#footer{background-color:#091d2a;}#footer a,#footer .widget ul li:after{color:#888888;}#footer a:hover,#footer .widget ul li:hover:after{color:#ffffff;}#footer .widget ul li{border-bottom-color:#333333;} #copyright{background:#05121a;color:#777777;}#copyright a{color:#999999;}#copyright a:hover{color:#cccccc;} .highlight{color:#1c1c1c !important;}::selection{background:#1c1c1c;}::-moz-selection{background:#1c1c1c;}#shopping-btn span{background:#1c1c1c;}.blog-page .post h1 a:hover,.blog-page .post h2 a:hover{color:#1c1c1c;}.entry-image .entry-overlay{background:#1c1c1c;}.entry-quote a:hover{background:#1c1c1c;}.entry-link a:hover{background:#1c1c1c;}.blog-single .entry-tags a:hover{color:#1c1c1c;}.sharebox ul li a:hover{color:#1c1c1c;}.commentlist li.bypostauthor .comment-text{border-color:#1c1c1c;}#pagination .current a{background:#1c1c1c;}#filters ul li a:hover{color:#1c1c1c;}#filters ul li a.active{color:#1c1c1c;}#back-to-top a:hover{background-color:#1c1c1c;}#sidebar .widget ul li a:hover{color:#1c1c1c;}#sidebar .widget ul li:hover:after{color:#1c1c1c;}.widget_tag_cloud a:hover,.widget_product_tag_cloud a:hover{background:#1c1c1c;border-color:#1c1c1c;}.widget_portfolio .portfolio-widget-item .portfolio-overlay{background:#1c1c1c;}#sidebar .widget_nav_menu ul li a:hover{color:#1c1c1c;}#footer .widget_tag_cloud a:hover,#footer .widget_product_tag_cloud a:hover{background:#1c1c1c;border-color:#1c1c1c;} .box.style-2{border-top-color:#1c1c1c;}.box.style-4{border-color:#1c1c1c;}.box.style-6{background:#1c1c1c;}a.button,input[type=submit],button,.minti_button{background:#1c1c1c;border-color:#1c1c1c;}a.button.color-2{color:#1c1c1c;border-color:#1c1c1c;}a.button.color-3{background:#1c1c1c;border-color:#1c1c1c;}a.button.color-9{color:#1c1c1c;}a.button.color-6:hover{background:#1c1c1c;border-color:#1c1c1c;}a.button.color-7:hover{background:#1c1c1c;border-color:#1c1c1c;}.counter-number{color:#1c1c1c;}.divider-title.align-center:after,.divider-title.align-left:after{background-color:#1c1c1c}.divider5{border-bottom-color:#1c1c1c;}.dropcap.dropcap-circle{background-color:#1c1c1c;}.dropcap.dropcap-box{background-color:#1c1c1c;}.dropcap.dropcap-color{color:#1c1c1c;}.toggle .toggle-title.active,.color-light .toggle .toggle-title.active{background:#1c1c1c;border-color:#1c1c1c;}.iconbox-style-1.icon-color-accent i.boxicon,.iconbox-style-2.icon-color-accent i.boxicon,.iconbox-style-3.icon-color-accent i.boxicon,.iconbox-style-8.icon-color-accent i.boxicon,.iconbox-style-9.icon-color-accent i.boxicon{color:#1c1c1c!important;}.iconbox-style-4.icon-color-accent i.boxicon,.iconbox-style-5.icon-color-accent i.boxicon,.iconbox-style-6.icon-color-accent i.boxicon,.iconbox-style-7.icon-color-accent i.boxicon,.flip .icon-color-accent.card .back{background:#1c1c1c;}.latest-blog .blog-item .blog-overlay{background:#1c1c1c;}.latest-blog .blog-item .blog-pic i{color:#1c1c1c;}.latest-blog .blog-item h4 a:hover{color:#1c1c1c;}.progressbar .progress-percentage{background:#1c1c1c;}.wpb_widgetised_column .widget ul li a:hover{color:#1c1c1c;}.wpb_widgetised_column .widget ul li:hover:after{color:#1c1c1c;}.wpb_accordion .wpb_accordion_wrapper .ui-state-active .ui-icon{background-color:#1c1c1c;}.wpb_accordion .wpb_accordion_wrapper .ui-state-active.wpb_accordion_header a{color:#1c1c1c;}.wpb_accordion .wpb_accordion_wrapper .wpb_accordion_header a:hover,.wpb_accordion .wpb_accordion_wrapper .wpb_accordion_header a:hover .ui-state-default .ui-icon{color:#1c1c1c;}.wpb_accordion .wpb_accordion_wrapper .wpb_accordion_header:hover .ui-icon{background-color:#1c1c1c!important;}.wpb_content_element.wpb_tabs .wpb_tabs_nav li.ui-tabs-active{border-bottom-color:#1c1c1c;}.portfolio-item h4 a:hover{color:#1c1c1c;}.portfolio-filters ul li a:hover{color:#1c1c1c;}.portfolio-filters ul li a.active{color:#1c1c1c;}.portfolio-overlay-icon .portfolio-overlay{background:#1c1c1c;}.portfolio-overlay-icon i{color:#1c1c1c;}.portfolio-overlay-effect .portfolio-overlay{background:#1c1c1c;}.portfolio-overlay-name .portfolio-overlay{background:#1c1c1c;}.portfolio-detail-attributes ul li a:hover{color:#1c1c1c;}a.catimage:hover .catimage-text{background:#1c1c1c;} .products li h3{font:400 16px iranyekan,Arial,Helvetica,sans-serif;color:#777777;}.woocommerce .button.checkout-button{background:#1c1c1c;border-color:#1c1c1c;}.woocommerce .products .onsale{background:#1c1c1c;}.product .onsale{background:#1c1c1c;}button.single_add_to_cart_button:hover{background:#1c1c1c;}.woocommerce-tabs > ul > li.active a{color:#1c1c1c;border-bottom-color:#1c1c1c;}p.stars a:hover{background:#1c1c1c;}p.stars a.active,p.stars a.active:after{background:#1c1c1c;}.product_list_widget a{color:#1c1c1c;}.woocommerce .widget_layered_nav li.chosen a{color:#1c1c1c!important;}.woocommerce .widget_product_categories > ul > li.current-cat > a{color:#1c1c1c!important;}.woocommerce .widget_product_categories > ul > li.current-cat:after{color:#1c1c1c!important;}.woocommerce-message{background:#1c1c1c;}.bbp-topics-front ul.super-sticky .bbp-topic-title:before,.bbp-topics ul.super-sticky .bbp-topic-title:before,.bbp-topics ul.sticky .bbp-topic-title:before,.bbp-forum-content ul.sticky .bbp-topic-title:before{color:#1c1c1c!important;}#subscription-toggle a:hover{background:#1c1c1c;}.bbp-pagination-links span.current{background:#1c1c1c;}div.wpcf7-mail-sent-ok,div.wpcf7-mail-sent-ng,div.wpcf7-spam-blocked,div.wpcf7-validation-errors{background:#1c1c1c;}.wpcf7-not-valid{border-color:#1c1c1c !important;}.products .button.add_to_cart_button{color:#1c1c1c!important;}.minti_list.color-accent li:before{color:#1c1c1c!important;}.blogslider_text .post-categories li a{background-color:#1c1c1c;}.minti_zooming_slider .flex-control-nav li .minti_zooming_slider_ghost{background-color:#1c1c1c;}.minti_carousel.pagination_numbers .owl-dots .owl-dot.active{background-color:#1c1c1c;}.wpb_content_element.wpb_tour .wpb_tabs_nav li.ui-tabs-active,.color-light .wpb_content_element.wpb_tour .wpb_tabs_nav li.ui-tabs-active{background-color:#1c1c1c;}.masonry_icon i{color:#1c1c1c;}.woocommerce-MyAccount-navigation-link.is-active a{color:#2d8fcd;} .font-special,.button,.counter-title,h6,.wpb_accordion .wpb_accordion_wrapper .wpb_accordion_header a,.pricing-plan .pricing-plan-head h3,a.catimage,.divider-title,button,input[type='submit'],input[type='reset'],input[type='button'],.vc_pie_chart h4,.page-404 h3,.minti_masonrygrid_item h4{font-family:'iranyekan',Arial,Helvetica,sans-serif;}.ui-helper-reset{line-height:1.9;} .header{width :100vw !important;}.countdown16721{direction:ltr;position:fixed;top:142px;left:25px;z-index:10000;background-color:#e5e5f7;opacity:0.8;background-image:linear-gradient(30deg,#d8d5d3 12%,transparent 12.5%,transparent 87%,#d8d5d3 87.5%,#d8d5d3),linear-gradient(150deg,#d8d5d3 12%,transparent 12.5%,transparent 87%,#d8d5d3 87.5%,#d8d5d3),linear-gradient(30deg,#d8d5d3 12%,transparent 12.5%,transparent 87%,#d8d5d3 87.5%,#d8d5d3),linear-gradient(150deg,#d8d5d3 12%,transparent 12.5%,transparent 87%,#d8d5d3 87.5%,#d8d5d3),linear-gradient(60deg,#d8d5d377 25%,transparent 25.5%,transparent 75%,#d8d5d377 75%,#d8d5d377),linear-gradient(60deg,#d8d5d377 25%,transparent 25.5%,transparent 75%,#d8d5d377 75%,#d8d5d377);background-size:20px 35px;background-position:0 0,0 0,10px 18px,10px 18px,0 0,10px 18px;}.countdown16721 .countDownTitle{letter-spacing:2px;font-size:40px;}.social-icons ul li a{display:flex !important;align-items:center !important;}.aparat-icon{background:url(http://mapnadigital.com/wp-content/uploads/2024/01/icons8-aparat.png) bottom;height:32px;width:32px;background-size:cover;}.mp-shadow-card{box-shadow:4px 8px 16px 0 rgba(34,34,34,0.16);}.mp-radius-card{border-radius:12px;}.mp-bg-gradient-fill{background:var(--Color-Gradient,linear-gradient(90deg,#E33492 0,#2D8FCD 100%));}.mp-bg-gradient-stroke{border:3px solid var(--Color-Gradient,#E33492);}.mp-text-title-english{color:var(--color-blue-lighter-abd-4-ed,#ABD4ED); font-family:IRANYekanFN;font-size:30px;font-style:normal;font-weight:700;line-height:120%;}.mp-text-title-persian{color:var(--Color_Blue-primary,#2D8FCD); font-family:IRANYekanFN;font-size:30px;font-style:normal;font-weight:700;line-height:120%;}.mp-default-padding{padding-top:16px;padding-right:24PX;padding-bottom:16px;padding-left:24px;}.iconbox-content{margin-left :5px !important;}.flipdown-size-sm .rotor-group-heading{padding-bottom:8px;color:#fdfdfd;font-size:20px;height:20px;line-height:20px;}.flipdown.flipdown__theme-dark .rotor-leaf-front{background-color :#58A8DA;color:#fdfdfd;}.flipdown.flipdown__theme-dark .rotor-bottom{background-color :#58A8DA;color:#fdfdfd;}.flipdown.flipdown__theme-dark .rotor:after{border-top:solid 1px #58A8DA;}.flipdown.flipdown__theme-dark .rotor-top{color:#ffffff;background-color :#ABD4ED;}.flipdown.flipdown__theme-dark .rotor-leaf-rear{color:#ffffff;background-color :#ABD4ED;}.#header.header-transparent.darkheader.header-v1{background-color :#ffffff !important;}.mp-background-left{background-position:left !important;background-repeat:no-repeat !important;background-size:auto !important;}.h-100{height:100%}.w-100{width:100%}.mp-default-color{color:var(--Color_Blue-primary,#2D8FCD);}.mp-gap-24{gap:24px;display:flex;}.mp-bg-blue-light{background-color:rgb(213,233,246,0.5)}#navigation > ul > li > a{font-size:15px !important;}.mp-bg-info{background-color:#2d8fcd;color:#FFF !important;border-radius:12px;}.mp-bg-info h2{color:#FFF !important;}img{border-radius:12px;}.logo{max-width:260px;}}.m-t-45{margin-top:-45px !important;}.swiper-slide-bg .swiper-slide{box-shadow:4px 8px 16px 0 rgba(34,34,34,0.16);background:#FFFF !important;padding:12px !important;border-radius:8px !important;}@media only screen and (max-width:959px){#header,.sticky-wrapper{display:none;}#mobile-header{display:inherit}}
+</style><meta name="generator" content="Powered by WPBakery Page Builder - drag and drop page builder for WordPress."/>
+<meta name="generator" content="Powered by Slider Revolution 6.7.32 - responsive, Mobile-Friendly Slider Plugin for WordPress with comfortable drag and drop interface." />
+<link rel="icon" href="https://mapnadigital.com/wp-content/uploads/2022/10/cropped-mind_board__5_-removebg-preview-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://mapnadigital.com/wp-content/uploads/2022/10/cropped-mind_board__5_-removebg-preview-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://mapnadigital.com/wp-content/uploads/2022/10/cropped-mind_board__5_-removebg-preview-180x180.png" />
+<meta name="msapplication-TileImage" content="https://mapnadigital.com/wp-content/uploads/2022/10/cropped-mind_board__5_-removebg-preview-270x270.png" />
+<script>function setREVStartSize(e){
+			//window.requestAnimationFrame(function() {
+				window.RSIW = window.RSIW===undefined ? window.innerWidth : window.RSIW;
+				window.RSIH = window.RSIH===undefined ? window.innerHeight : window.RSIH;
+				try {
+					var pw = document.getElementById(e.c).parentNode.offsetWidth,
+						newh;
+					pw = pw===0 || isNaN(pw) || (e.l=="fullwidth" || e.layout=="fullwidth") ? window.RSIW : pw;
+					e.tabw = e.tabw===undefined ? 0 : parseInt(e.tabw);
+					e.thumbw = e.thumbw===undefined ? 0 : parseInt(e.thumbw);
+					e.tabh = e.tabh===undefined ? 0 : parseInt(e.tabh);
+					e.thumbh = e.thumbh===undefined ? 0 : parseInt(e.thumbh);
+					e.tabhide = e.tabhide===undefined ? 0 : parseInt(e.tabhide);
+					e.thumbhide = e.thumbhide===undefined ? 0 : parseInt(e.thumbhide);
+					e.mh = e.mh===undefined || e.mh=="" || e.mh==="auto" ? 0 : parseInt(e.mh,0);
+					if(e.layout==="fullscreen" || e.l==="fullscreen")
+						newh = Math.max(e.mh,window.RSIH);
+					else{
+						e.gw = Array.isArray(e.gw) ? e.gw : [e.gw];
+						for (var i in e.rl) if (e.gw[i]===undefined || e.gw[i]===0) e.gw[i] = e.gw[i-1];
+						e.gh = e.el===undefined || e.el==="" || (Array.isArray(e.el) && e.el.length==0)? e.gh : e.el;
+						e.gh = Array.isArray(e.gh) ? e.gh : [e.gh];
+						for (var i in e.rl) if (e.gh[i]===undefined || e.gh[i]===0) e.gh[i] = e.gh[i-1];
+											
+						var nl = new Array(e.rl.length),
+							ix = 0,
+							sl;
+						e.tabw = e.tabhide>=pw ? 0 : e.tabw;
+						e.thumbw = e.thumbhide>=pw ? 0 : e.thumbw;
+						e.tabh = e.tabhide>=pw ? 0 : e.tabh;
+						e.thumbh = e.thumbhide>=pw ? 0 : e.thumbh;
+						for (var i in e.rl) nl[i] = e.rl[i]<window.RSIW ? 0 : e.rl[i];
+						sl = nl[0];
+						for (var i in nl) if (sl>nl[i] && nl[i]>0) { sl = nl[i]; ix=i;}
+						var m = pw>(e.gw[ix]+e.tabw+e.thumbw) ? 1 : (pw-(e.tabw+e.thumbw)) / (e.gw[ix]);
+						newh =  (e.gh[ix] * m) + (e.tabh + e.thumbh);
+					}
+					var el = document.getElementById(e.c);
+					if (el!==null && el) el.style.height = newh+"px";
+					el = document.getElementById(e.c+"_wrapper");
+					if (el!==null && el) {
+						el.style.height = newh+"px";
+						el.style.display = "block";
+					}
+				} catch(e){
+					console.log("Failure at Presize of Slider:" + e)
+				}
+			//});
+		  };</script>
+<style type="text/css" data-type="vc_shortcodes-custom-css">.vc_custom_1754370855972{border-radius: 10px !important;}.vc_custom_1754370832880{border-radius: 10px !important;}.vc_custom_1754370860904{border-radius: 10px !important;}</style><noscript><style> .wpb_animate_when_almost_visible { opacity: 1; }</style></noscript>	
+
+<link rel='stylesheet' id='rs-plugin-settings-css' href='//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/css/rs6.css?ver=6.7.32' media='all' />
+<style id="rs-plugin-settings-inline-css">
+		#rev_slider_1_1_wrapper .erinyen.tparrows{cursor:pointer; background:rgba(0,0,0,0.5); min-width:70px; min-height:70px; position:absolute; display:block; z-index:1000; border-radius:50%}#rev_slider_1_1_wrapper .erinyen.tparrows:before{font-family:'revicons'; font-size:20px; color:#ffffff; display:block; line-height:70px; text-align:center;   z-index:2; position:relative}#rev_slider_1_1_wrapper .erinyen.tparrows.tp-leftarrow:before{content:'\e824'}#rev_slider_1_1_wrapper .erinyen.tparrows.tp-rightarrow:before{content:'\e825'}#rev_slider_1_1_wrapper .erinyen .tp-title-wrap{position:absolute; z-index:1; display:inline-block; background:rgba(0,0,0,0.5); min-height:70px; line-height:70px; top:0px; margin-left:0px; border-radius:35px; overflow:hidden;  transition:opacity 0.3s; -webkit-transition:opacity 0.3s; -moz-transition:opacity 0.3s; -webkit-transform:scale(0); -moz-transform:scale(0); transform:scale(0);  visibility:hidden; opacity:0}#rev_slider_1_1_wrapper .erinyen.tparrows.rs-touchhover .tp-title-wrap{-webkit-transform:scale(1); -moz-transform:scale(1); transform:scale(1); opacity:1; visibility:visible}#rev_slider_1_1_wrapper .erinyen.tp-rightarrow .tp-title-wrap{right:0px;  margin-right:0px;margin-left:0px;  -webkit-transform-origin:100% 50%; border-radius:35px; padding-right:20px; padding-left:10px}#rev_slider_1_1_wrapper .erinyen.tp-leftarrow .tp-title-wrap{padding-left:20px; padding-right:10px}#rev_slider_1_1_wrapper .erinyen .tp-arr-titleholder{letter-spacing:3px;  position:relative; -webkit-transition:-webkit-transform 0.3s; transition:transform 0.3s; transform:translatex(200px);  text-transform:uppercase; color:#ffffff; font-weight:600; font-size:13px; line-height:70px; white-space:nowrap; padding:0px 20px; margin-left:11px; opacity:0}#rev_slider_1_1_wrapper .erinyen .tp-arr-imgholder{width:100%; height:100%; position:absolute; top:0px; left:0px; background-position:center center; background-size:cover}#rev_slider_1_1_wrapper .erinyen .tp-arr-img-over{width:100%; height:100%; position:absolute; top:0px; left:0px;  background:rgba(0,0,0,0.51)}#rev_slider_1_1_wrapper .erinyen.tp-rightarrow .tp-arr-titleholder{transform:translatex(-200px);  margin-left:0px; margin-right:11px}#rev_slider_1_1_wrapper .erinyen.tparrows.rs-touchhover .tp-arr-titleholder{transform:translatex(0px);  -webkit-transform:translatex(0px); transition-delay:0.1s; opacity:1}#rev_slider_1_1_wrapper .uranus .tp-bullet{border-radius:50%; box-shadow:0 0 0 2px rgba(255,255,255,0); -webkit-transition:box-shadow 0.3s ease; transition:box-shadow 0.3s ease; background:transparent; width:15px; height:15px}#rev_slider_1_1_wrapper .uranus .tp-bullet.selected,#rev_slider_1_1_wrapper .uranus .tp-bullet.rs-touchhover{box-shadow:0 0 0 2px rgba(255,255,255,1); border:none; border-radius:50%; background:transparent}#rev_slider_1_1_wrapper .uranus .tp-bullet-inner{-webkit-transition:background-color 0.3s ease,-webkit-transform 0.3s ease; transition:background-color 0.3s ease,transform 0.3s ease; top:0; left:0; width:100%; height:100%; outline:none; border-radius:50%; background-color:rgba(255,255,255,0); background-color:rgba(255,255,255,0.3); text-indent:-999em; cursor:pointer; position:absolute}#rev_slider_1_1_wrapper .uranus .tp-bullet.selected .tp-bullet-inner,#rev_slider_1_1_wrapper .uranus .tp-bullet.rs-touchhover .tp-bullet-inner{transform:scale(0.4); -webkit-transform:scale(0.4); background-color:rgba(255,255,255,1)}
+		#rev_slider_1_1_wrapper rs-loader.spinner2{background-color:#ffffff !important}
+/*# sourceURL=rs-plugin-settings-inline-css */
+</style>
+
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TD7PR4HR2X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TD7PR4HR2X');
+</script>
+<body class="rtl home wp-singular page-template-default page page-id-419 page-parent wp-theme-unicon smooth-scroll header-is-transparent  wpb-js-composer js-comp-ver-6.6.0 vc_responsive" itemscope itemtype="https://schema.org/WebPage">
+		<div class="site-wrapper wrapall">
+
+	
+<header id="header" class="header header-v1 header-v1-only clearfix header-transparent darkheader">
+		
+	<div class="container">
+	
+		<div id="logo-navigation" class="sixteen columns">
+			
+			<div id="logo" class="logo">
+									<a href="https://mapnadigital.com/"><img src="https://mapnadigital.com/wp-content/uploads/2025/07/MAPNA-DIGITAL-2.png" alt="MAPNA Digital" class="logo_standard" /></a>
+					<a href="https://mapnadigital.com/"><img src="https://mapnadigital.com/wp-content/uploads/2025/07/MAPNA-DIGITAL-2.png" alt="MAPNA Digital" class="logo_transparent" /></a>					<a href="https://mapnadigital.com/"><img src="https://mapnadigital.com/wp-content/uploads/2025/07/MAPNA-DIGITAL-2.png" width="230" height="102" alt="MAPNA Digital" class="logo_retina" /></a>					<a href="https://mapnadigital.com/"><img src="https://mapnadigital.com/wp-content/uploads/2025/07/MAPNA-DIGITAL-2.png" width="230" height="102" alt="MAPNA Digital" class="logo_retina_transparent" /></a>							</div>
+
+			<div id="navigation" class="clearfix">			
+				<div class="header-icons">
+												
+								</div>	
+
+				<ul id="nav" class="menu"><li id="menu-item-10147" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-419 current_page_item menu-item-10147"><a href="https://mapnadigital.com/" aria-current="page">خانه</a></li>
+<li id="menu-item-16176" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16176"><a href="#">خدمات</a>
+<ul class="sub-menu">
+	<li id="menu-item-16052" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16052"><a href="https://mapnadigital.com/mind-board/">MIND Board</a></li>
+	<li id="menu-item-16007" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16007"><a href="https://mapnadigital.com/%d9%85%d9%be%d9%86%d8%a7-%d9%85%d8%a7%db%8c%d9%86%d8%af-%da%86%db%8c%d8%b3%d8%aa/">مپنا مایند چیست؟</a></li>
+	<li id="menu-item-16078" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16078"><a href="https://mapnadigital.com/mind-studio/">Mind Studio</a></li>
+	<li id="menu-item-16085" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16085"><a href="https://mapnadigital.com/mindx/">MindX</a></li>
+	<li id="menu-item-16122" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16122"><a href="#">MINDA</a>
+	<ul class="sub-menu">
+		<li id="menu-item-16120" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16120"><a href="https://mapnadigital.com/%d9%85%d8%b9%d8%b1%d9%81%db%8c-%d8%aa%d8%ac%d9%87%db%8c%d8%b2%d8%a7%d8%aa-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af-%d9%85%d9%be%d9%86%d8%a7%d9%85%d8%a7%db%8c%d9%86%d8%af-minda/">معرفی تجهیزات هوشمند مپنامایند MINDA</a></li>
+		<li id="menu-item-16124" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16124"><a href="https://mapnadigital.com/%d9%85%d8%b9%d8%b1%d9%81%db%8c-%d8%aa%d8%ac%d9%87%db%8c%d8%b2%d8%a7%d8%aa-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af-%d9%85%d9%be%d9%86%d8%a7%d9%85%d8%a7%db%8c%d9%86%d8%af-minda/%d9%87%d8%a7%d8%a8-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/">هاب هوشمند</a></li>
+		<li id="menu-item-16138" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16138"><a href="https://mapnadigital.com/%da%a9%d9%84%db%8c%d8%af-%d9%84%d9%85%d8%b3%db%8c-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/">کلید لمسی هوشمند</a></li>
+		<li id="menu-item-16142" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16142"><a href="https://mapnadigital.com/%da%a9%d9%84%db%8c%d8%af-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af-%d9%84%d9%85%d8%b3%db%8c-%da%a9%d9%88%d9%84%d8%b1/">کلید هوشمند لمسی کولر</a></li>
+		<li id="menu-item-16146" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16146"><a href="https://mapnadigital.com/%d9%be%d8%b1%db%8c%d8%b2-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/">پریز هوشمند</a></li>
+		<li id="menu-item-16150" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16150"><a href="https://mapnadigital.com/%d9%84%d8%a7%d9%85%d9%be-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af-rgb/">لامپ هوشمند RGB</a></li>
+		<li id="menu-item-16155" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16155"><a href="https://mapnadigital.com/%d8%b3%d9%86%d8%b3%d9%88%d8%b1-%d8%af%d9%85%d8%a7-%d9%88-%d8%b1%d8%b7%d9%88%d8%a8%d8%aa-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/">سنسور دما و رطوبت هوشمند</a></li>
+		<li id="menu-item-16162" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16162"><a href="https://mapnadigital.com/%d8%b3%d9%86%d8%b3%d9%88%d8%b1-%d8%aa%d8%b4%d8%ae%db%8c%d8%b5-%d8%ad%d8%b1%da%a9%d8%aa-motion-sensor/">سنسور تشخیص حرکت (Motion sensor)</a></li>
+		<li id="menu-item-16166" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16166"><a href="https://mapnadigital.com/%d9%be%d8%b1%d8%af%d9%87-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/">پرده هوشمند</a></li>
+		<li id="menu-item-16170" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16170"><a href="https://mapnadigital.com/%d8%a2%db%8c%d9%86%d9%87-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/">آینه هوشمند</a></li>
+		<li id="menu-item-16174" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16174"><a href="https://mapnadigital.com/%da%af%d9%84%d8%ae%d8%a7%d9%86%d9%87-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/">گلخانه هوشمند</a></li>
+	</ul>
+</li>
+	<li id="menu-item-16257" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16257"><a href="#">Mind Apps</a>
+	<ul class="sub-menu">
+		<li id="menu-item-16408" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16408"><a href="#">نیروگاه های حرارتی</a>
+		<ul class="sub-menu">
+			<li id="menu-item-16398" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16398"><a href="#">راهکارهای سیستم های کنترلی</a>
+			<ul class="sub-menu">
+				<li id="menu-item-16272" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16272"><a href="https://mapnadigital.com/clpa-control-loop-performance-analysis-kpi/">CLPA (Control Loop Performance Analysis – KPI)</a></li>
+				<li id="menu-item-16283" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16283"><a href="https://mapnadigital.com/cla-control-loop-analysis-tuning/">CLA (Control Loop Analysis – Tuning)</a></li>
+			</ul>
+</li>
+			<li id="menu-item-16395" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16395"><a href="#">راهکارهای مبتنی بر الگوریتم های هوشمند</a>
+			<ul class="sub-menu">
+				<li id="menu-item-16331" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16331"><a href="https://mapnadigital.com/%d8%b3%d9%86%d8%b3%d9%88%d8%b1-%d9%86%d8%b1%d9%85-%d8%ac%d8%a7%d9%85%d8%b9-oss-oracle-soft-sensor/">سنسور نرم جامع – OSS (Oracle Soft Sensor)</a></li>
+				<li id="menu-item-16273" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16273"><a href="https://mapnadigital.com/%d8%b3%db%8c%d8%b3%d8%aa%d9%85-%d9%be%d8%a7%db%8c%d8%b4-%d9%88%d8%b6%d8%b9%db%8c%d8%aa-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af-icms/">سیستم پایش وضعیت هوشمند ICMS</a></li>
+			</ul>
+</li>
+			<li id="menu-item-16400" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16400"><a href="#">راهکارهای بهبود عملکرد</a>
+			<ul class="sub-menu">
+				<li id="menu-item-16323" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16323"><a href="https://mapnadigital.com/%d9%be%d8%a7%db%8c%d8%b4-%d8%b1%d9%88%d9%86%d8%af-%d8%aa%d8%ba%db%8c%db%8c%d8%b1%d8%a7%d8%aa-trend-monitoring/">پایش روند تغییرات (Trend Monitoring )</a></li>
+				<li id="menu-item-16289" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16289"><a href="https://mapnadigital.com/%d8%b1%d8%a7%d9%87%da%a9%d8%a7%d8%b1-%d8%a8%d9%87%d8%a8%d9%88%d8%af-%d8%b9%d9%85%d9%84%da%a9%d8%b1%d8%af-pis/">راهکار بهبود عملکرد – PIS</a></li>
+			</ul>
+</li>
+			<li id="menu-item-16294" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16294"><a href="https://mapnadigital.com/%d8%b1%d8%a7%d9%87%da%a9%d8%a7%d8%b1-%d9%be%d8%a7%db%8c%d8%b4-%d9%88%d8%b6%d8%b9%db%8c%d8%aa-%d8%a7%d8%b1%d8%aa%d8%b9%d8%a7%d8%b4%d8%a7%d8%aa-vibro-expert/">راهکار پایش وضعیت ارتعاشات – Vibro Expert</a></li>
+			<li id="menu-item-16405" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16405"><a href="#">راهکار پایش وضعیت قدرت</a>
+			<ul class="sub-menu">
+				<li id="menu-item-16299" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16299"><a href="https://mapnadigital.com/%d9%be%d8%a7%db%8c%d8%b4-%d9%88%d8%b6%d8%b9%db%8c%d8%aa-%da%98%d9%86%d8%b1%d8%a7%d8%aa%d9%88%d8%b1%d9%87%d8%a7%db%8c-%d9%82%d8%af%d8%b1%d8%aa/">پایش وضعیت ژنراتورهای قدرت</a></li>
+				<li id="menu-item-16303" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16303"><a href="https://mapnadigital.com/%d9%be%d8%a7%db%8c%d8%b4-%d9%88%d8%b6%d8%b9%db%8c%d8%aa-%d8%aa%d8%b1%d8%a7%d9%86%d8%b3%d9%81%d9%88%d8%b1%d9%85%d8%a7%d8%aa%d9%88%d8%b1-%d9%87%d8%a7%db%8c-%d9%82%d8%af%d8%b1%d8%aa/">پایش وضعیت ترانسفورماتور های قدرت</a></li>
+			</ul>
+</li>
+			<li id="menu-item-16307" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16307"><a href="https://mapnadigital.com/%d9%be%d8%a7%db%8c%d8%b4-%d9%88%d8%b6%d8%b9%db%8c%d8%aa-%d8%af%d8%b3%d8%aa%d8%b1%d8%b3%e2%80%8c%d9%be%d8%b0%db%8c%d8%b1%db%8c%d8%8c-%d9%82%d8%a7%d8%a8%d9%84%db%8c%d8%aa%e2%80%8c%d8%a7%d8%b7%d9%85/">راهکارهای ارزیابی و بهبود قابلیت اطمینان و دسترس‌پذیری</a></li>
+			<li id="menu-item-16319" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16319"><a href="https://mapnadigital.com/%d8%ab%d8%a8%d8%aa-%d8%af%d8%a7%d8%af%d9%87%e2%80%8c%d9%87%d8%a7%db%8c-%d8%ae%d8%b1%d8%a7%d8%a8%db%8c-%d9%88-%d8%aa%d8%b9%d9%85%db%8c%d8%b1%d8%a7%d8%aa-log-sheet/">ثبت داده‌های خرابی و تعمیرات (Event Log)</a></li>
+		</ul>
+</li>
+		<li id="menu-item-16411" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16411"><a href="#">نیروگاه های تجدید پذیر</a>
+		<ul class="sub-menu">
+			<li id="menu-item-16342" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16342"><a href="https://mapnadigital.com/%d8%b1%d8%a7%d9%87%da%a9%d8%a7%d8%b1-%d8%ac%d8%a7%d9%85%d8%b9-%d8%ac%d9%87%d8%aa-%d9%be%d8%a7%db%8c%d8%b4-%d9%88%d8%b6%d8%b9%db%8c%d8%aa-%d8%aa%d9%88%d8%b1%d8%a8%db%8c%d9%86%c2%ac%d9%87%d8%a7%db%8c/">راهکار جامع جهت پایش وضعیت توربین های بادی – WINDCARE</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+</ul>
+</li>
+<li id="menu-item-16189" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16189"><a href="https://mapnadigital.com/shortcodes/latest-projects-posts/">محصولات</a></li>
+<li id="menu-item-16009" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16009"><a href="https://mapnadigital.com/%d8%a7%d8%ae%d8%a8%d8%a7%d8%b1/">اخبار</a></li>
+<li id="menu-item-10214" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10214"><a href="https://mapnadigital.com/pages/about-us-basic/">درباره ما</a></li>
+<li id="menu-item-10217" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10217"><a href="https://mapnadigital.com/pages/contact-3/">تماس با ما</a></li>
+</ul>			</div>
+			
+		</div>
+		
+		
+			
+
+	</div>	
+	
+</header>
+
+<div id="mobile-header" class="mobile-header-v1">
+	<div class="container">
+		<div class="sixteen columns">
+			<div id="mobile-logo" class="logo">
+									<a href="https://mapnadigital.com/"><img src="https://mapnadigital.com/wp-content/uploads/2025/07/MAPNA-DIGITAL-2.png" alt="MAPNA Digital" class="logo_standard" /></a>
+					<a href="https://mapnadigital.com/"><img src="https://mapnadigital.com/wp-content/uploads/2025/07/MAPNA-DIGITAL-2.png" width="230" height="102" alt="MAPNA Digital" class="logo_retina" /></a>							</div>
+			<a href="#" id="mobile-navigation-btn"><i class="fa fa-bars"></i></a>
+					</div>
+	</div>
+</div>
+
+<div id="mobile-navigation">
+	<div class="container">
+		<div class="sixteen columns">
+			<div class="menu-mega-menu-container"><ul id="mobile-nav" class="menu"><li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-home current-menu-item page_item page-item-419 current_page_item menu-item-10147"><a href="https://mapnadigital.com/" aria-current="page">خانه</a></li>
+<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16176"><a href="#">خدمات</a>
+<ul class="sub-menu">
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16052"><a href="https://mapnadigital.com/mind-board/">MIND Board</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16007"><a href="https://mapnadigital.com/%d9%85%d9%be%d9%86%d8%a7-%d9%85%d8%a7%db%8c%d9%86%d8%af-%da%86%db%8c%d8%b3%d8%aa/">مپنا مایند چیست؟</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16078"><a href="https://mapnadigital.com/mind-studio/">Mind Studio</a></li>
+	<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16085"><a href="https://mapnadigital.com/mindx/">MindX</a></li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16122"><a href="#">MINDA</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16120"><a href="https://mapnadigital.com/%d9%85%d8%b9%d8%b1%d9%81%db%8c-%d8%aa%d8%ac%d9%87%db%8c%d8%b2%d8%a7%d8%aa-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af-%d9%85%d9%be%d9%86%d8%a7%d9%85%d8%a7%db%8c%d9%86%d8%af-minda/">معرفی تجهیزات هوشمند مپنامایند MINDA</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16124"><a href="https://mapnadigital.com/%d9%85%d8%b9%d8%b1%d9%81%db%8c-%d8%aa%d8%ac%d9%87%db%8c%d8%b2%d8%a7%d8%aa-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af-%d9%85%d9%be%d9%86%d8%a7%d9%85%d8%a7%db%8c%d9%86%d8%af-minda/%d9%87%d8%a7%d8%a8-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/">هاب هوشمند</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16138"><a href="https://mapnadigital.com/%da%a9%d9%84%db%8c%d8%af-%d9%84%d9%85%d8%b3%db%8c-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/">کلید لمسی هوشمند</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16142"><a href="https://mapnadigital.com/%da%a9%d9%84%db%8c%d8%af-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af-%d9%84%d9%85%d8%b3%db%8c-%da%a9%d9%88%d9%84%d8%b1/">کلید هوشمند لمسی کولر</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16146"><a href="https://mapnadigital.com/%d9%be%d8%b1%db%8c%d8%b2-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/">پریز هوشمند</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16150"><a href="https://mapnadigital.com/%d9%84%d8%a7%d9%85%d9%be-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af-rgb/">لامپ هوشمند RGB</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16155"><a href="https://mapnadigital.com/%d8%b3%d9%86%d8%b3%d9%88%d8%b1-%d8%af%d9%85%d8%a7-%d9%88-%d8%b1%d8%b7%d9%88%d8%a8%d8%aa-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/">سنسور دما و رطوبت هوشمند</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16162"><a href="https://mapnadigital.com/%d8%b3%d9%86%d8%b3%d9%88%d8%b1-%d8%aa%d8%b4%d8%ae%db%8c%d8%b5-%d8%ad%d8%b1%da%a9%d8%aa-motion-sensor/">سنسور تشخیص حرکت (Motion sensor)</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16166"><a href="https://mapnadigital.com/%d9%be%d8%b1%d8%af%d9%87-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/">پرده هوشمند</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16170"><a href="https://mapnadigital.com/%d8%a2%db%8c%d9%86%d9%87-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/">آینه هوشمند</a></li>
+		<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16174"><a href="https://mapnadigital.com/%da%af%d9%84%d8%ae%d8%a7%d9%86%d9%87-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/">گلخانه هوشمند</a></li>
+	</ul>
+</li>
+	<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16257"><a href="#">Mind Apps</a>
+	<ul class="sub-menu">
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16408"><a href="#">نیروگاه های حرارتی</a>
+		<ul class="sub-menu">
+			<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16398"><a href="#">راهکارهای سیستم های کنترلی</a>
+			<ul class="sub-menu">
+				<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16272"><a href="https://mapnadigital.com/clpa-control-loop-performance-analysis-kpi/">CLPA (Control Loop Performance Analysis – KPI)</a></li>
+				<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16283"><a href="https://mapnadigital.com/cla-control-loop-analysis-tuning/">CLA (Control Loop Analysis – Tuning)</a></li>
+			</ul>
+</li>
+			<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16395"><a href="#">راهکارهای مبتنی بر الگوریتم های هوشمند</a>
+			<ul class="sub-menu">
+				<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16331"><a href="https://mapnadigital.com/%d8%b3%d9%86%d8%b3%d9%88%d8%b1-%d9%86%d8%b1%d9%85-%d8%ac%d8%a7%d9%85%d8%b9-oss-oracle-soft-sensor/">سنسور نرم جامع – OSS (Oracle Soft Sensor)</a></li>
+				<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16273"><a href="https://mapnadigital.com/%d8%b3%db%8c%d8%b3%d8%aa%d9%85-%d9%be%d8%a7%db%8c%d8%b4-%d9%88%d8%b6%d8%b9%db%8c%d8%aa-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af-icms/">سیستم پایش وضعیت هوشمند ICMS</a></li>
+			</ul>
+</li>
+			<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16400"><a href="#">راهکارهای بهبود عملکرد</a>
+			<ul class="sub-menu">
+				<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16323"><a href="https://mapnadigital.com/%d9%be%d8%a7%db%8c%d8%b4-%d8%b1%d9%88%d9%86%d8%af-%d8%aa%d8%ba%db%8c%db%8c%d8%b1%d8%a7%d8%aa-trend-monitoring/">پایش روند تغییرات (Trend Monitoring )</a></li>
+				<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16289"><a href="https://mapnadigital.com/%d8%b1%d8%a7%d9%87%da%a9%d8%a7%d8%b1-%d8%a8%d9%87%d8%a8%d9%88%d8%af-%d8%b9%d9%85%d9%84%da%a9%d8%b1%d8%af-pis/">راهکار بهبود عملکرد – PIS</a></li>
+			</ul>
+</li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16294"><a href="https://mapnadigital.com/%d8%b1%d8%a7%d9%87%da%a9%d8%a7%d8%b1-%d9%be%d8%a7%db%8c%d8%b4-%d9%88%d8%b6%d8%b9%db%8c%d8%aa-%d8%a7%d8%b1%d8%aa%d8%b9%d8%a7%d8%b4%d8%a7%d8%aa-vibro-expert/">راهکار پایش وضعیت ارتعاشات – Vibro Expert</a></li>
+			<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16405"><a href="#">راهکار پایش وضعیت قدرت</a>
+			<ul class="sub-menu">
+				<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16299"><a href="https://mapnadigital.com/%d9%be%d8%a7%db%8c%d8%b4-%d9%88%d8%b6%d8%b9%db%8c%d8%aa-%da%98%d9%86%d8%b1%d8%a7%d8%aa%d9%88%d8%b1%d9%87%d8%a7%db%8c-%d9%82%d8%af%d8%b1%d8%aa/">پایش وضعیت ژنراتورهای قدرت</a></li>
+				<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16303"><a href="https://mapnadigital.com/%d9%be%d8%a7%db%8c%d8%b4-%d9%88%d8%b6%d8%b9%db%8c%d8%aa-%d8%aa%d8%b1%d8%a7%d9%86%d8%b3%d9%81%d9%88%d8%b1%d9%85%d8%a7%d8%aa%d9%88%d8%b1-%d9%87%d8%a7%db%8c-%d9%82%d8%af%d8%b1%d8%aa/">پایش وضعیت ترانسفورماتور های قدرت</a></li>
+			</ul>
+</li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16307"><a href="https://mapnadigital.com/%d9%be%d8%a7%db%8c%d8%b4-%d9%88%d8%b6%d8%b9%db%8c%d8%aa-%d8%af%d8%b3%d8%aa%d8%b1%d8%b3%e2%80%8c%d9%be%d8%b0%db%8c%d8%b1%db%8c%d8%8c-%d9%82%d8%a7%d8%a8%d9%84%db%8c%d8%aa%e2%80%8c%d8%a7%d8%b7%d9%85/">راهکارهای ارزیابی و بهبود قابلیت اطمینان و دسترس‌پذیری</a></li>
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16319"><a href="https://mapnadigital.com/%d8%ab%d8%a8%d8%aa-%d8%af%d8%a7%d8%af%d9%87%e2%80%8c%d9%87%d8%a7%db%8c-%d8%ae%d8%b1%d8%a7%d8%a8%db%8c-%d9%88-%d8%aa%d8%b9%d9%85%db%8c%d8%b1%d8%a7%d8%aa-log-sheet/">ثبت داده‌های خرابی و تعمیرات (Event Log)</a></li>
+		</ul>
+</li>
+		<li class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-16411"><a href="#">نیروگاه های تجدید پذیر</a>
+		<ul class="sub-menu">
+			<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16342"><a href="https://mapnadigital.com/%d8%b1%d8%a7%d9%87%da%a9%d8%a7%d8%b1-%d8%ac%d8%a7%d9%85%d8%b9-%d8%ac%d9%87%d8%aa-%d9%be%d8%a7%db%8c%d8%b4-%d9%88%d8%b6%d8%b9%db%8c%d8%aa-%d8%aa%d9%88%d8%b1%d8%a8%db%8c%d9%86%c2%ac%d9%87%d8%a7%db%8c/">راهکار جامع جهت پایش وضعیت توربین های بادی – WINDCARE</a></li>
+		</ul>
+</li>
+	</ul>
+</li>
+</ul>
+</li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16189"><a href="https://mapnadigital.com/shortcodes/latest-projects-posts/">محصولات</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-16009"><a href="https://mapnadigital.com/%d8%a7%d8%ae%d8%a8%d8%a7%d8%b1/">اخبار</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10214"><a href="https://mapnadigital.com/pages/about-us-basic/">درباره ما</a></li>
+<li class="menu-item menu-item-type-post_type menu-item-object-page menu-item-10217"><a href="https://mapnadigital.com/pages/contact-3/">تماس با ما</a></li>
+</ul></div>			
+				
+		</div>
+	</div>
+</div>
+
+
+
+		
+
+
+<div id="page-wrap"  >
+
+	<div id="content" class="page-section nopadding">
+	
+		<div  class="wpb_row vc_row-fluid full-width-section section  section-no-parallax  stretch   " data-speed="1" style=""><div class="col span_12 color-dark left">
+	<div class="vc_col-sm-12 wpb_column column_container col no-padding color-dark" style="" data-animation="" data-delay="">
+		<div class="wpb_wrapper">
+			<div class="wpb_revslider_element wpb_content_element">
+			<!-- START Home Slider REVOLUTION SLIDER 6.7.32 --><p class="rs-p-wp-fix"></p>
+			<rs-module-wrap id="rev_slider_1_1_wrapper" data-source="gallery" style="visibility:hidden;background:#f0f0f0;padding:0;">
+				<rs-module id="rev_slider_1_1" style="" data-version="6.7.32">
+					<rs-slides style="overflow: hidden; position: absolute;">
+						<rs-slide style="position: absolute;" data-key="rs-1" data-title="MINDA" data-thumb="//mapnadigital.com/wp-content/uploads/2025/07/image-2-scaled-100x50.jpg" data-anim="ms:600;" data-in="o:0;" data-out="a:false;">
+							<img fetchpriority="high" decoding="async" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="" title="image 2" width="2560" height="1317" class="rev-slidebg tp-rs-img rs-lazyload" data-lazyload="//mapnadigital.com/wp-content/uploads/2025/07/image-2-scaled.jpg" data-parallax="1" data-no-retina>
+<!--
+							--><rs-layer
+								id="slider-1-slide-1-layer-5" 
+								data-type="image"
+								data-rsp_ch="on"
+								data-xy="x:537px;y:495px;"
+								data-text="w:normal;"
+								data-dim="w:198px;h:62px;"
+								data-frame_999="o:0;st:w;"
+								style="z-index:15;"
+							><img decoding="async" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="" class="tp-rs-img rs-lazyload" width="370" height="116" data-lazyload="//mapnadigital.com/wp-content/uploads/2025/07/Frame-77.png" data-no-retina> 
+							</rs-layer><!--
+
+							--><rs-layer
+								id="slider-1-slide-1-layer-6" 
+								data-type="image"
+								data-rsp_ch="on"
+								data-xy="x:756px;y:496px;"
+								data-text="w:normal;"
+								data-dim="w:195px;h:61px;"
+								data-frame_999="o:0;st:w;"
+								style="z-index:16;"
+							><img decoding="async" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="" class="tp-rs-img rs-lazyload" width="370" height="116" data-lazyload="//mapnadigital.com/wp-content/uploads/2025/07/Frame-4.png" data-no-retina> 
+							</rs-layer><!--
+
+							--><rs-layer
+								id="slider-1-slide-1-layer-10" 
+								data-type="image"
+								data-rsp_ch="on"
+								data-xy="x:504px;y:230px;"
+								data-text="w:normal;"
+								data-dim="w:488px;h:217px;"
+								data-frame_999="o:0;st:w;"
+								style="z-index:18;"
+							><img decoding="async" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="" class="tp-rs-img rs-lazyload" width="720" height="320" data-lazyload="//mapnadigital.com/wp-content/uploads/2025/07/MAPNA-DIGITAL-LOGO-02-Copy-2.png" data-no-retina> 
+							</rs-layer><!--
+-->					</rs-slide>
+						<rs-slide style="position: absolute;" data-key="rs-2" data-title="Analysis" data-thumb="//mapnadigital.com/wp-content/uploads/2024/05/IMG_20240525_092649_048-100x50.png" data-anim="ms:600;r:0;" data-in="o:0;" data-out="a:false;">
+							<img decoding="async" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="" title="IMG_20240525_092649_048" width="1440" height="741" class="rev-slidebg tp-rs-img rs-lazyload" data-lazyload="//mapnadigital.com/wp-content/uploads/2024/05/IMG_20240525_092649_048.png" data-parallax="1" data-no-retina>
+<!--
+							--><rs-layer
+								id="slider-1-slide-2-layer-1" 
+								class="iranyekan"
+								data-type="text"
+								data-color="#ffffff"
+								data-rsp_ch="on"
+								data-xy="x:c;xo:313px;y:182px;"
+								data-text="s:40;fw:700;a:inherit;"
+								data-dim="h:114.984px;"
+								data-frame_0="y:50px;tp:600;"
+								data-frame_1="tp:600;e:power3.out;st:300;sp:290;sR:300;"
+								data-frame_999="st:w;sp:310;sR:8410;auto:true;"
+								style="z-index:5;font-family:'iranyekan';"
+							>تحلیل آنلاین داده ها <br><br>
+
+<br />و گزارشهای پایش وضعیت 
+							</rs-layer><!--
+
+							--><rs-layer
+								id="slider-1-slide-2-layer-2" 
+								class="iranyekan"
+								data-type="text"
+								data-color="#ffffff"
+								data-rsp_ch="on"
+								data-xy="x:c;xo:358px;y:320px;"
+								data-text="s:28;l:38;a:inherit;"
+								data-frame_0="y:50px;tp:600;"
+								data-frame_1="tp:600;e:power3.out;st:500;sp:290;sR:500;"
+								data-frame_999="st:w;sp:310;sR:8210;auto:true;"
+								style="z-index:6;font-family:'iranyekan';"
+							>توسط متخصص ترینهای کشور 
+							</rs-layer><!--
+
+							--><rs-layer
+								id="slider-1-slide-2-layer-28" 
+								data-type="image"
+								data-rsp_ch="on"
+								data-xy="x:-364px;y:-251px;"
+								data-text="w:normal;"
+								data-dim="w:1584px;h:1056px;"
+								data-frame_999="o:0;st:w;"
+								style="z-index:3;"
+							><img decoding="async" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="" class="tp-rs-img rs-lazyload" width="3000" height="2000" data-lazyload="//mapnadigital.com/wp-content/uploads/2024/05/1856.png" data-no-retina> 
+							</rs-layer><!--
+-->					</rs-slide>
+						<rs-slide style="position: absolute;" data-key="rs-3" data-title="MINDBoard" data-thumb="//mapnadigital.com/wp-content/uploads/2024/05/Frame-2-100x50.png" data-anim="ms:600;r:0;" data-in="o:0;" data-out="a:false;">
+							<img decoding="async" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="" title="Frame 2" width="1440" height="741" class="rev-slidebg tp-rs-img rs-lazyload" data-lazyload="//mapnadigital.com/wp-content/uploads/2024/05/Frame-2.png" data-parallax="1" data-no-retina>
+<!--
+							--><rs-layer
+								id="slider-1-slide-3-layer-2" 
+								class="iranyekan"
+								data-type="text"
+								data-color="#fdfdfd"
+								data-rsp_ch="on"
+								data-xy="x:r;xo:177px;y:c;yo:44px;"
+								data-text="s:41;l:64;a:inherit;"
+								data-frame_0="y:85px;tp:600;"
+								data-frame_1="tp:600;e:power3.out;st:500;sR:500;"
+								data-frame_999="st:w;sR:8200;auto:true;"
+								style="z-index:6;font-family:'iranyekan';"
+							>اشیا در کنترل شما هستند<br />
+ 
+							</rs-layer><!--
+
+							--><rs-layer
+								id="slider-1-slide-3-layer-27" 
+								data-type="image"
+								data-rsp_ch="on"
+								data-xy="x:r;xo:177px;y:221px;"
+								data-text="w:normal;"
+								data-dim="w:428px;h:61px;"
+								data-frame_999="o:0;st:w;"
+								style="z-index:2;"
+							><img decoding="async" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="" class="tp-rs-img rs-lazyload" width="428" height="61" data-lazyload="//mapnadigital.com/wp-content/uploads/2024/05/MIND-Board.png" data-no-retina> 
+							</rs-layer><!--
+
+							--><rs-layer
+								id="slider-1-slide-3-layer-31" 
+								data-type="image"
+								data-rsp_ch="on"
+								data-xy="x:99px;y:-19px;"
+								data-text="w:normal;"
+								data-dim="w:745px;h:596px;"
+								data-frame_999="o:0;st:w;"
+								style="z-index:8;"
+							><img decoding="async" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="" class="tp-rs-img rs-lazyload" width="1000" height="800" data-lazyload="//mapnadigital.com/wp-content/uploads/2024/05/1875-2.png" data-no-retina> 
+							</rs-layer><!--
+-->					</rs-slide>
+						<rs-slide style="position: absolute;" data-key="rs-4" data-title="MINDX" data-thumb="//mapnadigital.com/wp-content/uploads/2024/04/Frame-2-1-100x50.png" data-anim="ms:600;r:0;" data-in="o:0;" data-out="a:false;">
+							<img decoding="async" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="" title="Frame 2 (1)" width="1152" height="593" class="rev-slidebg tp-rs-img rs-lazyload" data-lazyload="//mapnadigital.com/wp-content/uploads/2024/04/Frame-2-1.png" data-parallax="1" data-no-retina>
+<!--
+							--><rs-layer
+								id="slider-1-slide-4-layer-3" 
+								class="iranyekan"
+								data-type="text"
+								data-color="#fdfdfd"
+								data-rsp_ch="on"
+								data-xy="x:r;xo:178px;y:c;yo:-42px;"
+								data-text="s:24;l:38;a:inherit;"
+								data-dim="w:250px;"
+								data-padding="t:6;r:16;b:6;l:16;"
+								data-frame_0="x:50px;tp:600;"
+								data-frame_1="tp:600;e:power3.out;st:500;sR:500;"
+								data-frame_999="st:w;sR:8200;auto:true;"
+								style="z-index:1;font-family:'iranyekan';"
+							>	&#9679 رابط کاربری آسان 
+							</rs-layer><!--
+
+							--><rs-layer
+								id="slider-1-slide-4-layer-4" 
+								class="iranyekan"
+								data-type="text"
+								data-color="#fdfdfd"
+								data-rsp_ch="on"
+								data-xy="x:r;xo:178px;y:c;yo:15px;"
+								data-text="s:24;l:38;a:inherit;"
+								data-dim="w:250px;"
+								data-padding="t:6;r:16;b:6;l:16;"
+								data-frame_0="x:50px;tp:600;"
+								data-frame_1="tp:600;e:power3.out;st:700;sR:700;"
+								data-frame_999="st:w;sR:8000;auto:true;"
+								style="z-index:5;font-family:'iranyekan';"
+							>	&#9679 آنلاین و سریع 
+							</rs-layer><!--
+
+							--><rs-layer
+								id="slider-1-slide-4-layer-7" 
+								class="iranyekan"
+								data-type="text"
+								data-color="#fdfdfd"
+								data-rsp_ch="on"
+								data-xy="x:r;xo:178px;y:c;yo:70px;"
+								data-text="s:24;l:38;a:inherit;"
+								data-dim="w:250px;h:49px;"
+								data-padding="t:6;r:16;b:6;l:16;"
+								data-frame_0="x:50px;tp:600;"
+								data-frame_1="tp:600;e:power3.out;st:880;sR:880;"
+								data-frame_999="st:w;sR:7820;auto:true;"
+								style="z-index:11;font-family:'iranyekan';"
+							>	&#9679 تماما تحت وب 
+							</rs-layer><!--
+
+							--><rs-layer
+								id="slider-1-slide-4-layer-23" 
+								class="iranyekan"
+								data-type="text"
+								data-color="#fdfdfd"
+								data-rsp_ch="on"
+								data-xy="x:r;xo:178px;y:c;yo:132px;"
+								data-text="s:24;l:38;a:inherit;"
+								data-dim="w:276px;"
+								data-padding="t:6;r:16;b:6;l:16;"
+								data-frame_0="x:50px;tp:600;"
+								data-frame_1="tp:600;e:power3.out;st:880;sR:880;"
+								data-frame_999="st:w;sR:7820;auto:true;"
+								style="z-index:11;font-family:'iranyekan';"
+							>	&#9679 سازگاری با اغلب صنایع 
+							</rs-layer><!--
+
+							--><rs-layer
+								id="slider-1-slide-4-layer-26" 
+								data-type="image"
+								data-rsp_ch="on"
+								data-xy="x:129px;y:106px;"
+								data-text="w:normal;"
+								data-dim="w:537px;h:383px;"
+								data-frame_1="e:sine.inOut;sp:500;"
+								data-frame_999="o:0;st:8900;"
+								style="z-index:13;cursor:pointer;"
+							><img decoding="async" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="" class="tp-rs-img rs-lazyload" width="447" height="319" data-lazyload="//mapnadigital.com/wp-content/uploads/2024/04/185-1.png" data-no-retina> 
+							</rs-layer><!--
+
+							--><rs-layer
+								id="slider-1-slide-4-layer-35" 
+								data-type="image"
+								data-rsp_ch="on"
+								data-xy="x:r;xo:178px;y:142px;"
+								data-text="w:normal;"
+								data-dim="w:248px;h:57px;"
+								data-frame_1="e:back.in;sp:500;"
+								data-frame_999="o:0;st:w;"
+								style="z-index:15;cursor:pointer;"
+							><img decoding="async" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="" class="tp-rs-img rs-lazyload" width="248" height="57" data-lazyload="//mapnadigital.com/wp-content/uploads/2024/04/MINDX.png" data-no-retina> 
+							</rs-layer><!--
+-->					</rs-slide>
+						<rs-slide style="position: absolute;" data-key="rs-29" data-title="AI" data-thumb="//mapnadigital.com/wp-content/uploads/2024/05/Frame-2-1-100x50.png" data-anim="ms:1000;r:0;" data-in="o:0;" data-out="a:false;">
+							<img decoding="async" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="" title="Frame 2" width="2880" height="1482" class="rev-slidebg tp-rs-img rs-lazyload" data-lazyload="//mapnadigital.com/wp-content/uploads/2024/05/Frame-2-1.png" data-parallax="off" data-no-retina>
+<!--
+							--><rs-layer
+								id="slider-1-slide-29-layer-17" 
+								class="iranyekan"
+								data-type="text"
+								data-color="#ffffff"
+								data-rsp_ch="on"
+								data-xy="x:r;xo:196px;y:c;yo:-9px;"
+								data-text="s:45;l:34;fw:700;a:inherit;"
+								data-dim="w:473;"
+								data-frame_0="y:45px;tp:600;"
+								data-frame_1="tp:600;e:power3.out;st:500;sp:290;sR:500;"
+								data-frame_999="st:w;sp:310;sR:8210;auto:true;"
+								style="z-index:5;font-family:'iranyekan';"
+							>هوش مصنوعی
+در صنعت 
+							</rs-layer><!--
+
+							--><rs-layer
+								id="slider-1-slide-29-layer-29" 
+								data-type="image"
+								data-rsp_ch="on"
+								data-xy="x:15px;y:70px;"
+								data-text="w:normal;"
+								data-dim="w:826.7200334881435px;h:413px;"
+								data-frame_999="o:0;st:w;"
+								style="z-index:6;"
+							><img decoding="async" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="" class="tp-rs-img rs-lazyload" width="2000" height="1000" data-lazyload="//mapnadigital.com/wp-content/uploads/2024/05/185yu.png" data-no-retina> 
+							</rs-layer><!--
+-->					</rs-slide>
+						<rs-slide style="position: absolute;" data-key="rs-30" data-title="MINDStudio" data-thumb="//mapnadigital.com/wp-content/uploads/2024/05/rdcj-1-100x50.png" data-anim="ms:1000;r:0;" data-in="o:0;" data-out="a:false;">
+							<img decoding="async" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="" title="rdcj 1" width="1440" height="741" class="rev-slidebg tp-rs-img rs-lazyload" data-lazyload="//mapnadigital.com/wp-content/uploads/2024/05/rdcj-1.png" data-parallax="off" data-no-retina>
+<!--
+							--><rs-layer
+								id="slider-1-slide-30-layer-20" 
+								data-type="text"
+								data-color="#5c6ed0"
+								data-rsp_ch="on"
+								data-xy="x:r;xo:186px;y:242px;"
+								data-text="w:normal;s:80;fw:900;"
+								data-frame_999="o:0;st:w;"
+								style="z-index:5;font-family:'Roboto';"
+							>MIND Studio 
+							</rs-layer><!--
+
+							--><rs-layer
+								id="slider-1-slide-30-layer-25" 
+								class="iranyekan"
+								data-type="text"
+								data-color="#ffffff"
+								data-rsp_ch="on"
+								data-xy="x:r;xo:186px;y:c;yo:48px;"
+								data-text="s:30;l:38;fw:700;a:inherit;"
+								data-frame_0="y:50px;tp:600;"
+								data-frame_1="tp:600;e:power3.out;st:500;sp:290;sR:500;"
+								data-frame_999="st:w;sp:310;sR:8210;auto:true;"
+								style="z-index:5;font-family:'iranyekan';"
+							>راهکاری امن برای صنایع هوشمند 
+							</rs-layer><!--
+
+							--><rs-layer
+								id="slider-1-slide-30-layer-32" 
+								data-type="image"
+								data-rsp_ch="on"
+								data-xy="x:-89px;y:54px;"
+								data-text="w:normal;"
+								data-dim="w:972px;h:486px;"
+								data-frame_999="o:0;st:w;"
+								style="z-index:6;"
+							><img decoding="async" src="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/assets/dummy.png" alt="" class="tp-rs-img rs-lazyload" width="2000" height="1000" data-lazyload="//mapnadigital.com/wp-content/uploads/2024/05/18567.png" data-no-retina> 
+							</rs-layer><!--
+-->					</rs-slide>
+					</rs-slides>
+					<rs-static-layers><!--
+					--></rs-static-layers>
+				</rs-module>
+				<script>
+					setREVStartSize({c: 'rev_slider_1_1',rl:[1240,1024,778,480],el:[570],gw:[1160],gh:[570],type:'standard',justify:'',layout:'fullscreen',offsetContainer:'#header',offset:'',mh:"0"});if (window.RS_MODULES!==undefined && window.RS_MODULES.modules!==undefined && window.RS_MODULES.modules["revslider11"]!==undefined) {window.RS_MODULES.modules["revslider11"].once = false;window.revapi1 = undefined;if (window.RS_MODULES.checkMinimal!==undefined) window.RS_MODULES.checkMinimal()}
+				</script>
+			</rs-module-wrap>
+			<!-- END REVOLUTION SLIDER -->
+</div>
+		</div> 
+	</div> 
+</div></div><div  class="wpb_row vc_row-fluid standard-section section  section-no-parallax  stretch   " data-speed="1" style=""><div class="col span_12 color-dark left">
+	<div class="vc_col-sm-12 wpb_column column_container col no-padding color-dark" style="" data-animation="" data-delay="">
+		<div class="wpb_wrapper">
+			<div class="spacer" style="height: 80px;"></div>
+	<div  class="wpb_single_image wpb_content_element vc_align_left">
+		
+		<figure class="wpb_wrapper vc_figure">
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img loading="lazy" decoding="async" width="2560" height="1325" src="https://mapnadigital.com/wp-content/uploads/2025/07/Frame-141-scaled.png" class="vc_single_image-img attachment-full" alt="" srcset="https://mapnadigital.com/wp-content/uploads/2025/07/Frame-141-scaled.png 2560w, https://mapnadigital.com/wp-content/uploads/2025/07/Frame-141-300x155.png 300w, https://mapnadigital.com/wp-content/uploads/2025/07/Frame-141-1024x530.png 1024w, https://mapnadigital.com/wp-content/uploads/2025/07/Frame-141-768x397.png 768w, https://mapnadigital.com/wp-content/uploads/2025/07/Frame-141-1536x795.png 1536w, https://mapnadigital.com/wp-content/uploads/2025/07/Frame-141-2048x1060.png 2048w" sizes="auto, (max-width: 2560px) 100vw, 2560px" /></div>
+		</figure>
+	</div>
+
+		</div> 
+	</div> 
+</div></div><div  class="wpb_row vc_row-fluid standard-section section  section-no-parallax  stretch   " data-speed="1" style="padding-top: 100px; padding-bottom: 100px; color: #1c1c1c; "><div class="col span_12 color-custom left">
+	<div class="vc_col-sm-12 wpb_column column_container col text-align-center no-padding color-dark" style="" data-animation="" data-delay="">
+		<div class="wpb_wrapper">
+			
+	<div class="wpb_text_column wpb_content_element " >
+		<div class="wpb_wrapper">
+			<h2 style="text-align: center;"><strong>خدمات ما</strong><br />
+<strong>ـــــــــــــــــــــــــــــــــــــــــ</strong></h2>
+
+		</div>
+	</div>
+<div class="spacer" style="height: 10px;"></div><div class="vc_row wpb_row vc_inner vc_row-fluid"><div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner"><div class="wpb_wrapper">
+	<div  class="wpb_single_image wpb_content_element vc_align_center">
+		
+		<figure class="wpb_wrapper vc_figure">
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img loading="lazy" decoding="async" width="840" height="560" src="https://mapnadigital.com/wp-content/uploads/2025/07/63-1.png" class="vc_single_image-img attachment-large" alt="" srcset="https://mapnadigital.com/wp-content/uploads/2025/07/63-1.png 840w, https://mapnadigital.com/wp-content/uploads/2025/07/63-1-300x200.png 300w, https://mapnadigital.com/wp-content/uploads/2025/07/63-1-768x512.png 768w, https://mapnadigital.com/wp-content/uploads/2025/07/63-1-600x400.png 600w" sizes="auto, (max-width: 840px) 100vw, 840px" /></div>
+		</figure>
+	</div>
+
+	<div class="wpb_text_column wpb_content_element  mp-shadow-card mp-radius-card mp-default-padding m-t-45" >
+		<div class="wpb_wrapper">
+			<p><strong>انجام پروژه های حوزه ICT کشور</strong><br />
+<div class="spacer" style="height: 16px;"></div>
+
+		</div>
+	</div>
+</div></div></div><div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner"><div class="wpb_wrapper">
+	<div  class="wpb_single_image wpb_content_element vc_align_center">
+		
+		<figure class="wpb_wrapper vc_figure">
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img loading="lazy" decoding="async" width="840" height="560" src="https://mapnadigital.com/wp-content/uploads/2025/07/sun-setting-silhouette-electricity-pylons-2.png" class="vc_single_image-img attachment-large" alt="" srcset="https://mapnadigital.com/wp-content/uploads/2025/07/sun-setting-silhouette-electricity-pylons-2.png 840w, https://mapnadigital.com/wp-content/uploads/2025/07/sun-setting-silhouette-electricity-pylons-2-300x200.png 300w, https://mapnadigital.com/wp-content/uploads/2025/07/sun-setting-silhouette-electricity-pylons-2-768x512.png 768w, https://mapnadigital.com/wp-content/uploads/2025/07/sun-setting-silhouette-electricity-pylons-2-600x400.png 600w" sizes="auto, (max-width: 840px) 100vw, 840px" /></div>
+		</figure>
+	</div>
+
+	<div class="wpb_text_column wpb_content_element  mp-shadow-card mp-radius-card mp-default-padding m-t-45" >
+		<div class="wpb_wrapper">
+			<p><strong>سامانه های پشتیبان کسب و کار انرژی</strong></p>
+<div class="spacer" style="height: 16px;"></div>
+
+		</div>
+	</div>
+</div></div></div><div class="wpb_column vc_column_container vc_col-sm-4"><div class="vc_column-inner"><div class="wpb_wrapper">
+	<div  class="wpb_single_image wpb_content_element vc_align_center">
+		
+		<figure class="wpb_wrapper vc_figure">
+			<div class="vc_single_image-wrapper   vc_box_border_grey"><img loading="lazy" decoding="async" width="840" height="560" src="https://mapnadigital.com/wp-content/uploads/2025/07/Christian-Mueller_Shutterstock_405816808_RV-1.png" class="vc_single_image-img attachment-large" alt="" srcset="https://mapnadigital.com/wp-content/uploads/2025/07/Christian-Mueller_Shutterstock_405816808_RV-1.png 840w, https://mapnadigital.com/wp-content/uploads/2025/07/Christian-Mueller_Shutterstock_405816808_RV-1-300x200.png 300w, https://mapnadigital.com/wp-content/uploads/2025/07/Christian-Mueller_Shutterstock_405816808_RV-1-768x512.png 768w, https://mapnadigital.com/wp-content/uploads/2025/07/Christian-Mueller_Shutterstock_405816808_RV-1-600x400.png 600w" sizes="auto, (max-width: 840px) 100vw, 840px" /></div>
+		</figure>
+	</div>
+
+	<div class="wpb_text_column wpb_content_element  mp-shadow-card mp-radius-card mp-default-padding m-t-45" >
+		<div class="wpb_wrapper">
+			<p><strong> سامانه‌های پشتیبان در صنایع انرژی</strong></p>
+<div class="spacer" style="height: 16px;"></div>
+
+		</div>
+	</div>
+</div></div></div></div>
+		</div> 
+	</div> 
+</div></div><div  class="wpb_row vc_row-fluid standard-section section  section-no-parallax  stretch   " data-speed="1" style=""><div class="col span_12 color-dark left">
+	<div class="vc_col-sm-12 wpb_column column_container col no-padding color-dark" style="" data-animation="" data-delay="">
+		<div class="wpb_wrapper">
+			<div class="spacer" style="height: 65px;"></div>
+		</div> 
+	</div> 
+</div></div><div  class="wpb_row vc_row-fluid standard-section section  section-no-parallax  stretch   " data-speed="1" style=""><div class="col span_12 color-dark left">
+	<div class="vc_col-sm-12 wpb_column column_container col no-padding color-dark" style="" data-animation="" data-delay="">
+		<div class="wpb_wrapper">
+			<div class="spacer" style="height: 80px;"></div>
+		</div> 
+	</div> 
+</div></div><div  class="wpb_row vc_row-fluid standard-section section  section-no-parallax  stretch   " data-speed="1" style="background-color: #28282a; "><div class="col span_12 color-dark left">
+	<div class="vc_col-sm-12 wpb_column column_container col no-padding color-dark" style="" data-animation="" data-delay="">
+		<div class="wpb_wrapper">
+			<div class="vc_row wpb_row vc_inner vc_row-fluid"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner"><div class="wpb_wrapper"><div class="spacer" style="height: 20px;"></div>
+	<div class="wpb_text_column wpb_content_element " >
+		<div class="wpb_wrapper">
+			<h2 style="text-align: center; color: #ffff;"><strong>محصولات </strong><br />
+<strong>ـــــــــــــــــــــــــــــــــــــــــ</strong></h2>
+
+		</div>
+	</div>
+<div class="spacer" style="height: 20px;"></div></div></div></div></div><div class="vc_row wpb_row vc_inner vc_row-fluid"><div class="wpb_column vc_column_container vc_col-sm-4 vc_col-has-fill"><div class="vc_column-inner vc_custom_1754370855972"><div class="wpb_wrapper"><div class="single_image wpb_content_element align-center    " data-animation="none" data-delay="0"><img loading="lazy" decoding="async" width="419" height="380" src="https://mapnadigital.com/wp-content/uploads/2025/07/Christian-Mueller_Shutterstock_405816808_RV-2.jpg" class="attachment-large" alt="" srcset="https://mapnadigital.com/wp-content/uploads/2025/07/Christian-Mueller_Shutterstock_405816808_RV-2.jpg 419w, https://mapnadigital.com/wp-content/uploads/2025/07/Christian-Mueller_Shutterstock_405816808_RV-2-300x272.jpg 300w" sizes="auto, (max-width: 419px) 100vw, 419px" /></div>
+	<div class="wpb_text_column wpb_content_element " >
+		<div class="wpb_wrapper">
+			<p style="text-align: center;"><strong>خانه هوشمند</strong></p>
+<p style="text-align: center;"><div class="spacer" style="height: 4px;"></div>
+
+		</div>
+	</div>
+</div></div></div><div class="wpb_column vc_column_container vc_col-sm-4 vc_col-has-fill"><div class="vc_column-inner vc_custom_1754370832880"><div class="wpb_wrapper"><div class="single_image wpb_content_element align-center    " data-animation="none" data-delay="0"><img loading="lazy" decoding="async" width="419" height="380" src="https://mapnadigital.com/wp-content/uploads/2025/07/image-9.jpg" class="attachment-large" alt="" srcset="https://mapnadigital.com/wp-content/uploads/2025/07/image-9.jpg 419w, https://mapnadigital.com/wp-content/uploads/2025/07/image-9-300x272.jpg 300w" sizes="auto, (max-width: 419px) 100vw, 419px" /></div>
+	<div class="wpb_text_column wpb_content_element " >
+		<div class="wpb_wrapper">
+			<p style="text-align: center;"><strong>مپنا مایند</strong></p>
+<p style="text-align: center;"><div class="spacer" style="height: 4px;"></div>
+
+		</div>
+	</div>
+</div></div></div><div class="wpb_column vc_column_container vc_col-sm-4 vc_col-has-fill"><div class="vc_column-inner vc_custom_1754370860904"><div class="wpb_wrapper"><div class="single_image wpb_content_element align-center    " data-animation="none" data-delay="0"><img loading="lazy" decoding="async" width="838" height="760" src="https://mapnadigital.com/wp-content/uploads/2025/07/Descubra-como-os-beneficios-da-energia-renovavel-influenciam-o-mercado-2.jpg" class="attachment-full" alt="" srcset="https://mapnadigital.com/wp-content/uploads/2025/07/Descubra-como-os-beneficios-da-energia-renovavel-influenciam-o-mercado-2.jpg 838w, https://mapnadigital.com/wp-content/uploads/2025/07/Descubra-como-os-beneficios-da-energia-renovavel-influenciam-o-mercado-2-300x272.jpg 300w, https://mapnadigital.com/wp-content/uploads/2025/07/Descubra-como-os-beneficios-da-energia-renovavel-influenciam-o-mercado-2-768x697.jpg 768w" sizes="auto, (max-width: 838px) 100vw, 838px" /></div>
+	<div class="wpb_text_column wpb_content_element " >
+		<div class="wpb_wrapper">
+			<p style="text-align: center;"><strong>پایش وضعیت</strong></p>
+<p style="text-align: center;"><div class="spacer" style="height: 4px;"></div>
+
+		</div>
+	</div>
+</div></div></div></div><div class="spacer" style="height: 40px;"></div>
+		</div> 
+	</div> 
+</div></div><div  class="wpb_row vc_row-fluid standard-section section  section-no-parallax  stretch   " data-speed="1" style=""><div class="col span_12 color-dark left">
+	<div class="vc_col-sm-12 wpb_column column_container col no-padding color-dark" style="" data-animation="" data-delay="">
+		<div class="wpb_wrapper">
+			<div class="spacer" style="height: 60px;"></div>
+		</div> 
+	</div> 
+</div></div><div  class="wpb_row vc_row-fluid standard-section section  section-no-parallax  stretch   " data-speed="1" style=""><div class="col span_12 color-dark left">
+	<div class="vc_col-sm-12 wpb_column column_container col no-padding color-dark" style="" data-animation="" data-delay="">
+		<div class="wpb_wrapper">
+			<div class="vc_row wpb_row vc_inner vc_row-fluid"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner"><div class="wpb_wrapper">
+	<div class="wpb_text_column wpb_content_element " >
+		<div class="wpb_wrapper">
+			<h2 style="text-align: center;">برخی از مشتریان و شرکای تجاری</h2>
+
+		</div>
+	</div>
+</div></div></div></div>
+	<div class="wpb_text_column wpb_content_element " >
+		<div class="wpb_wrapper">
+				
+		<div id="gs_logo_area_1" class="gs_logo_area gs_logo_area_1 slider1" style="opacity: 0; visibility: hidden;">
+			<div class="gs_logo_area--inner">
+	
+				
+<div class="gs_logo_container gs_carousel_swiper gs_logo_fix_height_and_center" data-carousel-config='{"direction":"horizontal","speed":1600,"isAutoplay":true,"autoplayDelay":500,"loop":true,"pauseOnHover":true,"ticker":false,"navs":true,"navs_pos":"bottom","dots":false,"dynamic_dots":true,"slideSpace":10,"slidesPerGroup":1,"desktopLogos":6,"tabletLogos":3,"mobileLogos":2,"reverseDirection":false}'>
+
+	
+		
+			<div class="gs_logo_single--wrapper">
+				<div class="gs_logo_single">
+
+					<!-- Logo Img -->
+					<img loading="lazy" decoding="async" width="300" height="208" src="https://mapnadigital.com/wp-content/uploads/2024/01/unnamed-1-300x208.jpg" class="default gs_logo--tooltip gs-logo--img wp-post-image" alt="" title="شرکت تولید برق عسلویه" srcset="https://mapnadigital.com/wp-content/uploads/2024/01/unnamed-1-300x208.jpg 300w, https://mapnadigital.com/wp-content/uploads/2024/01/unnamed-1.jpg 512w" sizes="auto, (max-width: 300px) 100vw, 300px" />
+					<!-- Logo Title -->
+										
+					<!-- Logo Category -->
+										
+				</div>
+			</div>
+
+		
+			<div class="gs_logo_single--wrapper">
+				<div class="gs_logo_single">
+
+					<!-- Logo Img -->
+					<img loading="lazy" decoding="async" width="300" height="176" src="https://mapnadigital.com/wp-content/uploads/2023/12/genave-300x176.jpg" class="default gs_logo--tooltip gs-logo--img wp-post-image" alt="" title="شرکت تولید برق گناوه" srcset="https://mapnadigital.com/wp-content/uploads/2023/12/genave-300x176.jpg 300w, https://mapnadigital.com/wp-content/uploads/2023/12/genave.jpg 500w" sizes="auto, (max-width: 300px) 100vw, 300px" />
+					<!-- Logo Title -->
+										
+					<!-- Logo Category -->
+										
+				</div>
+			</div>
+
+		
+			<div class="gs_logo_single--wrapper">
+				<div class="gs_logo_single">
+
+					<!-- Logo Img -->
+					<img loading="lazy" decoding="async" width="242" height="71" src="https://mapnadigital.com/wp-content/uploads/2023/12/Mask-group.png" class="default gs_logo--tooltip gs-logo--img wp-post-image" alt="" title="سرویس نیروگاهی" />
+					<!-- Logo Title -->
+										
+					<!-- Logo Category -->
+										
+				</div>
+			</div>
+
+		
+			<div class="gs_logo_single--wrapper">
+				<div class="gs_logo_single">
+
+					<!-- Logo Img -->
+					<img loading="lazy" decoding="async" width="300" height="177" src="https://mapnadigital.com/wp-content/uploads/2023/12/sanandaj-300x177.jpg" class="default gs_logo--tooltip gs-logo--img wp-post-image" alt="" title="شرکت تولید برق سنندج" srcset="https://mapnadigital.com/wp-content/uploads/2023/12/sanandaj-300x177.jpg 300w, https://mapnadigital.com/wp-content/uploads/2023/12/sanandaj.jpg 500w" sizes="auto, (max-width: 300px) 100vw, 300px" />
+					<!-- Logo Title -->
+										
+					<!-- Logo Category -->
+										
+				</div>
+			</div>
+
+		
+			<div class="gs_logo_single--wrapper">
+				<div class="gs_logo_single">
+
+					<!-- Logo Img -->
+					<img loading="lazy" decoding="async" width="160" height="150" src="https://mapnadigital.com/wp-content/uploads/2023/12/toos.png" class="default gs_logo--tooltip gs-logo--img wp-post-image" alt="شرکت صنایع سنجش انرژی بهینه سازان طوس" title="شرکت صنایع سنجش انرژی بهینه سازان طوس" />
+					<!-- Logo Title -->
+										
+					<!-- Logo Category -->
+										
+				</div>
+			</div>
+
+		
+			<div class="gs_logo_single--wrapper">
+				<div class="gs_logo_single">
+
+					<!-- Logo Img -->
+					<a href="http://tci.ir/panel/" target="_blank" rel="noopener"><img loading="lazy" decoding="async" width="119" height="118" src="https://mapnadigital.com/wp-content/uploads/2023/12/tci.png" class="default gs_logo--tooltip gs-logo--img wp-post-image" alt="شرکت مخابرات ایران" title="شرکت مخابرات ایران" srcset="https://mapnadigital.com/wp-content/uploads/2023/12/tci.png 119w, https://mapnadigital.com/wp-content/uploads/2023/12/tci-80x80.png 80w" sizes="auto, (max-width: 119px) 100vw, 119px" /></a>
+					<!-- Logo Title -->
+										
+					<!-- Logo Category -->
+										
+				</div>
+			</div>
+
+		
+			<div class="gs_logo_single--wrapper">
+				<div class="gs_logo_single">
+
+					<!-- Logo Img -->
+					<a href="https://mapnagroup.com/" target="_blank" rel="noopener"><img loading="lazy" decoding="async" width="300" height="300" src="https://mapnadigital.com/wp-content/uploads/2023/07/cropped-minda-4-300x300.png" class="default gs_logo--tooltip gs-logo--img wp-post-image" alt="https://mapnagroup.com/" title="گروه مپنا" srcset="https://mapnadigital.com/wp-content/uploads/2023/07/cropped-minda-4-300x300.png 300w, https://mapnadigital.com/wp-content/uploads/2023/07/cropped-minda-4-150x150.png 150w, https://mapnadigital.com/wp-content/uploads/2023/07/cropped-minda-4-80x80.png 80w, https://mapnadigital.com/wp-content/uploads/2023/07/cropped-minda-4-500x500.png 500w, https://mapnadigital.com/wp-content/uploads/2023/07/cropped-minda-4-270x270.png 270w, https://mapnadigital.com/wp-content/uploads/2023/07/cropped-minda-4-192x192.png 192w, https://mapnadigital.com/wp-content/uploads/2023/07/cropped-minda-4-180x180.png 180w, https://mapnadigital.com/wp-content/uploads/2023/07/cropped-minda-4-32x32.png 32w, https://mapnadigital.com/wp-content/uploads/2023/07/cropped-minda-4.png 512w" sizes="auto, (max-width: 300px) 100vw, 300px" /></a>
+					<!-- Logo Title -->
+										
+					<!-- Logo Category -->
+										
+				</div>
+			</div>
+
+				
+	
+</div>			</div>
+		</div>
+	
+		
+
+		</div>
+	</div>
+
+		</div> 
+	</div> 
+</div></div><div  class="wpb_row vc_row-fluid standard-section section  section-no-parallax  stretch   " data-speed="1" style=""><div class="col span_12 color-dark left">
+	<div class="vc_col-sm-12 wpb_column column_container col no-padding color-dark" style="" data-animation="" data-delay="">
+		<div class="wpb_wrapper">
+			<div class="spacer" style="height: 40px;"></div>
+		</div> 
+	</div> 
+</div></div><div  class="wpb_row vc_row-fluid standard-section section  section-no-parallax  stretch   " data-speed="1" style=""><div class="col span_12 color-dark left">
+	<div class="vc_col-sm-12 wpb_column column_container col no-padding color-dark" style="" data-animation="" data-delay="">
+		<div class="wpb_wrapper">
+			<div class="spacer" style="height: 40px;"></div>
+		</div> 
+	</div> 
+</div></div><div  class="wpb_row vc_row-fluid standard-section section  section-no-parallax  stretch   " data-speed="1" style=""><div class="col span_12 color-dark left">
+	<div class="vc_col-sm-12 wpb_column column_container col no-padding color-dark" style="" data-animation="" data-delay="">
+		<div class="wpb_wrapper">
+			<div class="vc_row wpb_row vc_inner vc_row-fluid"><div class="wpb_column vc_column_container vc_col-sm-12"><div class="vc_column-inner"><div class="wpb_wrapper">
+	<div class="wpb_text_column wpb_content_element " >
+		<div class="wpb_wrapper">
+			<h2 style="text-align: center;">آخرین اخبار</h2>
+
+		</div>
+	</div>
+</div></div></div></div>
+		</div> 
+	</div> 
+</div></div><div  class="wpb_row vc_row-fluid standard-section section  section-no-parallax  stretch   " data-speed="1" style=""><div class="col span_12 color-dark left">
+	<div class="vc_col-sm-12 swiper-slide-bg wpb_column column_container col no-padding color-dark" style="" data-animation="" data-delay="">
+		<div class="wpb_wrapper">
+			
+	<div class="wpb_text_column wpb_content_element " >
+		<div class="wpb_wrapper">
+			<!-- Markup Starts -->
+<div id="pcp_wrapper-16835" class="sp-pcp-section sp-pcp-container pcp-wrapper-16835 pcp-carousel-wrapper standard sp-carousel_layout" data-sid="16835">
+	<div id="sp-pcp-id-16835" class="swiper-container sp-pcp-carousel top_right" dir="ltr" data-carousel='{ "speed":600, "items":3, "spaceBetween":20, "navigation":false, "pagination": true, "autoplay": true, "autoplay_speed": 2000, "loop": true, "autoHeight": false, "lazy":  true, "simulateTouch": true, "freeMode": false, "slider_mouse_wheel": false,"allowTouchMove": true, "slidesPerView": {"lg_desktop": 3, "desktop": 3, "tablet": 3, "mobile_landscape": 2, "mobile": 1}, "navigation_mobile": false, "pagination_mobile": true, "stop_onHover": true, "enabled": true, "prevSlideMessage": "اسلاید قبلی", "nextSlideMessage": "اسلاید بعدی", "firstSlideMessage": "این اولین اسلاید است", "lastSlideMessage": "این آخرین اسلاید است", "keyboard": "true", "paginationBulletMessage": "برو به اسلاید {{شاخص}}" }'>
+			<div class="swiper-wrapper">
+						<div class=" swiper-slide swiper-lazy">
+						<div class="sp-pcp-post pcp-item-17108" data-id="17108">
+								<div class="pcp-post-thumb-wrapper">
+					<div class="sp-pcp-post-thumb-area">
+												<a class="sp-pcp-thumb" href="https://mapnadigital.com/%d8%aa%d8%ad%d9%88%d9%84-%d8%af%db%8c%d8%ac%db%8c%d8%aa%d8%a7%d9%84-%d8%af%d8%b1-%da%af%d8%b1%d9%88%d9%87-%d9%85%d9%be%d9%86%d8%a7%d8%9b-%d8%ae%d8%af%d9%85%d8%a7%d8%aa-%d8%b3%d8%b1%d9%88%db%8c%d8%b3/" target="_self" >
+													<img loading="lazy" decoding="async" src="https://mapnadigital.com/wp-content/uploads/2025/12/H5_8458-300x200.jpg" width="300" height="200" alt="">
+						</a>
+					</div>
+				</div>
+							<h3 class="sp-pcp-title">
+									<a href="https://mapnadigital.com/%d8%aa%d8%ad%d9%88%d9%84-%d8%af%db%8c%d8%ac%db%8c%d8%aa%d8%a7%d9%84-%d8%af%d8%b1-%da%af%d8%b1%d9%88%d9%87-%d9%85%d9%be%d9%86%d8%a7%d8%9b-%d8%ae%d8%af%d9%85%d8%a7%d8%aa-%d8%b3%d8%b1%d9%88%db%8c%d8%b3/"  target="_self">تحول دیجیتال در گروه مپنا؛ خدمات سرویس نیروگاهی هوشمند می‌شود.</a>							</h3>
+						<div class="sp-pcp-post-content">
+					<div class="sp-pcp-readmore">
+							<a class="pcp-readmore-link" target="_self" href="https://mapnadigital.com/%d8%aa%d8%ad%d9%88%d9%84-%d8%af%db%8c%d8%ac%db%8c%d8%aa%d8%a7%d9%84-%d8%af%d8%b1-%da%af%d8%b1%d9%88%d9%87-%d9%85%d9%be%d9%86%d8%a7%d8%9b-%d8%ae%d8%af%d9%85%d8%a7%d8%aa-%d8%b3%d8%b1%d9%88%db%8c%d8%b3/" >
+						ادامه مطلب </a>
+		</div>
+					</div>
+						</div>
+					</div>
+				<div class=" swiper-slide swiper-lazy">
+						<div class="sp-pcp-post pcp-item-17097" data-id="17097">
+								<div class="pcp-post-thumb-wrapper">
+					<div class="sp-pcp-post-thumb-area">
+												<a class="sp-pcp-thumb" href="https://mapnadigital.com/%d8%a7%da%a9%d9%88%d8%b3%db%8c%d8%b3%d8%aa%d9%85-%d9%86%d9%88%d8%a2%d9%88%d8%b1%db%8c-%d8%af%d8%b1-%d9%85%d9%be%d9%86%d8%a7-%d8%aa%d9%88%d8%b3%d8%b9%d9%87-%d9%85%db%8c%db%8c%d8%a7%d8%a8%d8%af/" target="_self" >
+													<img loading="lazy" decoding="async" src="https://mapnadigital.com/wp-content/uploads/2025/08/B64A0631-1-300x200.jpg" width="300" height="200" alt="">
+						</a>
+					</div>
+				</div>
+							<h3 class="sp-pcp-title">
+									<a href="https://mapnadigital.com/%d8%a7%da%a9%d9%88%d8%b3%db%8c%d8%b3%d8%aa%d9%85-%d9%86%d9%88%d8%a2%d9%88%d8%b1%db%8c-%d8%af%d8%b1-%d9%85%d9%be%d9%86%d8%a7-%d8%aa%d9%88%d8%b3%d8%b9%d9%87-%d9%85%db%8c%db%8c%d8%a7%d8%a8%d8%af/"  target="_self">اکوسیستم نوآوری در مپنا توسعه می‌یابد؛ افتتاح مپنا دیجیتال و اعطای مجوز فعالیت صندوق CVC گروه مپنا</a>							</h3>
+						<div class="sp-pcp-post-content">
+					<div class="sp-pcp-readmore">
+							<a class="pcp-readmore-link" target="_self" href="https://mapnadigital.com/%d8%a7%da%a9%d9%88%d8%b3%db%8c%d8%b3%d8%aa%d9%85-%d9%86%d9%88%d8%a2%d9%88%d8%b1%db%8c-%d8%af%d8%b1-%d9%85%d9%be%d9%86%d8%a7-%d8%aa%d9%88%d8%b3%d8%b9%d9%87-%d9%85%db%8c%db%8c%d8%a7%d8%a8%d8%af/" >
+						ادامه مطلب </a>
+		</div>
+					</div>
+						</div>
+					</div>
+				<div class=" swiper-slide swiper-lazy">
+						<div class="sp-pcp-post pcp-item-16500" data-id="16500">
+								<div class="pcp-post-thumb-wrapper">
+					<div class="sp-pcp-post-thumb-area">
+												<a class="sp-pcp-thumb" href="https://mapnadigital.com/%d8%b3%d8%a7%d8%ae%d8%aa-%d8%a2%db%8c%d9%86%d8%af%d9%87-%d8%aa%d8%a8%d8%af%db%8c%d9%84-%d8%b4%d9%87%d8%b1%d9%87%d8%a7-%d8%a8%d9%87-%d9%85%d8%b1%d8%a7%da%a9%d8%b2-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/" target="_self" >
+													<img loading="lazy" decoding="async" src="https://mapnadigital.com/wp-content/plugins/post-carousel/public/assets/img/placeholder.png" width="600" height="450" alt="">
+						</a>
+					</div>
+				</div>
+							<h3 class="sp-pcp-title">
+									<a href="https://mapnadigital.com/%d8%b3%d8%a7%d8%ae%d8%aa-%d8%a2%db%8c%d9%86%d8%af%d9%87-%d8%aa%d8%a8%d8%af%db%8c%d9%84-%d8%b4%d9%87%d8%b1%d9%87%d8%a7-%d8%a8%d9%87-%d9%85%d8%b1%d8%a7%da%a9%d8%b2-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/"  target="_self">ساخت آینده: تبدیل شهرها به مراکز هوشمند با اینترنت اشیا (IoT)</a>							</h3>
+						<div class="sp-pcp-post-content">
+					<div class="sp-pcp-readmore">
+							<a class="pcp-readmore-link" target="_self" href="https://mapnadigital.com/%d8%b3%d8%a7%d8%ae%d8%aa-%d8%a2%db%8c%d9%86%d8%af%d9%87-%d8%aa%d8%a8%d8%af%db%8c%d9%84-%d8%b4%d9%87%d8%b1%d9%87%d8%a7-%d8%a8%d9%87-%d9%85%d8%b1%d8%a7%da%a9%d8%b2-%d9%87%d9%88%d8%b4%d9%85%d9%86%d8%af/" >
+						ادامه مطلب </a>
+		</div>
+					</div>
+						</div>
+					</div>
+				<div class=" swiper-slide swiper-lazy">
+						<div class="sp-pcp-post pcp-item-16092" data-id="16092">
+								<div class="pcp-post-thumb-wrapper">
+					<div class="sp-pcp-post-thumb-area">
+												<a class="sp-pcp-thumb" href="https://mapnadigital.com/lorawan-%da%86%db%8c%d8%b3%d8%aa%d8%9f/" target="_self" >
+													<img loading="lazy" decoding="async" src="https://mapnadigital.com/wp-content/uploads/2023/07/Frame-34-300x186.png" width="300" height="186" alt="">
+						</a>
+					</div>
+				</div>
+							<h3 class="sp-pcp-title">
+									<a href="https://mapnadigital.com/lorawan-%da%86%db%8c%d8%b3%d8%aa%d8%9f/"  target="_self">LoRaWAN چیست؟</a>							</h3>
+						<div class="sp-pcp-post-content">
+					<div class="sp-pcp-readmore">
+							<a class="pcp-readmore-link" target="_self" href="https://mapnadigital.com/lorawan-%da%86%db%8c%d8%b3%d8%aa%d8%9f/" >
+						ادامه مطلب </a>
+		</div>
+					</div>
+						</div>
+					</div>
+				<div class=" swiper-slide swiper-lazy">
+						<div class="sp-pcp-post pcp-item-16090" data-id="16090">
+								<div class="pcp-post-thumb-wrapper">
+					<div class="sp-pcp-post-thumb-area">
+												<a class="sp-pcp-thumb" href="https://mapnadigital.com/%d9%be%d8%b1%d9%88%d8%aa%da%a9%d9%84-%d9%84%d9%88%d8%b1%d8%a7/" target="_self" >
+													<img loading="lazy" decoding="async" src="https://mapnadigital.com/wp-content/uploads/2023/07/Frame-33-1-300x186.png" width="300" height="186" alt="">
+						</a>
+					</div>
+				</div>
+							<h3 class="sp-pcp-title">
+									<a href="https://mapnadigital.com/%d9%be%d8%b1%d9%88%d8%aa%da%a9%d9%84-%d9%84%d9%88%d8%b1%d8%a7/"  target="_self">پروتکل لورا</a>							</h3>
+						<div class="sp-pcp-post-content">
+					<div class="sp-pcp-readmore">
+							<a class="pcp-readmore-link" target="_self" href="https://mapnadigital.com/%d9%be%d8%b1%d9%88%d8%aa%da%a9%d9%84-%d9%84%d9%88%d8%b1%d8%a7/" >
+						ادامه مطلب </a>
+		</div>
+					</div>
+						</div>
+					</div>
+					</div>
+						<div class="pcp-pagination swiper-pagination dots"></div>
+							</div>
+</div>
+
+
+		</div>
+	</div>
+
+		</div> 
+	</div> 
+</div></div><div  class="wpb_row vc_row-fluid standard-section section  section-no-parallax  stretch   " data-speed="1" style=""><div class="col span_12 color-dark left">
+	<div class="vc_col-sm-12 wpb_column column_container col no-padding color-dark" style="" data-animation="" data-delay="">
+		<div class="wpb_wrapper">
+			<div class="spacer" style="height: 40px;"></div>
+		</div> 
+	</div> 
+</div></div><div  class="wpb_row vc_row-fluid standard-section section  section-no-parallax  stretch   " data-speed="1" style=""><div class="col span_12 color-dark left">
+	<div class="vc_col-sm-12 wpb_column column_container col no-padding color-dark" style="" data-animation="" data-delay="">
+		<div class="wpb_wrapper">
+			<div class="spacer" style="height: 40px;"></div>
+		</div> 
+	</div> 
+</div></div>
+
+		
+		
+			</div> <!-- end content -->
+
+	
+</div> <!-- end page-wrap -->
+	
+		
+			
+		<footer id="footer">
+			<div class="container">
+				<div class="eight columns"><div id="block-24" class="widget widget_block"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6632742.137802404!2d42.18826477500001!3d35.73498219999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8e069f24478afb%3A0x311ff81c23e3edcf!2sMAPNA%20Group!5e0!3m2!1sen!2snl!4v1752407786784!5m2!1sen!2snl" width="550" height="305" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div></div>
+								<div class="eight columns"><div id="block-23" class="widget widget_block"><div class="contact-info">
+    <div class="item"><i class="fas fa-map-marker-alt"></i> تهران، بلوارمیرداماد، نبش خیابان کجور، شماره ۲۳۱</div>
+    <div class="item"><i class="fas fa-mobile-alt"></i> ۱۵۴۹۹۶۵۷۱۶</div>
+    <div class="item"><i class="fas fa-phone"></i> ۰۲۱-۲۳۱۵۱۰۰۱-۲ </div>
+    <div class="item"><i class="fas fa-fax"></i> ۰۲۱-۲۲۹۰۸۵۹۷-۸</div>
+    <div class="item"><i class="fas fa-envelope"></i> info@mapnagroup.com</div>
+    <div class="item"><i class="fab fa-linkedin"></i> mapnadigital</div>
+  </div></div></div>
+															</div>
+		</footer>
+		
+		<div id="copyright" class="clearfix">
+		<div class="container">
+			
+			<div class="sixteen columns">
+
+				<div class="copyright-text copyright-col1">
+											1404 تمامی حقوق متعلق به <a href="#">گروه مپنا دیجیتال</a> است.									</div>
+				
+				<div class="copyright-col2">
+											
+<div class="social-icons clearfix">
+	<ul>
+																	<li><a href="https://www.instagram.com/mapna_digital" target="_blank" title="Instagram"><i class="fa fa-instagram"></i></a></li>
+							<li><a href="https://www.linkedin.com/in/mapnamind/" target="_blank" title="لینکداین"><i class="fa fa-linkedin"></i></a></li>
+																																	<li><a href="https://t.me/mapnamind" target="_blank" title="Telegram"><i class="fa fa-telegram"></i></a></li>
+							<li><a href="https://www.aparat.com/mapnamind" target="_blank" title="Aparat"><i class="fa aparat-icon"></i></a></li>
+			</ul>
+</div>									</div>
+
+			</div>
+			
+		</div>
+	</div><!-- end copyright -->
+			
+	</div><!-- end wrapall / boxed -->
+	
+		<div id="back-to-top"><a href="#"><i class="fa fa-chevron-up"></i></a></div>
+		
+	
+		<script>
+			window.RS_MODULES = window.RS_MODULES || {};
+			window.RS_MODULES.modules = window.RS_MODULES.modules || {};
+			window.RS_MODULES.waiting = window.RS_MODULES.waiting || [];
+			window.RS_MODULES.defered = false;
+			window.RS_MODULES.moduleWaiting = window.RS_MODULES.moduleWaiting || {};
+			window.RS_MODULES.type = 'compiled';
+		</script>
+		<script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/unicon/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+<script type="text/html" id="wpb-modifications"></script><link href="//fonts.googleapis.com/css?family=Roboto:400%2C900&display=swap" rel="stylesheet" property="stylesheet" media="all" type="text/css" >
+
+<script>
+		if(typeof revslider_showDoubleJqueryError === "undefined") {function revslider_showDoubleJqueryError(sliderID) {console.log("You have some jquery.js library include that comes after the Slider Revolution files js inclusion.");console.log("To fix this, you can:");console.log("1. Set 'Module General Options' -> 'Advanced' -> 'jQuery & OutPut Filters' -> 'Put JS to Body' to on");console.log("2. Find the double jQuery.js inclusion and remove it");return "Double Included jQuery Library";}}
+</script>
+			<link rel="preload" as="font" id="rs-icon-set-revicon-woff" href="//mapnadigital.com/wp-content/plugins/revslider/sr6/assets/fonts/revicons/revicons.woff?5510888" type="font/woff" crossorigin="anonymous" media="all" />
+<script id="gs-swiper-js" src="https://mapnadigital.com/wp-content/plugins/gs-logo-slider/assets/libs/swiper-js/swiper.min.js?ver=3.7.4"></script>
+<script id="gs-tippyjs-js" src="https://mapnadigital.com/wp-content/plugins/gs-logo-slider/assets/libs/tippyjs/tippy-bundle.umd.min.js?ver=3.7.4"></script>
+<script id="gs-images-loaded-js" src="https://mapnadigital.com/wp-content/plugins/gs-logo-slider/assets/libs/images-loaded/images-loaded.min.js?ver=3.7.4"></script>
+<script id="gs-logo-public-js" src="https://mapnadigital.com/wp-content/plugins/gs-logo-slider/assets/js/gs-logo.min.js?ver=3.7.4"></script>
+<script id="wp-hooks-js" src="https://mapnadigital.com/wp-includes/js/dist/hooks.min.js?ver=7496969728ca0f95732d"></script>
+<script id="wp-i18n-js" src="https://mapnadigital.com/wp-includes/js/dist/i18n.min.js?ver=781d11515ad3d91786ec"></script>
+<script id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'rtl' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script id="swv-js" src="https://mapnadigital.com/wp-content/plugins/contact-form-7/includes/swv/js/index.js?ver=6.0.6"></script>
+<script id="contact-form-7-js-translations">
+( function( domain, translations ) {
+	var localeData = translations.locale_data[ domain ] || translations.locale_data.messages;
+	localeData[""].domain = domain;
+	wp.i18n.setLocaleData( localeData, domain );
+} )( "contact-form-7", {"translation-revision-date":"2025-04-05 08:14:51+0000","generator":"GlotPress\/4.0.1","domain":"messages","locale_data":{"messages":{"":{"domain":"messages","plural-forms":"nplurals=1; plural=0;","lang":"fa"},"This contact form is placed in the wrong place.":["\u0627\u06cc\u0646 \u0641\u0631\u0645 \u062a\u0645\u0627\u0633 \u062f\u0631 \u062c\u0627\u06cc \u0627\u0634\u062a\u0628\u0627\u0647\u06cc \u0642\u0631\u0627\u0631 \u062f\u0627\u062f\u0647 \u0634\u062f\u0647 \u0627\u0633\u062a."],"Error:":["\u062e\u0637\u0627:"]}},"comment":{"reference":"includes\/js\/index.js"}} );
+//# sourceURL=contact-form-7-js-translations
+</script>
+<script id="contact-form-7-js-before">
+var wpcf7 = {
+    "api": {
+        "root": "https:\/\/mapnadigital.com\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+//# sourceURL=contact-form-7-js-before
+</script>
+<script id="contact-form-7-js" src="https://mapnadigital.com/wp-content/plugins/contact-form-7/includes/js/index.js?ver=6.0.6"></script>
+<script id="gpls-wpsctr-simple-countdown-timer-front-countdown-timer-js-js-extra">
+var gpls_wpsctr_simple_countdown_timer_localized_data = {"ajaxUrl":"https://mapnadigital.com/wp-admin/admin-ajax.php","prefix":"gpls-wpsctr-simple-countdown-timer","classes_prefix":"gpls-wpsctr","labels":{"flipDownHeading":{"days":"Days","hours":"Hours","minutes":"Minutes","seconds":"Seconds"},"invalidEmail":"Please enter an email address"},"nonce":"7adaa11f9b","submitFormAction":"gpls-wpsctr-subscribe-form-submit"};
+//# sourceURL=gpls-wpsctr-simple-countdown-timer-front-countdown-timer-js-js-extra
+</script>
+<script id="gpls-wpsctr-simple-countdown-timer-front-countdown-timer-js-js" src="https://mapnadigital.com/wp-content/plugins/simple-countdown/assets/dist/js/front/front-countdown-timer.min.js?ver=1.0.3"></script>
+<script id="minti-easing-js" src="https://mapnadigital.com/wp-content/themes/unicon/framework/js/jquery.easing.min.js"></script>
+<script id="waypoints-js" src="https://mapnadigital.com/wp-content/themes/unicon/framework/js/waypoints.min.js"></script>
+<script id="minti-waypoints-sticky-js" src="https://mapnadigital.com/wp-content/themes/unicon/framework/js/waypoints-sticky.min.js"></script>
+<script id="minti-prettyphoto-js" src="https://mapnadigital.com/wp-content/themes/unicon/framework/js/prettyPhoto.js"></script>
+<script id="minti-isotope-js" src="https://mapnadigital.com/wp-content/themes/unicon/framework/js/isotope.pkgd.min.js"></script>
+<script id="minti-functions-js" src="https://mapnadigital.com/wp-content/themes/unicon/framework/js/functions.js"></script>
+<script id="minti-flexslider-js" src="https://mapnadigital.com/wp-content/themes/unicon/framework/js/flexslider.min.js"></script>
+<script id="minti-smoothscroll-js" src="https://mapnadigital.com/wp-content/themes/unicon/framework/js/smoothscroll.js"></script>
+<script async data-wp-strategy="async" fetchpriority="low" id="comment-reply-js" src="https://mapnadigital.com/wp-includes/js/comment-reply.min.js?ver=7.0.2"></script>
+<script id="wpb_composer_front_js-js" src="https://mapnadigital.com/wp-content/plugins/js_composer/assets/js/dist/js_composer_front.min.js?ver=6.6.0"></script>
+<script id="pcp_script-js-extra">
+var pcp_vars = {"swiperEnqueue":"1"};
+//# sourceURL=pcp_script-js-extra
+</script>
+<script id="pcp_script-js" src="https://mapnadigital.com/wp-content/plugins/post-carousel/public/assets/js/scripts.min.js?ver=3.0.6"></script>
+<script id="pcp_swiper-js" src="https://mapnadigital.com/wp-content/plugins/post-carousel/public/assets/js/swiper-bundle.min.js?ver=3.0.6"></script>
+<script id="wp-emoji-settings" type="application/json">
+{"baseUrl":"https://s.w.org/images/core/emoji/17.0.2/72x72/","ext":".png","svgUrl":"https://s.w.org/images/core/emoji/17.0.2/svg/","svgExt":".svg","source":{"concatemoji":"https://mapnadigital.com/wp-includes/js/wp-emoji-release.min.js?ver=7.0.2"}}
+</script>
+<script type="module">
+/*! This file is auto-generated */
+const a=JSON.parse(document.getElementById("wp-emoji-settings").textContent),o=(window._wpemojiSettings=a,"wpEmojiSettingsSupports"),s=["flag","emoji"];function i(e){try{var t={supportTests:e,timestamp:(new Date).valueOf()};sessionStorage.setItem(o,JSON.stringify(t))}catch(e){}}function c(e,t,n){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);t=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(n,0,0);const a=new Uint32Array(e.getImageData(0,0,e.canvas.width,e.canvas.height).data);return t.every((e,t)=>e===a[t])}function p(e,t){e.clearRect(0,0,e.canvas.width,e.canvas.height),e.fillText(t,0,0);var n=e.getImageData(16,16,1,1);for(let e=0;e<n.data.length;e++)if(0!==n.data[e])return!1;return!0}function u(e,t,n,a){switch(t){case"flag":return n(e,"\ud83c\udff3\ufe0f\u200d\u26a7\ufe0f","\ud83c\udff3\ufe0f\u200b\u26a7\ufe0f")?!1:!n(e,"\ud83c\udde8\ud83c\uddf6","\ud83c\udde8\u200b\ud83c\uddf6")&&!n(e,"\ud83c\udff4\udb40\udc67\udb40\udc62\udb40\udc65\udb40\udc6e\udb40\udc67\udb40\udc7f","\ud83c\udff4\u200b\udb40\udc67\u200b\udb40\udc62\u200b\udb40\udc65\u200b\udb40\udc6e\u200b\udb40\udc67\u200b\udb40\udc7f");case"emoji":return!a(e,"\ud83e\u1fac8")}return!1}function f(e,t,n,a){let r;const o=(r="undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?new OffscreenCanvas(300,150):document.createElement("canvas")).getContext("2d",{willReadFrequently:!0}),s=(o.textBaseline="top",o.font="600 32px Arial",{});return e.forEach(e=>{s[e]=t(o,e,n,a)}),s}function r(e){var t=document.createElement("script");t.src=e,t.defer=!0,document.head.appendChild(t)}a.supports={everything:!0,everythingExceptFlag:!0},new Promise(t=>{let n=function(){try{var e=JSON.parse(sessionStorage.getItem(o));if("object"==typeof e&&"number"==typeof e.timestamp&&(new Date).valueOf()<e.timestamp+604800&&"object"==typeof e.supportTests)return e.supportTests}catch(e){}return null}();if(!n){if("undefined"!=typeof Worker&&"undefined"!=typeof OffscreenCanvas&&"undefined"!=typeof URL&&URL.createObjectURL&&"undefined"!=typeof Blob)try{var e="postMessage("+f.toString()+"("+[JSON.stringify(s),u.toString(),c.toString(),p.toString()].join(",")+"));",a=new Blob([e],{type:"text/javascript"});const r=new Worker(URL.createObjectURL(a),{name:"wpTestEmojiSupports"});return void(r.onmessage=e=>{i(n=e.data),r.terminate(),t(n)})}catch(e){}i(n=f(s,u,c,p))}t(n)}).then(e=>{for(const n in e)a.supports[n]=e[n],a.supports.everything=a.supports.everything&&a.supports[n],"flag"!==n&&(a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&a.supports[n]);var t;a.supports.everythingExceptFlag=a.supports.everythingExceptFlag&&!a.supports.flag,a.supports.everything||((t=a.source||{}).concatemoji?r(t.concatemoji):t.wpemoji&&t.twemoji&&(r(t.twemoji),r(t.wpemoji)))});
+//# sourceURL=https://mapnadigital.com/wp-includes/js/wp-emoji-loader.min.js
+</script>
+<script id="rs-initialisation-scripts">
+		var	tpj = jQuery;
+
+		var	revapi1;
+
+		if(window.RS_MODULES === undefined) window.RS_MODULES = {};
+		if(RS_MODULES.modules === undefined) RS_MODULES.modules = {};
+		RS_MODULES.modules["revslider11"] = {once: RS_MODULES.modules["revslider11"]!==undefined ? RS_MODULES.modules["revslider11"].once : undefined, init:function() {
+			window.revapi1 = window.revapi1===undefined || window.revapi1===null || window.revapi1.length===0  ? document.getElementById("rev_slider_1_1") : window.revapi1;
+			if(window.revapi1 === null || window.revapi1 === undefined || window.revapi1.length==0) { window.revapi1initTry = window.revapi1initTry ===undefined ? 0 : window.revapi1initTry+1; if (window.revapi1initTry<20) requestAnimationFrame(function() {RS_MODULES.modules["revslider11"].init()}); return;}
+			window.revapi1 = jQuery(window.revapi1);
+			if(window.revapi1.revolution==undefined){ revslider_showDoubleJqueryError("rev_slider_1_1"); return;}
+			revapi1.revolutionInit({
+					revapi:"revapi1",
+					DPR:"dpr",
+					sliderLayout:"fullscreen",
+					visibilityLevels:"1240,1024,778,480",
+					gridwidth:1160,
+					gridheight:570,
+					lazyType:"smart",
+					spinner:"spinner2",
+					perspective:600,
+					perspectiveType:"local",
+					editorheight:"570,768,960,720",
+					responsiveLevels:"1240,1024,778,480",
+					gridEQModule:true,
+					fullScreenOffsetContainer:"#header",
+					progressBar:{disableProgressBar:true},
+					navigation: {
+						mouseScrollNavigation:false,
+						wheelCallDelay:1000,
+						touch: {
+							touchenabled:true,
+							swipe_threshold:0,
+							drag_block_vertical:true
+						},
+						arrows: {
+							enable:true,
+							tmp:"<div class=\"tp-title-wrap\">  	<div class=\"tp-arr-imgholder\"></div>    <div class=\"tp-arr-img-over\"></div>	<span class=\"tp-arr-titleholder\">{{title}}</span> </div>",
+							style:"erinyen",
+							hide_onmobile:true,
+							hide_under:778,
+							hide_onleave:true,
+							left: {
+								h_offset:1,
+								v_offset:-9
+							},
+							right: {
+								h_offset:-2
+							}
+						},
+						bullets: {
+							enable:true,
+							tmp:"<span class=\"tp-bullet-inner\"></span>",
+							style:"uranus",
+							hide_onmobile:true,
+							hide_under:778,
+							hide_onleave:true,
+							v_offset:30
+						}
+					},
+					parallax: {
+						levels:[1,2,3,20,25,30,35,40,45,50,47,48,49,50,51,30],
+						type:"mouse",
+						origo:"slideCenter",
+						speed:1000
+					},
+					viewPort: {
+						global:true,
+						globalDist:"-200px",
+						enable:false,
+						visible_area:"40%"
+					},
+					fallbacks: {
+						allowHTML5AutoPlayOnAndroid:true
+					},
+			});
+			
+		}} // End of RevInitScript
+
+		if (window.RS_MODULES.checkMinimal!==undefined) { window.RS_MODULES.checkMinimal();};
+	</script>
+<link rel='stylesheet' id='su-rtl-shortcodes-css' href='https://mapnadigital.com/wp-content/plugins/shortcodes-ultimate/includes/css/rtl-shortcodes.css?ver=7.4.2' media='all' />
+
+	<script type="text/javascript">
+	jQuery(document).ready(function($){
+		"use strict";
+	    
+		/* PrettyPhoto Options */
+		var lightboxArgs = {			
+						animation_speed: 'fast',
+						overlay_gallery: false,
+			autoplay_slideshow: false,
+						slideshow: 5000,
+									opacity: 0.8,
+						show_title: false,
+			social_tools: "",			deeplinking: false,
+			allow_resize: true,
+			allow_expand: false,
+			counter_separator_label: '/',
+			default_width: 1160,
+			default_height: 653
+		};
+		
+				/* Automatic Lightbox */
+		$('a[href$=jpg], a[href$=JPG], a[href$=jpeg], a[href$=JPEG], a[href$=png], a[href$=gif], a[href$=bmp]:has(img)').prettyPhoto(lightboxArgs);
+					
+		/* General Lightbox */
+		$('a[class^="prettyPhoto"], a[rel^="prettyPhoto"], .prettyPhoto').prettyPhoto(lightboxArgs);
+
+		/* WooCommerce Lightbox */
+		$("a[data-rel^='prettyPhoto']").prettyPhoto({
+			hook: 'data-rel',
+			social_tools: false,
+			deeplinking: false,
+			overlay_gallery: false,
+			opacity: 0.8,
+			allow_expand: false, /* Allow the user to expand a resized image. true/false */
+			show_title: false
+		});
+
+		
+	    
+		/* Transparent Header */
+	    function transparentHeader() {
+			if ($(document).scrollTop() >= 60) {
+				$('#header.header-v1').removeClass('header-transparent');
+			}
+			else {
+				$('#header.header-v1.stuck').addClass('header-transparent');
+			}
+		}
+			
+		/* Sticky Header */
+		if (/Android|BlackBerry|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent) === false) {
+
+			var $stickyHeaders = $('#header.header-v1, #header.header-v3 .navigation-wrap, #header.header-v4 .navigation-wrap');
+			$stickyHeaders.waypoint('sticky');
+			
+			$(window).resize(function() {
+				$stickyHeaders.waypoint('unsticky');
+				if ($(window).width() < 944) {
+					$stickyHeaders.waypoint('unsticky');
+				}
+				else {
+					$stickyHeaders.waypoint('sticky');
+				}
+			});
+			
+			if ($("body").hasClass("header-is-transparent")) {
+				$(document).scroll(function() { transparentHeader(); });
+				transparentHeader();
+		    }
+
+		}			
+	    
+	    
+	    	
+	    /* Fill rest of page */
+	    			    			$('body').css({'background-color' : '#05121a' });
+	    			    
+	});
+	</script>
+	
+</body>
+
+</html>

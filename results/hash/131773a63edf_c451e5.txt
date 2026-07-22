@@ -1,0 +1,807 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Expires" content="Fri, Jan 01 1900 00:00:00 GMT">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="content-language" content="ru">
+<meta name="author" content="www.rufox.ru">
+<meta http-equiv="Reply-to" content="@.com">
+<meta name="generator" content="Medved">
+<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE" /> 
+<meta name="keywords" content="портал, РуФокс, почта, бесплатный, почтовый ящик, новости, новости Краснодара, региональные новости, мировые новости, сайт знакомств, бесплатные знакомства, анкета, туризм, туры, заказать тур, горящие путевки, скачать видео, видеоприколы, фотогалерея, разместить фото, недвижимость, подать объявление, недвижимость в Краснодаре, авто, купить авто, продать авто, работа, разместить резюме бесплатно, вакансии, найти работу, законы, право, ГОСТ, рейтинг, поставить счетчик, блоги, дневник, астрология, приметы, астрологический прогноз, нумерология, фен-шуй, предприятия, каталог сайтов, летопись, форум, погода, прогноз погоды, погода в Краснодаре, файлы, скачать файл, покер, техасский холдем, покер в России, хостинг, создание сайтов, дизайн, веб, сервер, проектирование, верстка">
+<meta name="description" content="&amp;quot;РуФокс&amp;quot; - информационно-развлекательный портал, где Вы сможете бесплатно завести почтовый ящик, читать последние новости России и мира, создать анкету на сайте знакомств, подобрать тур в любую страну мира, смотреть видео, разместить свои фотографии, продать или сдать недвижимость, купить или продать авто, добавить резюме на сайт работы, завесть дневник - это и многое другое доступно для Вас на RuFox.ru">
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+            if (document.scripts[j].src === r) { return; }
+        }
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107157830', 'ym');
+                                        
+    ym(107157830, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><img src="https://mc.yandex.ru/watch/107157830" style="position:absolute; left:-9999px;" alt="" /></noscript>
+<!-- /Yandex.Metrika counter -->
+
+ 
+<title>RuFox.ru: почта, новости, знакомства, туризм, видео, фотогалерея, недвижимость, авто, работа, законы, астрология и многое другое - RuFox</title>
+<link href="/favicon.ico" rel="shortcut icon" />
+<link rel="stylesheet" type="text/css" href="https://res.rufox.ru/css/rufox.css?v=124">
+<link rel="stylesheet" type="text/css" href="/css/style.css?v=124">
+<link rel="stylesheet" type="text/css" href="https://res.rufox.ru/css/icons.css?v=124">
+<link rel="stylesheet" type="text/css" href="https://res.rufox.ru/css/shapka/chapka.css?v=124">
+
+<!--[if IE 6]>
+  <link rel="stylesheet" type="text/css" href="/css/ie6.css?v=124">
+  <link rel="stylesheet" type="text/css" href="https://res.rufox.ru/css/ie_png.css">
+<![endif]-->
+<script type="text/javascript" src="https://res.rufox.ru/js/jquery/jquery-1.7.1.min.js?v=89"></script>
+<script type="text/javascript" src="https://res.rufox.ru/js/rufox.js?v=89"></script>
+<script type="text/javascript" src="https://res.rufox.ru/js/shapka.js?v=89"></script>
+<link rel="stylesheet" type="text/css" href="https://res.rufox.ru/css/colorbox.css?v=124" />
+<script type="text/javascript" src="https://res.rufox.ru/js/jquery.colorbox-min.js?v=89"></script>
+
+<script type="text/javascript" src="/js/init_front.js?v=89"></script>
+
+
+
+
+</head>
+<body>
+
+    <div style="display: none;">
+    <div id="auth_dialog" style="overflow: hidden;">
+        <div style="height: 200px; width: 200px; float: left;"> 
+            <div style="padding: 10px;">
+                <div style="font-size: 18px;">Вход в систему</div>
+                <form action="/rfcommon/auth/index.php" method="post">
+                    <input type="hidden" name="referer" value="http://www.rufox.ru/"/>
+                    <input type="hidden" name="dialog" value="1">
+                    <div style="padding: 10px 0 3px 0;">Логин:</div>
+                    <div><input type="text" style="padding: 1px; font-size: 16px; width: 165px; margin-bottom: 10px;" name="login" tabindex="1"></div>
+                    <div style="padding: 3px 0;">
+                        Пароль: 
+                        <a target="_blank" href="http://my.rufox.ru/password/?Act=pwdrecovery" class="link_small"> забыли? </a>
+                    </div>
+                    <div><input type="password" style="padding: 1px; font-size: 16px; width: 165px; margin-bottom: 10px;" tabindex="2" name="pass"></div>
+
+                    <div style="float: right; padding: 4px 10px 0 0; color: gray; font-size: 11px;" >
+                        <input type="checkbox" style="float: left; height: 15px;" id="memberme_id" checked="checked" name="memberme">
+                        <label for="memberme_id">&nbsp;Запомнить меня</label><br />
+                    </div>
+                    <input type="submit" value="Войти" tabindex="3">
+                    <div style="margin-top: 5px;">
+                        <a href="/rfcommon/register/index.php?referer=http%3A%2F%2Fwww.rufox.ru%2F" class="link_big">регистрация &gt;&gt;</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div style="height: 200px; width: 215px; float: left;"> 
+            
+            <div style="padding-top: 10px;">Использовать мою учётную запись:</div>
+            <div style="height: 10px;"></div>
+
+            <div class="soc_accounts">
+                <!-- No index start -->
+                <noindex>
+                    <a title="Вконтакте" class="socbtn vkontakte" href="http://api.vk.com/oauth/authorize?client_id=2704085&amp;redirect_uri=http%3A%2F%2Fmy.rufox.ru%2Frfcommon%2Fauth%2Fvk.com%2Fregister.php&amp;scope=255&amp;display=page&amp;response_type=code"> Вконтакте </a>
+                    <a title="Facebook" class="socbtn facebook" href="/rfcommon/auth/facebook.com/register.php?referer=http%3A%2F%2Fmy.rufox.ru%2F"> Facebook </a>
+                    <a title="Mail.ru" class="socbtn mail_ru" href="https://connect.mail.ru/oauth/authorize?client_id=653717&amp;redirect_uri=http%3A%2F%2Fmy.rufox.ru%2Frfcommon%2Fauth%2Fmail.ru%2Fregister.php&amp;response_type=code">Mail.ru</a>
+                    <a title="Одноклассники" class="socbtn odnoklassniki" href="http://www.odnoklassniki.ru/oauth/authorize?client_id=6183168&amp;scope=VALUABLE ACCESS;SET STATUS;PHOTO CONTENT;MESSAGING&amp;response_type=code&amp;redirect_uri=http%3A%2F%2Fmy.rufox.ru%2Frfcommon%2Fauth%2Fodnoklassniki.ru%2Fregister.php">Одноклассники</a>
+                </noindex>
+                <!-- No index end -->
+            </div>
+            
+           
+        </div>
+    </div>
+</div>
+<a name="top">
+
+<div id="body-2" style="overflow:inherit;">
+	
+<!-- Шапка -->
+<div class="header">
+
+	<!-- Левая колонка -->
+	<div class="kolonka_left">
+		<div class="syslik">                                                     
+			<a href="#" onclick="this.style.behavior='url(#default#homepage)';this.setHomePage('https://www.rufox.ru'); return false;">Сделать RuFox стартовой страницей</a><br>
+			<a href="/"><img class="marg_logo" src="https://res.rufox.ru/img/shapka/logo.png" width="180" border="0" alt="RuFox"></a>
+		</div>
+	</div>
+	<!-- Конец левой колонки -->
+
+
+	<!-- Центральная колонка -->
+    <div class="topline">
+        <div class="authblock">    
+        
+                        <a href="/rfcommon/auth/index.php?referer=http%3A%2F%2Fwww.rufox.ru%2F" onclick="Shapka.openAuthDialog(); return false;">Войти</a> или 
+            <a href="/rfcommon/register/index.php?referer=http%3A%2F%2Fwww.rufox.ru%2F">
+                <img src="/images/register.png" style="vertical-align: middle; margin-left: 2px;">
+            </a>
+                    </div>
+        <div class="hotprojects">
+            &nbsp;
+            
+            
+            
+        </div>
+    </div>
+    
+	<div class="topbanner">
+        <!-- Блок поиска -->
+        <div class="block common search">
+            <a class="addthis_button_compact social_button plus"></a>
+
+            <!-- No index start -->
+            <noindex>
+                <a class="social_button vkontakte" href="https://vk.com/rufox"></a>
+                <a class="social_button twitter" href="https://www.twitter.com/rufox"></a>
+                <a class="social_button facebook" href="https://www.facebook.com/rufox.news"></a>
+            </noindex>
+            <!-- No index end -->
+
+            <div class="content">
+                <div class="poisk_1">
+                    <form method="get" action="//search.rufox.ru/internet/" id="searchform">
+                    <div class="new_poisk"><input value="" name="query" class="q"></div>
+                    <input type="submit" class="search" value="">
+                    </form>
+                </div>
+            </div>
+            
+        </div>
+	</div>
+	<!-- Конец центральной колонки -->
+
+</div> 
+<!-- конец шапки -->
+
+<!-- основная часть -->
+<div id="main" style="overflow:inherit;">
+
+	<!-- Левая колонка -->
+	<div class="kolonka_left">
+                <div id="block_menu_project">
+            <table class="menu_project" cellspacing="0" cellpadding="0" border="0">
+            
+            
+            <tr>
+                <td class="icons"><a href="http://my.rufox.ru/"><img src="/images/icons/new.gif" width="36" height="36" border="0" title="Социальная сеть"></a></td>
+                <td>
+                <div class="project"><a href="http://my.rufox.ru/">Социальная сеть</a></div>
+                <div class="opisan_projecta">бета версия</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="icons"><a href="http://news.rufox.ru/"><img src="/images/icons/news.jpg" width="36" height="36" border="0" title="Новости"></a></td>
+                <td>
+                <div class="project"><a href="https://news.rufox.ru/">Новости</a></div>
+                <div class="opisan_projecta">Мир, Россия, регион</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="icons"><a href="http://afisha.rufox.ru/"><img src="/images/icons/new.gif" width="36" height="36" border="0" title="Афиша"></a></td>
+                <td>
+                <div class="project"><a href="http://afisha.rufox.ru/">Афиша</a></div>
+                <div class="opisan_projecta">Анонсы, обзоры, трейлеры</div>
+                </td>
+            </tr>
+            
+            
+            <tr>
+                <td class="icons"><a href="http://mail.rufox.ru/"><img src="/images/icons/mail.jpg" width="36" height="36" border="0" title="Почта"></a></td>
+                <td>
+                <div class="project"><a href="http://mail.rufox.ru/">Почта</a></div>
+                <div class="opisan_projecta">Заведите почтовый ящик</div>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="icons"><a href="http://recept.rufox.ru/"><img src="/images/icons/cook.jpg" width="36" height="36" border="0" title="Кулинарные рецепты"></a></td>
+                <td>
+                <div class="project"><a href="http://recept.rufox.ru/" title="Кулинарные рецепты">Рецепты</a></div>
+                <div class="opisan_projecta">Секреты кулинарии</div>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="icons"><a href="http://hosting.rufox.ru/"><img src="/images/icons/hosting.jpg" width="36" height="36" border="0" title="Хостинг"></a></td>
+                <td>
+                <div class="project"><a href="http://hosting.rufox.ru/">Хостинг</a></div>
+                <div class="opisan_projecta">Размещение сайтов</div>
+                </td>
+            </tr>
+            
+            <tr>
+                <td class="icons"><a href="http://rufox.ru/adverts/market/"><img src="/images/icons/new.gif" width="36" height="36" border="0" title="Барахолка"></a></td>
+                <td>
+                <div class="project"><a href="http://rufox.ru/adverts/market/">Барахолка</a></div>
+                <div class="opisan_projecta">Купи, продай</div>
+                </td>
+            </tr>            
+            
+            <tr>
+                <td class="icons"><a href="http://job.rufox.ru/"><img src="/images/icons/job.jpg" width="36" height="36" border="0" title="Работа"></a></td>
+                <td>
+                <div class="project"><a href="http://job.rufox.ru/">Работа</a></div>
+                <div class="opisan_projecta">Размещение вакансий</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="icons"><a href="http://auto.rufox.ru/"><img src="/images/icons/auto.jpg" width="36" height="36" border="0" title="Авто"></a></td>
+                <td>
+                <div class="project"><a href="http://auto.rufox.ru/">Авто</a></div>
+                <div class="opisan_projecta">Авто, мотоциклы</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="icons"><a href="http://realty.rufox.ru/"><img src="/images/icons/realty.jpg" width="36" height="36" border="0" title="Недвижимость"></a></td>
+                <td>
+                <div class="project"><a href="http://realty.rufox.ru/">Недвижимость</a></div>
+                <div class="opisan_projecta">Квартиры, дома, участки</div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="icons"><a href="http://law.rufox.ru/"><img src="/images/icons/law.jpg" width="36" height="36" border="0" title="Законы"></a></td>
+                <td>
+                    <div class="project"><a href="http://law.rufox.ru/">Законы</a></div>
+                    <div class="opisan_projecta">Все законы, кодексы, нормы, ГОСТы и остальная правовая информация</div>
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2" style="padding-right: 20px;"> 
+                    <div class="line_dots_2"></div>
+                </td>
+            </tr>
+            <tr>
+                <td class="icons"><a href="http://rufox.ru/all/"><img src="/images/icons/all.gif" width="36" height="36" border="0" title="Форум"></a></td>
+                <td>
+                <div class="project"><a href="http://rufox.ru/all/">Все сервисы</a></div>
+                <div class="opisan_projecta">Полный список проектов</div>
+                </td>
+            </tr>
+            </table>
+
+        </div>
+	<!-- Конец иконок -->
+
+	<div class="block flat align_cent">
+	<!-- баннер слева 200х130 -->
+
+<!--/* OpenX Javascript Tag v2.4.6 */-->
+
+<script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://adv.rufox.ru/delivery/ajs.php':'http://adv.rufox.ru/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=9&amp;debugerr=1&amp;target=_blank");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></script><noscript><a href='http://adv.rufox.ru/delivery/ck.php?n=aa2ab3f0&amp;cb=933574' target='_blank'><img src='http://adv.rufox.ru/delivery/avw.php?zoneid=9&amp;n=aa2ab3f0' border='0' alt='' /></a></noscript>
+	</div>
+
+        
+        <div class="block common lean astro">
+            <div class="astroborder">
+    <div style="text-align: center; font-size: 14px; padding-bottom: 5px; font-weight: bold;">
+        <a href="http://astro.rufox.ru/" class="nolink">Астрология</a>
+    </div>
+    <div class="astroface">
+        <div class="otstup_left_otr">
+	        <div style="overflow:hidden;">
+	            <a class="icon astro ram" href="http://astro.rufox.ru/goro/zodiak/1/" title="Овен"></a>
+	            <a class="icon astro taurus" href="http://astro.rufox.ru/goro/zodiak/2/" title="Телец"></a>
+	            <a class="icon astro twins" href="http://astro.rufox.ru/goro/zodiak/3/" title="Близнецы"></a>
+            </div>
+            <div style="clear:left; overflow: hidden;">
+	            <a class="icon astro cancer" href="http://astro.rufox.ru/goro/zodiak/4/" title="Рак"></a>
+	            <a class="icon astro leo" href="http://astro.rufox.ru/goro/zodiak/5/" title="Лев"></a>
+	            <a class="icon astro virgo" href="http://astro.rufox.ru/goro/zodiak/6/" title="Дева"></a>
+	        </div>
+	        <div style="clear:left; overflow: hidden;">
+	            <a class="icon astro libra" href="http://astro.rufox.ru/goro/zodiak/7/" title="Весы"></a>
+	            <a class="icon astro scorpion" href="http://astro.rufox.ru/goro/zodiak/8/" title="Скорпион"></a>
+	            <a class="icon astro sagittarius" href="http://astro.rufox.ru/goro/zodiak/9/" title="Стрелец"></a>
+            </div>
+            <div style="clear:left; overflow: hidden;">
+	            <a class="icon astro capricorn" href="http://astro.rufox.ru/goro/zodiak/10/" title="Козерог"></a>
+	            <a class="icon astro water" href="http://astro.rufox.ru/goro/zodiak/11/" title="Водолей"></a>
+	            <a class="icon astro fishes" href="http://astro.rufox.ru/goro/zodiak/12/" title="Рыбы"></a>
+	        </div>
+
+	        <table>
+	            <tr>
+	            
+		        <td width="55%"><a href="http://astro.rufox.ru/on-line/pif/">Психоматрица</a></td>
+                <td width="33%"><a href="http://astro.rufox.ru/goro/">Гороскопы</a></td>
+	            </tr>
+	            <tr>
+		        <td><a href="http://astro.rufox.ru/fengshui/">Фэн Шуй</a></td>
+                <td width="33%"><a href="http://astro.rufox.ru/gadaniya/">Гадания</a></td>
+	            </tr>
+	            <tr>
+		        <td><a href="http://astro.rufox.ru/magic/">Магия</a></td>
+		        <td width="33%"><a href="http://astro.rufox.ru/sonnic/">Сонник</a></td>
+	            </tr>
+
+	        </table>
+
+	        <div class="dots"></div>
+        </div>
+        <a class="project" href="http://astro.rufox.ru/">на сайт астрологии</a>
+    </div>
+</div>        </div>
+        <br />
+        <div class="common lean">
+            <div class="content">
+                         
+   
+    
+                    
+    
+         
+                <div class="teasers_list">
+                                            <div class="one_teaser">
+                    <div class="teaser_square">
+                        <a target="_blank" href="//my.rufox.ru/go.php?teaser_id=&url=http%3A%2F%2Fnews.rufox.ru%2Ftexts%2F2026%2F07%2F21%2F387194.htm&project_id=14">
+                            <img src="http://img.rufox.ru/files/50x50/885930.jpg" width="50" height="50" />
+                            &laquo;Подлый демон&raquo;: похитителем...                        </a>
+                    </div>
+                </div>
+                            <div class="teaser_separator"></div>                <div class="one_teaser">
+                    <div class="teaser_square">
+                        <a target="_blank" href="//my.rufox.ru/go.php?teaser_id=56&url=http%3A%2F%2Freadyscript.ru%2Fq-9rccebnzve%2F&project_id=14">
+                            <img src="http://img.rufox.ru/files/50x50/724238.jpg" width="50" height="50" />
+                            Создайте свой интернет-магазин на новой...                        </a>
+                    </div>
+                </div>
+                            <div class="teaser_separator"></div>                <div class="one_teaser">
+                    <div class="teaser_square">
+                        <a target="_blank" href="//my.rufox.ru/go.php?teaser_id=62&url=http%3A%2F%2Fhosting.rufox.ru&project_id=14">
+                            <img src="http://img.rufox.ru/files/50x50/735937.jpg" width="50" height="50" />
+                            Хостинг, домены, VPS/VDS, размещение...                        </a>
+                    </div>
+                </div>
+                        <div class="teasers_add" style="text-align: right; font-size: 11px; padding-top: 3px;">
+                <a href="http://corp.rufox.ru/teasers/">Что это?</a>
+            </div>
+        </div>    
+                <br>
+<center>
+
+<br>            </div>
+        </div>        
+
+        <div class="block common lean astro">
+            <div class="astroborder">
+    <div style="text-align: center; font-size: 14px; padding-bottom: 5px; font-weight: bold;">
+        <a href="http://pogoda.rufox.ru/" class="nolink">
+        Краснодар        </a>
+    </div>
+    <div class="astroface">
+        <div class="otstup_left_otr">
+            <img src='https://res.rufox.ru/img/pogoda/weather30x30/.jpg' style="vertical-align: middle;margin-bottom: 5px;">
+            <span style="font-size: 18px;">&nbsp;</span>
+            <br />
+	        <table>
+	            <tr>
+		            <td width="55%">давление: </td>
+                    <td width="33%" style="white-space: nowrap;"><b> мм рт.ст. </b></td>
+	            </tr>
+	            <tr>
+		            <td>влажность: </td>
+                    <td width="33%"><b>%</b></td>
+	            </tr>
+	            <tr>
+		            <td>ветер: </td>
+		            <td width="33%"><b> м/с</b></td>
+	            </tr>
+
+	        </table>
+	        <div class="dots"></div>
+        </div>
+        <a class="project" href="http://pogoda.rufox.ru/">прогноз на неделю</a>
+    </div>
+</div>        </div>
+
+	</div>
+	<!-- конец левой колонки -->
+
+	<!-- Правая колонка -->
+	<div class="kolonka_right">
+
+        
+		
+        <div class="block banner" style="width:240px;position:relative;left:-10px;">
+		    <!--/* OpenX Javascript Tag v2.8.7 */-->
+
+
+<script type='text/javascript'><!--//<![CDATA[
+   var m3_u = (location.protocol=='https:'?'https://adv.rufox.ru/delivery/ajs.php':'http://adv.rufox.ru/delivery/ajs.php');
+   var m3_r = Math.floor(Math.random()*99999999999);
+   if (!document.MAX_used) document.MAX_used = ',';
+   document.write ("<scr"+"ipt type='text/javascript' src='"+m3_u);
+   document.write ("?zoneid=80&amp;debugerr=1&amp;target=_blank");
+   document.write ('&amp;cb=' + m3_r);
+   if (document.MAX_used != ',') document.write ("&amp;exclude=" + document.MAX_used);
+   document.write (document.charset ? '&amp;charset='+document.charset : (document.characterSet ? '&amp;charset='+document.characterSet : ''));
+   document.write ("&amp;loc=" + escape(window.location));
+   if (document.referrer) document.write ("&amp;referer=" + escape(document.referrer));
+   if (document.context) document.write ("&context=" + escape(document.context));
+   if (document.mmm_fo) document.write ("&amp;mmm_fo=1");
+   document.write ("'><\/scr"+"ipt>");
+//]]>--></script><noscript><a href='http://adv.rufox.ru/delivery/ck.php?n=a2828073&amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'><img src='http://adv.rufox.ru/delivery/avw.php?zoneid=80&amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;n=a2828073' border='0' alt='' /></a></noscript>
+
+<!-- Kavanga.AdEngine START -->
+<!-- Информационно-развлектельный портал RuFox. -->
+<!-- 240x400 -->
+
+<!-- Kavanga.AdEngine FINISH -->		</div>
+        
+		
+		<div class="block common">
+		    <div class="content">
+		        <div class="otstup_left_otr job">
+    <a class="nolink title" href="http://job.rufox.ru/">Работа</a>&nbsp;&nbsp;
+    <a href="http://job.rufox.ru/">Найти работу</a>
+            <div class="onejob">
+            <div>
+                <a class="joblink" href="http://job.rufox.ru/vacancy/show/422916/">Оператор колл-центра (банк СМЗ)</a>
+            </div>
+            <div class="earn"> 45 000 руб.</div>
+            <div class="firm">ангелина+</div>        </div>
+            <div class="onejob">
+            <div>
+                <a class="joblink" href="http://job.rufox.ru/vacancy/show/422776/">Монтажник строительных лесов</a>
+            </div>
+            <div class="earn"> 155 000 руб.</div>
+            <div class="firm">ангелина +</div>        </div>
+            <div class="onejob">
+            <div>
+                <a class="joblink" href="http://job.rufox.ru/vacancy/show/418999/">Оператор дистанционного колл-центра</a>
+            </div>
+            <div class="earn"> 55 000 руб.</div>
+            <div class="firm">ангелина +</div>        </div>
+        <a href="http://job.rufox.ru/vacancy/add/">
+        <img src="/images/add_vacancy.png">
+    </a>
+</div>
+
+		
+
+		    </div>
+		    <!-- start adv --><!-- end adv -->
+		</div>
+
+        
+        
+
+	</div>
+
+<!-- конец правой колонки -->
+
+<!-- центральная колонка -->
+
+	<div class="kolonka_center">
+
+
+	<!-- Блок новостей -->
+		<div class="block common news">
+			<dl class="tabs">
+			    <dt class="active">
+                    Сегодня в новостях
+                </dt>
+			    <dd>
+	                	                <div class="first">
+	                    <div class="date">22.07 13:32</div>
+	                    <a href="http://news.rufox.ru/texts/2026/07/22/387211.htm" class="title" title="Модный фотограф и поставщик моделей для Джеффри Эпштейна найден мертвым">
+	                        Модный фотограф и поставщик моделей для Джеффри Эпштейна найден...	                    </a>
+                        	                    <div class="mainfoto">
+	                        <a href="http://news.rufox.ru/texts/2026/07/22/387211.htm">
+	                            <img src="http://img.rufox.ru/files/news2/885946.jpg">
+	                        </a>
+	                    </div>
+                        	                    <p class="text_news_ie">
+	                        Поставщик моделей для Джеффри Эпштейна &ndash; бывший модельный агент и модный фотограф Даниэль Сиад &ndash; найден мертвым у себя дома во Франции, сообщает телеканал BFMTV. Мужчину нашли без признаков жизни. Пока не установлены причины смерти....	                    </p>
+	                </div>
+	                
+	                
+	                <div class="othernews">
+	                	                    	                        	                    	                    <div class="oneother">
+	                        <div class="date">22.07 09:46</div>
+	                        <a href="http://news.rufox.ru/texts/2026/07/22/387206.htm" title="Кондратьев: Один человек погиб в результате ночной атаки БПЛА в Армавире">Кондратьев: Один человек погиб в результате ночной атаки БПЛА в Армавире</a>
+	                    </div>  
+	                	                    	                    <div class="oneother">
+	                        <div class="date">22.07 08:54</div>
+	                        <a href="http://news.rufox.ru/texts/2026/07/22/387202.htm" title="При атаке на логистический склад в Краснодаре пострадали 10 человек">При атаке на логистический склад в Краснодаре пострадали 10 человек</a>
+	                    </div>  
+	                	                    	                    <div class="oneother">
+	                        <div class="date">22.07 08:21</div>
+	                        <a href="http://news.rufox.ru/texts/2026/07/22/387200.htm" title="Краснодар атакован беспилотниками, есть пострадавшие и разрушения">Краснодар атакован беспилотниками, есть пострадавшие и разрушения</a>
+	                    </div>  
+	                	                    	                    <div class="oneother">
+	                        <div class="date">21.07 16:10</div>
+	                        <a href="http://news.rufox.ru/texts/2026/07/21/387196.htm" title="Парень из Владивостока женился на девушке в GTA SAMP, а потом прилетел в другой конец страны и сыграл с ней настоящую свадьбу">Парень из Владивостока женился на девушке в GTA SAMP, а потом прилетел в другой конец...</a>
+	                    </div>  
+	                	                </div>
+			    </dd>
+			    
+			    <dd>
+					<div class="dots"></div>
+					<a class="project" href="https://news.rufox.ru/">открыть все новости</a>
+			    </dd>
+			    
+                			    <dt>Краснодар</dt>
+			    <dd>
+                                        <div class="first">
+                        <div class="date">22.07 09:21</div>
+                        <a href="http://news.rufox.ru/texts/2026/07/22/387204.htm" class="title" title="В Пашковском мкр Краснодара обломки БПЛА повредили пятиэтажку">
+                            В Пашковском мкр Краснодара обломки БПЛА повредили пятиэтажку                        </a>
+                                                    <div class="mainfoto">
+                                <a href="http://news.rufox.ru/texts/2026/07/22/387204.htm">
+                                    <img src="http://img.rufox.ru/files/news2/885939.jpg">
+                                </a>
+                            </div>
+                                                <p class="text_news_ie">
+                            В Пашковском микрорайоне Краснодара обломки украинских БПЛА повредили крышу и окна в пятиэтажном многоквартирном доме. Об этом сообщил глава города Евгений Наумов. По его словам, пострадавших нет. На месте ЧП работают специальные и оперативные...                        </p>
+                    </div>
+
+                    <div class="othernews">
+                                                                                                                        <div class="oneother">
+                            <div class="date">22.07 08:54</div>
+                            <a href="http://news.rufox.ru/texts/2026/07/22/387202.htm" title="При атаке на логистический склад в Краснодаре пострадали 10 человек">При атаке на логистический склад в Краснодаре пострадали 10 человек</a>
+                        </div>  
+                                                                    <div class="oneother">
+                            <div class="date">22.07 08:21</div>
+                            <a href="http://news.rufox.ru/texts/2026/07/22/387200.htm" title="Краснодар атакован беспилотниками, есть пострадавшие и разрушения">Краснодар атакован беспилотниками, есть пострадавшие и разрушения</a>
+                        </div>  
+                                                                    <div class="oneother">
+                            <div class="date">16.07 10:35</div>
+                            <a href="http://news.rufox.ru/texts/2026/07/16/387139.htm" title="Депутат Госдумы Светлана Бессараб взяла на контроль обращения кубанцев, требующих вмешательства на уровне профильных ведомств">Депутат Госдумы Светлана Бессараб взяла на контроль обращения кубанцев, требующих...</a>
+                        </div>  
+                                                                    <div class="oneother">
+                            <div class="date">15.07 10:17</div>
+                            <a href="http://news.rufox.ru/texts/2026/07/15/387124.htm" title="Двое краснодарцев записали видеоролик со шпагатом на фоне собора и попали в полицию">Двое краснодарцев записали видеоролик со шпагатом на фоне собора и попали в полицию</a>
+                        </div>  
+                                        </div>
+                </dd>
+                			</dl>
+		</div>
+
+        
+        
+        <div class="block common realauto">
+            <div class="realty">
+                <a href="http://realty.rufox.ru" class="title nolink">Недвижимость</a>&nbsp;
+                <a href="http://realty.rufox.ru">Найти</a>
+                <br /><br />
+                                    <div class="onerealty">
+                        <a href="http://realty.rufox.ru/bbs/523886.htm">
+                            <img src="http://img.rufox.ru/files/62x62/872955.jpg" width="62" height="62">
+                        </a>
+                        <a href="http://realty.rufox.ru/bbs/523886.htm">8 700 000 руб.</a><br />
+                        <div class="info_block">
+                            <div class="info_line">
+                                Квартира, Санкт-Петербург                            </div>
+                            <div class="info_line">
+                                Площадь: 43.5 кв.м.
+                            </div>
+                        </div>
+                    </div>
+                                    <div class="onerealty">
+                        <a href="http://realty.rufox.ru/bbs/523870.htm">
+                            <img src="http://img.rufox.ru/files/62x62/867603.jpg" width="62" height="62">
+                        </a>
+                        <a href="http://realty.rufox.ru/bbs/523870.htm">30 800 000 руб.</a><br />
+                        <div class="info_block">
+                            <div class="info_line">
+                                Помещение, Санкт-Петербург и область                            </div>
+                            <div class="info_line">
+                                Площадь: 2366 кв.м.
+                            </div>
+                        </div>
+                    </div>
+                                    <div class="onerealty">
+                        <a href="http://realty.rufox.ru/bbs/523869.htm">
+                            <img src="http://img.rufox.ru/files/62x62/871794.jpg" width="62" height="62">
+                        </a>
+                        <a href="http://realty.rufox.ru/bbs/523869.htm">158 400 000 руб.</a><br />
+                        <div class="info_block">
+                            <div class="info_line">
+                                Помещение, Санкт-Петербург и область                            </div>
+                            <div class="info_line">
+                                Площадь: 8900 кв.м.
+                            </div>
+                        </div>
+                    </div>
+                                <a href="http://realty.rufox.ru/my/add/">
+                    <img src="/images/add_announce.png">
+                </a>
+            </div>
+            <div class="auto">
+                <a href="http://auto.rufox.ru" class="title nolink">Авто</a>&nbsp;
+                <a href="http://auto.rufox.ru">Найти</a>
+                <br /><br />
+                                    <div class="onerealty">
+                        <a href="http://auto.rufox.ru/bbs/442030.htm">
+                            <img src="http://img.rufox.ru/files/92x62/809425.jpg" width="92" height="62">
+                        </a>
+                        <a href="http://auto.rufox.ru/bbs/442030.htm">АВТОВАЗ 2108</a><br />
+                        <div class="autoprice">
+                            40 000 руб.<br />
+                        </div>
+                        <div class="info_line">
+                            Год выпуска: 0                        </div>
+                        <div class="info_line">
+                            Пробег: 0                        </div>
+                    </div>
+                                    <div class="onerealty">
+                        <a href="http://auto.rufox.ru/bbs/442023.htm">
+                            <img src="http://img.rufox.ru/files/92x62/747985.jpg" width="92" height="62">
+                        </a>
+                        <a href="http://auto.rufox.ru/bbs/442023.htm">VOLKSWAGEN SHARAN</a><br />
+                        <div class="autoprice">
+                            185 000 руб.<br />
+                        </div>
+                        <div class="info_line">
+                            Год выпуска: 2002                        </div>
+                        <div class="info_line">
+                            Пробег: 235000                        </div>
+                    </div>
+                                    <div class="onerealty">
+                        <a href="http://auto.rufox.ru/bbs/442010.htm">
+                            <img src="http://img.rufox.ru/files/92x62/735053.jpg" width="92" height="62">
+                        </a>
+                        <a href="http://auto.rufox.ru/bbs/442010.htm">AUDI A3 SPORTBACK</a><br />
+                        <div class="autoprice">
+                            540 000 руб.<br />
+                        </div>
+                        <div class="info_line">
+                            Год выпуска: 2011                        </div>
+                        <div class="info_line">
+                            Пробег: 26000                        </div>
+                    </div>
+                                
+                <a href="http://auto.rufox.ru/my/newest/">
+                    <img src="/images/add_announce.png">
+                </a>
+            </div>
+        </div>
+
+	</div>
+    <!--конец центральной колонки-->
+
+    <div class="projects_bottom">
+        <a href="http://afisha.rufox.ru/">Афиша</a>
+        <a href="https://news.rufox.ru/">Новости</a>
+        <a href="http://mail.rufox.ru/">Почта</a>
+        <a href="http://recept.rufox.ru/">Кулинарные рецепты</a>
+        <a href="http://history.rufox.ru/">Летопись</a>
+        <a href="http://blogs.rufox.ru/">Блоги</a>
+        <a href="http://astro.rufox.ru/">Астрология</a>
+        <a href="http://job.rufox.ru/">Работа</a>
+        <a href="http://realty.rufox.ru/">Недвижимость</a>
+        <a href="http://auto.rufox.ru/">Авто</a>
+        <a href="http://law.rufox.ru/">Законы</a>
+        <a href="http://catalog.rufox.ru/">Каталог сайтов</a>
+        <a href="http://firms.rufox.ru/">Предприятия</a>
+        <a href="http://pogoda.rufox.ru/">Погода</a>
+        <a href="http://top100.rufox.ru/">Рейтинг сайтов</a>
+    </div>
+
+    <br><br>
+    <div style="width:787px;">
+    
+    <div class="stlinks">
+<script>
+<!--
+var _acic={dataProvider:10};(function(){var e=document.createElement("script");e.async=true;e.src="https://www.acint.net/aci.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})()
+//-->
+</script> <a href="https://pc-service.kz/shop/3251/desc/blok-pitanija-dlja-dell-inspiron-13-5370-p87g-7347-p57g-7348-p57g001-7353-p57g002-p57g-14-3421-p37g001" target="_blank">dell inspiron 13-5370 p87g</a> .  <a href="https://kurskoblinvest.ru/" target="_blank">вулкан</a> .  <a href="https://www.dentnyagan.ru/" target="_blank">Риобет</a> .  <a href="https://msk.gogethome.ru" target="_blank">gogethome москва</a> .  Недорогие <a href="https://totlot.ru" target="_blank">квартиры</a> в Иркутске .  Погрузитесь в увлекательное общение с <a href="https://lovix.ai/ru" target="_blank">ИИ девушкой на русском</a>, открывая новые горизонты. .  Надежная <a href="https://examka.ai/neyroset-dlya-diploma" target="_blank">нейросеть для диплома</a> для поиска идей и оформления выпускной работы. .  Ртуть - 1 класс опасности. <a href="https://testeco.ru/ecodict/rtut/" target="_blank">Разбился градусник, что делать?</a> Как собрать ртуть .  Узнайте подробнее, <a href="https://msk-v24.ru/" target="_blank">как продать квартиру с долгом по жкх</a>, записавшись на бесплатную консультацию. .  Откройте <a href="https://planning-poker-free.com/" target="_blank">planning poker без регистрации</a> и отправьте ссылку коллегам в Slack - это всё. </div>
+
+
+
+    </div>
+
+</div>
+<!-- конец основной части -->
+
+<!-- No index start -->
+<div style="display: none;">
+    <!-- Rating@Mail.ru counter -->
+<script type="text/javascript">
+var _tmr = window._tmr || (window._tmr = []);
+_tmr.push({id: "2932716", type: "pageView", start: (new Date()).getTime()});
+(function (d, w, id) {
+  if (d.getElementById(id)) return;
+  var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+  ts.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//top-fwz1.mail.ru/js/code.js";
+  var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+  if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+})(document, window, "topmailru-code");
+</script><noscript><div>
+<img src="//top-fwz1.mail.ru/counter?id=2932716;js=na" style="border:0;position:absolute;left:-9999px;" alt="" />
+</div></noscript>
+<!-- //Rating@Mail.ru counter -->
+
+<!-- No index start -->
+
+
+<!--RuFox Project Counter-->
+	<script type="text/javascript"><!--
+	document.write("<img src='//top100.rufox.ru/cgi-bin/ncounter.pl?id%=163166;r%="+
+	escape(document.referrer)+((typeof(screen)=="undefined")?"":
+	";s%="+screen.width+"*"+screen.height+";d%="+(screen.colorDepth?
+	screen.colorDepth:screen.pixelDepth))+";u%="+escape(document.URL)+
+	";j%="+navigator.javaEnabled()+
+	";h%="+escape(document.title.substring(0,80))+";rand%="+Math.random()+
+	"' border=0 width=1 height=1>")//--></script>
+	<noscript>
+	<img border="0" src="//top100.rufox.ru/cgi-bin/ncounter.pl?id%=163166;j%=false;" width=1 height=1 alt="">
+	</noscript>
+<!--End RuFox Project Counter-->
+<!-- No index end --></div>
+<div class="footer_new">
+	<div style="display:block; padding-top:2px; width:100%; height:35px;">
+		<p style="text-align: right;">
+
+<!-- No index start -->
+<!--RuFox Counter-->
+	<script type="text/javascript"><!--
+	document.write("<a href='//top100.rufox.ru/view/?Act=showstat&type=dynamic&id=622'><img src='//top100.rufox.ru/cgi-bin/ncounter.pl?id%=622;t%=9;r%="+
+	escape(document.referrer)+((typeof(screen)=="undefined")?"":
+	";s%="+screen.width+"*"+screen.height+";d%="+(screen.colorDepth?
+	screen.colorDepth:screen.pixelDepth))+";u%="+escape(document.URL)+
+	";j%="+navigator.javaEnabled()+
+	";h%="+escape(document.title.substring(0,80))+";rand%="+Math.random()+
+	"' alt='Статистика портала' border=0 width=1 height=1></a>")//--></script>
+	<noscript>
+	<a href="//top100.rufox.ru/view/?Act=showstat&type=dynamic&id=622"><img border="0" src="//top100.rufox.ru/cgi-bin/ncounter.pl?id%=622;t%=9;j%=false;" width=1 height=1 alt=""></a>
+	</noscript>
+<!--End RuFox Counter-->
+<!-- No index end -->
+</p>
+	</div>
+	<div class="hblock line"></div>
+	<div class="hblock floathack bottom">
+			<!-- No index start -->
+<script type="text/javascript">
+    openReportWindow = function(){
+    w=window.open("http://help.rufox.ru/support/reporterror.php?url=www.rufox.ru%2F","support_window",'width=550,height=450,resizable=1,toolbar=0,location=0,status=0,menubar=0,directories=0,scrollbars=yes,top=0,left=0');
+    w.focus();
+}
+</script>
+
+<span class="system copy">&copy; 2007-2026 ООО «РуФокс»</span>
+<a class="system" href="http://corp.rufox.ru/">о проекте</a>
+<a class="system mark" href="http://corp.rufox.ru/vacancy/">вакансии</a>
+<a class="system mark" href="http://hosting.rufox.ru/">хостинг</a>
+<a class="system mark" href="http://web.rufox.ru">создание сайтов</a>
+<a class="system mark red" href="http://corp.rufox.ru/sales/">реклама на сайте</a>
+
+<a class="system mark" href="http://corp.rufox.ru/partners/">наши партнеры</a>
+<a class="system mark" style="color: #333333;" href="JavaScript:openReportWindow()">сообщить об ошибке</a>
+<!-- No index end -->	</div>
+</div>
+<!-- No index end -->
+</div>
+</body>
+</html>

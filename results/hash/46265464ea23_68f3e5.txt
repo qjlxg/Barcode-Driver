@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="ru" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход в систему | Платёжный шлюз</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FE2401',
+                        'primary-hover': '#E52001',
+                        'primary-light': '#FF4520',
+                        dark: {
+                            bg: '#0F0F0F',
+                            'bg-secondary': '#1A1A1A',
+                            card: '#1A1A1A',
+                            border: '#2A2A2A',
+                            text: '#FFFFFF',
+                            'text-secondary': '#8A8A8A',
+                            input: '#2A2D32',
+                        },
+                        light: {
+                            bg: '#FFFFFF',
+                            'bg-secondary': '#F8F9FA',
+                            card: '#FFFFFF',
+                            border: '#E5E5E5',
+                            text: '#000000',
+                            'text-secondary': '#666666',
+                            input: '#F5F5F5',
+                        }
+                    },
+                    borderRadius: {
+                        'card': '1rem',
+                        'input': '0.75rem',
+                    },
+                    backgroundImage: {
+                        'gradient-primary': 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%)',
+                        'gradient-primary-dark': 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-width: 320px;
+        }
+
+        .theme-transition {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Анимация для появления */
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-fade-in-left {
+            animation: fadeInLeft 0.6s ease-out;
+        }
+
+        .animate-fade-in-right {
+            animation: fadeInRight 0.6s ease-out;
+        }
+
+        /* Кастомные стили для input focus */
+        .input-focus:focus {
+            outline: none;
+            border-color: #FE2401;
+        }
+
+        .dark .input-focus:focus {
+            box-shadow: 0 0 0 3px rgba(254, 36, 1, 0.08);
+        }
+
+        .light .input-focus:focus {
+            box-shadow: 0 0 0 3px rgba(254, 36, 1, 0.15);
+        }
+
+        /* Стили для темной темы */
+        .dark .input-dark {
+            background-color: #2A2D32;
+            border-color: #3A3D42;
+            color: #FFFFFF;
+        }
+
+        .dark .input-dark::placeholder {
+            color: #666666;
+        }
+
+        /* Стили для светлой темы */
+        .light .input-light {
+            background-color: #F9FAFB;
+            border: 2px solid #D1D5DB;
+            color: #000000;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .light .input-light::placeholder {
+            color: #9CA3AF;
+        }
+
+        .light .input-light:hover {
+            border-color: #9CA3AF;
+        }
+
+        .light .input-light:focus {
+            background-color: #FFFFFF;
+        }
+
+        /* Градиентный фон для правой части */
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a0f0e 0%, #2a1614 35%, #3d1f1a 100%);
+        }
+
+        .light .gradient-bg {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 35%, #ffd6d6 100%);
+        }
+
+        /* Логотип анимация */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .logo-float {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="dark:bg-dark-bg light:bg-light-bg theme-transition min-h-screen overflow-hidden">
+
+
+    <div class="absolute top-6 left-6 z-50">
+        <button
+            id="themeToggle"
+            class="p-3 rounded-lg dark:bg-dark-card light:bg-white dark:border-dark-border light:border-gray-300 border-2 theme-transition hover:scale-105 transition-transform duration-200 shadow-lg"
+            aria-label="Переключить тему">
+            <svg id="sunIcon" class="w-5 h-5 dark:text-dark-text light:text-light-text hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
+            </svg>
+            <svg id="moonIcon" class="w-5 h-5 dark:text-dark-text light:text-light-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+            </svg>
+        </button>
+    </div>
+
+
+    <div class="flex min-h-screen">
+
+
+        <div class="w-full lg:w-1/2 flex items-center justify-center p-8 lg:p-16 dark:bg-dark-bg light:bg-gray-50 animate-fade-in-left">
+            <div class="w-full max-w-md">
+
+
+                <div class="mb-10">
+                    <h1 class="text-4xl lg:text-5xl font-bold dark:text-dark-text light:text-gray-900 mb-3">Добро пожаловать!</h1>
+                    <p class="text-lg dark:text-dark-text-secondary light:text-gray-600">Авторизуйтесь, чтобы начать работу</p>
+                </div>
+
+
+                <div>
+                    
+
+                    
+
+                    <form id="loginForm" class="space-y-5 " method="POST" action="/login">
+                        <input type="hidden" name="_token" value="6ZV7DL9KTUQsyDg6OBC8yuvw8KQzAaKAHUZA0SKn" autocomplete="off">
+
+                        <div>
+                            <input
+                                type="text"
+                                id="email"
+                                name="email"
+                                value=""
+                                required
+                                class="w-full px-5 py-4 rounded-input dark:border-0 light:border-2 dark:input-dark light:input-light input-focus theme-transition text-base "
+                                placeholder="Email или логин">
+                        </div>
+
+
+                        <div>
+                            <div class="relative">
+                                <input
+                                    type="password"
+                                    id="password"
+                                    name="password"
+                                    required
+                                    class="w-full px-5 py-4 rounded-input dark:border-0 light:border-2 dark:input-dark light:input-light input-focus theme-transition pr-12 text-base"
+                                    placeholder="Пароль">
+                                <button
+                                    type="button"
+                                    id="togglePassword"
+                                    class="absolute right-4 top-1/2 -translate-y-1/2 dark:text-dark-text-secondary light:text-light-text-secondary hover:text-primary transition-colors">
+                                    <svg id="eyeOpen" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                    </svg>
+                                    <svg id="eyeClosed" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-4 px-6 rounded-input transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99] text-base mt-6 shadow-md hover:shadow-lg">
+                            Авторизоваться
+                        </button>
+
+
+                        <div class="text-center pt-4">
+                            <button type="button" id="forgotPasswordBtn" class="text-sm dark:text-dark-text-secondary light:text-gray-600 hover:text-primary transition-colors font-medium">
+                                Забыли пароль?
+                            </button>
+                        </div>
+
+                    </form>
+
+
+                    <form id="twoFactorForm" class="space-y-5 hidden" method="POST" action="/2fa/verify">
+                        <input type="hidden" name="_token" value="6ZV7DL9KTUQsyDg6OBC8yuvw8KQzAaKAHUZA0SKn" autocomplete="off">
+                        <div class="mb-8">
+                            <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl dark:bg-dark-card light:bg-primary/10 border-2 dark:border-dark-border light:border-primary/30 mb-4">
+                                <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                            </div>
+                            <h2 class="text-2xl font-bold dark:text-dark-text light:text-gray-900 mb-2">Двухфакторная аутентификация</h2>
+                            <p class="dark:text-dark-text-secondary light:text-gray-600">Введите код из приложения Google Authenticator</p>
+                        </div>
+
+
+                        
+
+                        <div>
+                            <input
+                                type="text"
+                                id="twoFactorCode"
+                                name="twoFactorCode"
+                                required
+                                maxlength="6"
+                                pattern="[0-9]{6}"
+                                class="w-full px-5 py-4 rounded-input dark:border-0 light:border-2 dark:input-dark light:input-light input-focus theme-transition text-center text-2xl tracking-widest font-mono "
+                                placeholder="000000">
+                        </div>
+
+
+                        <div class="space-y-3 mt-6">
+                            <button
+                                type="submit"
+                                class="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-4 px-6 rounded-input transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99] shadow-md hover:shadow-lg">
+                                Подтвердить
+                            </button>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="hidden lg:flex lg:w-1/2 gradient-bg items-center justify-center relative overflow-hidden animate-fade-in-right">
+
+
+            <div class="absolute inset-0 overflow-hidden">
+
+                <div class="absolute top-10 left-10 w-96 h-96 dark:bg-white/5 light:bg-primary/20 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-20 right-10 w-80 h-80 dark:bg-primary/10 light:bg-primary/15 rounded-full blur-3xl"></div>
+                <div class="absolute top-1/2 left-1/3 w-64 h-64 dark:bg-white/3 light:bg-primary/12 rounded-full blur-3xl"></div>
+                <div class="absolute bottom-1/3 left-1/4 w-72 h-72 dark:bg-white/2 light:bg-primary/8 rounded-full blur-3xl"></div>
+            </div>
+
+
+            <div class="relative z-10 text-center logo-float">
+                <div class="flex items-center justify-center mb-6">
+                    <span class="text-primary font-bold mb-8 drop-shadow-lg" style="font-size: 8rem; line-height: 1;">ё</span>
+                </div>
+                <h2 class="text-5xl font-bold dark:text-white light:text-gray-900 mb-4">Yoki</h2>
+                <p class="text-xl dark:text-white/80 light:text-gray-700 max-w-md mx-auto">Панель управления платежами</p>
+
+
+                <div class="mt-12 flex items-center justify-center space-x-8 dark:text-white/60 light:text-gray-600">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="text-sm">Безопасно</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="text-sm">Быстро</span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                        <span class="text-sm">Надежно</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="passwordResetModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm hidden items-center justify-center z-50 p-4">
+        <div class="dark:bg-dark-card light:bg-white rounded-2xl dark:border-dark-border light:border-gray-200 border-2 max-w-md w-full p-6 shadow-2xl animate-fade-in-left">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-2xl font-bold dark:text-dark-text light:text-gray-900">Восстановление пароля</h2>
+                <button id="closePasswordResetModal" class="dark:text-dark-text-secondary light:text-gray-500 hover:text-primary transition-colors p-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div id="resetError" class="hidden mb-5 p-4 rounded-xl dark:bg-red-900/20 light:bg-red-50 border-2 dark:border-red-900/50 light:border-red-200">
+                <div class="flex items-start space-x-3">
+                    <svg class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                    </svg>
+                    <p id="resetErrorText" class="text-sm font-medium text-red-600 dark:text-red-400"></p>
+                </div>
+            </div>
+
+            <div id="step-email" class="space-y-5">
+                <div class="flex items-center space-x-3 mb-4 p-4 dark:bg-blue-900/20 light:bg-blue-50 rounded-xl border dark:border-blue-900/30 light:border-blue-200">
+                    <svg class="w-6 h-6 text-blue-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <p class="text-sm dark:text-blue-300 light:text-blue-700">
+                        Восстановление пароля возможно только через привязанный Telegram
+                    </p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium dark:text-dark-text-secondary light:text-gray-600 mb-2">Email или логин</label>
+                    <input
+                        type="text"
+                        id="resetEmail"
+                        class="w-full px-5 py-4 rounded-input dark:border-0 light:border-2 dark:input-dark light:input-light input-focus theme-transition text-base"
+                        placeholder="Введите email или логин">
+                </div>
+
+                <button
+                    type="button"
+                    id="sendCodeBtn"
+                    class="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-4 px-6 rounded-input transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99] shadow-md hover:shadow-lg">
+                    Отправить код в Telegram
+                </button>
+            </div>
+
+            <div id="step-code" class="hidden space-y-5">
+                <div class="text-center mb-4">
+                    <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl dark:bg-dark-bg light:bg-primary/10 border-2 dark:border-dark-border light:border-primary/30 mb-4">
+                        <svg class="w-7 h-7 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                    </div>
+                    <p class="dark:text-dark-text-secondary light:text-gray-600 text-sm">
+                        Код отправлен в <span id="telegramUsernameSpan" class="font-medium text-primary">Telegram</span>
+                    </p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium dark:text-dark-text-secondary light:text-gray-600 mb-2">6-значный код</label>
+                    <input
+                        type="text"
+                        id="resetCode"
+                        maxlength="6"
+                        class="w-full px-5 py-4 rounded-input dark:border-0 light:border-2 dark:input-dark light:input-light input-focus theme-transition text-center text-2xl tracking-widest font-mono"
+                        placeholder="000000">
+                </div>
+
+                <button
+                    type="button"
+                    id="verifyCodeBtn"
+                    class="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-4 px-6 rounded-input transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99] shadow-md hover:shadow-lg">
+                    Подтвердить код
+                </button>
+
+                <div class="flex items-center justify-between pt-2">
+                    <button
+                        type="button"
+                        id="backToEmailBtn"
+                        class="text-sm dark:text-dark-text-secondary light:text-gray-600 hover:text-primary transition-colors font-medium">
+                        ← Назад
+                    </button>
+                    <button
+                        type="button"
+                        id="resendCodeBtn"
+                        class="text-sm dark:text-dark-text-secondary light:text-gray-600 hover:text-primary transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed">
+                        Отправить повторно
+                    </button>
+                </div>
+            </div>
+
+            <div id="step-password" class="hidden space-y-5">
+                <div class="text-center mb-4">
+                    <div class="inline-flex items-center justify-center w-14 h-14 rounded-xl dark:bg-dark-bg light:bg-green-50 border-2 dark:border-dark-border light:border-green-200 mb-4">
+                        <svg class="w-7 h-7 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <p class="dark:text-dark-text-secondary light:text-gray-600 text-sm">Код подтверждён. Установите новый пароль.</p>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium dark:text-dark-text-secondary light:text-gray-600 mb-2">Новый пароль</label>
+                    <div class="relative">
+                        <input
+                            type="password"
+                            id="newPassword"
+                            class="w-full px-5 py-4 rounded-input dark:border-0 light:border-2 dark:input-dark light:input-light input-focus theme-transition pr-12 text-base"
+                            placeholder="Минимум 8 символов">
+                        <button
+                            type="button"
+                            id="toggleNewPassword"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 dark:text-dark-text-secondary light:text-light-text-secondary hover:text-primary transition-colors">
+                            <svg id="eyeOpenNew" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                            <svg id="eyeClosedNew" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium dark:text-dark-text-secondary light:text-gray-600 mb-2">Подтвердите пароль</label>
+                    <div class="relative">
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            class="w-full px-5 py-4 rounded-input dark:border-0 light:border-2 dark:input-dark light:input-light input-focus theme-transition pr-12 text-base"
+                            placeholder="Повторите пароль">
+                        <button
+                            type="button"
+                            id="toggleConfirmPassword"
+                            class="absolute right-4 top-1/2 -translate-y-1/2 dark:text-dark-text-secondary light:text-light-text-secondary hover:text-primary transition-colors">
+                            <svg id="eyeOpenConfirm" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                            <svg id="eyeClosedConfirm" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <button
+                    type="button"
+                    id="resetPasswordBtn"
+                    class="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-4 px-6 rounded-input transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99] shadow-md hover:shadow-lg">
+                    Изменить пароль
+                </button>
+            </div>
+
+            <div id="step-success" class="hidden text-center space-y-5">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/20 mb-4">
+                    <svg class="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold dark:text-dark-text light:text-gray-900">Пароль изменён!</h3>
+                <p class="dark:text-dark-text-secondary light:text-gray-600 text-sm">Теперь вы можете войти с новым паролем</p>
+
+                <button
+                    type="button"
+                    id="backToLoginBtn"
+                    class="w-full bg-primary hover:bg-primary-hover text-white font-semibold py-4 px-6 rounded-input transition-all duration-200 transform hover:scale-[1.01] active:scale-[0.99] shadow-md hover:shadow-lg mt-4">
+                    Войти
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const html = document.documentElement;
+        const themeToggle = document.getElementById('themeToggle');
+        const sunIcon = document.getElementById('sunIcon');
+        const moonIcon = document.getElementById('moonIcon');
+
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'light') {
+            html.classList.remove('dark');
+            html.classList.add('light');
+            sunIcon.classList.remove('hidden');
+            moonIcon.classList.add('hidden');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                localStorage.setItem('theme', 'light');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+            }
+        });
+
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const eyeOpen = document.getElementById('eyeOpen');
+        const eyeClosed = document.getElementById('eyeClosed');
+
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            eyeOpen.classList.toggle('hidden');
+            eyeClosed.classList.toggle('hidden');
+        });
+
+        const loginForm = document.getElementById('loginForm');
+        const twoFactorForm = document.getElementById('twoFactorForm');
+
+        document.getElementById('email').focus();
+
+        const twoFactorInput = document.getElementById('twoFactorCode');
+        twoFactorInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+        });
+
+        const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+        const passwordResetModal = document.getElementById('passwordResetModal');
+        const closePasswordResetModal = document.getElementById('closePasswordResetModal');
+
+        const stepEmail = document.getElementById('step-email');
+        const stepCode = document.getElementById('step-code');
+        const stepPassword = document.getElementById('step-password');
+        const stepSuccess = document.getElementById('step-success');
+
+        const resetEmailInput = document.getElementById('resetEmail');
+        const resetCodeInput = document.getElementById('resetCode');
+        const newPasswordInput = document.getElementById('newPassword');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+
+        const sendCodeBtn = document.getElementById('sendCodeBtn');
+        const verifyCodeBtn = document.getElementById('verifyCodeBtn');
+        const resetPasswordBtn = document.getElementById('resetPasswordBtn');
+        const resendCodeBtn = document.getElementById('resendCodeBtn');
+        const backToLoginBtn = document.getElementById('backToLoginBtn');
+        const backToEmailBtn = document.getElementById('backToEmailBtn');
+
+        const telegramUsernameSpan = document.getElementById('telegramUsernameSpan');
+        const resetErrorDiv = document.getElementById('resetError');
+        const resetErrorText = document.getElementById('resetErrorText');
+
+        let resendTimer = null;
+
+        forgotPasswordBtn.addEventListener('click', () => {
+            passwordResetModal.classList.remove('hidden');
+            passwordResetModal.classList.add('flex');
+            showStep('email');
+            resetEmailInput.focus();
+        });
+
+        closePasswordResetModal.addEventListener('click', closeModal);
+        passwordResetModal.addEventListener('click', (e) => {
+            if (e.target === passwordResetModal) closeModal();
+        });
+
+        function closeModal() {
+            passwordResetModal.classList.add('hidden');
+            passwordResetModal.classList.remove('flex');
+            clearErrors();
+            clearResendTimer();
+            resetEmailInput.value = '';
+            resetCodeInput.value = '';
+            newPasswordInput.value = '';
+            confirmPasswordInput.value = '';
+        }
+
+        function showStep(step) {
+            stepEmail.classList.add('hidden');
+            stepCode.classList.add('hidden');
+            stepPassword.classList.add('hidden');
+            stepSuccess.classList.add('hidden');
+            clearErrors();
+
+            switch(step) {
+                case 'email':
+                    stepEmail.classList.remove('hidden');
+                    break;
+                case 'code':
+                    stepCode.classList.remove('hidden');
+                    resetCodeInput.focus();
+                    break;
+                case 'password':
+                    stepPassword.classList.remove('hidden');
+                    newPasswordInput.focus();
+                    break;
+                case 'success':
+                    stepSuccess.classList.remove('hidden');
+                    break;
+            }
+        }
+
+        function showError(message) {
+            resetErrorText.textContent = message;
+            resetErrorDiv.classList.remove('hidden');
+        }
+
+        function clearErrors() {
+            resetErrorDiv.classList.add('hidden');
+            resetErrorText.textContent = '';
+        }
+
+        function setButtonLoading(btn, loading) {
+            if (loading) {
+                btn.disabled = true;
+                btn.dataset.originalText = btn.textContent;
+                btn.innerHTML = `
+                    <svg class="animate-spin h-5 w-5 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                `;
+            } else {
+                btn.disabled = false;
+                btn.textContent = btn.dataset.originalText || 'Отправить';
+            }
+        }
+
+        function startResendTimer(seconds) {
+            clearResendTimer();
+            resendCodeBtn.disabled = true;
+
+            let remaining = seconds;
+            updateResendBtnText(remaining);
+
+            resendTimer = setInterval(() => {
+                remaining--;
+                if (remaining <= 0) {
+                    clearResendTimer();
+                    resendCodeBtn.disabled = false;
+                    resendCodeBtn.textContent = 'Отправить повторно';
+                } else {
+                    updateResendBtnText(remaining);
+                }
+            }, 1000);
+        }
+
+        function updateResendBtnText(seconds) {
+            resendCodeBtn.textContent = `Отправить повторно (${seconds}с)`;
+        }
+
+        function clearResendTimer() {
+            if (resendTimer) {
+                clearInterval(resendTimer);
+                resendTimer = null;
+            }
+        }
+
+        sendCodeBtn.addEventListener('click', async () => {
+            const email = resetEmailInput.value.trim();
+            if (!email) {
+                showError('Введите email или логин');
+                return;
+            }
+
+            clearErrors();
+            setButtonLoading(sendCodeBtn, true);
+
+            try {
+                const response = await fetch('/password-reset/send-code', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '6ZV7DL9KTUQsyDg6OBC8yuvw8KQzAaKAHUZA0SKn',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ email })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    telegramUsernameSpan.textContent = data.telegram_username || 'Telegram';
+                    showStep('code');
+                    startResendTimer(60);
+                } else {
+                    showError(data.error || 'Произошла ошибка');
+                    if (data.retry_after) {
+                        startResendTimer(data.retry_after);
+                    }
+                }
+            } catch (error) {
+                showError('Ошибка соединения. Попробуйте позже.');
+            } finally {
+                setButtonLoading(sendCodeBtn, false);
+            }
+        });
+
+        verifyCodeBtn.addEventListener('click', async () => {
+            const code = resetCodeInput.value.trim();
+            if (!code || code.length !== 6) {
+                showError('Введите 6-значный код');
+                return;
+            }
+
+            clearErrors();
+            setButtonLoading(verifyCodeBtn, true);
+
+            try {
+                const response = await fetch('/password-reset/verify-code', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '6ZV7DL9KTUQsyDg6OBC8yuvw8KQzAaKAHUZA0SKn',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ code })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showStep('password');
+                } else {
+                    showError(data.error || 'Неверный код');
+                    if (data.session_expired) {
+                        setTimeout(() => showStep('email'), 2000);
+                    }
+                }
+            } catch (error) {
+                showError('Ошибка соединения. Попробуйте позже.');
+            } finally {
+                setButtonLoading(verifyCodeBtn, false);
+            }
+        });
+
+        resetPasswordBtn.addEventListener('click', async () => {
+            const password = newPasswordInput.value;
+            const passwordConfirmation = confirmPasswordInput.value;
+
+            if (!password || password.length < 8) {
+                showError('Пароль должен быть не менее 8 символов');
+                return;
+            }
+
+            if (password !== passwordConfirmation) {
+                showError('Пароли не совпадают');
+                return;
+            }
+
+            clearErrors();
+            setButtonLoading(resetPasswordBtn, true);
+
+            try {
+                const response = await fetch('/password-reset/reset-password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '6ZV7DL9KTUQsyDg6OBC8yuvw8KQzAaKAHUZA0SKn',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        password,
+                        password_confirmation: passwordConfirmation
+                    })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    showStep('success');
+                } else {
+                    showError(data.error || 'Произошла ошибка');
+                    if (data.session_expired) {
+                        setTimeout(() => showStep('email'), 2000);
+                    }
+                }
+            } catch (error) {
+                showError('Ошибка соединения. Попробуйте позже.');
+            } finally {
+                setButtonLoading(resetPasswordBtn, false);
+            }
+        });
+
+        resendCodeBtn.addEventListener('click', async () => {
+            if (resendCodeBtn.disabled) return;
+
+            clearErrors();
+            setButtonLoading(resendCodeBtn, true);
+
+            try {
+                const response = await fetch('/password-reset/resend-code', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '6ZV7DL9KTUQsyDg6OBC8yuvw8KQzAaKAHUZA0SKn',
+                        'Accept': 'application/json'
+                    }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    resetCodeInput.value = '';
+                    startResendTimer(60);
+                } else {
+                    showError(data.error || 'Не удалось отправить код');
+                    if (data.retry_after) {
+                        startResendTimer(data.retry_after);
+                    }
+                    if (data.session_expired) {
+                        setTimeout(() => showStep('email'), 2000);
+                    }
+                }
+            } catch (error) {
+                showError('Ошибка соединения. Попробуйте позже.');
+            } finally {
+                setButtonLoading(resendCodeBtn, false);
+            }
+        });
+
+        backToLoginBtn.addEventListener('click', closeModal);
+
+        backToEmailBtn.addEventListener('click', () => {
+            clearResendTimer();
+            showStep('email');
+        });
+
+        resetCodeInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+        });
+
+        resetEmailInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendCodeBtn.click();
+        });
+
+        resetCodeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') verifyCodeBtn.click();
+        });
+
+        confirmPasswordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') resetPasswordBtn.click();
+        });
+
+        const toggleNewPassword = document.getElementById('toggleNewPassword');
+        const eyeOpenNew = document.getElementById('eyeOpenNew');
+        const eyeClosedNew = document.getElementById('eyeClosedNew');
+
+        toggleNewPassword.addEventListener('click', () => {
+            const type = newPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            newPasswordInput.setAttribute('type', type);
+            eyeOpenNew.classList.toggle('hidden');
+            eyeClosedNew.classList.toggle('hidden');
+        });
+
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+        const eyeOpenConfirm = document.getElementById('eyeOpenConfirm');
+        const eyeClosedConfirm = document.getElementById('eyeClosedConfirm');
+
+        toggleConfirmPassword.addEventListener('click', () => {
+            const type = confirmPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            confirmPasswordInput.setAttribute('type', type);
+            eyeOpenConfirm.classList.toggle('hidden');
+            eyeClosedConfirm.classList.toggle('hidden');
+        });
+    </script>
+
+</body>
+</html>
+
+

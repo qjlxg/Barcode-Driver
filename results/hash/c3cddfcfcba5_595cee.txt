@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SOYUZ Cloud</title>
+  <meta name="description" content="SOYUZ Cloud — защищённое облачное пространство для хранения и резервного доступа.">
+  <style>
+    :root {
+      --bg1: #120505;
+      --bg2: #2a0909;
+      --bg3: #4a0f0f;
+      --card: rgba(255, 245, 220, 0.10);
+      --card-strong: rgba(255, 245, 220, 0.14);
+      --line: rgba(255, 212, 110, 0.22);
+      --text: #fff5db;
+      --muted: #d9bf8a;
+      --gold: #ffd36b;
+      --gold2: #ffb938;
+      --red: #b51f1f;
+      --red2: #7e1010;
+      --shadow: rgba(0,0,0,.34);
+      --input: rgba(18, 7, 7, 0.72);
+      --white-soft: rgba(255,255,255,.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 8%, rgba(255, 211, 107, .13), transparent 26%),
+        radial-gradient(circle at 85% 10%, rgba(181, 31, 31, .28), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(255, 185, 56, .08), transparent 32%),
+        linear-gradient(135deg, #160606 0%, #270909 25%, #120505 55%, #070303 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(
+          90deg,
+          transparent 0 118px,
+          rgba(255, 220, 140, 0.018) 118px 119px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          transparent 0 118px,
+          rgba(255, 220, 140, 0.016) 118px 119px
+        );
+      opacity: .55;
+    }
+
+    .wrap {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .shell {
+      width: min(1180px, 100%);
+      display: grid;
+      grid-template-columns: 1.12fr .88fr;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .hero {
+      padding: 28px 18px 28px 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 211, 107, .32);
+      background: linear-gradient(180deg, rgba(255,211,107,.10), rgba(181,31,31,.10));
+      color: #ffe7ae;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .2px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.14);
+    }
+
+    .badge .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #fff3c6, var(--gold2));
+      box-shadow: 0 0 16px rgba(255, 198, 83, .7);
+      display: inline-block;
+    }
+
+    h1 {
+      margin: 28px 0 14px;
+      font-size: clamp(46px, 7vw, 82px);
+      line-height: .95;
+      letter-spacing: -2px;
+      font-weight: 900;
+      color: #fff4da;
+      text-wrap: balance;
+    }
+
+    h1 .accent {
+      background: linear-gradient(135deg, #ffeebf, #ffd36b 45%, #ffb938 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lead {
+      max-width: 620px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(18px, 2.1vw, 21px);
+      line-height: 1.6;
+    }
+
+    .chips {
+      margin-top: 34px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .chip {
+      padding: 16px 22px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+      box-shadow: 0 18px 36px rgba(0,0,0,.18);
+      font-weight: 700;
+      color: #ffe7b2;
+      min-width: 165px;
+      text-align: center;
+    }
+
+    .chip small {
+      display: block;
+      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #cfae74;
+      opacity: .95;
+    }
+
+    .meta {
+      margin-top: 34px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px 26px;
+      color: #caa86a;
+      font-size: 14px;
+    }
+
+    .meta span::before {
+      content: "•";
+      color: var(--gold);
+      margin-right: 8px;
+    }
+
+    .panel {
+      position: relative;
+      padding: 28px;
+      border-radius: 30px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)),
+        linear-gradient(135deg, rgba(126,16,16,.42), rgba(33,10,10,.76));
+      border: 1px solid rgba(255, 215, 130, .18);
+      box-shadow:
+        0 25px 80px rgba(0,0,0,.36),
+        inset 0 1px 0 rgba(255,255,255,.06);
+      backdrop-filter: blur(10px);
+      overflow: hidden;
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: -1px;
+      border-radius: 30px;
+      pointer-events: none;
+      background:
+        linear-gradient(135deg, rgba(255,211,107,.18), transparent 22%, transparent 78%, rgba(181,31,31,.22));
+      mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      padding: 1px;
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+
+    .panel h2 {
+      margin: 0 0 10px;
+      font-size: 23px;
+      font-weight: 800;
+      color: #fff1cf;
+    }
+
+    .panel p {
+      margin: 0 0 24px;
+      color: #d8bb86;
+      line-height: 1.55;
+      font-size: 15px;
+    }
+
+    label {
+      display: block;
+      margin: 16px 0 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: #f6ddb0;
+    }
+
+    input {
+      width: 100%;
+      border: 1px solid rgba(255, 216, 129, .12);
+      background: var(--input);
+      color: #fff8ea;
+      padding: 16px 18px;
+      border-radius: 16px;
+      outline: none;
+      font-size: 16px;
+      transition: .2s ease;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+    }
+
+    input::placeholder {
+      color: #9f9278;
+    }
+
+    input:focus {
+      border-color: rgba(255, 211, 107, .34);
+      box-shadow: 0 0 0 4px rgba(255, 211, 107, .08);
+    }
+
+    .submit {
+      width: 100%;
+      margin-top: 22px;
+      border: 0;
+      border-radius: 18px;
+      padding: 17px 18px;
+      font-size: 18px;
+      font-weight: 900;
+      cursor: pointer;
+      color: #331000;
+      background: linear-gradient(90deg, #ffd36b 0%, #ffb938 50%, #ffdf92 100%);
+      box-shadow:
+        0 16px 28px rgba(0,0,0,.26),
+        inset 0 1px 0 rgba(255,255,255,.5);
+      transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+    }
+
+    .submit:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.03);
+      box-shadow:
+        0 22px 36px rgba(0,0,0,.30),
+        inset 0 1px 0 rgba(255,255,255,.55);
+    }
+
+    .submit:active {
+      transform: translateY(0);
+    }
+
+    .foot {
+      margin-top: 18px;
+      text-align: center;
+      color: #b89660;
+      font-size: 12px;
+    }
+
+    .error-box {
+      display: none;
+      margin-top: 16px;
+      border-radius: 16px;
+      padding: 14px 16px;
+      background: rgba(255, 84, 84, .12);
+      border: 1px solid rgba(255, 111, 111, .26);
+      color: #ffd2c8;
+      font-size: 14px;
+      line-height: 1.5;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+    }
+
+    .error-box.show {
+      display: block;
+      animation: fadeIn .22s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .warning {
+      margin-top: 18px;
+      border-radius: 16px;
+      padding: 14px 16px;
+      background: rgba(255, 211, 107, .08);
+      border: 1px solid rgba(255, 211, 107, .16);
+      color: #f4ddb0;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .brandline {
+      margin-top: 18px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,211,107,.24), transparent);
+    }
+
+    @media (max-width: 930px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 10px 0 0;
+      }
+
+      .panel {
+        padding: 24px;
+      }
+
+      h1 {
+        font-size: clamp(42px, 12vw, 66px);
+      }
+
+      .lead {
+        font-size: 17px;
+      }
+
+      .chip {
+        min-width: unset;
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=10">
+</head>
+<body>
+  <div class="wrap">
+    <div class="shell">
+      <section class="hero">
+        <div class="badge">
+          <span class="dot"></span>
+          Secure private storage gateway
+        </div>
+
+        <h1>SOYUZ <span class="accent">Cloud</span></h1>
+
+        <p class="lead">
+          Безопасное облачное пространство для файлов, резервных копий и
+          приватного доступа к рабочим и личным данным.
+        </p>
+
+        <div class="chips">
+          <div class="chip">
+            Encrypted storage
+            <small>Шифрование и защита доступа</small>
+          </div>
+          <div class="chip">
+            Private access
+            <small>Изолированный вход в сервис</small>
+          </div>
+          <div class="chip">
+            Fast sync
+            <small>Стабильный доступ и синхронизация</small>
+          </div>
+        </div>
+
+        <div class="meta">
+          <span>Private workspace</span>
+          <span>Backup access</span>
+          <span>Secure login zone</span>
+        </div>
+      </section>
+
+      <aside class="panel">
+        <h2>Вход в аккаунт</h2>
+        <p>Авторизация доступна только для зарегистрированных пользователей сервиса.</p>
+
+        <form id="loginForm" onsubmit="return fakeLogin();">
+          <label for="login">Логин</label>
+          <input id="login" type="text" placeholder="Введите логин">
+
+          <label for="password">Пароль</label>
+          <input id="password" type="password" placeholder="Введите пароль">
+
+          <button class="submit" type="submit" id="loginButton">Войти</button>
+          <div class="error-box" id="loginError">Неверный логин или пароль. Проверьте данные и попробуйте снова.</div>
+        </form>
+
+        <div class="warning">
+          Доступ к панели осуществляется только через подтверждённые учётные записи.
+          Если у вас нет прав доступа, обратитесь к администратору сервиса.
+        </div>
+
+        <div class="brandline"></div>
+        <div class="foot">SOYUZ Cloud · Secure access gateway</div>
+      </aside>
+    </div>
+  </div>
+<script>
+  function fakeLogin() {
+    const button = document.getElementById('loginButton');
+    const error = document.getElementById('loginError');
+
+    if (!button || !error) {
+      return false;
+    }
+
+    error.classList.remove('show');
+    button.textContent = 'Проверка...';
+    button.disabled = true;
+
+    setTimeout(() => {
+      button.textContent = 'Войти';
+      button.disabled = false;
+      error.classList.add('show');
+    }, 700);
+
+    return false;
+  }
+</script>
+</body>
+</html>

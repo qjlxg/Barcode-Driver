@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EX24 PRO — Панель управления</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f1923;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        .header {
+            background: linear-gradient(135deg, #1a2a3a, #0d253a);
+            padding: 20px 30px;
+            border-bottom: 1px solid #1e3a5f;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header h1 { font-size: 22px; color: #4fc3f7; }
+        .header .status { font-size: 13px; color: #81c784; }
+        .container { max-width: 960px; margin: 30px auto; padding: 0 20px 60px; }
+        .card {
+            background: #1a2a3a;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #1e3a5f;
+        }
+        .card h2 {
+            font-size: 18px;
+            color: #4fc3f7;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card h2 .badge {
+            font-size: 11px;
+            background: #1e3a5f;
+            color: #90a4ae;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: normal;
+        }
+        label {
+            display: block;
+            font-size: 13px;
+            color: #90a4ae;
+            margin-bottom: 6px;
+            margin-top: 14px;
+        }
+        label:first-of-type { margin-top: 0; }
+        input[type="text"], input[type="number"], textarea {
+            width: 100%;
+            padding: 10px 14px;
+            background: #0f1923;
+            border: 1px solid #1e3a5f;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        input:focus, textarea:focus { border-color: #4fc3f7; }
+        textarea { resize: vertical; min-height: 80px; font-family: inherit; }
+        .btn {
+            display: inline-block;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+            margin-top: 16px;
+            margin-right: 8px;
+        }
+        .btn-primary { background: #4fc3f7; color: #0f1923; }
+        .btn-primary:hover { background: #29b6f6; }
+        .btn-danger { background: #ef5350; color: #fff; }
+        .btn-danger:hover { background: #e53935; }
+        .btn-success { background: #66bb6a; color: #0f1923; }
+        .btn-success:hover { background: #4caf50; }
+
+        /* Grid layouts */
+        .rate-grid, .ph-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .rate-item, .ph-item {
+            background: #0f1923;
+            border: 1px solid #1e3a5f;
+            border-radius: 8px;
+            padding: 14px;
+        }
+        .rate-item .rate-label, .ph-item .ph-label {
+            font-size: 12px;
+            color: #90a4ae;
+            margin-bottom: 6px;
+        }
+        .rate-item input {
+            font-size: 18px;
+            font-weight: 700;
+            color: #66bb6a;
+            text-align: center;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            padding: 6px;
+        }
+        .rate-item input:focus {
+            border-color: #4fc3f7;
+            background: #0a1520;
+        }
+        .ph-item input {
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffb74d;
+        }
+
+        /* Button editor */
+        .button-editor {
+            background: #0f1923;
+            border: 1px solid #1e3a5f;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+        .button-editor-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            user-select: none;
+        }
+        .button-editor h3 { font-size: 14px; color: #ffb74d; }
+        .button-editor .toggle { color: #90a4ae; font-size: 12px; }
+        .button-editor-body { display: none; margin-top: 12px; }
+        .button-editor-body.open { display: block; }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 14px 24px;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+        .toast.show { opacity: 1; transform: translateY(0); }
+        .toast.success { background: #2e7d32; }
+        .toast.error { background: #c62828; }
+
+        .info-box {
+            background: #0d253a;
+            border-left: 3px solid #4fc3f7;
+            padding: 12px 16px;
+            border-radius: 0 8px 8px 0;
+            font-size: 13px;
+            color: #90a4ae;
+            margin-bottom: 16px;
+            line-height: 1.5;
+        }
+        .info-box code {
+            background: #1e3a5f;
+            padding: 1px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #ffb74d;
+        }
+
+        @media (max-width: 600px) {
+            .rate-grid, .ph-grid { grid-template-columns: 1fr; }
+            .header h1 { font-size: 16px; }
+            .img-upload-grid { grid-template-columns: 1fr !important; }
+        }
+
+        /* Login screen */
+        .login-overlay {
+            position: fixed;
+            inset: 0;
+            background: #0f1923;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-overlay.hidden { display: none; }
+        .login-box {
+            background: #1a2a3a;
+            border: 1px solid #1e3a5f;
+            border-radius: 16px;
+            padding: 40px 36px;
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+        }
+        .login-box h2 {
+            color: #4fc3f7;
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+        .login-box p {
+            color: #90a4ae;
+            font-size: 13px;
+            margin-bottom: 24px;
+        }
+        .login-box input[type="password"] {
+            width: 100%;
+            padding: 12px 16px;
+            background: #0f1923;
+            border: 1px solid #1e3a5f;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 15px;
+            outline: none;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+        .login-box input[type="password"]:focus { border-color: #4fc3f7; }
+        .login-box .login-btn {
+            width: 100%;
+            padding: 12px;
+            background: #4fc3f7;
+            color: #0f1923;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .login-box .login-btn:hover { background: #29b6f6; }
+        .login-error {
+            color: #ef5350;
+            font-size: 13px;
+            margin-top: 12px;
+            min-height: 20px;
+        }
+        .logout-btn {
+            background: none;
+            border: 1px solid #546e7a;
+            color: #90a4ae;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .logout-btn:hover { border-color: #ef5350; color: #ef5350; }
+    </style>
+</head>
+<body>
+    <!-- Login screen -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-box">
+            <h2>🔐 EX24 PRO</h2>
+            <p>Введите пароль для доступа к панели управления</p>
+            <input type="password" id="loginPassword" placeholder="Пароль" autofocus>
+            <button class="login-btn" id="loginBtn" onclick="doLogin()">Войти</button>
+            <div class="login-error" id="loginError"></div>
+        </div>
+    </div>
+
+    <div class="header">
+        <h1>🏦 EX24 PRO — Панель управления</h1>
+        <div style="display:flex;align-items:center;gap:12px">
+            <span class="status" id="statusText">Загрузка...</span>
+            <button class="logout-btn" onclick="doLogout()">🚪 Выйти</button>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- Токен бота -->
+        <div class="card">
+            <h2>🤖 Настройки бота</h2>
+            <div class="info-box">
+                Введите токен бота от @BotFather и Chat ID вашего аккаунта оператора.<br>
+                Узнать Chat ID можно у бота <b>@userinfobot</b>.
+            </div>
+            <label>Токен бота (Bot Token)</label>
+            <input type="text" id="botToken" placeholder="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11">
+            <label>Chat ID оператора</label>
+            <input type="text" id="operatorChatId" placeholder="Введите Chat ID оператора">
+            <div>
+                <button class="btn btn-primary" onclick="saveToken()">💾 Сохранить и перезапустить бота</button>
+            </div>
+        </div>
+
+        <!-- Плейсхолдеры -->
+        <div class="card">
+            <h2>📝 Быстрые переменные <span class="badge">меняются мгновенно</span></h2>
+            <div class="info-box">
+                Здесь можно быстро поменять имя менеджера, ссылки и другие часто изменяемые значения.<br>
+                Используйте <code>{имя_ключа}</code> в текстах кнопок — значение подставится автоматически.
+            </div>
+            <div class="ph-grid" id="phContainer"></div>
+            <div>
+                <button class="btn btn-primary" onclick="savePlaceholders()">💾 Сохранить переменные</button>
+            </div>
+        </div>
+
+        <!-- Курсы обмена -->
+        <div class="card">
+            <h2>💱 Курсы валют <span class="badge">обновляйте ежедневно</span></h2>
+            <div class="info-box">
+                Измените значения курсов — они подставятся в тексты кнопок бота через плейсхолдеры.<br>
+                Например <code>{rate_china_usdt_cny}</code> → текущее значение курса.
+            </div>
+            <div class="rate-grid" id="ratesContainer"></div>
+            <div>
+                <button class="btn btn-primary" onclick="saveRates()">💾 Сохранить курсы</button>
+            </div>
+        </div>
+
+        <!-- Изображения бота -->
+        <div class="card">
+            <h2>🖼️ Изображения бота <span class="badge">загрузка фото</span></h2>
+            <div class="info-box">
+                Загрузите изображения, которые бот отправляет клиентам.<br>
+                Допустимые форматы: <b>jpg, jpeg, png, webp</b>. После загрузки бот сразу начнёт использовать новое фото.
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+                <div style="background:#0f1923;border:1px solid #1e3a5f;border-radius:8px;padding:16px;text-align:center">
+                    <div style="font-size:13px;color:#90a4ae;margin-bottom:8px">📋 Главное фото</div>
+                    <div style="font-size:11px;color:#546e7a;margin-bottom:8px" id="mainImageName">—</div>
+                    <label style="display:inline;cursor:pointer;margin:0">
+                        <input type="checkbox" id="mainImageEnabled" style="width:auto;margin-right:4px;transform:scale(1.2);vertical-align:middle">
+                        <span style="font-size:12px;color:#81c784">Включено</span>
+                    </label><br>
+                    <input type="file" id="mainImageFile" accept=".jpg,.jpeg,.png,.webp" style="display:none" onchange="uploadImage('main')">
+                    <button class="btn btn-primary" style="margin-top:4px;padding:8px 16px;font-size:12px" onclick="document.getElementById('mainImageFile').click()">📤 Загрузить</button>
+                </div>
+                <div style="background:#0f1923;border:1px solid #1e3a5f;border-radius:8px;padding:16px;text-align:center">
+                    <div style="font-size:13px;color:#90a4ae;margin-bottom:8px">👋 Приветствие</div>
+                    <div style="font-size:11px;color:#546e7a;margin-bottom:8px" id="welcomeImageName">—</div>
+                    <label style="display:inline;cursor:pointer;margin:0">
+                        <input type="checkbox" id="welcomeImageEnabled" style="width:auto;margin-right:4px;transform:scale(1.2);vertical-align:middle">
+                        <span style="font-size:12px;color:#81c784">Включено</span>
+                    </label><br>
+                    <input type="file" id="welcomeImageFile" accept=".jpg,.jpeg,.png,.webp" style="display:none" onchange="uploadImage('welcome')">
+                    <button class="btn btn-primary" style="margin-top:4px;padding:8px 16px;font-size:12px" onclick="document.getElementById('welcomeImageFile').click()">📤 Загрузить</button>
+                </div>
+                <div style="background:#0f1923;border:1px solid #1e3a5f;border-radius:8px;padding:16px;text-align:center">
+                    <div style="font-size:13px;color:#90a4ae;margin-bottom:8px">🏁 Завершение</div>
+                    <div style="font-size:11px;color:#546e7a;margin-bottom:8px" id="closeImageName">—</div>
+                    <label style="display:inline;cursor:pointer;margin:0">
+                        <input type="checkbox" id="closeImageEnabled" style="width:auto;margin-right:4px;transform:scale(1.2);vertical-align:middle">
+                        <span style="font-size:12px;color:#81c784">Включено</span>
+                    </label><br>
+                    <input type="file" id="closeImageFile" accept=".jpg,.jpeg,.png,.webp" style="display:none" onchange="uploadImage('close')">
+                    <button class="btn btn-primary" style="margin-top:4px;padding:8px 16px;font-size:12px" onclick="document.getElementById('closeImageFile').click()">📤 Загрузить</button>
+                </div>
+            </div>
+            <div style="margin-top:12px">
+                <button class="btn btn-primary" onclick="saveImageToggles()">💾 Сохранить вкл/выкл фото</button>
+            </div>
+        </div>
+
+        <!-- Приветствие и автоответчик -->
+        <div class="card">
+            <h2>👋 Приветствие и автоответчик</h2>
+            <div class="info-box">
+                После /start клиент видит: главное фото → приветствие с текстом ниже → вопрос о валюте и сумме.<br>
+                После ответа клиента — автоответчик с информацией о подключении менеджера (с задержкой).<br>
+                Имя менеджера и позиция в очереди берутся <b>статично</b> — первое имя из списка, очередь = 2.
+            </div>
+            <label>Текст приветствия (RU)</label>
+            <input type="text" id="welcomeText" value="">
+            <label>Текст приветствия (EN)</label>
+            <input type="text" id="welcomeTextEn" value="">
+            <label>Вопрос о валюте/сумме (RU)</label>
+            <input type="text" id="currencyPrompt" value="">
+            <label>Вопрос о валюте/сумме (EN)</label>
+            <input type="text" id="currencyPromptEn" value="">
+            <label>Задержка автоответчика (часов)</label>
+            <input type="number" id="cooldownHours" min="1" max="48" value="6" style="max-width:120px">
+            <label style="display:flex;align-items:center;gap:8px;cursor:pointer;margin-top:14px">
+                <input type="checkbox" id="captchaEnabled" style="width:auto;transform:scale(1.2)">
+                <span style="color:#81c784">🤖 Капча после /start (защита от спам-ботов)</span>
+            </label>
+            <div>
+                <button class="btn btn-primary" onclick="saveGreetingSettings()">💾 Сохранить настройки</button>
+            </div>
+        </div>
+
+        <!-- Заблокированные пользователи -->
+        <div class="card">
+            <h2>🚫 Заблокированные пользователи <span class="badge">бан-лист</span></h2>
+            <div class="info-box">
+                Оператор блокирует пользователей командой <code>/ban</code> в ответ на пересланное сообщение.<br>
+                При бане удаляется переписка у обеих сторон (сообщения до 48ч). Забаненный пользователь полностью игнорируется ботом.<br>
+                Разбанить можно только здесь, нажав ✕ рядом с ID пользователя.
+            </div>
+            <div id="bannedContainer" style="margin-bottom:12px"></div>
+            <div style="font-size:12px;color:#546e7a" id="bannedEmpty">Список пуст</div>
+            <div style="margin-top:16px">
+                <button class="btn btn-primary" style="margin-top:0" onclick="exportBanList()">📤 Экспорт бан-листа</button>
+                <input type="file" id="banListFile" accept=".txt" style="display:none" onchange="importBanList()">
+                <button class="btn btn-success" style="margin-top:0" onclick="document.getElementById('banListFile').click()">📥 Импорт из файла</button>
+            </div>
+        </div>
+
+        <!-- Тексты кнопок -->
+        <div class="card">
+            <h2>🔘 Тексты кнопок бота</h2>
+            <div class="info-box">
+                Разверните нужную кнопку и отредактируйте текст ответа.<br>
+                Доступные плейсхолдеры: <code>{ticket}</code> — номер заявки,
+                <code>{manager_name}</code> — имя менеджера,
+                <code>{contacts_url}</code> — ссылка на контакты,
+                а также все курсы и переменные из секций выше.
+            </div>
+            <div id="buttonsContainer"></div>
+            <div>
+                <button class="btn btn-primary" onclick="saveButtons()">💾 Сохранить все тексты</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        let config = {};
+
+        // ============ AUTH ============
+        function getToken() { return sessionStorage.getItem('ex24_token'); }
+        function setToken(t) { sessionStorage.setItem('ex24_token', t); }
+        function clearToken() { sessionStorage.removeItem('ex24_token'); }
+
+        function showLogin() {
+            document.getElementById('loginOverlay').classList.remove('hidden');
+        }
+        function hideLogin() {
+            document.getElementById('loginOverlay').classList.add('hidden');
+        }
+
+        // Enter key on password field
+        document.getElementById('loginPassword').addEventListener('keydown', e => {
+            if (e.key === 'Enter') doLogin();
+        });
+
+        async function doLogin() {
+            const pw = document.getElementById('loginPassword').value;
+            const errEl = document.getElementById('loginError');
+            errEl.textContent = '';
+            try {
+                const resp = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password: pw })
+                });
+                const data = await resp.json();
+                if (data.success && data.token) {
+                    setToken(data.token);
+                    hideLogin();
+                    loadConfig();
+                } else {
+                    errEl.textContent = data.error || 'Неверный пароль';
+                    document.getElementById('loginPassword').select();
+                }
+            } catch {
+                errEl.textContent = 'Ошибка подключения к серверу';
+            }
+        }
+
+        async function doLogout() {
+            try {
+                await authFetch('/api/auth/logout', { method: 'POST' });
+            } catch {}
+            clearToken();
+            document.getElementById('loginPassword').value = '';
+            showLogin();
+        }
+
+        // Обёртка fetch с авторизацией
+        async function authFetch(url, opts = {}) {
+            const token = getToken();
+            if (!opts.headers) opts.headers = {};
+            if (token) opts.headers['Authorization'] = 'Bearer ' + token;
+            const resp = await fetch(url, opts);
+            if (resp.status === 401) {
+                clearToken();
+                showLogin();
+                throw new Error('Unauthorized');
+            }
+            return resp;
+        }
+
+        // ============ CONFIG ============
+
+        const rateLabels = {
+            'rate_china_usdt_cny':          '🇨🇳 USDT → CNY (Китай)',
+            'rate_china_rub_cny':           '🇨🇳 RUB → CNY (Китай)',
+            'rate_bali_usdt_idr':           '🌴 USDT → IDR (Бали)',
+            'rate_bali_rub_idr':            '🌴 RUB → IDR (Бали)',
+            'rate_thailand_rub_thb':        '🇹🇭 RUB → THB (Таиланд)',
+            'rate_thailand_usdt_thb_buy':   '🇹🇭 USDT → THB покупка',
+            'rate_thailand_thb_usdt_sell':  '🇹🇭 THB → USDT продажа',
+            'rate_dubai_usdt_aed':          '🇦🇪 USDT → AED (Дубай)',
+            'rate_dubai_rub_aed':           '🇦🇪 RUB → AED (Дубай)'
+        };
+
+        const phLabels = {
+            'manager_name':        '👩‍💻 Имя менеджера',
+            'contacts_url':        '🔗 Ссылка на контакты',
+            'offices_url':         '🔗 Ссылка на офисы',
+            'min_cny':             '💴 Мин. сумма CNY',
+            'min_idr_delivery':    '🚚 Мин. доставка IDR',
+            'min_rub_atm':         '🏧 Мин. рублей ATM',
+            'max_idr_atm':         '🏧 Макс. IDR ATM',
+            'dubai_courier_price': '🚚 Стоимость курьера Дубай',
+            'max_aed_atm':         '🏧 Макс. AED ATM'
+        };
+
+        const hiddenButtons = ['online', 'offline', 'back_main'];
+
+        async function loadConfig() {
+            try {
+                const resp = await authFetch('/api/config');
+                config = await resp.json();
+                renderAll();
+                document.getElementById('statusText').textContent = '✅ Подключено';
+                document.getElementById('statusText').style.color = '#81c784';
+            } catch (e) {
+                if (e.message === 'Unauthorized') return;
+                document.getElementById('statusText').textContent = '❌ Ошибка загрузки';
+                document.getElementById('statusText').style.color = '#ef5350';
+            }
+        }
+
+        function renderAll() {
+            document.getElementById('botToken').value = config.botToken || '';
+            document.getElementById('operatorChatId').value = config.operatorChatId || 0;
+
+            // Greeting & auto-reply settings
+            document.getElementById('welcomeText').value = config.welcomeText || '';
+            document.getElementById('welcomeTextEn').value = config.welcomeTextEn || '';
+            document.getElementById('currencyPrompt').value = config.currencyPromptText || '';
+            document.getElementById('currencyPromptEn').value = config.currencyPromptTextEn || '';
+            document.getElementById('cooldownHours').value = config.autoReplyCooldownHours || 6;
+            document.getElementById('captchaEnabled').checked = config.captchaEnabled !== false;
+
+            // Image file names & toggles
+            document.getElementById('mainImageName').textContent = config.mainImageFile || '—';
+            document.getElementById('welcomeImageName').textContent = config.welcomeImageFile || '—';
+            document.getElementById('closeImageName').textContent = config.closeImageFile || '—';
+            document.getElementById('mainImageEnabled').checked = config.mainImageEnabled !== false;
+            document.getElementById('welcomeImageEnabled').checked = config.welcomeImageEnabled !== false;
+            document.getElementById('closeImageEnabled').checked = config.closeImageEnabled !== false;
+
+            // Banned users
+            const bc2 = document.getElementById('bannedContainer');
+            const emptyEl = document.getElementById('bannedEmpty');
+            bc2.innerHTML = '';
+            if (config.bannedUsers && config.bannedUsers.length > 0) {
+                emptyEl.style.display = 'none';
+                config.bannedUsers.forEach(uid => {
+                    const chip = document.createElement('span');
+                    chip.style.cssText = 'display:inline-flex;align-items:center;gap:6px;background:#1e3a5f;padding:6px 12px;border-radius:16px;margin:4px;font-size:13px;color:#e0e0e0';
+                    chip.innerHTML = `🆔 ${uid} <button onclick="unbanUser(${uid})" style="background:none;border:none;color:#ef5350;cursor:pointer;font-size:14px;padding:0 2px" title="Разблокировать">✕</button>`;
+                    bc2.appendChild(chip);
+                });
+            } else {
+                emptyEl.style.display = 'block';
+            }
+
+            // Placeholders
+            const pc = document.getElementById('phContainer');
+            pc.innerHTML = '';
+            if (config.placeholders) {
+                for (const [k, v] of Object.entries(config.placeholders)) {
+                    const div = document.createElement('div');
+                    div.className = 'ph-item';
+                    div.innerHTML = `
+                        <div class="ph-label">${phLabels[k] || k} <code style="float:right;font-size:11px;color:#546e7a">{${k}}</code></div>
+                        <input type="text" class="ph-val" data-key="${esc(k)}" value="${esc(v)}">
+                    `;
+                    pc.appendChild(div);
+                }
+            }
+
+            // Rates
+            const rc = document.getElementById('ratesContainer');
+            rc.innerHTML = '';
+            if (config.exchangeRates) {
+                for (const [k, v] of Object.entries(config.exchangeRates)) {
+                    const div = document.createElement('div');
+                    div.className = 'rate-item';
+                    div.innerHTML = `
+                        <div class="rate-label">${rateLabels[k] || k}</div>
+                        <input type="text" class="rate-val" data-key="${esc(k)}" value="${esc(v)}">
+                    `;
+                    rc.appendChild(div);
+                }
+            }
+
+            // Buttons
+            const bc = document.getElementById('buttonsContainer');
+            bc.innerHTML = '';
+            if (config.buttons) {
+                for (const [key, info] of Object.entries(config.buttons)) {
+                    if (hiddenButtons.includes(key)) continue;
+                    const div = document.createElement('div');
+                    div.className = 'button-editor';
+                    div.innerHTML = `
+                        <div class="button-editor-header" onclick="toggleEditor(this)">
+                            <h3>${esc(info.label || key)}</h3>
+                            <span class="toggle">▼ развернуть</span>
+                        </div>
+                        <div class="button-editor-body">
+                            <label>Название кнопки</label>
+                            <input type="text" class="btn-label" data-key="${esc(key)}" value="${esc(info.label || '')}">
+                            <label>URL картинки (необязательно)</label>
+                            <input type="text" class="btn-image" data-key="${esc(key)}" value="${esc(info.imageUrl || '')}">
+                            <div style="margin-top:8px">
+                                <label style="display:inline;cursor:pointer;margin:0">
+                                    <input type="checkbox" class="btn-img-enabled" data-key="${esc(key)}" ${info.imageEnabled !== false ? 'checked' : ''} style="width:auto;margin-right:4px;transform:scale(1.2);vertical-align:middle">
+                                    <span style="font-size:12px;color:#81c784">Фото включено</span>
+                                </label>
+                            </div>
+                            <label>Текст ответа</label>
+                            <textarea class="btn-text" data-key="${esc(key)}" rows="6">${esc(info.responseText || '')}</textarea>
+                        </div>
+                    `;
+                    bc.appendChild(div);
+                }
+            }
+        }
+
+        function toggleEditor(header) {
+            const body = header.nextElementSibling;
+            const toggle = header.querySelector('.toggle');
+            body.classList.toggle('open');
+            toggle.textContent = body.classList.contains('open') ? '▲ свернуть' : '▼ развернуть';
+        }
+
+        function esc(str) {
+            const d = document.createElement('div');
+            d.textContent = str || '';
+            return d.innerHTML;
+        }
+
+        // === Save functions ===
+
+        async function saveToken() {
+            const token = document.getElementById('botToken').value.trim();
+            const opId = document.getElementById('operatorChatId').value.trim();
+            try {
+                const resp = await authFetch('/api/config/token', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ token, operatorChatId: parseInt(opId) || 0 })
+                });
+                if (resp.ok) {
+                    showToast('✅ Токен сохранён, бот перезапускается...', 'success');
+                    setTimeout(loadConfig, 2000);
+                } else showToast('Ошибка сохранения', 'error');
+            } catch (e) { if (e.message !== 'Unauthorized') showToast('Ошибка подключения', 'error'); }
+        }
+
+        async function savePlaceholders() {
+            const inputs = document.querySelectorAll('.ph-val');
+            const data = {};
+            inputs.forEach(inp => { data[inp.dataset.key] = inp.value; });
+            try {
+                const resp = await authFetch('/api/config/placeholders', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (resp.ok) showToast('✅ Переменные сохранены!', 'success');
+                else showToast('Ошибка сохранения', 'error');
+            } catch (e) { if (e.message !== 'Unauthorized') showToast('Ошибка подключения', 'error'); }
+        }
+
+        async function saveRates() {
+            const inputs = document.querySelectorAll('.rate-val');
+            const rates = {};
+            inputs.forEach(inp => { rates[inp.dataset.key] = inp.value.trim(); });
+            try {
+                const resp = await authFetch('/api/config/rates', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(rates)
+                });
+                if (resp.ok) showToast('✅ Курсы сохранены!', 'success');
+                else showToast('Ошибка сохранения', 'error');
+            } catch (e) { if (e.message !== 'Unauthorized') showToast('Ошибка подключения', 'error'); }
+        }
+
+        async function saveGreetingSettings() {
+            const welcomeText = document.getElementById('welcomeText').value;
+            const welcomeTextEn = document.getElementById('welcomeTextEn').value;
+            const currencyPrompt = document.getElementById('currencyPrompt').value;
+            const currencyPromptEn = document.getElementById('currencyPromptEn').value;
+            const cooldown = parseInt(document.getElementById('cooldownHours').value) || 6;
+            try {
+                // Update via full config
+                config.welcomeText = welcomeText;
+                config.welcomeTextEn = welcomeTextEn;
+                config.currencyPromptText = currencyPrompt;
+                config.currencyPromptTextEn = currencyPromptEn;
+                config.autoReplyCooldownHours = cooldown;
+                config.captchaEnabled = document.getElementById('captchaEnabled').checked;
+                const resp = await authFetch('/api/config/full', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(config)
+                });
+                if (resp.ok) showToast('✅ Настройки сохранены!', 'success');
+                else showToast('Ошибка сохранения', 'error');
+            } catch (e) { if (e.message !== 'Unauthorized') showToast('Ошибка подключения', 'error'); }
+        }
+
+        async function uploadImage(type) {
+            const input = document.getElementById(type + 'ImageFile');
+            if (!input.files || !input.files[0]) return;
+            const formData = new FormData();
+            formData.append('file', input.files[0]);
+            formData.append('type', type);
+            try {
+                const token = getToken();
+                const resp = await fetch('/api/config/upload-image', {
+                    method: 'POST',
+                    headers: token ? { 'Authorization': 'Bearer ' + token } : {},
+                    body: formData
+                });
+                if (resp.status === 401) { clearToken(); showLogin(); return; }
+                const data = await resp.json();
+                if (resp.ok) {
+                    showToast(`✅ Изображение «${type}» загружено: ${data.fileName}`, 'success');
+                    setTimeout(loadConfig, 500);
+                } else {
+                    showToast(data.error || 'Ошибка загрузки', 'error');
+                }
+            } catch (e) { showToast('Ошибка подключения', 'error'); }
+            input.value = '';
+        }
+
+        async function saveImageToggles() {
+            config.mainImageEnabled = document.getElementById('mainImageEnabled').checked;
+            config.welcomeImageEnabled = document.getElementById('welcomeImageEnabled').checked;
+            config.closeImageEnabled = document.getElementById('closeImageEnabled').checked;
+            try {
+                const resp = await authFetch('/api/config/full', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(config)
+                });
+                if (resp.ok) showToast('✅ Настройки фото сохранены!', 'success');
+                else showToast('Ошибка сохранения', 'error');
+            } catch (e) { if (e.message !== 'Unauthorized') showToast('Ошибка подключения', 'error'); }
+        }
+
+        async function unbanUser(userId) {
+            if (!confirm(`Разблокировать пользователя ${userId}?`)) return;
+            config.bannedUsers = (config.bannedUsers || []).filter(id => id !== userId);
+            try {
+                const resp = await authFetch('/api/config/full', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(config)
+                });
+                if (resp.ok) {
+                    showToast(`✅ Пользователь ${userId} разблокирован`, 'success');
+                    loadConfig();
+                } else showToast('Ошибка сохранения', 'error');
+            } catch (e) { if (e.message !== 'Unauthorized') showToast('Ошибка подключения', 'error'); }
+        }
+
+        async function saveButtons() {
+            const labels = document.querySelectorAll('.btn-label');
+            const texts = document.querySelectorAll('.btn-text');
+            const images = document.querySelectorAll('.btn-image');
+            const imgToggles = document.querySelectorAll('.btn-img-enabled');
+            const updates = {};
+            labels.forEach((lbl, i) => {
+                updates[lbl.dataset.key] = {
+                    label: lbl.value,
+                    responseText: texts[i].value,
+                    imageUrl: images[i].value,
+                    imageEnabled: imgToggles[i] ? imgToggles[i].checked : true
+                };
+            });
+            try {
+                const resp = await authFetch('/api/config/buttons', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(updates)
+                });
+                if (resp.ok) {
+                    showToast('✅ Кнопки сохранены!', 'success');
+                    setTimeout(loadConfig, 500);
+                } else showToast('Ошибка сохранения', 'error');
+            } catch (e) { if (e.message !== 'Unauthorized') showToast('Ошибка подключения', 'error'); }
+        }
+
+        async function exportBanList() {
+            try {
+                const resp = await authFetch('/api/config/bannedusers/export');
+                const text = await resp.text();
+                const blob = new Blob([text], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'banlist.txt';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                showToast('✅ Бан-лист выгружен', 'success');
+            } catch (e) { if (e.message !== 'Unauthorized') showToast('Ошибка выгрузки', 'error'); }
+        }
+
+        async function importBanList() {
+            const input = document.getElementById('banListFile');
+            if (!input.files || !input.files[0]) return;
+            const formData = new FormData();
+            formData.append('file', input.files[0]);
+            try {
+                const token = getToken();
+                const resp = await fetch('/api/config/bannedusers/import', {
+                    method: 'POST',
+                    headers: token ? { 'Authorization': 'Bearer ' + token } : {},
+                    body: formData
+                });
+                if (resp.status === 401) { clearToken(); showLogin(); return; }
+                const data = await resp.json();
+                if (resp.ok) {
+                    showToast(`✅ Импорт: добавлено ${data.added}, всего ${data.total}`, 'success');
+                    loadConfig();
+                } else {
+                    showToast(data.error || 'Ошибка импорта', 'error');
+                }
+            } catch (e) { showToast('Ошибка подключения', 'error'); }
+            input.value = '';
+        }
+
+        function showToast(msg, type) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = `toast ${type} show`;
+            setTimeout(() => t.className = 'toast', 3000);
+        }
+
+        // ============ INIT ============
+        if (getToken()) {
+            hideLogin();
+            loadConfig();
+        } else {
+            showLogin();
+        }
+    </script>
+</body>
+</html>

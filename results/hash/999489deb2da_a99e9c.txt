@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EchoZulu KI</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transition: background 0.35s ease, color 0.35s ease;
+            position: relative;
+        }
+        body.light {
+            --bg: #faf8ff;
+            --bg-elevated: rgba(255, 255, 255, 0.72);
+            --text: #1a1523;
+            --text-muted: #5c5568;
+            --border: rgba(139, 92, 246, 0.35);
+            --accent-a: #7c3aed;
+            --accent-b: #06b6d4;
+            --chip-bg: rgba(124, 58, 237, 0.08);
+            --input-bg: rgba(255, 255, 255, 0.85);
+            --mesh-1: rgba(124, 58, 237, 0.12);
+            --mesh-2: rgba(6, 182, 212, 0.1);
+        }
+        body.dark {
+            --bg: #08070d;
+            --bg-elevated: rgba(22, 18, 35, 0.75);
+            --text: #f4f0ff;
+            --text-muted: #a39ab8;
+            --border: rgba(167, 139, 250, 0.4);
+            --accent-a: #a78bfa;
+            --accent-b: #22d3ee;
+            --chip-bg: rgba(167, 139, 250, 0.1);
+            --input-bg: rgba(15, 12, 28, 0.65);
+            --mesh-1: rgba(124, 58, 246, 0.22);
+            --mesh-2: rgba(34, 211, 238, 0.15);
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+        }
+        .noise {
+            position: fixed;
+            inset: 0;
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 1;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+        .mesh {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse 80% 50% at 10% -10%, var(--mesh-1), transparent 55%),
+                radial-gradient(ellipse 60% 45% at 95% 15%, var(--mesh-2), transparent 50%),
+                radial-gradient(ellipse 50% 40% at 50% 100%, var(--mesh-1), transparent 45%);
+        }
+        .grid-lines {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.35;
+            background-image:
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 64px 64px;
+            mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent);
+        }
+        .header {
+            position: relative;
+            z-index: 10;
+            padding: 18px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-elevated);
+            backdrop-filter: blur(16px);
+        }
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .brand-mark {
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            background: linear-gradient(145deg, var(--accent-a), var(--accent-b));
+            display: grid;
+            place-items: center;
+            font-size: 11px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.5px;
+            box-shadow: 0 8px 32px rgba(124, 58, 246, 0.35);
+        }
+        .brand-name {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            background: linear-gradient(110deg, var(--accent-a), var(--accent-b));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .brand-tag {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+        .link-quiet {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 999px;
+            transition: color 0.2s, background 0.2s;
+        }
+        .link-quiet:hover {
+            color: var(--text);
+            background: var(--chip-bg);
+        }
+        .btn-ghost {
+            padding: 10px 22px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+        }
+        .btn-ghost:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 28px rgba(124, 58, 246, 0.2);
+            border-color: var(--accent-a);
+        }
+        .theme-wrap {
+            position: relative;
+        }
+        .theme-btn {
+            padding: 10px 18px;
+            border-radius: 999px;
+            border: none;
+            background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(6, 182, 212, 0.25);
+            transition: transform 0.2s, filter 0.2s;
+        }
+        .theme-btn:hover {
+            transform: scale(1.03);
+            filter: brightness(1.05);
+        }
+        .theme-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            min-width: 168px;
+            padding: 6px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: var(--bg-elevated);
+            backdrop-filter: blur(12px);
+            display: none;
+            flex-direction: column;
+            gap: 2px;
+            z-index: 1000;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+        }
+        .theme-menu.open {
+            display: flex;
+        }
+        .theme-item {
+            padding: 11px 14px;
+            border-radius: 12px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text);
+            transition: background 0.15s;
+        }
+        .theme-item:hover {
+            background: var(--chip-bg);
+        }
+        .theme-item .tick {
+            font-weight: 800;
+            color: var(--accent-a);
+        }
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+            max-width: 920px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        .scroll {
+            flex: 1;
+            overflow-y: auto;
+            padding: 28px 0 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+        .scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .scroll::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--accent-a), var(--accent-b));
+            border-radius: 99px;
+        }
+        .welcome {
+            text-align: left;
+            padding: 12px 0 8px;
+            animation: rise 0.7s ease-out;
+        }
+        @keyframes rise {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .welcome-kicker {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent-b);
+            margin-bottom: 14px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: var(--chip-bg);
+        }
+        .welcome h1 {
+            font-size: clamp(2rem, 5vw, 2.75rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.12;
+            margin-bottom: 14px;
+            max-width: 18ch;
+        }
+        .welcome p.lead {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+            max-width: 42ch;
+            margin-bottom: 36px;
+        }
+        .starters {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 14px;
+        }
+        .starter {
+            text-align: left;
+            padding: 20px 18px;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            background: var(--bg-elevated);
+            backdrop-filter: blur(8px);
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 600;
+            line-height: 1.45;
+            color: var(--text);
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+        }
+        .starter:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-a);
+            box-shadow: 0 16px 40px rgba(124, 58, 246, 0.15);
+        }
+        .starter span.num {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 800;
+            letter-spacing: 0.1em;
+            color: var(--accent-b);
+            margin-bottom: 10px;
+        }
+        .msg {
+            display: flex;
+            gap: 16px;
+            animation: rise 0.45s ease-out;
+        }
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            font-size: 0.85rem;
+            font-weight: 800;
+            border: 1px solid var(--border);
+        }
+        .avatar.user {
+            background: var(--chip-bg);
+            color: var(--text);
+        }
+        .avatar.ai {
+            background: linear-gradient(145deg, var(--accent-a), var(--accent-b));
+            color: #fff;
+            border-color: transparent;
+        }
+        .bubble {
+            flex: 1;
+            padding: 18px 20px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: var(--bg-elevated);
+            backdrop-filter: blur(10px);
+            font-size: 0.94rem;
+            line-height: 1.7;
+        }
+        .bubble p {
+            margin-bottom: 12px;
+        }
+        .bubble p:last-child {
+            margin-bottom: 0;
+        }
+        .refs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+        .ref {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 8px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            color: var(--text);
+            text-decoration: none;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .ref:hover {
+            background: var(--chip-bg);
+            border-color: var(--accent-b);
+        }
+        .followups {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+        .follow {
+            font-family: inherit;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 10px 16px;
+            border-radius: 999px;
+            border: 1px dashed var(--border);
+            background: transparent;
+            color: var(--text);
+            cursor: pointer;
+            transition: border-style 0.2s, background 0.2s;
+        }
+        .follow:hover {
+            border-style: solid;
+            background: var(--chip-bg);
+        }
+        .composer {
+            position: relative;
+            z-index: 10;
+            padding: 20px 0 28px;
+            border-top: 1px solid var(--border);
+            background: linear-gradient(to top, var(--bg), transparent);
+        }
+        .composer-inner {
+            display: flex;
+            gap: 12px;
+            align-items: flex-end;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            padding: 10px 12px 10px 6px;
+            background: var(--input-bg);
+            backdrop-filter: blur(12px);
+        }
+        .attach {
+            width: 44px;
+            height: 44px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text);
+            font-size: 1.1rem;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background 0.2s;
+        }
+        .attach:hover {
+            background: var(--chip-bg);
+        }
+        .field-wrap {
+            flex: 1;
+            min-width: 0;
+        }
+        .field {
+            width: 100%;
+            min-height: 48px;
+            max-height: 140px;
+            padding: 12px 14px;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.95rem;
+            resize: none;
+            line-height: 1.5;
+        }
+        .field:focus {
+            outline: none;
+        }
+        .field::placeholder {
+            color: var(--text-muted);
+            opacity: 0.85;
+        }
+        .send {
+            padding: 12px 22px;
+            border-radius: 16px;
+            border: none;
+            background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .send:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(124, 58, 246, 0.35);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            background: rgba(8, 7, 13, 0.72);
+            backdrop-filter: blur(14px);
+        }
+        .modal.show {
+            display: flex;
+        }
+        .modal-card {
+            width: 100%;
+            max-width: 420px;
+            border-radius: 28px;
+            border: 1px solid var(--border);
+            padding: 40px 36px 36px;
+            position: relative;
+            background: var(--bg-elevated);
+            backdrop-filter: blur(20px);
+            animation: rise 0.45s ease-out;
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            border: none;
+            border-radius: 12px;
+            background: var(--chip-bg);
+            color: var(--text);
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .modal-close:hover {
+            background: var(--border);
+        }
+        .modal h2 {
+            font-size: 1.45rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 8px;
+        }
+        .modal .sub {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+        .field-group {
+            margin-bottom: 20px;
+        }
+        .field-group label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+        .modal-input {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: var(--input-bg);
+            color: var(--text);
+            font-family: inherit;
+            font-size: 0.92rem;
+        }
+        .modal-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(124, 58, 246, 0.25);
+        }
+        .captcha-row {
+            display: flex;
+            gap: 10px;
+            align-items: stretch;
+            margin-bottom: 10px;
+        }
+        .captcha-box {
+            flex: 1;
+            display: grid;
+            place-items: center;
+            font-family: ui-monospace, monospace;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 0.25em;
+            padding: 14px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: var(--chip-bg);
+        }
+        .captcha-refresh {
+            width: 52px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            background: transparent;
+            font-size: 1.2rem;
+            cursor: pointer;
+            color: var(--text);
+            transition: background 0.2s;
+        }
+        .captcha-refresh:hover {
+            background: var(--chip-bg);
+        }
+        .modal-submit {
+            width: 100%;
+            margin-top: 8px;
+            padding: 16px;
+            border: none;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.88rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .modal-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 32px rgba(124, 58, 246, 0.35);
+        }
+        .modal-err {
+            display: none;
+            margin-top: 16px;
+            padding: 12px 16px;
+            border-radius: 14px;
+            border: 1px solid #f87171;
+            background: rgba(248, 113, 113, 0.12);
+            color: #fca5a5;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-align: center;
+        }
+        .modal-err.show {
+            display: block;
+            animation: wobble 0.45s ease;
+        }
+        @keyframes wobble {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+        @media (max-width: 640px) {
+            .header { padding: 14px 16px; }
+            .main { padding: 0 16px; }
+            .header-actions { gap: 8px; }
+            .btn-ghost { padding: 8px 14px; font-size: 0.72rem; }
+        }
+    </style>
+</head>
+<body class="dark">
+    <div class="mesh"></div>
+    <div class="grid-lines"></div>
+    <div class="noise"></div>
+
+    <header class="header">
+        <div class="brand">
+            <div class="brand-mark">EZ</div>
+            <div>
+                <div class="brand-name">EchoZulu KI</div>
+                <div class="brand-tag">Dialog · Fokus · Klarheit</div>
+            </div>
+        </div>
+        <div class="header-actions">
+            <a href="#" class="link-quiet">Mit Herz gebaut</a>
+            <button type="button" class="btn-ghost login-trigger">Anmelden</button>
+            <div class="theme-wrap">
+                <button type="button" class="theme-btn" id="themeToggle" aria-expanded="false" aria-haspopup="true">
+                    <span id="themeLabel">Automatisch</span>
+                </button>
+                <div class="theme-menu" id="themeDropdown" role="menu">
+                    <div class="theme-item" data-theme="auto" role="menuitem">
+                        <span>Automatisch</span>
+                        <span class="tick" id="autoCheck">✓</span>
+                    </div>
+                    <div class="theme-item" data-theme="light" role="menuitem">
+                        <span>Hell</span>
+                        <span class="tick" id="lightCheck"></span>
+                    </div>
+                    <div class="theme-item" data-theme="dark" role="menuitem">
+                        <span>Dunkel</span>
+                        <span class="tick" id="darkCheck"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="scroll" id="messagesContainer">
+            <div class="welcome" id="welcomeScreen">
+                <span class="welcome-kicker">Willkommen</span>
+                <h1>Denken, ohne Lärm</h1>
+                <p class="lead">EchoZulu KI ist ein ruhiger Gesprächsraum: weniger Ablenkung, klare Antworten und ein Interface, das zurücktritt, wenn Sie es brauchen.</p>
+                <div class="starters">
+                    <button type="button" class="starter login-trigger">
+                        <span class="num">01</span>
+                        Quantencomputing in einfachen Worten erklären
+                    </button>
+                    <button type="button" class="starter login-trigger">
+                        <span class="num">02</span>
+                        Aktuelle Meilensteine in der KI-Forschung
+                    </button>
+                    <button type="button" class="starter login-trigger">
+                        <span class="num">03</span>
+                        Wie funktioniert maschinelles Lernen im Alltag?
+                    </button>
+                    <button type="button" class="starter login-trigger">
+                        <span class="num">04</span>
+                        Grundlagen minimalistischer Produktgestaltung
+                    </button>
+                </div>
+            </div>
+
+            <div id="chatMessages" style="display: none;">
+                <div class="msg">
+                    <div class="avatar user">DU</div>
+                    <div class="bubble">
+                        Was sind die wichtigsten Grundsätze eines minimalistischen Interface-Designs?
+                    </div>
+                </div>
+                <div class="msg">
+                    <div class="avatar ai">KI</div>
+                    <div>
+                        <div class="bubble">
+                            <p>Minimalistisches Design entfernt alles, was keine klare Aufgabe erfüllt. Ziel ist nicht Leere um ihrer selbst willen, sondern eine Hierarchie, in der Nutzerinnen und Nutzer sofort erkennen, was zählt.</p>
+                            <p>Dazu gehören: strenge Priorisierung von Inhalten, großzügiger Weißraum, eine begrenzte Farbfamilie und Typografie, die Führung statt Dekoration liefert.</p>
+                            <p>EchoZulu setzt darauf mit ruhigen Flächen, präzisen Rasterlinien und Akzenten, die nur dort erscheinen, wo sie Orientierung geben.</p>
+                        </div>
+                        <div class="refs">
+                            <a href="#" class="ref">Designsysteme</a>
+                            <a href="#" class="ref">EchoZulu</a>
+                            <a href="#" class="ref">UX-Prinzipien</a>
+                        </div>
+                        <div class="followups">
+                            <button type="button" class="follow login-trigger">EchoZulu-Philosophie vertiefen</button>
+                            <button type="button" class="follow login-trigger">Beispiele für Minimalismus</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="composer">
+            <div class="composer-inner">
+                <button type="button" class="attach login-trigger" title="Datei anhängen" aria-label="Datei anhängen">＋</button>
+                <div class="field-wrap">
+                    <textarea class="field login-trigger" id="chatInput" placeholder="Stellen Sie eine Frage …" rows="1"></textarea>
+                </div>
+                <button type="button" class="send login-trigger" id="sendButton">Senden</button>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal" id="loginModal" aria-hidden="true">
+        <div class="modal-card" role="dialog" aria-labelledby="loginTitle">
+            <button type="button" class="modal-close" id="closeModal" aria-label="Schließen">×</button>
+            <h2 id="loginTitle">Anmeldung erforderlich</h2>
+            <p class="sub">Bitte bestätigen Sie Ihre Identität, um fortzufahren.</p>
+            <form id="loginForm">
+                <div class="field-group">
+                    <label for="userName">Benutzername</label>
+                    <input type="text" id="userName" class="modal-input" placeholder="Name eingeben" required autocomplete="username">
+                </div>
+                <div class="field-group">
+                    <label for="userPass">Passwort</label>
+                    <input type="password" id="userPass" class="modal-input" placeholder="Passwort eingeben" required autocomplete="current-password">
+                </div>
+                <div class="field-group">
+                    <label>Sicherheitsprüfung</label>
+                    <div class="captcha-row">
+                        <div class="captcha-box" id="captchaDisplay" aria-live="polite">X7K9P2</div>
+                        <button type="button" class="captcha-refresh" id="refreshCaptcha" aria-label="Neuen Code erzeugen">↻</button>
+                    </div>
+                    <input type="text" class="modal-input" id="captchaInput" placeholder="Code eingeben" required autocomplete="off">
+                </div>
+                <button type="submit" class="modal-submit">Anmelden</button>
+                <div class="modal-err" id="loginError">
+                    Zugangsdaten oder Prüfcode sind ungültig. Bitte erneut versuchen.
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function applyTheme(theme) {
+            const body = document.body;
+            const saved = theme || localStorage.getItem('theme') || 'auto';
+            localStorage.setItem('theme', saved);
+            body.classList.remove('light', 'dark');
+            document.getElementById('autoCheck').textContent = saved === 'auto' ? '✓' : '';
+            document.getElementById('lightCheck').textContent = saved === 'light' ? '✓' : '';
+            document.getElementById('darkCheck').textContent = saved === 'dark' ? '✓' : '';
+            const labels = { auto: 'Automatisch', light: 'Hell', dark: 'Dunkel' };
+            document.getElementById('themeLabel').textContent = labels[saved];
+            if (saved === 'auto') {
+                const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                body.classList.add(dark ? 'dark' : 'light');
+            } else {
+                body.classList.add(saved);
+            }
+        }
+        applyTheme();
+
+        const themeToggle = document.getElementById('themeToggle');
+        const themeDropdown = document.getElementById('themeDropdown');
+        themeToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const open = themeDropdown.classList.toggle('open');
+            themeToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        });
+        document.querySelectorAll('.theme-item').forEach((item) => {
+            item.addEventListener('click', () => {
+                applyTheme(item.dataset.theme);
+                themeDropdown.classList.remove('open');
+                themeToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.theme-wrap')) {
+                themeDropdown.classList.remove('open');
+                themeToggle.setAttribute('aria-expanded', 'false');
+            }
+        });
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+            if (localStorage.getItem('theme') === 'auto') applyTheme('auto');
+        });
+
+        function generateCaptcha() {
+            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+            let s = '';
+            for (let i = 0; i < 6; i++) {
+                s += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return s;
+        }
+        let currentCaptcha = generateCaptcha();
+        document.getElementById('captchaDisplay').textContent = currentCaptcha;
+        document.getElementById('refreshCaptcha').addEventListener('click', () => {
+            currentCaptcha = generateCaptcha();
+            document.getElementById('captchaDisplay').textContent = currentCaptcha;
+            document.getElementById('captchaInput').value = '';
+            document.getElementById('loginError').classList.remove('show');
+        });
+
+        const loginModal = document.getElementById('loginModal');
+        document.querySelectorAll('.login-trigger').forEach((el) => {
+            el.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                loginModal.classList.add('show');
+                loginModal.setAttribute('aria-hidden', 'false');
+            });
+        });
+        document.getElementById('chatInput').addEventListener('keydown', (e) => {
+            e.preventDefault();
+            loginModal.classList.add('show');
+            loginModal.setAttribute('aria-hidden', 'false');
+        });
+        document.getElementById('closeModal').addEventListener('click', () => {
+            loginModal.classList.remove('show');
+            loginModal.setAttribute('aria-hidden', 'true');
+            document.getElementById('loginError').classList.remove('show');
+        });
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.classList.remove('show');
+                loginModal.setAttribute('aria-hidden', 'true');
+                document.getElementById('loginError').classList.remove('show');
+            }
+        });
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            document.getElementById('loginError').classList.add('show');
+            currentCaptcha = generateCaptcha();
+            document.getElementById('captchaDisplay').textContent = currentCaptcha;
+            document.getElementById('captchaInput').value = '';
+        });
+        window.sendMessage = function () {
+            loginModal.classList.add('show');
+            loginModal.setAttribute('aria-hidden', 'false');
+        };
+    </script>
+</body>
+</html>

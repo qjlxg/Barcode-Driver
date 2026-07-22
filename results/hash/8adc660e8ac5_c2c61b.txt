@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>هکتون برنامه‌نویسی بک‌لاین</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet" />
+    <script src="browser@4.js"></script>
+    <style>
+        body {
+            font-family: 'Vazirmatn', sans-serif;
+        }
+    </style>
+    <style>
+        #gallery-masonry {
+            column-count: 3;
+            column-gap: 1rem;
+        }
+
+        /* ریسپانسیو */
+        @media (max-width: 768px) {
+            #gallery-masonry {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #gallery-masonry {
+                column-count: 1;
+            }
+        }
+
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            overflow: hidden;
+            border-radius: 0.5rem;
+            /* rounded-lg */
+        }
+
+        .masonry-item img {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+            display: block;
+        }
+
+        .masonry-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* لایت‌باکس */
+        #lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            z-index: 9999;
+        }
+
+        #lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        #lightbox .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        /* Parallax Section */
+        .parallax-section {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            background-color: #f3f4f6;
+        }
+
+        .parallax-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            transform: translateZ(0);
+        }
+
+        .parallax-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3));
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .parallax-section {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-800 leading-relaxed">
+
+    <!-- Navigation -->
+    <nav class="nav fixed top-0 w-full bg-white bg-opacity-95 backdrop-blur-md border-b border-gray-200 z-50">
+        <div class="max-w-[1200px] mx-auto flex justify-between items-center px-5 py-4">
+            <div class="text-gray-900 font-semibold text-base">بک لاین | BackLine</div>
+            <div class="hidden md:flex gap-8 items-center">
+                <a href="#about"
+                    class="text-gray-600 hover:text-black transition-colors duration-200 font-normal">درباره</a>
+                <a href="#schedule"
+                    class="text-gray-600 hover:text-black transition-colors duration-200 font-normal">برنامه</a>
+                <a href="#team"
+                    class="text-gray-600 hover:text-black transition-colors duration-200 font-normal">تیم</a>
+                <a href="#sponsors"
+                    class="text-gray-600 hover:text-black transition-colors duration-200 font-normal">حامیان</a>
+                <a href="#register"
+                    class="bg-black text-white py-2 px-4 rounded text-sm font-medium hover:bg-gray-800 transition-colors duration-200">ثبت‌نام</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="pt-32 pb-16 bg-white">
+        <div class="max-w-[1200px] mx-auto px-5 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div>
+                <h1 class="text-4xl md:text-5xl font-semibold mb-4 leading-tight">
+                    هکتون برنامه‌نویسی بک‌لاین
+                </h1>
+                <p class="text-lg text-gray-600 mb-8">رویداد دو روز و یک شب برنامه‌نویسی بک‌اند</p>
+                <div class="flex flex-wrap gap-8 text-gray-500 font-medium mb-8">
+                    <span>۲۴-۲۳ بهمن ماه ۱۴۰۴</span>
+                    <span>تهران، دانشگاه صنعتی شریف</span>
+                </div>
+                <a href="https://evand.com/events/مسابقه-برنامه-نویسی-بک-لاین-backline-24321301"
+                    class="inline-block bg-black text-white py-3 px-8 rounded font-medium hover:bg-gray-800 transition-colors duration-200">ثبت‌نام</a>
+            </div>
+            <div class="text-center">
+                <img src="public/poster.jpg" alt="BackLine Hackathon" class="w-full max-w-[400px] rounded-lg mx-auto" />
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+    <!-- About -->
+    <section id="about" class="py-16">
+        <div class="max-w-[1200px] mx-auto px-5">
+            <h2 class="text-3xl font-semibold text-center mb-12">درباره رویداد</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-8 text-center">
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold mb-4">چالش‌های واقعی</h3>
+                    <p class="text-gray-600">حل مسائل واقعی صنعت در تیم‌های ۲ تا ۴ نفره</p>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold mb-4">زبان ها و تکنولوژی‌های متنوع</h3>
+                    <p class="text-gray-600">C++, Java, Python, C#, GoLang, Node.js و سایر زبان‌ها</p>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold mb-4">شبکه‌سازی</h3>
+                    <p class="text-gray-600">ارتباط با متخصصان و شرکت‌های پیشرو</p>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold mb-4">فرصت شغلی</h3>
+                    <p class="text-gray-600">حامیان این رویداد برای همکاری با شما آماده اند</p>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold mb-4">هیجان مسابقه</h3>
+                    <p class="text-gray-600">رویداد مناسب افراد علاقه‌مند که سرشون درد میکنه برای چالش‌های فنی</p>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold mb-4">جوایز ارزنده</h3>
+                    <p class="text-gray-600">نفرات برتر، جایزه های هیجان‌انگیز؛ بقیه دوستان گواهی حضور و کلی کِیف!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Section -->
+    <section class="parallax-section" id="parallax-sharif">
+        <img src="public/sharif-bg.jpg" alt="دانشگاه صنعتی شریف" class="parallax-image" id="parallax-img" />
+        <div class="parallax-overlay"></div>
+    </section>
+
+    <!-- Schedule -->
+    <section id="schedule" class="py-16 bg-gray-100">
+        <div class="max-w-[600px] mx-auto px-5">
+            <h2 class="text-3xl font-semibold text-center mb-12">برنامه رویداد</h2>
+            <div class="space-y-6">
+                <div class="flex flex-col md:flex-row border-b border-gray-200 pb-6 last:border-none">
+                    <div class="md:min-w-[200px] font-semibold text-black mb-2 md:mb-0">صبح روز اول - ۲۳ بهمن‌ماه</div>
+                    <div class="text-gray-600">شروع رویداد و معرفی چالش‌ها</div>
+                </div>
+                <div class="flex flex-col md:flex-row border-b border-gray-200 pb-6 last:border-none">
+                    <div class="md:min-w-[200px] font-semibold text-black mb-2 md:mb-0">ادامه روز اول - ۲۳ بهمن‌ماه
+                    </div>
+                    <div class="text-gray-600">مشورت، ایده پردازی، پیاده سازی</div>
+                </div>
+                <div class="flex flex-col md:flex-row border-b border-gray-200 pb-6 last:border-none">
+                    <div class="md:min-w-[200px] font-semibold text-black mb-2 md:mb-0">شب اول</div>
+                    <div class="text-gray-600">کدنویسی مداوم با حمایت مربیان</div>
+                </div>
+                <div class="flex flex-col md:flex-row border-b border-gray-200 pb-6 last:border-none">
+                    <div class="md:min-w-[200px] font-semibold text-black mb-2 md:mb-0">روز دوم - ۲۴ بهمن‌ماه</div>
+                    <div class="text-gray-600">تکمیل پروژه‌ها و ارائه داوری</div>
+                </div>
+                <div class="flex flex-col md:flex-row pb-6 last:border-none">
+                    <div class="md:min-w-[200px] font-semibold text-black mb-2 md:mb-0">اختتامیه</div>
+                    <div class="text-gray-600">معرفی برندگان و اهدای جوایز</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team -->
+    <section id="executive" class="py-24 ">
+        <div class="max-w-[1200px] mx-auto px-5">
+            <div class="text-center mb-16" style="opacity: 1; transform: none;">
+                <h2 class="text-3xl font-semibold text-center mb-12">تیم برگزاری رویداد</h2>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-4">
+
+                <div class="bg-white rounded-xl overflow-hidden  border border-gray-100 group transition-all duration-300"
+                    style="opacity: 1; transform: none;">
+                    <div class="relative overflow-hidden"><img src="public/team/rabiee.jpg" alt="دکتر حمیدرضا ربیعی"
+                            class="w-full h-full object-cover object-center transition-all duration-500 saturate-100  group-hover:saturate-150">
+                    </div>
+                    <div class="p-3 relative object-center text-center">
+                        <p class="text-sm mb-2  text-gray-500">دکتر حمیدرضا ربیعی</p>
+                        <p class="text-xs mb-2  text-gray-500">مدیر توسعه مشارکت‌ها و حمایت‌های راهبردی</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden  border border-gray-100 group transition-all duration-300"
+                    style="opacity: 1; transform: none;">
+                    <div class="relative overflow-hidden"><img src="public/team/ehsani.jpg"
+                            alt="مهندس احسان احسانی مقدم"
+                            class="w-full h-full object-cover object-center transition-all duration-500 saturate-100  group-hover:saturate-150">
+                    </div>
+                    <div class="p-3 relative object-center text-center">
+                        <p class="text-sm mb-2  text-gray-500">مهندس احسان احسانی مقدم</p>
+                        <p class="text-xs mb-2  text-gray-500">دبیر رویداد</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden  border border-gray-100 group transition-all duration-300"
+                    style="opacity: 1; transform: none;">
+                    <div class="relative overflow-hidden"><img src="public/team/ghanbarpour.jpg"
+                            alt="مهندس مصطفی قنبرپور رییسی"
+                            class="w-full h-full object-cover object-center transition-all duration-500 saturate-100  group-hover:saturate-150">
+                    </div>
+                    <div class="p-3 relative object-center text-center">
+                        <p class="text-sm mb-2  text-gray-500">مهندس مصطفی قنبرپور رییسی</p>
+                        <p class="text-xs mb-2  text-gray-500">مدیر اجرایی</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden  border border-gray-100 group transition-all duration-300"
+                    style="opacity: 1; transform: none;">
+                    <div class="relative overflow-hidden"><img
+                            src="https://itnext.sharifcamp.ir/assets/executive/gholami.jpg" alt="معصومه غلامی"
+                            class="w-full h-full object-cover object-center transition-all duration-500 saturate-100  group-hover:saturate-150">
+                    </div>
+                    <div class="p-3 relative object-center text-center">
+                        <p class="text-sm mb-2  text-gray-500">معصومه غلامی</p>
+                        <p class="text-xs mb-2  text-gray-500">عضو تیم اجرایی و عکاس</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden  border border-gray-100 group transition-all duration-300"
+                    style="opacity: 1; transform: none;">
+                    <div class="relative overflow-hidden"><img src="public/team/tahora.jpg" alt="طهورا قنبرپور"
+                            class="w-full h-full object-cover object-center transition-all duration-500 saturate-100  group-hover:saturate-150">
+                    </div>
+                    <div class="p-3 relative object-center text-center">
+                        <p class="text-sm mb-2  text-gray-500">طهورا قنبرپور</p>
+                        <p class="text-xs mb-2  text-gray-500">عضو تیم اجرایی</p>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl overflow-hidden  border border-gray-100 group transition-all duration-300"
+                    style="opacity: 1; transform: none;">
+                    <div class="relative overflow-hidden"><img src="public/team/hosseinpour.jpg" alt="کوثر حسین پور"
+                            class="w-full h-full object-cover object-center transition-all duration-500 saturate-100  group-hover:saturate-150">
+                    </div>
+                    <div class="p-3 relative object-center text-center">
+                        <p class="text-sm mb-2  text-gray-500">کوثر حسین پور</p>
+                        <p class="text-xs mb-2  text-gray-500">عضو تیم اجرایی</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- Sponsors -->
+    <section id="sponsors" class="py-16 bg-gray-100">
+        <div class="max-w-[1200px] mx-auto px-5">
+            <h2 class="text-3xl font-semibold text-center mb-12">حامیان</h2>
+            <div class="flex flex-col gap-12 items-center">
+                <div class="flex flex-wrap justify-center gap-8">
+                    
+                    <div
+                    class="flex flex-col items-center gap-2 p-4 rounded-lg filter grayscale opacity-70 hover:filter-none hover:opacity-100 transition-all duration-200">
+                    <img src="public/sharif.png" alt="دانشگاه صنعتی شریف" class="w-[240px] h-[160px] object-contain" />
+                </div>
+                <div
+                    class="flex flex-col items-center gap-2 p-4 rounded-lg filter grayscale opacity-70 hover:filter-none hover:opacity-100 transition-all duration-200">
+                    <img src="public/dml.png" alt="پژوهشکده فناوری اطلاعات و ارتباطات پیشرفته دانشگاه شریف" class="w-[240px] h-[160px] object-contain" />
+                </div>
+                <div
+                class="flex flex-col items-center gap-2 p-4 rounded-lg filter grayscale opacity-70 hover:filter-none hover:opacity-100 transition-all duration-200">
+                <img src="public/refah.png" alt="بانک رفاه کارگران" class="w-[240px] h-[160px] object-contain" />
+            </div>
+            <div
+                        class="flex flex-col items-center gap-2 p-4 rounded-lg filter grayscale opacity-70 hover:filter-none hover:opacity-100 transition-all duration-200">
+                        <img src="public/farjadsamaneh.png" alt="فرجاد سامانه شریف" class="w-[240px] h-[160px] object-contain" />
+                    </div>
+            <div
+                class="flex flex-col items-center gap-2 p-4 rounded-lg filter grayscale opacity-70 hover:filter-none hover:opacity-100 transition-all duration-200">
+                <img src="public/ghalamchi.png" alt="بنیاد علمی آموزشی قلم چی وقف عام" class="w-[240px] h-[160px] object-contain" />
+            </div>
+                    <div
+                        class="flex flex-col items-center gap-2 p-4 rounded-lg filter grayscale opacity-70 hover:filter-none hover:opacity-100 transition-all duration-200">
+                        <img src="public/cloudzy-light.svg" alt="کلودزی" class="w-[240px] h-[160px] object-contain" />
+                    </div>
+                    <div
+                        class="flex flex-col items-center gap-2 p-4 rounded-lg filter grayscale opacity-70 hover:filter-none hover:opacity-100 transition-all duration-200">
+                        <img src="public/sharifcamp.png" alt="کمپ علمی آموزشی شریف" class="w-[240px] h-[160px] object-contain" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!--
+    <section id="message" class="py-16">
+    <div class="max-w-[1200px] mx-auto px-5 py-12">
+        <div class="bg-gradient-to-r from-blue-700 to-blue-800 rounded-2xl p-8 shadow-xl text-white">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+              <div class="mb-6 md:mb-0 md:mr-6">
+                <h3 class="text-2xl font-bold mb-4">آیا برای یک روز پر از ایده و انگیزه آماده&zwnj;اید؟</h3>
+                <p class="text-blue-200">
+                  در این رویداد یک روزه، چهره&zwnj;های سرشناس در زمینه&zwnj;های فناوری اطلاعات، ارتباطات، مخابرات و هوش مصنوعی، تجربیات و داستان&zwnj;های خود را در قالب سخنرانی&zwnj;های کوتاه با مخاطبان به اشتراک می&zwnj;گذارند.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+   -->
+    <section id="executive" class="py-16 bg-blue-800">
+        <div class="max-w-[1200px] mx-auto px-5 py-12">
+            <div class=" rounded-2xl p-8  text-white rtl">
+                <div class="flex flex-col space-y-6">
+                    <div class="text-center mb-4">
+                        <h3 class="text-2xl font-bold">با ما در ارتباط باشید!</h3>
+                        <p class="text-indigo-100 mt-2">
+                            برای دریافت اطلاعات لحظه&zwnj;ای از آخرین اخبار رویداد، ما را در
+                            شبکه&zwnj;های اجتماعی دنبال کنید
+                        </p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                        <!-- کارت تلگرام -->
+                        <div
+                            class="backdrop-blur-sm rounded-xl p-6 flex flex-col items-center text-center hover:bg-white/5 transition-colors duration-800">
+                            <div class="bg-white/20 p-3 rounded-full mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-message-circle">
+                                    <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"></path>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">کانال تلگرام</h4>
+                            <p class="text-indigo-100 mb-4 text-sm">
+                                برای دریافت آخرین اخبار و اطلاعیه&zwnj;ها به کانال تلگرام ما.
+                                بپیوندید
+                            </p>
+                            <a href="https://t.me/itnextevent" target="_blank" rel="noopener noreferrer" tabindex="0"
+                                class="mt-auto bg-white text-indigo-700 py-2 px-6 rounded-lg font-medium transition-colors duration-300 w-full text-center max-w-[200px]">عضویت
+                                در کانال</a>
+                        </div>
+
+                        <!-- کارت اینستاگرام -->
+                        <div
+                            class="backdrop-blur-sm rounded-xl p-6 flex flex-col items-center text-center hover:bg-white/5 transition-colors duration-800">
+                            <div class="bg-white/20 p-3 rounded-full mb-4">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="lucide lucide-instagram">
+                                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">صفحه اینستاگرام</h4>
+                            <p class="text-indigo-100 mb-4 text-sm">
+                                تصاویر و ویدیوهای رویدادها را در صفحه اینستاگرام ما دنبال کنید.
+                            </p>
+                            <a href="https://instagram.com/sharifcamp" target="_blank" rel="noopener noreferrer"
+                                tabindex="0"
+                                class="mt-auto bg-white text-indigo-700 py-2 px-6 rounded-lg font-medium transition-colors duration-300 w-full text-center max-w-[200px]">دنبال
+                                کردن</a>
+                        </div>
+
+                        <!-- کارت پخش زنده -->
+                        <div
+                            class="backdrop-blur-sm rounded-xl p-6 flex flex-col items-center text-center hover:bg-white/5 transition-colors duration-800">
+                            <div class="bg-green-600 p-3 rounded-full mb-4">
+                                <svg width="24px" height="24px" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M14.3308 15.9402L15.6608 14.6101C15.8655 14.403 16.1092 14.2384 16.3778 14.1262C16.6465 14.014 16.9347 13.9563 17.2258 13.9563C17.517 13.9563 17.8052 14.014 18.0739 14.1262C18.3425 14.2384 18.5862 14.403 18.7908 14.6101L20.3508 16.1702C20.5579 16.3748 20.7224 16.6183 20.8346 16.887C20.9468 17.1556 21.0046 17.444 21.0046 17.7351C21.0046 18.0263 20.9468 18.3146 20.8346 18.5833C20.7224 18.8519 20.5579 19.0954 20.3508 19.3L19.6408 20.02C19.1516 20.514 18.5189 20.841 17.8329 20.9541C17.1469 21.0672 16.4427 20.9609 15.8208 20.6501C10.4691 17.8952 6.11008 13.5396 3.35083 8.19019C3.03976 7.56761 2.93414 6.86242 3.04914 6.17603C3.16414 5.48963 3.49384 4.85731 3.99085 4.37012L4.70081 3.65015C5.11674 3.23673 5.67937 3.00464 6.26581 3.00464C6.85225 3.00464 7.41488 3.23673 7.83081 3.65015L9.40082 5.22021C9.81424 5.63615 10.0463 6.19871 10.0463 6.78516C10.0463 7.3716 9.81424 7.93416 9.40082 8.3501L8.0708 9.68018C8.95021 10.8697 9.91617 11.9926 10.9608 13.04C11.9994 14.0804 13.116 15.04 14.3008 15.9102L14.3308 15.9402Z"
+                                        stroke="#fff" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M18.2109 8.84009C18.0578 8.09677 17.6931 7.41362 17.1609 6.87256C16.6288 6.33149 15.9516 5.95549 15.2109 5.79004"
+                                        stroke="#fff" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M22 7.51001C21.6283 6.19924 20.928 5.00529 19.9655 4.04102C19.003 3.07674 17.8101 2.37408 16.5 2"
+                                        stroke="#fff" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </div>
+                            <h4 class="text-xl font-bold mb-2">تماس با دبیرخانه</h4>
+                            <p class="text-indigo-100 mb-4 text-sm">
+                                جهت کسب اطلاعات بیشتر با ما تماس بگیرید. </p>
+                            <a href="tel:+989999921487" rel="noopener noreferrer" tabindex="0"
+                                class="mt-auto bg-white text-indigo-700 py-2 px-6 rounded-lg font-medium transition-colors duration-300 w-full text-center max-w-[200px]">تماس
+                                تلفنی</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="py-16">
+        <div class="max-w-[1200px] mx-auto px-5 py-12">
+            <h2 class="text-3xl font-semibold mb-8 text-center">گالری تصاویر</h2>
+            <div id="gallery-masonry">
+                <div class="masonry-item"><img src="https://backline.sharifcamp.ir/public/gallery/a3.jpg" alt="تصویر 3"
+                    data-large="https://backline.sharifcamp.ir/public/gallery/a3.jpg" /></div>
+                <div class="masonry-item"><img src="https://backline.sharifcamp.ir/public/gallery/a7.jpg" alt="تصویر 1"
+                        data-large="https://backline.sharifcamp.ir/public/gallery/a7.jpg" /></div>
+     
+                <div class="masonry-item"><img src="https://backline.sharifcamp.ir/public/gallery/a4.jpg" alt="تصویر 4"
+                        data-large="https://backline.sharifcamp.ir/public/gallery/a4.jpg" /></div>
+                        <div class="masonry-item"><img src="https://backline.sharifcamp.ir/public/gallery/a2.jpg" alt="تصویر 6"
+                            data-large="https://backline.sharifcamp.ir/public/gallery/a2.jpg" /></div>
+                <div class="masonry-item"><img src="https://backline.sharifcamp.ir/public/gallery/a5.jpg" alt="تصویر 5"
+                        data-large="https://backline.sharifcamp.ir/public/gallery/a5.jpg" /></div>
+             
+                        <div class="masonry-item"><img src="https://backline.sharifcamp.ir/public/gallery/a1.jpg" alt="تصویر 8"
+                            data-large="https://backline.sharifcamp.ir/public/gallery/a1.jpg" /></div>
+                        <div class="masonry-item"><img src="https://backline.sharifcamp.ir/public/gallery/a6.jpg" alt="تصویر 7"
+                            data-large="https://backline.sharifcamp.ir/public/gallery/a6.jpg" /></div>
+                           
+              
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- لایت‌باکس -->
+    <div id="lightbox">
+        <span class="close-btn">&times;</span>
+        <img src="" alt="تصویر بزرگ" />
+    </div>
+    <!-- Register -->
+    <section id="register" class="py-16">
+        <div class="max-w-[500px] mx-auto px-5 text-center">
+            <h2 class="text-3xl font-semibold mb-4">ثبت‌نام در رویداد</h2>
+            <p class="text-gray-600 mb-8">فرصت طلایی برای نمایش مهارت‌های برنامه‌نویسی</p>
+            <a href="https://evand.com/events/مسابقه-برنامه-نویسی-بک-لاین-backline-24321301"
+                class="inline-block bg-black text-white py-3 px-8 rounded font-medium hover:bg-gray-800 transition-colors duration-200"
+                id="registerBtn">ثبت‌نام کنید</a>
+            <div class="mt-8 pt-8 border-t border-gray-200 text-gray-500 text-sm space-y-1">
+                <p>مهلت ثبت‌نام: ۱۵ بهمن ۱۴۰۴</p>
+                <p>ظرفیت محدود</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12">
+        <div class="max-w-[1200px] mx-auto px-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h4 class="mb-4 font-semibold text-lg">هکتون بک‌لاین</h4>
+                    <p><a target="_blank" href="https://sharifcamp.ir">کمپ آموزشی شریف</a></p>
+                    <p><a target="_blank" href="https://farjadsamaneh.ir">فرجاد سامانه شریف</a></p>
+                </div>
+                <div>
+                    <h4 class="mb-4 font-semibold text-lg">تماس</h4>
+                    <p><a href="tel:09999921487">09999921487</a></p>
+                    <p>info@sharifcamp.ir</p>
+                </div>
+            </div>
+            <div class="text-center border-t border-gray-800 pt-6 text-gray-400 text-sm">
+                &copy; ۱۴۰۴ هکتون بک‌لاین
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html><html lang="ru"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>FULL PAYMENT</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style id="appStyles"></style>
+</head><body>
+<header class="hd" id="hd"><div class="hi">
+<div class="logo" id="logo" onclick="closeAll();showMain()">FULL PAYMENT</div>
+<div class="hr">
+<div class="rw"><span class="rl on" id="lU">UA</span><button class="rt" id="rT" onclick="tR()"><div class="rk"></div></button><span class="rl" id="lT">TR</span></div>
+<div class="sb" id="sbWrap"><svg class="sv" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" onclick="toggleSearch()"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><input placeholder="Поиск..." id="sI" oninput="oS(this.value)" onblur="blurSearch()"></div>
+</div></div></header>
+<div class="bw"><div class="bn"><div class="bc" id="bC">
+<div class="btr" id="bTr"><div class="bsl" id="bannerSlide1"></div>
+<div class="bsl"><div class="hero-card">
+<div style="font-size:10px;font-weight:700;color:#a78bfa;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px">Цифровой магазин</div>
+<div style="font-size:22px;font-weight:900;line-height:1.2;margin-bottom:6px">Игры и подписки<br><span style="background:linear-gradient(135deg,#6e56ff,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent">по лучшим ценам</span></div>
+<div style="color:#999;font-size:12px">Мгновенная доставка цифровых товаров</div>
+</div></div>
+</div>
+<div class="bdo"><div class="bdt on" onclick="gS(0)"></div><div class="bdt" onclick="gS(1)"></div></div>
+</div></div></div>
+<main class="mn"><div id="sB"></div><div id="cB"></div></main>
+<footer class="ft"><div class="fti"><div class="logo" style="font-size:14px">FULL PAYMENT</div><div class="ftl"><a href="#">Telegram</a><a href="#">VK</a></div><div class="ftc">&copy; 2025 Full Payment</div></div></footer>
+<div id="md"></div><div id="sO"></div>
+
+<script>
+// Load external files, fallback to embedded if fetch fails
+var D, SI, IMG;
+
+// API base URL — автоопределение
+var API_BASE = (window.location.origin.indexOf('localhost') >= 0 || window.location.origin.indexOf('127.0.0.1') >= 0)
+  ? window.location.origin + '/api'
+  : '/api';
+
+async function loadData() {
+  try {
+    // 1) Пробуем API бэкенда
+    var r1 = await fetch(API_BASE + '/catalog');
+    if (r1.ok) {
+      D = await r1.json();
+      // Загружаем картинки подписок из images.json (пока отдельно)
+      try {
+        var r2 = await fetch('images.json');
+        var allImgs = await r2.json();
+        SI = {essential: allImgs.essential, extra: allImgs.extra, deluxe: allImgs.deluxe, eaplay: allImgs.eaplay};
+        IMG = {banner: allImgs.banner};
+      } catch(e2) { SI = {}; IMG = {}; }
+      if (D) { initApp(); return; }
+    }
+  } catch(e) { /* fallback below */ }
+
+  try {
+    // 2) Fallback: статические JSON файлы (старый режим)
+    var r1 = await fetch('data.json');
+    D = await r1.json();
+    var r2 = await fetch('images.json');
+    var allImgs = await r2.json();
+    SI = {essential: allImgs.essential, extra: allImgs.extra, deluxe: allImgs.deluxe, eaplay: allImgs.eaplay};
+    IMG = {banner: allImgs.banner};
+  } catch(e) {
+    var jd = document.getElementById("jD");
+    var js = document.getElementById("jS");
+    if (jd) D = JSON.parse(jd.textContent);
+    if (js) SI = JSON.parse(js.textContent);
+    IMG = {};
+  }
+
+  if (D) initApp();
+  else document.body.innerHTML = '<div style="color:#fff;text-align:center;padding:40px">Ошибка загрузки данных. Проверьте подключение к серверу.</div>';
+}
+
+function initApp() {
+  // Если подписки пришли из API — обновляем SB
+  if (D && D.subscriptions) {
+    var apiSubs = D.subscriptions;
+    if (apiSubs.ps) {
+      SB.ps.t = apiSubs.ps.title;
+      SB.ps.tiers = apiSubs.ps.tiers.map(function(t) {
+        return { n: t.name, ik: t.imageKey, p: t.prices };
+      });
+    }
+    if (apiSubs.ea) {
+      SB.ea.t = apiSubs.ea.title;
+      SB.ea.tiers = apiSubs.ea.tiers.map(function(t) {
+        return { n: t.name, ik: t.imageKey, p: t.prices };
+      });
+    }
+  }
+  // Set banner
+  if (IMG && IMG.banner) {
+    document.getElementById('bannerSlide1').innerHTML = '<img src="'+IMG.banner+'" class="bim">';
+  }
+  // Load CSS
+  loadStyles();
+  // Init everything
+  initBanner();
+  rS();
+  rC();
+  window.addEventListener("scroll",function(){document.getElementById("hd").classList.toggle("sc",window.scrollY>30)},{passive:true});
+}
+
+function loadStyles(){
+document.getElementById('appStyles').textContent = `
+*{box-sizing:border-box;margin:0;padding:0}::-webkit-scrollbar{display:none}
+body{background:#0a0812;color:#fff;font-family:'Manrope',sans-serif;overflow-x:hidden;-webkit-tap-highlight-color:transparent}
+a{text-decoration:none;color:inherit}
+.hd{position:fixed;top:0;left:0;right:0;z-index:100;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.05);background:rgba(10,8,18,.6);transition:all .3s}
+.hd.sc{background:rgba(10,8,18,.95)}
+.hi{max-width:1200px;margin:0 auto;padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:17px;font-weight:900;background:linear-gradient(135deg,#6e56ff,#a855f7,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;cursor:pointer;white-space:nowrap;background-size:200% 200%;animation:gradShift 4s ease infinite}
+.logo.mini{font-size:28px;font-weight:900;letter-spacing:-1px;filter:drop-shadow(0 0 8px rgba(110,86,255,.5))}
+@keyframes gradShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.hr{display:flex;align-items:center;gap:8px;transition:all .3s}
+.rw{display:flex;align-items:center;gap:6px}
+.rt{position:relative;width:44px;height:24px;border-radius:12px;background:rgba(255,255,255,.1);cursor:pointer;border:none;padding:0;transition:background .3s}
+.rt.tr{background:linear-gradient(135deg,#6e56ff,#a855f7)}
+.rk{position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .3s;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.rt.tr .rk{transform:translateX(20px)}
+.rl{font-size:11px;font-weight:700;color:#666;user-select:none}.rl.on{color:#fff}
+.sb{position:relative;display:flex;align-items:center}.sb input{width:0;height:36px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);color:#fff;font-size:13px;padding:0;outline:none;transition:all .3s;font-family:inherit;opacity:0}
+.sb input.open{width:160px;padding:0 12px 0 32px;opacity:1}
+.sb input::placeholder{color:#555}
+.sv{width:20px;height:20px;opacity:.5;cursor:pointer;flex-shrink:0}
+.bw{padding-top:56px}.bn{max-width:1200px;margin:0 auto;padding:12px 16px 8px}
+.bc{position:relative;border-radius:16px;overflow:hidden}
+.btr{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.bsl{flex:0 0 100%}.bim{width:100%;display:block;border-radius:16px;height:160px;object-fit:cover}
+.hero-card{background:linear-gradient(135deg,rgba(110,86,255,.15),rgba(168,85,247,.1),rgba(236,72,153,.08));border-radius:16px;padding:20px;height:160px;display:flex;flex-direction:column;justify-content:center;border:1px solid rgba(110,86,255,.12)}
+.bdo{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:5}
+.bdt{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer;transition:all .3s}.bdt.on{background:#fff;width:18px;border-radius:4px}
+.mn{max-width:1200px;margin:0 auto;padding:0 16px 60px}
+.ss{margin-bottom:24px}.sst{font-size:20px;font-weight:800;margin-bottom:10px}
+.stb{display:flex;margin-bottom:12px;background:rgba(255,255,255,.06);border-radius:12px;padding:3px;border:1px solid rgba(255,255,255,.06)}
+.sti{flex:1;padding:8px 0;text-align:center;font-size:13px;font-weight:700;color:#888;cursor:pointer;border-radius:10px;border:none;background:none;font-family:inherit;transition:all .25s}
+.sti.on{background:linear-gradient(135deg,#6e56ff,#a855f7);color:#fff;box-shadow:0 2px 12px rgba(110,86,255,.3)}
+.sg{display:flex;flex-direction:column;gap:10px}
+.sc{display:flex;align-items:center;gap:14px;padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:all .25s}
+.sc:active{transform:scale(.98);background:rgba(110,86,255,.08)}
+.sci{width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0}
+.scf{flex:1}.scn{font-size:14px;font-weight:700;margin-bottom:2px}.scd{font-size:11px;color:#888}
+.scp{font-size:17px;font-weight:800;white-space:nowrap}
+.se{margin-bottom:24px}.seh{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.set{font-size:20px;font-weight:800}
+.ar{display:flex;gap:6px}.abtn{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.ca{display:flex;gap:12px;overflow-x:auto;scroll-behavior:smooth;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+.cd{flex:0 0 148px;cursor:pointer;border-radius:14px;overflow:hidden;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);transition:all .25s;position:relative}
+.cd:active{transform:scale(.97)}.cds{flex:0 0 128px}
+.cdi{position:relative;padding-top:100%;background:#0a0a12}
+.cdm{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover}
+.cdb{padding:8px 10px 10px}.cds .cdb{padding:6px 8px 8px}
+.cdn{font-size:12px;font-weight:600;line-height:1.3;margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;min-height:32px}
+.cds .cdn{font-size:11px;min-height:28px}
+.bdi{position:absolute;top:6px;left:6px;z-index:2;background:#ff3b5c;color:#fff;font-size:10px;font-weight:700;padding:2px 7px;border-radius:7px}
+.bpr{position:absolute;top:6px;right:6px;z-index:2;background:linear-gradient(135deg,#6e56ff,#a855f7);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:7px}
+.pp{font-size:14px;font-weight:800}.pp.sl{color:#ff3b5c}
+.po{font-size:10px;color:#666;text-decoration:line-through;margin-left:4px}
+.pf{font-size:13px;font-weight:700;color:#a78bfa}
+.gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px;margin-bottom:28px}.gr .cd{flex:none}
+.mo{position:fixed;top:0;left:0;right:0;bottom:0;background:#0a0812;z-index:1000;overflow-y:auto;animation:fi .25s;-webkit-overflow-scrolling:touch}
+.mtop{position:relative;background:#111;display:flex;align-items:center;justify-content:center;min-height:220px}
+.mimg{max-width:70%;max-height:260px;object-fit:contain;display:block;margin:16px auto}
+.mx{position:absolute;top:12px;right:12px;z-index:10;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,.6);border:none;color:#fff;font-size:18px;cursor:pointer;backdrop-filter:blur(8px)}
+.mbo{padding:16px 20px 32px}
+.mna{font-size:22px;font-weight:800;line-height:1.3;margin-bottom:4px}
+.mme{color:#888;font-size:12px;margin-top:4px}
+.edp{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.edi{padding:8px 14px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#aaa;cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;transition:all .2s}
+.edi.on{background:linear-gradient(135deg,#6e56ff,#a855f7);border-color:#6e56ff;color:#fff}
+.blk{margin-top:14px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06)}
+.blkt{font-size:11px;font-weight:700;color:#a78bfa;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.blkr{display:flex;flex-wrap:wrap;gap:6px}
+.tag{padding:4px 10px;border-radius:8px;background:rgba(255,255,255,.06);font-size:11px;font-weight:600;color:#ccc}
+.bon{font-size:12px;color:#bbb;line-height:1.7}
+.bon span{display:block;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.bon span:last-child{border:none}
+.dsc{font-size:13px;color:#999;line-height:1.6}
+.mbt{margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0;border-top:1px solid rgba(255,255,255,.06)}
+.mpr{font-size:28px;font-weight:900}.mpr.sl{color:#ff3b5c}
+.mop{font-size:14px;color:#666;text-decoration:line-through;margin-left:8px}
+.bb{background:linear-gradient(135deg,#6e56ff,#a855f7);color:#fff;border:none;border-radius:14px;padding:14px 32px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 4px 20px rgba(110,86,255,.3);font-family:inherit}
+.bb:active{transform:scale(.96)}
+.vl{font-size:12px;color:#aaa;margin-bottom:8px;font-weight:600;margin-top:14px}
+.vbs{display:flex;gap:8px;flex-wrap:wrap}
+.vbi{padding:8px 14px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:#fff;cursor:pointer;font-size:12px;font-weight:600;font-family:inherit;transition:all .2s}
+.vbi.on{background:linear-gradient(135deg,#6e56ff,#a855f7);border-color:#6e56ff}
+.dbk{color:#a78bfa;font-size:13px;font-weight:600;cursor:pointer;margin-bottom:16px;padding:6px 0}
+.sov{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(10,8,18,.97);backdrop-filter:blur(16px);z-index:900;padding:70px 16px 16px;overflow-y:auto;animation:fi .2s}
+.sovi{max-width:800px;margin:0 auto}
+.sem{color:#666;text-align:center;margin-top:40px;font-size:15px}
+.scl{margin-top:16px;text-align:center}
+.scl button{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);color:#aaa;padding:10px 24px;border-radius:10px;font-size:13px;cursor:pointer;font-family:inherit}
+.sre{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px}
+.ft{border-top:1px solid rgba(255,255,255,.06);padding:24px 16px}
+.fti{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.ftl{display:flex;gap:20px}.ftl a{color:#666;font-size:12px}.ftc{color:#444;font-size:11px}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+@media(min-width:768px){.hi{padding:0 20px;height:64px}.logo{font-size:20px}.bn{padding:20px 20px 12px}.bim{height:200px}.hero-card{height:200px}.mn{padding:0 20px 60px}.cd{flex:0 0 175px}}
+`;
+}
+
+// ===== SUBS =====
+var SB={ps:{t:"Подписки PS Plus",pk:"pp",tiers:[
+{n:"PS Plus Essential",ik:"essential",p:{UA:{1:1200,3:2500,12:5500},TR:{1:1000,3:2600,12:7000}}},
+{n:"PS Plus Extra",ik:"extra",p:{UA:{1:1850,3:4800,12:9000},TR:{1:1550,3:4000,12:12000}}},
+{n:"PS Plus Deluxe",ik:"deluxe",p:{UA:{1:1850,3:4700,12:9000},TR:{1:1850,3:4700,12:14000}}}
+]},ea:{t:"Подписки EA Play",pk:"ep",tiers:[
+{n:"EA Play",ik:"eaplay",p:{UA:{1:1050,3:2700,12:3500},TR:{1:1000,3:2700,12:5500}}}
+]}};
+var R="UA",P={pp:12,ep:12};
+function fm(n){return n?n.toLocaleString("ru-RU")+" \u20bd":""}
+function dc(o,n){return o&&n?Math.round((1-n/o)*100):0}
+function es(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
+
+// ===== SEARCH =====
+var searchOpen=false;
+function toggleSearch(){
+  var inp=document.getElementById("sI"),logo=document.getElementById("logo");
+  searchOpen=!searchOpen;
+  if(searchOpen){inp.classList.add("open");inp.focus();logo.textContent="FP";logo.classList.add("mini")}
+  else{inp.classList.remove("open");inp.value="";cSr();logo.textContent="FULL PAYMENT";logo.classList.remove("mini")}
+}
+function blurSearch(){
+  setTimeout(function(){
+    var inp=document.getElementById("sI");
+    if(!inp.value){searchOpen=false;inp.classList.remove("open");document.getElementById("logo").textContent="FULL PAYMENT";document.getElementById("logo").classList.remove("mini")}
+  },200);
+}
+
+// ===== BANNER =====
+var cs=0;
+function initBanner(){
+  var bCel=document.getElementById("bC");var tx=0;
+  bCel.addEventListener("touchstart",function(e){tx=e.touches[0].clientX},{passive:true});
+  bCel.addEventListener("touchend",function(e){var d=tx-e.changedTouches[0].clientX;if(Math.abs(d)>50){if(d>0)gS(Math.min(cs+1,1));else gS(Math.max(cs-1,0))}},{passive:true});
+  setInterval(function(){gS((cs+1)%2)},5000);
+}
+function gS(i){cs=i;document.getElementById("bTr").style.transform="translateX(-"+i*100+"%)";document.querySelectorAll(".bdt").forEach(function(d,x){d.classList.toggle("on",x===i)})}
+
+// ===== REGION =====
+function tR(){R=R==="UA"?"TR":"UA";document.getElementById("rT").classList.toggle("tr",R==="TR");document.getElementById("lU").classList.toggle("on",R==="UA");document.getElementById("lT").classList.toggle("on",R==="TR");rS()}
+function sP(k,v){P[k]=v;rS()}
+
+// ===== SUBSCRIPTIONS =====
+function rS(){
+var h="";var keys=Object.keys(SB);
+for(var ki=0;ki<keys.length;ki++){var g=keys[ki],gr=SB[g],pk=gr.pk,cp=P[pk];
+h+='<section class="ss"><h2 class="sst">'+gr.t+'</h2><div class="stb">';
+var periods=[{v:1,l:"1 месяц"},{v:3,l:"3 месяца"},{v:12,l:"12 месяцев"}];
+for(var pi=0;pi<periods.length;pi++){var t=periods[pi];
+h+='<button class="sti'+(cp===t.v?" on":"")+'" data-pk="'+pk+'" data-v="'+t.v+'" onclick="sP(this.dataset.pk,+this.dataset.v)">'+t.l+'</button>';}
+h+='</div><div class="sg">';
+for(var ti=0;ti<gr.tiers.length;ti++){var tier=gr.tiers[ti];
+var pr=tier.p[R][cp],pl=cp===1?"1 месяц":cp===3?"3 месяца":"12 месяцев",rl=R==="UA"?"Украина":"Турция";
+h+='<div class="sc" data-g="'+g+'" data-n="'+es(tier.n)+'" onclick="oSM(this.dataset.g,this.dataset.n)">';
+if(SI&&SI[tier.ik])h+='<img class="sci" src="'+SI[tier.ik]+'">';
+h+='<div class="scf"><div class="scn">'+es(tier.n)+'</div><div class="scd">'+pl+' \u2022 '+rl+'</div></div>';
+h+='<div class="scp">'+fm(pr)+'</div></div>';}
+h+='</div></section>';}
+document.getElementById("sB").innerHTML=h;}
+
+// ===== SUB MODAL =====
+function oSM(g,n){
+var gr=SB[g],tier=null;
+for(var i=0;i<gr.tiers.length;i++){if(gr.tiers[i].n===n){tier=gr.tiers[i];break;}}
+if(!tier)return;
+var pk=gr.pk,cp=P[pk],pr=tier.p[R][cp];
+var pl=cp===1?"1 месяц":cp===3?"3 месяца":"12 месяцев",rl=R==="UA"?"Украина (СНГ)":"Турция";
+var v='<div class="vl">Период:</div><div class="vbs">';
+var periods=[{v:1,l:"1 мес"},{v:3,l:"3 мес"},{v:12,l:"12 мес"}];
+for(var i=0;i<periods.length;i++){var t=periods[i];
+v+='<button class="vbi'+(cp===t.v?" on":"")+'" data-g="'+g+'" data-n="'+es(n)+'" data-p="'+t.v+'" onclick="P[SB[this.dataset.g].pk]=+this.dataset.p;rS();oSM(this.dataset.g,this.dataset.n)">'+t.l+' \u2014 '+fm(tier.p[R][t.v])+'</button>';}
+v+='</div>';
+var imgSrc=SI&&SI[tier.ik]?SI[tier.ik]:"";
+document.getElementById("md").innerHTML='<div class="mo"><button class="mx" onclick="cM()">\u2715</button><div class="mtop"><img class="mimg" src="'+imgSrc+'"></div><div class="mbo"><div class="mna">'+es(n)+'</div><div class="mme">'+pl+' \u2022 '+rl+'</div>'+v+'<div class="mbt"><div><span class="mpr">'+fm(pr)+'</span></div><button class="bb">Купить</button></div></div></div>';
+document.body.style.overflow="hidden";}
+
+// ===== CARD BUILDER =====
+function cH(p,sm){
+if(!p)return"";
+var hd=p.oldPrice&&p.price,nv=p.type==="nav_card",vs=D.variants[p.id];
+var mv=null;if(vs){var prices=[];for(var i=0;i<vs.length;i++)prices.push(vs[i].price);mv=Math.min.apply(null,prices);}
+var cl=sm?"cd cds":"cd",bg="",ph="";
+if(hd)bg+='<div class="bdi">-'+dc(p.oldPrice,p.price)+'%</div>';
+if(p.type==="preorder")bg+='<div class="bpr">ПРЕДЗАКАЗ</div>';
+if(!nv){if(p.price){ph='<span class="pp'+(hd?" sl":"")+'">'+fm(p.price)+'</span>';if(hd)ph+='<span class="po">'+fm(p.oldPrice)+'</span>';}
+else if(mv){ph='<span class="pf">от '+fm(mv)+'</span>';}}
+var act=nv?"sD":"oM";
+return '<div class="'+cl+'" data-id="'+es(p.id)+'" onclick="'+act+'(this.dataset.id)">'+bg+'<div class="cdi"><img class="cdm" src="'+(p.photo||"")+'" loading="lazy" onerror="this.style.display=\'none\'"></div><div class="cdb"><div class="cdn">'+es(p.name)+'</div><div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap">'+ph+'</div></div></div>';}
+
+// ===== CATALOG =====
+function rC(){
+var h="";
+var cols=D.collections.filter(function(c){return c.layout==="carousel"}).sort(function(a,b){return a.position-b.position});
+for(var ci=0;ci<cols.length;ci++){var c=cols[ci];
+var ps=[];for(var j=0;j<c.items.length;j++){var p=D.products[c.items[j]];if(p)ps.push(p);}
+if(!ps.length)continue;
+h+='<section class="se"><div class="seh"><h2 class="set">'+es(c.title)+'</h2>';
+h+='<div class="ar"><button class="abtn" data-c="c_'+c.id+'" onclick="sC(this.dataset.c,-1)">\u2039</button>';
+h+='<button class="abtn" data-c="c_'+c.id+'" onclick="sC(this.dataset.c,1)">\u203A</button></div></div>';
+h+='<div class="ca" id="c_'+c.id+'">';
+for(var j=0;j<ps.length;j++)h+=cH(ps[j],false);
+h+='</div></section>';}
+document.getElementById("cB").innerHTML=h;}
+
+// ===== DONATE NAV =====
+function sD(nid){
+var cid=D.navMap[nid];if(!cid)return;
+var col=null;for(var i=0;i<D.collections.length;i++){if(D.collections[i].id===cid){col=D.collections[i];break;}}
+if(!col)return;
+var nav=D.products[nid];
+var ps=[];for(var j=0;j<col.items.length;j++){var p=D.products[col.items[j]];if(p)ps.push(p);}
+var h='<div><div class="dbk" onclick="showMain()">\u2190 Назад</div>';
+h+='<h2 class="set" style="margin-bottom:14px">'+es(nav?nav.name:col.title)+'</h2><div class="gr">';
+for(var j=0;j<ps.length;j++)h+=cH(ps[j],true);
+h+='</div></div>';
+document.getElementById("sB").style.display="none";
+document.getElementById("cB").innerHTML=h;window.scrollTo({top:200,behavior:"smooth"});}
+function showMain(){document.getElementById("sB").style.display="";rC()}
+function sC(id,d){var e=document.getElementById(id);if(e)e.scrollBy({left:d*320,behavior:"smooth"})}
+
+// ===== PRODUCT MODAL =====
+function oM(pid){
+var p=D.products[pid];if(!p)return;
+var vs=D.variants[pid]||[];
+var loc=R==="UA"?(p.loc_ua||""):(p.loc_tr||"");
+
+var group=null;
+if(p.base_game&&D.editionGroups&&D.editionGroups[p.base_game]){
+  var gids=D.editionGroups[p.base_game];
+  if(gids.length>1)group=gids;}
+
+var h='<div class="mo"><button class="mx" onclick="cM()">\u2715</button>';
+h+='<div class="mtop"><img class="mimg" src="'+(p.photo||"")+'"></div>';
+h+='<div class="mbo">';
+h+='<div class="mna">'+es(p.name)+'</div>';
+if(p.type==="preorder")h+='<div style="margin-top:6px"><span class="bpr" style="position:static;display:inline-block;font-size:10px;padding:3px 10px">ПРЕДЗАКАЗ</span></div>';
+
+if(group){
+h+='<div class="edp">';
+for(var i=0;i<group.length;i++){
+  var gp=D.products[group[i]];if(!gp)continue;
+  h+='<button class="edi'+(group[i]===pid?" on":"")+'" data-id="'+es(group[i])+'" onclick="oM(this.dataset.id)">'+es(gp.edition||"Standard")+'</button>';}
+h+='</div>';}
+
+var tags=[];
+if(p.platform)tags.push(p.platform);
+if(p.release)tags.push(p.release);
+if(loc&&loc!=="Без локализации" || (loc==="Без локализации"&&p.type!=="preorder"))tags.push(loc);
+if(tags.length){
+h+='<div class="blk"><div class="blkt">Информация</div><div class="blkr">';
+for(var i=0;i<tags.length;i++)h+='<div class="tag">'+es(tags[i])+'</div>';
+h+='</div></div>';}
+
+if(p.bonuses){
+h+='<div class="blk"><div class="blkt">Состав издания</div><div class="bon">';
+var parts=p.bonuses.split("|");
+for(var i=0;i<parts.length;i++){var pt=parts[i].trim();if(pt)h+='<span>'+es(pt)+'</span>';}
+h+='</div></div>';}
+
+if(p.desc){
+h+='<div class="blk"><div class="blkt">Об игре</div><div class="dsc">'+es(p.desc)+'</div></div>';}
+
+var vh="";
+if(vs.length){vh='<div class="vl">Выберите тариф:</div><div class="vbs">';
+for(var i=0;i<vs.length;i++){var v=vs[i];
+var lb=(v.tier||"")+(v.tier&&v.period?" \u2014 ":"")+(v.period||"");
+vh+='<button class="vbi'+(i===0?" on":"")+'" onclick="sV(this,'+v.price+')">'+es(lb||"\u2014")+' \u2014 '+fm(v.price)+'</button>';}
+vh+='</div>';}
+h+=vh;
+
+var cp=vs.length?vs[0].price:p.price;
+var co=vs.length?vs[0].oldPrice:p.oldPrice;
+h+='<div class="mbt"><div><span class="mpr'+(co?" sl":"")+'" id="mP">'+(cp?fm(cp):"")+'</span>';
+if(co)h+='<span class="mop" id="mO">'+fm(co)+'</span>';
+else h+='<span id="mO"></span>';
+h+='</div><button class="bb">Купить</button></div>';
+
+h+='</div></div>';
+document.getElementById("md").innerHTML=h;
+document.body.style.overflow="hidden";}
+
+function sV(b,p){document.querySelectorAll(".vbi").forEach(function(x){x.classList.remove("on")});b.classList.add("on");document.getElementById("mP").textContent=fm(p);var o=document.getElementById("mO");if(o)o.textContent=""}
+function cM(){document.getElementById("md").innerHTML="";document.body.style.overflow=""}
+
+// ===== SEARCH =====
+function oS(v){if(v.length<2){cSr();return}var q=v.toLowerCase();
+var all=Object.values(D.products);var r=[];
+for(var i=0;i<all.length;i++){if(all[i].type!=="nav_card"&&all[i].name.toLowerCase().indexOf(q)>=0)r.push(all[i]);if(r.length>=20)break;}
+var h='<div class="sov" onclick="cSr()"><div class="sovi" onclick="event.stopPropagation()">';
+if(!r.length)h+='<div class="sem">Ничего не найдено</div><div class="scl"><button onclick="cSr()">Закрыть поиск</button></div>';
+else{h+='<div class="sre">';for(var i=0;i<r.length;i++)h+=cH(r[i],true);h+='</div>';}
+h+='</div></div>';document.getElementById("sO").innerHTML=h;}
+function oSF(){var v=document.getElementById("sI").value;if(v.length>=2)oS(v)}
+function cSr(){document.getElementById("sO").innerHTML=""}
+function closeAll(){cM();cSr();var inp=document.getElementById("sI");inp.value="";inp.classList.remove("open");searchOpen=false;document.getElementById("logo").textContent="FULL PAYMENT";document.getElementById("logo").classList.remove("mini")}
+
+// Start
+loadData();
+</script>
+</body></html>

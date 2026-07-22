@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Личный кабинет</title>
+  <style>
+    :root{color-scheme:dark;--bg:#080d18;--card:#101827;--card2:#0d1422;--line:#263349;--text:#edf4ff;--muted:#97a6bb;--muted2:#728197;--accent:#7aa7ff;--accent2:#5de0b0}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;padding:24px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 20% 0,#172849 0,#0b1220 38%,#070b13 100%);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text)}
+    .wrap{width:100%;max-width:980px;display:grid;grid-template-columns:1.05fr .95fr;gap:22px;align-items:stretch}
+    .hero,.panel{border:1px solid var(--line);border-radius:28px;background:rgba(16,24,39,.84);box-shadow:0 24px 80px rgba(0,0,0,.38);backdrop-filter:blur(12px)}
+    .hero{padding:38px;display:flex;flex-direction:column;justify-content:space-between;min-height:560px;overflow:hidden;position:relative}
+    .hero:before{content:"";position:absolute;inset:auto -80px -110px auto;width:280px;height:280px;border-radius:50%;background:rgba(122,167,255,.12);filter:blur(8px)}
+    .brand{display:flex;align-items:center;gap:12px;position:relative;z-index:1}
+    .logo{width:46px;height:46px;border-radius:16px;background:linear-gradient(135deg,#294366,#17243a);border:1px solid #344865;display:grid;place-items:center}
+    .logo span{width:14px;height:14px;border-radius:50%;background:var(--accent2);box-shadow:0 0 24px rgba(93,224,176,.7)}
+    .brand b{display:block;font-size:17px}.brand small{display:block;color:var(--muted);margin-top:2px}
+    h1{margin:58px 0 14px;font-size:42px;line-height:1.08;letter-spacing:-.045em;position:relative;z-index:1}
+    .lead{font-size:17px;color:var(--muted);max-width:520px;margin:0;position:relative;z-index:1}
+    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:44px;position:relative;z-index:1}
+    .feature{padding:14px;border:1px solid rgba(255,255,255,.08);border-radius:18px;background:rgba(255,255,255,.035)}
+    .feature strong{display:block;font-size:13px}.feature span{display:block;color:var(--muted2);font-size:12px;margin-top:4px}
+    .panel{padding:28px;background:rgba(13,20,34,.92)}
+    .tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:5px;border:1px solid var(--line);border-radius:18px;background:#0a1020;margin-bottom:22px}
+    .tab{border:0;border-radius:14px;padding:12px 14px;background:transparent;color:var(--muted);font-weight:700;cursor:pointer;font:inherit}
+    .tab.active{background:linear-gradient(135deg,#25395c,#172945);color:var(--text);box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+    .form-title{margin:0 0 6px;font-size:25px;letter-spacing:-.03em}.form-subtitle{margin:0 0 22px;color:var(--muted)}
+    .field{margin-bottom:14px}.field label{display:block;margin-bottom:7px;color:#c6d1e1;font-size:13px;font-weight:650}
+    .control{width:100%;border:1px solid #2c3a52;border-radius:15px;background:#0a1020;color:var(--text);padding:14px 14px;font:inherit;outline:none;transition:border-color .15s,box-shadow .15s,background .15s}
+    .control:focus{border-color:rgba(122,167,255,.8);box-shadow:0 0 0 4px rgba(122,167,255,.12);background:#0b1324}
+    .row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0 18px;color:var(--muted);font-size:13px}.row a{color:#b8ccff;text-decoration:none}
+    .check{display:flex;align-items:center;gap:8px}.check input{accent-color:#7aa7ff}
+    .btn{width:100%;border:0;border-radius:16px;padding:14px 16px;background:linear-gradient(135deg,#7aa7ff,#5d7fff);color:white;font-weight:800;font:inherit;cursor:pointer;box-shadow:0 14px 32px rgba(93,127,255,.26)}
+    .btn.secondary{margin-top:10px;background:#111b2f;color:#dbe7f8;border:1px solid #2d3c55;box-shadow:none}
+    .notice{display:none;margin-top:16px;padding:12px 13px;border:1px solid rgba(93,224,176,.28);border-radius:14px;background:rgba(93,224,176,.08);color:#cbf5e5;font-size:13px}
+    .notice.show{display:block}.hint{margin-top:20px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted2);font-size:12px;text-align:center}
+    .hidden{display:none}
+    @media (max-width:860px){body{padding:14px}.wrap{grid-template-columns:1fr}.hero{min-height:auto;padding:28px}.features{grid-template-columns:1fr}.panel{padding:22px}h1{font-size:34px;margin-top:36px}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero" aria-label="Описание сервиса">
+      <div>
+        <div class="brand"><div class="logo"><span aria-hidden="true"></span></div><div><b>Service Portal</b><small>Secure account area</small></div></div>
+        <h1>Единый доступ к личному кабинету</h1>
+        <p class="lead">Управляйте настройками профиля, устройствами и уведомлениями через защищённый веб-интерфейс.</p>
+      </div>
+      <div class="features">
+        <div class="feature"><strong>Профиль</strong><span>Параметры аккаунта</span></div>
+        <div class="feature"><strong>Устройства</strong><span>Контроль подключений</span></div>
+        <div class="feature"><strong>Безопасность</strong><span>Защита доступа</span></div>
+      </div>
+    </section>
+    <section class="panel" aria-label="Форма входа">
+      <div class="tabs"><button class="tab active" type="button" data-tab="login">Войти</button><button class="tab" type="button" data-tab="register">Зарегистрироваться</button></div>
+      <form id="loginForm" autocomplete="off">
+        <h2 class="form-title">Вход в кабинет</h2><p class="form-subtitle">Введите данные аккаунта для продолжения.</p>
+        <div class="field"><label for="loginEmail">Email или логин</label><input class="control" id="loginEmail" name="login" type="text" placeholder="name@example.com" autocomplete="off"></div>
+        <div class="field"><label for="loginPassword">Пароль</label><input class="control" id="loginPassword" name="password" type="password" placeholder="••••••••" autocomplete="new-password"></div>
+        <div class="row"><label class="check"><input type="checkbox">Запомнить устройство</label><a href="#" onclick="return false;">Забыли пароль?</a></div>
+        <button class="btn" type="submit">Войти</button><button class="btn secondary" type="button" data-switch="register">Создать аккаунт</button>
+      </form>
+      <form id="registerForm" class="hidden" autocomplete="off">
+        <h2 class="form-title">Регистрация</h2><p class="form-subtitle">Создайте аккаунт для доступа к сервису.</p>
+        <div class="field"><label for="regName">Имя</label><input class="control" id="regName" name="name" type="text" placeholder="Ваше имя" autocomplete="off"></div>
+        <div class="field"><label for="regEmail">Email</label><input class="control" id="regEmail" name="email" type="email" placeholder="name@example.com" autocomplete="off"></div>
+        <div class="field"><label for="regPassword">Пароль</label><input class="control" id="regPassword" name="password" type="password" placeholder="Придумайте пароль" autocomplete="new-password"></div>
+        <button class="btn" type="submit">Зарегистрироваться</button><button class="btn secondary" type="button" data-switch="login">Уже есть аккаунт</button>
+      </form>
+      <div id="notice" class="notice">Сервис временно недоступен. Попробуйте повторить запрос позже.</div><div class="hint">Protected Service Area</div>
+    </section>
+  </main>
+  <script>
+    (function(){var tabs=document.querySelectorAll('.tab'),login=document.getElementById('loginForm'),register=document.getElementById('registerForm'),notice=document.getElementById('notice');function setTab(name){tabs.forEach(function(t){t.classList.toggle('active',t.dataset.tab===name)});login.classList.toggle('hidden',name!=='login');register.classList.toggle('hidden',name!=='register');notice.classList.remove('show')}tabs.forEach(function(t){t.addEventListener('click',function(){setTab(t.dataset.tab)})});document.querySelectorAll('[data-switch]').forEach(function(b){b.addEventListener('click',function(){setTab(b.dataset.switch)})});[login,register].forEach(function(form){form.addEventListener('submit',function(e){e.preventDefault();notice.classList.add('show')})})})();
+  </script>
+</body>
+</html>

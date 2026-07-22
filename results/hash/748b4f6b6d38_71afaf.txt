@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compassify - Premium macOS Navigation Solutions</title>
+  <meta name="description" content="Compassify specializes in custom macOS navigation applications, mapping solutions, Location-Based Services integration, and cutting-edge UI/UX design.">
+  <link rel="icon" href="images/favicon.jpeg">
+  <style>
+    :root {
+      --primary: #d4b311;
+      --primary-light: #ebd479;
+      --primary-dark: #a4860e;
+      --background-dark: #16213e;
+      --background-darker: #1a1a2e;
+      --hero-background: #ffffff;
+      --text-light: #f1f1f1;
+      --text-dark: #1a1a2e;
+      --accent: hsl(228, 83%, 55%);
+      --glass-bg: rgba(22, 33, 62, 0.4);
+      --glass-border: rgba(255, 255, 255, 0.1);
+      --section-padding: 6rem;
+      --section-margin: 4rem;
+      --border-radius: 4px;
+      --grid-gap: 2rem;
+    }
+
+    /* Basic Reset & Typography */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      line-height: 1.6;
+      color: var(--text-light);
+      background-color: var(--background-dark);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 800;
+      line-height: 1.2;
+      color: var(--text-light);
+    }
+
+    p {
+      font-weight: 400;
+    }
+
+    /* Accessibility: Respect Reduced Motion */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* General Layout */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      padding: var(--section-padding) 0;
+      margin-bottom: var(--section-margin);
+      position: relative;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.75rem;
+      border: 2px solid var(--primary);
+      border-radius: var(--border-radius);
+      color: var(--primary);
+      background-color: transparent;
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn:hover, .btn:focus {
+      background-color: var(--primary);
+      color: var(--background-darker);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-solid {
+      background-color: var(--primary);
+      color: var(--background-darker);
+      border-color: var(--primary);
+    }
+
+    .btn-solid:hover, .btn-solid:focus {
+      background-color: var(--primary-dark);
+      border-color: var(--primary-dark);
+      color: var(--text-light);
+    }
+
+    /* Header */
+    #site-header {
+      background-color: var(--background-darker);
+      padding: 1rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    #site-header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .branding a {
+      color: var(--primary);
+      text-decoration: none;
+      font-size: 1.75rem;
+      font-weight: 800;
+      transition: color 0.3s ease;
+    }
+
+    .branding a:hover {
+      color: var(--primary-light);
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 2rem;
+      color: var(--primary);
+      padding: 0.5rem;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    nav ul li a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    nav ul li a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    nav ul li a:hover, nav ul li a.active {
+      color: var(--primary-light);
+    }
+
+    nav ul li a:hover::after, nav ul li a.active::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    #home {
+      background-color: var(--hero-background);
+      color: var(--text-dark);
+      padding: 8rem 0;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    #home .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    #home h1 {
+      color: var(--text-dark);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      margin-bottom: 1rem;
+      max-width: 900px;
+      line-height: 1.1;
+    }
+
+    #home p {
+      color: var(--text-dark);
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      margin-bottom: 2rem;
+      max-width: 800px;
+    }
+
+    #home .cta-group {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    #home .hero-image-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 1024px;
+      padding: 1rem;
+      background-color: rgba(0, 0, 0, 0.05); /* Light shadow effect */
+      border-radius: var(--border-radius);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    #home .hero-image {
+      width: 100%;
+      height: auto;
+      border-radius: var(--border-radius);
+      display: block;
+      transition: transform 0.4s ease-out;
+    }
+
+    #home .hero-image:hover {
+      transform: scale(1.02);
+    }
+
+    /* Services Section */
+    #services {
+      background-color: var(--background-darker);
+      text-align: center;
+    }
+
+    #services .section-heading {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      margin-bottom: 1rem;
+    }
+
+    #services .section-description {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      margin-bottom: 4rem;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      color: var(--text-light);
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: var(--grid-gap);
+      justify-content: center;
+    }
+
+    .service-card {
+      background-color: var(--glass-bg);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform;
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .service-card .icon-container {
+      width: 96px;
+      height: 96px;
+      background-color: var(--primary-dark);
+      border-radius: var(--border-radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .service-card .icon-container img {
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+    }
+
+    .service-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--primary-light);
+    }
+
+    .service-card p {
+      font-size: 1rem;
+      color: var(--text-light);
+    }
+
+    /* Feature Deep Dive */
+    #technology {
+      background-color: var(--background-dark);
+      overflow: hidden;
+    }
+    
+    #technology .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    #technology h2 {
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      margin-bottom: 1.5rem;
+      text-align: center;
+      color: var(--text-light);
+    }
+
+    #technology p {
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      text-align: center;
+      max-width: 900px;
+      margin-bottom: 2rem;
+      color: var(--text-light);
+    }
+
+    #technology .tech-image-wrapper {
+      position: relative;
+      width: 100%;
+      max-width: 768px;
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 0 40px rgba(var(--primary-dark), 0.3); /* Subtle glow */
+      transition: box-shadow 0.5s ease-out;
+    }
+    
+    #technology .tech-image-wrapper:hover {
+        box-shadow: 0 0 60px rgba(var(--primary-light), 0.5); /* Enhanced glow on hover */
+    }
+
+    #technology .tech-image {
+      width: 100%;
+      height: auto;
+      border-radius: var(--border-radius);
+      display: block;
+      opacity: 0.9;
+      transition: opacity 0.4s ease-out;
+    }
+    #technology .tech-image:hover {
+        opacity: 1;
+    }
+
+    /* Testimonials Section */
+    #testimonials {
+      background-color: var(--background-darker);
+      text-align: center;
+    }
+
+    #testimonials h2 {
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      margin-bottom: 4rem;
+    }
+
+    .testimonial-carousel {
+      display: grid;
+      grid-auto-flow: column; /* For horizontal scrolling if needed */
+      grid-auto-columns: 85%; /* Make items smaller on mobile */
+      gap: var(--grid-gap);
+      overflow-x: auto; /* Enable horizontal scrolling */
+      scroll-snap-type: x mandatory; /* Snap to items */
+      padding-bottom: 1rem; /* For scrollbar visibility */
+      -webkit-overflow-scrolling: touch; /* Smooth iOS scrolling */
+      margin: 0 auto;
+      max-width: 100%;
+      justify-content: flex-start; /* Align start for touch scrolling */
+    }
+
+    @media (min-width: 768px) {
+      .testimonial-carousel {
+        grid-auto-columns: 45%;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .testimonial-carousel {
+        grid-auto-columns: 30%; /* 3 columns */
+        justify-content: center; /* Center items if they fit */
+      }
+    }
+
+    .testimonial-card {
+      scroll-snap-align: start;
+      flex-shrink: 0; /* Prevent items from shrinking below their size */
+      background-color: var(--glass-bg);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      will-change: transform;
+      min-width: 280px; /* Ensure a minimum width */
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .testimonial-card img {
+      width: 128px;
+      height: 128px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 1.5rem;
+      border: 3px solid var(--primary-light);
+      box-shadow: 0 0 15px rgba(var(--primary-dark), 0.5);
+    }
+
+    .testimonial-card blockquote {
+      font-style: italic;
+      margin-bottom: 1.5rem;
+      color: var(--text-light);
+      font-size: 1.1rem;
+    }
+
+    .testimonial-card cite {
+      font-weight: 600;
+      color: var(--primary-light);
+      font-size: 1.05rem;
+      display: block;
+      margin-top: auto; /* Push content to top if card height varies */
+    }
+    
+    .testimonial-card cite span {
+        font-weight: 400;
+        color: var(--text-light);
+        display: block;
+        font-size: 0.9rem;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--background-darker);
+      color: var(--text-light);
+      padding: var(--section-padding) 0 2rem 0;
+      text-align: center;
+    }
+
+    footer .container {
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .contact-info {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .contact-info p {
+      margin-bottom: 0.5rem;
+    }
+    
+    .contact-info a {
+      color: var(--primary-light);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .contact-info a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .footer-cta {
+      background-color: var(--glass-bg);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--border-radius);
+      padding: 2.5rem;
+      max-width: 600px;
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+
+    .footer-cta h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: var(--primary-light);
+    }
+
+    .footer-cta p {
+      margin-bottom: 1.5rem;
+      color: var(--text-light);
+    }
+
+    .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .footer-links a {
+        color: var(--text-light);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .footer-links a:hover {
+        color: var(--primary);
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      color: var(--glass-border);
+    }
+
+    /* Cookie Consent Banner */
+    #cookie-consent {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(26, 26, 46, 0.9); /* Dark background with transparency */
+        color: var(--text-light);
+        padding: 1rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        border-top: 1px solid var(--primary-dark);
+        z-index: 1000;
+        transform: translateY(100%);
+        transition: transform 0.5s ease-out;
+    }
+
+    #cookie-consent.show {
+        transform: translateY(0);
+    }
+
+    #cookie-consent p {
+        margin: 0;
+        font-size: 0.9rem;
+        text-align: center;
+    }
+
+    #cookie-consent button {
+        background-color: var(--primary);
+        color: var(--background-darker);
+        border: none;
+        padding: 0.6rem 1.2rem;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    #cookie-consent button:hover {
+        background-color: var(--primary-light);
+        transform: scale(1.05);
+    }
+
+    @media (min-width: 768px) {
+        #cookie-consent {
+            flex-direction: row;
+            padding: 0.8rem 2rem;
+        }
+        #cookie-consent p {
+            text-align: left;
+        }
+    }
+
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .nav-toggle {
+        display: block;
+      }
+
+      nav ul {
+        flex-direction: column;
+        width: 100%;
+        display: none; /* Hidden by default for mobile */
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+
+      nav.active ul {
+        display: flex;
+      }
+
+      nav ul li {
+        width: 100%;
+        text-align: center;
+      }
+
+      nav ul li a {
+        padding: 0.75rem 0;
+        display: block;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      nav ul li:last-child a {
+        border-bottom: none;
+      }
+      
+      .btn {
+          padding: 0.6rem 1.2rem;
+          font-size: 0.95rem;
+      }
+
+      #home {
+        padding: 6rem 0;
+      }
+
+      #home h1 {
+        font-size: 2.5rem;
+      }
+
+      #home p {
+        font-size: 1rem;
+      }
+
+      .service-grid {
+        grid-template-columns: 1fr;
+      }
+      .testimonial-carousel {
+          grid-auto-columns: 90%;
+      }
+    }
+
+    @media (max-width: 480px) {
+        #home h1 {
+            font-size: 2rem;
+        }
+        #home p {
+            font-size: 0.95rem;
+        }
+        .testimonial-carousel {
+            grid-auto-columns: 100%;
+        }
+        section {
+            padding: 4rem 0;
+            margin-bottom: 2rem;
+        }
+    }
+
+    /* SVG Icons for accessibility and scalability */
+    .icon {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      stroke-width: 0;
+      stroke: currentColor;
+      fill: currentColor;
+    }
+  </style>
+</head>
+<body>
+  <header id="site-header">
+    <div class="container">
+      <div class="branding">
+        <a href="#home">
+          <svg class="icon" style="width: 1.5em; height: 1.5em; vertical-align: middle; margin-right: 0.5em;"><path d="M215.7 499.2C267 437.6 384 274.6 384 160C384 71.63 312.4 0 224 0S64 71.63 64 160C64 274.6 181 437.6 232.3 499.2C227.6 504.3 222.9 509.4 218.4 514C198.8 535.1 146.4 577.1 145.4 602.8C144.3 628.6 160.8 637.2 179.3 643C185.3 644.9 191.5 646.4 198.3 647.7C203.2 648.7 207.7 649.3 211.8 649.9C215.1 650.3 218.4 650.5 221.7 650.6C227.3 650.7 232.8 650.8 238.2 650.8C250.7 650.8 261.9 650 271.7 648.5C282.6 646.8 291 645.2 297.4 642.5C311.9 636.5 328.6 626.8 327.9 603C327.3 581.5 281.3 538.9 261.6 517.8C257.6 513.5 253.9 509.5 250.2 505.4C246.7 501.7 242.4 496.9 237.5 491.3C235.1 488.4 233.5 486.5 232.3 485.1C232.3 485.1 232.3 485.1 232.3 485.1C232.3 485.1 232.3 485.1 232.3 485.1C232.3 485.1 232.3 485.1 232.3 485.1C232.3 485.1 232.3 485.1 232.3 485.1C228.3 490.7 225.1 494.3 222.9 497.6C220.8 499.7 218.4 502.2 215.9 504.6C215.8 504.7 215.7 504.8 215.7 504.9L215.7 499.2ZM244.6 200C244.6 211.3 235.3 220.6 224 220.6C212.7 220.6 203.4 211.3 203.4 200C203.4 188.7 212.7 179.4 224 179.4C235.3 179.4 244.6 188.7 244.6 200Z"/></svg>
+           Compassify
+        </a>
+      </div>
+      <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#technology">MacOS Tech</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#contact" class="btn">Get a Quote</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+<main>
+    <section id="home">
+      <div class="container">
+        <h1>Native macOS Navigation, Perfected by Compassify</h1>
+        <p>We forge highly optimized, CoreLocation-integrated mapping applications exclusively for Apple's desktop environment, ensuring seamless performance and user experience.</p>
+        <div class="cta-group">
+          <a href="#services" class="btn btn-solid">Explore Our Solutions</a>
+        </div>
+        <div class="hero-image-wrapper">
+          <img src="images/hero-macos-navigation-interface.jpeg" alt="MacBook displaying advanced navigation mapping software with routes and points of interest" width="1024" height="768" class="hero-image">
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <h2 class="section-heading">Our Expertise</h2>
+        <p class="section-description">Compassify delivers specialized mapping technology targeted at modern desktop workflows, crafted with precision for the macOS ecosystem.</p>
+        <div class="service-grid">
+          <div class="service-card">
+            <div class="icon-container">
+              <img src="images/service-macos-app-dev.jpeg" alt="Icon for macOS app development, showing code" width="256" height="256">
+            </div>
+            <h3>macOS Nav Apps</h3>
+            <p>Swift-based, Metal-accelerated navigation applications optimized for Apple Silicon, providing fluid interactions and exceptional performance.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon-container">
+              <img src="images/service-custom-mapping.jpeg" alt="Icon for custom mapping, showing a vector map" width="256" height="256">
+            </div>
+            <h3>Custom Mapping</h3>
+            <p>Bespoke map rendering engines supporting multi-layer vector tiles and complex GIS data, tailored to your unique visualization needs.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon-container">
+              <img src="images/service-location-services.jpeg" alt="Icon for LBS Integration, showing a satellite network" width="256" height="256">
+            </div>
+            <h3>LBS Integration</h3>
+            <p>Seamless integration of routing APIs, real-time traffic updates, and advanced spatial analytics for dynamic location-based functionality.</p>
+          </div>
+          <div class="service-card">
+            <div class="icon-container">
+              <img src="images/service-ui-ux-design.jpeg" alt="Icon for UI/UX design, showing wireframes" width="256" height="256">
+            </div>
+            <h3>Navigation UI/UX</h3>
+            <p>Human Interface Guidelines-compliant designs specifically tailored for high-information density maps, ensuring clarity and intuitive interaction.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="technology">
+      <div class="container">
+        <h2>Built for the Apple Ecosystem</h2>
+        <p>At Compassify, we bypass generic cross-platform wrappers. Our solutions leverage Native MapKit, CoreLocation, and Metal to ensure frame-perfect 60fps panning, drastically reduced memory footprints, and deep integration with macOS features like Shortcuts, Widgets, and the Touch Bar, delivering an authentic Apple experience.</p>
+        <div class="tech-image-wrapper">
+          <img src="images/feature-apple-silicon-integration.jpeg" alt="Technical diagram illustrating a hardware-accelerated map rendering pipeline on Apple Silicon" width="768" height="512" class="tech-image">
+        </div>
+      </div>
+    </section>
+
+    <section id="testimonials">
+      <div class="container">
+        <h2>What Our Clients Say</h2>
+        <div class="testimonial-carousel">
+          <div class="testimonial-card">
+            <img src="images/testimonial-client-sarah.jpeg" alt="Portrait of Sarah Jenkins, a client" width="128" height="128">
+            <blockquote>"Compassify rebuilt our logistics routing dashboard natively for Mac. The performance jump from our old Electron app was staggering; our team is significantly more productive now."</blockquote>
+            <cite>Sarah Jenkins<br><span>Global Freight Logistics</span></cite>
+          </div>
+          <div class="testimonial-card">
+            <img src="images/testimonial-client-elias.jpeg" alt="Portrait of Captain Elias Thorne, maritime professional" width="128" height="128">
+            <blockquote>"Their deep understanding of desktop UI constraints meant our maritime navigation software finally feels like a professional Apple tool. It's robust, intuitive, and truly a pleasure to use."</blockquote>
+            <cite>Capt. Elias Thorne<br><span>Nautical Spatial Corp</span></cite>
+          </div>
+           <div class="testimonial-card">
+            <img src="images/testimonial-client-ananya.jpeg" alt="Portrait of Ananya Sharma, Head of Urban Planning" width="128" height="128">
+            <blockquote>"The custom mapping solution Compassify developed for our urban planning analytics is indispensable. The data visualization is crisp and responsive, even with massive datasets."</blockquote>
+            <cite>Ananya Sharma<br><span>CityScape Innovations</span></cite>
+          </div>
+          <div class="testimonial-card">
+            <img src="images/testimonial-client-hiroshi.jpeg" alt="Portrait of Hiroshi Tanaka, CEO of a software development firm" width="128" height="128">
+            <blockquote>"Working with Compassify on our in-car navigation system for macOS was enlightening. Their expertise in CoreLocation integration is unparalleled, resulting in superior GPS accuracy."</blockquote>
+            <cite>Hiroshi Tanaka<br><span>TerraNav Solutions</span></cite>
+          </div>
+          <div class="testimonial-card">
+            <img src="images/testimonial-client-olivia.jpeg" alt="Portrait of Olivia Davies, geospatial analyst" width="128" height="128">
+            <blockquote>"As a geospatial analyst, the granular control and performance of Compassify's custom mapping engine are game-changers. It's the most efficient tool I've ever used for complex terrain analysis."</blockquote>
+            <cite>Olivia Davies<br><span>GeoSight Analytics</span></cite>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+<footer id="contact">
+    <div class="container">
+      <div class="footer-cta">
+        <h3>Start Your Navigation Project</h3>
+        <p>Ready to build unparalleled mapping experiences tailored specifically for the macOS platform?</p>
+        <a href="mailto:info@95.85.236.128" class="btn">Contact Us Today</a>
+      </div>
+      <div class="contact-info">
+        <p><strong>Compassify</strong></p>
+        
+        <p>58-70 54th Street, New York, New York, 11378, USA</p>
+        <p>Phone: <a href="tel:+14723464477">+1 (472) 346-4477</a></p>
+        <p>Email: <a href="mailto:info@95.85.236.128">info@95.85.236.128</a></p>
+      </div>
+
+      <div class="footer-links">
+          <a href="./privacy.html">Privacy Policy</a>
+          <a href="./tos.html">Terms of Service</a>
+      </div>
+      <p class="copyright">© 2024 Compassify. All rights reserved. Precision Software Development.</p>
+    </div>
+  </footer>
+
+  <div id="cookie-consent">
+      <p>This website uses cookies to ensure you get the best experience on our website. By continuing to use our site, you agree to our <a href="./privacy.html" style="color: var(--primary-light); text-decoration: underline;">Privacy Policy</a>.</p>
+      <button id="accept-cookies">Accept</button>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Mobile Navigation Toggle
+      const navToggle = document.querySelector('.nav-toggle');
+      const nav = document.querySelector('nav');
+      if (navToggle && nav) {
+        navToggle.addEventListener('click', () => {
+          nav.classList.toggle('active');
+        });
+        nav.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            if (nav.classList.contains('active')) {
+              nav.classList.remove('active');
+            }
+          });
+        });
+      }
+
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+
+      // Cookie Consent Logic
+      const cookieConsent = document.getElementById('cookie-consent');
+      const acceptCookiesBtn = document.getElementById('accept-cookies');
+      const cookieName = 'consent_Compassify_cookies_accepted'; // Unique cookie name prefix
+
+      function setCookie(name, value, days) {
+          let expires = '';
+          if (days) {
+              const date = new Date();
+              date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+              expires = '; expires=' + date.toUTCString();
+          }
+          document.cookie = name + '=' + (value || '') + expires + '; path=/; SameSite=Lax';
+      }
+
+      function getCookie(name) {
+          const nameEQ = name + '=';
+          const ca = document.cookie.split(';');
+          for (let i = 0; i < ca.length; i++) {
+              let c = ca[i];
+              while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+              if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+          }
+          return null;
+      }
+
+      if (!getCookie(cookieName)) {
+          setTimeout(() => {
+              cookieConsent.classList.add('show');
+          }, 1000); // Show after 1 second
+      }
+
+      acceptCookiesBtn.addEventListener('click', () => {
+          setCookie(cookieName, 'true', 365); // Consent valid for 1 year
+          cookieConsent.classList.remove('show');
+      });
+
+      // Simple Fade-in on scroll (for sections)
+      const faders = document.querySelectorAll('section:not(#home) h2, section:not(#home) p, .service-card, .testimonial-card, #technology .tech-image-wrapper');
+      const appearOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px"
+      };
+
+      const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) {
+            return;
+          } else {
+            entry.target.style.opacity = 1;
+            entry.target.style.transform = 'translateY(0)';
+            entry.target.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+            appearOnScroll.unobserve(entry.target);
+          }
+        });
+      }, appearOptions);
+
+      faders.forEach(fader => {
+        fader.style.opacity = 0;
+        fader.style.transform = 'translateY(20px)';
+        appearOnScroll.observe(fader);
+      });
+
+    });
+  </script>
+</body>
+</html>

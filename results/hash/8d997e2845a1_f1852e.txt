@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>13 лет — викторина для Насти</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#160a10;
+    --ink-2:#22101a;
+    --wine:#5e1b2e;
+    --wine-soft:#7a2438;
+    --rose:#d4738c;
+    --gold:#e3bd78;
+    --gold-deep:#c69a52;
+    --cream:#f4e7d8;
+    --muted:#bb9a92;
+    --shadow:0 30px 80px -30px rgba(0,0,0,.7);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:"Manrope",system-ui,sans-serif;
+    color:var(--cream);
+    background:
+      radial-gradient(120% 90% at 50% -10%, #46172a 0%, rgba(70,23,42,0) 55%),
+      radial-gradient(90% 70% at 85% 110%, #3a1320 0%, rgba(58,19,32,0) 60%),
+      linear-gradient(160deg, #1d0c14 0%, #160a10 50%, #120810 100%);
+    background-attachment:fixed;
+    min-height:100dvh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* плавающие искорки-свечи */
+  .embers{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+  .ember{
+    position:absolute;bottom:-10px;width:4px;height:4px;border-radius:50%;
+    background:radial-gradient(circle,var(--gold) 0%,rgba(227,189,120,0) 70%);
+    opacity:0;animation:rise linear infinite;
+  }
+  @keyframes rise{
+    0%{transform:translateY(0) scale(.6);opacity:0}
+    12%{opacity:.9}
+    85%{opacity:.7}
+    100%{transform:translateY(-105vh) scale(1.1);opacity:0}
+  }
+
+  .stage{position:relative;z-index:1;width:100%;max-width:620px}
+
+  .card{
+    position:relative;
+    background:linear-gradient(165deg, rgba(48,20,32,.82), rgba(26,12,18,.92));
+    border:1px solid rgba(227,189,120,.22);
+    border-radius:26px;
+    padding:clamp(28px,5vw,52px);
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(6px);
+  }
+  .card::before{
+    content:"";position:absolute;inset:9px;border-radius:18px;
+    border:1px solid rgba(227,189,120,.14);pointer-events:none;
+  }
+
+  .eyebrow{
+    font-size:13px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--gold);font-weight:600;margin-bottom:18px;
+    display:flex;align-items:center;gap:12px;
+  }
+  .eyebrow::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,rgba(227,189,120,.5),transparent)}
+
+  h1{
+    font-family:"Cormorant Garamond",serif;font-weight:500;line-height:.95;
+    font-size:clamp(54px,14vw,104px);letter-spacing:-.01em;
+  }
+  h1 .years{display:block;font-style:italic;color:var(--gold);font-weight:600}
+  h1 em{font-style:italic;color:var(--rose)}
+
+  .lead{
+    font-family:"Cormorant Garamond",serif;font-style:italic;
+    font-size:clamp(20px,3.5vw,27px);color:var(--cream);
+    margin-top:18px;line-height:1.4;opacity:.92;
+  }
+
+  .sub{color:var(--muted);margin-top:20px;font-size:15px;line-height:1.6;max-width:42ch}
+
+  .btn{
+    appearance:none;border:0;cursor:pointer;font-family:"Manrope",sans-serif;
+    font-weight:600;font-size:16px;letter-spacing:.02em;
+    color:#2a1009;
+    background:linear-gradient(135deg,var(--gold) 0%,var(--gold-deep) 100%);
+    padding:16px 30px;border-radius:999px;
+    box-shadow:0 14px 30px -10px rgba(227,189,120,.5);
+    transition:transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    margin-top:32px;
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 20px 40px -12px rgba(227,189,120,.6);filter:brightness(1.04)}
+  .btn:active{transform:translateY(0)}
+  .btn:focus-visible{outline:3px solid var(--rose);outline-offset:3px}
+
+  /* прогресс — лента из 13 свечей-лет */
+  .progress{display:flex;align-items:center;gap:7px;margin-bottom:26px}
+  .progress .dot{
+    flex:1;height:4px;border-radius:999px;background:rgba(227,189,120,.16);
+    transition:background .5s ease, box-shadow .5s ease;
+  }
+  .progress .dot.on{background:linear-gradient(90deg,var(--gold),var(--rose));box-shadow:0 0 12px rgba(227,189,120,.5)}
+  .qcount{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+
+  .question{
+    font-family:"Cormorant Garamond",serif;font-weight:500;
+    font-size:clamp(28px,5.5vw,42px);line-height:1.1;margin-bottom:28px;
+  }
+
+  .options{display:flex;flex-direction:column;gap:12px}
+  .opt{
+    text-align:left;cursor:pointer;font-family:"Manrope",sans-serif;font-size:16px;
+    color:var(--cream);background:rgba(244,231,216,.04);
+    border:1px solid rgba(227,189,120,.2);border-radius:15px;
+    padding:17px 20px;display:flex;align-items:center;gap:14px;
+    transition:border-color .2s ease, background .2s ease, transform .15s ease;
+  }
+  .opt:hover{background:rgba(227,189,120,.1);border-color:rgba(227,189,120,.5);transform:translateX(3px)}
+  .opt:focus-visible{outline:2px solid var(--rose);outline-offset:2px}
+  .opt .mark{
+    width:24px;height:24px;flex:0 0 auto;border-radius:50%;
+    border:1px solid rgba(227,189,120,.45);display:grid;place-items:center;
+    font-size:13px;color:var(--gold);transition:all .2s ease;
+  }
+  .opt.picked{background:linear-gradient(135deg,rgba(212,115,140,.22),rgba(227,189,120,.18));border-color:var(--gold)}
+  .opt.picked .mark{background:var(--gold);color:#2a1009;border-color:var(--gold)}
+
+  .reaction{
+    font-family:"Cormorant Garamond",serif;font-style:italic;
+    font-size:21px;color:var(--rose);margin-top:22px;min-height:30px;opacity:0;
+    transition:opacity .4s ease;
+  }
+  .reaction.show{opacity:1}
+
+  /* финальное приглашение */
+  .invite{text-align:center}
+  .invite .seal{
+    width:74px;height:74px;margin:0 auto 22px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%,var(--wine-soft),var(--wine) 70%);
+    border:2px solid var(--gold);display:grid;place-items:center;
+    font-family:"Cormorant Garamond",serif;font-size:30px;color:var(--gold);
+    box-shadow:0 0 0 6px rgba(227,189,120,.1), inset 0 0 18px rgba(0,0,0,.4);
+  }
+  .invite .resto{
+    font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:600;
+    font-size:clamp(40px,9vw,68px);color:var(--gold);line-height:1;margin:6px 0 4px;
+  }
+  .invite .resto small{display:block;font-style:normal;font-weight:500;font-size:.32em;letter-spacing:.5em;color:var(--muted);margin-top:14px;text-transform:uppercase}
+  .ticket{
+    margin-top:30px;border:1px dashed rgba(227,189,120,.4);border-radius:18px;
+    padding:24px;background:rgba(244,231,216,.03);text-align:left;
+  }
+  .ticket .row{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid rgba(227,189,120,.1);font-size:15px}
+  .ticket .row:last-child{border-bottom:0}
+  .ticket .k{color:var(--muted)}
+  .ticket .v{color:var(--cream);text-align:right}
+
+  .screen{display:none;animation:fade .55s ease both}
+  .screen.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  .hint{margin-top:24px;font-size:13px;color:var(--muted);text-align:center;opacity:.7}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="embers" id="embers" aria-hidden="true"></div>
+
+<main class="stage">
+  <!-- ИНТРО -->
+  <section class="screen active" id="screen-intro">
+    <div class="card">
+      <div class="eyebrow">Только для одного человека</div>
+      <h1><span class="years">13 лет</span> <em>нас</em></h1>
+      <p class="lead">Маленькая викторина про самое большое.<br>Спойлер: проиграть невозможно.</p>
+      <p class="sub">Настя, тут несколько вопросов про нас с тобой. Отвечай как чувствуешь — в конце тебя всё равно ждёт приз.</p>
+      <button class="btn" id="start">Начать →</button>
+    </div>
+  </section>
+
+  <!-- ВОПРОСЫ -->
+  <section class="screen" id="screen-quiz">
+    <div class="card">
+      <div class="progress" id="progress" aria-hidden="true"></div>
+      <div class="qcount" id="qcount"></div>
+      <div class="question" id="question"></div>
+      <div class="options" id="options"></div>
+      <div class="reaction" id="reaction"></div>
+    </div>
+  </section>
+
+  <!-- ФИНАЛ -->
+  <section class="screen" id="screen-win">
+    <div class="card invite">
+      <div class="seal">S</div>
+      <div class="eyebrow" style="justify-content:center">Главный приз</div>
+      <div class="resto">Senti Menti<small>ужин на двоих</small></div>
+      <p class="lead">Ты выиграла вечер со мной — там, где «чувства» в самом названии.</p>
+      <div class="ticket">
+        <div class="row"><span class="k">Кому</span><span class="v">Насте — за 13 лет терпения</span></div>
+        <div class="row"><span class="k">От кого</span><span class="v">С любовью</span></div>
+        <div class="row"><span class="k">Куда</span><span class="v">Senti Menti</span></div>
+        <div class="row"><span class="k">Когда</span><span class="v">Скажи только «да»</span></div>
+      </div>
+      <button class="btn" id="yes">Я согласна ❤️</button>
+      <p class="hint" id="afterYes"></p>
+    </div>
+  </section>
+</main>
+
+<script>
+/* ───────── ВОПРОСЫ ─────────
+   Меняй тексты под себя. Любой ответ ведёт к выигрышу.
+   "best" — какой вариант подсветится как «тот самый», но это не обязательно. */
+const QUESTIONS = [
+  {
+    q: "Что для меня значит слово «дом»?",
+    options: ["Стены и крыша", "Город, где мы живём", "Место, где меня ждут", "Просто ты"],
+    best: 3,
+    reaction: "Просто ты. Всё остальное — лишь адрес."
+  },
+  {
+    q: "Если бы я мог вернуться в день, когда мы встретились…",
+    options: ["Ничего не менял бы", "Нашёл бы тебя раньше", "Сказал бы сразу всё", "Прожил бы всё снова, до секунды"],
+    best: 3,
+    reaction: "Снова, до секунды. С тобой даже ошибки были правильными."
+  },
+  {
+    q: "Какие три слова я говорю тебе чаще всего?",
+    options: ["«Ты где, кстати?»", "«Что на ужин?»", "«Я тебя люблю»", "«Спасибо, что ты»"],
+    best: 2,
+    reaction: "Эти три. И каждый раз — как впервые."
+  },
+  {
+    q: "О чём я думаю, когда ты засыпаешь рядом?",
+    options: ["О завтрашних делах", "Ни о чём, мне просто тепло", "Что мне очень повезло", "Что хочу так — всегда"],
+    best: 2,
+    reaction: "Что повезло. Тринадцать лет — а я всё не верю."
+  },
+  {
+    q: "Что во мне точно не изменится и через 50 лет?",
+    options: ["Любимый плед", "Привычка спорить по пустякам", "То, как я смотрю на тебя", "Как сильно я тебя люблю"],
+    best: 3,
+    reaction: "Только сильнее. Это единственное, что я знаю наверняка."
+  },
+  {
+    q: "Что я загадываю, когда задуваю свечи?",
+    options: ["Что-то для себя", "Чтобы всё было хорошо", "Одно и то же — тебя", "Уже всё сбылось, нечего загадывать"],
+    best: 2,
+    reaction: "Тебя. Хотя ты права — главное уже сбылось."
+  },
+  {
+    q: "Самое лучшее, что случилось со мной за эти 13 лет?",
+    options: ["Много всего", "Наши поездки", "Этот дом", "Ты. И точка."],
+    best: 3,
+    reaction: "Ты. И точка. Спасибо, что выбрала меня тогда."
+  }
+];
+
+const PROGRESS = document.getElementById('progress');
+const QCOUNT  = document.getElementById('qcount');
+const QEL     = document.getElementById('question');
+const OPTS    = document.getElementById('options');
+const REACT   = document.getElementById('reaction');
+let idx = 0;
+
+// прогресс-лента
+QUESTIONS.forEach(()=>{const d=document.createElement('div');d.className='dot';PROGRESS.appendChild(d);});
+const DOTS = [...PROGRESS.children];
+
+function show(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function render(){
+  const item = QUESTIONS[idx];
+  QCOUNT.textContent = `Вопрос ${idx+1} из ${QUESTIONS.length}`;
+  QEL.textContent = item.q;
+  REACT.textContent = ''; REACT.classList.remove('show');
+  DOTS.forEach((d,i)=>d.classList.toggle('on', i<=idx));
+  OPTS.innerHTML = '';
+  item.options.forEach((text,i)=>{
+    const b=document.createElement('button');
+    b.className='opt';
+    b.innerHTML=`<span class="mark">${i+1}</span><span>${text}</span>`;
+    b.onclick=()=>pick(b,i,item);
+    OPTS.appendChild(b);
+  });
+}
+
+function pick(btn, i, item){
+  [...OPTS.children].forEach(o=>{o.classList.remove('picked');o.style.pointerEvents='none';});
+  btn.classList.add('picked');
+  REACT.textContent = item.reaction || "Идеально. Дальше!";
+  REACT.classList.add('show');
+  setTimeout(()=>{
+    idx++;
+    if(idx < QUESTIONS.length){
+      OPTS.querySelectorAll('.opt').forEach(o=>o.style.pointerEvents='');
+      render();
+    } else {
+      show('screen-win');
+      celebrate();
+    }
+  }, 1400);
+}
+
+document.getElementById('start').onclick=()=>{show('screen-quiz');render();};
+document.getElementById('yes').onclick=()=>{
+  document.getElementById('afterYes').textContent = "Тогда наряжайся. Столик за мной. 🍷";
+  celebrate();
+};
+
+/* искорки-свечи */
+const E=document.getElementById('embers');
+for(let i=0;i<28;i++){
+  const e=document.createElement('div');e.className='ember';
+  e.style.left=Math.random()*100+'%';
+  const s=2+Math.random()*4;e.style.width=e.style.height=s+'px';
+  e.style.animationDuration=(7+Math.random()*9)+'s';
+  e.style.animationDelay=(-Math.random()*12)+'s';
+  E.appendChild(e);
+}
+
+/* лёгкий «дождь из лепестков/искр» на победе */
+function celebrate(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  for(let i=0;i<36;i++){
+    const p=document.createElement('div');
+    p.textContent = Math.random()>.5 ? '❤' : '✦';
+    p.style.cssText=`position:fixed;z-index:5;top:-30px;left:${Math.random()*100}vw;
+      font-size:${10+Math.random()*16}px;color:${Math.random()>.5?'#d4738c':'#e3bd78'};
+      pointer-events:none;opacity:.9;`;
+    document.body.appendChild(p);
+    const dur=2600+Math.random()*2200;
+    p.animate([
+      {transform:`translateY(0) rotate(0deg)`,opacity:.9},
+      {transform:`translateY(105vh) rotate(${(Math.random()*2-1)*360}deg)`,opacity:0}
+    ],{duration:dur,easing:'cubic-bezier(.4,0,.6,1)'}).onfinish=()=>p.remove();
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,733 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>Стена Антона Субботина - RuFox</title>
+		<script type="text/javascript" src="https://res.rufox.ru/js/jquery/jquery-1.6.4.min.js?v=89"></script>
+		<script type="text/javascript" src="https://res.rufox.ru/js/rufox.js?v=89"></script>
+		<script type="text/javascript" src="https://res.rufox.ru/js/shapka.js?v=89"></script>
+		<script type="text/javascript" src="https://res.rufox.ru/js/clock.js?v=89"></script>
+		<script type="text/javascript" src="https://res.rufox.ru/js/jquery.colorbox-min.js?v=89"></script>
+	
+	<script type="text/javascript" src="/js/jquery.upload.js?v=89"></script>
+	<script type="text/javascript" src="/js/jquery.imgupload.js?v=89"></script>
+	<script type="text/javascript" src="/js/jquery.idTabs.min.js?v=89"></script>
+	<script type="text/javascript" src="/js/jquery.region.js?v=89"></script>
+    <script type="text/javascript" src="/js/jquery.fieldcomplete.js?v=89"></script>
+    <script type="text/javascript" src="/js/jquery.privacyselect.js?v=89"></script>
+    
+    
+    <script src="https://res.rufox.ru/js/swfupload/swfupload.js"></script>
+    <script src="https://res.rufox.ru/js/jquery.multiupload.js"></script>
+    <script src="https://res.rufox.ru/js/jquery.defaulttext.js"></script>
+
+    <script type="text/javascript" src="/js/jquery.ajaxlink.js?v=89"></script>
+    <script type="text/javascript" src="/js/ui_1_8/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.jcarousel.min.js"></script>
+    <script type="text/javascript" src="/js/ajax.slider.content_load.js"></script>
+    <script type="text/javascript" src="https://res.rufox.ru/js/jquery.form.js"></script>
+    <script type="text/javascript" src="/js/common.js?v=89"></script>
+	<script type="text/javascript" src="/js/dialogs.js?v=89"></script>
+    <script type="text/javascript" src="/js/comments.js?v=89"></script>
+    <script type="text/javascript" src="/js/likes.js?v=89"></script>
+    <script type="text/javascript" src="/js/jquery.userselect.js?v=89"></script>
+    <script type="text/javascript" src="/js/jquery.photolabel.js?v=89"></script>
+    <script type="text/javascript" src="/js/jquery.dropdownlist.js?v=89"></script>
+	
+		<link rel="stylesheet" type="text/css" href="https://res.rufox.ru/css/rufox.css?v=124" media="all" />
+		<link rel="stylesheet" type="text/css" href="https://res.rufox.ru/css/colorbox.css?v=124" media="all" />
+		<link rel="stylesheet" type="text/css" href="https://res.rufox.ru/css/shapka/chapka.css?v=124" media="all" />
+		
+	<link rel="stylesheet" type="text/css" href="https://res.rufox.ru/css/shapka/shapka_social.css?v=124" media="all" />
+	<link rel="stylesheet" type="text/css" href="/js/ui_1_8/css/theme/jquery-ui-1.8.16.custom.css?v=124" media="all" />	
+    
+        <script type="text/javascript" src="/js/serverevents.js?v=89"></script>
+        
+	
+	<script>
+	var globals = {"serverTime":1784728217,"viewerUrl":"\/unauthorized\/","isMe":false,"phpsessid":"5d1c5e511f095841ffe3d22191c97d95"};
+</script>
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+	<meta name="keywords" content="">
+<meta name="description" content="">
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {
+            if (document.scripts[j].src === r) { return; }
+        }
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107157830', 'ym');
+                                        
+    ym(107157830, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><img src="https://mc.yandex.ru/watch/107157830" style="position:absolute; left:-9999px;" alt="" /></noscript>
+<!-- /Yandex.Metrika counter -->
+
+	
+	<link href="/css/social/style.css" rel="stylesheet" type="text/css" />
+	<link href="/css/social/maria_style.css" rel="stylesheet" type="text/css" />
+	<link type="text/css" href="/css/social/our_style.css?v=124" media="all" rel="stylesheet" />	
+
+	<!--[if IE 6]> 
+	  <link href="/css/social/style_ie6.css" rel= "stylesheet" media="all" type="text/css" /> 
+	<![endif]-->
+	<!-- Таблица стилей для IE6 -->
+
+	<!--[if IE 7]> 
+	  <link href="/css/social/style_ie7.css" rel= "stylesheet" media="all" type="text/css" /> 
+	<![endif]-->
+	<!-- Таблица стилей для IE7 -->
+
+	<!--[if IE]> 
+	  <link href="/css/social/style_ie.css" rel= "stylesheet" media="all" type="text/css" /> 
+	<![endif]-->
+	
+	<!--[if IE]> 
+	  <link href="/css/social/style_ie_our.css" rel= "stylesheet" media="all" type="text/css" /> 
+	<![endif]-->	
+	<!-- Таблица стилей для всех IE -->
+    
+    <script>
+        $(function(){
+            Common.currentUser.id       = '-165017534';
+            Common.currentUser.login    = '';
+            Common.currentUser.url      = '/unauthorized/';
+        });
+    </script>
+
+</head>
+<body>
+
+<a href="#" class="user gotoplink">Наверх</a>
+
+<div id="wrapper">
+
+	<div id="header">
+		<!-- Шапка -->
+<div class="header">
+
+	<!-- Левая колонка -->
+	<div class="kolonka_left">
+		<div class="syslik">                                                     
+            <br />
+            
+			<a href="/"><img class="marg_logo" src="https://res.rufox.ru/img/shapka/logo.png" width="180" border="0" alt="RuFox"></a>
+			<a href="http://my.rufox.ru" class="tomain">Моя жизнь</a>
+		</div>
+	</div>
+	<!-- Конец левой колонки -->
+
+
+	<!-- Центральная колонка -->
+    <div class="topline">
+        <div class="authblock">
+                        <a href="/rfcommon/auth/index.php?referer=http%3A%2F%2Fwww.rufox.ru%2Fsub" onclick="Shapka.openAuthDialog(); return false;">Войти</a> или 
+            <a href="/rfcommon/register/index.php?referer=http%3A%2F%2Fwww.rufox.ru%2Fsub">
+                <img src="/images/register.png" style="vertical-align: middle; margin-left: 2px;">
+            </a>
+                    </div>
+        <div class="hotprojects">
+			<a href="http://afisha.rufox.ru/" >афиша</a>
+        	<a href="http://news.rufox.ru/" >новости</a>
+            <a href="http://job.rufox.ru/" >работа</a>
+			<a href="http://videos.rufox.ru/" >видео</a>
+			<a href="http://foto.rufox.ru/" >фото</a>
+			<a href="http://blogs.rufox.ru/" >блоги</a>
+			<a href="http://astro.rufox.ru/" >астрология</a>
+
+            <span class="down" id="all_prjs_link">Все сервисы
+            	<br />
+            	<div class="headpopup" id="all_prjs_menu">
+            		<p><a href="http://conf.rufox.ru/" >Конференция</a></p>
+            		<p><a href="http://konkurs.rufox.ru/" >Королева&nbsp;лета</a></p>
+            		<p><a href="http://recept.rufox.ru/">Рецепты</a></p>
+            		
+                    <p><a href="http://play.rufox.ru/" >Игры</a></p>
+                    <p><a href="http://love.rufox.ru/" >Знакомства</a></p>
+					<p><a href="http://travel.rufox.ru/" >Туризм</a></p>
+					
+					<p><a href="http://realty.rufox.ru/" >Недвижимость</a></p>
+					<p><a href="http://auto.rufox.ru/" >Авто</a></p>
+					<p><a href="http://law.rufox.ru/" >Законы</a></p>
+					<p><a href="http://top100.rufox.ru/" >Рейтинг</a></p>
+					<p><a href="http://forum.rufox.ru/" >Форум</a></p>
+					<p><a href="http://firms.rufox.ru/" >Предприятия</a></p>
+					<p><a href="http://history.rufox.ru/" >Летопись</a></p>
+					
+					
+					<p><a href="http://catalog.rufox.ru/" >Каталог сайтов</a></p>							    
+					<p><a href="http://subscribe.rufox.ru/" >Рассылки</a></p>							    
+					<p><a href="http://poll.rufox.ru/" >Голосования</a></p>							    
+					<p><a href="http://hosting.rufox.ru/" >Хостинг</a></p>							    
+					<p><a href="http://corp.rufox.ru/sms/" >SMS рассылки</a></p>							                
+            	</div>
+            </span>
+        </div>
+        <script>					
+			$(function() {
+				$('#all_prjs_link').dropDown({target: '#all_prjs_menu'});
+				$('.userblock').dropDown({target: '#my_prof_menu'});
+				$('#notis_menu_item').dropDown({target: '#noticePopup'});
+			});
+        </script>
+        
+        
+    </div>
+    
+	<div class="topbanner">
+        <!-- Блок поиска -->
+        <div class="block common search">
+            
+            <div style="padding: 2px 5px 0 0; width:100px;" class="fr">
+                <!-- No index start -->
+                <noindex>
+                    <a class="social_button vkontakte" href="http://vk.com/rufox"></a>
+                    <a class="social_button twitter" href="http://www.twitter.com/rufox"></a>
+                    <a class="social_button facebook" href="http://www.facebook.com/rufox.news"></a>
+                </noindex>
+                <!-- No index end -->
+            </div>
+            <div class="content" style="overflow: hidden;">
+                <div class="poisk_1">
+                    <form method="get" action="/search/" id="searchform">
+                                        <div class="new_poisk">
+                    	<input id="mainsearchinput" value="" name="query" class="q" autocomplete="off">
+                    </div>
+                    <input type="submit" class="search" value="">
+                    </form>
+						<script>
+							if( jQuery && jQuery.fn.defaultText ) {
+							   $(function() {
+								   $("#mainsearchinput").defaultText({rel: '  поиск по ФИО, году рождения, городу, учебному заведению...'});
+							   });
+							}
+							
+														$(function() {
+								var searchLine = $('#mainsearchinput').autocomplete({
+									source: "/search/?Act=ajaxsearch",
+									select: function(e, ui) {
+										location.href = ui.item.url;
+									}
+								})
+								
+								searchLine.data( "autocomplete" )._renderItem = function( ul, item ) {
+									return $( "<li></li>" )
+										.data( "item.autocomplete", item )
+										.append( '<a> <img width="32" height="32" src="' + item.avatar + '"> <div>' + item.label + "<br><span>" + item.desc + "</span></div></a>" )
+										.appendTo( ul );
+								};
+								searchLine.data( "autocomplete" ).menu.element.addClass('userfind');
+							});
+													</script>
+                </div>
+            </div>
+            
+        </div>
+	</div>
+	<!-- Конец центральной колонки -->
+
+</div><br /><br />
+<!-- конец шапки -->
+
+<!-- AddThis Button BEGIN -->
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4e39361048ffd1e9"></script>
+<script>
+var addthis_config =
+{
+   ui_delay : 1000
+}
+</script>
+<!-- AddThis Button END -->
+
+
+    <div style="display: none;">
+    <div id="auth_dialog" style="overflow: hidden;">
+        <div style="height: 200px; width: 200px; float: left;"> 
+            <div style="padding: 10px;">
+                <div style="font-size: 18px;">Вход в систему</div>
+                <form action="/rfcommon/auth/index.php" method="post">
+                    <input type="hidden" name="referer" value="http://www.rufox.ru/sub"/>
+                    <input type="hidden" name="dialog" value="1">
+                    <div style="padding: 10px 0 3px 0;">Логин:</div>
+                    <div><input type="text" style="padding: 1px; font-size: 16px; width: 165px; margin-bottom: 10px;" name="login" tabindex="1"></div>
+                    <div style="padding: 3px 0;">
+                        Пароль: 
+                        <a target="_blank" href="http://my.rufox.ru/password/?Act=pwdrecovery" class="link_small"> забыли? </a>
+                    </div>
+                    <div><input type="password" style="padding: 1px; font-size: 16px; width: 165px; margin-bottom: 10px;" tabindex="2" name="pass"></div>
+
+                    <div style="float: right; padding: 4px 10px 0 0; color: gray; font-size: 11px;" >
+                        <input type="checkbox" style="float: left; height: 15px;" id="memberme_id" checked="checked" name="memberme">
+                        <label for="memberme_id">&nbsp;Запомнить меня</label><br />
+                    </div>
+                    <input type="submit" value="Войти" tabindex="3">
+                    <div style="margin-top: 5px;">
+                        <a href="/rfcommon/register/index.php?referer=http%3A%2F%2Fwww.rufox.ru%2Fsub" class="link_big">регистрация &gt;&gt;</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        <div style="height: 200px; width: 215px; float: left;"> 
+            
+            <div style="padding-top: 10px;">Использовать мою учётную запись:</div>
+            <div style="height: 10px;"></div>
+
+            <div class="soc_accounts">
+                <!-- No index start -->
+                <noindex>
+                    <a title="Вконтакте" class="socbtn vkontakte" href="http://api.vk.com/oauth/authorize?client_id=2704085&amp;redirect_uri=http%3A%2F%2Fmy.rufox.ru%2Frfcommon%2Fauth%2Fvk.com%2Fregister.php&amp;scope=255&amp;display=page&amp;response_type=code"> Вконтакте </a>
+                    <a title="Facebook" class="socbtn facebook" href="/rfcommon/auth/facebook.com/register.php?referer=http%3A%2F%2Fmy.rufox.ru%2F"> Facebook </a>
+                    <a title="Mail.ru" class="socbtn mail_ru" href="https://connect.mail.ru/oauth/authorize?client_id=653717&amp;redirect_uri=http%3A%2F%2Fmy.rufox.ru%2Frfcommon%2Fauth%2Fmail.ru%2Fregister.php&amp;response_type=code">Mail.ru</a>
+                    <a title="Одноклассники" class="socbtn odnoklassniki" href="http://www.odnoklassniki.ru/oauth/authorize?client_id=6183168&amp;scope=VALUABLE ACCESS;SET STATUS;PHOTO CONTENT;MESSAGING&amp;response_type=code&amp;redirect_uri=http%3A%2F%2Fmy.rufox.ru%2Frfcommon%2Fauth%2Fodnoklassniki.ru%2Fregister.php">Одноклассники</a>
+                </noindex>
+                <!-- No index end -->
+            </div>
+            
+           
+        </div>
+    </div>
+</div>	</div><!-- #header-->
+
+    
+
+<div id="middle">
+<div id="container">
+	
+    <div id="content_main">
+        <!-- InstanceBeginEditable name="content_main" -->
+
+<table class="profile_header">
+  <tr>
+    <td class="left_td">
+    <b>Антон Субботин</b> 30 лет    </td>
+    <td class="right_td">
+            </td>
+  </tr>
+</table>
+<!-- .profile_header -->
+
+<p> День рождения: <a href="#">6 апреля 1996</a> (Овен). Родной город: Краснодар, Россия<br/>
+
+<h1>Стена</h1>
+
+
+
+
+
+<div id="comments_Social_User74986">
+
+    
+        	<div class="main_form comment_form expandable"></div>
+    
+    <div class="comment_list">
+                </div>
+
+    </div>
+
+    </div><!-- #content_main -->
+    <br class="clear"/>
+</div><!-- #container-->
+
+
+
+
+
+<div id="sideLeft">
+    <div class="profile_photo overable">
+                        <img src="/img/empty_180_1.png">
+                </div>       
+    <!-- InstanceBeginEditable name="left_column_main" -->
+	<div class="profile_name">
+    	<a href="/sub/">Антон Субботин</a>
+	</div>    
+	
+    <div class="left_menu_block">
+	    <span class="separator"></span>       
+            <a href="/sub/info/" class=''>Информация</a>
+        <span class="separator"></span> 
+        <a href="/sub/" class=''>Стена Антона</a>
+        <a href="/sub/friends/" class=''>Друзья Антона</a>
+          
+                    <a href="/sub/photos/" class=''>Фотографии</a>
+                            <a href="/sub/video/" class=''>Видео</a>
+                <a href="/sub/music/" class=''>Музыка</a>
+        <a href="/sub/questions/" class=''>Вопросы</a>
+        <div style="position: relative">
+                                
+            <a href="/sub/files/" class=''>Файлы</a>
+        </div>
+        
+                    <div style="position: relative">
+		        		                
+    	        <a href="/sub/present/" class=''>Подарки</a>        
+            </div>
+                    
+        <div style="position: relative">
+                                    <a href="/sub/meetings/" class=''>Мероприятия</a>
+        </div>
+        
+                    <span class="separator"></span>
+            <div style="position: relative">
+                                                <a href="/sub/groups/" class=''>Группы</a>
+            </div>
+                <!-- Не подключенные -->
+                        
+        <span class="separator"></span>       
+        <a href="/sub/adverts/" class=''>Объявления</a>
+        <span class="separator"></span>       
+      
+    </div>
+    <!-- .left_menu_block -->
+    
+    <div id="advertisement">
+                <div class="clear"></div>
+
+            </div>
+    <!-- #advertisement -->
+    
+    <!-- InstanceEndEditable -->
+    <div class="place_adv">         
+      <a class="btn" href="/profile/adverts/my.php?Act=add">
+        <span class="l"></span> 
+        <span class="r">разместить объявление</span>             
+        <div class="clear"></div>            
+      </a>
+    </div>
+
+    <br><br>
+    
+
+</div><!-- #sideLeft -->
+
+<div id="sideRight">
+	    
+        
+    
+
+    
+    
+            
+
+    
+    <div class="possible_friends">
+        <div class="top"> Сейчас на сайте </div>  
+        <div class="all">
+            <a href="/Natalia/" title="Наталья Шаповалова"><img src="http://img.rufox.ru/img/ctxy_32x32/691683_39c26ac6.jpg" alt="Наталья Шаповалова" /></a><a href="/blogger/" title="Маркетинг Свой"><img src="http://img.rufox.ru/img/ctxy_32x32/1_96aa6641.jpg" alt="Маркетинг Свой" /></a><a href="/rseo/" title="Иван Иванов"><img src="http://img.rufox.ru/img/ctxy_32x32/1_96aa6641.jpg" alt="Иван Иванов" /></a>        </div>
+        <a href="/static/online/" class="possible">Всего Online</a> 
+        (3)
+    </div>
+    <!-- .possible_friends -->
+    
+    <div class="invite_friends">
+    	<a class="btn" href="/unauthorized/friends/invite/"> 
+             <span class="l"></span> <span class="r">пригласить друзей из других сетей</span> 
+             <div class="clear"></div>
+        </a>
+    </div>
+    <!-- .invite_friends -->
+    
+	<!-- InstanceEndEditable -->
+    
+	
+<!-- end adv -->
+<br>
+<center>
+
+<br>	 
+   
+    
+                    
+    
+                     
+                <div class="teasers_list">
+                                            <div class="one_teaser">
+                    <div class="teaser_square">
+                        <a target="_blank" href="//my.rufox.ru/go.php?teaser_id=&url=http%3A%2F%2Fnews.rufox.ru%2Ftexts%2F2026%2F07%2F21%2F387194.htm&project_id=14">
+                            <img src="http://img.rufox.ru/files/50x50/885930.jpg" width="50" height="50" />
+                            &laquo;Подлый демон&raquo;: похитителем трусов оказался обнаглевший бобр в...                        </a>
+                    </div>
+                </div>
+                            <div class="teaser_separator"></div>                <div class="one_teaser">
+                    <div class="teaser_square">
+                        <a target="_blank" href="//my.rufox.ru/go.php?teaser_id=56&url=http%3A%2F%2Freadyscript.ru%2Fq-9rccebnzve%2F&project_id=14">
+                            <img src="http://img.rufox.ru/files/50x50/724238.jpg" width="50" height="50" />
+                            Создайте свой интернет-магазин на новой платформе ReadyScript                        </a>
+                    </div>
+                </div>
+                            <div class="teaser_separator"></div>                <div class="one_teaser">
+                    <div class="teaser_square">
+                        <a target="_blank" href="//my.rufox.ru/go.php?teaser_id=62&url=http%3A%2F%2Fhosting.rufox.ru&project_id=14">
+                            <img src="http://img.rufox.ru/files/50x50/735937.jpg" width="50" height="50" />
+                            Хостинг, домены, VPS/VDS, размещение серверов                        </a>
+                    </div>
+                </div>
+                        <div class="teasers_add" style="text-align: right; font-size: 11px; padding-top: 3px;">
+                <a href="http://corp.rufox.ru/teasers/">Что это?</a>
+            </div>
+        </div>    
+        
+    
+    <div class="stlinks">
+<script>
+<!--
+var _acic={dataProvider:10};(function(){var e=document.createElement("script");e.async=true;e.src="https://www.acint.net/aci.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(e,t)})()
+//-->
+</script><!--2475550293300--><div id='XTmx_2475550293300'></div></div>
+
+
+
+
+
+<!-- Republer START -->
+<!-- Информационно-развлектельный портал RuFox. -->
+<!-- 240x400 -->
+<div id="republer_4216_5_1670955043"></div>
+<script type="text/javascript">
+    (function(r, e, p, u, b) {
+        if (!r[p]) {
+            b = e.getElementsByTagName("script")[0];
+            u = e.createElement("script");
+            u.type = "text/javascript";
+            u.src = "//a.republer.com/render.js?t=1670955043";
+            u.async = true;
+            b.parentNode.insertBefore(u, b);
+        }
+
+        r[p] = r[p] || [];
+        r[p].push({
+            id          : "republer_4216_5_1670955043",
+            site_id     : 4216,
+            geometry_id : 5,
+            place_num   : 1,
+            pos         : 0,
+            float       : true
+        });
+    })(this, this.document, "RepublerBannerList");
+</script>
+<!-- Republer END -->    
+</div><!-- #sideRight -->
+
+<div class="clear"></div>
+</div><!-- #middle-->
+                    
+    <div class="bottom_slider" style="visibility:hidden">
+        <ul id="mycarousel_bottom" class="jcarousel-skin-tango">
+                <li class="one_slide" data-id="512471">
+    
+        
+                    
+                        
+        <img src="http://img.rufox.ru/img/ctxy_64x64/691683_3e17f3a4.jpg" alt="Наталья Шаповалова" />
+        <div>
+        <a style="display: block;" href="/Natalia/" class="user"> Наталья Шаповалова </a>
+        сообщает новость<br />
+        <a href="http://news.rufox.ru/texts/2026/07/22/387214.htm">Пропавшая в Подмосковье школьница...</a>
+    </div>
+
+            </li>
+    <li class="one_slide" data-id="512470">
+    
+        
+                    
+                        
+        <img src="http://img.rufox.ru/img/ctxy_64x64/885948_ac3bc23c.jpg" />
+        <div>
+        <a style="display: block;" href="/Natalia/" class="user"> Наталья Шаповалова </a>
+        сообщает новость<br />
+        <a href="http://news.rufox.ru/texts/2026/07/22/387213.htm">Госдума усилит контроль за ростом цен на...</a>
+    </div>
+
+            </li>
+    <li class="one_slide" data-id="512469">
+    
+        
+                    
+                        
+        <img src="http://img.rufox.ru/img/ctxy_64x64/885947_216f7505.jpg" />
+        <div>
+        <a style="display: block;" href="/Natalia/" class="user"> Наталья Шаповалова </a>
+        сообщает новость<br />
+        <a href="http://news.rufox.ru/texts/2026/07/22/387212.htm">Автодор: На западном портале обхода...</a>
+    </div>
+
+            </li>
+    <li class="one_slide" data-id="512468">
+    
+        
+                    
+                        
+        <img src="http://img.rufox.ru/img/ctxy_64x64/885946_1d0f960d.jpg" />
+        <div>
+        <a style="display: block;" href="/Natalia/" class="user"> Наталья Шаповалова </a>
+        сообщает новость<br />
+        <a href="http://news.rufox.ru/texts/2026/07/22/387211.htm">Модный фотограф и поставщик моделей для...</a>
+    </div>
+
+            </li>
+    <li class="one_slide" data-id="512467">
+    
+        
+                    
+                        
+        <img src="http://img.rufox.ru/img/ctxy_64x64/885945_59aeb315.jpg" />
+        <div>
+        <a style="display: block;" href="/Natalia/" class="user"> Наталья Шаповалова </a>
+        сообщает новость<br />
+        <a href="http://news.rufox.ru/texts/2026/07/22/387210.htm">В подмосковном Пущино пропала 13-летняя...</a>
+    </div>
+
+            </li>
+    <li class="one_slide" data-id="512466">
+    
+        
+                    
+                        
+        <img src="http://img.rufox.ru/img/ctxy_64x64/885944_65ce501d.jpg" />
+        <div>
+        <a style="display: block;" href="/Natalia/" class="user"> Наталья Шаповалова </a>
+        сообщает новость<br />
+        <a href="http://news.rufox.ru/texts/2026/07/22/387209.htm">В Сочи за сутки помощь спасателей...</a>
+    </div>
+
+            </li>
+    <li class="one_slide" data-id="512465">
+    
+        
+                    
+                        
+        <img src="http://img.rufox.ru/img/ctxy_64x64/885943_d0ecf925.jpg" />
+        <div>
+        <a style="display: block;" href="/Natalia/" class="user"> Наталья Шаповалова </a>
+        сообщает новость<br />
+        <a href="http://news.rufox.ru/texts/2026/07/22/387208.htm">Двое мужчин напали с ножом на продавца...</a>
+    </div>
+
+            </li>
+    <li class="one_slide" data-id="512464">
+    
+        
+                    
+                        
+        <img src="http://img.rufox.ru/img/ctxy_64x64/885942_ec8c1a2d.jpg" />
+        <div>
+        <a style="display: block;" href="/Natalia/" class="user"> Наталья Шаповалова </a>
+        сообщает новость<br />
+        <a href="http://news.rufox.ru/texts/2026/07/22/387207.htm">Пшеничное поле загорелось из-за атаки...</a>
+    </div>
+
+            </li>
+    <li class="one_slide" data-id="512463">
+    
+        
+                    
+                        
+        <img src="http://img.rufox.ru/img/ctxy_64x64/885941_a82d3f35.jpg" />
+        <div>
+        <a style="display: block;" href="/Natalia/" class="user"> Наталья Шаповалова </a>
+        сообщает новость<br />
+        <a href="http://news.rufox.ru/texts/2026/07/22/387206.htm">Кондратьев: Один человек погиб в...</a>
+    </div>
+
+            </li>
+    <li class="one_slide" data-id="512462">
+    
+        
+                    
+                        
+        <img src="http://img.rufox.ru/img/ctxy_64x64/885940_944ddc3d.jpg" />
+        <div>
+        <a style="display: block;" href="/Natalia/" class="user"> Наталья Шаповалова </a>
+        сообщает новость<br />
+        <a href="http://news.rufox.ru/texts/2026/07/22/387205.htm">Котлеты из кузнечиков и дом, растущий на...</a>
+    </div>
+
+            </li>
+        </ul>
+      
+       <a href="#" class="trigger" id="prev_slide"></a> <a href="#" class="trigger" id="next_slide"></a>    
+    </div>
+    <!-- .bottom_slider -->
+    <script>
+    	$(function() {
+    		$('.bottom_slider').css('visibility','visible');
+		});
+    </script>
+        
+        	<!-- Rating@Mail.ru counter -->
+<script type="text/javascript">
+var _tmr = window._tmr || (window._tmr = []);
+_tmr.push({id: "2932716", type: "pageView", start: (new Date()).getTime()});
+(function (d, w, id) {
+  if (d.getElementById(id)) return;
+  var ts = d.createElement("script"); ts.type = "text/javascript"; ts.async = true; ts.id = id;
+  ts.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//top-fwz1.mail.ru/js/code.js";
+  var f = function () {var s = d.getElementsByTagName("script")[0]; s.parentNode.insertBefore(ts, s);};
+  if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); }
+})(document, window, "topmailru-code");
+</script><noscript><div>
+<img src="//top-fwz1.mail.ru/counter?id=2932716;js=na" style="border:0;position:absolute;left:-9999px;" alt="" />
+</div></noscript>
+<!-- //Rating@Mail.ru counter -->
+
+<!-- No index start -->
+
+
+<!--RuFox Project Counter-->
+	<script type="text/javascript"><!--
+	document.write("<img src='//top100.rufox.ru/cgi-bin/ncounter.pl?id%=163166;r%="+
+	escape(document.referrer)+((typeof(screen)=="undefined")?"":
+	";s%="+screen.width+"*"+screen.height+";d%="+(screen.colorDepth?
+	screen.colorDepth:screen.pixelDepth))+";u%="+escape(document.URL)+
+	";j%="+navigator.javaEnabled()+
+	";h%="+escape(document.title.substring(0,80))+";rand%="+Math.random()+
+	"' border=0 width=1 height=1>")//--></script>
+	<noscript>
+	<img border="0" src="//top100.rufox.ru/cgi-bin/ncounter.pl?id%=163166;j%=false;" width=1 height=1 alt="">
+	</noscript>
+<!--End RuFox Project Counter-->
+<!-- No index end -->        
+    <script type="text/javascript">
+    openReportWindow = function(){
+    w=window.open("http://help.rufox.ru/support/reporterror.php?url=www.rufox.ru/sub","support_window",'width=550,height=450,resizable=1,toolbar=0,location=0,status=0,menubar=0,directories=0,scrollbars=yes,top=0,left=0');
+    w.focus();
+	}
+	</script>
+	<p style="text-align: right;">
+
+<!-- No index start -->
+<!--RuFox Counter-->
+	<script type="text/javascript"><!--
+	document.write("<a href='//top100.rufox.ru/view/?Act=showstat&type=dynamic&id=622'><img src='//top100.rufox.ru/cgi-bin/ncounter.pl?id%=622;t%=9;r%="+
+	escape(document.referrer)+((typeof(screen)=="undefined")?"":
+	";s%="+screen.width+"*"+screen.height+";d%="+(screen.colorDepth?
+	screen.colorDepth:screen.pixelDepth))+";u%="+escape(document.URL)+
+	";j%="+navigator.javaEnabled()+
+	";h%="+escape(document.title.substring(0,80))+";rand%="+Math.random()+
+	"' alt='Статистика портала' border=0 width=1 height=1></a>")//--></script>
+	<noscript>
+	<a href="//top100.rufox.ru/view/?Act=showstat&type=dynamic&id=622"><img border="0" src="//top100.rufox.ru/cgi-bin/ncounter.pl?id%=622;t%=9;j%=false;" width=1 height=1 alt=""></a>
+	</noscript>
+<!--End RuFox Counter-->
+<!-- No index end -->
+</p>    
+    <div id="footer">	
+      <div class="menu">
+          © 2007—2026 ООО «РуФокс» 
+          <a href="/static/about/">О проекте</a>
+          <a href="/static/rules/">Условия использования</a>
+          <a href="/people/">Люди</a>
+          <a href="/groups/developers/">Блог разработчиков</a>
+          <a href="/static/adv/" class="http://corp.rufox.ru/sales/">Реклама</a>
+          <a href="http://help.rufox.ru">Помощь</a>
+          <a class="system mark" style="color: #969696;" href="JavaScript:openReportWindow()">сообщить об ошибке</a>
+      </div>
+    </div>
+</div><!-- #wrapper -->
+
+</body>
+<!-- InstanceEnd --></html>

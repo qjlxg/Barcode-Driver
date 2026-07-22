@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#08090b">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Pavlov Group — an independent platform for technology, products and ventures.">
+  <title>Pavlov Group</title>
+
+  <style>
+    :root {
+      --bg: #08090b;
+      --surface: rgba(255, 255, 255, 0.045);
+      --line: rgba(255, 255, 255, 0.10);
+      --line-strong: rgba(255, 255, 255, 0.18);
+      --text: #f4f3ef;
+      --muted: rgba(244, 243, 239, 0.56);
+      --soft: rgba(244, 243, 239, 0.32);
+      --accent: #b6f09c;
+      --accent-soft: rgba(182, 240, 156, 0.16);
+      --pad: clamp(22px, 4vw, 64px);
+      --radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-width: 320px;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 82% 10%, rgba(126, 166, 255, 0.10), transparent 30rem),
+        radial-gradient(circle at 14% 92%, rgba(182, 240, 156, 0.08), transparent 34rem),
+        var(--bg);
+      color: var(--text);
+      font-family:
+        Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0.22;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+      background-size: 72px 72px;
+      -webkit-mask-image: linear-gradient(to bottom, black, transparent 90%);
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 10;
+      box-shadow: inset 0 0 180px rgba(0, 0, 0, 0.42);
+    }
+
+    ::selection {
+      color: #08090b;
+      background: var(--accent);
+    }
+
+    #network {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.72;
+      pointer-events: none;
+    }
+
+    .page {
+      position: relative;
+      z-index: 4;
+      min-height: 100svh;
+      padding:
+        max(var(--pad), env(safe-area-inset-top))
+        max(var(--pad), env(safe-area-inset-right))
+        max(var(--pad), env(safe-area-inset-bottom))
+        max(var(--pad), env(safe-area-inset-left));
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: clamp(42px, 7vh, 92px);
+    }
+
+    .topbar,
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      user-select: none;
+    }
+
+    .mark {
+      position: relative;
+      width: 38px;
+      height: 38px;
+      flex: 0 0 auto;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.025);
+      box-shadow:
+        inset 0 0 0 7px rgba(255, 255, 255, 0.015),
+        0 18px 50px rgba(0, 0, 0, 0.25);
+    }
+
+    .mark::before,
+    .mark::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+    }
+
+    .mark::before {
+      width: 8px;
+      height: 8px;
+      top: 8px;
+      left: 8px;
+      background: var(--accent);
+      box-shadow: 13px 13px 0 rgba(244, 243, 239, 0.86);
+    }
+
+    .mark::after {
+      inset: 10px;
+      border: 1px solid rgba(255,255,255,0.18);
+    }
+
+    .brand-name {
+      font-size: 12px;
+      line-height: 1.1;
+      font-weight: 650;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+    }
+
+    .brand-name span {
+      display: block;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .coordinates {
+      color: var(--soft);
+      font-size: 10px;
+      line-height: 1.4;
+      letter-spacing: 0.18em;
+      text-align: right;
+      text-transform: uppercase;
+      font-variant-numeric: tabular-nums;
+    }
+
+    main {
+      display: grid;
+      align-items: center;
+      grid-template-columns: minmax(0, 1fr) minmax(180px, 0.42fr);
+      gap: clamp(42px, 8vw, 140px);
+      max-width: 1580px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .hero {
+      max-width: 1080px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: clamp(24px, 4vh, 48px);
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 42px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 11ch;
+      font-size: clamp(64px, 10.6vw, 178px);
+      font-weight: 530;
+      line-height: 0.82;
+      letter-spacing: -0.072em;
+      text-wrap: balance;
+    }
+
+    h1 .outline {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(244, 243, 239, 0.52);
+      text-stroke: 1px rgba(244, 243, 239, 0.52);
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(140px, 0.35fr) minmax(280px, 0.65fr);
+      gap: clamp(24px, 5vw, 88px);
+      align-items: end;
+      margin-top: clamp(38px, 7vh, 78px);
+      max-width: 960px;
+    }
+
+    .statement {
+      margin: 0;
+      color: var(--text);
+      font-size: clamp(18px, 2.2vw, 34px);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      text-wrap: balance;
+    }
+
+    .description {
+      max-width: 530px;
+      margin: 0;
+      color: var(--muted);
+      font-size: clamp(13px, 1.1vw, 17px);
+      line-height: 1.65;
+      letter-spacing: 0.005em;
+    }
+
+    .side {
+      align-self: stretch;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .orbit {
+      position: relative;
+      width: min(26vw, 380px);
+      aspect-ratio: 1;
+      min-width: 210px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, rgba(255,255,255,0.035), transparent 55%),
+        rgba(255,255,255,0.008);
+      box-shadow:
+        inset 0 0 80px rgba(255,255,255,0.015),
+        0 0 90px rgba(0,0,0,0.18);
+    }
+
+    .orbit::before,
+    .orbit::after {
+      content: "";
+      position: absolute;
+      inset: 13%;
+      border: 1px solid rgba(255,255,255,0.085);
+      border-radius: 50%;
+    }
+
+    .orbit::after {
+      inset: 29%;
+      border-color: rgba(182, 240, 156, 0.16);
+      background: radial-gradient(circle, rgba(182,240,156,0.12), transparent 64%);
+    }
+
+    .axis-x,
+    .axis-y {
+      position: absolute;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.11), transparent);
+    }
+
+    .axis-x {
+      left: 3%;
+      right: 3%;
+      top: 50%;
+      height: 1px;
+    }
+
+    .axis-y {
+      top: 3%;
+      bottom: 3%;
+      left: 50%;
+      width: 1px;
+      background: linear-gradient(180deg, transparent, rgba(255,255,255,0.11), transparent);
+    }
+
+    .node {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 50%;
+      background: var(--bg);
+      box-shadow: 0 0 0 5px rgba(255,255,255,0.025);
+    }
+
+    .node-a { top: 9%; left: 50%; transform: translateX(-50%); }
+    .node-b { right: 11%; top: 35%; }
+    .node-c { left: 17%; bottom: 21%; }
+    .node-d {
+      left: 50%;
+      top: 50%;
+      width: 10px;
+      height: 10px;
+      transform: translate(-50%, -50%);
+      border: 0;
+      background: var(--accent);
+      box-shadow:
+        0 0 0 7px var(--accent-soft),
+        0 0 38px rgba(182,240,156,0.35);
+    }
+
+    .orbit-label {
+      position: absolute;
+      inset: auto 0 17% 0;
+      z-index: 2;
+      color: var(--muted);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .footer {
+      padding-top: 18px;
+      border-top: 1px solid var(--line);
+      color: var(--soft);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .domains {
+      display: flex;
+      gap: clamp(18px, 4vw, 56px);
+      flex-wrap: wrap;
+    }
+
+    .domain {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .domain::before {
+      content: "";
+      width: 5px;
+      height: 5px;
+      border: 1px solid var(--line-strong);
+      border-radius: 50%;
+    }
+
+    .domain:first-child::before {
+      border: 0;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(182,240,156,0.4);
+    }
+
+    .edition {
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: reveal 900ms cubic-bezier(.2,.7,.2,1) forwards;
+    }
+
+    .reveal:nth-child(2) { animation-delay: 100ms; }
+    .reveal:nth-child(3) { animation-delay: 180ms; }
+    .reveal:nth-child(4) { animation-delay: 260ms; }
+
+    @keyframes reveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes breathe {
+      0%, 100% { transform: scale(1); opacity: 0.72; }
+      50% { transform: scale(1.025); opacity: 1; }
+    }
+
+    .orbit {
+      animation: breathe 8s ease-in-out infinite;
+    }
+
+    @media (max-width: 900px) {
+      .page {
+        gap: 52px;
+      }
+
+      main {
+        grid-template-columns: 1fr;
+      }
+
+      .side {
+        display: none;
+      }
+
+      .intro {
+        max-width: 760px;
+      }
+
+      h1 {
+        font-size: clamp(66px, 17vw, 126px);
+      }
+    }
+
+    @media (max-width: 620px) {
+      body::before {
+        background-size: 48px 48px;
+      }
+
+      .coordinates {
+        display: none;
+      }
+
+      .page {
+        min-height: 100svh;
+        grid-template-rows: auto 1fr auto;
+        gap: 42px;
+      }
+
+      main {
+        align-items: center;
+      }
+
+      h1 {
+        font-size: clamp(58px, 19vw, 94px);
+        line-height: 0.86;
+        letter-spacing: -0.065em;
+      }
+
+      .intro {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        margin-top: 38px;
+      }
+
+      .statement {
+        max-width: 13ch;
+        font-size: 24px;
+      }
+
+      .description {
+        max-width: 38ch;
+      }
+
+      .footer {
+        align-items: flex-end;
+      }
+
+      .domains {
+        max-width: 170px;
+        gap: 12px 20px;
+      }
+
+      .edition {
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+
+      #network {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="network" aria-hidden="true"></canvas>
+
+  <div class="page">
+    <header class="topbar reveal">
+      <div class="brand" aria-label="Pavlov Group">
+        <div class="mark" aria-hidden="true"></div>
+        <div class="brand-name">
+          Pavlov
+          <span>Group</span>
+        </div>
+      </div>
+
+      <div class="coordinates" aria-hidden="true">
+        51.7682° N&nbsp;&nbsp;55.0969° E<br>
+        Independent / Private
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="eyebrow reveal">Independent by design</div>
+
+        <h1 class="reveal">
+          PAVLOV
+          <span class="outline">GROUP</span>
+        </h1>
+
+        <div class="intro reveal">
+          <p class="statement">Built for what comes next.</p>
+          <p class="description">
+            An independent platform for technology, products and ventures —
+            shaped by curiosity, precision and long-term ambition.
+          </p>
+        </div>
+      </section>
+
+      <aside class="side reveal" aria-hidden="true">
+        <div class="orbit">
+          <span class="axis-x"></span>
+          <span class="axis-y"></span>
+          <span class="node node-a"></span>
+          <span class="node node-b"></span>
+          <span class="node node-c"></span>
+          <span class="node node-d"></span>
+          <span class="orbit-label">Structure / Motion / Intent</span>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="footer reveal">
+      <div class="domains" aria-label="Fields of focus">
+        <span class="domain">Technology</span>
+        <span class="domain">Products</span>
+        <span class="domain">Ventures</span>
+      </div>
+      <div class="edition">PG / 2026</div>
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      const canvas = document.getElementById("network");
+      const ctx = canvas.getContext("2d", { alpha: true });
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if (!ctx || reducedMotion) return;
+
+      let width = 0;
+      let height = 0;
+      let ratio = 1;
+      let points = [];
+      let frame = 0;
+      let lastTime = 0;
+      let running = true;
+      const pointer = { x: -9999, y: -9999, active: false };
+
+      const config = {
+        maxPoints: 46,
+        minPoints: 24,
+        connectionDistance: 168,
+        pointerDistance: 220,
+        speed: 0.115
+      };
+
+      function pointCount() {
+        const area = width * height;
+        return Math.max(
+          config.minPoints,
+          Math.min(config.maxPoints, Math.round(area / 33000))
+        );
+      }
+
+      function makePoint() {
+        return {
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * config.speed,
+          vy: (Math.random() - 0.5) * config.speed,
+          r: Math.random() * 0.75 + 0.45
+        };
+      }
+
+      function resize() {
+        width = window.innerWidth;
+        height = window.innerHeight;
+        ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+
+        canvas.width = Math.round(width * ratio);
+        canvas.height = Math.round(height * ratio);
+        canvas.style.width = width + "px";
+        canvas.style.height = height + "px";
+        ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+        const count = pointCount();
+        points = Array.from({ length: count }, (_, index) => points[index] || makePoint());
+      }
+
+      function update(delta) {
+        const step = Math.min(delta, 32);
+
+        for (const point of points) {
+          point.x += point.vx * step;
+          point.y += point.vy * step;
+
+          if (point.x < -20) point.x = width + 20;
+          if (point.x > width + 20) point.x = -20;
+          if (point.y < -20) point.y = height + 20;
+          if (point.y > height + 20) point.y = -20;
+
+          if (pointer.active) {
+            const dx = point.x - pointer.x;
+            const dy = point.y - pointer.y;
+            const distanceSq = dx * dx + dy * dy;
+            const limitSq = config.pointerDistance * config.pointerDistance;
+
+            if (distanceSq > 1 && distanceSq < limitSq) {
+              const distance = Math.sqrt(distanceSq);
+              const force = (1 - distance / config.pointerDistance) * 0.008 * step;
+              point.x += (dx / distance) * force;
+              point.y += (dy / distance) * force;
+            }
+          }
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < points.length; i++) {
+          const a = points[i];
+
+          ctx.beginPath();
+          ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(244, 243, 239, 0.28)";
+          ctx.fill();
+
+          for (let j = i + 1; j < points.length; j++) {
+            const b = points[j];
+            const dx = a.x - b.x;
+            const dy = a.y - b.y;
+            const distanceSq = dx * dx + dy * dy;
+            const limit = config.connectionDistance;
+
+            if (distanceSq < limit * limit) {
+              const distance = Math.sqrt(distanceSq);
+              const alpha = (1 - distance / limit) * 0.10;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.strokeStyle = `rgba(244, 243, 239, ${alpha})`;
+              ctx.lineWidth = 0.65;
+              ctx.stroke();
+            }
+          }
+
+          if (pointer.active) {
+            const dx = a.x - pointer.x;
+            const dy = a.y - pointer.y;
+            const distanceSq = dx * dx + dy * dy;
+            const limit = config.pointerDistance;
+
+            if (distanceSq < limit * limit) {
+              const distance = Math.sqrt(distanceSq);
+              const alpha = (1 - distance / limit) * 0.15;
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(pointer.x, pointer.y);
+              ctx.strokeStyle = `rgba(182, 240, 156, ${alpha})`;
+              ctx.lineWidth = 0.7;
+              ctx.stroke();
+            }
+          }
+        }
+      }
+
+      function animate(time) {
+        if (!running) return;
+        const delta = lastTime ? time - lastTime : 16;
+        lastTime = time;
+
+        update(delta);
+        draw();
+        frame = requestAnimationFrame(animate);
+      }
+
+      window.addEventListener("resize", resize, { passive: true });
+
+      window.addEventListener("pointermove", (event) => {
+        pointer.x = event.clientX;
+        pointer.y = event.clientY;
+        pointer.active = true;
+      }, { passive: true });
+
+      document.addEventListener("pointerleave", () => {
+        pointer.active = false;
+      });
+
+      document.addEventListener("visibilitychange", () => {
+        running = !document.hidden;
+        if (running) {
+          lastTime = 0;
+          cancelAnimationFrame(frame);
+          frame = requestAnimationFrame(animate);
+        } else {
+          cancelAnimationFrame(frame);
+        }
+      });
+
+      resize();
+      frame = requestAnimationFrame(animate);
+    })();
+  </script>
+</body>
+</html>

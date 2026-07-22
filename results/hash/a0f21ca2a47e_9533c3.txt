@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои любимые рецепты</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #faf8f5; color: #333; line-height: 1.7; }
+        header { background: #fff; border-bottom: 2px solid #e8ddd3; padding: 2.5rem 0; text-align: center; }
+        .container { max-width: 780px; margin: 0 auto; padding: 0 1.5rem; }
+        h1 { font-size: 2rem; font-weight: 600; color: #5a3e2b; }
+        main { padding: 2rem 0; }
+        .recipe { background: #fff; border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.06); border-left: 4px solid #c9a96e; overflow: hidden; }
+        .recipe-header { padding: 1.2rem 2rem; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; transition: background 0.2s; }
+        .recipe-header:hover { background: #fdf6ee; }
+        .recipe-header h2 { font-size: 1.3rem; color: #5a3e2b; margin: 0; }
+        .recipe-chevron { width: 20px; height: 20px; flex-shrink: 0; margin-left: 1rem; transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); color: #c9a96e; }
+        .recipe.open .recipe-chevron { transform: rotate(180deg); }
+        .recipe-body { overflow: hidden; transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1); height: 0; }
+        .recipe-body-inner { padding: 0 2rem 1.5rem; }
+        .recipe h3 { font-size: 0.9rem; margin: 1.2rem 0 0.5rem; color: #7a5c3e; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+        .recipe ul, .recipe ol { padding-left: 1.5rem; color: #495057; }
+        .recipe li { margin-bottom: 0.3rem; }
+        .recipe ol li { margin-bottom: 0.5rem; }
+        footer { text-align: center; padding: 2rem 0; color: #adb5bd; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Мои любимые рецепты</h1>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+
+            <div class="recipe">
+                <div class="recipe-header">
+                    <h2>Блинчики с мясом</h2>
+                    <svg class="recipe-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                </div>
+                <div class="recipe-body"><div class="recipe-body-inner">
+                    <h3>Тесто</h3>
+                    <ul>
+                        <li>300г муки</li>
+                        <li>150г сливочного масла</li>
+                        <li>2 яйца</li>
+                        <li>2 ст.л. фильтрованной воды</li>
+                        <li>1/2 столовой ложки соли</li>
+                    </ul>
+                    <h3>Начинка</h3>
+                    <ul>
+                        <li>400г свинины</li>
+                        <li>10г перец</li>
+                        <li>1 луковица</li>
+                        <li>3 яйца</li>
+                        <li>200 мл сливок 20%</li>
+                        <li>100 г сыра</li>
+                        <li>Соль, перец по вкусу</li>
+                    </ul>
+                    <h3>Приготовление</h3>
+                    <ol>
+                        <li>Муку порубить с холодным маслом в крошку, добавить яйцо и воду, замесить тесто. Убрать в холодильник на 30 минут.</li>
+                        <li>Курицу нарезать кубиками и обжарить до золотистости. Отдельно обжарить нарезанные грибы с луком.</li>
+                        <li>Тесто раскатать и выложить в форму (26 см), сформировать бортики. Наколоть вилкой дно.</li>
+                        <li>Выложить курицу и грибы на тесто. Взбить яйца со сливками, посолить, поперчить, залить начинку. Сверху натереть сыр.</li>
+                        <li>Выпекать при 180°C 35-40 минут до золотистой корочки.</li>
+                    </ol>
+                </div></div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">&copy; 2026</div>
+    </footer>
+    <script>
+    document.querySelectorAll('.recipe-header').forEach(function(header) {
+        header.addEventListener('click', function() {
+            var recipe = this.parentElement;
+            var body = recipe.querySelector('.recipe-body');
+            var inner = body.querySelector('.recipe-body-inner');
+
+            if (recipe.classList.contains('open')) {
+                body.style.height = body.scrollHeight + 'px';
+                requestAnimationFrame(function() {
+                    body.style.height = '0';
+                });
+                recipe.classList.remove('open');
+            } else {
+                recipe.classList.add('open');
+                var h = inner.offsetHeight;
+                body.style.height = '0';
+                requestAnimationFrame(function() {
+                    body.style.height = h + 'px';
+                });
+                body.addEventListener('transitionend', function handler() {
+                    if (recipe.classList.contains('open')) {
+                        body.style.height = 'auto';
+                    }
+                    body.removeEventListener('transitionend', handler);
+                });
+            }
+        });
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<!-- saved from url=(0029)https://fin1.superw1nst.tech/ -->
+<html lang="ru"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SuperBox | Secure File Transfer</title>
+    <style>
+        :root {
+            --primary: #00aaff;
+            --primary-dark: #0077cc;
+            --error: #ff5555;
+            --bg: #000;
+            --container-bg: rgba(44, 44, 44, 0.95);
+            --text: #ffffff;
+            --border: #555;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            width: 100vw;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(0, 170, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 85, 85, 0.1) 0%, transparent 50%);
+        }
+        
+        .container {
+            text-align: center;
+            background-color: var(--container-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 500px;
+            z-index: 10;
+            margin: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            transition: all 0.3s ease;
+        }
+        
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            text-shadow: 0 0 15px rgba(0, 170, 255, 0.5);
+            margin: 0 0 25px 0;
+            padding: 0;
+            line-height: 1;
+            letter-spacing: -3px;
+            animation: pulse 2.5s infinite, glow 3.5s ease-in-out infinite alternate;
+            position: relative;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            border-radius: 50%;
+            filter: blur(1px);
+        }
+        
+        h1 {
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            font-weight: 400;
+            opacity: 0.9;
+        }
+        
+        .file-upload-area {
+            border: 2px dashed var(--border);
+            border-radius: 8px;
+            padding: 30px 20px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .file-upload-area:hover {
+            border-color: var(--primary);
+            background-color: rgba(0, 170, 255, 0.05);
+        }
+        
+        .file-upload-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .file-upload-text {
+            margin-bottom: 10px;
+        }
+        
+        .file-upload-info {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        #file-input {
+            display: none;
+        }
+        
+        .progress-container {
+            margin: 25px 0;
+            display: none;
+        }
+        
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--primary), #00ddff);
+            transition: width 0.3s ease;
+        }
+        
+        .error-message {
+            color: var(--error);
+            padding: 15px;
+            background-color: rgba(255, 85, 85, 0.1);
+            border-radius: 6px;
+            margin: 20px 0;
+            display: none;
+            text-align: left;
+            border-left: 3px solid var(--error);
+        }
+        
+        .action-buttons {
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .action-btn {
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .btn-secondary {
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.85rem;
+            opacity: 0.7;
+            width: 100%;
+        }
+        
+        .footer-link {
+            color: var(--primary);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .footer-link:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+        
+        .crypto-plugin-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: var(--container-bg);
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            width: 90%;
+            max-width: 400px;
+            border-top: 4px solid var(--error);
+            text-align: center;
+        }
+        
+        .crypto-plugin-modal h3 {
+            color: var(--error);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .crypto-plugin-modal p {
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+        
+        .crypto-plugin-modal button {
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        
+        .crypto-plugin-modal button:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+            backdrop-filter: blur(5px);
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes glow {
+            from { text-shadow: 0 0 5px rgba(0, 170, 255, 0.5); }
+            to { text-shadow: 0 0 20px rgba(0, 170, 255, 0.8), 0 0 30px rgba(0, 170, 255, 0.6); }
+        }
+        
+        /* Анимация звезд */
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: move-stars linear infinite;
+        }
+        
+        @keyframes move-stars {
+            0% { transform: translate(0, 0); opacity: 0.8; }
+            100% { transform: translate(500px, 500px); opacity: 0; }
+        }
+        
+        /* Адаптация для мобильных */
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px 20px;
+            }
+            
+            .logo {
+                font-size: 2.8rem;
+            }
+            
+            h1 {
+                font-size: 1.2rem;
+            }
+            
+            .file-upload-area {
+                padding: 25px 15px;
+            }
+        }
+    </style>
+<script type="text/javascript" src="chrome-extension://epebfcehmdedogndhlcacafjaacknbcm/nmcades_plugin_api.js"></script></head>
+<body>
+    <div class="container">
+        <div class="logo">SuperBox</div>
+        <h1>Безопасный обмен файлами до 100GB</h1>
+        
+        <div class="file-upload-area" id="upload-area">
+            <div class="file-upload-icon">⬆️</div>
+            <div class="file-upload-text">Перетащите файлы сюда или нажмите для выбора</div>
+            <div class="file-upload-info">Максимальный размер файла: 100GB</div>
+            <input type="file" id="file-input">
+        </div>
+        
+        <div class="progress-container" id="progress-container">
+            <div class="progress-info">
+                <span id="file-name">Файл: example.zip</span>
+                <span id="progress-percent">0%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+        </div>
+        
+        <div class="error-message" id="error-message">
+            Не установлен CryptoPlug-in. Для загрузки файлов обратитесь к администратору сервера.
+        </div>
+        
+        <div class="action-buttons">
+            <div class="action-btn btn-primary" id="get-access">Получить доступ</div>
+            <div class="action-btn btn-secondary" id="file-list">Список файлов</div>
+        </div>
+        
+        <footer>
+            @ 2025 SuperBox | <a href="https://one.24durnamal.ru/#" class="footer-link" id="about-project">О проекте</a>
+        </footer>
+    </div>
+    
+    <div class="modal-overlay" id="modal-overlay"></div>
+    
+    <div class="crypto-plugin-modal" id="crypto-plugin-modal">
+        <h3>Требуется CryptoPlug-in</h3>
+        <p>Для работы с файлами необходимо установить специальный криптографический модуль SuperBox CryptoPlug-in.</p>
+        <p>Обратитесь к администратору системы для получения доступа.</p>
+        <button id="close-crypto-modal">Понятно</button>
+    </div>
+
+    <script>
+        // Элементы DOM
+        const uploadArea = document.getElementById('upload-area');
+        const fileInput = document.getElementById('file-input');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress');
+        const progressPercent = document.getElementById('progress-percent');
+        const fileName = document.getElementById('file-name');
+        const errorMessage = document.getElementById('error-message');
+        const cryptoModal = document.getElementById('crypto-plugin-modal');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const closeCryptoModal = document.getElementById('close-crypto-modal');
+        
+        // Создаем звездный фон
+        function createStars() {
+            const numberOfStars = 30;
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.width = `${Math.random() * 3 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.top = `${Math.random() * 100}vh`;
+                star.style.left = `${Math.random() * 100}vw`;
+                star.style.animationDuration = `${Math.random() * 10 + 5}s`;
+                document.body.appendChild(star);
+            }
+        }
+        
+        createStars();
+        
+        // Обработчики событий для drag and drop
+        uploadArea.addEventListener('click', () => fileInput.click());
+        
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, preventDefaults, false);
+        });
+        
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        ['dragenter', 'dragover'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, highlight, false);
+        });
+        
+        ['dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, unhighlight, false);
+        });
+        
+        function highlight() {
+            uploadArea.style.borderColor = 'var(--primary)';
+            uploadArea.style.backgroundColor = 'rgba(0, 170, 255, 0.1)';
+        }
+        
+        function unhighlight() {
+            uploadArea.style.borderColor = 'var(--border)';
+            uploadArea.style.backgroundColor = 'transparent';
+        }
+        
+        uploadArea.addEventListener('drop', handleDrop, false);
+        
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            if (files.length) {
+                fileInput.files = files;
+                handleFiles(files);
+            }
+        }
+        
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length) {
+                handleFiles(fileInput.files);
+            }
+        });
+        
+        // Обработка файлов
+        function handleFiles(files) {
+            const file = files[0];
+            if (!file) return;
+            
+            // Показываем информацию о файле
+            fileName.textContent = `Файл: ${file.name}`;
+            
+            // Показываем прогресс
+            uploadArea.style.display = 'none';
+            progressContainer.style.display = 'block';
+            errorMessage.style.display = 'none';
+            
+            // Симулируем загрузку
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress > 90) progress = 90;
+                
+                updateProgress(progress);
+                
+                if (progress >= 90) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        showCryptoPluginError();
+                        resetUpload();
+                    }, 800);
+                }
+            }, 300);
+        }
+        
+        function updateProgress(percent) {
+            progressBar.style.width = `${percent}%`;
+            progressPercent.textContent = `${Math.round(percent)}%`;
+        }
+        
+        function showCryptoPluginError() {
+            // Показываем ошибку
+            progressContainer.style.display = 'none';
+            errorMessage.style.display = 'block';
+            
+            // Показываем модальное окно
+            cryptoModal.style.display = 'block';
+            modalOverlay.style.display = 'block';
+        }
+        
+        function resetUpload() {
+            setTimeout(() => {
+                uploadArea.style.display = 'block';
+                progressBar.style.width = '0%';
+                fileInput.value = '';
+            }, 1000);
+        }
+        
+        // Закрытие модального окна
+        closeCryptoModal.addEventListener('click', () => {
+            cryptoModal.style.display = 'none';
+            modalOverlay.style.display = 'none';
+        });
+        
+        modalOverlay.addEventListener('click', () => {
+            cryptoModal.style.display = 'none';
+            modalOverlay.style.display = 'none';
+        });
+        
+        // Обработчики для кнопок
+        document.getElementById('get-access').addEventListener('click', () => {
+            showCryptoPluginError();
+        });
+        
+        document.getElementById('file-list').addEventListener('click', () => {
+            showCryptoPluginError();
+        });
+        
+        document.getElementById('about-project').addEventListener('click', (e) => {
+            e.preventDefault();
+            cryptoModal.querySelector('h3').textContent = 'О проекте SuperBox';
+            cryptoModal.querySelector('p').innerHTML = 'Проект предназначен для <strong>защищенного</strong> обмена файлами между доверенными пользователями.<br><br>Все файлы шифруются на стороне клиента перед загрузкой.';
+            cryptoModal.style.display = 'block';
+            modalOverlay.style.display = 'block';
+        });
+    </script><div class="star" style="width: 3.46204px; height: 3.46204px; top: 85.3431vh; left: 68.5312vw; animation-duration: 11.5602s;"></div><div class="star" style="width: 2.20441px; height: 2.20441px; top: 59.5149vh; left: 51.9953vw; animation-duration: 12.4324s;"></div><div class="star" style="width: 3.51451px; height: 3.51451px; top: 21.8497vh; left: 35.3231vw; animation-duration: 5.09913s;"></div><div class="star" style="width: 1.27555px; height: 1.27555px; top: 73.1614vh; left: 5.48467vw; animation-duration: 14.6103s;"></div><div class="star" style="width: 2.05048px; height: 2.05048px; top: 71.413vh; left: 18.7107vw; animation-duration: 6.5704s;"></div><div class="star" style="width: 2.41374px; height: 2.41374px; top: 97.5335vh; left: 7.99036vw; animation-duration: 5.03677s;"></div><div class="star" style="width: 1.73557px; height: 1.73557px; top: 3.38627vh; left: 58.1425vw; animation-duration: 8.23323s;"></div><div class="star" style="width: 3.42161px; height: 3.42161px; top: 67.929vh; left: 34.0635vw; animation-duration: 5.9599s;"></div><div class="star" style="width: 3.29917px; height: 3.29917px; top: 53.0296vh; left: 58.1406vw; animation-duration: 10.8026s;"></div><div class="star" style="width: 1.27131px; height: 1.27131px; top: 18.1055vh; left: 62.3797vw; animation-duration: 10.3154s;"></div><div class="star" style="width: 2.18241px; height: 2.18241px; top: 79.6364vh; left: 4.00906vw; animation-duration: 8.35726s;"></div><div class="star" style="width: 3.47335px; height: 3.47335px; top: 72.9601vh; left: 20.9036vw; animation-duration: 9.09855s;"></div><div class="star" style="width: 3.98158px; height: 3.98158px; top: 0.273056vh; left: 83.3718vw; animation-duration: 10.5841s;"></div><div class="star" style="width: 3.86709px; height: 3.86709px; top: 63.3847vh; left: 71.4859vw; animation-duration: 12.4119s;"></div><div class="star" style="width: 3.3896px; height: 3.3896px; top: 92.5986vh; left: 26.4296vw; animation-duration: 8.6663s;"></div><div class="star" style="width: 1.91335px; height: 1.91335px; top: 64.9335vh; left: 75.0227vw; animation-duration: 8.88698s;"></div><div class="star" style="width: 2.49065px; height: 2.49065px; top: 31.4951vh; left: 24.3342vw; animation-duration: 8.57382s;"></div><div class="star" style="width: 1.5398px; height: 1.5398px; top: 50.8201vh; left: 58.881vw; animation-duration: 13.3634s;"></div><div class="star" style="width: 3.35769px; height: 3.35769px; top: 51.1551vh; left: 95.7419vw; animation-duration: 13.948s;"></div><div class="star" style="width: 1.06337px; height: 1.06337px; top: 85.1906vh; left: 81.0795vw; animation-duration: 11.787s;"></div><div class="star" style="width: 2.89979px; height: 2.89979px; top: 16.6644vh; left: 38.5868vw; animation-duration: 9.44348s;"></div><div class="star" style="width: 2.79008px; height: 2.79008px; top: 95.5269vh; left: 93.2161vw; animation-duration: 11.3014s;"></div><div class="star" style="width: 2.8853px; height: 2.8853px; top: 73.6555vh; left: 90.8401vw; animation-duration: 14.6394s;"></div><div class="star" style="width: 2.36982px; height: 2.36982px; top: 57.8149vh; left: 13.5509vw; animation-duration: 5.03088s;"></div><div class="star" style="width: 3.66053px; height: 3.66053px; top: 59.753vh; left: 39.9905vw; animation-duration: 11.2107s;"></div><div class="star" style="width: 3.49998px; height: 3.49998px; top: 58.2751vh; left: 90.235vw; animation-duration: 5.14951s;"></div><div class="star" style="width: 1.90073px; height: 1.90073px; top: 70.0085vh; left: 66.0128vw; animation-duration: 11.2339s;"></div><div class="star" style="width: 1.95709px; height: 1.95709px; top: 52.3206vh; left: 99.7495vw; animation-duration: 7.36291s;"></div><div class="star" style="width: 2.30837px; height: 2.30837px; top: 26.133vh; left: 92.9887vw; animation-duration: 13.379s;"></div><div class="star" style="width: 1.28501px; height: 1.28501px; top: 78.8364vh; left: 85.623vw; animation-duration: 7.8493s;"></div><div class="star" style="width: 2.00196px; height: 2.00196px; top: 59.2017vh; left: 41.0668vw; animation-duration: 7.15248s;"></div><div class="star" style="width: 2.34461px; height: 2.34461px; top: 5.01302vh; left: 36.0775vw; animation-duration: 6.19488s;"></div><div class="star" style="width: 3.41104px; height: 3.41104px; top: 30.4047vh; left: 34.9252vw; animation-duration: 13.987s;"></div><div class="star" style="width: 1.90729px; height: 1.90729px; top: 20.0213vh; left: 36.2325vw; animation-duration: 10.2879s;"></div><div class="star" style="width: 2.28384px; height: 2.28384px; top: 64.011vh; left: 98.7458vw; animation-duration: 7.24734s;"></div><div class="star" style="width: 1.85769px; height: 1.85769px; top: 43.8435vh; left: 45.5383vw; animation-duration: 8.03795s;"></div><div class="star" style="width: 2.32105px; height: 2.32105px; top: 39.5667vh; left: 19.1892vw; animation-duration: 14.578s;"></div><div class="star" style="width: 2.49225px; height: 2.49225px; top: 89.5522vh; left: 78.9055vw; animation-duration: 6.04069s;"></div><div class="star" style="width: 3.49204px; height: 3.49204px; top: 27.6058vh; left: 24.0557vw; animation-duration: 5.28184s;"></div><div class="star" style="width: 2.26083px; height: 2.26083px; top: 1.55023vh; left: 75.675vw; animation-duration: 6.39426s;"></div><div class="star" style="width: 2.70411px; height: 2.70411px; top: 16.2938vh; left: 13.6623vw; animation-duration: 10.9974s;"></div><div class="star" style="width: 3.04626px; height: 3.04626px; top: 56.7771vh; left: 59.8811vw; animation-duration: 11.0217s;"></div><div class="star" style="width: 2.55054px; height: 2.55054px; top: 90.9644vh; left: 44.4vw; animation-duration: 5.70854s;"></div><div class="star" style="width: 1.70789px; height: 1.70789px; top: 64.4147vh; left: 33.7123vw; animation-duration: 9.43333s;"></div><div class="star" style="width: 3.28035px; height: 3.28035px; top: 50.6862vh; left: 31.9684vw; animation-duration: 14.9955s;"></div><div class="star" style="width: 2.97184px; height: 2.97184px; top: 60.5812vh; left: 62.9152vw; animation-duration: 9.75993s;"></div><div class="star" style="width: 2.35904px; height: 2.35904px; top: 50.8187vh; left: 54.1767vw; animation-duration: 14.6421s;"></div><div class="star" style="width: 3.28048px; height: 3.28048px; top: 26.4409vh; left: 40.3408vw; animation-duration: 6.60775s;"></div><div class="star" style="width: 2.67856px; height: 2.67856px; top: 14.526vh; left: 6.78336vw; animation-duration: 12.1086s;"></div><div class="star" style="width: 2.15553px; height: 2.15553px; top: 59.9646vh; left: 60.8096vw; animation-duration: 9.5683s;"></div><div class="star" style="width: 2.9573px; height: 2.9573px; top: 14.1699vh; left: 71.0992vw; animation-duration: 10.969s;"></div><div class="star" style="width: 3.71958px; height: 3.71958px; top: 28.9138vh; left: 66.8764vw; animation-duration: 5.02233s;"></div><div class="star" style="width: 2.5189px; height: 2.5189px; top: 59.4483vh; left: 8.20135vw; animation-duration: 8.53777s;"></div><div class="star" style="width: 3.28586px; height: 3.28586px; top: 30.9365vh; left: 42.8731vw; animation-duration: 13.1833s;"></div><div class="star" style="width: 3.72759px; height: 3.72759px; top: 3.38623vh; left: 58.2565vw; animation-duration: 13.0644s;"></div><div class="star" style="width: 1.18188px; height: 1.18188px; top: 65.2913vh; left: 83.2575vw; animation-duration: 8.79602s;"></div><div class="star" style="width: 3.83516px; height: 3.83516px; top: 97.2416vh; left: 48.9994vw; animation-duration: 5.67453s;"></div><div class="star" style="width: 2.81567px; height: 2.81567px; top: 56.5947vh; left: 55.8992vw; animation-duration: 10.934s;"></div><div class="star" style="width: 3.55896px; height: 3.55896px; top: 57.2445vh; left: 46.1869vw; animation-duration: 12.8697s;"></div><div class="star" style="width: 1.15651px; height: 1.15651px; top: 64.7211vh; left: 85.3895vw; animation-duration: 9.3807s;"></div><div class="star" style="width: 3.94422px; height: 3.94422px; top: 53.051vh; left: 79.3211vw; animation-duration: 6.3539s;"></div><div class="star" style="width: 1.62409px; height: 1.62409px; top: 45.5644vh; left: 1.62158vw; animation-duration: 13.9595s;"></div><div class="star" style="width: 3.12646px; height: 3.12646px; top: 31.252vh; left: 82.6904vw; animation-duration: 5.18287s;"></div><div class="star" style="width: 1.92223px; height: 1.92223px; top: 22.0673vh; left: 1.28979vw; animation-duration: 12.4374s;"></div><div class="star" style="width: 3.80617px; height: 3.80617px; top: 62.3312vh; left: 50.7946vw; animation-duration: 9.80999s;"></div><div class="star" style="width: 1.75623px; height: 1.75623px; top: 47.73vh; left: 14.4419vw; animation-duration: 10.7658s;"></div><div class="star" style="width: 1.49373px; height: 1.49373px; top: 69.2616vh; left: 60.6685vw; animation-duration: 14.8311s;"></div><div class="star" style="width: 2.67256px; height: 2.67256px; top: 83.5484vh; left: 25.8957vw; animation-duration: 13.8849s;"></div><div class="star" style="width: 2.92327px; height: 2.92327px; top: 64.5177vh; left: 59.5335vw; animation-duration: 12.0288s;"></div><div class="star" style="width: 3.74927px; height: 3.74927px; top: 95.3364vh; left: 33.766vw; animation-duration: 10.1408s;"></div><div class="star" style="width: 1.45633px; height: 1.45633px; top: 74.8371vh; left: 1.35005vw; animation-duration: 12.7536s;"></div><div class="star" style="width: 1.09979px; height: 1.09979px; top: 18.3018vh; left: 11.5287vw; animation-duration: 12.1724s;"></div><div class="star" style="width: 3.33589px; height: 3.33589px; top: 87.0057vh; left: 98.8031vw; animation-duration: 13.2916s;"></div><div class="star" style="width: 3.29384px; height: 3.29384px; top: 7.19591vh; left: 55.5024vw; animation-duration: 5.22721s;"></div><div class="star" style="width: 2.94281px; height: 2.94281px; top: 45.4228vh; left: 57.7721vw; animation-duration: 6.79875s;"></div><div class="star" style="width: 3.15955px; height: 3.15955px; top: 28.7327vh; left: 72.5029vw; animation-duration: 12.453s;"></div><div class="star" style="width: 1.96197px; height: 1.96197px; top: 59.6975vh; left: 19.6202vw; animation-duration: 11.6661s;"></div><div class="star" style="width: 1.06837px; height: 1.06837px; top: 6.55206vh; left: 69.3945vw; animation-duration: 6.7369s;"></div><div class="star" style="width: 1.46883px; height: 1.46883px; top: 1.21517vh; left: 99.5396vw; animation-duration: 5.18222s;"></div><div class="star" style="width: 1.74554px; height: 1.74554px; top: 61.306vh; left: 0.604935vw; animation-duration: 7.33512s;"></div><div class="star" style="width: 2.72414px; height: 2.72414px; top: 89.7622vh; left: 49.4878vw; animation-duration: 10.4905s;"></div><div class="star" style="width: 3.45306px; height: 3.45306px; top: 20.3545vh; left: 93.354vw; animation-duration: 12.9134s;"></div><div class="star" style="width: 1.13612px; height: 1.13612px; top: 80.1369vh; left: 74.9109vw; animation-duration: 12.6133s;"></div><div class="star" style="width: 1.01202px; height: 1.01202px; top: 87.2098vh; left: 20.0023vw; animation-duration: 11.5754s;"></div><div class="star" style="width: 2.50779px; height: 2.50779px; top: 59.2395vh; left: 79.4464vw; animation-duration: 8.23542s;"></div><div class="star" style="width: 3.36339px; height: 3.36339px; top: 21.1257vh; left: 89.6731vw; animation-duration: 14.6351s;"></div><div class="star" style="width: 1.85634px; height: 1.85634px; top: 94.749vh; left: 93.0694vw; animation-duration: 10.7076s;"></div><div class="star" style="width: 3.40484px; height: 3.40484px; top: 43.4798vh; left: 86.6921vw; animation-duration: 13.7712s;"></div><div class="star" style="width: 3.08759px; height: 3.08759px; top: 80.7739vh; left: 40.5322vw; animation-duration: 9.40716s;"></div><div class="star" style="width: 3.22103px; height: 3.22103px; top: 97.1886vh; left: 72.3667vw; animation-duration: 8.67913s;"></div><div class="star" style="width: 2.12097px; height: 2.12097px; top: 57.0589vh; left: 31.5445vw; animation-duration: 6.87875s;"></div><div class="star" style="width: 2.10532px; height: 2.10532px; top: 6.49391vh; left: 21.1851vw; animation-duration: 14.7834s;"></div><div class="star" style="width: 1.81724px; height: 1.81724px; top: 62.1235vh; left: 54.6928vw; animation-duration: 12.9869s;"></div><div class="star" style="width: 1.45696px; height: 1.45696px; top: 67.6157vh; left: 97.6901vw; animation-duration: 7.08572s;"></div><div class="star" style="width: 1.66718px; height: 1.66718px; top: 66.7888vh; left: 27.5499vw; animation-duration: 5.02665s;"></div><div class="star" style="width: 2.04357px; height: 2.04357px; top: 75.0733vh; left: 14.5566vw; animation-duration: 12.5389s;"></div><div class="star" style="width: 3.86018px; height: 3.86018px; top: 99.8438vh; left: 10.2341vw; animation-duration: 13.3014s;"></div><div class="star" style="width: 2.54192px; height: 2.54192px; top: 46.603vh; left: 8.49551vw; animation-duration: 7.47462s;"></div><div class="star" style="width: 3.6036px; height: 3.6036px; top: 59.5804vh; left: 21.7684vw; animation-duration: 5.9463s;"></div><div class="star" style="width: 3.83251px; height: 3.83251px; top: 39.9129vh; left: 91.0424vw; animation-duration: 7.14865s;"></div><div class="star" style="width: 3.05334px; height: 3.05334px; top: 47.8466vh; left: 73.9758vw; animation-duration: 5.66381s;"></div><div class="star" style="width: 3.24773px; height: 3.24773px; top: 50.4344vh; left: 38.807vw; animation-duration: 7.66842s;"></div><div class="star" style="width: 2.79526px; height: 2.79526px; top: 62.688vh; left: 67.1517vw; animation-duration: 7.10823s;"></div><div class="star" style="width: 3.51815px; height: 3.51815px; top: 3.98412vh; left: 10.9671vw; animation-duration: 10.2949s;"></div><div class="star" style="width: 3.86579px; height: 3.86579px; top: 1.92295vh; left: 98.9959vw; animation-duration: 8.0984s;"></div><div class="star" style="width: 3.37005px; height: 3.37005px; top: 50.8886vh; left: 63.4337vw; animation-duration: 12.333s;"></div><div class="star" style="width: 3.547px; height: 3.547px; top: 92.2663vh; left: 49.3691vw; animation-duration: 10.2783s;"></div><div class="star" style="width: 1.47788px; height: 1.47788px; top: 91.488vh; left: 1.20239vw; animation-duration: 6.2742s;"></div><div class="star" style="width: 2.50856px; height: 2.50856px; top: 33.5726vh; left: 4.71853vw; animation-duration: 6.25641s;"></div><div class="star" style="width: 1.60597px; height: 1.60597px; top: 85.5868vh; left: 16.7631vw; animation-duration: 10.6209s;"></div><div class="star" style="width: 1.20722px; height: 1.20722px; top: 76.6931vh; left: 21.0352vw; animation-duration: 13.7373s;"></div><div class="star" style="width: 3.16811px; height: 3.16811px; top: 31.0495vh; left: 63.056vw; animation-duration: 9.14065s;"></div><div class="star" style="width: 3.59358px; height: 3.59358px; top: 93.0228vh; left: 55.2493vw; animation-duration: 11.3808s;"></div><div class="star" style="width: 2.31879px; height: 2.31879px; top: 69.3201vh; left: 50.9301vw; animation-duration: 10.1s;"></div><div class="star" style="width: 3.29468px; height: 3.29468px; top: 36.3035vh; left: 63.114vw; animation-duration: 8.84618s;"></div><div class="star" style="width: 1.13291px; height: 1.13291px; top: 38.2077vh; left: 35.6329vw; animation-duration: 14.2442s;"></div><div class="star" style="width: 3.6695px; height: 3.6695px; top: 52.3879vh; left: 36.13vw; animation-duration: 11.7547s;"></div><div class="star" style="width: 1.44262px; height: 1.44262px; top: 46.8594vh; left: 68.2126vw; animation-duration: 6.37035s;"></div><div class="star" style="width: 3.43515px; height: 3.43515px; top: 19.3717vh; left: 9.26304vw; animation-duration: 7.62083s;"></div><div class="star" style="width: 1.57614px; height: 1.57614px; top: 98.8948vh; left: 33.5417vw; animation-duration: 11.7835s;"></div>
+
+</body></html>

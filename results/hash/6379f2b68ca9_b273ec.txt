@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VPN — быстрый и безопасный интернет</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+background:#0a0c1a;color:#c8d0e0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+background-image:radial-gradient(ellipse at 50% 0%, #111630 0%, #0a0c1a 70%)}
+.card{background:#0f1228;border-radius:20px;padding:36px 32px 32px;max-width:420px;width:90%;
+box-shadow:0 8px 48px rgba(0,0,0,.5);position:relative;overflow:hidden;
+border:1px solid rgba(38,198,218,.06)}
+.card::before{content:'';position:absolute;top:-80px;right:-80px;width:200px;height:200px;
+background:radial-gradient(circle,rgba(38,198,218,.06),transparent 70%);pointer-events:none}
+.icon-wrap{text-align:center;margin-bottom:20px}
+.shield{width:52px;height:60px;display:inline-block}
+h1{font-size:22px;font-weight:600;text-align:center;color:#fff;margin-bottom:4px}
+.sub{text-align:center;color:#6b7394;font-size:14px;margin-bottom:28px}
+.price-box{background:linear-gradient(135deg,#0d1530,#111840);border-radius:14px;padding:18px;margin-bottom:24px;text-align:center;
+border:1px solid rgba(38,198,218,.1)}
+.price{font-size:38px;font-weight:700;color:#26c6da}
+.price-period{color:#6b7394;font-size:13px;margin-top:2px}
+label{display:block;font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.5px;
+color:#6b7394;margin-bottom:6px;margin-top:18px}
+select,button{width:100%;padding:13px 14px;border-radius:10px;font-size:15px;
+border:1px solid rgba(255,255,255,.06);background:#0d1530;color:#c8d0e0;outline:none;
+transition:border-color .2s}
+select option{background:#0a0c1a}
+input[type=email]{width:100%;padding:13px 14px;border-radius:10px;font-size:15px;border:1px solid rgba(255,255,255,.06);background:#0d1530;color:#c8d0e0;outline:none;transition:border-color .2s;font-family:inherit;margin-bottom:0}
+input[type=email]:focus{border-color:rgba(38,198,218,.4)}
+input[type=email]::placeholder{color:#4a5070}
+select:focus{border-color:rgba(38,198,218,.4)}
+button{background:linear-gradient(135deg,#26c6da,#1a9cb0);color:#0a0c1a;font-weight:600;
+border:none;cursor:pointer;margin-top:24px;transition:opacity .2s;letter-spacing:.3px}
+button:hover{opacity:.88}
+button:disabled{background:#2a2d40;color:#5a5d70;cursor:not-allowed;opacity:1}
+#status{text-align:center;margin-top:14px;font-size:13px;display:none;padding:10px;border-radius:8px}
+#status.loading{display:block;background:rgba(38,198,218,.08);color:#26c6da}
+#status.error{display:block;background:rgba(244,67,54,.08);color:#ef5350}
+.features{margin-top:22px;display:grid;gap:10px}
+.feature{display:flex;align-items:center;gap:10px;font-size:13px;color:#6b7394}
+.feature-icon{width:18px;text-align:center;color:#26c6da;font-size:15px;flex-shrink:0}
+details.instructions{margin-top:20px;border-top:1px solid rgba(255,255,255,.04);padding-top:14px}
+details.instructions summary{list-style:none;cursor:pointer;font-size:13px;color:#6b7394;display:flex;align-items:center;gap:6px;user-select:none}
+details.instructions summary::-webkit-details-marker{display:none}
+details.instructions[open] summary{margin-bottom:14px}
+.summary-icon{font-size:13px}
+.instr-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.instr-tab{padding:6px 14px;border-radius:8px;border:none;background:rgba(255,255,255,.04);color:#6b7394;font-size:12px;cursor:pointer;transition:all .2s;font-family:inherit}
+.instr-tab:hover{background:rgba(38,198,218,.1);color:#26c6da}
+.instr-tab.active{background:rgba(38,198,218,.12);color:#26c6da;font-weight:500}
+.instr-panels{}
+.instr-panel{display:none}
+.instr-panel.active{display:block}
+.instr-app{margin-bottom:10px;font-size:13px;color:#6b7394}
+.instr-link{color:#26c6da;text-decoration:none;font-weight:500}
+.instr-link:hover{text-decoration:underline}
+.instr-panel ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:7px}
+.support{text-align:center;margin-top:20px;padding-top:16px;border-top:1px solid rgba(255,255,255,.04);font-size:13px;color:#6b7394;line-height:1.6}
+.support-link{color:#26c6da;text-decoration:none;font-weight:500;transition:opacity .2s}
+.support-link:hover{opacity:.8}
+.instr-panel li{font-size:13px;color:#8a92b0;line-height:1.5}
+.instr-panel li strong{color:#c8d0e0}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="icon-wrap">
+<svg class="shield" viewBox="0 0 52 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M26 3L5 14.5v11.5c0 13.8 8.7 26.6 21 29.7 12.3-3.1 21-15.9 21-29.7V14.5L26 3z" fill="rgba(38,198,218,.08)" stroke="#26c6da" stroke-width="1.8" stroke-linejoin="round"/>
+<path d="M17 19Q25 32 23 40" stroke="#fff" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"/>
+<path d="M35 19Q27 32 29 40" stroke="#fff" stroke-width="1.5" stroke-linecap="round" fill="none" opacity=".5"/>
+<path d="M26 16V40" stroke="#26c6da" stroke-width="1.8" stroke-linecap="round" fill="none" opacity=".7"/>
+<path d="M20 22Q26 30 25 36" stroke="#fff" stroke-width=".8" stroke-linecap="round" fill="none" opacity=".3"/>
+<path d="M32 22Q26 30 27 36" stroke="#fff" stroke-width=".8" stroke-linecap="round" fill="none" opacity=".3"/>
+</svg>
+</div>
+<h1>Защищённый VPN</h1>
+<p class="sub">Быстрый и безопасный интернет без ограничений</p>
+<div class="price-box">
+<div class="price" id="priceDisplay">300</div>
+<div class="price-period">₽ / месяц</div>
+</div>
+<label for="device">Устройство</label>
+<select id="device">
+<option value="ios">iPhone / iPad</option>
+<option value="android">Android</option>
+<option value="windows">Windows</option>
+<option value="macos">macOS</option>
+<option value="linux">Linux</option>
+</select>
+<label for="months">Срок</label>
+<select id="months">
+<option value="1">1 месяц — 300 ₽</option>
+<option value="3">3 месяца — 765 ₽</option>
+<option value="6">6 месяцев — 1 530 ₽</option>
+<option value="12">12 месяцев — 3 060 ₽</option>
+</select>
+<label for="email">Email (для получения конфигурации)</label>
+<input type="email" id="email" placeholder="your@email.com" required>
+<div id="status">Создаём платёж...</div>
+<button id="payBtn" onclick="pay()">Оплатить</button>
+<div class="features">
+<div class="feature"><span class="feature-icon">&#9889;</span> До 1 Гбит/с</div>
+<div class="feature"><span class="feature-icon">&#127758;</span> Сервер в Германии</div>
+<div class="feature"><span class="feature-icon">&#128260;</span> До 3 устройств одновременно</div>
+</div>
+<details class="instructions">
+<summary><span class="summary-icon">&#10067;</span> Как установить</summary>
+<div class="instr-tabs">
+<button class="instr-tab active" data-device="ios">iOS</button>
+<button class="instr-tab" data-device="android">Android</button>
+<button class="instr-tab" data-device="windows">Windows</button>
+<button class="instr-tab" data-device="macOS">macOS</button>
+<button class="instr-tab" data-device="linux">Linux</button>
+</div>
+<div class="instr-panels">
+<div class="instr-panel active" id="instr-ios">
+<p class="instr-app"><a class="instr-link" href="https://apps.apple.com/ru/app/defaultvpn/id6744725017" target="_blank">DefaultVPN</a> — App Store</p>
+<ol>
+<li>Скачай <strong>DefaultVPN</strong> из App Store</li>
+<li>Открой приложение → «<b>+</b>» → «Импорт из файла»</li>
+<li>Выбери скачанный <strong>.conf</strong></li>
+<li>Нажми «Подключиться»</li>
+</ol>
+</div>
+<div class="instr-panel" id="instr-android">
+<p class="instr-app"><a class="instr-link" href="https://play.google.com/store/apps/details?id=org.amnezia.vpn" target="_blank">AmneziaVPN</a> — Google Play / <a class="instr-link" href="/clients/AmneziaVPN_4.8.17.0_android9%2B_arm64-v8a.apk" target="_blank">APK зеркало</a></p>
+<ol>
+<li>Установи <strong>AmneziaVPN</strong> из Google Play или скачай <a class="instr-link" href="/clients/AmneziaVPN_4.8.17.0_android9%2B_arm64-v8a.apk" target="_blank">APK</a></li>
+<li>Открой → «Импортировать конфиг»</li>
+<li>Выбери скачанный <strong>.conf</strong></li>
+<li>Нажми «Подключиться»</li>
+</ol>
+</div>
+<div class="instr-panel" id="instr-windows">
+<p class="instr-app"><a class="instr-link" href="/clients/AmneziaVPN_4.8.17.0_x64.exe" target="_blank">AmneziaVPN .exe</a> — зеркало</p>
+<ol>
+<li>Скачай <strong>AmneziaVPN</strong> <a class="instr-link" href="/clients/AmneziaVPN_4.8.17.0_x64.exe" target="_blank">отсюда</a></li>
+<li>Запусти → «Импортировать конфиг»</li>
+<li>Выбери скачанный <strong>.conf</strong></li>
+<li>Нажми «Подключиться»</li>
+</ol>
+</div>
+<div class="instr-panel" id="instr-macOS">
+<p class="instr-app"><a class="instr-link" href="/clients/AmneziaVPN_4.8.17.0_macos.pkg" target="_blank">AmneziaVPN .pkg</a> — зеркало</p>
+<ol>
+<li>Скачай <strong>AmneziaVPN</strong> <a class="instr-link" href="/clients/AmneziaVPN_4.8.17.0_macos.pkg" target="_blank">отсюда</a></li>
+<li>Запусти → «Импортировать конфиг»</li>
+<li>Выбери скачанный <strong>.conf</strong></li>
+<li>Нажми «Подключиться»</li>
+</ol>
+</div>
+<div class="instr-panel" id="instr-linux">
+<p class="instr-app"><a class="instr-link" href="/clients/AmneziaVPN_4.8.17.0_linux_x64.tar" target="_blank">AmneziaVPN .tar</a> — зеркало</p>
+<ol>
+<li>Скачай <strong>AmneziaVPN</strong> <a class="instr-link" href="/clients/AmneziaVPN_4.8.17.0_linux_x64.tar" target="_blank">отсюда</a></li>
+<li>Запусти → «Импортировать конфиг»</li>
+<li>Выбери скачанный <strong>.conf</strong></li>
+<li>Нажми «Подключиться»</li>
+</ol>
+</div>
+</div>
+</details>
+<div class="support">
+  💬 Вопросы? <a class="support-link" href="https://t.me/VPN_PP_bot" target="_blank">Напиши в поддержку</a> — ответим быстро
+</div>
+</div>
+<script>
+const PRICES = {"1":300,"3":765,"6":1530,"12":3060};
+document.getElementById('months').addEventListener('change',function(){
+document.getElementById('priceDisplay').textContent=PRICES[this.value];
+});
+async function pay(){
+const btn=document.getElementById('payBtn');
+const status=document.getElementById('status');
+btn.disabled=true;
+status.className='loading';
+status.style.display='block';
+status.textContent='Создаём платёж...';
+try{
+const device=document.getElementById('device').value;
+const months=document.getElementById('months').value;
+const email=document.getElementById('email').value.trim();
+if(!email){alert('Укажите email');btn.disabled=false;status.style.display='none';return;}
+const r=await fetch('/create-payment',{
+method:'POST',
+headers:{'Content-Type':'application/json'},
+body:JSON.stringify({device_type:device,months:parseInt(months),email:email})
+});
+const d=await r.json();
+if(d.url){
+window.location.href=d.url;
+}else{
+status.className='error';
+status.textContent='Ошибка: '+d.error;
+btn.disabled=false;
+}
+}catch(e){
+status.className='error';
+status.textContent='Ошибка соединения';
+btn.disabled=false;
+}
+}
+document.querySelectorAll('.instr-tab').forEach(function(t){
+t.addEventListener('click',function(){
+var dev=this.getAttribute('data-device');
+document.querySelectorAll('.instr-tab').forEach(function(x){x.classList.remove('active')});
+this.classList.add('active');
+document.querySelectorAll('.instr-panel').forEach(function(p){p.classList.remove('active')});
+var panel=document.getElementById('instr-'+dev);
+if(panel)panel.classList.add('active');
+});
+});
+</script>
+</body>
+</html>

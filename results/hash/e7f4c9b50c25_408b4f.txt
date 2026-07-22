@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+<!-- TEMPLATE FILE: auth.tt -->
+
+
+
+
+<html lang="en">
+<head>
+
+<title>Koha &rsaquo; 
+    
+    
+    
+    
+    Log in to Koha
+</title>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+    <style id="antiClickjack">body{display:none !important;}</style>
+    <script type="text/javascript">
+       if (self === top) {
+           var antiClickjack = document.getElementById("antiClickjack");
+           antiClickjack.parentNode.removeChild(antiClickjack);
+       } else {
+           top.location = self.location;
+       }
+    </script>
+
+
+<link rel="shortcut icon" href="/intranet-tmpl/prog/img/favicon.ico" type="image/x-icon" />
+
+<link rel="stylesheet" type="text/css" href="/intranet-tmpl/lib/jquery/jquery-ui-1.11.4.min.css" />
+<link rel="stylesheet" type="text/css" href="/intranet-tmpl/lib/bootstrap/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/intranet-tmpl/lib/font-awesome/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" media="print" href="/intranet-tmpl/prog/css/print.css" />
+
+
+    <link rel="stylesheet" type="text/css" href="/intranet-tmpl/prog/css/staff-global.css" />
+
+
+<!-- local colors -->
+
+
+
+
+<script type="text/javascript" src="/intranet-tmpl/lib/jquery/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="/intranet-tmpl/lib/jquery/jquery-migrate-1.3.0.min.js"></script>
+<script type="text/javascript" src="/intranet-tmpl/lib/jquery/jquery-ui-1.11.4.min.js"></script>
+<script type="text/javascript" src="/intranet-tmpl/lib/shortcut/shortcut.js"></script>
+<script type="text/javascript" src="/intranet-tmpl/lib/jquery/plugins/jquery.cookie.min.js"></script>
+<script type="text/javascript" src="/intranet-tmpl/lib/jquery/plugins/jquery.highlight-3.js"></script>
+<script type="text/javascript" src="/intranet-tmpl/lib/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="/intranet-tmpl/lib/jquery/plugins/jquery.validate.min.js"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="/intranet-tmpl/prog/css/login.css" />
+
+
+
+<!-- koha core js -->
+<script type="text/javascript" src="/intranet-tmpl/prog/js/staff-global.js"></script>
+
+<script type="text/javascript">
+//<![CDATA[
+$(document).ready(function(){
+    jQuery.extend(jQuery.validator.messages, {
+        required: _("This field is required."),
+        remote: _("Please fix this field."),
+        email: _("Please enter a valid email address."),
+        url: _("Please enter a valid URL."),
+        date: _("Please enter a valid date."),
+        dateISO: _("Please enter a valid date (ISO)."),
+        number: _("Please enter a valid number."),
+        digits: _("Please enter only digits."),
+        equalTo: _("Please enter the same value again."),
+        maxlength: $.validator.format(_("Please enter no more than {0} characters.")),
+        minlength: $.validator.format(_("Please enter at least {0} characters.")),
+        rangelength: $.validator.format(_("Please enter a value between {0} and {1} characters long.")),
+        range: $.validator.format(_("Please enter a value between {0} and {1}.")),
+        max: $.validator.format(_("Please enter a value less than or equal to {0}.")),
+        min: $.validator.format(_("Please enter a value greater than or equal to {0}."))
+    });
+});
+//]]>
+</script>
+
+
+
+
+
+
+
+
+<script type="text/javascript">
+    //<![CDATA[
+        var MSG_BASKET_EMPTY = _("Your cart is currently empty");
+        var MSG_RECORD_IN_BASKET = _("This item is already in your cart");
+        var MSG_RECORD_ADDED = _("This item has been added to your cart");
+        var MSG_NRECORDS_ADDED = _("%s item(s) added to your cart");
+        var MSG_NRECORDS_IN_BASKET = _("%s already in your cart");
+        var MSG_NO_RECORD_SELECTED = _("No item was selected");
+        var MSG_NO_RECORD_ADDED = _("No item was added to your cart (already in your cart)!");
+        var MSG_CONFIRM_DEL_BASKET = _("Are you sure you want to empty your cart?");
+        var MSG_CONFIRM_DEL_RECORDS = _("Are you sure you want to remove the selected items?");
+        var MSG_IN_YOUR_CART = _("Items in your cart: %s");
+        var MSG_NON_RESERVES_SELECTED = _("One or more selected items cannot be reserved.");
+        var MSG_ITEM_NOT_IN_CART = _("Add to cart");
+        var MSG_ITEM_IN_CART = _("In your cart");
+        var MSG_RECORD_REMOVED = _("The item has been removed from your cart");
+    //]]>
+    </script>
+
+    <script type="text/javascript" src="/intranet-tmpl/prog/js/basket.js"></script>
+
+
+
+
+
+
+</head>
+<body id="main_auth" class="main">
+
+<div id="doc" class="yui-t7">
+   <div id="bd">
+
+<div id="login">
+<h1><a href="http://koha-community.org">Koha</a></h1>
+
+
+
+
+
+
+
+
+
+
+<!-- login prompt time-->
+<form action="/index.html" method="post" name="loginform" id="loginform">
+    <input type="hidden" name="koha_login_context" value="intranet" />
+
+<p><label for="userid">Username:</label>
+<input type="text" name="userid" id="userid" class="input focus" value="" size="20" tabindex="1" />
+</p>
+<p><label for="password">Password:</label>
+<input type="password" name="password" id="password" class="input" value="" size="20" tabindex="2" />
+</p>
+
+
+
+	
+
+<!-- <p><label><input name="rememberme" type="checkbox" id="rememberme" value="forever" tabindex="3" />Remember me</label></p> -->
+
+<p class="submit"><input id="submit" type="submit" value="Login" tabindex="4" /></p>
+</form>
+
+
+
+
+
+<!--<ul> -->
+<!--	<li><a href="/cgi-bin/koha/lostpassword.pl" title="Password lost and found">Lost your password?</a></li> -->
+<!-- </ul> -->
+
+</div>
+</div>
+
+<script>
+$(document).ready( function() {
+    if ( document.location.hash ) {
+        $( '#loginform' ).append( '<input name="auth_forwarded_hash" type="hidden" value="' + document.location.hash + '"/>' );
+    }
+} );
+</script>
+
+        </div>
+
+
+    
+        <div id="changelanguage" class="navbar navbar-fixed-bottom">
+            <div class="navbar-inner">
+        <ul id="i18nMenu" class="nav">
+        
+
+            
+            
+            
+                
+                    <li class="navbar-text">
+                        
+                            <span class="currentlanguage">English</span>
+                        
+                    </li>
+                
+        
+            
+            
+
+        
+
+            
+            
+            
+                
+                    <li><a href="/cgi-bin/koha/changelanguage.pl?language=it-IT">
+                        
+                            Italiano
+                        
+                    </a></li>
+                
+        
+            
+            
+
+        
+        </ul>
+        </div>
+        </div>
+    
+
+    <span id="audio-alert"></span>
+    </body>
+</html>
+

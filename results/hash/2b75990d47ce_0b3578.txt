@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#0a0d0e" />
+    <meta name="description" content="GOSUB — цифровая инфраструктура нового поколения." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <title>GOSUB — скоро</title>
+    <style>
+      @font-face{font-family:Onest;src:url('/onest-cyrillic.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap}:root{font-family:Onest,Arial,sans-serif;color:#f5f2eb;background:#080a0b;font-synthesis:none}*{box-sizing:border-box}body{margin:0;min-width:320px;min-height:100vh;background:radial-gradient(circle at 78% 32%,#172023 0,#080a0b 38%);overflow:hidden}.shell{min-height:100vh;padding:clamp(24px,5vw,76px);display:flex;flex-direction:column}.brand{display:flex;align-items:center;gap:13px;font-weight:800;letter-spacing:.16em}.mark{width:42px;height:42px;border:1px solid #394144;display:grid;place-items:center;font-size:18px}.hero{margin:auto 0;max-width:1100px;position:relative;z-index:2}.eyebrow{font:600 10px/1.2 monospace;letter-spacing:.26em;color:#61e6bb}.hero h1{font-size:clamp(58px,8vw,126px);line-height:.84;letter-spacing:-.075em;margin:28px 0 34px;max-width:1040px}.hero h1 span{color:#61e6bb}.hero p{max-width:560px;color:#9ba4a7;font-size:clamp(16px,2vw,21px);line-height:1.6}.status{display:inline-flex;align-items:center;gap:10px;margin-top:28px;border:1px solid #2d3436;padding:12px 16px;border-radius:40px;color:#c5cbcd;font-size:12px}.status i{width:7px;height:7px;border-radius:50%;background:#61e6bb;box-shadow:0 0 18px #61e6bb}.rings{position:absolute;right:-12vw;top:8vh;width:min(65vw,850px);aspect-ratio:1;border:1px solid #1e2426;border-radius:50%;box-shadow:0 0 0 95px #0d1112,0 0 0 96px #1b2123,0 0 0 190px #0b0e0f,0 0 0 191px #171c1e;opacity:.8}footer{display:flex;justify-content:space-between;gap:20px;color:#596164;font:600 9px monospace;letter-spacing:.15em}@media(max-width:700px){body{overflow:auto}.shell{min-height:100svh}.rings{width:105vw;right:-58vw;top:25vh}.hero h1{font-size:62px}.hero p{font-size:15px;max-width:330px}footer{flex-direction:column}}
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="brand"><span class="mark">G</span><span>GOSUB</span></header>
+      <main class="hero">
+        <div class="eyebrow">НОВАЯ ЦИФРОВАЯ СРЕДА</div>
+        <h1>Скоро.<br /><span>Будет быстро.</span></h1>
+        <p>Мы готовим пространство, где сложные технологии становятся простыми, надёжными и понятными.</p>
+        <div class="status"><i></i> Система готовится к запуску</div>
+      </main>
+      <div class="rings" aria-hidden="true"></div>
+      <footer><span>GOSUB · 2026</span><span>BUILDING WHAT COMES NEXT</span></footer>
+    </div>
+  </body>
+</html>

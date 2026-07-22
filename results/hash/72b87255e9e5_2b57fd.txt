@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirill CDN - Content Delivery Network</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0a0f1a 0%, #1a1f2e 50%, #0d1117 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #e1e4e8;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Анимированный фон с точками */
+        .grid-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle, rgba(99, 179, 237, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(40px, 40px);
+            }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1;
+            padding: 2rem;
+            position: relative;
+        }
+
+        /* Пульсирующая иконка */
+        .cdn-icon {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(135deg, #63b3ed 0%, #4299e1 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s ease-in-out infinite;
+            box-shadow: 0 0 60px rgba(99, 179, 237, 0.4);
+            position: relative;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 2px;
+        }
+
+        .cdn-icon::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 30px;
+            border: 2px solid rgba(99, 179, 237, 0.6);
+            animation: ripple 2s ease-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes ripple {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.8);
+                opacity: 0;
+            }
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #63b3ed 0%, #b794f4 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #8b949e;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: #48bb78;
+            border-radius: 50%;
+            animation: statusGlow 2s ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(72, 187, 120, 0.6);
+        }
+
+        @keyframes statusGlow {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(72, 187, 120, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(72, 187, 120, 1);
+            }
+        }
+
+        .status-text {
+            color: #48bb78;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        .nodes {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .node {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            border: 1px solid rgba(99, 179, 237, 0.15);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            min-width: 120px;
+        }
+
+        .node:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(99, 179, 237, 0.4);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(99, 179, 237, 0.2);
+        }
+
+        .node-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .node-city {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #c9d1d9;
+        }
+
+        .node-status {
+            font-size: 0.8rem;
+            color: #48bb78;
+            margin-top: 0.5rem;
+        }
+
+        .domain-box {
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            background: rgba(99, 179, 237, 0.1);
+            border: 1px solid rgba(99, 179, 237, 0.3);
+            border-radius: 12px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+        }
+
+        .domain-text {
+            font-family: 'Courier New', monospace;
+            color: #63b3ed;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .domain-text span {
+            color: #b794f4;
+        }
+
+        footer {
+            margin-top: 3rem;
+            color: #484f58;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        .version {
+            color: #63b3ed;
+            font-weight: 500;
+        }
+
+        /* Анимированные частицы */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(99, 179, 237, 0.3);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+            25% {
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-100px) translateX(50px);
+                opacity: 0.3;
+            }
+            75% {
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateY(-200px) translateX(-50px);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            .nodes {
+                gap: 1rem;
+            }
+            .node {
+                min-width: 100px;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-background"></div>
+    <div class="particles" id="particles"></div>
+
+    <div class="container">
+        <div class="cdn-icon">K</div>
+
+        <h1>Kirill CDN</h1>
+        <p class="subtitle">Персональная сеть доставки контента</p>
+
+        <div class="status-indicator">
+            <div class="status-dot"></div>
+            <span class="status-text">Все системы работают</span>
+        </div>
+
+        <div class="domain-box">
+            <p class="domain-text">cdn.<span>kirill</span>.dev</p>
+        </div>
+
+        <div class="nodes">
+            <div class="node">
+                <div class="node-icon">🌍</div>
+                <div class="node-city">Амстердам</div>
+                <div class="node-status">● Online</div>
+            </div>
+            <div class="node">
+                <div class="node-icon">🗽</div>
+                <div class="node-city">Нью-Йорк</div>
+                <div class="node-status">● Online</div>
+            </div>
+            <div class="node">
+                <div class="node-icon">🗼</div>
+                <div class="node-city">Токио</div>
+                <div class="node-status">● Online</div>
+            </div>
+            <div class="node">
+                <div class="node-icon">🏛️</div>
+                <div class="node-city">Москва</div>
+                <div class="node-status">● Online</div>
+            </div>
+        </div>
+
+        <footer>
+            <p><span class="version">Kirill CDN v2.4.1</span> • Задержка: &lt;15ms • Пропускная способность: 10 Tbps</p>
+            <p style="margin-top: 0.5rem; font-size: 0.75rem;">Made with ❤️ by Kirill</p>
+        </footer>
+    </div>
+
+    <script>
+        // Создание анимированных частиц
+        const particlesContainer = document.getElementById('particles');
+        
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            
+            const size = Math.random() * 4 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 6 + 's';
+            particle.style.animationDuration = (Math.random() * 6 + 6) + 's';
+            
+            particlesContainer.appendChild(particle);
+        }
+
+        // Приветствие в консоли
+        console.log('%c🚀 Kirill CDN %cготов к раздаче контента', 
+            'color: #63b3ed; font-size: 20px; font-weight: bold;', 
+            'color: #8b949e;');
+        console.log('%cЭндпоинт: %ccdn.kirill.dev', 
+            'color: #b794f4;', 'color: #63b3ed;');
+        console.log('%c© 2024 Kirill CDN. All rights reserved.', 'color: #484f58;');
+    </script>
+</body>
+</html>

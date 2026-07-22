@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HataCloud — Object Storage &amp; Edge CDN</title>
+<meta name="description" content="HataCloud — S3-compatible object storage with a global edge CDN. Store, transform and deliver assets from one console.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230E1116'/%3E%3Cpath d='M9 20.5a4 4 0 0 1 .6-7.95A5.5 5.5 0 0 1 21 12.2a3.8 3.8 0 0 1 1.5 7.5z' fill='none' stroke='%2321D4A0' stroke-width='1.8' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E1116; --surface:#151B23; --surface-2:#1B222C; --raise:#202836;
+    --line:#252E3A; --line-soft:#1E2630;
+    --text:#E6EDF3; --muted:#8B97A6; --faint:#5C6675;
+    --teal:#21D4A0; --teal-dim:#178f6d; --blue:#5B9CFF; --amber:#F0B429; --rose:#FF6B81;
+    --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    --r:12px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{background:var(--ink);color:var(--text);font-family:var(--sans);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  ::selection{background:rgba(33,212,160,.25)}
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:#2a3340;border-radius:8px;border:2px solid var(--ink)}
+
+  /* shell */
+  .app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+  .side{border-right:1px solid var(--line);background:linear-gradient(180deg,#10151c,#0E1116);position:sticky;top:0;height:100vh;display:flex;flex-direction:column}
+  .brand{display:flex;align-items:center;gap:10px;padding:18px 18px 16px;border-bottom:1px solid var(--line-soft)}
+  .logo{width:30px;height:30px;border-radius:8px;background:radial-gradient(120% 120% at 30% 20%,#1c2530,#0d1218);display:grid;place-items:center;flex:0 0 auto}
+  .logo svg{width:18px;height:18px}
+  .brand b{font-weight:700;letter-spacing:-.2px}
+  .brand b span{color:var(--teal)}
+  .env{font:600 10px/1 var(--mono);color:var(--faint);border:1px solid var(--line);padding:3px 6px;border-radius:5px;margin-left:auto}
+
+  .nav{padding:10px;overflow:auto;flex:1}
+  .nav .grp{font:600 10px/1 var(--mono);letter-spacing:.12em;color:var(--faint);text-transform:uppercase;padding:14px 10px 6px}
+  .nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:var(--muted);font-weight:500;cursor:pointer;position:relative}
+  .nav a svg{width:16px;height:16px;flex:0 0 auto;opacity:.8}
+  .nav a:hover{background:var(--surface);color:var(--text)}
+  .nav a.on{background:var(--raise);color:var(--text)}
+  .nav a.on::before{content:"";position:absolute;left:-10px;top:8px;bottom:8px;width:3px;border-radius:3px;background:var(--teal)}
+  .nav a .pill{margin-left:auto;font:600 10px/1 var(--mono);color:var(--teal);background:rgba(33,212,160,.1);padding:3px 6px;border-radius:20px}
+
+  .side .foot{border-top:1px solid var(--line-soft);padding:12px;display:flex;align-items:center;gap:10px}
+  .avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#21D4A0,#5B9CFF);display:grid;place-items:center;font-weight:700;color:#0b1015;flex:0 0 auto}
+  .side .foot .who{font-size:12px;line-height:1.25;overflow:hidden}
+  .side .foot .who b{display:block;font-weight:600}
+  .side .foot .who span{color:var(--faint);font-size:11px}
+
+  /* main */
+  main{min-width:0}
+  .top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:14px;padding:14px 26px;background:rgba(14,17,22,.82);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .crumb{font:500 13px/1 var(--mono);color:var(--muted)}
+  .crumb b{color:var(--text);font-weight:600}
+  .search{margin-left:6px;display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:9px;padding:7px 11px;color:var(--faint);min-width:200px}
+  .search input{background:none;border:0;outline:0;color:var(--text);font-family:var(--sans);font-size:13px;width:100%}
+  .top .right{margin-left:auto;display:flex;align-items:center;gap:14px}
+  .status{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);border:1px solid var(--line);padding:6px 11px;border-radius:20px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(33,212,160,.6);animation:pulse 2.4s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(33,212,160,.5)}70%{box-shadow:0 0 0 7px rgba(33,212,160,0)}100%{box-shadow:0 0 0 0 rgba(33,212,160,0)}}
+  .iconbtn{width:34px;height:34px;border:1px solid var(--line);background:var(--surface);border-radius:9px;display:grid;place-items:center;color:var(--muted);cursor:pointer}
+  .iconbtn:hover{color:var(--text);border-color:#33404f}
+  .iconbtn svg{width:17px;height:17px}
+  .search svg{width:16px;height:16px;flex:0 0 auto}
+  .trend svg{width:14px;height:14px;flex:0 0 auto}
+
+  .wrap{padding:26px 26px 60px;max-width:1180px}
+  .view{display:none;animation:fade .35s ease}
+  .view.on{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  .h1{font-size:22px;font-weight:700;letter-spacing:-.4px;margin:0}
+  .sub{color:var(--muted);margin:5px 0 0}
+  .head-row{display:flex;align-items:flex-end;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+  .head-row .sp{flex:1}
+
+  .btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);color:var(--text);padding:9px 14px;border-radius:9px;font-weight:600;font-size:13px;cursor:pointer;font-family:var(--sans)}
+  .btn:hover{border-color:#3a4756;background:var(--surface-2)}
+  .btn svg{width:15px;height:15px}
+  .btn.primary{background:var(--teal);color:#08120e;border-color:transparent}
+  .btn.primary:hover{background:#2ce3ad}
+  .btn.ghost{background:transparent}
+  .btn.danger{color:var(--rose);border-color:transparent;background:transparent;padding:6px 9px}
+  .btn.danger:hover{background:rgba(255,107,129,.1)}
+
+  .grid{display:grid;gap:16px}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:1.6fr 1fr}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+  .card h3{margin:0;font-size:13px;font-weight:600;color:var(--muted)}
+
+  .stat .v{font-size:26px;font-weight:700;letter-spacing:-.6px;margin-top:8px;font-variant-numeric:tabular-nums}
+  .stat .v small{font-size:14px;color:var(--muted);font-weight:500}
+  .trend{display:inline-flex;align-items:center;gap:5px;font:600 12px/1 var(--mono);margin-top:10px}
+  .trend.up{color:var(--teal)} .trend.down{color:var(--rose)} .trend.flat{color:var(--muted)}
+  .stat .spark{margin-top:12px;width:100%;height:34px;display:block}
+
+  .panel-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .panel-head h3{font-size:14px;color:var(--text)}
+  .panel-head .sp{flex:1}
+  .seg{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+  .seg button{background:none;border:0;color:var(--muted);font:600 12px/1 var(--mono);padding:6px 11px;cursor:pointer}
+  .seg button.on{background:var(--raise);color:var(--text)}
+
+  canvas{display:block;width:100%}
+
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:left;font:600 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);padding:0 14px 11px;border-bottom:1px solid var(--line)}
+  td{padding:13px 14px;border-bottom:1px solid var(--line-soft);vertical-align:middle}
+  tr:last-child td{border-bottom:0}
+  tbody tr:hover{background:rgba(255,255,255,.015)}
+  .mono{font-family:var(--mono)}
+  .muted{color:var(--muted)}
+  .ftype{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:7px;background:var(--raise);margin-right:10px;font:600 10px/1 var(--mono);color:var(--blue)}
+  .fname{display:flex;align-items:center}
+  .tag{font:600 11px/1 var(--mono);padding:4px 8px;border-radius:6px;border:1px solid var(--line);color:var(--muted)}
+  .tag.ok{color:var(--teal);border-color:rgba(33,212,160,.3);background:rgba(33,212,160,.07)}
+  .tag.warm{color:var(--amber);border-color:rgba(240,180,41,.3);background:rgba(240,180,41,.07)}
+
+  .bar{height:6px;border-radius:4px;background:var(--raise);overflow:hidden}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--teal),var(--blue));border-radius:4px}
+
+  .feed{display:flex;flex-direction:column;gap:0}
+  .feed .row{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--line-soft)}
+  .feed .row:last-child{border-bottom:0}
+  .feed .ic{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;background:var(--raise);flex:0 0 auto}
+  .feed .ic svg{width:14px;height:14px}
+  .feed .tx{font-size:13px;line-height:1.4}
+  .feed .tx span{color:var(--muted)}
+  .feed time{margin-left:auto;color:var(--faint);font:500 11px/1 var(--mono);white-space:nowrap}
+
+  .logbox{background:#0b0f14;border:1px solid var(--line);border-radius:10px;font-family:var(--mono);font-size:12px;height:300px;overflow:auto;padding:10px 12px}
+  .logline{padding:3px 0;color:#9fb0c0;white-space:pre;animation:fade .25s}
+  .logline .m{color:var(--blue)} .logline .ok{color:var(--teal)} .logline .w{color:var(--amber)} .logline .p{color:var(--muted)} .logline .ip{color:#7c8aa0}
+
+  .edge{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--line-soft)}
+  .edge:last-child{border-bottom:0}
+  .edge .l{display:flex;align-items:center;gap:10px}
+  .edge .flag{width:22px;height:16px;border-radius:3px;background:var(--raise);font:700 9px/16px var(--mono);text-align:center;color:var(--muted)}
+
+  .code{background:#0b0f14;border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-family:var(--mono);font-size:12.5px;line-height:1.65;overflow:auto;color:#c4d0dc}
+  .code .k{color:var(--teal)} .code .s{color:var(--amber)} .code .c{color:var(--faint)} .code .n{color:var(--blue)}
+  .ep{display:flex;align-items:center;gap:10px;margin:18px 0 10px}
+  .verb{font:700 11px/1 var(--mono);padding:5px 9px;border-radius:6px}
+  .verb.get{background:rgba(91,156,255,.14);color:var(--blue)}
+  .verb.post{background:rgba(33,212,160,.14);color:var(--teal)}
+  .verb.del{background:rgba(255,107,129,.14);color:var(--rose)}
+  .ep code{font-family:var(--mono);font-size:13px;color:var(--text)}
+
+  .keyrow{display:flex;align-items:center;gap:12px;padding:13px 14px;border-bottom:1px solid var(--line-soft)}
+  .keyrow:last-child{border-bottom:0}
+  .keyrow .mono{flex:1}
+
+  .empty{text-align:center;color:var(--faint);padding:40px 0}
+
+  /* toast */
+  .toasts{position:fixed;right:20px;bottom:20px;display:flex;flex-direction:column;gap:10px;z-index:50}
+  .toast{background:var(--surface-2);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:9px;padding:11px 14px;font-size:13px;min-width:230px;animation:slide .3s;box-shadow:0 12px 30px rgba(0,0,0,.4)}
+  .toast.warn{border-left-color:var(--amber)} .toast.err{border-left-color:var(--rose)}
+  @keyframes slide{from{transform:translateX(20px);opacity:0}to{transform:none;opacity:1}}
+
+  @media(max-width:920px){
+    .app{grid-template-columns:1fr}
+    .side{display:none}
+    .g4{grid-template-columns:repeat(2,1fr)}
+    .g2,.g3{grid-template-columns:1fr}
+    .search{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="side">
+    <div class="brand">
+      <div class="logo"><svg viewBox="0 0 32 32" fill="none"><path d="M9 20.5a4 4 0 0 1 .6-7.95A5.5 5.5 0 0 1 21 12.2a3.8 3.8 0 0 1 1.5 7.5z" stroke="#21D4A0" stroke-width="1.8" stroke-linejoin="round"/></svg></div>
+      <b>Hata<span>Cloud</span></b>
+      <span class="env">prod</span>
+    </div>
+    <nav class="nav" id="nav">
+      <div class="grp">Platform</div>
+      <a data-v="overview" class="on">${ic('grid')}Overview</a>
+      <a data-v="buckets">${ic('box')}Buckets <span class="pill" id="bktCount">6</span></a>
+      <a data-v="assets">${ic('file')}Assets</a>
+      <a data-v="cdn">${ic('globe')}Edge CDN</a>
+      <div class="grp">Observability</div>
+      <a data-v="logs">${ic('terminal')}Request log</a>
+      <a data-v="keys">${ic('key')}API keys</a>
+      <div class="grp">Developers</div>
+      <a data-v="api">${ic('code')}API reference</a>
+    </nav>
+    <div class="foot">
+      <div class="avatar">D</div>
+      <div class="who"><b>Daniel Roth</b><span>Owner · production</span></div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+    <div class="top">
+      <div class="crumb"><b id="crumb">Overview</b></div>
+      <div class="search">${ic('search')}<input placeholder="Search assets, buckets, keys…" id="searchInput"></div>
+      <div class="right">
+        <div class="status"><span class="dot"></span> All systems operational</div>
+        <div class="iconbtn" title="Notifications">${ic('bell')}</div>
+        <button class="btn primary" id="uploadTop">${ic('upload')} Upload</button>
+      </div>
+    </div>
+
+    <div class="wrap">
+
+      <!-- OVERVIEW -->
+      <section class="view on" id="v-overview">
+        <div class="head-row">
+          <div><h1 class="h1">Overview</h1><p class="sub">Region <b style="color:var(--text)">eu-central · ams-1</b> · last sync just now</p></div>
+        </div>
+
+        <div class="grid g4" style="margin-bottom:16px">
+          <div class="card stat"><h3>Storage used</h3><div class="v" id="s-storage">1.84 <small>TB</small></div><div class="trend up">${ic('up')}<span>+3.2% / 7d</span></div><canvas class="spark" data-spark="store"></canvas></div>
+          <div class="card stat"><h3>Bandwidth (mo)</h3><div class="v" id="s-bw">42.7 <small>TB</small></div><div class="trend up">${ic('up')}<span>+11.4%</span></div><canvas class="spark" data-spark="bw"></canvas></div>
+          <div class="card stat"><h3>Requests / sec</h3><div class="v" id="s-rps">—</div><div class="trend flat">${ic('flat')}<span>realtime</span></div><canvas class="spark" data-spark="rps"></canvas></div>
+          <div class="card stat"><h3>Objects</h3><div class="v" id="s-obj">2 184 903</div><div class="trend up">${ic('up')}<span>+1 204 / 24h</span></div><canvas class="spark" data-spark="obj"></canvas></div>
+        </div>
+
+        <div class="grid g2" style="margin-bottom:16px">
+          <div class="card">
+            <div class="panel-head"><h3>Edge traffic</h3><div class="sp"></div>
+              <div class="seg" id="trafSeg"><button class="on" data-r="live">Live</button><button data-r="24h">24h</button><button data-r="7d">7d</button></div>
+            </div>
+            <canvas id="trafChart" height="220"></canvas>
+          </div>
+          <div class="card">
+            <div class="panel-head"><h3>Recent activity</h3></div>
+            <div class="feed" id="feed"></div>
+          </div>
+        </div>
+
+        <div class="grid g3">
+          <div class="card"><h3>Cache hit ratio</h3><div class="v" id="s-cache" style="font-size:26px;font-weight:700;margin-top:8px">97.3%</div><div class="bar" style="margin-top:12px"><i id="cacheBar" style="width:97%"></i></div><p class="sub" style="font-size:12px">Edge served 41.5 TB of 42.7 TB</p></div>
+          <div class="card"><h3>p95 latency</h3><div class="v" style="font-size:26px;font-weight:700;margin-top:8px" id="s-lat">38 <small>ms</small></div><div class="bar" style="margin-top:12px"><i style="width:24%;background:linear-gradient(90deg,var(--teal),#7be3c4)"></i></div><p class="sub" style="font-size:12px">Across 14 active PoPs</p></div>
+          <div class="card"><h3>Errors (5xx)</h3><div class="v" style="font-size:26px;font-weight:700;margin-top:8px;color:var(--teal)">0.01%</div><div class="bar" style="margin-top:12px"><i style="width:1%;background:var(--rose)"></i></div><p class="sub" style="font-size:12px">112 of 1.2B requests · 24h</p></div>
+        </div>
+      </section>
+
+      <!-- BUCKETS -->
+      <section class="view" id="v-buckets">
+        <div class="head-row">
+          <div><h1 class="h1">Buckets</h1><p class="sub">S3-compatible storage containers in your project</p></div>
+          <div class="sp"></div>
+          <button class="btn primary" id="newBucket">${ic('plus')} New bucket</button>
+        </div>
+        <div class="card" style="padding:6px 6px 2px">
+          <table><thead><tr><th>Name</th><th>Region</th><th>Objects</th><th>Size</th><th>Access</th><th>Created</th><th></th></tr></thead>
+          <tbody id="bktBody"></tbody></table>
+        </div>
+      </section>
+
+      <!-- ASSETS -->
+      <section class="view" id="v-assets">
+        <div class="head-row">
+          <div><h1 class="h1">Assets</h1><p class="sub">Objects across all buckets · served via <code class="mono" style="color:var(--teal)">/api/v1/assets</code></p></div>
+          <div class="sp"></div>
+          <button class="btn" id="refreshAssets">${ic('refresh')} Refresh</button>
+          <button class="btn primary" id="uploadAsset">${ic('upload')} Upload</button>
+        </div>
+        <div class="card" style="padding:6px 6px 2px">
+          <table><thead><tr><th>Object</th><th>Bucket</th><th>Type</th><th>Size</th><th>Status</th><th>Modified</th><th></th></tr></thead>
+          <tbody id="assetBody"></tbody></table>
+        </div>
+      </section>
+
+      <!-- CDN -->
+      <section class="view" id="v-cdn">
+        <div class="head-row"><div><h1 class="h1">Edge CDN</h1><p class="sub">14 points of presence · anycast routing</p></div></div>
+        <div class="grid g2" style="margin-bottom:16px">
+          <div class="card">
+            <div class="panel-head"><h3>Traffic by PoP — live</h3></div>
+            <canvas id="cdnChart" height="240"></canvas>
+          </div>
+          <div class="card">
+            <div class="panel-head"><h3>Edge locations</h3></div>
+            <div id="edges"></div>
+          </div>
+        </div>
+        <div class="grid g4">
+          <div class="card stat"><h3>Cached objects</h3><div class="v">1.9 <small>M</small></div></div>
+          <div class="card stat"><h3>Purge ops (24h)</h3><div class="v">3 412</div></div>
+          <div class="card stat"><h3>TLS handshakes/s</h3><div class="v" id="tls">—</div></div>
+          <div class="card stat"><h3>Origin shield</h3><div class="v" style="color:var(--teal);font-size:22px">Active</div></div>
+        </div>
+      </section>
+
+      <!-- LOGS -->
+      <section class="view" id="v-logs">
+        <div class="head-row"><div><h1 class="h1">Request log</h1><p class="sub">Live edge access stream · sampled 1:50</p></div>
+          <div class="sp"></div>
+          <button class="btn" id="pauseLog">${ic('pause')} Pause</button>
+        </div>
+        <div class="logbox" id="logbox"></div>
+      </section>
+
+      <!-- KEYS -->
+      <section class="view" id="v-keys">
+        <div class="head-row"><div><h1 class="h1">API keys</h1><p class="sub">Credentials for the HataCloud REST &amp; S3 API</p></div>
+          <div class="sp"></div><button class="btn primary" id="newKey">${ic('plus')} Create key</button>
+        </div>
+        <div class="card" style="padding:4px 8px"><div id="keyList"></div></div>
+      </section>
+
+      <!-- API -->
+      <section class="view" id="v-api">
+        <div class="head-row"><div><h1 class="h1">API reference</h1><p class="sub">Base URL <code class="mono" style="color:var(--teal)"><span class="apihost"></span></code> · auth via <code class="mono">Bearer</code> token</p></div></div>
+
+        <div class="card" style="margin-bottom:16px">
+          <h3 style="color:var(--text);font-size:14px;margin:0 0 6px">Authentication</h3>
+          <p class="muted" style="margin:0 0 12px">Send your secret key in the <code class="mono">Authorization</code> header on every request.</p>
+          <div class="code"><span class="c"># every request is authenticated</span><br>curl <span class="apihost"></span>/api/v1/assets \<br>&nbsp;&nbsp;-H <span class="s">"Authorization: Bearer sk_live_••••••••••••"</span></div>
+        </div>
+
+        <div class="card">
+          <h3 style="color:var(--text);font-size:14px;margin:0 0 4px">Assets</h3>
+          <p class="muted" style="margin:0 0 6px">List, fetch and remove stored objects.</p>
+
+          <div class="ep"><span class="verb get">GET</span><code>/api/v1/assets</code></div>
+          <p class="muted" style="margin:0 0 8px">Returns a paginated list of objects. Supports <code class="mono">?bucket=</code>, <code class="mono">?prefix=</code>, <code class="mono">?limit=</code>, <code class="mono">?cursor=</code>.</p>
+          <div class="code"><span class="k">GET</span> /api/v1/assets?bucket=media-prod&amp;limit=2<br><br>{<br>&nbsp;&nbsp;<span class="s">"object"</span>: <span class="s">"list"</span>,<br>&nbsp;&nbsp;<span class="s">"has_more"</span>: <span class="k">true</span>,<br>&nbsp;&nbsp;<span class="s">"next_cursor"</span>: <span class="s">"crsr_8fA2k"</span>,<br>&nbsp;&nbsp;<span class="s">"data"</span>: [<br>&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="s">"id"</span>:<span class="s">"obj_a91f"</span>, <span class="s">"key"</span>:<span class="s">"hero/cover.webp"</span>, <span class="s">"size"</span>:<span class="n">284119</span>, <span class="s">"bucket"</span>:<span class="s">"media-prod"</span> },<br>&nbsp;&nbsp;&nbsp;&nbsp;{ <span class="s">"id"</span>:<span class="s">"obj_b72c"</span>, <span class="s">"key"</span>:<span class="s">"docs/q2.pdf"</span>, <span class="s">"size"</span>:<span class="n">1048576</span>, <span class="s">"bucket"</span>:<span class="s">"media-prod"</span> }<br>&nbsp;&nbsp;]<br>}</div>
+
+          <div class="ep"><span class="verb del">DELETE</span><code>/api/v1/assets/{id}</code></div>
+          <p class="muted" style="margin:0 0 8px">Permanently removes an object and purges it from every edge cache. Returns <code class="mono">204 No Content</code>.</p>
+          <div class="code"><span class="k">DELETE</span> /api/v1/assets/obj_a91f<br><br><span class="c"># 204 No Content</span></div>
+
+          <div class="ep"><span class="verb post">POST</span><code>/api/v1/assets</code></div>
+          <p class="muted" style="margin:0 0 8px">Creates a presigned upload URL for direct-to-edge transfer.</p>
+          <div class="code"><span class="k">POST</span> /api/v1/assets<br>{ <span class="s">"bucket"</span>:<span class="s">"media-prod"</span>, <span class="s">"key"</span>:<span class="s">"new/file.png"</span>, <span class="s">"content_type"</span>:<span class="s">"image/png"</span> }</div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+<div class="toasts" id="toasts"></div>
+
+<script>
+/* ---------- inline icons ---------- */
+function ic(n){const p={
+  grid:'<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>',
+  box:'<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5"/><path d="M12 13v8"/>',
+  file:'<path d="M14 3v5h5"/><path d="M19 8v11a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h8z"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/>',
+  terminal:'<path d="M5 7l4 4-4 4"/><path d="M12 16h6"/>',
+  key:'<circle cx="8" cy="14" r="4"/><path d="M11 11l8-8M16 6l2 2M14 8l2 2"/>',
+  code:'<path d="M9 8l-4 4 4 4"/><path d="M15 8l4 4-4 4"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/>',
+  bell:'<path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>',
+  upload:'<path d="M12 16V4M7 9l5-5 5 5"/><path d="M5 20h14"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  refresh:'<path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 4v4h-4"/>',
+  up:'<path d="M6 14l6-6 6 6"/>', down:'<path d="M6 10l6 6 6-6"/>', flat:'<path d="M5 12h14"/>',
+  pause:'<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>',
+  trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+  check:'<path d="M5 12l5 5L20 7"/>', dl:'<path d="M12 4v12M7 11l5 5 5-5"/><path d="M5 20h14"/>'
+};return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+(p[n]||'')+'</svg>';}
+/* the static markup contains ${ic('name')} placeholders — expand them into real SVG now */
+document.querySelectorAll('#nav a, .btn, .iconbtn, .search, .trend').forEach(el=>{
+  if(el.innerHTML.indexOf('${ic(')>-1) el.innerHTML=el.innerHTML.replace(/\$\{ic\('(\w+)'\)\}/g,(m,n)=>ic(n));
+});
+
+/* ---------- mock state ---------- */
+const rnd=(a,b)=>Math.random()*(b-a)+a;
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const fmtSize=b=>{const u=['B','KB','MB','GB','TB'];let i=0;while(b>=1024&&i<u.length-1){b/=1024;i++}return b.toFixed(b<10&&i>0?1:0)+' '+u[i]};
+
+let buckets=[
+  {name:'media-prod',region:'eu-central',objects:1840221,size:1.42e12,acl:'private',created:'2024-02-11'},
+  {name:'static-assets',region:'eu-central',objects:312044,size:2.1e11,acl:'public',created:'2024-02-11'},
+  {name:'user-uploads',region:'eu-west',objects:28110,size:9.4e10,acl:'private',created:'2024-05-03'},
+  {name:'backups',region:'eu-central',objects:1422,size:6.8e10,acl:'private',created:'2024-06-18'},
+  {name:'transcodes',region:'eu-west',objects:2904,size:4.1e10,acl:'private',created:'2024-09-02'},
+  {name:'logs-archive',region:'eu-central',objects:201,size:1.2e10,acl:'private',created:'2025-01-14'},
+];
+let assets=[
+  {id:'obj_a91f',key:'hero/cover-2025.webp',bucket:'media-prod',type:'webp',size:284119,st:'cached',mod:Date.now()-1000*60*4},
+  {id:'obj_b72c',key:'docs/q2-report.pdf',bucket:'media-prod',type:'pdf',size:1820411,st:'cached',mod:Date.now()-1000*60*22},
+  {id:'obj_c104',key:'video/promo-1080.mp4',bucket:'media-prod',type:'mp4',size:84221190,st:'origin',mod:Date.now()-1000*60*60*3},
+  {id:'obj_d558',key:'avatars/u_8821.png',bucket:'user-uploads',type:'png',size:54122,st:'cached',mod:Date.now()-1000*60*60*9},
+  {id:'obj_e210',key:'css/app.min.css',bucket:'static-assets',type:'css',size:18204,st:'cached',mod:Date.now()-1000*60*60*26},
+  {id:'obj_f733',key:'js/bundle.2f9a.js',bucket:'static-assets',type:'js',size:421008,st:'cached',mod:Date.now()-1000*60*60*30},
+  {id:'obj_g019',key:'backup/db-2025-06-09.tar.gz',bucket:'backups',type:'gz',size:6.4e9,st:'origin',mod:Date.now()-1000*60*60*48},
+];
+let keys=[
+  {name:'production',prefix:'sk_live_',tail:'a91F2k',created:'2024-02-11',used:'2 min ago'},
+  {name:'ci-deploy',prefix:'sk_live_',tail:'77Bz0q',created:'2024-08-19',used:'1 h ago'},
+  {name:'read-only-analytics',prefix:'sk_live_',tail:'Lp4t8X',created:'2025-03-02',used:'5 d ago'},
+];
+const edgeNodes=[['AMS','Amsterdam'],['FRA','Frankfurt'],['LON','London'],['PAR','Paris'],['WAW','Warsaw'],['STO','Stockholm'],['MAD','Madrid'],['MIL','Milan'],['VIE','Vienna'],['HEL','Helsinki'],['DUB','Dublin'],['PRG','Prague'],['BUH','Bucharest'],['RIX','Riga']];
+
+/* ---------- nav ---------- */
+const titles={overview:'Overview',buckets:'Buckets',assets:'Assets',cdn:'Edge CDN',logs:'Request log',keys:'API keys',api:'API reference'};
+document.querySelectorAll('#nav a').forEach(a=>a.addEventListener('click',()=>{
+  document.querySelectorAll('#nav a').forEach(x=>x.classList.remove('on'));
+  a.classList.add('on');
+  const v=a.dataset.v;
+  document.querySelectorAll('.view').forEach(s=>s.classList.remove('on'));
+  document.getElementById('v-'+v).classList.add('on');
+  document.getElementById('crumb').textContent=titles[v];
+  if(v==='cdn')drawCdn();
+}));
+
+/* ---------- toasts ---------- */
+function toast(msg,kind=''){const t=document.getElementById('toasts');const d=document.createElement('div');d.className='toast '+kind;d.innerHTML=msg;t.appendChild(d);setTimeout(()=>{d.style.opacity='0';d.style.transform='translateX(20px)';d.style.transition='.3s';setTimeout(()=>d.remove(),300)},3200);}
+
+/* ---------- render tables ---------- */
+function renderBuckets(){
+  document.getElementById('bktBody').innerHTML=buckets.map(b=>`
+   <tr><td><div class="fname"><span class="ftype">${ic('box')}</span><b>${b.name}</b></div></td>
+   <td class="mono muted">${b.region}</td>
+   <td class="mono">${b.objects.toLocaleString('en-US')}</td>
+   <td class="mono">${fmtSize(b.size)}</td>
+   <td><span class="tag ${b.acl==='public'?'warm':''}">${b.acl}</span></td>
+   <td class="mono muted">${b.created}</td>
+   <td style="text-align:right"><span class="muted mono" style="font-size:12px">manage ›</span></td></tr>`).join('');
+  document.getElementById('bktCount').textContent=buckets.length;
+}
+function ago(t){const s=(Date.now()-t)/1000;if(s<60)return Math.floor(s)+'s ago';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago';}
+function renderAssets(){
+  const b=document.getElementById('assetBody');
+  if(!assets.length){b.innerHTML=`<tr><td colspan="7"><div class="empty">No objects yet. Upload one to get started.</div></td></tr>`;return;}
+  b.innerHTML=assets.map(a=>`
+   <tr data-id="${a.id}"><td><div class="fname"><span class="ftype">${a.type.toUpperCase().slice(0,3)}</span><div><div>${a.key}</div><div class="mono muted" style="font-size:11px">${a.id}</div></div></div></td>
+   <td class="mono muted">${a.bucket}</td>
+   <td><span class="tag">${a.type}</span></td>
+   <td class="mono">${fmtSize(a.size)}</td>
+   <td><span class="tag ${a.st==='cached'?'ok':'warm'}">${a.st}</span></td>
+   <td class="mono muted">${ago(a.mod)}</td>
+   <td style="text-align:right"><button class="btn danger" data-del="${a.id}" title="DELETE /api/v1/assets/${a.id}">${ic('trash')}</button></td></tr>`).join('');
+  b.querySelectorAll('[data-del]').forEach(btn=>btn.addEventListener('click',()=>{
+    const id=btn.dataset.del;const a=assets.find(x=>x.id===id);
+    assets=assets.filter(x=>x.id!==id);renderAssets();
+    toast(`<b>Deleted</b> ${a.key}<br><span class="mono muted" style="font-size:11px">DELETE /api/v1/assets/${id} · 204</span>`);
+    addLog(`DELETE /api/v1/assets/${id}`,'204');
+  }));
+}
+function renderKeys(){
+  document.getElementById('keyList').innerHTML=keys.map(k=>`
+   <div class="keyrow"><span class="ftype" style="margin:0">${ic('key')}</span>
+   <div><b>${k.name}</b><div class="mono muted" style="font-size:12px">${k.prefix}••••••••${k.tail}</div></div>
+   <div class="sp" style="flex:1"></div>
+   <div class="mono muted" style="font-size:12px">used ${k.used}</div>
+   <button class="btn ghost" title="Reveal">${ic('check')}</button></div>`).join('');
+}
+
+/* ---------- activity feed ---------- */
+const feedTpl=[
+  ['upload','Uploaded <b>$key</b> to <span>$bkt</span>'],
+  ['del','Purged <b>$key</b> from edge'],
+  ['key','API key <b>ci-deploy</b> rotated'],
+  ['box','Bucket <b>transcodes</b> lifecycle rule applied'],
+  ['globe','PoP <b>$pop</b> back online'],
+  ['upload','Presigned upload completed · <span>$bkt</span>'],
+];
+function buildFeed(){
+  const f=document.getElementById('feed');f.innerHTML='';
+  for(let i=0;i<6;i++)addFeed(true);
+}
+function addFeed(initial){
+  const f=document.getElementById('feed');if(!f)return;
+  const [icn,tpl]=pick(feedTpl);
+  const txt=tpl.replace('$key',pick(assets).key).replace('$bkt',pick(buckets).name).replace('$pop',pick(edgeNodes)[1]);
+  const row=document.createElement('div');row.className='row';
+  row.innerHTML=`<div class="ic">${ic(icn)}</div><div class="tx">${txt}</div><time>${initial?ago(Date.now()-rnd(60000,4000000)):'just now'}</time>`;
+  f.prepend(row);
+  while(f.children.length>7)f.lastChild.remove();
+}
+
+/* ---------- canvases ---------- */
+function setup(cv){const dpr=devicePixelRatio||1;const r=cv.getBoundingClientRect();cv.width=r.width*dpr;cv.height=(cv.height||220)*dpr;const x=cv.getContext('2d');x.scale(dpr,dpr);return [x,r.width,cv.height/dpr];}
+function areaChart(cv,data,col){
+  const [x,w,h]=setup(cv);x.clearRect(0,0,w,h);
+  const max=Math.max(...data)*1.15,pad=6;const sx=w/(data.length-1);
+  const y=v=>h-pad-(v/max)*(h-pad*2);
+  const g=x.createLinearGradient(0,0,0,h);g.addColorStop(0,col+'55');g.addColorStop(1,col+'00');
+  x.beginPath();x.moveTo(0,h);data.forEach((v,i)=>x.lineTo(i*sx,y(v)));x.lineTo(w,h);x.closePath();x.fillStyle=g;x.fill();
+  x.beginPath();data.forEach((v,i)=>i?x.lineTo(i*sx,y(v)):x.moveTo(0,y(v)));x.strokeStyle=col;x.lineWidth=2;x.stroke();
+  const lv=y(data[data.length-1]);x.beginPath();x.arc(w-1,lv,3,0,7);x.fillStyle=col;x.fill();
+}
+function sparkChart(cv,data,col){
+  const [x,w,h]=setup(cv);x.clearRect(0,0,w,h);
+  const max=Math.max(...data),min=Math.min(...data),sx=w/(data.length-1);
+  const y=v=>h-2-((v-min)/(max-min||1))*(h-4);
+  x.beginPath();data.forEach((v,i)=>i?x.lineTo(i*sx,y(v)):x.moveTo(0,y(v)));x.strokeStyle=col;x.lineWidth=1.6;x.stroke();
+}
+const sparkCol={store:'#5B9CFF',bw:'#21D4A0',rps:'#F0B429',obj:'#5B9CFF'};
+function drawSparks(){document.querySelectorAll('[data-spark]').forEach(cv=>{const k=cv.dataset.spark;sparkChart(cv,Array.from({length:24},()=>rnd(40,100)),sparkCol[k]);});}
+
+let traf=Array.from({length:40},()=>rnd(55,95));
+function drawTraf(){const cv=document.getElementById('trafChart');if(cv)areaChart(cv,traf,'#21D4A0');}
+let cdnData=Array.from({length:40},()=>rnd(40,90));
+function drawCdn(){const cv=document.getElementById('cdnChart');if(cv)areaChart(cv,cdnData,'#5B9CFF');
+  document.getElementById('edges').innerHTML=edgeNodes.map(([c,n])=>`
+   <div class="edge"><div class="l"><span class="flag">${c}</span><span>${n}</span></div>
+   <div style="display:flex;align-items:center;gap:10px"><span class="mono muted" style="font-size:12px">${(rnd(0.4,4.2)).toFixed(1)} Gbps</span><span class="dot"></span></div></div>`).join('');
+}
+
+/* ---------- live request log ---------- */
+const paths=['/hero/cover-2025.webp','/css/app.min.css','/js/bundle.2f9a.js','/avatars/u_8821.png','/video/promo-1080.mp4','/docs/q2-report.pdf','/api/v1/assets','/api/v1/assets?bucket=media-prod'];
+const verbs=[['GET','ok'],['GET','ok'],['GET','ok'],['HEAD','ok'],['POST','ok'],['DELETE','204']];
+let logPaused=false;
+function ip(){return `${(Math.random()*223|0)+1}.${Math.random()*255|0}.${Math.random()*255|0}.${Math.random()*255|0}`;}
+function addLog(custom,code){
+  const box=document.getElementById('logbox');if(!box)return;
+  let line;
+  if(custom){line=`<span class="ip">${ip()}</span> <span class="m">${custom.split(' ')[0]}</span> ${custom.split(' ').slice(1).join(' ')} <span class="ok">${code}</span> <span class="p">${(rnd(8,60)).toFixed(0)}ms</span>`;}
+  else{const[v,c]=pick(verbs);const cl=c==='204'?'w':'ok';line=`<span class="ip">${ip()}</span> <span class="m">${v}</span> ${pick(paths)} <span class="${cl}">${c==='204'?'204':'200'}</span> <span class="p">${(rnd(4,80)).toFixed(0)}ms · ${pick(edgeNodes)[0]}</span>`;}
+  const t=new Date().toISOString().slice(11,19);
+  const el=document.createElement('div');el.className='logline';el.innerHTML=`<span class="p">${t}</span> ${line}`;
+  box.appendChild(el);box.scrollTop=box.scrollHeight;
+  while(box.children.length>200)box.firstChild.remove();
+}
+
+/* ---------- live tickers ---------- */
+let rps=1840;
+function tick(){
+  rps=Math.max(900,rps+rnd(-180,200));
+  const el=document.getElementById('s-rps');if(el)el.textContent=Math.round(rps).toLocaleString('en-US');
+  const tl=document.getElementById('tls');if(tl)tl.textContent=Math.round(rps*0.42).toLocaleString('en-US');
+  traf.push(rnd(55,98));traf.shift();drawTraf();
+  cdnData.push(rnd(40,92));cdnData.shift();if(document.getElementById('v-cdn').classList.contains('on'))drawCdn();
+  const ch=document.getElementById('s-cache');if(ch){const v=(97+rnd(-.4,.5));ch.textContent=v.toFixed(1)+'%';document.getElementById('cacheBar').style.width=v+'%';}
+  const lt=document.getElementById('s-lat');if(lt)lt.firstChild.textContent=Math.round(rnd(33,46))+' ';
+}
+
+/* upload simulation */
+const sampleNames=['banner/spring.webp','exports/sheet.csv','img/thumb_$.jpg','audio/track-$.mp3','data/snapshot-$.json'];
+function fakeUpload(){
+  const key=pick(sampleNames).replace('$',Math.floor(rnd(100,999)));
+  const id='obj_'+Math.random().toString(36).slice(2,6);
+  const a={id,key,bucket:pick(buckets).name,type:key.split('.').pop(),size:rnd(2e4,5e7),st:'origin',mod:Date.now()};
+  assets.unshift(a);renderAssets();
+  toast(`<b>Upload started</b> ${key}`);
+  addLog(`POST /api/v1/assets`,'201');
+  setTimeout(()=>{a.st='cached';renderAssets();toast(`<b>Cached</b> ${key} on 14 PoPs`);},1600);
+}
+
+/* ---------- wire up ---------- */
+['uploadTop','uploadAsset'].forEach(id=>document.getElementById(id).addEventListener('click',fakeUpload));
+document.getElementById('refreshAssets').addEventListener('click',()=>{renderAssets();toast('<b>GET</b> /api/v1/assets · 200 · '+assets.length+' objects');addLog('GET /api/v1/assets','200');});
+document.getElementById('newBucket').addEventListener('click',()=>{const n='bucket-'+Math.random().toString(36).slice(2,6);buckets.push({name:n,region:'eu-central',objects:0,size:0,acl:'private',created:new Date().toISOString().slice(0,10)});renderBuckets();toast('<b>Created</b> bucket '+n);});
+document.getElementById('newKey').addEventListener('click',()=>{keys.unshift({name:'key-'+Math.random().toString(36).slice(2,5),prefix:'sk_live_',tail:Math.random().toString(36).slice(2,8),created:new Date().toISOString().slice(0,10),used:'never'});renderKeys();toast('<b>API key created.</b> Copy it now — it won\'t be shown again.','warn');});
+document.getElementById('pauseLog').addEventListener('click',e=>{logPaused=!logPaused;e.currentTarget.innerHTML=(logPaused?ic('refresh')+' Resume':ic('pause')+' Pause');});
+document.getElementById('trafSeg').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#trafSeg button').forEach(x=>x.classList.remove('on'));b.classList.add('on');traf=Array.from({length:40},()=>rnd(40,98));drawTraf();}));
+document.getElementById('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter'){toast('Searched “'+e.target.value+'” · 0 indexed results');e.target.value='';}});
+
+/* ---------- boot ---------- */
+/* API/asset host shown in the docs — taken from whatever domain the page is opened on,
+   so it always matches the current URL (works across every fronting domain). */
+const API_HOST=location.host;
+document.querySelectorAll('.apihost').forEach(e=>e.textContent='https://'+API_HOST);
+renderBuckets();renderAssets();renderKeys();buildFeed();drawSparks();drawTraf();
+for(let i=0;i<18;i++)addLog();
+setInterval(tick,1500);
+setInterval(()=>{if(!logPaused){addLog();if(Math.random()<.4)addLog();}},700);
+setInterval(()=>addFeed(false),9000);
+addEventListener('resize',()=>{drawSparks();drawTraf();if(document.getElementById('v-cdn').classList.contains('on'))drawCdn();});
+</script>
+</body>
+</html>

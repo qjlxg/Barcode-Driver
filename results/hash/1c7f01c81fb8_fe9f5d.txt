@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>В разработке | Скоро открытие</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .sky {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* СОЛНЦЕ */
+        .sun {
+            position: absolute;
+            top: 50px;
+            right: 80px;
+            width: 80px;
+            height: 80px;
+            background: #ffef70;
+            border-radius: 50%;
+            /* Эффект свечения */
+            box-shadow: 
+                0 0 40px #ffef70, 
+                0 0 100px #ffcc00, 
+                0 0 150px rgba(255, 204, 0, 0.4);
+            z-index: 2; /* Солнце ниже некоторых облаков */
+            animation: rays 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes rays {
+            from { transform: scale(1); opacity: 0.9; }
+            to { transform: scale(1.1); opacity: 1; }
+        }
+
+        /* ОБЛАКА */
+        .cloud {
+            position: absolute;
+            background: #fff;
+            border-radius: 100px;
+            filter: blur(15px);
+            opacity: 0.8;
+            animation: drift linear infinite;
+        }
+
+        /* Формируем разные облака */
+        .c1 { width: 200px; height: 60px; top: 15%; left: -250px; animation-duration: 35s; z-index: 1; }
+        .c2 { width: 300px; height: 80px; top: 5%; left: -350px; animation-duration: 25s; z-index: 3; opacity: 0.7; } /* Это перекроет солнце */
+        .c3 { width: 250px; height: 70px; top: 60%; left: -300px; animation-duration: 45s; z-index: 1; }
+        .c4 { width: 400px; height: 100px; top: 10%; left: -450px; animation-duration: 50s; z-index: 3; opacity: 0.6; } /* Это тоже */
+
+        @keyframes drift {
+            from { transform: translateX(0); }
+            to { transform: translateX(calc(100vw + 500px)); }
+        }
+
+        /* КОНТЕНТ */
+        .card {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 40px 60px;
+            border-radius: 30px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        h1 { font-size: 2.5rem; margin: 0; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        p { font-size: 1.1rem; margin-top: 15px; opacity: 0.9; }
+
+    </style>
+</head>
+<body>
+
+    <div class="sky">
+        <div class="sun"></div>
+
+        <div class="cloud c1"></div>
+        <div class="cloud c2"></div>
+        <div class="cloud c3"></div>
+        <div class="cloud c4"></div>
+
+        <div class="card">
+            <h1>Мы скоро взлетим</h1>
+            <p>Сайт находится в процессе настройки.<br>Загляните к нам чуть позже!</p>
+        </div>
+    </div>
+
+</body>
+</html>

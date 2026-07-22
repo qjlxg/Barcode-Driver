@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StreamFlow Player</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif}
+body{background:#0a0e17;color:#fff;min-height:100vh;display:flex;flex-direction:column}
+header{padding:14px 28px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.08)}
+.logo{font-size:20px;font-weight:800}.logo span{color:#e50914}
+nav a{color:rgba(255,255,255,.7);text-decoration:none;margin-left:22px;font-size:14px}
+.player-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px}
+.player{width:100%;max-width:900px;aspect-ratio:16/9;background:#000;border-radius:10px;position:relative;overflow:hidden;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.poster{width:100%;height:100%;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);display:flex;align-items:center;justify-content:center}
+.play-btn{width:78px;height:78px;border-radius:50%;background:rgba(229,9,20,.9);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.play-btn::after{content:'';border-style:solid;border-width:16px 0 16px 26px;border-color:transparent transparent transparent #fff;margin-left:6px}
+.controls{position:absolute;bottom:0;left:0;right:0;padding:14px 18px;background:linear-gradient(transparent,rgba(0,0,0,.8));display:flex;align-items:center;gap:12px}
+.bar{flex:1;height:4px;background:rgba(255,255,255,.25);border-radius:2px;position:relative}
+.bar::before{content:'';position:absolute;left:0;top:0;height:100%;width:34%;background:#e50914;border-radius:2px}
+.time{font-size:12px;color:rgba(255,255,255,.8)}
+.meta{max-width:900px;width:100%;margin-top:20px}
+.meta h1{font-size:24px;margin-bottom:6px}
+.meta p{color:rgba(255,255,255,.6);font-size:14px}
+.badges{margin-top:12px;display:flex;gap:8px}
+.badge{background:rgba(255,255,255,.08);padding:5px 12px;border-radius:5px;font-size:12px}
+footer{text-align:center;padding:18px;color:rgba(255,255,255,.35);font-size:13px;border-top:1px solid rgba(255,255,255,.08)}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Stream<span>Flow</span></div>
+  <nav><a href="/browse">Browse</a><a href="/live">Live</a><a href="/mylist">My List</a><a href="/account">Account</a></nav>
+</header>
+<div class="player-wrap">
+  <div class="player">
+    <div class="poster"><div class="play-btn"></div></div>
+    <div class="controls"><span class="time">12:47</span><div class="bar"></div><span class="time">38:20</span></div>
+  </div>
+  <div class="meta">
+    <h1>The Northern Lights — Episode 4</h1>
+    <p>Streaming in adaptive HLS. Quality adjusts automatically to your connection.</p>
+    <div class="badges"><span class="badge">4K UHD</span><span class="badge">HDR</span><span class="badge">5.1 Audio</span><span class="badge">CC</span></div>
+  </div>
+</div>
+<footer>© 2026 StreamFlow Media · Powered by HLS adaptive streaming · Terms · Privacy</footer>
+</body>
+</html>

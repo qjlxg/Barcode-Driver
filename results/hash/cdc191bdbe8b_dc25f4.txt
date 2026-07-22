@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#09090b">
+  <meta name="description" content="Conoce Loomi, una aplicación de entretenimiento para descubrir películas, series y contenido en vivo disponible en la plataforma.">
+  <title>Loomi — Entretenimiento en una sola app</title>
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Loomi — Entretenimiento en una sola app">
+  <meta property="og:description" content="Descubre las funciones y el contenido disponible en Loomi.">
+  <meta property="og:type" content="website">
+
+  <style>
+    :root{
+      --bg:#070708; --panel:#111114; --panel2:#17171b;
+      --text:#f8f8fa; --muted:#aaaab2; --line:#2a2a31;
+      --red:#ef2737; --red2:#b70f22; --radius:22px;
+      --shadow:0 24px 70px rgba(0,0,0,.42);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;background:
+      radial-gradient(circle at 75% 6%,rgba(239,39,55,.17),transparent 29%),
+      radial-gradient(circle at 10% 35%,rgba(239,39,55,.08),transparent 25%),
+      var(--bg);
+      color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      -webkit-font-smoothing:antialiased;
+    }
+    a{color:inherit;text-decoration:none}
+    button,a{touch-action:manipulation}
+    .wrap{width:min(1120px,calc(100% - 32px));margin:auto}
+    header{
+      position:sticky;top:0;z-index:40;background:rgba(7,7,8,.83);
+      backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.07)
+    }
+    .nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:11px;font-weight:850;font-size:23px;letter-spacing:-.5px}
+    .mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(145deg,#ff3545,#a80419);
+      display:grid;place-items:center;box-shadow:0 9px 25px rgba(239,39,55,.25)}
+    .mark:before{content:"▶";font-size:17px;transform:translateX(1px)}
+    .navlinks{display:flex;gap:24px;color:#d5d5db;font-size:14px}
+    .btn{
+      border:0;display:inline-flex;align-items:center;justify-content:center;gap:9px;
+      min-height:50px;padding:0 22px;border-radius:14px;font-weight:800;
+      transition:.18s ease;cursor:pointer
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:linear-gradient(135deg,var(--red),var(--red2));box-shadow:0 14px 30px rgba(239,39,55,.22)}
+    .btn-secondary{background:#17171b;border:1px solid #303039}
+    .hero{padding:74px 0 52px;overflow:hidden}
+    .hero-grid{display:grid;grid-template-columns:1.02fr .98fr;align-items:center;gap:58px}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid rgba(239,39,55,.35);
+      border-radius:999px;color:#ff7b87;background:rgba(239,39,55,.08);font-size:13px;font-weight:750}
+    h1{font-size:clamp(43px,6vw,76px);line-height:.98;letter-spacing:-3.6px;margin:23px 0 22px;max-width:720px}
+    h1 span{color:var(--red)}
+    .lead{font-size:19px;line-height:1.6;color:#c3c3ca;max-width:620px;margin:0}
+    .actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:31px}
+    .micro{font-size:12px;color:#898990;margin-top:16px;line-height:1.5}
+    .phone-stage{position:relative;min-height:590px;display:grid;place-items:center}
+    .glow{position:absolute;width:420px;height:420px;border-radius:50%;
+      background:radial-gradient(circle,rgba(239,39,55,.35),rgba(239,39,55,0) 68%);filter:blur(10px)}
+    .phone{position:relative;width:min(360px,88vw);aspect-ratio:.52;border-radius:48px;padding:12px;
+      background:linear-gradient(145deg,#34343b,#070708);box-shadow:var(--shadow);transform:rotate(5deg)}
+    .screen{height:100%;border-radius:38px;overflow:hidden;background:#0c0c0e;border:1px solid #37373d}
+    .status{height:38px;display:flex;justify-content:space-between;align-items:center;padding:0 20px;font-size:11px}
+    .appbar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-top:1px solid #1c1c20}
+    .mini-brand{display:flex;align-items:center;gap:8px;font-weight:850}
+    .mini-mark{width:24px;height:24px;border-radius:7px;background:var(--red);display:grid;place-items:center;font-size:10px}
+    .feature-film{margin:0 14px;height:205px;border-radius:20px;padding:22px;display:flex;align-items:flex-end;
+      background:
+      linear-gradient(0deg,rgba(0,0,0,.82),rgba(0,0,0,.05)),
+      radial-gradient(circle at 72% 30%,#d8622e,transparent 24%),
+      linear-gradient(135deg,#2b1013,#863021 48%,#101218);
+      position:relative;overflow:hidden}
+    .feature-film:after{content:"";position:absolute;right:-30px;top:15px;width:175px;height:175px;border-radius:50%;
+      background:linear-gradient(145deg,#c85e35,#29242e);opacity:.72}
+    .feature-copy{position:relative;z-index:2}
+    .feature-copy small{color:#ff6d78;font-weight:800}.feature-copy h3{margin:6px 0;font-size:25px}
+    .play{width:38px;height:38px;border-radius:50%;background:var(--red);display:grid;place-items:center;margin-top:11px}
+    .row-title{display:flex;justify-content:space-between;padding:19px 18px 9px;font-weight:800;font-size:14px}
+    .posters{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;padding:0 15px}
+    .poster{height:130px;border-radius:13px;padding:10px;display:flex;align-items:flex-end;font-size:11px;font-weight:850;
+      background:linear-gradient(145deg,#35171b,#bb353e 58%,#111)}
+    .poster:nth-child(2){background:linear-gradient(145deg,#15264b,#586b9f 58%,#10131d)}
+    .poster:nth-child(3){background:linear-gradient(145deg,#412807,#bc7723 58%,#181007)}
+    .live{margin:10px 15px;padding:15px;border-radius:15px;background:linear-gradient(135deg,#19191e,#2b1518);border:1px solid #323239}
+    .live b{font-size:12px;color:#ff6b77}.live p{font-size:13px;margin:6px 0 0}
+    section{padding:72px 0}
+    .section-head{max-width:720px;margin-bottom:30px}
+    .kicker{color:#ff5a68;text-transform:uppercase;letter-spacing:2.5px;font-size:12px;font-weight:850}
+    h2{font-size:clamp(32px,4.5vw,52px);line-height:1.05;letter-spacing:-2px;margin:12px 0 13px}
+    .sub{color:var(--muted);font-size:17px;line-height:1.65}
+    .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .card{padding:25px;border-radius:var(--radius);background:linear-gradient(145deg,var(--panel),#0c0c0e);
+      border:1px solid var(--line);min-height:205px}
+    .icon{width:48px;height:48px;border-radius:15px;background:rgba(239,39,55,.1);border:1px solid rgba(239,39,55,.2);
+      color:#ff5664;display:grid;place-items:center;font-size:22px;margin-bottom:19px}
+    .card h3{font-size:20px;margin:0 0 9px}.card p{margin:0;color:var(--muted);line-height:1.6;font-size:14px}
+    .showcase{background:linear-gradient(180deg,transparent,#0d0d10 25%,#0d0d10 75%,transparent)}
+    .genre-grid{display:grid;grid-template-columns:1.3fr .7fr .7fr;grid-auto-rows:210px;gap:15px}
+    .genre{position:relative;overflow:hidden;border-radius:22px;border:1px solid #292930;padding:24px;display:flex;align-items:flex-end;
+      background:radial-gradient(circle at 70% 25%,rgba(239,39,55,.45),transparent 22%),linear-gradient(135deg,#291116,#121216)}
+    .genre:nth-child(2){background:radial-gradient(circle at 60% 30%,rgba(70,120,255,.45),transparent 23%),linear-gradient(135deg,#111a32,#121216)}
+    .genre:nth-child(3){background:radial-gradient(circle at 65% 25%,rgba(255,176,59,.5),transparent 22%),linear-gradient(135deg,#30200d,#121216)}
+    .genre strong{font-size:23px}.genre small{display:block;color:#bcbcc3;margin-top:5px}
+    .install{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+    .steps{display:grid;gap:13px}
+    .step{display:flex;gap:15px;padding:18px;border-radius:17px;background:#101013;border:1px solid #292930}
+    .num{flex:0 0 34px;height:34px;border-radius:50%;background:var(--red);display:grid;place-items:center;font-weight:900}
+    .step b{display:block;margin-bottom:4px}.step span{color:var(--muted);font-size:14px;line-height:1.4}
+    .download-box{padding:34px;border-radius:28px;background:
+      radial-gradient(circle at 80% 0,rgba(239,39,55,.27),transparent 35%),#111114;border:1px solid #303038}
+    .download-box h3{font-size:34px;margin:0 0 12px;letter-spacing:-1px}
+    .notice{margin-top:17px;padding:14px 15px;border-radius:13px;background:#0a0a0c;border:1px solid #27272e;color:#a8a8b0;font-size:12px;line-height:1.55}
+    .faq{display:grid;gap:10px}
+    details{background:#101013;border:1px solid #292930;border-radius:16px;padding:18px 20px}
+    summary{cursor:pointer;font-weight:800}details p{color:var(--muted);line-height:1.65;margin:13px 0 2px}
+    footer{border-top:1px solid #222228;padding:30px 0 42px;color:#8f8f97;font-size:13px}
+    .footer-grid{display:flex;justify-content:space-between;align-items:flex-start;gap:25px;flex-wrap:wrap}
+    .footer-links{display:flex;gap:18px;flex-wrap:wrap}
+    .legal{padding-top:20px;max-width:900px;line-height:1.6;font-size:12px}
+    .modal{display:none;position:fixed;inset:0;z-index:100;background:rgba(0,0,0,.74);padding:20px;overflow:auto}
+    .modal:target{display:block}
+    .modal-card{max-width:760px;margin:40px auto;background:#121216;border:1px solid #34343b;border-radius:22px;padding:26px}
+    .modal-card h2{font-size:31px}.modal-card p,.modal-card li{color:#b7b7bf;line-height:1.65}
+    .close{float:right;width:40px;height:40px;border-radius:12px;background:#232329;display:grid;place-items:center}
+    @media(max-width:860px){
+      .navlinks{display:none}.hero{padding-top:45px}.hero-grid,.install{grid-template-columns:1fr}
+      .hero-grid{gap:22px}.hero-copy{text-align:center}.lead{margin:auto}.actions{justify-content:center}
+      .phone-stage{min-height:540px}.cards{grid-template-columns:1fr}.genre-grid{grid-template-columns:1fr 1fr}
+      .genre:first-child{grid-column:1/-1}h1{letter-spacing:-2.5px}
+    }
+    @media(max-width:560px){
+      .wrap{width:min(100% - 22px,1120px)}.nav{height:64px}.nav .btn{padding:0 15px;min-height:43px}
+      .hero{padding-bottom:28px}h1{font-size:46px}.lead{font-size:16px}
+      .phone-stage{min-height:500px}.phone{width:300px}.genre-grid{grid-template-columns:1fr;grid-auto-rows:175px}
+      .genre:first-child{grid-column:auto}.actions .btn{width:100%}.download-box{padding:24px}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#inicio" aria-label="Loomi, inicio"><span class="mark"></span>Loomi</a>
+    <nav class="navlinks" aria-label="Navegación principal">
+      <a href="#funciones">Funciones</a><a href="#contenido">Contenido</a><a href="#instalar">Cómo instalar</a><a href="#faq">Preguntas</a>
+    </nav>
+    <a class="btn btn-primary" href="#descargar">Descargar</a>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">● Entretenimiento desde tu dispositivo</span>
+        <h1>Una forma sencilla de descubrir <span>qué ver.</span></h1>
+        <p class="lead">Explora películas, series y transmisiones disponibles en Loomi desde una interfaz clara, rápida y pensada para dispositivos móviles.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#descargar">Descargar para Android</a>
+          <a class="btn btn-secondary" href="#funciones">Ver funciones</a>
+        </div>
+        <p class="micro">La disponibilidad del contenido, las funciones y la compatibilidad pueden variar según el país, el dispositivo y la versión de la aplicación.</p>
+      </div>
+
+      <div class="phone-stage" aria-label="Vista ilustrativa de la aplicación Loomi">
+        <div class="glow"></div>
+        <div class="phone">
+          <div class="screen">
+            <div class="status"><b>9:41</b><span>● ● ●</span></div>
+            <div class="appbar"><div class="mini-brand"><span class="mini-mark">▶</span>Loomi</div><span>⌕</span></div>
+            <div class="feature-film">
+              <div class="feature-copy"><small>DESTACADO</small><h3>Horizonte rojo</h3><span class="play">▶</span></div>
+            </div>
+            <div class="row-title"><span>Tendencias</span><span>›</span></div>
+            <div class="posters"><div class="poster">Última misión</div><div class="poster">Órbita</div><div class="poster">Ruta norte</div></div>
+            <div class="live"><b>● EN VIVO</b><p>Eventos y canales disponibles en la aplicación</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="funciones">
+    <div class="wrap">
+      <div class="section-head"><span class="kicker">Funciones principales</span><h2>Todo organizado en un solo lugar</h2><p class="sub">Loomi reúne herramientas para buscar, explorar y reproducir el contenido disponible en la plataforma.</p></div>
+      <div class="cards">
+        <article class="card"><div class="icon">⌕</div><h3>Búsqueda sencilla</h3><p>Encuentra títulos, categorías y opciones disponibles mediante una navegación clara.</p></article>
+        <article class="card"><div class="icon">▣</div><h3>Experiencia adaptable</h3><p>La calidad de reproducción puede ajustarse según el dispositivo, la conexión y el contenido.</p></article>
+        <article class="card"><div class="icon">↓</div><h3>Opciones sin conexión</h3><p>Cuando una descarga esté habilitada por el proveedor, podrás guardar contenido compatible para verlo más tarde.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="showcase" id="contenido">
+    <div class="wrap">
+      <div class="section-head"><span class="kicker">Explora la plataforma</span><h2>Entretenimiento para distintos momentos</h2><p class="sub">El catálogo mostrado es ilustrativo. Los títulos y canales concretos pueden cambiar por región, disponibilidad y derechos de distribución.</p></div>
+      <div class="genre-grid">
+        <div class="genre"><div><strong>Películas y series</strong><small>Explora el contenido disponible por categoría.</small></div></div>
+        <div class="genre"><div><strong>Contenido en vivo</strong><small>Sujeto a disponibilidad.</small></div></div>
+        <div class="genre"><div><strong>Para compartir</strong><small>Opciones para distintos gustos.</small></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="instalar">
+    <div class="wrap install">
+      <div>
+        <div class="section-head"><span class="kicker">Instalación</span><h2>Empieza en pocos pasos</h2><p class="sub">Descarga únicamente desde el enlace oficial publicado en este sitio.</p></div>
+        <div class="steps">
+          <div class="step"><span class="num">1</span><div><b>Descarga</b><span>Pulsa el botón oficial para obtener la aplicación compatible.</span></div></div>
+          <div class="step"><span class="num">2</span><div><b>Revisa los permisos</b><span>Lee la información mostrada por tu dispositivo antes de instalar.</span></div></div>
+          <div class="step"><span class="num">3</span><div><b>Abre y explora</b><span>Consulta las funciones y el contenido disponibles en tu región.</span></div></div>
+        </div>
+      </div>
+
+      <div class="download-box" id="descargar">
+        <span class="kicker">Aplicación oficial</span>
+        <h3>Descarga Loomi</h3>
+        <p class="sub">Accede a la versión publicada por Loomi para dispositivos Android compatibles.</p>
+        <!-- IMPORTANTE: sustituye la URL de abajo por la URL oficial de Google Play o por la descarga oficial. -->
+        <a class="btn btn-primary" style="width:100%;margin-top:15px" href="https://loomi-cinema.com/" rel="noopener">Continuar a la descarga</a>
+        <div class="notice"><b>Información importante:</b> antes de publicar anuncios, sustituye este enlace por la URL oficial de la aplicación. No uses redirecciones ocultas, contenido diferente para revisores ni archivos de origen desconocido.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="section-head"><span class="kicker">Preguntas frecuentes</span><h2>Información clara antes de descargar</h2></div>
+      <div class="faq">
+        <details><summary>¿Qué contenido puedo encontrar?</summary><p>El contenido depende del catálogo disponible en tu país y de los acuerdos aplicables. Esta página no garantiza la presencia permanente de un título, canal o evento concreto.</p></details>
+        <details><summary>¿La aplicación funciona en todos los dispositivos?</summary><p>No necesariamente. La compatibilidad depende del sistema operativo, la versión, el hardware y otros requisitos técnicos.</p></details>
+        <details><summary>¿Loomi ofrece contenido gratuito?</summary><p>Las condiciones de acceso pueden variar. Consulta dentro de la aplicación si existen opciones gratuitas, suscripciones, compras o limitaciones aplicables antes de utilizar el servicio.</p></details>
+        <details><summary>¿Dónde puedo pedir ayuda?</summary><p>Escribe a soporte@loomi-cinema.com. Sustituye este correo por tu dirección real de soporte antes de publicar la página.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="brand"><span class="mark"></span>Loomi</div>
+      <div class="footer-links"><a href="#privacidad">Privacidad</a><a href="#terminos">Términos</a><a href="mailto:soporte@loomi-cinema.com">Contacto</a></div>
+    </div>
+    <div class="legal">© <span id="year"></span> Loomi. Esta página presenta información general sobre la aplicación. Las imágenes de la interfaz son ilustrativas. Loomi debe contar con los permisos, licencias y derechos necesarios sobre todo contenido distribuido o promocionado.</div>
+  </div>
+</footer>
+
+<div class="modal" id="privacidad">
+  <div class="modal-card"><a class="close" href="#">✕</a><h2>Política de privacidad</h2>
+    <p>Última actualización: julio de 2026.</p>
+    <p>Esta página puede recopilar datos técnicos básicos necesarios para su funcionamiento, como dirección IP, tipo de navegador y registros de seguridad. Si se añaden herramientas de analítica, píxeles publicitarios, formularios o cookies, esta política debe actualizarse para identificar los proveedores, las finalidades, la base legal, los plazos de conservación y los mecanismos de consentimiento aplicables.</p>
+    <p>Para ejercer derechos de acceso, rectificación o eliminación, contacta con soporte@loomi-cinema.com. Sustituye esta dirección y añade la identidad legal, domicilio y jurisdicción reales del responsable antes de publicar.</p>
+  </div>
+</div>
+
+<div class="modal" id="terminos">
+  <div class="modal-card"><a class="close" href="#">✕</a><h2>Términos de uso</h2>
+    <p>La información de esta página describe funciones generales de Loomi. El catálogo, precios, planes, compatibilidad y disponibilidad pueden cambiar.</p>
+    <ul><li>El usuario debe utilizar el servicio conforme a la ley y a los derechos de terceros.</li><li>Loomi debe distribuir únicamente contenido autorizado o debidamente licenciado.</li><li>Antes de publicar, añade la razón social, dirección, jurisdicción, condiciones de pago, cancelación, reembolso y demás datos reales aplicables.</li></ul>
+  </div>
+</div>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>

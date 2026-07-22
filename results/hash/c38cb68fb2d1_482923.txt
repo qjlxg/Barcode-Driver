@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f9fc">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Pavel Pavlov — Network Engineer.">
+  <title>Pavel Pavlov — Network Engineer</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+  <style>
+    :root {
+      --page: #f3f6fb;
+      --surface: rgba(255, 255, 255, 0.88);
+      --surface-strong: #ffffff;
+      --ink: #0f1c31;
+      --muted: #68758b;
+      --line: rgba(38, 84, 155, 0.14);
+      --line-strong: rgba(38, 84, 155, 0.26);
+      --blue: #3d77e6;
+      --blue-dark: #234f9e;
+      --blue-soft: #e9f2ff;
+      --green: #35b96b;
+      --shadow: 0 24px 70px rgba(33, 55, 92, 0.12);
+      --radius: clamp(26px, 3vw, 38px);
+      --pad: clamp(18px, 3vw, 46px);
+      --content: 1450px;
+      --font-display: "Avenir Next", "SF Pro Display", "Segoe UI Variable Display", "Helvetica Neue", Arial, sans-serif;
+      --font-text: "Avenir Next", "SF Pro Text", "Segoe UI Variable Text", "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-width: 320px;
+      min-height: 100%;
+      background: var(--page);
+    }
+
+    body {
+      min-height: 100svh;
+      margin: 0;
+      overflow: hidden;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 88% 18%, rgba(98, 151, 240, 0.12), transparent 31rem),
+        radial-gradient(circle at 8% 88%, rgba(126, 181, 255, 0.08), transparent 26rem),
+        var(--page);
+      font-family: var(--font-text);
+      font-synthesis: none;
+      font-kerning: normal;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.13;
+      background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+      mix-blend-mode: multiply;
+      z-index: 20;
+    }
+
+    ::selection {
+      color: #fff;
+      background: var(--blue);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .page-shell {
+      min-height: 100svh;
+      padding:
+        max(18px, env(safe-area-inset-top))
+        max(18px, env(safe-area-inset-right))
+        max(18px, env(safe-area-inset-bottom))
+        max(18px, env(safe-area-inset-left));
+      display: grid;
+      place-items: center;
+    }
+
+    .card {
+      position: relative;
+      width: min(100%, var(--content));
+      min-height: min(900px, calc(100svh - 36px));
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      gap: clamp(28px, 4vh, 56px);
+      padding: var(--pad);
+      border: 1px solid rgba(77, 111, 163, 0.13);
+      border-radius: var(--radius);
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.94), rgba(255,255,255,0.82)),
+        var(--surface);
+      box-shadow: var(--shadow);
+      isolation: isolate;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.86);
+      z-index: 8;
+    }
+
+    .flow-art {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .flow-path {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .flow-path.soft {
+      stroke: rgba(80, 128, 210, 0.13);
+      stroke-width: 1.1;
+    }
+
+    .flow-path.mid {
+      stroke: rgba(62, 115, 207, 0.24);
+      stroke-width: 1.35;
+    }
+
+    .flow-path.strong {
+      stroke: rgba(43, 100, 201, 0.50);
+      stroke-width: 1.55;
+    }
+
+    .flow-path.trace {
+      stroke: rgba(54, 118, 226, 0.45);
+      stroke-width: 1.2;
+      stroke-dasharray: 3 12;
+      animation: trace 16s linear infinite;
+    }
+
+    .flow-node {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: pulse 4.8s ease-in-out infinite;
+    }
+
+    .flow-node:nth-of-type(3n) {
+      animation-delay: -1.5s;
+    }
+
+    .flow-node:nth-of-type(4n) {
+      animation-delay: -2.4s;
+    }
+
+    .header,
+    .footer {
+      position: relative;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      flex: 0 0 auto;
+      display: block;
+      filter: drop-shadow(0 8px 16px rgba(46, 78, 124, 0.10));
+      transition: transform 180ms ease, filter 180ms ease;
+    }
+
+    .brand:hover .brand-mark {
+      transform: translateY(-1px) rotate(-1deg);
+      filter: drop-shadow(0 11px 20px rgba(46, 78, 124, 0.14));
+    }
+
+    .brand-mark .tile {
+      fill: url(#brandTileGradient);
+      stroke: rgba(31, 72, 132, 0.16);
+      stroke-width: 1;
+    }
+
+    .brand-mark .route-primary,
+    .brand-mark .route-secondary {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .brand-mark .route-primary {
+      stroke: #14243c;
+      stroke-width: 2.65;
+    }
+
+    .brand-mark .route-secondary {
+      stroke: #3d77e6;
+      stroke-width: 2.65;
+    }
+
+    .brand-mark .node-primary {
+      fill: #14243c;
+    }
+
+    .brand-mark .node-secondary {
+      fill: #3d77e6;
+    }
+
+    .brand-mark .node-glow {
+      fill: rgba(61, 119, 230, 0.13);
+    }
+
+    .status {
+      padding: 10px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(39, 80, 140, 0.10);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 8px 24px rgba(46, 78, 124, 0.08);
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 560;
+      letter-spacing: 0.01em;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 5px rgba(53, 185, 107, 0.10);
+    }
+
+    .main {
+      position: relative;
+      z-index: 3;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 0.88fr) minmax(360px, 1.12fr);
+      gap: clamp(48px, 7vw, 118px);
+      align-items: center;
+    }
+
+    .content {
+      max-width: 720px;
+      padding-left: clamp(8px, 1vw, 18px);
+    }
+
+    .eyebrow {
+      margin: 0 0 clamp(22px, 3.4vh, 38px);
+      color: var(--blue-dark);
+      font-family: var(--font-text);
+      font-size: 10px;
+      font-weight: 720;
+      letter-spacing: 0.20em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      column-gap: 0.20em;
+      row-gap: 0;
+      font-family: var(--font-display);
+      font-size: clamp(62px, 6.9vw, 110px);
+      font-weight: 560;
+      line-height: 0.96;
+      letter-spacing: -0.034em;
+      font-kerning: normal;
+      text-wrap: balance;
+    }
+
+    .name-part {
+      display: inline-block;
+    }
+
+    .role {
+      margin: clamp(22px, 3vh, 34px) 0 0;
+      color: var(--blue);
+      font-family: var(--font-display);
+      font-size: clamp(24px, 2.35vw, 38px);
+      font-weight: 500;
+      line-height: 1.12;
+      letter-spacing: -0.018em;
+    }
+
+    .description {
+      max-width: 590px;
+      margin: clamp(24px, 3.3vh, 38px) 0 0;
+      color: var(--muted);
+      font-size: clamp(15px, 1.08vw, 17px);
+      font-weight: 430;
+      line-height: 1.72;
+      letter-spacing: -0.006em;
+      text-wrap: balance;
+    }
+
+    .links {
+      margin-top: clamp(28px, 4vh, 46px);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+    }
+
+    .link-button {
+      min-height: 48px;
+      padding: 0 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 1px solid rgba(44, 83, 143, 0.13);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow:
+        0 8px 24px rgba(39, 69, 112, 0.07),
+        inset 0 1px 0 rgba(255,255,255,0.92);
+      color: var(--ink);
+      font-family: var(--font-text);
+      font-size: 11px;
+      font-weight: 650;
+      letter-spacing: 0.005em;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition:
+        transform 170ms ease,
+        border-color 170ms ease,
+        box-shadow 170ms ease,
+        color 170ms ease;
+    }
+
+    .link-button svg {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
+    }
+
+    .link-button:hover,
+    .link-button:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(61, 119, 230, 0.30);
+      box-shadow:
+        0 14px 32px rgba(39, 69, 112, 0.10),
+        inset 0 1px 0 rgba(255,255,255,0.95);
+      color: var(--blue-dark);
+    }
+
+    .visual-space {
+      min-height: clamp(440px, 60vh, 700px);
+    }
+
+    .footer {
+      align-items: flex-end;
+    }
+
+    .footer-note {
+      position: relative;
+      max-width: 230px;
+      padding-left: 16px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 500;
+      line-height: 1.58;
+      letter-spacing: -0.005em;
+    }
+
+    .footer-note::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 1px;
+      bottom: 1px;
+      width: 2px;
+      border-radius: 99px;
+      background: linear-gradient(var(--blue), rgba(61,119,230,0.16));
+    }
+
+    .domain {
+      color: rgba(34, 57, 91, 0.46);
+      font-size: 9px;
+      font-weight: 650;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      animation: reveal 760ms cubic-bezier(.2,.7,.2,1) forwards;
+    }
+
+    .d2 { animation-delay: 90ms; }
+    .d3 { animation-delay: 180ms; }
+    .d4 { animation-delay: 260ms; }
+
+    @keyframes reveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes trace {
+      to { stroke-dashoffset: -120; }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.55; transform: scale(0.96); }
+      50% { opacity: 1; transform: scale(1.08); }
+    }
+
+    @media (max-width: 980px) {
+      body {
+        overflow: auto;
+      }
+
+      .card {
+        min-height: calc(100svh - 36px);
+      }
+
+      .main {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .content {
+        max-width: 760px;
+      }
+
+      .visual-space {
+        min-height: 300px;
+      }
+
+      .flow-art {
+        transform: translateX(7%);
+      }
+    }
+
+    @media (max-width: 640px) {
+      :root {
+        --pad: 18px;
+      }
+
+      .page-shell {
+        padding: 10px;
+      }
+
+      .card {
+        min-height: calc(100svh - 20px);
+        border-radius: 26px;
+        gap: 24px;
+      }
+
+      .header {
+        align-items: flex-start;
+      }
+
+      .status {
+        padding: 9px 11px;
+        font-size: 9px;
+      }
+
+      h1 {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.02em;
+        font-size: clamp(52px, 15vw, 74px);
+        line-height: 0.94;
+        letter-spacing: -0.025em;
+      }
+
+      .role {
+        font-size: clamp(23px, 7vw, 31px);
+      }
+
+      .description {
+        font-size: 14px;
+      }
+
+      .links {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .link-button {
+        min-height: 45px;
+        padding-inline: 11px;
+      }
+
+      .visual-space {
+        min-height: 220px;
+      }
+
+      .footer-note {
+        max-width: 180px;
+        font-size: 9px;
+      }
+
+      .flow-art {
+        width: 155%;
+        height: 75%;
+        left: 9%;
+        top: 31%;
+        transform: none;
+      }
+    }
+
+    @media (max-height: 760px) and (min-width: 981px) {
+      .card {
+        min-height: calc(100svh - 36px);
+        gap: 24px;
+      }
+
+      h1 {
+        font-size: clamp(58px, 6.3vw, 92px);
+      }
+
+      .role {
+        margin-top: 18px;
+      }
+
+      .description {
+        margin-top: 20px;
+      }
+
+      .links {
+        margin-top: 24px;
+      }
+
+      .visual-space {
+        min-height: 430px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page-shell">
+    <section class="card" aria-label="Pavel Pavlov personal website">
+      <svg class="flow-art" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <radialGradient id="nodeGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#5f9aff" stop-opacity="0.46"/>
+            <stop offset="1" stop-color="#5f9aff" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="fadeLine" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#5b91e8" stop-opacity="0.02"/>
+            <stop offset="0.45" stop-color="#4c83de" stop-opacity="0.34"/>
+            <stop offset="1" stop-color="#4c83de" stop-opacity="0.06"/>
+          </linearGradient>
+          <filter id="softBlur" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="13"/>
+          </filter>
+        </defs>
+
+        <g opacity="0.96">
+          <path class="flow-path soft" d="M345 850 C610 770 710 690 780 570 C860 432 805 300 920 108"/>
+          <path class="flow-path soft" d="M260 900 C590 790 725 686 814 562 C915 420 845 278 994 35"/>
+          <path class="flow-path mid" d="M430 900 C660 775 760 662 827 548 C906 414 888 286 1060 84"/>
+          <path class="flow-path strong" d="M530 900 C730 760 788 642 850 522 C922 384 958 274 1165 113"/>
+          <path class="flow-path soft" d="M605 900 C774 790 855 672 902 570 C965 433 1045 305 1320 215"/>
+          <path class="flow-path mid" d="M700 900 C810 826 880 730 925 635 C992 494 1120 400 1395 348"/>
+          <path class="flow-path strong" d="M810 900 C861 818 900 746 952 664 C1049 510 1190 467 1400 458"/>
+          <path class="flow-path soft" d="M935 900 C942 830 963 756 1014 686 C1114 548 1262 551 1400 558"/>
+          <path class="flow-path mid" d="M1035 900 C1030 820 1051 748 1109 688 C1195 598 1305 615 1400 636"/>
+          <path class="flow-path soft" d="M1125 900 C1121 830 1152 776 1200 732 C1264 674 1335 685 1400 716"/>
+
+          <path class="flow-path soft" d="M1400 155 C1240 240 1155 336 1090 443 C1023 554 1000 676 924 824"/>
+          <path class="flow-path mid" d="M1400 250 C1260 319 1174 394 1112 485 C1044 584 1027 706 955 900"/>
+          <path class="flow-path trace" d="M1400 402 C1268 430 1196 481 1133 559 C1062 648 1040 746 1013 900"/>
+          <path class="flow-path trace" d="M578 900 C762 780 815 670 876 548 C943 416 993 302 1232 166"/>
+
+          <path d="M720 735 C840 663 877 580 926 490 C988 374 1099 259 1360 170" fill="none" stroke="url(#fadeLine)" stroke-width="3.2" stroke-linecap="round" opacity="0.30"/>
+          <path d="M760 860 C842 770 884 686 942 604 C1030 478 1170 436 1382 416" fill="none" stroke="url(#fadeLine)" stroke-width="2.2" stroke-linecap="round" opacity="0.25"/>
+        </g>
+
+        <g opacity="0.55">
+          <circle cx="890" cy="358" r="28" fill="url(#nodeGlow)" filter="url(#softBlur)"/>
+          <circle cx="1110" cy="516" r="34" fill="url(#nodeGlow)" filter="url(#softBlur)"/>
+          <circle cx="1268" cy="316" r="22" fill="url(#nodeGlow)" filter="url(#softBlur)"/>
+        </g>
+
+        <g>
+          <circle class="flow-node" cx="827" cy="547" r="5" fill="#457ed8"/>
+          <circle class="flow-node" cx="885" cy="433" r="4" fill="#8aa4c8"/>
+          <circle class="flow-node" cx="934" cy="334" r="6" fill="#2d69c9"/>
+          <circle class="flow-node" cx="1004" cy="260" r="4" fill="#94aac9"/>
+          <circle class="flow-node" cx="1085" cy="492" r="7" fill="#4b8af1"/>
+          <circle class="flow-node" cx="1168" cy="418" r="4" fill="#728eb7"/>
+          <circle class="flow-node" cx="1236" cy="365" r="5" fill="#3c76d2"/>
+          <circle class="flow-node" cx="1024" cy="683" r="5" fill="#7b96ba"/>
+          <circle class="flow-node" cx="1119" cy="618" r="7" fill="#5c96f4"/>
+          <circle class="flow-node" cx="1213" cy="579" r="4" fill="#9aadc7"/>
+          <circle class="flow-node" cx="1302" cy="548" r="5" fill="#4e7fce"/>
+          <circle class="flow-node" cx="925" cy="782" r="4" fill="#557ebd"/>
+          <circle class="flow-node" cx="1058" cy="790" r="4" fill="#8aa0c0"/>
+          <circle class="flow-node" cx="1162" cy="751" r="5" fill="#326ac8"/>
+          <circle class="flow-node" cx="1288" cy="711" r="4" fill="#9eb0ca"/>
+        </g>
+
+        <g fill="#79a7ed" opacity="0.26">
+          <circle cx="748" cy="382" r="1.5"/><circle cx="764" cy="382" r="1.5"/><circle cx="780" cy="382" r="1.5"/><circle cx="796" cy="382" r="1.5"/>
+          <circle cx="748" cy="398" r="1.5"/><circle cx="764" cy="398" r="1.5"/><circle cx="780" cy="398" r="1.5"/><circle cx="796" cy="398" r="1.5"/>
+          <circle cx="748" cy="414" r="1.5"/><circle cx="764" cy="414" r="1.5"/><circle cx="780" cy="414" r="1.5"/><circle cx="796" cy="414" r="1.5"/>
+          <circle cx="1240" cy="620" r="1.5"/><circle cx="1256" cy="620" r="1.5"/><circle cx="1272" cy="620" r="1.5"/><circle cx="1288" cy="620" r="1.5"/>
+          <circle cx="1240" cy="636" r="1.5"/><circle cx="1256" cy="636" r="1.5"/><circle cx="1272" cy="636" r="1.5"/><circle cx="1288" cy="636" r="1.5"/>
+        </g>
+      </svg>
+
+      <header class="header reveal">
+        <div class="brand" aria-label="Pavel Pavlov">
+          <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+            <defs>
+              <linearGradient id="brandTileGradient" x1="7" y1="5" x2="42" y2="44" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#ffffff"/>
+                <stop offset="1" stop-color="#edf4ff"/>
+              </linearGradient>
+            </defs>
+            <rect class="tile" x="1.5" y="1.5" width="45" height="45" rx="14"/>
+            <path class="route-primary" d="M13.5 35.5V13.5h9.1c5.5 0 9.1 3.5 9.1 8.4s-3.6 8.4-9.1 8.4h-9.1"/>
+            <path class="route-secondary" d="M22.7 36V17.2h7.4c5.4 0 8.9 3.4 8.9 8.1s-3.5 8.1-8.9 8.1h-7.4"/>
+            <circle class="node-glow" cx="39" cy="25.3" r="5.4"/>
+            <circle class="node-primary" cx="13.5" cy="13.5" r="2.1"/>
+            <circle class="node-secondary" cx="39" cy="25.3" r="2.2"/>
+          </svg>
+          <span>pavlov.work</span>
+        </div>
+
+        <div class="status" aria-label="Networks connected">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Networks. Connected.</span>
+        </div>
+      </header>
+
+      <div class="main">
+        <section class="content">
+          <p class="eyebrow reveal d2">Personal site</p>
+          <h1 class="reveal d2"><span class="name-part">Pavel</span><span class="name-part">Pavlov</span></h1>
+          <p class="role reveal d3">Network Engineer</p>
+          <p class="description reveal d3">
+            I build reliable networks, solve complex infrastructure problems
+            and automate repetitive work.
+          </p>
+
+          <nav class="links reveal d4" aria-label="Contact links">
+            <a class="link-button" href="mailto:pavel@pavlov.work">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3.75 6.75h16.5v10.5H3.75z" stroke="currentColor" stroke-width="1.6" rx="1.5"/>
+                <path d="m4.5 7.5 7.5 5.4 7.5-5.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span>Email</span>
+            </a>
+
+            <a class="link-button" href="https://www.linkedin.com/in/pavel-p-a3467a162/" target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="3.5" y="3.5" width="17" height="17" rx="3.5" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M8 10v6M8 7.7v.1M11.2 16v-3.4c0-1.8 2.1-2.2 2.8-.9.2.4.2.9.2 1.4V16M11.2 10v6" stroke="currentColor" stroke-width="1.65" stroke-linecap="round"/>
+              </svg>
+              <span>LinkedIn</span>
+            </a>
+
+            <a class="link-button" href="https://www.xing.com/profile/Pavel_Pavlov28" target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="m6.2 7.2 2.5 4.2-3.8 6.4h3.5l3.8-6.4-2.5-4.2H6.2Z" fill="currentColor"/>
+                <path d="m15.7 3.5-5.8 10 3.8 7h3.5l-3.8-7 5.8-10h-3.5Z" fill="currentColor" opacity=".72"/>
+              </svg>
+              <span>Xing</span>
+            </a>
+
+            <a class="link-button" href="https://bot.pavlovgroup.work/en.html" target="_blank" rel="noreferrer">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <rect x="4" y="7" width="16" height="11" rx="3" stroke="currentColor" stroke-width="1.55"/>
+                <path d="M12 4v3M8 12h.01M16 12h.01M8.5 15h7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+                <circle cx="12" cy="3.5" r="1" fill="currentColor"/>
+              </svg>
+              <span>Reminder Bot</span>
+            </a>
+          </nav>
+        </section>
+
+        <div class="visual-space" aria-hidden="true"></div>
+      </div>
+
+      <footer class="footer reveal d4">
+        <div class="footer-note">
+          Clear architecture.<br>
+          Dependable connectivity.
+        </div>
+        <div class="domain">© <span id="year">2026</span> Pavel Pavlov</div>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

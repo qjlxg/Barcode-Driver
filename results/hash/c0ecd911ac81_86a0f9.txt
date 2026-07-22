@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Alex Sild — Software Engineer</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--o:#ff6b2b;--ol:#ff9a4d;--bg:#0c0c0f;--card:#14141a;--bd:#22222d;--tx:#f0f0f0;--mt:#7a7a8a}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--tx);font-family:'Segoe UI',system-ui,-apple-system,sans-serif;overflow-x:hidden}
+.hero{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+  align-items:center;text-align:center;padding:80px 24px;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 55% at 50% 105%,rgba(255,107,43,.18) 0%,transparent 65%),
+             radial-gradient(ellipse 40% 35% at 85% 10%,rgba(255,107,43,.07) 0%,transparent 60%);
+  pointer-events:none}
+.badge{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,107,43,.1);border:1px solid rgba(255,107,43,.3);
+  color:var(--ol);font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:6px 16px;border-radius:100px;margin-bottom:32px}
+.dot{width:6px;height:6px;background:var(--o);border-radius:50%;animation:blink 2s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-size:clamp(3rem,8vw,6rem);font-weight:800;line-height:1.05;letter-spacing:-.04em;margin-bottom:18px}
+.wh{background:linear-gradient(135deg,#fff,#b0b0b0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.wo{background:linear-gradient(135deg,var(--o),var(--ol));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:clamp(1rem,2.5vw,1.2rem);color:var(--mt);max-width:540px;line-height:1.75;margin-bottom:44px}
+.hero p strong{color:#c8c8c8}
+.btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
+.btn-p{display:inline-flex;align-items:center;gap:10px;background:var(--o);color:#fff;
+  font-weight:700;font-size:.98rem;padding:14px 30px;border-radius:12px;text-decoration:none;
+  box-shadow:0 4px 24px rgba(255,107,43,.35);transition:background .2s,transform .15s,box-shadow .2s}
+.btn-p:hover{background:var(--ol);transform:translateY(-2px);box-shadow:0 8px 36px rgba(255,107,43,.45)}
+.btn-s{display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--bd);
+  color:var(--mt);font-weight:600;font-size:.98rem;padding:13px 24px;border-radius:12px;
+  text-decoration:none;transition:border-color .2s,color .2s}
+.btn-s:hover{border-color:var(--o);color:var(--tx)}
+.stats{display:flex;flex-wrap:wrap;justify-content:center;
+  border-top:1px solid var(--bd);border-bottom:1px solid var(--bd);background:var(--card)}
+.st{flex:1;min-width:130px;max-width:200px;text-align:center;padding:26px 16px;
+  border-right:1px solid var(--bd)}
+.st:last-child{border-right:none}
+.sn{font-size:2rem;font-weight:800;background:linear-gradient(135deg,var(--o),var(--ol));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1}
+.sl{color:var(--mt);font-size:.72rem;margin-top:5px;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+section{max-width:1060px;margin:0 auto;padding:86px 24px}
+.lbl{display:inline-block;color:var(--o);font-size:.72rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.12em;margin-bottom:12px}
+.sec-h{font-size:clamp(1.7rem,4vw,2.6rem);font-weight:800;line-height:1.2;margin-bottom:14px}
+.sec-d{color:var(--mt);font-size:1rem;line-height:1.75;max-width:520px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin-top:48px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:26px 22px;
+  position:relative;overflow:hidden;transition:border-color .2s,transform .2s}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--o),var(--ol));opacity:0;transition:opacity .2s}
+.card:hover{border-color:rgba(255,107,43,.4);transform:translateY(-4px)}
+.card:hover::before{opacity:1}
+.ci{font-size:1.7rem;margin-bottom:12px}
+.card h3{font-size:1rem;font-weight:700;margin-bottom:7px}
+.card p{color:var(--mt);font-size:.87rem;line-height:1.65}
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+@media(max-width:680px){.ag{grid-template-columns:1fr}}
+.at p{color:#b2b2b2;line-height:1.8;margin-bottom:14px;font-size:.97rem}
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:22px}
+.tag{background:rgba(255,107,43,.1);border:1px solid rgba(255,107,43,.22);
+  color:var(--ol);padding:4px 13px;border-radius:100px;font-size:.75rem;font-weight:600}
+.qb{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--o);
+  border-radius:0 14px 14px 0;padding:26px 28px;margin-bottom:18px}
+.qb blockquote{font-size:1.12rem;font-weight:600;line-height:1.6;font-style:italic;margin-bottom:12px}
+.qb cite{color:var(--o);font-size:.83rem;font-weight:700;font-style:normal}
+.lc{background:var(--bg);border:1px solid var(--bd);border-radius:14px;padding:22px}
+.lc-h{color:var(--mt);font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-bottom:12px}
+.lc li{list-style:none;padding:8px 0;border-bottom:1px solid var(--bd);color:#c0c0c0;font-size:.9rem}
+.lc li:last-child{border-bottom:none}
+.co{max-width:580px;margin:0 auto;padding:86px 24px}
+.cc{background:var(--card);border:1px solid var(--bd);border-radius:22px;padding:50px 38px;
+  position:relative;overflow:hidden;text-align:center}
+.cc::before{content:'';position:absolute;bottom:-80px;left:50%;transform:translateX(-50%);
+  width:280px;height:280px;
+  background:radial-gradient(circle,rgba(255,107,43,.12),transparent 70%);pointer-events:none}
+.cc h2{font-size:1.75rem;font-weight:800;margin-bottom:10px}
+.cc p{color:var(--mt);line-height:1.7;margin-bottom:30px}
+.tg{display:inline-flex;align-items:center;gap:12px;
+  background:linear-gradient(135deg,#0088cc,#0066aa);color:#fff;
+  font-weight:700;font-size:1rem;padding:15px 34px;border-radius:13px;
+  text-decoration:none;box-shadow:0 4px 22px rgba(0,136,204,.3);
+  transition:opacity .2s,transform .15s}
+.tg:hover{opacity:.88;transform:translateY(-2px)}
+footer{border-top:1px solid var(--bd);text-align:center;color:var(--mt);font-size:.8rem;padding:22px 24px}
+footer a{color:var(--o);text-decoration:none}
+footer a:hover{text-decoration:underline}
+</style>
+</head><body>
+<section class="hero">
+  <div class="badge"><span class="dot"></span>Open to projects &nbsp;&middot;&nbsp; Tallinn, Estonia &#127466;&#127466;</div>
+  <h1><span class="wh">Alex Sild</span><br><span class="wo">Software Engineer</span></h1>
+  <p>Building <strong>fast, reliable digital systems</strong> for European businesses &mdash;
+    from backend infrastructure and automation to polished web applications.</p>
+  <div class="btns">
+    <a class="btn-p" href="https://t.me/SlD988" target="_blank" rel="noopener">&#9992;&nbsp; Contact on Telegram</a>
+    <a class="btn-s" href="#about">About me &darr;</a>
+  </div>
+</section>
+<div class="stats">
+  <div class="st"><div class="sn">8+</div><div class="sl">Years of experience</div></div>
+  <div class="st"><div class="sn">60+</div><div class="sl">Clients served</div></div>
+  <div class="st"><div class="sn">120+</div><div class="sl">Projects delivered</div></div>
+  <div class="st"><div class="sn">99%</div><div class="sl">Uptime guarantee</div></div>
+</div>
+<section>
+  <div class="lbl">What I do</div>
+  <h2 class="sec-h">Services &amp; Expertise</h2>
+  <p class="sec-d">End-to-end digital solutions tailored for modern businesses.
+    Full cycle &mdash; from architecture decisions to production deployment.</p>
+  <div class="grid">
+    <div class="card"><div class="ci">&#9881;&#65039;</div><h3>Backend Engineering</h3>
+      <p>High-performance APIs and business logic built with Python and Node.js. Designed to scale.</p></div>
+    <div class="card"><div class="ci">&#127959;&#65039;</div><h3>System Architecture</h3>
+      <p>Robust, maintainable designs for SaaS products, internal platforms and microservices.</p></div>
+    <div class="card"><div class="ci">&#129302;</div><h3>Process Automation</h3>
+      <p>Turning repetitive manual work into reliable automated pipelines. Zero errors, less overhead.</p></div>
+    <div class="card"><div class="ci">&#128421;&#65039;</div><h3>Web Applications</h3>
+      <p>Clean interfaces with solid backends. From quick MVPs to production-grade platforms.</p></div>
+    <div class="card"><div class="ci">&#9729;&#65039;</div><h3>DevOps &amp; Deployment</h3>
+      <p>Docker, Linux server setup, CI/CD pipelines and monitoring. Your app, always running.</p></div>
+    <div class="card"><div class="ci">&#128274;</div><h3>Security Hardening</h3>
+      <p>Code reviews, threat modelling and systems built with a security-first mindset.</p></div>
+  </div>
+</section>
+<section id="about" style="background:var(--card);max-width:100%;padding:86px 24px">
+  <div style="max-width:1060px;margin:0 auto">
+    <div class="ag">
+      <div class="at">
+        <div class="lbl">Who I am</div>
+        <h2 class="sec-h">Tallinn-based engineer with a thing for elegant systems</h2>
+        <p>Writing production code since 2016 &mdash; started with automation scripts, grew into full-stack products and distributed infrastructure. Most of my work has been for clients across Finland, Germany and the Netherlands, either solo or leading small remote teams.</p>
+        <p>I value reliability and simplicity over hype. Boring proven solutions when they fit; custom-built when they don&rsquo;t. Either way, things should work at 3 AM without my phone ringing.</p>
+        <p>Outside of code: cycling around Tallinn&rsquo;s Old Town, electronics tinkering, good espresso.</p>
+        <div class="tags">
+          <span class="tag">Python</span><span class="tag">Node.js</span>
+          <span class="tag">PostgreSQL</span><span class="tag">Docker</span>
+          <span class="tag">Linux</span><span class="tag">REST APIs</span>
+          <span class="tag">Automation</span><span class="tag">Git</span>
+        </div>
+      </div>
+      <div>
+        <div class="qb">
+          <blockquote>&ldquo;I don&rsquo;t just write code &mdash; I architect solutions that outlive the project brief.&rdquo;</blockquote>
+          <cite>&mdash; Alex Sild</cite>
+        </div>
+        <div class="lc">
+          <div class="lc-h">Current focus areas</div>
+          <ul>
+            <li>&#128295; Infrastructure automation for SaaS companies</li>
+            <li>&#128202; Internal dashboards &amp; reporting tools</li>
+            <li>&#128272; Secure deployment pipelines (CI/CD + hardening)</li>
+            <li>&#9889; Performance optimisation of legacy backends</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="co">
+  <div class="cc">
+    <h2>Let&rsquo;s work together</h2>
+    <p>Got a project in mind? Open to freelance contracts, consulting and long-term partnerships.
+      The fastest way to reach me is Telegram &mdash; usually respond within a few hours.</p>
+    <a class="tg" href="https://t.me/SlD988" target="_blank" rel="noopener">&#9992;&nbsp; Write to @SlD988</a>
+    <p style="margin-top:18px;margin-bottom:0;font-size:.78rem;color:#444">Available Mon&ndash;Fri &middot; Europe timezones</p>
+  </div>
+</div>
+<footer>
+  <p>&copy; 2024 Alex Sild &nbsp;&middot;&nbsp; Tallinn, Estonia &nbsp;&middot;&nbsp;
+    <a href="https://t.me/SlD988" target="_blank" rel="noopener">@SlD988</a></p>
+</footer>
+</body></html>

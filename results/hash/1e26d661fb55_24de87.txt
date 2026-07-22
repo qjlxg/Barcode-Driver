@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>IP/DNS Detect - What is your IP, what is your DNS, what informations you send to websites.</title>
+		<link rel="manifest" href="/manifest.webmanifest?t=4">
+		<meta name=description content="What is your IP, what is your DNS, check your torrent IP, what informations you send to websites." />
+		<meta name=keywords content="dnsleak,ipleak,ipv6leak,mydns,rtcleak,myip,ipaddress,checkmytorrentip,whatismyip" />
+		<meta name="robots" content="index" />
+		<meta property="og:title" content="IP/DNS Detect" />
+		<meta property="og:description" content="What is your IP, what is your DNS, check your torrent IP, what informations you send to websites." />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://ipleak.net/" />
+		<meta property="og:image" content="https://ipleak.net/static/images/logo.png" />
+		<link media="all" rel="stylesheet" type="text/css" href="/static/css/index.css?ts=20220812">
+		<script type="text/javascript" src="/static/js/jquery-3.6.0.min.js"></script>
+		<script type="text/javascript" src="/static/js/moment-with-locales.min.js"></script>
+		<script type="text/javascript" src="/static/js/rtc-api.js"></script>	
+		<script type="text/javascript" src="/static/js/index.js?ts=20220812"></script>
+	</head>
+	<body>
+		<div id="root" class="root">
+			<div id='header'>
+				<div id='logo'>
+				</div>
+				<div class='pb'>powered by <a href='https://airvpn.org/landing/ipleak/'> <img id='logo-img-air' src='/static/images/logo-airvpn.png' alt='AirVPN'> </a></div>
+
+				<a href='https://ipleak.net'><img id='logo-img' src='/static/images/logotitle.png' alt='ipleak.net'></a>
+				<form><input placeholder='Search an IP Address or a domain name' id='query' name='q' value='clash.yml'><input type='submit' value='Search'></form>
+
+			</div>
+
+			<div id='jsonData' data-json='{&quot;ips&quot;:[],&quot;error&quot;:&quot;Unable to resolve.&quot;,&quot;query_text&quot;:&quot;clash.yml&quot;,&quot;query_type&quot;:&quot;domain&quot;,&quot;query_date&quot;:1784729950}'></div><div id='content'><div class='error_box'><img src='/static/images/misc/error.png' alt='Error'><div class='error_box_message'>Unable to resolve.</div></div>
+
+			<div id='footer_margin'></div>
+
+			</div>
+
+			<div id="footer">
+					
+					<p>Service available on <a href="https://ipv4.ipleak.net">IPv4</a> and <a href="https://ipv6.ipleak.net">IPv6</a>, also on alternative ports: <a href="https://ipleak.net:8000">:8000</a> (<a href="https://ipv4.ipleak.net:8000">IPv4</a>,<a href="https://ipv6.ipleak.net:8000">IPv6</a>) and <a href="https://ipleak.net:62222">:62222</a> (<a href="https://ipv4.ipleak.net:62222">IPv4</a>,<a href="https://ipv6.ipleak.net:62222">IPv6</a>) (for detection of routing based on destination ports). Look at <a href='https://airvpn.org/landing/ipleak-forum/'>the forum</a> for support, feedback, API.</p>
+					
+					<p>Data partially based on <a href="https://www.maxmind.com">MaxMind</a> database. Results may be cached, refer to MaxMind for more accuracy.</p>
+					
+					<p>powered by <a href="https://airvpn.org/landing/ipleak/"> <img id="logo-img-air-footer" src="/static/images/logo-airvpn.png" alt="AirVPN"> </a></p>
+
+			</div>
+		</div>
+	</body>
+</html>

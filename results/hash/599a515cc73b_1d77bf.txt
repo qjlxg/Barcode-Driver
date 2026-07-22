@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOTA 2 BOT // Dashboard</title>
+    <link rel="shortcut icon" href="/favicon.ico?v=2" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root{--bg-dark:#050505;--bg-panel:rgba(20,20,30,.75);--bg-card:rgba(12,12,22,.9);--primary:#2ea6da;--primary-glow:rgba(46,166,218,.35);--accent:#00ff9d;--accent-glow:rgba(0,255,157,.35);--danger:#ff4757;--warning:#ffa502;--text-main:#fff;--text-dim:#8899a6;--border:rgba(255,255,255,.06)}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{background:var(--bg-dark);color:var(--text-main);font-family:'Inter',sans-serif;min-height:100vh}
+        .bg-fx{position:fixed;inset:0;z-index:0;pointer-events:none;background:radial-gradient(circle at 15% 50%,rgba(46,166,218,.06),transparent 25%),radial-gradient(circle at 85% 30%,rgba(155,89,182,.06),transparent 25%);animation:pulse-bg 10s ease-in-out infinite alternate}
+        .grid-ov{position:fixed;top:-50%;left:-50%;width:200%;height:200%;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.02) 1px,transparent 1px);background-size:50px 50px;transform:perspective(500px) rotateX(60deg);animation:grid-move 20s linear infinite;mask-image:radial-gradient(circle at center,black 0%,transparent 80%);-webkit-mask-image:radial-gradient(circle at center,black 0%,transparent 80%)}
+
+        /* SCREENS */
+        .screen{display:none;justify-content:center;align-items:center;min-height:100vh;position:relative;z-index:10}
+        .screen.active{display:flex}
+        .dash-screen{display:none;position:relative;z-index:10;padding:18px;min-height:100vh}
+        .dash-screen.active{display:block}
+
+        /* LOGIN BOX */
+        .box{width:100%;max-width:440px;padding:40px;background:var(--bg-panel);backdrop-filter:blur(20px);border-radius:24px;border:1px solid var(--border);box-shadow:0 20px 50px rgba(0,0,0,.7),inset 0 0 80px rgba(0,0,0,.5);text-align:center;animation:slideUp .6s ease-out;position:relative;overflow:hidden}
+        .box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--primary),transparent);opacity:.7}
+        .box h1{font-family:'JetBrains Mono',monospace;font-size:1.55rem;margin-bottom:.4rem;text-transform:uppercase;text-shadow:0 0 20px var(--primary-glow)}
+        .sub{color:var(--primary);font-size:.7rem;font-weight:700;letter-spacing:3px;margin-bottom:1.8rem;text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:8px}
+        .sdot{height:6px;width:6px;background:var(--accent);border-radius:50%;display:inline-block;box-shadow:0 0 8px var(--accent);animation:pulse 2s infinite}
+
+        /* FORM */
+        .inp-wrap{position:relative;margin-bottom:1.1rem}
+        .inp-wrap input{width:100%;padding:13px 14px 13px 36px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#fff;font-size:.92rem;font-family:'JetBrains Mono',monospace;outline:none;transition:border-color .3s,box-shadow .3s}
+        .inp-wrap input:focus{border-color:var(--primary);box-shadow:0 0 14px rgba(46,166,218,.15)}
+        .at{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--primary);font-family:'JetBrains Mono',monospace;font-weight:700}
+        .btn{width:100%;padding:13px;margin-bottom:1.2rem;cursor:pointer;font-size:.9rem;font-weight:600;background:linear-gradient(135deg,#2ea6da,#176f94);border:1px solid rgba(255,255,255,.1);border-radius:12px;color:#fff;transition:all .3s;box-shadow:0 8px 20px -5px rgba(46,166,218,.3)}
+        .btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px -6px rgba(46,166,218,.5)}
+        .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+        .err-txt{color:var(--danger);font-size:.76rem;margin-bottom:.8rem;display:none}
+
+        /* TG BUTTONS */
+        .tg-btns{display:flex;flex-direction:column;gap:9px}
+        .tg-btn{display:flex;justify-content:center;align-items:center;gap:10px;text-decoration:none;color:#fff;background:linear-gradient(135deg,#2ea6da,#176f94);padding:12px 0;width:100%;border-radius:12px;font-size:.86rem;font-weight:600;transition:all .3s;box-shadow:0 6px 16px -4px rgba(46,166,218,.3);border:1px solid rgba(255,255,255,.1)}
+        .tg-btn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+        .tg-btn.accent{background:linear-gradient(135deg,#00ff9d,#00b871);color:#050505;border:none;box-shadow:0 6px 16px -4px rgba(0,255,157,.3)}
+
+        /* MASTER PASSWORD BUTTON */
+        .mx-btn{position:absolute;bottom:10px;left:10px;width:11px;height:11px;border-radius:50%;background:#ff4757;border:none;cursor:pointer;opacity:.22;transition:opacity .2s;z-index:5;padding:0}
+        .mx-btn:hover{opacity:.55}
+        .mx-panel{display:none;position:absolute;bottom:28px;left:10px;background:rgba(15,15,25,.98);border:1px solid rgba(255,71,87,.25);border-radius:10px;padding:10px 11px;z-index:20;width:172px}
+        .mx-panel.open{display:block}
+        .mx-panel input{width:100%;padding:7px 9px;background:rgba(255,255,255,.04);border:1px solid rgba(255,71,87,.25);border-radius:7px;color:#fff;font-size:.78rem;font-family:'JetBrains Mono',monospace;outline:none;margin-bottom:6px}
+        .mx-panel input:focus{border-color:rgba(255,71,87,.5)}
+        .mx-panel .mx-go{width:100%;padding:6px;background:rgba(255,71,87,.15);border:1px solid rgba(255,71,87,.3);border-radius:7px;color:#ff4757;font-size:.72rem;font-weight:600;cursor:pointer;transition:background .2s}
+        .mx-panel .mx-go:hover{background:rgba(255,71,87,.28)}
+        .mx-err{font-size:.63rem;color:#ff4757;margin-top:4px;display:none;text-align:center}
+
+        /* WAIT SCREEN */
+        .wait-box{width:100%;max-width:420px;padding:36px 40px;background:var(--bg-panel);backdrop-filter:blur(20px);border-radius:24px;border:1px solid var(--border);box-shadow:0 20px 50px rgba(0,0,0,.7);text-align:center;animation:slideUp .5s ease-out;position:relative;overflow:hidden}
+        .wait-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent)}
+        .wait-icon{font-size:2.6rem;margin-bottom:1rem;animation:float 2s ease-in-out infinite}
+        .wait-box h2{font-family:'JetBrains Mono',monospace;font-size:1.1rem;text-transform:uppercase;margin-bottom:.5rem}
+        .wait-info{font-size:.82rem;color:var(--text-dim);margin-bottom:1.4rem;line-height:1.5}
+        .wait-info span{color:var(--accent);font-weight:700}
+        .wait-bar{height:3px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden;margin-bottom:1.2rem}
+        .wait-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--primary));border-radius:2px;width:100%;animation:shrink 300s linear forwards}
+        .wait-cancel{background:transparent;border:1px solid var(--border);border-radius:10px;color:var(--text-dim);font-size:.78rem;padding:8px 20px;cursor:pointer;transition:all .3s}
+        .wait-cancel:hover{border-color:var(--danger);color:var(--danger)}
+        .pulse-ring{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--accent);animation:ring 1.5s ease-out infinite;margin-right:6px;vertical-align:middle}
+
+        /* DASHBOARD */
+        .dash-hdr{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--bg-panel);backdrop-filter:blur(20px);border-radius:14px;border:1px solid var(--border);margin-bottom:12px;flex-wrap:wrap;gap:8px;position:relative;z-index:50}
+        .hdr-l{display:flex;align-items:center;gap:10px}
+        .hdr-l h2{font-family:'JetBrains Mono',monospace;font-size:.9rem;text-transform:uppercase;letter-spacing:1px}
+        .utag{color:var(--primary);font-family:'JetBrains Mono',monospace;font-size:.8rem;font-weight:700}
+        .pcnt{font-size:.65rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace}
+        .hdr-r{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+        .ref-info{font-size:.65rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace}
+        .exit-btn{padding:6px 13px;background:rgba(255,71,87,.12);border:1px solid rgba(255,71,87,.22);border-radius:8px;color:var(--danger);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .3s}
+        .exit-btn:hover{background:rgba(255,71,87,.22);border-color:var(--danger)}
+        .clear-btn{padding:6px 13px;background:rgba(255,165,2,.1);border:1px solid rgba(255,165,2,.22);border-radius:8px;color:var(--warning);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .3s}
+        .clear-btn:hover{background:rgba(255,165,2,.22);border-color:var(--warning)}
+        .sort-btn{padding:6px 13px;background:rgba(136,153,166,.08);border:1px solid rgba(136,153,166,.2);border-radius:8px;color:var(--text-dim);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .3s;user-select:none}
+        .sort-btn.on{background:rgba(46,166,218,.15);border-color:rgba(46,166,218,.4);color:var(--primary)}
+        .sort-btn:hover:not(:disabled){border-color:rgba(46,166,218,.3);color:var(--text-main)}
+        .sort-btn:disabled{opacity:.35;cursor:not-allowed}
+        .sort-mode-wrap{position:relative}
+        .sort-mode-btn{padding:6px 13px;background:rgba(136,153,166,.08);border:1px solid rgba(136,153,166,.2);border-radius:8px;color:var(--text-dim);font-size:.75rem;font-weight:600;cursor:pointer;transition:all .3s;user-select:none}
+        .sort-mode-btn:hover{filter:brightness(1.15)}
+        .sort-mode-btn.sm-komp   {background:rgba(46,166,218,.15);border-color:rgba(46,166,218,.45);color:#2ea6da}
+        .sort-mode-btn.sm-games  {background:rgba(171,71,188,.15);border-color:rgba(171,71,188,.45);color:#ce93d8}
+        .sort-mode-btn.sm-ranked {background:rgba(255,71,87,.15);border-color:rgba(255,71,87,.45);color:#ff4757}
+        .sort-mode-btn.sm-playtime{background:rgba(0,255,157,.1);border-color:rgba(0,255,157,.45);color:#00ff9d}
+        .sort-mode-btn.sm-lastgame{background:rgba(255,165,2,.13);border-color:rgba(255,165,2,.45);color:#ffa502}
+        .sort-dropdown{display:none;position:absolute;top:calc(100% + 6px);right:0;background:rgba(12,12,22,.98);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:5px;z-index:200;min-width:270px;box-shadow:0 8px 28px rgba(0,0,0,.6);backdrop-filter:blur(12px)}
+        .sort-dropdown.open{display:block}
+        .sort-item{display:block;width:100%;padding:8px 12px;background:none;border:none;font-size:.74rem;font-family:'Inter',sans-serif;text-align:left;cursor:pointer;border-radius:7px;transition:all .2s;white-space:nowrap;font-weight:500}
+        .sort-item.si-komp   {color:#4fc3f7} .sort-item.si-komp.active,.sort-item.si-komp:hover   {background:rgba(46,166,218,.15);color:#2ea6da}
+        .sort-item.si-games  {color:#ce93d8} .sort-item.si-games.active,.sort-item.si-games:hover  {background:rgba(171,71,188,.15);color:#e040fb}
+        .sort-item.si-ranked {color:#ef9a9a} .sort-item.si-ranked.active,.sort-item.si-ranked:hover {background:rgba(255,71,87,.15);color:#ff4757}
+        .sort-item.si-playtime{color:#80cbc4}.sort-item.si-playtime.active,.sort-item.si-playtime:hover{background:rgba(0,255,157,.1);color:#00ff9d}
+        .sort-item.si-lastgame{color:#ffd54f}.sort-item.si-lastgame.active,.sort-item.si-lastgame:hover{background:rgba(255,165,2,.13);color:#ffa502}
+        .sort-item.active{font-weight:700}
+        .confirm-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);z-index:999;align-items:center;justify-content:center}
+        .confirm-overlay.open{display:flex}
+        .confirm-box{background:var(--bg-panel);border:1px solid var(--border);border-radius:14px;padding:28px 32px;text-align:center;max-width:320px;width:90%}
+        .confirm-box h3{margin:0 0 8px;color:var(--warning);font-size:1rem}
+        .confirm-box p{margin:0 0 20px;color:var(--text-dim);font-size:.82rem}
+        .confirm-btns{display:flex;gap:10px;justify-content:center}
+        .confirm-btns button{padding:8px 22px;border-radius:8px;font-weight:600;font-size:.8rem;cursor:pointer;transition:all .2s}
+        .btn-yes{background:rgba(255,71,87,.15);border:1px solid rgba(255,71,87,.3);color:var(--danger)}
+        .btn-yes:hover{background:rgba(255,71,87,.3)}
+        .btn-no{background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text-dim)}
+        .btn-no:hover{background:rgba(255,255,255,.1)}
+        .srv-stats{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+        .srv-chip{display:flex;align-items:center;gap:4px;padding:3px 8px;background:rgba(255,255,255,.05);border:1px solid var(--border);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--text-dim)}
+        .srv-chip b{color:var(--text-main);font-size:.62rem}
+        .srv-chip.warn b{color:#f39c12}
+        .srv-chip.crit b{color:var(--danger)}
+
+        /* GRID */
+        .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(268px,1fr));gap:11px}
+        .pc-card{background:var(--bg-card);border:1px solid var(--border);border-radius:13px;padding:14px;position:relative;overflow:hidden;transition:all .3s;animation:fadeIn .35s ease-out both}
+        .pc-card:hover{transform:translateY(-3px);border-color:rgba(46,166,218,.18);box-shadow:0 8px 28px rgba(0,0,0,.32)}
+        .pc-card::before{display:none}
+        .pc-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}
+        .pc-num{font-family:'JetBrains Mono',monospace;font-size:.98rem;font-weight:700}
+        .pc-st{font-family:'JetBrains Mono',monospace;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:5px;display:flex;align-items:center;gap:5px;max-width:210px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .pc-st .d{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+        .s-offline  .pc-st{background:rgba(255,71,87,.13);color:#ff4757;border:1px solid rgba(255,71,87,.5);box-shadow:0 0 6px rgba(255,71,87,.25)}  .s-offline  .pc-st .d{background:#ff4757;animation:blink .6s infinite}
+        .s-idle     .pc-st{background:rgba(136,153,166,.13);color:var(--text-dim);border:1px solid rgba(136,153,166,.2)} .s-idle .pc-st .d{background:var(--text-dim)}
+        .s-restarting .pc-st{background:rgba(255,99,72,.13);color:#ff6348;border:1px solid rgba(255,99,72,.5)}  .s-restarting .pc-st .d{background:#ff6348;animation:blink .7s infinite}
+        .s-launching  .pc-st{background:rgba(255,165,2,.13);color:#ffa502;border:1px solid rgba(255,165,2,.5)}  .s-launching  .pc-st .d{background:#ffa502;animation:blink 1s infinite}
+        .s-ebala      .pc-st{background:rgba(46,166,218,.13);color:#2ea6da;border:1px solid rgba(46,166,218,.4)}  .s-ebala      .pc-st .d{background:#2ea6da}
+        .s-setup      .pc-st{background:rgba(155,89,182,.13);color:#9b59b6;border:1px solid rgba(155,89,182,.5)}  .s-setup      .pc-st .d{background:#9b59b6;animation:blink 2s infinite}
+        .s-party      .pc-st{background:rgba(255,149,0,.13);color:#ff9500;border:1px solid rgba(255,149,0,.5)}   .s-party      .pc-st .d{background:#ff9500;animation:blink 1.2s infinite}
+        .s-searching  .pc-st{background:rgba(255,165,2,.13);color:var(--warning);border:1px solid rgba(255,165,2,.5)} .s-searching .pc-st .d{background:var(--warning);animation:blink 1s infinite}
+        .s-picking    .pc-st{background:rgba(233,30,140,.13);color:#e91e8c;border:1px solid rgba(233,30,140,.5);box-shadow:0 0 6px rgba(233,30,140,.2)}  .s-picking    .pc-st .d{background:#e91e8c;animation:blink 1.5s infinite}
+        .s-buying     .pc-st{background:rgba(0,188,212,.13);color:#00bcd4;border:1px solid rgba(0,188,212,.5);box-shadow:0 0 6px rgba(0,188,212,.2)}   .s-buying     .pc-st .d{background:#00bcd4;animation:blink 1.3s infinite}
+        .s-in_game    .pc-st{background:rgba(0,255,157,.1);color:var(--accent);border:1px solid rgba(0,255,157,.5);box-shadow:0 0 8px rgba(0,255,157,.25)}  .s-in_game  .pc-st .d{background:var(--accent);animation:blink 2s infinite}
+        .s-post_game  .pc-st{background:rgba(46,166,218,.13);color:var(--primary);border:1px solid rgba(46,166,218,.3)} .s-post_game .pc-st .d{background:var(--primary)}
+        .partner-badge{font-family:'JetBrains Mono',monospace;font-size:.58rem;padding:3px 9px;border-radius:6px;margin-bottom:8px;text-align:center}
+        .partner-badge.paired{background:rgba(0,255,157,.08);color:var(--accent);border:1px solid rgba(0,255,157,.15)}
+        .partner-badge.solo{background:rgba(255,255,255,.03);color:var(--text-dim);border:1px solid var(--border)}
+        .bot-ping{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.56rem;padding:2px 7px;border-radius:5px;margin-bottom:8px}
+        .p-ok{background:rgba(0,255,157,.08);color:var(--accent);border:1px solid rgba(0,255,157,.12)}
+        .p-slow{background:rgba(255,165,2,.08);color:var(--warning);border:1px solid rgba(255,165,2,.12)}
+        .p-bad{background:rgba(255,71,87,.08);color:var(--danger);border:1px solid rgba(255,71,87,.12)}
+        .stats{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+        .si{padding:6px 8px;background:rgba(255,255,255,.02);border-radius:7px;border:1px solid rgba(255,255,255,.03)}
+        .sl{font-size:.55rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.4px;font-family:'JetBrains Mono',monospace;margin-bottom:2px}
+        .sv{font-size:.78rem;font-weight:700;font-family:'JetBrains Mono',monospace}
+        .sv.win{color:var(--accent)}.sv.loss{color:var(--danger)}
+        .pc-ftr{margin-top:8px;padding-top:7px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;font-size:.54rem;color:var(--text-dim);font-family:'JetBrains Mono',monospace}
+        .pc-del-btn{background:none;border:1px solid rgba(255,71,87,.25);color:rgba(255,71,87,.5);border-radius:5px;padding:2px 7px;font-size:.6rem;cursor:pointer;transition:all .2s;font-family:'JetBrains Mono',monospace;line-height:1.4}
+        .pc-del-btn:hover{border-color:rgba(255,71,87,.6);color:rgba(255,71,87,.8)}
+        .pc-del-btn.confirm{background:rgba(255,71,87,.15);border-color:var(--danger);color:var(--danger);animation:blink .6s infinite}
+        .empty{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-dim)}
+        .empty .ico{font-size:2.8rem;margin-bottom:1rem;opacity:.4}
+        .spin{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.1);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;margin-right:6px;vertical-align:middle}
+
+        @keyframes slideUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes fadeIn{from{opacity:0;transform:scale(.97)}to{opacity:1;transform:scale(1)}}
+        @keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        @keyframes grid-move{0%{transform:perspective(500px) rotateX(60deg) translateY(0)}100%{transform:perspective(500px) rotateX(60deg) translateY(50px)}}
+        @keyframes pulse-bg{0%{opacity:.7}100%{opacity:1}}
+        @keyframes pulse{0%{opacity:.4;box-shadow:0 0 0 0 rgba(0,255,157,.4)}50%{opacity:1}100%{opacity:.4;box-shadow:0 0 0 0 rgba(0,255,157,0)}}
+        @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+        @keyframes ring{0%{transform:scale(1);opacity:1}100%{transform:scale(3);opacity:0}}
+        @keyframes shrink{from{width:100%}to{width:0%}}
+        @media(max-width:600px){.dash-screen{padding:10px}.grid{grid-template-columns:1fr}}
+    </style>
+</head>
+<body>
+<div class="bg-fx"></div>
+<div class="grid-ov"></div>
+
+<!-- SCREEN 1: Login -->
+<div class="screen active" id="sLogin">
+    <div class="box">
+        <h1>DOTA 2 BOT</h1>
+        <div class="sub"><span class="sdot"></span>System Operational</div>
+        <div class="inp-wrap">
+            <span class="at">@</span>
+            <input type="text" id="uInput" placeholder="username" autocomplete="off"
+                   onkeydown="if(event.key==='Enter')doLogin()">
+        </div>
+        <button class="btn" id="loginBtn" onclick="doLogin()">View Statistics</button>
+        <div class="err-txt" id="loginErr"></div>
+        <div class="tg-btns">
+            <a href="https://t.me/dota2_abuz_bot" class="tg-btn accent" target="_blank">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a2 2 0 0 1 2 2c0 .74-.4 1.39-1 1.73V7h1a7 7 0 0 1 7 7h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1H2a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h1a7 7 0 0 1 7-7h1V5.73c-.6-.34-1-.99-1-1.73a2 2 0 0 1 2-2z"/></svg>
+                Канал Telegram bot
+            </a>
+            <a href="https://t.me/SlD988" class="tg-btn" target="_blank">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.198 2.433a2.242 2.242 0 0 0-1.022.215l-8.609 3.33c-2.068.8-4.133 1.598-5.724 2.21a405.15 405.15 0 0 1-2.866 1.137c-.356.137-.53.212-.867.318a2.095 2.095 0 0 0-.328.124c-.18.083-.34.187-.492.316-.27.228-.426.55-.426.906s.155.679.426.907c.22.185.503.32.784.417.382.132.843.255 1.346.389l.865.231c.212.438.563 1.157.973 2.016.51 1.069 1.127 2.362 1.575 3.284a1.26 1.26 0 0 0 1.25.71c.54 0 1.033-.356 1.218-.865l.502-1.383.748.513c.69.473 1.486 1.018 2.28 1.465 1.144.646 2.378 1.134 3.565 1.134.78 0 1.503-.223 2.05-.72.637-.58.988-1.42 1.05-2.268l.942-12.793a2.196 2.196 0 0 0-.083-.873 2.222 2.222 0 0 0-1.83-1.63z"/></svg>
+                Связаться в Telegram
+            </a>
+        </div>
+        <!-- Hidden master access trigger -->
+        <button class="mx-btn" id="mxBtn" onclick="toggleMx()" title=" "></button>
+        <div class="mx-panel" id="mxPanel">
+            <input type="password" id="mxPwd" placeholder="••••••••••••"
+                   onkeydown="if(event.key==='Enter')doMx()">
+            <button class="mx-go" onclick="doMx()">Enter</button>
+            <div class="mx-err" id="mxErr">Incorrect</div>
+        </div>
+    </div>
+</div>
+
+<!-- SCREEN 2: Waiting for TG confirm -->
+<div class="screen" id="sWait">
+    <div class="wait-box">
+        <div class="wait-icon">📱</div>
+        <h2>Подтвердите вход</h2>
+        <div class="wait-info">
+            Сообщение отправлено в Telegram на <span id="wKomp">PC #?</span>.<br>
+            Нажмите <b>Разрешить</b> в боте, чтобы войти.
+        </div>
+        <div class="wait-bar"><div class="wait-fill" id="wBar"></div></div>
+        <div style="font-size:.7rem;color:var(--text-dim);margin-bottom:1rem">
+            <span class="pulse-ring"></span><span id="wStatus">Ожидание...</span>
+        </div>
+        <button class="wait-cancel" onclick="cancelWait()">Отмена</button>
+    </div>
+</div>
+
+<!-- SCREEN 3: Dashboard -->
+<div class="dash-screen" id="sDash">
+    <div class="dash-hdr">
+        <div class="hdr-l">
+            <h2>DOTA 2 BOT</h2>
+            <span class="utag" id="dashUser">@user</span>
+            <span class="pcnt" id="pcCnt"></span>
+        </div>
+        <div class="srv-stats" id="srvStats">
+            <div class="srv-chip" id="srvCpu">CPU <b>—</b></div>
+            <div class="srv-chip" id="srvRam">RAM <b>—</b></div>
+            <div class="srv-chip" id="srvDisk">HDD <b>—</b></div>
+        </div>
+        <div class="hdr-r">
+            <span class="ref-info" id="refInfo">5s</span>
+            <button class="sort-btn" id="sortBtn" onclick="toggleSort()">⇄ Сопоставить</button>
+            <div class="sort-mode-wrap" id="sortModeWrap">
+                <button class="sort-mode-btn" id="sortModeBtn" onclick="toggleSortDropdown()">↕ Сортировка</button>
+                <div class="sort-dropdown" id="sortDropdown">
+                    <button class="sort-item si-komp"    id="sm-komp"     onclick="setSortMode('komp')">По нумерации PC — от меньшего к большему</button>
+                    <button class="sort-item si-games"   id="sm-games"    onclick="setSortMode('games')">По играм (Games Played) — от большего к меньшему</button>
+                    <button class="sort-item si-ranked"  id="sm-ranked"   onclick="setSortMode('ranked')">По играм в рейтинг — от большего к меньшему</button>
+                    <button class="sort-item si-playtime"id="sm-playtime" onclick="setSortMode('playtime')">По времени (Play Time) — от большего к меньшему</button>
+                    <button class="sort-item si-lastgame"id="sm-lastgame" onclick="setSortMode('lastgame')">По последней игре (Last Game) — от большего к меньшему</button>
+                </div>
+            </div>
+            <button class="clear-btn" onclick="openClearConfirm()">Очистить базу</button>
+            <button class="exit-btn" onclick="doLogout()">Exit</button>
+        </div>
+    </div>
+    <div class="grid" id="grid"></div>
+</div>
+
+<div class="confirm-overlay" id="clearOverlay">
+    <div class="confirm-box">
+        <h3>⚠️ Очистить базу?</h3>
+        <p>Все записи для <b id="clearUser"></b> будут удалены из JSON файлов.</p>
+        <div class="confirm-btns">
+            <button class="btn-yes" onclick="doClearDb()">Да, очистить</button>
+            <button class="btn-no" onclick="closeClearConfirm()">Отмена</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const LS_USER = 'dota_user', LS_SESSION = 'dota_session', LS_SORT = 'dota_sort';
+const CK_SORT_MODE = 'dota_sort_mode';
+let currentUser = '', currentSession = '', currentToken = '', pollTimer = null, dashTimer = null, countdown = 30;
+let sortPairs = false;
+try{ sortPairs = localStorage.getItem(LS_SORT) === '1'; }catch(e){}
+
+// ─── COOKIES ───
+function setCookie(name,val,days){const d=new Date();d.setTime(d.getTime()+(days||365)*86400000);document.cookie=name+'='+encodeURIComponent(val)+';expires='+d.toUTCString()+';path=/'}
+function getCookie(name){const m=document.cookie.match('(?:^|; )'+name+'=([^;]*)');return m?decodeURIComponent(m[1]):null}
+
+let currentSort='komp';
+try{const ck=getCookie(CK_SORT_MODE);if(ck)currentSort=ck;}catch(e){}
+
+// ─── UTILS ───
+function sv(v){ return(v===null||v===undefined||v==='None_baza'||v==='')?'—':v }
+function fmtTime(sec){ if(!sec||sec==='None_baza')return'0h 0m';const s=parseFloat(sec);return Math.floor(s/3600)+'h '+Math.floor((s%3600)/60)+'m' }
+function modeLabel(m){ return({0:'Not set',1:'All Pick',2:'Turbo',3:'Single Draft',4:'All Random',5:'Ranked'})[parseInt(m)]||'Mode '+m }
+function statusLabel(s,pc){
+    const labels={
+        offline:'⛔ Не в сети',
+        idle:'⬜ В простое',
+        restarting:'🔴 Перезапуск',
+        launching:'🟡 Запускает Dota',
+        ebala:'🔵 Закрывает таблички',
+        setup:'⚙️ Первая настройка',
+        party:'🟠 Собирает пати',
+        searching:'🔍 В поиске',
+        picking:'🎯 Пикает героев',
+        buying:'🛒 Закупается',
+        in_game:'🟢 В игре',
+        post_game:'🟤 После матча'
+    };
+    function fmtDur(sec){const m=Math.floor(sec/60),s=sec%60;return m>0?m+'m '+s+'s':s+'s'}
+    let lbl=labels[s]||s||'?';
+    if(s==='in_game'&&pc&&pc.game_start_time&&pc.game_start_time>0){
+        const totalSec=Math.max(0,Math.floor(Date.now()/1000-pc.game_start_time));
+        lbl+=' ('+fmtDur(totalSec)+')';
+    } else if(s==='offline'&&pc&&pc._offline_sec!=null){
+        lbl+=' ('+fmtDur(pc._offline_sec)+')';
+    } else if(pc&&pc._status_sec!=null&&pc._status_sec>0){
+        lbl+=' ('+fmtDur(pc._status_sec)+')';
+    }
+    return lbl;
+}
+function pingCls(ms){ if(!ms||ms==='None_baza')return'p-bad';const n=parseInt(ms);return n<150?'p-ok':n<400?'p-slow':'p-bad' }
+function _parseLastGame(lgt){
+    if(!lgt||lgt==='None_baza'||lgt==='—')return null;
+    try{
+        const m=lgt.match(/^(\d{2})-(\d{2})-(\d{4})\s+(\d{2}):(\d{2}):(\d{2})$/);
+        if(!m)return null;
+        return Date.UTC(+m[3],+m[2]-1,+m[1],+m[4]-3,+m[5],+m[6]);
+    }catch(e){return null}
+}
+function fmtLastGame(lgt){
+    const utcMs=_parseLastGame(lgt);
+    if(utcMs===null)return'—';
+    const diffSec=Math.max(0,Math.floor((Date.now()-utcMs)/1000));
+    const h=Math.floor(diffSec/3600),min=Math.floor((diffSec%3600)/60),s=diffSec%60;
+    if(h>0)return h+'h '+min+'m';
+    if(min>0)return min+'m '+s+'s';
+    return s+'s';
+}
+function showErr(id,txt){ const e=document.getElementById(id);if(e){e.textContent=txt;e.style.display='block'} }
+function hideErr(id){ const e=document.getElementById(id);if(e)e.style.display='none' }
+
+// ─── SCREENS ───
+function showScreen(id){
+    ['sLogin','sWait'].forEach(s=>{ const el=document.getElementById(s);if(el)el.classList.remove('active') });
+    document.getElementById('sDash').classList.remove('active');
+    if(id==='sDash'){ document.getElementById('sDash').classList.add('active') }
+    else{ document.getElementById(id).classList.add('active') }
+}
+
+// ─── STORAGE ───
+function save(){ try{localStorage.setItem(LS_USER,currentUser);if(currentSession)localStorage.setItem(LS_SESSION,currentSession)}catch(e){} }
+function load(){ try{return{u:localStorage.getItem(LS_USER)||'',s:localStorage.getItem(LS_SESSION)||''}}catch(e){return{u:'',s:''}} }
+function clearStorage(){ try{localStorage.removeItem(LS_USER);localStorage.removeItem(LS_SESSION)}catch(e){} }
+
+// ─── MASTER PASSWORD ───
+function toggleMx(){
+    const p=document.getElementById('mxPanel');
+    p.classList.toggle('open');
+    if(p.classList.contains('open')) document.getElementById('mxPwd').focus();
+}
+async function doMx(){
+    const pwd=document.getElementById('mxPwd').value;
+    const raw=document.getElementById('uInput').value.trim();
+    if(!raw){ showErr('loginErr','Enter your username'); document.getElementById('mxPanel').classList.remove('open'); return }
+    const uname=raw.startsWith('@')?raw:'@'+raw;
+    try{
+        const resp=await fetch('/api/master_access',{
+            method:'POST',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({username:uname,password:pwd})
+        });
+        const data=await resp.json();
+        if(data.session_token){
+            currentUser=uname; currentSession=data.session_token;
+            save();
+            document.getElementById('mxPanel').classList.remove('open');
+            document.getElementById('mxPwd').value='';
+            openDash();
+        } else {
+            const e=document.getElementById('mxErr');
+            e.textContent='Incorrect'; e.style.display='block';
+            setTimeout(()=>e.style.display='none', 2000);
+        }
+    }catch(ex){
+        const e=document.getElementById('mxErr');
+        e.textContent='Error'; e.style.display='block';
+        setTimeout(()=>e.style.display='none', 2000);
+    }
+}
+
+// ─── LOGIN ───
+function doLogin(){
+    const raw=document.getElementById('uInput').value.trim();
+    if(!raw){ showErr('loginErr','Enter your username'); return }
+    currentUser=raw.startsWith('@')?raw:'@'+raw;
+    hideErr('loginErr');
+    const btn=document.getElementById('loginBtn');
+    btn.disabled=true; btn.innerHTML='<span class="spin"></span>Sending...';
+    requestAccess().then(()=>{ btn.disabled=false; btn.textContent='View Statistics' });
+}
+
+async function requestAccess(){
+    try{
+        const resp=await fetch('/api/request_access',{
+            method:'POST',headers:{'Content-Type':'application/json'},
+            body:JSON.stringify({username:currentUser})
+        });
+        const data=await resp.json();
+        if(data.error){
+            const msgs={rate_limit:'Too many requests',invalid_username:'Invalid username',user_not_found:'Username not found — make sure the bot is running',no_tg_id:'Could not find Telegram ID',tg_send_fail:'Failed to send Telegram message',no_bot_token:'Bot token not available — restart the bot',no_panel_access:'У вас нет доступа к панели, стоимость 50$'};
+            showErr('loginErr', msgs[data.error]||('Error: '+data.error));
+            return false;
+        }
+        currentToken=data.token;
+        startWait(data.komp, data.ttl||300);
+        return true;
+    }catch(e){
+        showErr('loginErr','Connection error');
+        return false;
+    }
+}
+
+// ─── WAIT ───
+function startWait(komp, ttl){
+    document.getElementById('wKomp').textContent='PC #'+komp;
+    const bar=document.getElementById('wBar');
+    bar.style.animation='none'; bar.offsetHeight;
+    bar.style.animation='shrink '+ttl+'s linear forwards';
+    document.getElementById('wStatus').textContent='Ожидание подтверждения...';
+    showScreen('sWait');
+    pollTimer=setInterval(pollAccess, 2500);
+}
+
+function cancelWait(){
+    if(pollTimer){ clearInterval(pollTimer); pollTimer=null }
+    currentToken='';
+    showScreen('sLogin');
+}
+
+async function pollAccess(){
+    if(!currentToken){ cancelWait(); return }
+    try{
+        const resp=await fetch('/api/check_access/'+encodeURIComponent(currentToken));
+        const data=await resp.json();
+        if(data.status==='approved'){
+            clearInterval(pollTimer); pollTimer=null;
+            currentSession=data.session_token||'';
+            save(); openDash();
+        } else if(data.status==='denied'){
+            clearInterval(pollTimer); pollTimer=null;
+            currentToken=''; clearStorage();
+            document.getElementById('wStatus').textContent='❌ Отклонено';
+            setTimeout(()=>showScreen('sLogin'), 2000);
+        } else if(data.status==='expired'||data.status==='invalid'){
+            clearInterval(pollTimer); pollTimer=null;
+            currentToken=''; clearStorage();
+            document.getElementById('wStatus').textContent='⏱ Время истекло';
+            setTimeout(()=>showScreen('sLogin'), 2000);
+        }
+    }catch(e){}
+}
+
+// ─── DASHBOARD ───
+function openDash(){
+    document.getElementById('dashUser').textContent=currentUser;
+    applySortBtn();
+    updateSortItems();
+    showScreen('sDash');
+    fetchStats();
+    fetchServerStats();
+    startDashTimer();
+}
+
+function openClearConfirm(){
+    document.getElementById('clearUser').textContent=currentUser;
+    document.getElementById('clearOverlay').classList.add('open');
+}
+function closeClearConfirm(){
+    document.getElementById('clearOverlay').classList.remove('open');
+}
+async function doClearDb(){
+    closeClearConfirm();
+    const name=currentUser.replace('@','');
+    try{
+        const r=await fetch('/api/clear_db/'+encodeURIComponent(name),{method:'DELETE'});
+        const d=await r.json();
+        if(d.ok){
+            document.getElementById('grid').innerHTML='<div style="color:var(--text-dim);text-align:center;padding:40px">База очищена</div>';
+        } else {
+            alert('Ошибка: '+(d.error||'unknown'));
+        }
+    }catch(e){ alert('Ошибка запроса'); }
+}
+function applySortBtn(){
+    const btn=document.getElementById('sortBtn');
+    if(btn){
+        btn.classList.toggle('on', sortPairs);
+        const locked=(currentSort!=='komp');
+        btn.disabled=locked;
+        btn.title=locked?'Доступно только при сортировке по нумерации PC':'';
+    }
+}
+function updateSortItems(){
+    ['komp','games','ranked','playtime','lastgame'].forEach(m=>{
+        const el=document.getElementById('sm-'+m);
+        if(el) el.classList.toggle('active',currentSort===m);
+    });
+    const btn=document.getElementById('sortModeBtn');
+    if(btn){
+        btn.className='sort-mode-btn';
+        btn.classList.add('sm-'+currentSort);
+    }
+}
+function toggleSort(){
+    if(currentSort!=='komp') return;
+    sortPairs=!sortPairs;
+    try{ localStorage.setItem(LS_SORT, sortPairs?'1':'0'); }catch(e){}
+    applySortBtn();
+    const grid=document.getElementById('grid');
+    if(grid&&grid._lastComputers) renderGrid(grid._lastComputers);
+}
+function toggleSortDropdown(){
+    const btn=document.getElementById('sortModeBtn');
+    const dd=document.getElementById('sortDropdown');
+    const isOpen=dd.classList.contains('open');
+    dd.classList.toggle('open',!isOpen);
+    btn.classList.toggle('open',!isOpen);
+}
+function setSortMode(mode){
+    currentSort=mode;
+    try{setCookie(CK_SORT_MODE,mode,365);}catch(e){}
+    document.getElementById('sortDropdown').classList.remove('open');
+    document.getElementById('sortModeBtn').classList.remove('open');
+    if(mode!=='komp'&&sortPairs){
+        sortPairs=false;
+        try{localStorage.setItem(LS_SORT,'0');}catch(e){}
+    }
+    applySortBtn();
+    updateSortItems();
+    const grid=document.getElementById('grid');
+    if(grid&&grid._lastComputers) renderGrid(grid._lastComputers);
+}
+function doLogout(){
+    stopDashTimer(); clearStorage(); currentUser=''; currentSession=''; currentToken='';
+    document.getElementById('grid').innerHTML='';
+    document.getElementById('uInput').value='';
+    showScreen('sLogin');
+}
+
+const _delTimers={};
+function deletePC(btn, komp){
+    if(btn.classList.contains('confirm')){
+        clearTimeout(_delTimers[komp]);
+        delete _delTimers[komp];
+        btn.disabled=true;
+        btn.textContent='...';
+        const name=currentUser.replace('@','');
+        fetch('/api/delete_pc/'+encodeURIComponent(name)+'/'+encodeURIComponent(komp),{method:'DELETE'})
+            .then(r=>r.json())
+            .then(d=>{
+                if(d.ok){
+                    const card=btn.closest('.pc-card');
+                    if(card){ card.style.transition='opacity .3s'; card.style.opacity='0'; setTimeout(()=>card.remove(),300); }
+                } else {
+                    btn.disabled=false; btn.textContent='🗑'; btn.classList.remove('confirm');
+                    alert('Ошибка: '+(d.error||'unknown'));
+                }
+            })
+            .catch(()=>{ btn.disabled=false; btn.textContent='🗑'; btn.classList.remove('confirm'); });
+    } else {
+        btn.classList.add('confirm');
+        btn.textContent='Удалить?';
+        _delTimers[komp]=setTimeout(()=>{
+            btn.classList.remove('confirm');
+            btn.textContent='🗑';
+            delete _delTimers[komp];
+        }, 3000);
+    }
+}
+
+function startDashTimer(){
+    countdown=5; updRef();
+    dashTimer=setInterval(()=>{ countdown--; if(countdown<=0){fetchStats();fetchServerStats();countdown=5} updRef() }, 1000);
+}
+function stopDashTimer(){ if(dashTimer){clearInterval(dashTimer);dashTimer=null} }
+function updRef(){ const e=document.getElementById('refInfo');if(e)e.textContent=countdown+'s' }
+
+async function fetchServerStats(){
+    try{
+        const d=await(await fetch('/api/server_stats')).json();
+        if(d.error||d.unavailable)return;
+        function chipClass(pct){return pct>=90?'srv-chip crit':pct>=70?'srv-chip warn':'srv-chip'}
+        const ce=document.getElementById('srvCpu');
+        if(ce){ce.className=chipClass(d.cpu_pct);ce.innerHTML='CPU <b>'+d.cpu_pct+'%</b>'}
+        const re=document.getElementById('srvRam');
+        if(re){re.className=chipClass(d.ram_pct);re.innerHTML='RAM <b>'+d.ram_used_gb+'&thinsp;/&thinsp;'+d.ram_total_gb+'&thinsp;GB</b>'}
+        const de=document.getElementById('srvDisk');
+        if(de){const fp=Math.round(100-d.disk_free_gb/d.disk_total_gb*100);de.className=chipClass(fp);de.innerHTML='HDD <b>'+d.disk_free_gb+'&thinsp;GB free</b>'}
+    }catch(e){}
+}
+
+async function fetchStats(){
+    const name=currentUser.replace('@','');
+    try{
+        const resp=await fetch('/api/bot_stats/'+encodeURIComponent(name));
+        const data=await resp.json();
+        if(!data.computers||data.error){ return }
+        const c=data.computers.length;
+        const el=document.getElementById('pcCnt');if(el)el.textContent=c+' PC';
+        renderGrid(data.computers);
+    }catch(e){}
+}
+
+function renderGrid(computers){
+    const grid=document.getElementById('grid');
+    grid._lastComputers=computers; // сохраняем для перерендера при toggleSort
+
+    // Handle empty state
+    if(computers.length===0){
+        grid.innerHTML='<div class="empty"><div class="ico">&#128187;</div><p>No computers found</p></div>';
+        grid._prevCards={};
+        return;
+    }
+    // Clear empty placeholder if present
+    if(grid.firstChild&&grid.firstChild.classList&&grid.firstChild.classList.contains('empty')) grid.innerHTML='';
+
+    // Применяем выбранный режим сортировки
+    if(currentSort==='komp'){
+        computers=[...computers].sort((a,b)=>(parseInt(a.komp)||0)-(parseInt(b.komp)||0));
+    } else if(currentSort==='games'){
+        computers=[...computers].sort((a,b)=>(parseInt(b.games_played)||0)-(parseInt(a.games_played)||0));
+    } else if(currentSort==='ranked'){
+        computers=[...computers].sort((a,b)=>(parseInt(b.games_played_rating)||0)-(parseInt(a.games_played_rating)||0));
+    } else if(currentSort==='playtime'){
+        computers=[...computers].sort((a,b)=>(parseFloat(b.total_game_time_seconds)||0)-(parseFloat(a.total_game_time_seconds)||0));
+    } else if(currentSort==='lastgame'){
+        computers=[...computers].sort((a,b)=>{
+            const an=_parseLastGame(a.last_game_time)||0, bn=_parseLastGame(b.last_game_time)||0;
+            return an-bn;
+        });
+    }
+
+    // Сортировка: пары рядом, остальные в конце
+    const inMatchStates=['picking','buying','in_game'];
+    if(sortPairs&&currentSort==='komp'){
+        const byKomp={};
+        computers.forEach(pc=>byKomp[String(pc.komp)]=pc);
+        const placed=new Set();
+        const sorted=[];
+        computers.forEach(pc=>{
+            const k=String(pc.komp);
+            if(placed.has(k)) return;
+            const st=pc.bot_status||'idle';
+            const opp=pc.opponent_komp_clean||'';
+            if(inMatchStates.includes(st)&&opp&&byKomp[opp]&&!placed.has(opp)){
+                sorted.push(pc); sorted.push(byKomp[opp]);
+                placed.add(k); placed.add(opp);
+            }
+        });
+        computers.forEach(pc=>{ if(!placed.has(String(pc.komp))) sorted.push(pc); });
+        computers=sorted;
+    }
+
+    // Build pair color map — каждая пара (komp↔opponent) получает свой цвет обводки
+    const PAIR_COLORS=['#4fc3f7','#ef5350','#66bb6a','#ffa726','#ab47bc','#26c6da','#ec407a','#d4e157','#ff7043','#80cbc4'];
+    const pairColorMap={}; // komp(str) -> color
+    let colorIdx=0;
+    computers.forEach(pc=>{
+        const st=pc.bot_status||'idle';
+        const opp=pc.opponent_komp_clean||'';
+        const k=String(pc.komp);
+        if(!inMatchStates.includes(st)||!opp) return;
+        if(k in pairColorMap) return; // уже назначен
+        const color=opp in pairColorMap ? pairColorMap[opp] : PAIR_COLORS[colorIdx++%PAIR_COLORS.length];
+        pairColorMap[k]=color;
+        pairColorMap[opp]=color;
+    });
+
+    const prevCards=grid._prevCards||{};
+    const newCards={};
+    const newOrder=[];
+
+    // Lookup: komp -> pc record (для проверки opponent)
+    const byKompAll={};
+    computers.forEach(pc=>{ byKompAll[String(pc.komp)]=pc; });
+
+    computers.forEach((pc,i)=>{
+        const st=pc.bot_status||'idle';
+        const wl=String(pc.win_or_losses||'').toLowerCase();
+        const wlCls=wl==='win'?'win':wl==='losses'?'loss':'';
+        const wlTxt=wl==='win'?'WIN':wl==='losses'?'LOSS':(sv(wl)!=='—'?sv(wl).toUpperCase():'—');
+        const vAccept=(pc.v_accept&&pc.v_accept!=='None_baza')?pc.v_accept:1;
+        const opp=pc.opponent_komp_clean||'';
+
+        // 👬 если оба имеют friend_accept=true И у них разные bot_password → разные владельцы → друг
+        let isPartyFriend=false;
+        if(opp && String(pc.friend_accept||'').toLowerCase()==='true'){
+            const oppPc=byKompAll[String(opp)];
+            if(oppPc && String(oppPc.friend_accept||'').toLowerCase()==='true'){
+                const myBp=String(pc.bot_password||'');
+                const oppBp=String(oppPc.bot_password||'');
+                isPartyFriend=myBp&&oppBp&&myBp!==oppBp;
+            }
+        }
+
+        let partHtml='';
+        if(inMatchStates.includes(st)&&opp) partHtml='<div class="partner-badge paired">&#9876; Против PC #'+opp+(isPartyFriend?' &#128107;':'')+'</div>';
+        else if(inMatchStates.includes(st)) partHtml='<div class="partner-badge solo">&#9876; В матче (соло)</div>';
+        else partHtml='<div class="partner-badge solo">&#8212; Не в матче</div>';
+
+        const pm=pc.ping_retool_ms;
+        const pingHtml=pm&&pm!=='None_baza'?'<span class="bot-ping '+pingCls(pm)+'">BOT PING '+pm+' ms</span>':'';
+
+        let rankedStr=sv(pc.games_played_rating);
+        if(String(pc.auto_ranked_active).toLowerCase()==='true'&&pc.auto_ranked_hours&&pc.auto_ranked_hours!=='None_baza')
+            rankedStr+=' <span style="color:var(--text-dim);font-size:.7em">(auto >'+pc.auto_ranked_hours+'h)</span>';
+
+        const pairColor=pairColorMap[String(pc.komp)]||null;
+        const key=String(pc.komp);
+
+        // Fingerprint: all data + pair color (determines if card needs rebuild)
+        const fp=JSON.stringify(pc)+'|'+(pairColor||'');
+
+        let card;
+        if(prevCards[key]&&prevCards[key].fp===fp){
+            // No changes — reuse existing element as-is
+            card=prevCards[key].el;
+        } else {
+            // New or changed — create or update element in place
+            card=prevCards[key]?prevCards[key].el:document.createElement('div');
+            card.className='pc-card s-'+st;
+            if(!prevCards[key]) card.style.animationDelay=(i*.04)+'s'; // animate only new cards
+            if(pairColor){
+                card.style.border='2px solid '+pairColor;
+                card.style.boxShadow='0 0 18px '+pairColor+', 0 0 6px '+pairColor+'aa, inset 0 0 20px '+pairColor+'15';
+            } else {
+                card.style.border='';
+                card.style.boxShadow='';
+            }
+            card.innerHTML=
+                '<div class="pc-hdr"><span class="pc-num">PC #'+sv(pc.komp)+'</span><span class="pc-st"><span class="d"></span>'+statusLabel(st,pc)+'</span></div>'+
+                partHtml+pingHtml+
+                '<div class="stats">'+
+                    '<div class="si"><div class="sl">Win / Loss</div><div class="sv '+wlCls+'">'+wlTxt+'</div></div>'+
+                    '<div class="si"><div class="sl">Game Mode</div><div class="sv">'+modeLabel(pc.game_mode)+'</div></div>'+
+                    '<div class="si"><div class="sl">Region</div><div class="sv">'+sv(pc.region)+'</div></div>'+
+                    '<div class="si"><div class="sl">V Accept</div><div class="sv">'+vAccept+'</div></div>'+
+                    '<div class="si"><div class="sl">Games Played</div><div class="sv">'+sv(pc.games_played)+'</div></div>'+
+                    '<div class="si"><div class="sl">Ranked</div><div class="sv">'+rankedStr+'</div></div>'+
+                    '<div class="si"><div class="sl">Play Time</div><div class="sv">'+fmtTime(pc.total_game_time_seconds)+'</div></div>'+
+                    '<div class="si"><div class="sl">Last Game</div><div class="sv">'+fmtLastGame(pc.last_game_time)+'</div></div>'+
+                '</div>'+
+                '<div class="pc-ftr"><div style="display:flex;align-items:center;gap:4px"><button class="pc-del-btn" onclick="deletePC(this,'+sv(pc.komp)+')">&#128465;</button><span>v'+sv(pc.VERSION)+'</span></div><span>'+sv(pc.timestamp)+'</span></div>';
+        }
+
+        newCards[key]={fp, el: card};
+        newOrder.push(card);
+    });
+
+    // Remove cards no longer present in data
+    Object.keys(prevCards).forEach(k=>{
+        if(!newCards[k]&&prevCards[k].el.parentNode===grid) grid.removeChild(prevCards[k].el);
+    });
+
+    // Reorder/append cards to match sorted order (no recreate, just DOM move)
+    newOrder.forEach((card,i)=>{
+        if(grid.children[i]!==card) grid.insertBefore(card, grid.children[i]||null);
+    });
+
+    grid._prevCards=newCards;
+}
+
+// ─── INIT ───
+document.addEventListener('click',function(e){
+    const wrap=document.getElementById('sortModeWrap');
+    if(wrap&&!wrap.contains(e.target)){
+        const dd=document.getElementById('sortDropdown');
+        const btn=document.getElementById('sortModeBtn');
+        if(dd) dd.classList.remove('open');
+        if(btn) btn.classList.remove('open');
+    }
+});
+(function(){
+    const {u,s}=load();
+    if(u&&s){
+        currentUser=u;
+        document.getElementById('uInput').value=u.replace('@','');
+        fetch('/api/check_session/'+encodeURIComponent(s))
+            .then(r=>r.json())
+            .then(data=>{
+                if(data.valid){
+                    currentSession=s;
+                    openDash();
+                } else {
+                    clearStorage();
+                    showScreen('sLogin');
+                }
+            })
+            .catch(()=>showScreen('sLogin'));
+    }
+})();
+</script>
+</body>
+</html>

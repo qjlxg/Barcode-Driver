@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Шахта Вкуса — доставка еды в Донецке</title>
+  <style>
+    :root{
+      --bg:#08090d;
+      --card:#12141c;
+      --card2:#181b26;
+      --text:#f7f7fb;
+      --muted:#a8adbd;
+      --yellow:#ffd447;
+      --orange:#ff7a1a;
+      --red:#ff355d;
+      --line:rgba(255,255,255,.1);
+      --shadow:0 24px 70px rgba(0,0,0,.45);
+      --radius:28px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Inter,Segoe UI,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255,122,26,.23), transparent 30%),
+        radial-gradient(circle at 85% 20%, rgba(255,53,93,.18), transparent 30%),
+        linear-gradient(180deg,#08090d 0%,#0c0e14 45%,#07080b 100%);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+    .container{width:min(1180px,calc(100% - 32px));margin:0 auto}
+    .topline{background:linear-gradient(90deg,var(--yellow),var(--orange),var(--red));color:#121212;font-weight:900;text-align:center;padding:10px 16px;font-size:14px;letter-spacing:.2px}
+    header{position:sticky;top:0;z-index:20;background:rgba(8,9,13,.72);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;gap:13px;font-weight:950;letter-spacing:-.6px;font-size:24px}
+    .logo{width:48px;height:48px;border-radius:16px;background:linear-gradient(135deg,var(--yellow),var(--orange) 60%,var(--red));display:grid;place-items:center;color:#111;box-shadow:0 12px 34px rgba(255,122,26,.35);font-size:24px;transform:rotate(-3deg)}
+    .navlinks{display:flex;gap:24px;color:var(--muted);font-weight:700;font-size:15px}
+    .navlinks a:hover{color:var(--yellow)}
+    .phone{display:flex;align-items:center;gap:10px;background:#fff;color:#111;padding:13px 18px;border-radius:999px;font-weight:900;box-shadow:0 14px 40px rgba(255,255,255,.12)}
+    .hero{padding:72px 0 48px;position:relative}
+    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:46px;align-items:center}
+    .badge{display:inline-flex;gap:10px;align-items:center;padding:10px 15px;border:1px solid var(--line);background:rgba(255,255,255,.06);border-radius:999px;color:#fff;font-weight:800;margin-bottom:22px}
+    .badge span{width:9px;height:9px;border-radius:50%;background:#30e070;box-shadow:0 0 0 6px rgba(48,224,112,.13)}
+    h1{font-size:clamp(46px,7vw,86px);line-height:.92;letter-spacing:-4px;margin-bottom:24px}
+    .gradient-text{background:linear-gradient(90deg,var(--yellow),var(--orange),var(--red));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .lead{font-size:20px;line-height:1.65;color:#d7dae5;max-width:650px;margin-bottom:32px}
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:34px}
+    .btn{border:none;border-radius:18px;padding:17px 24px;font-size:16px;font-weight:950;cursor:pointer;transition:.2s transform,.2s box-shadow;display:inline-flex;gap:10px;align-items:center;justify-content:center}
+    .btn:hover{transform:translateY(-2px)}
+    .btn-primary{background:linear-gradient(135deg,var(--yellow),var(--orange));color:#111;box-shadow:0 20px 50px rgba(255,122,26,.28)}
+    .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid var(--line)}
+    .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:640px}
+    .stat{background:rgba(255,255,255,.06);border:1px solid var(--line);padding:18px;border-radius:22px}
+    .stat b{font-size:26px;display:block;color:var(--yellow);margin-bottom:4px}.stat span{color:var(--muted);font-weight:700;font-size:14px}
+    .hero-card{position:relative;background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,.03));border:1px solid var(--line);border-radius:38px;padding:24px;box-shadow:var(--shadow);overflow:hidden}
+    .hero-card:before{content:"";position:absolute;inset:-80px -80px auto auto;width:240px;height:240px;background:var(--orange);filter:blur(80px);opacity:.35}
+    .plate{aspect-ratio:1/1;border-radius:34px;background:
+      radial-gradient(circle at center,#292d3a 0 25%,#1a1d27 26% 42%,transparent 43%),
+      conic-gradient(from 20deg,var(--yellow),var(--orange),var(--red),var(--yellow));
+      padding:16px;display:grid;place-items:center;position:relative;overflow:hidden}
+    .plate-inner{width:82%;height:82%;border-radius:50%;background:radial-gradient(circle,#242833,#11131a 70%);display:grid;place-items:center;border:12px solid rgba(255,255,255,.08)}
+    .food-emoji{font-size:112px;filter:drop-shadow(0 25px 35px rgba(0,0,0,.35))}
+    .float-card{position:absolute;background:#fff;color:#111;border-radius:20px;padding:15px 17px;font-weight:950;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+    .fc1{left:8px;top:48px}.fc2{right:8px;bottom:56px}.fc3{left:38px;bottom:16px;background:var(--yellow)}
+    section{padding:74px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:30px}.section-head h2{font-size:clamp(34px,5vw,56px);letter-spacing:-2px}.section-head p{color:var(--muted);max-width:460px;line-height:1.6;font-weight:650}
+    .categories{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:26px}.chip{padding:13px 17px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid var(--line);color:#d9dce8;font-weight:850}.chip.active{background:var(--yellow);color:#111;border-color:transparent}
+    .menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.dish{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:0 18px 45px rgba(0,0,0,.18);transition:.22s transform,.22s border-color}.dish:hover{transform:translateY(-5px);border-color:rgba(255,212,71,.45)}
+    .dish-img{height:190px;border-radius:23px;background:linear-gradient(135deg,rgba(255,212,71,.22),rgba(255,53,93,.18));display:grid;place-items:center;font-size:78px;margin-bottom:17px;position:relative;overflow:hidden}.dish-img:after{content:"";position:absolute;inset:auto 18px 18px; height:16px;background:rgba(0,0,0,.22);filter:blur(12px);border-radius:50%}
+    .dish h3{font-size:22px;margin-bottom:9px}.dish p{color:var(--muted);line-height:1.5;min-height:48px}.dish-foot{display:flex;align-items:center;justify-content:space-between;margin-top:18px}.price{font-size:24px;font-weight:950;color:var(--yellow)}.add{background:rgba(255,255,255,.1);border:1px solid var(--line);color:#fff;border-radius:15px;padding:12px 14px;font-weight:950;cursor:pointer}.add:hover{background:var(--yellow);color:#111}
+    .promo{display:grid;grid-template-columns:1fr 1fr;gap:20px}.promo-card{border-radius:34px;padding:34px;border:1px solid var(--line);background:linear-gradient(135deg,rgba(255,212,71,.15),rgba(255,122,26,.08));min-height:250px;position:relative;overflow:hidden}.promo-card.dark{background:linear-gradient(135deg,rgba(255,53,93,.16),rgba(255,255,255,.06))}.promo-card h3{font-size:34px;letter-spacing:-1px;margin-bottom:12px}.promo-card p{color:#dce0ea;line-height:1.65;max-width:440px}.promo-code{display:inline-flex;margin-top:22px;padding:13px 17px;border-radius:16px;background:#fff;color:#111;font-weight:950}.promo-emoji{position:absolute;right:24px;bottom:18px;font-size:112px;opacity:.9}
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}.step{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:28px;padding:24px}.num{width:46px;height:46px;border-radius:15px;background:linear-gradient(135deg,var(--yellow),var(--orange));color:#111;font-weight:950;display:grid;place-items:center;margin-bottom:18px}.step h3{font-size:20px;margin-bottom:10px}.step p{color:var(--muted);line-height:1.55}
+    .zones{display:grid;grid-template-columns:.9fr 1.1fr;gap:22px}.zone-list{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:32px;padding:26px}.zone-row{display:flex;justify-content:space-between;gap:16px;padding:17px 0;border-bottom:1px solid var(--line)}.zone-row:last-child{border-bottom:0}.zone-row b{color:#fff}.zone-row span{color:var(--yellow);font-weight:950}.map{min-height:350px;border-radius:32px;border:1px solid var(--line);background:
+      linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px),
+      linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),
+      radial-gradient(circle at 30% 35%,rgba(255,212,71,.28),transparent 22%),
+      radial-gradient(circle at 70% 60%,rgba(255,53,93,.18),transparent 24%),#11131b;background-size:42px 42px,42px 42px,auto,auto,auto;position:relative;overflow:hidden}.pin{position:absolute;display:flex;align-items:center;gap:9px;background:#fff;color:#111;border-radius:999px;padding:10px 13px;font-weight:950;box-shadow:0 16px 40px rgba(0,0,0,.26)}.pin:before{content:"";width:10px;height:10px;border-radius:50%;background:var(--red)}.p1{left:18%;top:24%}.p2{left:55%;top:38%}.p3{left:35%;top:64%}.p4{right:10%;bottom:18%}
+    .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.review{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:28px;padding:24px}.stars{color:var(--yellow);letter-spacing:3px;margin-bottom:14px}.review p{color:#dde1eb;line-height:1.65;margin-bottom:18px}.person{display:flex;align-items:center;gap:12px}.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--red));display:grid;place-items:center;font-weight:950}.person b{display:block}.person span{color:var(--muted);font-size:13px}
+    .order{display:grid;grid-template-columns:.95fr 1.05fr;gap:22px;align-items:stretch}.cart,.form{background:linear-gradient(180deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:34px;padding:28px}.cart h3,.form h3{font-size:30px;margin-bottom:18px}.cart-line{display:flex;align-items:center;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line);gap:14px}.cart-line:last-of-type{border-bottom:0}.cart-line small{color:var(--muted);display:block;margin-top:4px}.total{margin-top:24px;padding:20px;border-radius:22px;background:rgba(255,212,71,.12);display:flex;justify-content:space-between;font-size:22px;font-weight:950;color:var(--yellow)}
+    form{display:grid;gap:13px}.field{width:100%;border:1px solid var(--line);background:rgba(255,255,255,.07);color:#fff;border-radius:17px;padding:16px 17px;font-size:15px;outline:none}.field::placeholder{color:#8f95a7}textarea.field{min-height:112px;resize:vertical}.form .btn{width:100%;margin-top:4px}
+    .faq{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.faq-item{background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:24px;padding:22px}.faq-item h3{font-size:19px;margin-bottom:9px}.faq-item p{color:var(--muted);line-height:1.55}
+    footer{padding:42px 0;border-top:1px solid var(--line);background:#07080b}.footer{display:flex;justify-content:space-between;gap:24px;align-items:center;color:var(--muted)}.footer b{color:#fff}
+    @media(max-width:900px){.navlinks{display:none}.hero-grid,.promo,.zones,.order{grid-template-columns:1fr}.menu-grid,.reviews{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:repeat(2,1fr)}h1{letter-spacing:-2px}.section-head{display:block}.section-head p{margin-top:12px}.hero{padding-top:46px}}
+    @media(max-width:620px){.container{width:min(100% - 22px,1180px)}.topline{font-size:12px}.phone{display:none}.brand{font-size:20px}.logo{width:42px;height:42px}.hero-actions .btn{width:100%}.stats,.menu-grid,.reviews,.steps,.faq{grid-template-columns:1fr}.dish-img{height:160px}.promo-card h3{font-size:27px}.promo-emoji{font-size:82px;opacity:.35}.footer{display:block}.footer div+div{margin-top:12px}.pin{font-size:12px}.p4{right:4%}}
+  </style>
+</head>
+<body>
+  <div class="topline">Сегодня: бесплатная доставка по центру Донецка от 900 ₽ · промокод GOROD</div>
+  <header>
+    <div class="container nav">
+      <a href="#top" class="brand"><span class="logo">⛏️</span><span>Шахта Вкуса</span></a>
+      <nav class="navlinks">
+        <a href="#menu">Меню</a>
+        <a href="#promo">Акции</a>
+        <a href="#delivery">Доставка</a>
+        <a href="#reviews">Отзывы</a>
+        <a href="#order">Заказать</a>
+      </nav>
+      <a class="phone" href="tel:+79990000000">☎ +7 999 000-00-00</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <div class="badge"><span></span> Горячие заказы принимаем до 23:30</div>
+          <h1>Доставка еды, которая приезжает <span class="gradient-text">по-донецки быстро</span></h1>
+          <p class="lead">«Шахта Вкуса» — это сочные бургеры, горячие боксы, шаурма, пицца и домашние обеды для тех, кто хочет нормально поесть без танцев у плиты. Готовим плотно, везём аккуратно, не жалеем соуса.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#menu">Смотреть меню 🍔</a>
+            <a class="btn btn-ghost" href="#order">Быстрый заказ</a>
+          </div>
+          <div class="stats">
+            <div class="stat"><b>35 мин</b><span>средняя доставка</span></div>
+            <div class="stat"><b>4.9</b><span>оценка клиентов</span></div>
+            <div class="stat"><b>24/7</b><span>предзаказы онлайн</span></div>
+          </div>
+        </div>
+        <div class="hero-card">
+          <div class="plate"><div class="plate-inner"><div class="food-emoji">🍔</div></div></div>
+          <div class="float-card fc1">🔥 Хит дня</div>
+          <div class="float-card fc2">+ соус бесплатно</div>
+          <div class="float-card fc3">от 249 ₽</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="menu">
+      <div class="container">
+        <div class="section-head">
+          <h2>Меню без скуки</h2>
+          <p>Выбрали блюда, которые чаще всего заказывают вечером, на работу, домой и когда «ну всё, готовить точно не будем».</p>
+        </div>
+        <div class="categories">
+          <button class="chip active">Всё</button><button class="chip">Бургеры</button><button class="chip">Горячее</button><button class="chip">Пицца</button><button class="chip">Шаурма</button><button class="chip">Напитки</button>
+        </div>
+        <div class="menu-grid">
+          <article class="dish"><div class="dish-img">🍔</div><h3>Бургер «Террикон»</h3><p>Говяжья котлета, сыр, маринованный лук, хрустящий салат и фирменный дымный соус.</p><div class="dish-foot"><span class="price">389 ₽</span><button class="add">В корзину</button></div></article>
+          <article class="dish"><div class="dish-img">🌯</div><h3>Шаурма «Калининская»</h3><p>Курица на гриле, картофель пай, овощи, чесночный соус и лаваш с румяной корочкой.</p><div class="dish-foot"><span class="price">269 ₽</span><button class="add">В корзину</button></div></article>
+          <article class="dish"><div class="dish-img">🍕</div><h3>Пицца «Донецкий микс»</h3><p>Пепперони, ветчина, грибы, моцарелла, томатный соус и ароматные травы.</p><div class="dish-foot"><span class="price">649 ₽</span><button class="add">В корзину</button></div></article>
+          <article class="dish"><div class="dish-img">🥘</div><h3>Бокс «После работы»</h3><p>Куриные стрипсы, картофель, салат, два соуса и булочка. Нормальный ужин без лишней философии.</p><div class="dish-foot"><span class="price">429 ₽</span><button class="add">В корзину</button></div></article>
+          <article class="dish"><div class="dish-img">🍗</div><h3>Крылья «Огненный забой»</h3><p>Острые крылышки в глазури, кунжут, зелень и соус блю-чиз. Предупреждаем: бодрит.</p><div class="dish-foot"><span class="price">349 ₽</span><button class="add">В корзину</button></div></article>
+          <article class="dish"><div class="dish-img">🥗</div><h3>Салат «Свежий город»</h3><p>Овощи, курица, сыр, сухарики и лёгкая заправка. Для тех, кто сегодня молодец.</p><div class="dish-foot"><span class="price">299 ₽</span><button class="add">В корзину</button></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="promo">
+      <div class="container promo">
+        <div class="promo-card">
+          <h3>Комбо для своих</h3>
+          <p>Бургер, картофель, напиток и соус — готовый набор для вечера, когда сериал уже включён, а еда ещё нет.</p>
+          <span class="promo-code">КОМБО: 599 ₽</span>
+          <div class="promo-emoji">🍟</div>
+        </div>
+        <div class="promo-card dark">
+          <h3>Минус 15% на первый заказ</h3>
+          <p>Для новых клиентов действует промокод. Введите его в комментарии к заказу — оператор пересчитает сумму.</p>
+          <span class="promo-code">GOROD15</span>
+          <div class="promo-emoji">⚡</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <h2>Как это работает</h2>
+          <p>Просто, как заказать чай и забыть, что хотел худеть с понедельника.</p>
+        </div>
+        <div class="steps">
+          <div class="step"><div class="num">1</div><h3>Выбираешь еду</h3><p>Открываешь меню, добавляешь позиции и пишешь комментарий, если нужен особый соус.</p></div>
+          <div class="step"><div class="num">2</div><h3>Оставляешь контакты</h3><p>Указываешь телефон, район, улицу и удобное время доставки.</p></div>
+          <div class="step"><div class="num">3</div><h3>Мы готовим</h3><p>Повар собирает заказ после подтверждения, чтобы блюдо приехало горячим.</p></div>
+          <div class="step"><div class="num">4</div><h3>Курьер везёт</h3><p>Аккуратно доставляем по Донецку: домой, в офис или к подъезду.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="delivery">
+      <div class="container">
+        <div class="section-head">
+          <h2>Доставка по Донецку</h2>
+          <p>Работаем по основным районам города. Точная стоимость зависит от адреса и суммы заказа.</p>
+        </div>
+        <div class="zones">
+          <div class="zone-list">
+            <div class="zone-row"><b>Центр</b><span>от 0 ₽</span></div>
+            <div class="zone-row"><b>Киевский район</b><span>от 99 ₽</span></div>
+            <div class="zone-row"><b>Калининский район</b><span>от 99 ₽</span></div>
+            <div class="zone-row"><b>Ленинский район</b><span>от 129 ₽</span></div>
+            <div class="zone-row"><b>Будённовский район</b><span>от 149 ₽</span></div>
+            <div class="zone-row"><b>Предзаказ за город</b><span>индивидуально</span></div>
+          </div>
+          <div class="map">
+            <div class="pin p1">Киевский</div><div class="pin p2">Центр</div><div class="pin p3">Ленинский</div><div class="pin p4">Калининский</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="reviews">
+      <div class="container">
+        <div class="section-head">
+          <h2>Что говорят клиенты</h2>
+          <p>Отзывы выдуманные для макета, зато звучат как жизнь. Особенно когда картошка приехала хрустящей.</p>
+        </div>
+        <div class="reviews">
+          <div class="review"><div class="stars">★★★★★</div><p>Заказывали на работу. Привезли быстро, всё горячее, бургер реально большой. Соуса не пожалели — уважаю.</p><div class="person"><div class="avatar">А</div><div><b>Артём</b><span>Киевский район</span></div></div></div>
+          <div class="review"><div class="stars">★★★★★</div><p>Пицца вкусная, тесто не резиновое. Курьер заранее позвонил, сдача была. Мелочь, а приятно.</p><div class="person"><div class="avatar">М</div><div><b>Марина</b><span>Центр</span></div></div></div>
+          <div class="review"><div class="stars">★★★★★</div><p>Шаурма «Калининская» — пушка. После неё обычная шаурма грустит где-то в углу.</p><div class="person"><div class="avatar">Д</div><div><b>Денис</b><span>Калининский район</span></div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="order">
+      <div class="container order">
+        <div class="cart">
+          <h3>Пример корзины</h3>
+          <div class="cart-line"><div><b>Бургер «Террикон»</b><small>1 шт · фирменный соус</small></div><strong>389 ₽</strong></div>
+          <div class="cart-line"><div><b>Крылья «Огненный забой»</b><small>1 шт · острые</small></div><strong>349 ₽</strong></div>
+          <div class="cart-line"><div><b>Морс ягодный</b><small>0.5 л</small></div><strong>119 ₽</strong></div>
+          <div class="total"><span>Итого</span><span>857 ₽</span></div>
+        </div>
+        <div class="form">
+          <h3>Оформить заказ</h3>
+          <form>
+            <input class="field" type="text" placeholder="Ваше имя" />
+            <input class="field" type="tel" placeholder="Телефон" />
+            <input class="field" type="text" placeholder="Район и адрес доставки" />
+            <textarea class="field" placeholder="Что привезти? Например: бургер, шаурма, напиток, без лука"></textarea>
+            <button class="btn btn-primary" type="button">Отправить заявку</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="section-head">
+          <h2>FAQ</h2>
+          <p>Коротко по важному, без меню на 40 страниц мелким шрифтом.</p>
+        </div>
+        <div class="faq">
+          <div class="faq-item"><h3>Можно оплатить при получении?</h3><p>Да, в макете предусмотрена оплата наличными или переводом курьеру. На реальном сайте можно добавить онлайн-оплату.</p></div>
+          <div class="faq-item"><h3>Есть самовывоз?</h3><p>Да, можно оформить заказ заранее и забрать без ожидания. Адрес точки можно вывести в отдельном блоке.</p></div>
+          <div class="faq-item"><h3>Сколько ждать заказ?</h3><p>В среднем 30–45 минут по городу. В часы пик время может быть больше, оператор предупредит заранее.</p></div>
+          <div class="faq-item"><h3>Можно сделать сайт рабочим?</h3><p>Да. Нужно подключить корзину, админку, базу данных, Telegram-уведомления или CRM. Макет уже готов как визуальная основа.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer">
+      <div><b>Шахта Вкуса</b><br>Демо-сайт доставки еды в Донецке</div>
+      <div>Меню · Доставка · Акции · Заказы</div>
+      <div>© 2026. Макет для презентации проекта.</div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,1338 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><script type="text/javascript">(window.NREUM||(NREUM={})).init={ajax:{deny_list:["bam.nr-data.net"]},feature_flags:["soft_nav"]};(window.NREUM||(NREUM={})).loader_config={xpid:"VQIAUVZWCBADV1RUDggEUQ==",licenseKey:"deb49e4d0f",applicationID:"33569937",browserID:"33570099"};;/*! For license information please see nr-loader-full-1.318.0.min.js.LICENSE.txt */
+(()=>{var e={8122(e,t,r){"use strict";r.d(t,{a:()=>s});var n=r(944);function s(e,t){try{if(!e||"object"!=typeof e)return(0,n.R)(3);if(!t||"object"!=typeof t)return(0,n.R)(4);const r=Object.create(Object.getPrototypeOf(t),Object.getOwnPropertyDescriptors(t)),i=0===Object.keys(r).length?e:r;for(let o in i)if(void 0!==e[o])try{if(null===e[o]){r[o]=null;continue}Array.isArray(e[o])&&Array.isArray(t[o])?r[o]=Array.from(new Set([...e[o],...t[o]])):e[o]instanceof Map||e[o]instanceof Set||e[o]instanceof Date||e[o]instanceof RegExp?r[o]=e[o]:"object"==typeof e[o]&&null!==t[o]&&"object"==typeof t[o]?r[o]=s(e[o],t[o]):r[o]=e[o]}catch(e){r[o]||(0,n.R)(1,e)}return r}catch(e){(0,n.R)(2,e)}}},2555(e,t,r){"use strict";r.d(t,{f:()=>o});var n=r(384),s=r(8122);const i={beacon:n.NT.beacon,errorBeacon:n.NT.errorBeacon,licenseKey:void 0,applicationID:void 0,sa:void 0,queueTime:void 0,applicationTime:void 0,ttGuid:void 0,user:void 0,account:void 0,product:void 0,extra:void 0,jsAttributes:{},userAttributes:void 0,atts:void 0,transactionName:void 0,tNamePlain:void 0};function o(e){try{return!!e.licenseKey&&!!e.errorBeacon&&!!e.applicationID}catch(e){return!1}}r.d(t,["D",0,e=>(0,s.a)(e,i)])},7699(e,t,r){"use strict";var n=r(860);const s={[n.K7.logging]:!0,[n.K7.genericEvents]:!0,[n.K7.jserrors]:!0,[n.K7.ajax]:!0};r.d(t,["It",0,1e6,"KC",0,s,"qh",0,"SESSION_ERROR"])},9324(e,t,r){"use strict";r.d(t,["A",0,"@newrelic/rrweb","x",0,"1.318.0"])},981(e,t,r){"use strict";r.d(t,["R",0,{AJAX:"AjaxRequest",PA:"PageAction",UA:"UserAction",BP:"BrowserPerformance",WS:"WebSocket",SPV:"SecurityPolicyViolation",JSE:"JavaScriptError",LOG:"Log",PVE:"PageView",PVT:"PageViewTiming",SR:"SessionReplay",ST:"SessionTrace",BI:"BrowserInteraction"}])},6154(e,t,r){"use strict";var n=r(1863);const s="undefined"!=typeof window&&!!window.document,i="undefined"!=typeof WorkerGlobalScope&&("undefined"!=typeof self&&self instanceof WorkerGlobalScope&&self.navigator instanceof WorkerNavigator||"undefined"!=typeof globalThis&&globalThis instanceof WorkerGlobalScope&&globalThis.navigator instanceof WorkerNavigator),o=s?window:"undefined"!=typeof WorkerGlobalScope&&("undefined"!=typeof self&&self instanceof WorkerGlobalScope&&self||"undefined"!=typeof globalThis&&globalThis instanceof WorkerGlobalScope&&globalThis),a=Boolean("hidden"===o?.document?.visibilityState),c=""+o?.location,d=/iPad|iPhone|iPod/.test(o.navigator?.userAgent),u=d&&"undefined"==typeof SharedWorker,l=(()=>{const e=o.navigator?.userAgent?.match(/Firefox[/\s](\d+\.\d+)/);return Array.isArray(e)&&e.length>=2?+e[1]:0})(),f=Date.now()-(0,n.t)();r.d(t,["OF",0,d,"RI",0,s,"WN",0,f,"bv",0,i,"gm",0,o,"lR",0,l,"m",0,c,"mw",0,a,"sb",0,u,"zk",0,()=>{const e=o?.performance?.getEntriesByType?.("navigation")?.[0];if(e&&e.responseStart>0&&e.responseStart<o.performance.now())return e}])},7295(e,t,r){"use strict";r.d(t,{Xv:()=>o,gX:()=>s,iW:()=>i});var n=[];function s(e){if(!e||i(e))return!1;if(0===n.length)return!0;if("*"===n[0].hostname)return!1;for(var t=0;t<n.length;t++){var r=n[t];if(r.hostname.test(e.hostname)&&r.pathname.test(e.pathname))return!1}return!0}function i(e){return void 0===e.hostname}function o(e){if(n=[],e&&e.length)for(var t=0;t<e.length;t++){let r=e[t];if(!r)continue;if("*"===r)return void(n=[{hostname:"*"}]);0===r.indexOf("http://")?r=r.substring(7):0===r.indexOf("https://")&&(r=r.substring(8));const s=r.indexOf("/");let i,o;s>0?(i=r.substring(0,s),o=r.substring(s)):(i=r,o="*");let[c]=i.split(":");n.push({hostname:a(c),pathname:a(o,!0)})}}function a(e,t=!1){const r=e.replace(/[.+?^${}()|[\]\\]/g,e=>"\\"+e).replace(/\*/g,".*?");return new RegExp((t?"^":"")+r+"$")}},3241(e,t,r){"use strict";r.d(t,{W:()=>s});var n=r(6154);function s(e={}){try{n.gm.dispatchEvent(new CustomEvent("newrelic",{detail:e}))}catch(e){}}},1687(e,t,r){"use strict";r.d(t,{Ak:()=>a,Ze:()=>d,x3:()=>c});var n=r(3241),s=r(3606),i=r(860),o=r(2646);function a(e,t){if(!e)return;const r={staged:!1,priority:i.P3[t]||0};e.runtime.drainRegistry.get(t)||e.runtime.drainRegistry.set(t,r)}function c(e,t){if(!e)return;const r=e.runtime.drainRegistry;r&&(r.get(t)&&r.delete(t),l(e,t,!1),r.size&&u(e))}function d(e,t="feature",r=!1){if(e){if(!e.runtime.drainRegistry.get(t)||r)return l(e,t);e.runtime.drainRegistry.get(t).staged=!0,u(e)}}function u(e){if(!e)return;const t=Array.from(e.runtime.drainRegistry);t.every(([e,t])=>t.staged)&&(t.sort((e,t)=>e[1].priority-t[1].priority),t.forEach(([t])=>{e.runtime.drainRegistry.delete(t),l(e,t)}))}function l(e,t,r=!0){if(!e)return;const i=e.ee,a=s.i.handlers;if(i&&!i.aborted&&i.backlog&&a){if((0,n.W)({type:"lifecycle",name:"drain",feature:t}),r){const e=i.backlog[t],r=a[t];if(r){for(let t=0;e&&t<e.length;++t)f(e[t],r);Object.entries(r).forEach(([e,t])=>{Object.values(t||{}).forEach(t=>{t[0]?.on&&t[0].context()instanceof o.y&&!t[0].listeners(e).includes(t[1])&&t[0].on(e,t[1])})})}}i.isolatedBacklog||delete a[t],i.backlog[t]=null,i.emit("drain-"+t,[])}}function f(e,t){var r=e[1];Object.values(t[r]||{}).forEach(t=>{var r=e[0];if(t[0]===r){var n=t[1],s=e[3],i=e[2];n.apply(s,i)}})}},7836(e,t,r){"use strict";var n=r(384),s=r(8990),i=r(2646),o=r(5607);const a="nr@context:".concat(o.W),c=function e(t,r){var n={},o={},u={},l=!1;try{l=16===r.length&&d.initializedAgents?.[r]?.runtime.isolatedBacklog}catch(e){}var f={on:p,addEventListener:p,removeEventListener:function(e,t){var r=n[e];if(!r)return;for(var s=0;s<r.length;s++)r[s]===t&&r.splice(s,1)},emit:function(e,r,n,s,i){!1!==i&&(i=!0);if(c.aborted&&!s)return;t&&i&&t.emit(e,r,n);var a=h(n);g(e).forEach(e=>{e.apply(a,r)});var d=v()[o[e]];d&&d.push([f,e,r,a]);return a},get:m,listeners:g,context:h,buffer:function(e,t){const r=v();if(t=t||"feature",f.aborted)return;Object.entries(e||{}).forEach(([e,n])=>{o[n]=t,t in r||(r[t]=[])})},abort:function(){f._aborted=!0,Object.keys(f.backlog).forEach(e=>{delete f.backlog[e]})},isBuffering:function(e){return!!v()[o[e]]},debugId:r,backlog:l?{}:t&&"object"==typeof t.backlog?t.backlog:{},isolatedBacklog:l};return Object.defineProperty(f,"aborted",{get:()=>{let e=f._aborted||!1;return e||(t&&(e=t.aborted),e)}}),f;function h(e){return e&&e instanceof i.y?e:e?(0,s.I)(e,a,()=>new i.y(a)):new i.y(a)}function p(e,t){n[e]=g(e).concat(t)}function g(e){return n[e]||[]}function m(t){return u[t]=u[t]||e(f,t)}function v(){return f.backlog}}(void 0,"globalEE"),d=(0,n.Zm)();d.ee||(d.ee=c),r.d(t,["P",0,a,"ee",0,c])},2646(e,t,r){"use strict";r.d(t,{y:()=>n});class n{constructor(e){this.contextId=e}}},9908(e,t,r){"use strict";r.d(t,{d:()=>n,p:()=>s});var n=r(7836).ee.get("handle");function s(e,t,r,s,i){i?(i.buffer([e],s),i.emit(e,t,r)):(n.buffer([e],s),n.emit(e,t,r))}},3606(e,t,r){"use strict";r.d(t,{i:()=>i});var n=r(9908);i.on=o;var s=i.handlers={};function i(e,t,r,i){o(i||n.d,s,e,t,r)}function o(e,t,r,s,i){i||(i="feature"),e||(e=n.d);var o=t[i]=t[i]||{};(o[r]=o[r]||[]).push([e,s])}},3878(e,t,r){"use strict";function n(e,t){return{capture:e,passive:!1,signal:t}}function s(e,t,r=!1,s){window.addEventListener(e,t,n(r,s))}function i(e,t,r=!1,s){document.addEventListener(e,t,n(r,s))}r.d(t,{DD:()=>i,jT:()=>n,sp:()=>s})},5607(e,t,r){"use strict";const n=(0,r(9566).bz)();r.d(t,["W",0,n])},9566(e,t,r){"use strict";r.d(t,{LA:()=>o,ZF:()=>a,bz:()=>i,el:()=>c});var n=r(6154);function s(e,t){return e?15&e[t]:16*Math.random()|0}function i(){const e=n.gm?.crypto||n.gm?.msCrypto;let t,r=0;return e&&e.getRandomValues&&(t=e.getRandomValues(new Uint8Array(30))),"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".split("").map(e=>"x"===e?s(t,r++).toString(16):"y"===e?(3&s()|8).toString(16):e).join("")}function o(e){const t=n.gm?.crypto||n.gm?.msCrypto;let r,i=0;t&&t.getRandomValues&&(r=t.getRandomValues(new Uint8Array(e)));const o=[];for(var a=0;a<e;a++)o.push(s(r,i++).toString(16));return o.join("")}function a(){return o(16)}function c(){return o(32)}},2614(e,t,r){"use strict";r.d(t,["BB",0,18e5,"Wt",0,"NRBA_SESSION::","g",0,{OFF:0,FULL:1,ERROR:2},"iL",0,{SAME_TAB:"same-tab",CROSS_TAB:"cross-tab"},"tS",0,{STARTED:"session-started",PAUSE:"session-pause",RESET:"session-reset",RESUME:"session-resume",UPDATE:"session-update"},"wk",0,144e5])},733(e,t,r){"use strict";function n(e,t){return function(e){let t=2166136261;for(let r=0;r<e.length;r++)t^=e.charCodeAt(r),t=Math.imul(t,16777619);return(t>>>0).toString(16).padStart(8,"0")}("".concat(String(e),":").concat(String(t)))}r.d(t,{Y:()=>n})},1863(e,t,r){"use strict";function n(){return Math.floor(performance.now())}r.d(t,{t:()=>n})},9119(e,t,r){"use strict";r.d(t,{L:()=>i});var n=/([^?#]*)[^#]*(#[^?]*|$).*/,s=/([^?#]*)().*/;function i(e,t){return e?e.replace(t?n:s,"$1$2"):e}},7485(e,t,r){"use strict";r.d(t,{D:()=>s});var n=r(6154);function s(e){if(0===(e||"").indexOf("data:"))return{protocol:"data"};try{const t=new URL(e,location.href),r={port:t.port,hostname:t.hostname,pathname:t.pathname,search:t.search,protocol:t.protocol.slice(0,t.protocol.indexOf(":")),sameOrigin:t.protocol===n.gm?.location?.protocol&&t.host===n.gm?.location?.host};return r.port&&""!==r.port||("http:"===t.protocol&&(r.port="80"),"https:"===t.protocol&&(r.port="443")),r.pathname&&""!==r.pathname?r.pathname.startsWith("/")||(r.pathname="/".concat(r.pathname)):r.pathname="/",r}catch(e){return{}}}},7866(e,t,r){"use strict";r.d(t,["Nc",0,/^\s*at Function code \(Function code:\d+:\d+\)\s*/i,"cn",0,/^\s*(?:([^@]*)(?:\(.*?\))?@)?((?:file|http|https|chrome|safari-extension).*?):(\d+)(?::(\d+))?\s*$/i,"fL",0,/^\s*at .+ \(eval at \S+ \((?:(?:file|http|https):[^)]+)?\)(?:, [^:]*:\d+:\d+)?\)$/i,"h3",0,/function (.+?)\s*\(/,"hB",0,/^\s*at (?:((?:\[object object\])?(?:[^(]*\([^)]*\))*[^()]*(?: \[as \S+\])?) )?\(?((?:file|http|https|chrome-extension):.*?)?:(\d+)(?::(\d+))?\)?\s*$/i])},944(e,t,r){"use strict";r.d(t,{R:()=>s});var n=r(3241);function s(e,t){"function"==typeof console.debug&&(console.debug("New Relic Warning: https://github.com/newrelic/newrelic-browser-agent/blob/main/docs/warning-codes.md#".concat(e),t),(0,n.W)({drained:null,type:"data",name:"warn",feature:"warn",data:{code:e,secondary:t}}))}},8990(e,t,r){"use strict";r.d(t,{I:()=>s});var n=Object.prototype.hasOwnProperty;function s(e,t,r){if(n.call(e,t))return e[t];var s=r();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(e,t,{value:s,writable:!0,enumerable:!1}),s}catch(e){}return e[t]=s,s}},6389(e,t,r){"use strict";function n(e,t=500,r={}){const n=r?.leading||!1;let s;return(...r)=>{n&&void 0===s&&(e.apply(this,r),s=setTimeout(()=>{s=clearTimeout(s)},t)),n||(clearTimeout(s),s=setTimeout(()=>{e.apply(this,r)},t))}}function s(e){let t=!1;return(...r)=>{t||(t=!0,e.apply(this,r))}}r.d(t,{J:()=>s,s:()=>n})},1910(e,t,r){"use strict";r.d(t,{i:()=>i});var n=r(944);const s=new Map;function i(...e){return e.every(e=>{if(s.has(e))return s.get(e);const t="function"==typeof e?e.toString():"",r=t.includes("[native code]"),i=t.includes("nrWrapper");return r||i||(0,n.R)(64,e?.name||t),s.set(e,r),r})}},3304(e,t,r){"use strict";r.d(t,{A:()=>s});var n=r(7836);function s(e){try{return JSON.stringify(e,(()=>{const e=new WeakSet;return(t,r)=>{if("object"==typeof r&&null!==r){if(e.has(r))return;e.add(r)}return r}})())??""}catch(e){try{n.ee.emit("internal-error",[e])}catch(e){}return""}}},7508(e,t,r){"use strict";r.d(t,{AZ:()=>g,Qr:()=>b,QL:()=>m});var n=r(6154),s=r(1863),i=r(9119),o=r(7866);class a{dom=new c;performance=new c;constructor(e){this.url=e}get script(){const e=Math.max(this.dom.start,this.performance.end);return{start:e,end:Math.max(this.dom.end,this.performance.end,e)}}}class c{start=0;end=0;value=void 0}let d;try{d=g(m())[0]}catch(e){d=g(e)[0]}const u=e=>"script"===e.initiatorType||["link","fetch"].includes(e.initiatorType)&&e.name.endsWith(".js"),l=new Map;let f=[];function h(e){return l.get(e)}function p(e){const t=h(e);if(t)return t;const r=new a(e);if(l.set(e,r),l.size>1e3){const e=l.keys().next().value;l.delete(e)}return r}if(n.gm.MutationObserver&&n.gm.document){new MutationObserver(e=>{e.forEach(e=>{e.addedNodes.forEach(e=>{if("SCRIPT"===e.nodeName&&e.src){const t=p((0,i.L)(e.src));t.dom.start=(0,s.t)(),t.dom.value=e;const r=()=>{t.dom.end=(0,s.t)()};["load","error"].forEach(t=>e.addEventListener(t,r,{once:!0}))}})})}).observe(n.gm.document,{childList:!0,subtree:!0})}if(n.gm.PerformanceObserver?.supportedEntryTypes.includes("resource")){new PerformanceObserver(e=>{e.getEntries().filter(u).forEach(e=>{const t=p((0,i.L)(e.name));t.performance.start=Math.floor(e.startTime),t.performance.end=Math.floor(e.responseEnd),t.performance.value=e;const r=[];f.forEach(({test:t,addedAt:n},i)=>{(t(e)||(0,s.t)()-n>1e4)&&r.push(i)}),f=f.filter((e,t)=>!r.includes(t))})}).observe({type:"resource",buffered:!0})}function g(e){if(!e||"string"!=typeof e)return[];const t=new Set,r=e.split("\n");for(const e of r){const r=e.match(o.cn)||e.match(o.hB)||e.match(o.fL);if(r&&r[2])t.add((0,i.L)(r[2]));else{const r=e.match(/\(([^)]+\.js):\d+:\d+\)/)||e.match(/^\s+at\s+([^\s(]+\.js):\d+:\d+/);r&&r[1]&&t.add((0,i.L)(r[1]))}}return[...t]}function m(){let e;try{const t=Error.stackTraceLimit;Error.stackTraceLimit=50,e=(new Error).stack,Error.stackTraceLimit=t}catch(t){e=(new Error).stack}return e}function v(e,t){return(0,i.L)(e.name)===t}function y(e,t){e.fetchStart=Math.floor(t.startTime),e.fetchEnd=Math.floor(t.responseEnd),e.asset=t.name,e.type=t.initiatorType}function b(){const e={registeredAt:(0,s.t)(),reportedAt:void 0,fetchStart:0,fetchEnd:0,scriptStart:0,scriptEnd:0,asset:void 0,type:"unknown"},t=m();if(!t)return e;const r=n.gm.performance?.getEntriesByType("navigation")?.[0]?.name||"";try{const o=g(t),a=(o.length>1?o.filter(e=>d!==e):o)[0];if(!a)return e;if(r.includes(a))return e.asset=(0,i.L)(r),e.type="inline",e;e.correlation=h(a);const c=e.correlation?.performance.value||performance.getEntriesByType("resource").find(e=>v(e,a));c?y(e,c):function(e){if(!e||!n.gm.document)return!1;try{const t=n.gm.document.querySelectorAll('link[rel="preload"][as="script"]');for(const r of t)if((0,i.L)(r.href)===e)return!0}catch(e){}return!1}(a)&&(e.asset=a,e.type="preload",f.push({addedAt:(0,s.t)(),test:t=>!!v(t,a)&&(y(e,t),!0)})),Object.defineProperty(e,"scriptStart",{get:()=>e.correlation?.script.start||e.fetchEnd}),Object.defineProperty(e,"scriptEnd",{get:()=>e.correlation?.script.end||e.registeredAt})}catch(e){}return e}},5732(e,t,r){"use strict";r.d(t,{$5:()=>d,B5:()=>c,Ms:()=>s,Ux:()=>o,YA:()=>a,yx:()=>i});var n=r(7508);function s(e,t){if(!e||!t?.init.api.register.enabled)return[];const r=t.runtime.registeredEntities;return r?.filter(t=>String(t.metadata.target.id)===String(e)).map(e=>e.metadata.target)||[]}function i(e,t){if(!e||!t?.init.api.register.enabled)return[];const r=t.runtime.registeredEntities;return r?.filter(t=>t.metadata.timings?.asset?.endsWith(e)).map(e=>e.metadata.target)||[]}function o(e,t){if(!u(t))return{};const r=t.agentRef.runtime.appMetadata.agents[0].entityGuid;return e?e.attributes:{"entity.guid":r,appId:t.agentRef.info.applicationID}}function a(e,t){return c(e,t)?{"child.id":e.id,"child.type":e.type,...o(void 0,t)}:{}}function c(e,t){return!!e&&!!u(t)&&t.agentRef.init.api.register.duplicate_data_to_container}function d(e){if(!e?.init.api.register.enabled)return[void 0];const t=[];try{var r=(0,n.AZ)((0,n.QL)());let s=r.length-1;for(;r[s];)t.push(...i(r[s--],e))}catch(e){}return t.length||t.push(void 0),t}function u(e){return 2===e?.harvestEndpointVersion}r.d(t,["fQ",0,{MFE:"MFE",BA:"BA"}])},5289(e,t,r){"use strict";r.d(t,{GG:()=>o,Qr:()=>c,sB:()=>a});var n=r(3878),s=r(6389);function i(){return"undefined"==typeof document||"complete"===document.readyState}function o(e,t){if(i())return e();const r=(0,s.J)(e),o=setInterval(()=>{i()&&(clearInterval(o),r())},500);(0,n.sp)("load",r,t)}function a(e){if(i())return e();(0,n.DD)("DOMContentLoaded",e)}function c(e){if(i())return e();(0,n.sp)("popstate",e)}},384(e,t,r){"use strict";r.d(t,{Zm:()=>c,bQ:()=>u,dV:()=>d,pV:()=>l});var n=r(6154),s=r(1863),i=r(944),o=r(1910);const a={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net"};function c(){return n.gm.NREUM||(n.gm.NREUM={}),void 0===n.gm.newrelic&&(n.gm.newrelic=n.gm.NREUM),n.gm.NREUM}function d(){let e=c();return e.o||(e.o={ST:n.gm.setTimeout,SI:n.gm.setImmediate||n.gm.setInterval,CT:n.gm.clearTimeout,XHR:n.gm.XMLHttpRequest,REQ:n.gm.Request,EV:n.gm.Event,PR:n.gm.Promise,MO:n.gm.MutationObserver,FETCH:n.gm.fetch,WS:n.gm.WebSocket},(0,o.i)(...Object.values(e.o))),e}function u(e,t){let r=c();r.initializedAgents??={},t.initializedAt={ms:(0,s.t)(),date:new Date},r.initializedAgents[e]=t,2===Object.keys(r.initializedAgents).length&&(0,i.R)(69)}function l(){return function(){let e=c();const t=e.info||{};e.info={beacon:a.beacon,errorBeacon:a.errorBeacon,...t}}(),function(){let e=c();const t=e.init||{};e.init={...t}}(),d(),function(){let e=c();const t=e.loader_config||{};e.loader_config={...t}}(),c()}r.d(t,["NT",0,a])},2843(e,t,r){"use strict";r.d(t,{G:()=>i,u:()=>s});var n=r(3878);function s(e,t=!1,r,s){(0,n.DD)("visibilitychange",function(){if(t)return void("hidden"===document.visibilityState&&e());e(document.visibilityState)},r,s)}function i(e,t,r){(0,n.sp)("pagehide",e,t,r)}},8139(e,t,r){"use strict";r.d(t,{u:()=>f});var n=r(7836),s=r(3434),i=r(8990),o=r(6154);const a={},c=o.gm.XMLHttpRequest,d="addEventListener",u="removeEventListener",l="nr@wrapped:".concat(n.P);function f(e){var t=function(e){return(e||n.ee).get("events")}(e);if(a[t.debugId]++)return t;a[t.debugId]=1;var r=(0,s.YM)(t,!0);function f(e){r.inPlace(e,[d,u],"-",p)}function p(e,t){return e[1]}return"getPrototypeOf"in Object&&(o.RI&&h(document,f),c&&h(c.prototype,f),h(o.gm,f)),t.on(d+"-start",function(e,t){var n=e[1];if(null!==n&&("function"==typeof n||"object"==typeof n)&&"newrelic"!==e[0]){var s=(0,i.I)(n,l,function(){var e={object:function(){if("function"!=typeof n.handleEvent)return;return n.handleEvent.apply(n,arguments)},function:n}[typeof n];return e?r(e,"fn-",null,e.name||"anonymous"):n});this.wrapped=e[1]=s}}),t.on(u+"-start",function(e){e[1]=this.wrapped||e[1]}),t}function h(e,t,...r){let n=e;for(;"object"==typeof n&&!Object.prototype.hasOwnProperty.call(n,d);)n=Object.getPrototypeOf(n);n&&t(n,...r)}},3434(e,t,r){"use strict";r.d(t,{YM:()=>d});var n=r(7836),s=r(5607),i=r(5732);const o="nr@original:".concat(s.W);var a=Object.prototype.hasOwnProperty,c=!1;function d(e,t,r){return e||(e=n.ee),s.inPlace=function(e,t,r,n,i,o){r||(r="");const a="-"===r.charAt(0);for(let c=0;c<t.length;c++){const d=t[c],u=e[d];l(u)||(e[d]=s(u,a?d+r:r,n,d,i,o))}},s.flag=o,s;function s(t,n,s,c,f,h){return l(t)?t:(n||(n=""),nrWrapper[o]=t,function(e,t,r){if(Object.defineProperty&&Object.keys)try{return Object.keys(e).forEach(function(r){Object.defineProperty(t,r,{get:function(){return e[r]},set:function(t){return e[r]=t,t}})}),t}catch(e){u([e],r)}for(var n in e)a.call(e,n)&&(t[n]=e[n])}(t,nrWrapper,e),nrWrapper);function nrWrapper(){var o,a,l,p;let g,m;try{a=this,o=[...arguments],m=h?(0,i.$5)(r):[void 0],l="function"==typeof s?s(o,a):s||{}}catch(t){u([t,"",[o,a,c],l],e)}d(n+"start",[o,a,c,m],l,f);const v=performance.now();let y;try{return p=t.apply(a,o),y=performance.now(),p}catch(e){throw y=performance.now(),d(n+"err",[o,a,e,m],l,f),g=e,g}finally{const e=y-v,t={start:v,end:y,duration:e,isLongTask:e>=50,methodName:c,thrownError:g};t.isLongTask&&d("long-task",[t,a,m],l,f),d(n+"end",[o,a,p,m],l,f)}}}function d(r,n,s,i){if(!c||t){var o=c;c=!0;try{e.emit(r,n,s,t,i)}catch(t){u([t,r,n,s],e)}c=o}}}function u(e,t){t||(t=n.ee);try{t.emit("internal-error",e)}catch(e){}}function l(e){return!(e&&"function"==typeof e&&e.apply&&!e[o])}r.d(t,["Jt",0,o])},9300(e,t,r){"use strict";const n=r(860).K7.ajax;r.d(t,["TZ",0,n,"f5",0,"ajaxRequest.id","mo",0,{NONE:"none",FAILURES:"failures",ALL:"all"}])},3333(e,t,r){"use strict";var n=r(981);const s=r(860).K7.genericEvents,i=[n.R.PA,n.R.UA,n.R.BP];r.d(t,["$v",0,{RESOURCES:"experimental.resources",REGISTER:"register"},"TZ",0,s,"Zp",0,["auxclick","click","copy","keydown","paste","scrollend"],"kd",0,i,"qN",0,["focus","blur"]])},6774(e,t,r){"use strict";const n=r(860).K7.jserrors;r.d(t,["T",0,n])},993(e,t,r){"use strict";const n=r(860).K7.logging;r.d(t,["A$",0,{OFF:0,ERROR:1,WARN:2,INFO:3,DEBUG:4,TRACE:5},"TZ",0,n,"p_",0,{ERROR:"ERROR",WARN:"WARN",INFO:"INFO",DEBUG:"DEBUG",TRACE:"TRACE"}])},3785(e,t,r){"use strict";r.d(t,{R:()=>c,b:()=>d});var n=r(9908),s=r(1863),i=r(860),o=r(3969),a=r(993);function c(e,t,r={},c=a.p_.INFO,d=!0,u,l=(0,s.t)()){(0,n.p)(o.xV,["API/logging/".concat(c.toLowerCase(),"/called")],void 0,i.K7.metrics,e),(0,n.p)("log",[l,t,r,c,d,u],void 0,i.K7.logging,e)}function d(e){return"string"==typeof e&&Object.values(a.p_).some(t=>t===e.toUpperCase().trim())}},3969(e,t,r){"use strict";const n=r(860).K7.metrics;r.d(t,["TZ",0,n,"XG",0,"storeEventMetrics","xV",0,"storeSupportabilityMetrics"])},6630(e,t,r){"use strict";const n=r(860).K7.pageViewEvent;r.d(t,["T",0,n])},782(e,t,r){"use strict";const n=r(860).K7.pageViewTiming;r.d(t,["T",0,n])},6344(e,t,r){"use strict";var n=r(2614);const s=r(860).K7.sessionReplay,i={[n.g.ERROR]:15e3,[n.g.FULL]:3e5,[n.g.OFF]:0};r.d(t,["Qb",0,{API:"api",RESUME:"resume",SWITCH_TO_FULL:"switchToFull",INITIALIZE:"initialize",PRELOAD:"preload"},"TZ",0,s,"Vh",0,"errorDuringReplay","_s",0,{DomContentLoaded:0,Load:1,FullSnapshot:2,IncrementalSnapshot:3,Meta:4,Custom:5},"bc",0,{RESET:{message:"Session was reset",sm:"Reset"},IMPORT:{message:"Recorder failed to import",sm:"Import"},TOO_MANY:{message:"429: Too Many Requests",sm:"Too-Many"},TOO_BIG:{message:"Payload was too large",sm:"Too-Big"},CROSS_TAB:{message:"Session Entity was set to OFF on another tab",sm:"Cross-Tab"},ENTITLEMENTS:{message:"Session Replay is not allowed and will not be started",sm:"Entitlement"}},"yP",0,i])},5270(e,t,r){"use strict";r.d(t,{Aw:()=>o,SR:()=>i,rF:()=>a});var n=r(384),s=r(7767);function i(e){return!!(0,n.dV)().o.MO&&(0,s.V)(e)&&!0===e?.session_trace.enabled}function o(e){return!0===e?.session_replay.preload&&i(e)}function a(e,t){try{if("string"==typeof t?.type){if("password"===t.type.toLowerCase())return"*".repeat(e?.length||0);if(void 0!==t?.dataset?.nrUnmask||t?.classList?.contains("nr-unmask"))return e}}catch(e){}return"string"==typeof e?e.replace(/[\S]/g,"*"):"*".repeat(e?.length||0)}},3738(e,t,r){"use strict";const n=r(860).K7.sessionTrace,s="-start",i="-end",o="fn"+s,a="fn"+i;r.d(t,["He",0,"bstResource","Kp",0,i,"Lc",0,a,"Rz",0,"pushState","TZ",0,n,"bD",0,"resource","bc",0,{CROSS_TAB:{message:"Session Entity was set to OFF on another tab"},ENTITLEMENTS:{message:"Session Trace is not allowed and will not be started"},RESET:{message:"Session was reset"},SESSION_CHANGED:{message:"Session identifier changed unexpectedly"}},"d3",0,s,"uP",0,o])},4234(e,t,r){"use strict";r.d(t,{W:()=>s});var n=r(1687);class s{constructor(e,t){this.agentRef=e,this.ee=e?.ee,this.featureName=t,this.blocked=!1}deregisterDrain(){(0,n.x3)(this.agentRef,this.featureName)}}},7767(e,t,r){"use strict";var n=r(6154);r.d(t,["V",0,e=>n.RI&&!0===e?.privacy.cookies_enabled])},8362(e,t,r){"use strict";r.d(t,{d:()=>i});var n=r(9566),s=r(1741);class i extends s.W{agentIdentifier=(0,n.LA)(16)}},1741(e,t,r){"use strict";r.d(t,{W:()=>i});var n=r(944),s=r(4261);class i{#e(e,...t){if(this[e]!==i.prototype[e])return this[e](...t);(0,n.R)(35,e)}addPageAction(e,t){return this.#e(s.hG,e,t)}register(e){return this.#e(s.eY,e)}recordCustomEvent(e,t){return this.#e(s.fF,e,t)}setPageViewName(e,t){return this.#e(s.Fw,e,t)}setCustomAttribute(e,t,r){return this.#e(s.cD,e,t,r)}noticeError(e,t){return this.#e(s.o5,e,t)}setUserId(e,t=!1){return this.#e(s.Dl,e,t)}setApplicationVersion(e){return this.#e(s.nb,e)}setErrorHandler(e){return this.#e(s.bt,e)}addRelease(e,t){return this.#e(s.k6,e,t)}log(e,t){return this.#e("log",e,t)}start(){return this.#e("start")}finished(e){return this.#e(s.BL,e)}recordReplay(){return this.#e(s.CH)}pauseReplay(){return this.#e(s.Tb)}addToTrace(e){return this.#e(s.U2,e)}setCurrentRouteName(e){return this.#e(s.PA,e)}interaction(e){return this.#e(s.dT,e)}wrapLogger(e,t,r){return this.#e(s.Wb,e,t,r)}measure(e,t){return this.#e(s.V1,e,t)}consent(e){return this.#e(s.Pv,e)}}},4261(e,t,r){"use strict";r.d(t,["BL",0,"finished","CH",0,"recordReplay","Dl",0,"setUserId","Fw",0,"setPageViewName","PA",0,"setCurrentRouteName","Pv",0,"consent","Tb",0,"pauseReplay","U2",0,"addToTrace","V1",0,"measure","Wb",0,"wrapLogger","bt",0,"setErrorHandler","cD",0,"setCustomAttribute","dT",0,"interaction","eY",0,"register","fF",0,"recordCustomEvent","hG",0,"addPageAction","k6",0,"addRelease","nb",0,"setApplicationVersion","o5",0,"noticeError"])},1738(e,t,r){"use strict";r.d(t,{U:()=>l,Y:()=>u});var n=r(3241),s=r(9908),i=r(1863),o=r(944),a=r(3969),c=r(8362),d=r(860);function u(e,t,r,i){const u=i||r;!u||u[e]&&u[e]!==c.d.prototype[e]||(u[e]=function(){(0,s.p)(a.xV,["API/"+e+"/called"],void 0,d.K7.metrics,r.ee),(0,n.W)({drained:!!r.runtime?.activatedFeatures,type:"data",name:"api",feature:"api-"+e,data:{}});try{return t.apply(this,arguments)}catch(e){(0,o.R)(23,e)}})}function l(e,t,r,n,o){const a=e.info;null===r?delete a.jsAttributes[t]:a.jsAttributes[t]=r,(o||null===r)&&(0,s.p)("api-"+n,[(0,i.t)(),t,r],void 0,"session",e.ee)}},8374(e,t,r){r.nc=(()=>{try{return document?.currentScript?.nonce}catch(e){}return""})()},860(e,t,r){"use strict";const n="events",s="jserrors",i="browser/blobs",o="browser/logs",a={ajax:"ajax",genericEvents:"generic_events",jserrors:s,logging:"logging",metrics:"metrics",pageAction:"page_action",pageViewEvent:"page_view_event",pageViewTiming:"page_view_timing",sessionReplay:"session_replay",sessionTrace:"session_trace",softNav:"soft_navigations"},c={[a.pageViewEvent]:1,[a.pageViewTiming]:2,[a.metrics]:3,[a.jserrors]:4,[a.softNav]:5,[a.ajax]:6,[a.sessionTrace]:7,[a.sessionReplay]:8,[a.logging]:9,[a.genericEvents]:10},d={[a.pageViewEvent]:"rum",[a.pageViewTiming]:n,[a.ajax]:n,[a.softNav]:n,[a.metrics]:s,[a.jserrors]:s,[a.sessionTrace]:i,[a.sessionReplay]:i,[a.logging]:o,[a.genericEvents]:"ins"};r.d(t,["$J",0,d,"K7",0,a,"P3",0,c,"XX",0,s,"Yy",0,o,"df",0,i])}};const t={};function r(n){const s=t[n];if(void 0!==s)return s.exports;const i=t[n]={exports:{}};return e[n](i,i.exports,r),i.exports}r.m=e,r.d=(e,t)=>{if(Array.isArray(t))for(var n=0;n<t.length;){var s=t[n++],i=t[n++];r.o(e,s)?0===i&&n++:0===i?Object.defineProperty(e,s,{enumerable:!0,value:t[n++]}):Object.defineProperty(e,s,{enumerable:!0,get:i})}else for(var s in t)r.o(t,s)&&!r.o(e,s)&&Object.defineProperty(e,s,{enumerable:!0,get:t[s]})},r.f={},r.e=e=>Promise.all(Object.keys(r.f).reduce((t,n)=>(r.f[n](e,t),t),[])),r.u=e=>({95:"nr-full-compressor",222:"nr-full-recorder",891:"nr-full"}[e]+"-1.318.0.min.js"),r.o=(e,t)=>Object.prototype.hasOwnProperty.call(e,t),(()=>{const e={},t="NRBA-1.318.0.PROD:";r.l=(n,s,i,o)=>{if(e[n])return void e[n].push(s);let a,c;if(void 0!==i){const e=document.getElementsByTagName("script");for(var d=0;d<e.length;d++){const r=e[d];if(r.getAttribute("src")==n||r.getAttribute("data-webpack")==t+i){a=r;break}}}if(!a){c=!0;var u={891:"sha512-6DMAWJPgLhin+v0ESEGdIy9GMOpqP/o9qmuvca5U3PpMpJ3L1KZhwqKXxWRDuPzX3pj5u8sHIb9lbRxnjy1A9g==",222:"sha512-BSnlv5oVh0vKG04SYOC2HdnIBF1NNUBPS4T24q/TA3s/TzVzh5NYeS/vi8FNFC2SB4K13mjrMjnICsG4SG8XCQ==",95:"sha512-zBcI5VhUS8xcCBYcmVDkFqGKVLz4UidrhrL/7XBq3ZF7SNddQU0hX6qw/Ug66CRdQn6uEphAZ2GgkReoZ6KcnQ=="};a=document.createElement("script"),a.charset="utf-8",r.nc&&a.setAttribute("nonce",r.nc),a.setAttribute("data-webpack",t+i),a.src=n,0!==a.src.indexOf(window.location.origin+"/")&&(a.crossOrigin="anonymous"),u[o]&&(a.integrity=u[o])}e[n]=[s];const l=(t,r)=>{a.onerror=a.onload=null,clearTimeout(f);const s=e[n];if(delete e[n],a.parentNode?.removeChild(a),s?.forEach(e=>e(r)),t)return t(r)},f=setTimeout(l.bind(null,void 0,{type:"timeout",target:a}),12e4);a.onerror=l.bind(null,a.onerror),a.onload=l.bind(null,a.onload),c&&document.head.appendChild(a)}})(),r.r=e=>{Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},r.p="https://js-agent.newrelic.com/",(()=>{const e={85:0,959:0};r.f.j=(t,n)=>{let s=r.o(e,t)?e[t]:void 0;if(0!==s)if(s)n.push(s[2]);else{const i=new Promise((r,n)=>s=e[t]=[r,n]);n.push(s[2]=i);const o=r.p+r.u(t),a=new Error,c=n=>{if(r.o(e,t)&&(s=e[t],0!==s&&(e[t]=void 0),s)){const e=n&&("load"===n.type?"missing":n.type),r=n&&n.target&&n.target.src;a.message="Loading chunk "+t+" failed: ("+e+": "+r+")",a.name="ChunkLoadError",a.type=e,a.request=r,s[1](a)}};r.l(o,c,"chunk-"+t,t)}};const t=(t,n)=>{let[s,i,o]=n;var a,c,d=0;if(s.some(t=>0!==e[t])){for(a in i)r.o(i,a)&&(r.m[a]=i[a]);if(o)o(r)}for(t&&t(n);d<s.length;d++)c=s[d],r.o(e,c)&&e[c]&&e[c][0](),e[c]=0},n=self["webpackChunk:NRBA-1.318.0.PROD"]=self["webpackChunk:NRBA-1.318.0.PROD"]||[];n.forEach(t.bind(null,0)),n.push=t.bind(null,n.push.bind(n))})(),(()=>{"use strict";r(8374);var e=r(8362),t=r(860);const n=Object.values(t.K7);var s=r(384),i=r(1741);var o=r(2555),a=r(3333),c=r(9300);const d=e=>{if(!e||"string"!=typeof e)return!1;try{document.createDocumentFragment().querySelector(e)}catch{return!1}return!0};var u=r(2614),l=r(944),f=r(8122);const h="[data-nr-mask]",p=e=>(0,f.a)(e,(()=>{const e={feature_flags:[],experimental:{register:!1,resources:!1},mask_selector:"*",block_selector:"[data-nr-block]",mask_input_options:{color:!1,date:!1,"datetime-local":!1,email:!1,month:!1,number:!1,range:!1,search:!1,tel:!1,text:!1,time:!1,url:!1,week:!1,textarea:!1,select:!1,password:!0}};return{ajax:{deny_list:void 0,block_internal:!0,enabled:!0,autoStart:!0,capture_payloads:c.mo.NONE},api:{register:{get enabled(){return e.feature_flags.includes(a.$v.REGISTER)||e.experimental.register},set enabled(t){e.experimental.register=t},duplicate_data_to_container:!1}},browser_consent_mode:{enabled:!1},distributed_tracing:{enabled:void 0,exclude_newrelic_header:void 0,cors_use_newrelic_header:void 0,cors_use_tracecontext_headers:void 0,allowed_origins:void 0},get feature_flags(){return e.feature_flags},set feature_flags(t){e.feature_flags=t},generic_events:{enabled:!0,autoStart:!0},harvest:{interval:30},jserrors:{enabled:!0,autoStart:!0},logging:{enabled:!0,autoStart:!0},metrics:{enabled:!0,autoStart:!0},obfuscate:void 0,page_action:{enabled:!0},page_view_event:{enabled:!0,autoStart:!0},page_view_timing:{enabled:!0,autoStart:!0},performance:{capture_marks:!1,capture_measures:!1,capture_detail:!0,resources:{get enabled(){return e.feature_flags.includes(a.$v.RESOURCES)||e.experimental.resources},set enabled(t){e.experimental.resources=t},asset_types:[],first_party_domains:[],ignore_newrelic:!0}},privacy:{cookies_enabled:!0},proxy:{assets:void 0,beacon:void 0},session:{expiresMs:u.wk,inactiveMs:u.BB},session_replay:{autoStart:!0,enabled:!1,preload:!1,sampling_rate:10,error_sampling_rate:100,collect_fonts:!1,inline_images:!1,fix_stylesheets:!0,mask_all_inputs:!0,get mask_text_selector(){return e.mask_selector},set mask_text_selector(t){d(t)?e.mask_selector="".concat(t,",").concat(h):""===t||null===t?e.mask_selector=h:(0,l.R)(5,t)},get block_class(){return"nr-block"},get ignore_class(){return"nr-ignore"},get mask_text_class(){return"nr-mask"},get block_selector(){return e.block_selector},set block_selector(t){d(t)?e.block_selector+=",".concat(t):""!==t&&(0,l.R)(6,t)},get mask_input_options(){return e.mask_input_options},set mask_input_options(t){t&&"object"==typeof t?e.mask_input_options={...t,password:!0}:(0,l.R)(7,t)}},session_trace:{enabled:!0,autoStart:!0},soft_navigations:{enabled:!0,autoStart:!0},ssl:void 0,user_actions:{enabled:!0,elementAttributes:["id","className","tagName","type"]},web_sockets:{enabled:!1}}})());var g=r(6154),m=r(9324);let v=0;const y={buildEnv:"PROD",distMethod:"CDN",version:m.x,originTime:g.WN},b={consented:!1},E={activatedFeatures:void 0,appMetadata:{},configured:!1,get consented(){return this.session?.state?.consent||b.consented},set consented(e){b.consented=e},customTransaction:void 0,denyList:[],disabled:!1,drainRegistry:new Map,harvester:void 0,isolatedBacklog:!1,isRecording:!1,loaderType:void 0,maxBytes:3e4,obfuscator:void 0,onerror:void 0,ptid:void 0,releaseIds:{},session:void 0,timeKeeper:void 0,registeredEntities:[],jsAttributesMetadata:{bytes:0},get harvestCount(){return++v}};var R=r(7836),w=r(3241);const T={accountID:void 0,trustKey:void 0,agentID:void 0,licenseKey:void 0,applicationID:void 0,xpid:void 0};function x(e,t={},n,a){let{init:c,info:d,loader_config:u,runtime:l={},exposed:h=!0}=t;if(!d){const e=(0,s.pV)();c=e.init,d=e.info,u=e.loader_config}var m;e.init=p(c||{}),e.loader_config=(m=u||{},(0,f.a)(m,T)),d.jsAttributes??={},g.bv&&(d.jsAttributes.isWorker=!0),e.info=(0,o.D)(d);const v=e.init;e.runtime??=(e=>{const t=(0,f.a)(e,E),r=Object.keys(y).reduce((e,t)=>(e[t]={value:y[t],writable:!1,configurable:!0,enumerable:!0},e),{});return Object.defineProperties(t,r)})(l),v.proxy.assets&&(e=>{const t=e.startsWith("http");e+="/",r.p=t?e:"https://"+e})(v.proxy.assets),e.runtime.configured||(Object.defineProperty(e,"beacons",{get:()=>[e.info.beacon,e.info.errorBeacon,e.init.proxy.assets,e.init.proxy.beacon].filter(Boolean)}),Object.defineProperty(e.runtime,"denyList",{get:()=>[...e.init.ajax.deny_list||[],...e.init.ajax.block_internal?e.beacons:[]]}),e.runtime.ptid=e.agentIdentifier,function(e){const t=(0,s.pV)();Object.getOwnPropertyNames(i.W.prototype).forEach(r=>{const n=i.W.prototype[r];if("function"!=typeof n||"constructor"===n)return;let s=t[r];e[r]&&!1!==e.exposed&&"micro-agent"!==e.runtime?.loaderType&&(t[r]=(...t)=>{const n=e[r](...t);return s?s(...t):n})})}(e),e.runtime.loaderType=n,e.ee=R.ee.get(e.agentIdentifier),e.exposed=h,(0,w.W)({drained:!!e.runtime.activatedFeatures,type:"lifecycle",name:"initialize",feature:void 0,data:e.config}),e.runtime.configured=!0)}var A=r(9908),S=r(1863),_=r(4261),O=r(1738);var k=r(1687),L=r(4234),P=r(5289),j=r(5270),N=r(7767),C=r(6389),D=r(7699);const I=new WeakSet;class M extends L.W{constructor(e,t){super(e,t),this.abortHandler=void 0,this.featAggregate=void 0,this.loadedSuccessfully=void 0,this.onAggregateImported=new Promise(e=>{this.loadedSuccessfully=e}),this.deferred=Promise.resolve(),!1===e.init[this.featureName].autoStart?this.deferred=new Promise((t,r)=>{this.ee.on("manual-start-all",(0,C.J)(()=>{(0,k.Ak)(e,this.featureName),t()}))}):(0,k.Ak)(e,t)}importAggregator(e,t,n={}){if(this.featAggregate)return;const s=async()=>{if(await this.deferred,this.#t(e),!(0,o.f)(e.info))return(0,l.R)(43),e.ee.abort(),void this.loadedSuccessfully(!1);let s;try{if((0,N.V)(e.init)){const{setupAgentSession:t}=await r.e(891).then(r.bind(r,8766));s=t(e)}}catch(e){(0,l.R)(20,e),this.ee.emit("internal-error",[e]),(0,A.p)(D.qh,[e],void 0,this.featureName,this.ee)}try{if(!this.#r(this.featureName,s,e.init))return(0,k.Ze)(this.agentRef,this.featureName),void this.loadedSuccessfully(!1);const{Aggregate:r}=await t();this.featAggregate=new r(e,n),e.runtime.harvester.initializedAggregates.push(this.featAggregate),this.loadedSuccessfully(!0)}catch(e){(0,l.R)(34,e),this.abortHandler?.(),(0,k.Ze)(this.agentRef,this.featureName,!0),this.loadedSuccessfully(!1),this.ee&&this.ee.abort()}};g.RI?(0,P.GG)(()=>s(),!0):s()}#r(e,r,n){if(this.blocked)return!1;switch(e){case t.K7.sessionReplay:return(0,j.SR)(n)&&!!r;case t.K7.sessionTrace:return!!r;default:return!0}}#t(e){if(!I.has(e)&&(I.add(e),!(0,o.f)(e.info))){const t=(0,s.pV)();let r={...t.info?.jsAttributes};try{r={...r,...e.info?.jsAttributes}}catch(e){}x(e,{...t,info:{...t.info,jsAttributes:r},runtime:e.runtime},e.runtime.loaderType)}}}var B=r(6630);class H extends M{static featureName=B.T;constructor(e){var t;super(e,B.T),this.setupInspectionEvents(),t=e,(0,O.Y)(_.Fw,function(e,r){"string"==typeof e&&("/"!==e.charAt(0)&&(e="/"+e),t.runtime.customTransaction=(r||"http://custom.transaction")+e,(0,A.p)("api-"+_.Fw,[(0,S.t)()],void 0,void 0,t.ee))},t),this.importAggregator(e,()=>r.e(891).then(r.bind(r,1324)))}setupInspectionEvents(){const e=(e,t)=>{e&&(0,w.W)({timeStamp:e.timeStamp,loaded:"complete"===e.target.readyState,type:"window",name:t,data:e.target.location+""})};(0,P.sB)(t=>{e(t,"DOMContentLoaded")}),(0,P.GG)(t=>{e(t,"load")}),(0,P.Qr)(t=>{e(t,"navigate")}),this.ee.on(u.tS.UPDATE,(e,t)=>{(0,w.W)({type:"lifecycle",name:"session",data:t})})}}class W extends e.d{constructor(e){var t;(super(),g.gm)?(this.features={},(0,s.bQ)(this.agentIdentifier,this),this.desiredFeatures=new Set(e.features||[]),this.desiredFeatures.add(H),x(this,e,e.loaderType||"agent"),t=this,(0,O.Y)(_.cD,function(e,r,n=!1){if("string"==typeof e){if(["string","number","boolean"].includes(typeof r)||null===r)return(0,O.U)(t,e,r,_.cD,n);(0,l.R)(40,typeof r)}else(0,l.R)(39,typeof e)},t),function(e){(0,O.Y)(_.Dl,function(t,r=!1){if("string"!=typeof t&&null!==t)return void(0,l.R)(41,typeof t);const n=e.info.jsAttributes["enduser.id"];r&&null!=n&&n!==t?(0,A.p)("api-setUserIdAndResetSession",[t],void 0,"session",e.ee):(0,O.U)(e,"enduser.id",t,_.Dl,!0)},e)}(this),function(e){(0,O.Y)(_.nb,function(t){if("string"==typeof t||null===t)return(0,O.U)(e,"application.version",t,_.nb,!1);(0,l.R)(42,typeof t)},e)}(this),function(e){(0,O.Y)("start",function(){e.ee.emit("manual-start-all")},e)}(this),function(e){(0,O.Y)(_.Pv,function(t=!0){if("boolean"==typeof t){if((0,A.p)("api-"+_.Pv,[t],void 0,"session",e.ee),e.runtime.consented=t,t){const t=e.features.page_view_event;t.onAggregateImported.then(e=>{const r=t.featAggregate;e&&!r.sentRum&&r.sendRum()})}}else(0,l.R)(65,typeof t)},e)}(this),this.run()):(0,l.R)(21)}get config(){return{info:this.info,init:this.init,loader_config:this.loader_config,runtime:this.runtime}}get api(){return this}run(){try{const e=function(e){const t={};return n.forEach(r=>{t[r]=!!e[r]?.enabled}),t}(this.init),r=[...this.desiredFeatures];r.sort((e,r)=>t.P3[e.featureName]-t.P3[r.featureName]),r.forEach(r=>{if(!e[r.featureName]&&r.featureName!==t.K7.pageViewEvent)return;const n=function(e){switch(e){case t.K7.ajax:return[t.K7.jserrors];case t.K7.sessionTrace:return[t.K7.ajax,t.K7.pageViewEvent];case t.K7.sessionReplay:return[t.K7.sessionTrace];case t.K7.pageViewTiming:return[t.K7.pageViewEvent];default:return[]}}(r.featureName).filter(e=>!(e in this.features));n.length>0&&(0,l.R)(36,{targetFeature:r.featureName,missingDependencies:n}),this.features[r.featureName]=new r(this)})}catch(e){(0,l.R)(22,e);for(const e in this.features)this.features[e].abortHandler?.();const t=(0,s.Zm)();delete t.initializedAgents[this.agentIdentifier]?.features,delete this.sharedAggregator;return t.ee.get(this.agentIdentifier).abort(),!1}}}var K=r(2843),F=r(782);class U extends M{static featureName=F.T;constructor(e){super(e,F.T),g.RI&&((0,K.u)(()=>(0,A.p)("docHidden",[(0,S.t)()],void 0,F.T,this.ee),!0),(0,K.G)(()=>(0,A.p)("winPagehide",[(0,S.t)()],void 0,F.T,this.ee)),this.importAggregator(e,()=>r.e(891).then(r.bind(r,9018))))}}var V=r(3969);class z extends M{static featureName=V.TZ;constructor(e){super(e,V.TZ),this.importAggregator(e,()=>r.e(891).then(r.bind(r,6555)))}}var G=r(6774),q=r(3878),Y=r(3304);class Z{constructor(e,t,r,n,s){this.name="UncaughtError",this.message="string"==typeof e?e:(0,Y.A)(e),this.sourceURL=t,this.line=r,this.column=n,this.__newrelic=s}}function Q(e){return ee(e)?e:new Z(void 0!==e?.message?e.message:e,e?.filename||e?.sourceURL,e?.lineno||e?.line,e?.colno||e?.col,e?.__newrelic,e?.cause)}function X(e){const t="Unhandled Promise Rejection: ";if(!e?.reason)return;if(ee(e.reason)){try{e.reason.message.startsWith(t)||(e.reason.message=t+e.reason.message)}catch(e){}return Q(e.reason)}const r=Q(e.reason);return(r.message||"").startsWith(t)||(r.message=t+r.message),r}function J(e){if(e.error instanceof SyntaxError&&!/:\d+$/.test(e.error.stack?.trim())){const t=new Z(e.message,e.filename,e.lineno,e.colno,e.error.__newrelic,e.cause);return t.name=SyntaxError.name,t}return ee(e.error)?e.error:Q(e)}function ee(e){return e instanceof Error&&!!e.stack}function te(e,r,n,s,i=(0,S.t)()){"string"==typeof e&&(e=new Error(e)),(0,A.p)("err",[e,i,!1,r,n.runtime.isRecording,void 0,s],void 0,t.K7.jserrors,n.ee),(0,A.p)("uaErr",[],void 0,t.K7.genericEvents,n.ee)}var re=r(5732),ne=r(993),se=r(3785);function ie(e,{customAttributes:t={},level:r=ne.p_.INFO}={},n,s,i=(0,S.t)()){(0,se.R)(n.ee,e,t,r,!1,s,i)}function oe(e,r,n,s,i=(0,S.t)()){(0,A.p)("api-"+_.hG,[i,e,r,s],void 0,t.K7.genericEvents,n.ee)}function ae(e,r,n,s,i=(0,S.t)()){const{start:o,end:a,customAttributes:c}=r||{},d={customAttributes:c||{}};if("object"!=typeof d.customAttributes||"string"!=typeof e||0===e.length)return void(0,l.R)(57);const u=(e,t)=>null==e?t:"number"==typeof e?e:e instanceof PerformanceMark?e.startTime:Number.NaN;if(d.start=u(o,0),d.end=u(a,i),Number.isNaN(d.start)||Number.isNaN(d.end))(0,l.R)(57);else{if(d.duration=d.end-d.start,!(d.duration<0))return(0,A.p)("api-"+_.V1,[d,e,s],void 0,t.K7.genericEvents,n.ee),d;(0,l.R)(58)}}function ce(e,r={},n,s,i=(0,S.t)()){(0,A.p)("api-"+_.fF,[i,e,r,s],void 0,t.K7.genericEvents,n.ee)}var de=r(7508);const ue=(e,t)=>{if(!e||!t)return!1;try{let r=1===e.nodeType?e:e.parentElement;for(;r?.tagName;){if(r.dataset?.nrMfeId===t)return!0;r=r.parentNode}}catch(e){}return!1},le=(e,t)=>{const r=g.gm.document?.querySelector('[data-nr-mfe-id="'.concat(e,'"]'));let n=!!r;const s=new g.gm.MutationObserver(r=>{r.forEach(r=>{r.addedNodes.forEach(r=>{const i=1===r.nodeType?r:null;i?.dataset?.nrMfeId===e&&(s.disconnect(),s.observe(i,{childList:!0,subtree:!0}),n=!0),(e=>{try{return e?.textContent?.trim()||["img","video","canvas","svg"].includes(e?.nodeName?.toLowerCase())}catch(e){return!1}})(r)&&(n||ue(r,e))&&t(r,s)})})});return s.observe(r||g.gm.document,{childList:!0,subtree:!0}),s},fe=(e,t,r)=>{try{const n=new g.gm.PerformanceObserver(e=>{e.getEntries().forEach(r)});return n.observe(t),e.push(n),n}catch(e){return null}};function he(e,t){let r=null,n=null;const s=e=>null===e?null:e-(t?.scriptStart||t?.registeredAt||0),i={fcp:{get value(){return s(r)}},lcp:{get value(){return s(n)}},cls:{value:null},inp:{value:null},disconnect:()=>{}};if(!(e&&g.RI&&g.gm.MutationObserver&&g.gm.PerformanceObserver))return i;const o=[],a=()=>{r??=(0,S.t)(),n??=(0,S.t)(),i.cls.value??=0};g.gm.document?.querySelector('[data-nr-mfe-id="'.concat(e,'"]'))&&a(),le(e,(e,t)=>{a(),t.disconnect()});let c=0,d=null;const u=new Set;try{d=new g.gm.ResizeObserver(e=>{e.forEach(e=>{try{const t=e.contentRect.width*e.contentRect.height;t>c&&(c=t,n=(0,S.t)()),d.unobserve(e.target)}catch(e){}})})}catch(e){}const l=le(e,e=>{if(a(),d)try{const t=1===e.nodeType?e:e.parentElement;t&&!u.has(t)&&(u.add(t),"IMG"===t.tagName?t.complete?d.observe(t):t.addEventListener("load",()=>{d.observe(t)},{once:!0}):"VIDEO"===t.tagName?t.readyState>=2?d.observe(t):t.addEventListener("loadeddata",()=>{d.observe(t)},{once:!0}):d.observe(t))}catch(e){}});d&&o.push(d),o.push(l),fe(o,{type:"layout-shift",buffered:!0},t=>{t.hadRecentInput||(t.sources||[]).some(r=>!!ue(r.node,e)&&(a(),i.cls.value+=t.value,!0))}),fe(o,{type:"event",buffered:!0,durationThreshold:40},t=>{t.interactionId&&ue(t.target,e)&&(null===i.inp.value||t.duration>i.inp.value)&&(a(),i.inp.value=t.duration)});const f=["pointerdown","keydown"],h=()=>{f.forEach(e=>{g.gm.removeEventListener(e,p,{passive:!0})})};i.disconnect=()=>{o.forEach(e=>{try{e?.disconnect()}catch(e){}}),h()};const p=t=>{ue(t?.target,e)&&((()=>{try{l?.disconnect(),d?.disconnect()}catch(e){}})(),h())};return f.forEach(e=>{g.gm.addEventListener(e,p,{passive:!0})}),["visibilitychange","pagehide"].forEach(e=>{g.gm.addEventListener(e,i.disconnect,{once:!0,passive:!0})}),i}var pe=r(9566);const ge=["name","id","type"],me=new Map([[oe,"addPageAction"],[ie,"log"],[ae,"measure"],[te,"noticeError"],[ce,"recordCustomEvent"]]),ve={experimental:(0,C.J)(()=>(0,l.R)(54,"newrelic.register")),disabled:(0,C.J)(()=>(0,l.R)(55)),invalidTarget:(0,C.J)(e=>(0,l.R)(48,e)),deregistered:(0,C.J)(()=>(0,l.R)(68))};function ye(e){(0,O.Y)(_.eY,function(t){return be(e,t)},e)}function be(e,r){ve.experimental(),r||={},r.instance=(0,pe.LA)(8),r.type=re.fQ.MFE,r.licenseKey||=e.info.licenseKey,r.blocked=!1,("object"!=typeof r.tags||null===r.tags||Array.isArray(r.tags))&&(r.tags={}),r.parent??={get id(){return e.runtime.appMetadata.agents[0].entityGuid},type:re.fQ.BA};const n=(0,de.Qr)(),s=he(r.id,n),i={};Object.prototype.hasOwnProperty.call(r,"attributes")||Object.defineProperty(r,"attributes",{get:()=>({...i,"source.id":r.id,"source.name":r.name,"source.type":r.type,"parent.type":r.parent?.type||re.fQ.BA,"parent.id":r.parent?.id})}),Object.entries(r.tags).forEach(([e,t])=>{ge.includes(e)||(i["source.".concat(e)]=t)});let o=()=>{};const a=e.runtime.registeredEntities,c=e=>{r.blocked=!0,o=e};function d(e){return"string"==typeof e&&!!e.trim()&&e.trim().length<501}e.init.api.register.enabled||c(ve.disabled),d(r.id)&&d(r.name)||c(()=>ve.invalidTarget(r));const u={addPageAction:(t,n={})=>g(oe,[t,{...i,...n},e],r),deregister:()=>{h(),c(ve.deregistered)},log:(t,n={})=>g(ie,[t,{...n,customAttributes:{...i,...n.customAttributes||{}}},e],r),measure:(t,n={})=>g(ae,[t,{...n,customAttributes:{...i,...n.customAttributes||{}}},e],r),noticeError:(t,n={})=>g(te,[t,{...i,...n},e],r),recordCustomEvent:(t,n={})=>g(ce,[t,{...i,...n},e],r),setApplicationVersion:e=>p("application.version",e),setCustomAttribute:(e,t)=>p(e,t),setUserId:e=>p("enduser.id",e),metadata:{get customAttributes(){return i},target:r,timings:n,vitals:s}},f=()=>(r.blocked&&o(),r.blocked);function h(){if(n.reportedAt)return;n.reportedAt=(0,S.t)(),s.disconnect(),n.fcp=s.fcp,n.lcp=s.lcp,n.cls=s.cls,n.inp=s.inp;const e=n.fetchEnd-n.fetchStart,t=n.scriptEnd-n.scriptStart,r={assetUrl:n.asset,assetType:n.type,timeAlive:n.reportedAt-n.registeredAt,timeToBeRequested:n.fetchStart,timeToExecute:t,timeToFetch:e,timeToLoad:e+t,timeToRegister:n.registeredAt,"nr.vitals.fcp.value":s.fcp?.value??null,"nr.vitals.lcp.value":s.lcp?.value??null,"nr.vitals.cls.value":s.cls?.value??null,"nr.vitals.inp.value":s.inp?.value??null};u.recordCustomEvent("MicroFrontEndTiming",r)}f()||(a.push(u),(0,K.G)(h));const p=(e,t)=>{f()||(i[e]=t)},g=(r,n,s)=>{if(f()&&r!==be)return;const i=(0,S.t)(),o=me.get(r)||"unknown";(0,A.p)(V.xV,["API/register/".concat(o,"/called")],void 0,t.K7.metrics,e.ee);try{return r(...n,s,i)}catch(e){(0,l.R)(50,e)}};return u}class Ee extends M{static featureName=G.T;constructor(e){var t;super(e,G.T),t=e,(0,O.Y)(_.o5,(e,r)=>te(e,r,t),t),function(e){(0,O.Y)(_.bt,function(t){e.runtime.onerror=t},e)}(e),function(e){let t=0;(0,O.Y)(_.k6,function(e,r){++t>10||(this.runtime.releaseIds[e.slice(-200)]=(""+r).slice(-200))},e)}(e),ye(e);try{this.removeOnAbort=new AbortController}catch(e){}this.ee.on("internal-error",(t,r)=>{this.abortHandler&&(0,A.p)("ierr",[Q(t),(0,S.t)(),!0,{},e.runtime.isRecording,r],void 0,this.featureName,this.ee)}),g.gm.addEventListener("unhandledrejection",t=>{this.abortHandler&&(0,A.p)("err",[X(t),(0,S.t)(),!1,{unhandledPromiseRejection:1},e.runtime.isRecording],void 0,this.featureName,this.ee)},(0,q.jT)(!1,this.removeOnAbort?.signal)),g.gm.addEventListener("error",t=>{this.abortHandler&&(0,A.p)("err",[J(t),(0,S.t)(),!1,{},e.runtime.isRecording],void 0,this.featureName,this.ee)},(0,q.jT)(!1,this.removeOnAbort?.signal)),this.abortHandler=this.#n,this.importAggregator(e,()=>r.e(891).then(r.bind(r,9377)))}#n(){this.removeOnAbort?.abort(),this.abortHandler=void 0}}var Re=r(8990);let we=1;function Te(e){const t=typeof e;return!e||"object"!==t&&"function"!==t?-1:e===g.gm?0:(0,Re.I)(e,"nr@id",function(){return we++})}function xe(e){if("string"==typeof e)return e.length;if("object"==typeof e){if("undefined"!=typeof ArrayBuffer&&e instanceof ArrayBuffer&&e.byteLength)return e.byteLength;if("undefined"!=typeof Blob&&e instanceof Blob&&e.size)return e.size;if(!("undefined"!=typeof FormData&&e instanceof FormData))try{return(0,Y.A)(e).length}catch(e){return}}}var Ae=r(8139),Se=r(3434);const _e={},Oe=["open","send","setRequestHeader"];function ke(e,t){var r=e||R.ee;const n=function(e){return(e||R.ee).get("xhr")}(r);if(void 0===g.gm.XMLHttpRequest)return n;if(_e[n.debugId]++)return n;_e[n.debugId]=1,(0,Ae.u)(r);var s=(0,Se.YM)(n),i=g.gm.XMLHttpRequest,o=g.gm.MutationObserver,a=g.gm.Promise,c=g.gm.setInterval,d="readystatechange",u=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"],f=[],h=g.gm.XMLHttpRequest=function(e){const r=new i(e),o=n.context(r);o.targets=(0,re.$5)(t);try{n.emit("new-xhr",[r],o),r.addEventListener(d,(a=o,function(){var e=this;e.readyState>3&&!a.resolved&&(a.resolved=!0,n.emit("xhr-resolved",[],e)),s.inPlace(e,u,"fn-",E)}),(0,q.jT)(!1))}catch(e){(0,l.R)(15,e);try{n.emit("internal-error",[e])}catch(e){}}var a;return r};function p(e,t){s.inPlace(t,["onreadystatechange"],"fn-",E)}if(function(e,t){for(var r in e)t[r]=e[r]}(i,h),h.prototype=i.prototype,s.inPlace(h.prototype,Oe,"-xhr-",E),n.on("send-xhr-start",function(e,t){p(e,t),function(e){f.push(e),o&&(m?m.then(b):c?c(b):(v=-v,y.data=v))}(t)}),n.on("open-xhr-start",p),o){var m=a&&a.resolve();if(!c&&!a){var v=1,y=document.createTextNode(v);new o(b).observe(y,{characterData:!0})}}else r.on("fn-end",function(e){e[0]&&e[0].type===d||b()});function b(){for(var e=0;e<f.length;e++)p(0,f[e]);f.length&&(f=[])}function E(e,t){return t}return n}var Le="fetch-",Pe=Le+"body-",je=["arrayBuffer","blob","json","text","formData"],Ne=g.gm.Request,Ce=g.gm.Response,De="prototype";const Ie={};function Me(e,t){const r=function(e){return(e||R.ee).get("fetch")}(e);if(!(Ne&&Ce&&g.gm.fetch))return r;if(Ie[r.debugId]++)return r;function n(e,n,s){var i=e[n];"function"==typeof i&&(e[n]=function(){var e=[...arguments];const n={},o=(0,re.$5)(t);var a;r.emit(s+"before-start",[e],n),n[R.P]&&n[R.P].dt&&(a=n[R.P].dt);var c=i.apply(this,e);return r.emit(s+"start",[e,a],c),c.then(function(e){return r.emit(s+"end",[null,e,o],c),e},function(e){throw r.emit(s+"end",[e,void 0,o],c),e})})}return Ie[r.debugId]=1,je.forEach(e=>{n(Ne[De],e,Pe),n(Ce[De],e,Pe)}),n(g.gm,"fetch",Le),r.on(Le+"end",function(e,t,n){var s=this;if(s.targets=n||[void 0],t){var i=t.headers.get("content-length");null!==i&&(s.rxSize=i),r.emit(Le+"done",[null,t],s)}else r.emit(Le+"done",[e],s)}),r}var Be=r(7485);class He{constructor(e){this.agentRef=e}generateTracePayload(e){const t=this.agentRef.loader_config;if(!this.shouldGenerateTrace(e)||!t)return null;var r=(t.accountID||"").toString()||null,n=(t.agentID||"").toString()||null,s=(t.trustKey||"").toString()||null;if(!r||!n)return null;var i=(0,pe.ZF)(),o=(0,pe.el)(),a=Date.now(),c={spanId:i,traceId:o,timestamp:a};return(e.sameOrigin||this.isAllowedOrigin(e)&&this.useTraceContextHeadersForCors())&&(c.traceContextParentHeader=this.generateTraceContextParentHeader(i,o),c.traceContextStateHeader=this.generateTraceContextStateHeader(i,a,r,n,s)),(e.sameOrigin&&!this.excludeNewrelicHeader()||!e.sameOrigin&&this.isAllowedOrigin(e)&&this.useNewrelicHeaderForCors())&&(c.newrelicHeader=this.generateTraceHeader(i,o,a,r,n,s)),c}generateTraceContextParentHeader(e,t){return"00-"+t+"-"+e+"-01"}generateTraceContextStateHeader(e,t,r,n,s){return s+"@nr=0-1-"+r+"-"+n+"-"+e+"----"+t}generateTraceHeader(e,t,r,n,s,i){if(!("function"==typeof g.gm?.btoa))return null;var o={v:[0,1],d:{ty:"Browser",ac:n,ap:s,id:e,tr:t,ti:r}};return i&&n!==i&&(o.d.tk=i),btoa((0,Y.A)(o))}shouldGenerateTrace(e){return this.agentRef.init?.distributed_tracing?.enabled&&this.isAllowedOrigin(e)}isAllowedOrigin(e){var t=!1;const r=this.agentRef.init?.distributed_tracing;if(e.sameOrigin)t=!0;else if(r?.allowed_origins instanceof Array)for(var n=0;n<r.allowed_origins.length;n++){var s=(0,Be.D)(r.allowed_origins[n]);if(e.hostname===s.hostname&&e.protocol===s.protocol&&e.port===s.port){t=!0;break}}return t}excludeNewrelicHeader(){var e=this.agentRef.init?.distributed_tracing;return!!e&&!!e.exclude_newrelic_header}useNewrelicHeaderForCors(){var e=this.agentRef.init?.distributed_tracing;return!!e&&!1!==e.cors_use_newrelic_header}useTraceContextHeadersForCors(){var e=this.agentRef.init?.distributed_tracing;return!!e&&!!e.cors_use_tracecontext_headers}}var We=r(7295);function Ke(e){return"string"==typeof e?e:e instanceof(0,s.dV)().o.REQ?e.url:g.gm?.URL&&e instanceof URL?e.href:void 0}var Fe=["load","error","abort","timeout"],Ue=Fe.length,Ve=(0,s.dV)().o.REQ,ze=(0,s.dV)().o.XHR;const Ge="X-NewRelic-App-Data",qe="internal-error";class Ye extends M{static featureName=c.TZ;constructor(e){super(e,c.TZ),this.dt=new He(e),this.handler=(e,t,r,n)=>(0,A.p)(e,t,r,n,this.ee);try{const e={xmlhttprequest:"xhr",fetch:"fetch",beacon:"beacon"};g.gm?.performance?.getEntriesByType("resource").forEach(r=>{if(r.initiatorType in e&&0!==r.responseStatus){const n={status:r.responseStatus},s={rxSize:r.transferSize,duration:Math.floor(r.duration),cbTime:0};Ze(n,r.name),this.handler("xhr",[n,s,r.startTime,r.responseEnd,e[r.initiatorType]],void 0,t.K7.ajax)}})}catch(e){}Me(this.ee,e),ke(this.ee,e),function(e,r,n,s){const i=[c.mo.ALL,c.mo.FAILURES].includes(e.init.ajax?.capture_payloads);function o(e){var t=this;t.totalCbs=0,t.called=0,t.cbTime=0,t.end=x,t.ended=!1,t.xhrGuids={},t.lastSize=null,t.loadCaptureCalled=!1,t.params=this.params||{},t.metrics=this.metrics||{},t.latestLongtaskEnd=0,e.addEventListener("load",function(r){O(t,e)},(0,q.jT)(!1)),g.lR||e.addEventListener("progress",function(e){t.lastSize=e.loaded},(0,q.jT)(!1))}function a(e){this.params={method:e[0]},Ze(this,e[1]),this.metrics={}}function d(t,r){e.loader_config.xpid&&this.sameOrigin&&r.setRequestHeader("X-NewRelic-ID",e.loader_config.xpid);var n=s.generateTracePayload(this.parsedOrigin);if(n){var i=!1;n.newrelicHeader&&(r.setRequestHeader("newrelic",n.newrelicHeader),i=!0),n.traceContextParentHeader&&(r.setRequestHeader("traceparent",n.traceContextParentHeader),n.traceContextStateHeader&&r.setRequestHeader("tracestate",n.traceContextStateHeader),i=!0),i&&(this.dt=n)}}function u(e,t){i&&e.length>=2&&(this.requestHeaders??={},this.requestHeaders[e[0].toLowerCase()]=e[1])}function l(e,t){var n=this.metrics,s=e[0],i=this;if(n&&s){var o=xe(s);o&&(n.txSize=o)}this.startTime=(0,S.t)(),this.requestBody=s,this.listener=function(e){try{"abort"!==e.type||i.loadCaptureCalled||(i.params.aborted=!0),("load"!==e.type||i.called===i.totalCbs&&(i.onloadCalled||"function"!=typeof t.onload)&&"function"==typeof i.end)&&i.end(t)}catch(e){try{r.emit(qe,[e])}catch(e){}}};for(var a=0;a<Ue;a++)t.addEventListener(Fe[a],this.listener,(0,q.jT)(!1))}function f(e,t,r){this.cbTime+=e,t?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof r.onload||"function"!=typeof this.end||this.end(r)}function h(e,t){var r=""+Te(e)+!!t;this.xhrGuids&&!this.xhrGuids[r]&&(this.xhrGuids[r]=!0,this.totalCbs+=1)}function p(e,t){var r=""+Te(e)+!!t;this.xhrGuids&&this.xhrGuids[r]&&(delete this.xhrGuids[r],this.totalCbs-=1)}function m(){this.endTime=(0,S.t)()}function v(e,t){t instanceof ze&&"load"===e[0]&&r.emit("xhr-load-added",[e[1],e[2]],t)}function y(e,t){t instanceof ze&&"load"===e[0]&&r.emit("xhr-load-removed",[e[1],e[2]],t)}function b(e,t,r){t instanceof ze&&("onload"===r&&(this.onload=!0),("load"===(e[0]&&e[0].type)||this.onload)&&(this.xhrCbStart=(0,S.t)()))}function E(e,t){this.xhrCbStart&&r.emit("xhr-cb-time",[(0,S.t)()-this.xhrCbStart,this.onload,t],t)}function R(e){var t,r=e[1]||{};if("string"==typeof e[0]?0===(t=e[0]).length&&g.RI&&(t=""+g.gm.location.href):e[0]&&e[0].url?t=e[0].url:g.gm?.URL&&e[0]&&e[0]instanceof URL?t=e[0].href:"function"==typeof e[0].toString&&(t=e[0].toString()),"string"==typeof t&&0!==t.length){t&&(this.parsedOrigin=(0,Be.D)(t),this.sameOrigin=this.parsedOrigin.sameOrigin);var n=s.generateTracePayload(this.parsedOrigin);if(n&&(n.newrelicHeader||n.traceContextParentHeader))if(e[0]&&e[0].headers)a(e[0].headers,n)&&(this.dt=n);else{var i={};for(var o in r)i[o]=r[o];i.headers=new Headers(r.headers||{}),a(i.headers,n)&&(this.dt=n),e.length>1?e[1]=i:e.push(i)}}function a(e,t){var r=!1;return t.newrelicHeader&&(e.set("newrelic",t.newrelicHeader),r=!0),t.traceContextParentHeader&&(e.set("traceparent",t.traceContextParentHeader),t.traceContextStateHeader&&e.set("tracestate",t.traceContextStateHeader),r=!0),r}}function w(e,t){this.params={},this.metrics={},this.startTime=(0,S.t)(),this.dt=t;let[r,n={}]=e;Ze(this,Ke(r));const s=(""+(r&&r instanceof Ve&&r.method||n.method||"GET")).toUpperCase();this.params.method=s,this.txSize=xe(n.body||r?.body)||0;try{var o=n.headers||r?.headers;if(i&&o)if(this.requestHeaders??={},o instanceof Headers)o.forEach(function(e,t){this.requestHeaders[t.toLowerCase()]=e}.bind(this));else if("object"==typeof o)for(var a in o)this.requestHeaders[a.toLowerCase()]=o[a]}catch(e){}this.requestBody=n.body||r?.body}function T(e,t){if(this.endTime=(0,S.t)(),this.params||(this.params={}),(0,We.iW)(this.params))return;this.params.status=t?t.status:0;const n=()=>{const e=+this.rxSize,t=null==this.rxSize||isNaN(e)?void 0:e,r={txSize:this.txSize,rxSize:t,duration:this.endTime-this.startTime},n=[this.params,r,this.startTime,this.endTime,"fetch"];this.targets.forEach(e=>_(n,this,e))};t&&i?t.clone().text().then(e=>{this.responseBody=e,this.rxSize&&"0"!==this.rxSize&&0!==this.rxSize||void 0===e||0===this.params.status||(this.rxSize=xe(e)),t?.headers&&(this.responseHeaders={},t.headers.forEach(function(e,t){this.responseHeaders[t.toLowerCase()]=e}.bind(this)))}).catch(e=>{r.emit(qe,[e])}).finally(()=>{n()}):n()}function x(e){const t=this.params,n=this.metrics;if(this.ended)return;this.ended=!0;for(let t=0;t<Ue;t++)e.removeEventListener(Fe[t],this.listener,!1);if(t.aborted)return;if((0,We.iW)(t))return;if(n.duration=this.endTime-this.startTime,this.loadCaptureCalled||4!==e.readyState?null==t.status&&(t.status=0):O(this,e),n.cbTime=this.cbTime,i){try{this.responseBody=e.responseText}catch(t){this.responseBody=e.response}if((!n.rxSize||0===n.rxSize)&&void 0!==this.responseBody&&0!==t.status){const e=xe(this.responseBody);void 0!==e&&(n.rxSize=e)}try{this.responseHeaders=function(e){const t={};return e?(e.split("\r\n").forEach(function(e){const r=e.indexOf(": ");if(r>0){const n=e.substring(0,r),s=e.substring(r+2);t[n.toLowerCase()]=s}}),t):t}(e.getAllResponseHeaders())}catch(e){r.emit(qe,[e])}}const s=[t,n,this.startTime,this.endTime,"xhr"];this.targets.forEach(e=>_(s,this,e))}function _(e,r,s){n("xhr",[...e,s],r,t.K7.ajax)}function O(e,n){e.params.status=n.status;var s=function(e,t){var r=e.responseType;return"json"===r&&null!==t?t:"arraybuffer"===r||"blob"===r||"json"===r?xe(e.response):"text"===r||""===r||void 0===r?xe(e.responseText):void 0}(n,e.lastSize);if(void 0!==s&&0!==n.status&&(e.metrics.rxSize=s),e.sameOrigin&&n.getAllResponseHeaders().indexOf(Ge)>=0){var i=n.getResponseHeader(Ge);i&&((0,A.p)("sm",["Ajax/CrossApplicationTracing/Header/Seen"],void 0,t.K7.metrics,r),e.params.cat=i.split(", ").pop())}e.loadCaptureCalled=!0}r.on("new-xhr",o),r.on("open-xhr-start",a),r.on("open-xhr-end",d),r.on("send-xhr-start",l),r.on("setRequestHeader-xhr-start",u),r.on("xhr-cb-time",f),r.on("xhr-load-added",h),r.on("xhr-load-removed",p),r.on("xhr-resolved",m),r.on("addEventListener-end",v),r.on("removeEventListener-end",y),r.on("fn-end",E),r.on("fetch-before-start",R),r.on("fetch-start",w),r.on("fn-start",b),r.on("fetch-done",T)}(e,this.ee,this.handler,this.dt),this.importAggregator(e,()=>r.e(891).then(r.bind(r,5696)))}}function Ze(e,t){var r=(0,Be.D)(t),n=e.params||e;n.hostname=r.hostname,n.port=r.port,n.protocol=r.protocol,n.host=r.hostname+":"+r.port,n.pathname=r.pathname,e.parsedOrigin=r,e.sameOrigin=r.sameOrigin}const Qe={},Xe=["pushState","replaceState"];function $e(e){const t=function(e){return(e||R.ee).get("history")}(e);return!g.RI||Qe[t.debugId]++||(Qe[t.debugId]=1,(0,Se.YM)(t).inPlace(window.history,Xe,"-")),t}var Je=r(3738);function et(e){(0,O.Y)(_.BL,function(r=Date.now()){const n=r-g.WN;n<0&&(0,l.R)(62,r),(0,A.p)(V.XG,[_.BL,{time:n}],void 0,t.K7.metrics,e.ee),e.addToTrace({name:_.BL,start:r,origin:"nr"}),(0,A.p)("api-"+_.hG,[n,_.BL],void 0,t.K7.genericEvents,e.ee)},e)}const{He:tt,bD:rt,d3:nt,Kp:st,TZ:it,Lc:ot,uP:at,Rz:ct}=Je;class dt extends M{static featureName=it;constructor(e){var n;super(e,it),n=e,(0,O.Y)(_.U2,function(e){if(!(e&&"object"==typeof e&&e.name&&e.start))return;const r={n:e.name,s:e.start-g.WN,e:(e.end||e.start)-g.WN,o:e.origin||"",t:"api"};r.s<0||r.e<0||r.e<r.s?(0,l.R)(61,{start:r.s,end:r.e}):(0,A.p)("bstApi",[r],void 0,t.K7.sessionTrace,n.ee)},n),et(e);if(!(0,N.V)(e.init))return void this.deregisterDrain();const s=this.ee;let i;$e(s),this.eventsEE=(0,Ae.u)(s),this.eventsEE.on(at,function(e,t){this.bstStart=(0,S.t)()}),this.eventsEE.on(ot,function(e,r){(0,A.p)("bst",[e[0],r,this.bstStart,(0,S.t)()],void 0,t.K7.sessionTrace,s)}),s.on(ct+nt,function(e){this.time=(0,S.t)(),this.startPath=location.pathname+location.hash}),s.on(ct+st,function(e){(0,A.p)("bstHist",[location.pathname+location.hash,this.startPath,this.time],void 0,t.K7.sessionTrace,s)});try{i=new PerformanceObserver(e=>{const r=e.getEntries();(0,A.p)(tt,[r],void 0,t.K7.sessionTrace,s)}),i.observe({type:rt,buffered:!0})}catch(e){}this.importAggregator(e,()=>r.e(891).then(r.bind(r,6974)),{resourceObserver:i})}}var ut=r(733),lt=r(6344);class ft extends M{static featureName=lt.TZ;#s;recorder;constructor(e){var n;let s;super(e,lt.TZ),n=e,(0,O.Y)(_.CH,function(){(0,A.p)(_.CH,[],void 0,t.K7.sessionReplay,n.ee)},n),function(e){(0,O.Y)(_.Tb,function(){(0,A.p)(_.Tb,[],void 0,t.K7.sessionReplay,e.ee)},e)}(e);const i="".concat(u.Wt).concat((0,ut.Y)(e.info.licenseKey,e.info.applicationID));try{s=JSON.parse(localStorage.getItem(i))}catch(e){}(0,j.SR)(e.init)&&this.ee.on(_.CH,()=>this.#i()),this.#o(s)&&this.importRecorder().then(e=>{e.startRecording(lt.Qb.PRELOAD,s?.sessionReplayMode)}),this.importAggregator(this.agentRef,()=>r.e(891).then(r.bind(r,6167)),this),this.ee.on("err",e=>{this.blocked||this.agentRef.runtime.isRecording&&(this.errorNoticed=!0,(0,A.p)(lt.Vh,[e],void 0,this.featureName,this.ee))})}#o(e){return e&&(e.sessionReplayMode===u.g.FULL||e.sessionReplayMode===u.g.ERROR)||(0,j.Aw)(this.agentRef.init)}importRecorder(){return this.recorder?Promise.resolve(this.recorder):(this.#s??=Promise.all([r.e(891),r.e(222)]).then(r.bind(r,4866)).then(({Recorder:e})=>(this.recorder=new e(this),this.recorder)).catch(e=>{throw this.ee.emit("internal-error",[e]),this.blocked=!0,e}),this.#s)}#i(){this.blocked||(this.featAggregate?this.featAggregate.mode!==u.g.FULL&&this.featAggregate.initializeRecording(u.g.FULL,!0,lt.Qb.API):this.importRecorder().then(()=>{this.recorder.startRecording(lt.Qb.API,u.g.FULL)}))}}var ht=r(9119),pt=r(981);const gt={},mt=new Set;function vt(e){return"string"==typeof e?{type:"string",size:(new TextEncoder).encode(e).length}:e instanceof ArrayBuffer?{type:"ArrayBuffer",size:e.byteLength}:e instanceof Blob?{type:"Blob",size:e.size}:e instanceof DataView?{type:"DataView",size:e.byteLength}:ArrayBuffer.isView(e)?{type:"TypedArray",size:e.byteLength}:{type:"unknown",size:0}}class yt{constructor(e,t){this.timestamp=(0,S.t)(),this.currentUrl=(0,ht.L)(window.location.href),this.socketId=(0,pe.LA)(8),this.requestedUrl=(0,ht.L)(e),this.requestedProtocols=Array.isArray(t)?t.join(","):t||"",this.openedAt=void 0,this.protocol=void 0,this.extensions=void 0,this.binaryType=void 0,this.messageOrigin=void 0,this.messageCount=0,this.messageBytes=0,this.messageBytesMin=0,this.messageBytesMax=0,this.messageTypes=void 0,this.sendCount=0,this.sendBytes=0,this.sendBytesMin=0,this.sendBytesMax=0,this.sendTypes=void 0,this.closedAt=void 0,this.closeCode=void 0,this.closeReason="unknown",this.closeWasClean=void 0,this.connectedDuration=0,this.hasErrors=void 0}}class bt extends M{static featureName=a.TZ;constructor(e){super(e,a.TZ);const n=e.init.feature_flags.includes("websockets")||e.init.web_sockets?.enabled,i=!e.init.feature_flags.includes("no_spv"),o=[e.init.page_action.enabled,e.init.performance.capture_marks,e.init.performance.capture_measures,e.init.performance.resources.enabled,e.init.user_actions.enabled,n,i];var c;let d;if(c=e,(0,O.Y)(_.hG,(e,t)=>oe(e,t,c),c),function(e){(0,O.Y)(_.fF,(t,r)=>ce(t,r,e),e)}(e),et(e),ye(e),function(e){(0,O.Y)(_.V1,(t,r)=>ae(t,r,e),e)}(e),this.removeOnAbort=new AbortController,this.abortHandler=()=>{this.removeOnAbort.abort(),this.abortHandler=void 0},n){const u=function(e){if(!(0,s.dV)().o.WS)return e;const t=e.get("websockets");if(gt[t.debugId]++)return t;gt[t.debugId]=1,(0,K.G)(()=>{const e=(0,S.t)();mt.forEach(r=>{r.nrData.closedAt=e,r.nrData.closeCode=1001,r.nrData.closeReason="Page navigating away",r.nrData.closeWasClean=!1,r.nrData.openedAt&&(r.nrData.connectedDuration=e-r.nrData.openedAt),t.emit("ws",[r.nrData],r)})});class r extends WebSocket{static name=pt.R.WS;static toString(){return"function WebSocket() { [native code] }"}toString(){return"[object WebSocket]"}get[Symbol.toStringTag](){return r.name}#a(e){(e.__newrelic??={}).socketId=this.nrData.socketId,this.nrData.hasErrors??=!0}constructor(...e){super(...e),this.nrData=new yt(e[0],e[1]),this.addEventListener("open",()=>{this.nrData.openedAt=(0,S.t)(),["protocol","extensions","binaryType"].forEach(e=>{this.nrData[e]=this[e]}),mt.add(this)}),this.addEventListener("message",e=>{const{type:t,size:r}=vt(e.data);this.nrData.messageOrigin??=(0,ht.L)(e.origin),this.nrData.messageCount++,this.nrData.messageBytes+=r,this.nrData.messageBytesMin=Math.min(this.nrData.messageBytesMin||1/0,r),this.nrData.messageBytesMax=Math.max(this.nrData.messageBytesMax,r),(this.nrData.messageTypes??"").includes(t)||(this.nrData.messageTypes=this.nrData.messageTypes?"".concat(this.nrData.messageTypes,",").concat(t):t)}),this.addEventListener("close",e=>{this.nrData.closedAt=(0,S.t)(),this.nrData.closeCode=e.code,e.reason&&(this.nrData.closeReason=e.reason),this.nrData.closeWasClean=e.wasClean,this.nrData.connectedDuration=this.nrData.closedAt-this.nrData.openedAt,mt.delete(this),t.emit("ws",[this.nrData],this)})}addEventListener(e,t,...r){const n=this,s="function"==typeof t?function(...e){try{return t.apply(this,e)}catch(e){throw n.#a(e),e}}:t?.handleEvent?{handleEvent:function(...e){try{return t.handleEvent.apply(t,e)}catch(e){throw n.#a(e),e}}}:t;return super.addEventListener(e,s,...r)}send(e){if(this.readyState===WebSocket.OPEN){const{type:t,size:r}=vt(e);this.nrData.sendCount++,this.nrData.sendBytes+=r,this.nrData.sendBytesMin=Math.min(this.nrData.sendBytesMin||1/0,r),this.nrData.sendBytesMax=Math.max(this.nrData.sendBytesMax,r),(this.nrData.sendTypes??"").includes(t)||(this.nrData.sendTypes=this.nrData.sendTypes?"".concat(this.nrData.sendTypes,",").concat(t):t)}try{return super.send(e)}catch(e){throw this.#a(e),e}}close(...e){try{super.close(...e)}catch(e){throw this.#a(e),e}}}return g.gm.WebSocket=r,t}(this.ee);u.on("ws",e=>{(0,A.p)("ws-complete",[e],void 0,this.featureName,this.ee)})}if(i&&g.gm.addEventListener("securitypolicyviolation",e=>{(0,A.p)("spv",[e],void 0,t.K7.genericEvents,this.ee)},(0,q.jT)(!1,this.removeOnAbort.signal)),g.RI){if(Me(this.ee,e),ke(this.ee,e),d=$e(this.ee),e.init.user_actions.enabled){function l(t){const r=(0,Be.D)(t);return e.beacons.includes(r.hostname+":"+r.port)}function f(){d.emit("navChange")}a.Zp.forEach(e=>(0,q.sp)(e,e=>(0,A.p)("ua",[e],void 0,this.featureName,this.ee),!0)),a.qN.forEach(e=>{const t=(0,C.s)(e=>{(0,A.p)("ua",[e],void 0,this.featureName,this.ee)},500,{leading:!0});(0,q.sp)(e,t)}),g.gm.addEventListener("error",()=>{(0,A.p)("uaErr",[],void 0,t.K7.genericEvents,this.ee)},(0,q.jT)(!1,this.removeOnAbort.signal)),this.ee.on("open-xhr-start",(e,r)=>{l(e[1])||r.addEventListener("readystatechange",()=>{2===r.readyState&&(0,A.p)("uaXhr",[],void 0,t.K7.genericEvents,this.ee)},(0,q.jT)(void 0,this.removeOnAbort.signal))}),this.ee.on("fetch-start",e=>{e.length>=1&&!l(Ke(e[0]))&&(0,A.p)("uaXhr",[],void 0,t.K7.genericEvents,this.ee)}),d.on("pushState-end",f),d.on("replaceState-end",f),window.addEventListener("hashchange",f,(0,q.jT)(!0,this.removeOnAbort.signal)),window.addEventListener("popstate",f,(0,q.jT)(!0,this.removeOnAbort.signal))}if(e.init.performance.resources.enabled&&g.gm.PerformanceObserver?.supportedEntryTypes.includes("resource")){new PerformanceObserver(e=>{e.getEntries().forEach(e=>{(0,A.p)("browserPerformance.resource",[e],void 0,this.featureName,this.ee)})}).observe({type:"resource",buffered:!0})}}o.some(e=>e)?this.importAggregator(e,()=>r.e(891).then(r.bind(r,8019))):this.deregisterDrain()}}var Et=r(2646);const Rt=new Map;function wt(e,t,r,n,s=!0,i){if("object"!=typeof t||!t||"string"!=typeof r||!r||"function"!=typeof t[r])return(0,l.R)(29);const o=function(e){return(e||R.ee).get("logger")}(e),a=(0,Se.YM)(o,void 0,i),c=new Et.y(R.P);c.level=n.level,c.customAttributes=n.customAttributes,c.autoCaptured=s;const d=t[r]?.[Se.Jt]||t[r];return Rt.set(d,c),a.inPlace(t,[r],"wrap-logger-",()=>Rt.get(d),void 0,!0),o}var Tt=r(1910);class xt extends M{static featureName=ne.TZ;constructor(e){var t;super(e,ne.TZ),t=e,(0,O.Y)("log",(e,r)=>ie(e,r,t),t),function(e){(0,O.Y)(_.Wb,(t,r,{customAttributes:n={},level:s=ne.p_.INFO}={})=>{wt(e.ee,t,r,{customAttributes:n,level:s},!1,e)},e)}(e),ye(e);const n=this.ee;["log","error","warn","info","debug","trace"].forEach(t=>{(0,Tt.i)(g.gm.console[t]),wt(n,g.gm.console,t,{level:"log"===t?"info":t},void 0,e)}),this.ee.on("wrap-logger-end",function([e],t,r,s=[]){const{level:i,customAttributes:o,autoCaptured:a}=this;s.forEach(t=>{(0,se.R)(n,e,o,i,a,t)})}),this.importAggregator(e,()=>r.e(891).then(r.bind(r,5288)))}}new W({features:[H,U,dt,ft,Ye,z,Ee,bt,xt],loaderType:"pro"})})()})();</script>
+<style type="text/css">
+body {background-color: #fff; color: #222; font-family: sans-serif;}
+pre {margin: 0; font-family: monospace;}
+a:link {color: #009; text-decoration: none; background-color: #fff;}
+a:hover {text-decoration: underline;}
+table {border-collapse: collapse; border: 0; width: 934px; box-shadow: 1px 2px 3px #ccc;}
+.center {text-align: center;}
+.center table {margin: 1em auto; text-align: left;}
+.center th {text-align: center !important;}
+td, th {border: 1px solid #666; font-size: 75%; vertical-align: baseline; padding: 4px 5px;}
+h1 {font-size: 150%;}
+h2 {font-size: 125%;}
+.p {text-align: left;}
+.e {background-color: #ccf; width: 300px; font-weight: bold;}
+.h {background-color: #99c; font-weight: bold;}
+.v {background-color: #ddd; max-width: 300px; overflow-x: auto; word-wrap: break-word;}
+.v i {color: #999;}
+img {float: right; border: 0;}
+hr {width: 934px; background-color: #ccc; border: 0; height: 1px;}
+</style>
+<title>phpinfo()</title><meta name="ROBOTS" content="NOINDEX,NOFOLLOW,NOARCHIVE" /></head>
+<body><div class="center">
+<table>
+<tr class="h"><td>
+<a href="http://www.php.net/"><img border="0" src="data:image/png;base64,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" alt="PHP logo" /></a><h1 class="p">PHP Version 7.1.33-24+ubuntu16.04.1+deb.sury.org+1</h1>
+</td></tr>
+</table>
+<table>
+<tr><td class="e">System </td><td class="v">Linux Youwish 4.4.0-210-generic #242-Ubuntu SMP Fri Apr 16 09:57:56 UTC 2021 x86_64 </td></tr>
+<tr><td class="e">Build Date </td><td class="v">Oct 31 2020 16:55:44 </td></tr>
+<tr><td class="e">Server API </td><td class="v">FPM/FastCGI </td></tr>
+<tr><td class="e">Virtual Directory Support </td><td class="v">disabled </td></tr>
+<tr><td class="e">Configuration File (php.ini) Path </td><td class="v">/etc/php/7.1/fpm </td></tr>
+<tr><td class="e">Loaded Configuration File </td><td class="v">/etc/php/7.1/fpm/php.ini </td></tr>
+<tr><td class="e">Scan this dir for additional .ini files </td><td class="v">/etc/php/7.1/fpm/conf.d </td></tr>
+<tr><td class="e">Additional .ini files parsed </td><td class="v">/etc/php/7.1/fpm/conf.d/10-mysqlnd.ini,
+/etc/php/7.1/fpm/conf.d/10-opcache.ini,
+/etc/php/7.1/fpm/conf.d/10-pdo.ini,
+/etc/php/7.1/fpm/conf.d/15-xml.ini,
+/etc/php/7.1/fpm/conf.d/20-bcmath.ini,
+/etc/php/7.1/fpm/conf.d/20-calendar.ini,
+/etc/php/7.1/fpm/conf.d/20-ctype.ini,
+/etc/php/7.1/fpm/conf.d/20-curl.ini,
+/etc/php/7.1/fpm/conf.d/20-dom.ini,
+/etc/php/7.1/fpm/conf.d/20-exif.ini,
+/etc/php/7.1/fpm/conf.d/20-fileinfo.ini,
+/etc/php/7.1/fpm/conf.d/20-ftp.ini,
+/etc/php/7.1/fpm/conf.d/20-gd.ini,
+/etc/php/7.1/fpm/conf.d/20-gettext.ini,
+/etc/php/7.1/fpm/conf.d/20-iconv.ini,
+/etc/php/7.1/fpm/conf.d/20-igbinary.ini,
+/etc/php/7.1/fpm/conf.d/20-imap.ini,
+/etc/php/7.1/fpm/conf.d/20-intl.ini,
+/etc/php/7.1/fpm/conf.d/20-json.ini,
+/etc/php/7.1/fpm/conf.d/20-mbstring.ini,
+/etc/php/7.1/fpm/conf.d/20-mcrypt.ini,
+/etc/php/7.1/fpm/conf.d/20-msgpack.ini,
+/etc/php/7.1/fpm/conf.d/20-mysqli.ini,
+/etc/php/7.1/fpm/conf.d/20-newrelic.ini,
+/etc/php/7.1/fpm/conf.d/20-pdo_mysql.ini,
+/etc/php/7.1/fpm/conf.d/20-pdo_pgsql.ini,
+/etc/php/7.1/fpm/conf.d/20-pdo_sqlite.ini,
+/etc/php/7.1/fpm/conf.d/20-pgsql.ini,
+/etc/php/7.1/fpm/conf.d/20-phar.ini,
+/etc/php/7.1/fpm/conf.d/20-posix.ini,
+/etc/php/7.1/fpm/conf.d/20-readline.ini,
+/etc/php/7.1/fpm/conf.d/20-shmop.ini,
+/etc/php/7.1/fpm/conf.d/20-simplexml.ini,
+/etc/php/7.1/fpm/conf.d/20-soap.ini,
+/etc/php/7.1/fpm/conf.d/20-sockets.ini,
+/etc/php/7.1/fpm/conf.d/20-sqlite3.ini,
+/etc/php/7.1/fpm/conf.d/20-sysvmsg.ini,
+/etc/php/7.1/fpm/conf.d/20-sysvsem.ini,
+/etc/php/7.1/fpm/conf.d/20-sysvshm.ini,
+/etc/php/7.1/fpm/conf.d/20-tokenizer.ini,
+/etc/php/7.1/fpm/conf.d/20-wddx.ini,
+/etc/php/7.1/fpm/conf.d/20-xmlreader.ini,
+/etc/php/7.1/fpm/conf.d/20-xmlwriter.ini,
+/etc/php/7.1/fpm/conf.d/20-xsl.ini,
+/etc/php/7.1/fpm/conf.d/20-zip.ini,
+/etc/php/7.1/fpm/conf.d/25-memcached.ini
+ </td></tr>
+<tr><td class="e">PHP API </td><td class="v">20160303 </td></tr>
+<tr><td class="e">PHP Extension </td><td class="v">20160303 </td></tr>
+<tr><td class="e">Zend Extension </td><td class="v">320160303 </td></tr>
+<tr><td class="e">Zend Extension Build </td><td class="v">API320160303,NTS </td></tr>
+<tr><td class="e">PHP Extension Build </td><td class="v">API20160303,NTS </td></tr>
+<tr><td class="e">Debug Build </td><td class="v">no </td></tr>
+<tr><td class="e">Thread Safety </td><td class="v">disabled </td></tr>
+<tr><td class="e">Zend Signal Handling </td><td class="v">enabled </td></tr>
+<tr><td class="e">Zend Memory Manager </td><td class="v">enabled </td></tr>
+<tr><td class="e">Zend Multibyte Support </td><td class="v">provided by mbstring </td></tr>
+<tr><td class="e">IPv6 Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">DTrace Support </td><td class="v">available, disabled </td></tr>
+<tr><td class="e">Registered PHP Streams</td><td class="v">https, ftps, compress.zlib, php, file, glob, data, http, ftp, phar, zip</td></tr>
+<tr><td class="e">Registered Stream Socket Transports</td><td class="v">tcp, udp, unix, udg, ssl, tls, tlsv1.0, tlsv1.1, tlsv1.2</td></tr>
+<tr><td class="e">Registered Stream Filters</td><td class="v">zlib.*, string.rot13, string.toupper, string.tolower, string.strip_tags, convert.*, consumed, dechunk, convert.iconv.*, mcrypt.*, mdecrypt.*</td></tr>
+</table>
+<table>
+<tr class="v"><td>
+<a href="http://www.zend.com/"><img border="0" src="data:image/png;base64,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" alt="Zend logo" /></a>
+This program makes use of the Zend Scripting Language Engine:<br />Zend&nbsp;Engine&nbsp;v3.1.0,&nbsp;Copyright&nbsp;(c)&nbsp;1998-2018&nbsp;Zend&nbsp;Technologies<br />&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;Zend&nbsp;OPcache&nbsp;v7.1.33-24+ubuntu16.04.1+deb.sury.org+1,&nbsp;Copyright&nbsp;(c)&nbsp;1999-2018,&nbsp;by&nbsp;Zend&nbsp;Technologies<br /></td></tr>
+</table>
+<hr />
+<h1>Configuration</h1>
+<h2><a name="module_bcmath">bcmath</a></h2>
+<table>
+<tr><td class="e">BCMath support </td><td class="v">enabled </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">bcmath.scale</td><td class="v">0</td><td class="v">0</td></tr>
+</table>
+<h2><a name="module_calendar">calendar</a></h2>
+<table>
+<tr><td class="e">Calendar support </td><td class="v">enabled </td></tr>
+</table>
+<h2><a name="module_cgi-fcgi">cgi-fcgi</a></h2>
+<table>
+<tr><td class="e">php-fpm </td><td class="v">active </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">cgi.discard_path</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">cgi.fix_pathinfo</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">cgi.force_redirect</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">cgi.nph</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">cgi.redirect_status_env</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">cgi.rfc2616_headers</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">fastcgi.error_header</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">fastcgi.logging</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">fpm.config</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+</table>
+<h2><a name="module_core">Core</a></h2>
+<table>
+<tr><td class="e">PHP Version </td><td class="v">7.1.33-24+ubuntu16.04.1+deb.sury.org+1 </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">allow_url_fopen</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">allow_url_include</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">arg_separator.input</td><td class="v">&amp;</td><td class="v">&amp;</td></tr>
+<tr><td class="e">arg_separator.output</td><td class="v">&amp;</td><td class="v">&amp;</td></tr>
+<tr><td class="e">auto_append_file</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">auto_globals_jit</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">auto_prepend_file</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">browscap</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">default_charset</td><td class="v">UTF-8</td><td class="v">UTF-8</td></tr>
+<tr><td class="e">default_mimetype</td><td class="v">text/html</td><td class="v">text/html</td></tr>
+<tr><td class="e">disable_classes</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">disable_functions</td><td class="v">pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,</td><td class="v">pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,</td></tr>
+<tr><td class="e">display_errors</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">display_startup_errors</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">doc_root</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">docref_ext</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">docref_root</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">enable_dl</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">enable_post_data_reading</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">error_append_string</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">error_log</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">error_prepend_string</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">error_reporting</td><td class="v">32767</td><td class="v">32767</td></tr>
+<tr><td class="e">expose_php</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">extension_dir</td><td class="v">/usr/lib/php/20160303</td><td class="v">/usr/lib/php/20160303</td></tr>
+<tr><td class="e">file_uploads</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">hard_timeout</td><td class="v">2</td><td class="v">2</td></tr>
+<tr><td class="e">highlight.comment</td><td class="v"><font style="color: #FF8000">#FF8000</font></td><td class="v"><font style="color: #FF8000">#FF8000</font></td></tr>
+<tr><td class="e">highlight.default</td><td class="v"><font style="color: #0000BB">#0000BB</font></td><td class="v"><font style="color: #0000BB">#0000BB</font></td></tr>
+<tr><td class="e">highlight.html</td><td class="v"><font style="color: #000000">#000000</font></td><td class="v"><font style="color: #000000">#000000</font></td></tr>
+<tr><td class="e">highlight.keyword</td><td class="v"><font style="color: #007700">#007700</font></td><td class="v"><font style="color: #007700">#007700</font></td></tr>
+<tr><td class="e">highlight.string</td><td class="v"><font style="color: #DD0000">#DD0000</font></td><td class="v"><font style="color: #DD0000">#DD0000</font></td></tr>
+<tr><td class="e">html_errors</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">ignore_repeated_errors</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">ignore_repeated_source</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">ignore_user_abort</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">implicit_flush</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">include_path</td><td class="v">.:/usr/share/php</td><td class="v">.:/usr/share/php</td></tr>
+<tr><td class="e">input_encoding</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">internal_encoding</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">log_errors</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">log_errors_max_len</td><td class="v">1024</td><td class="v">1024</td></tr>
+<tr><td class="e">mail.add_x_header</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">mail.force_extra_parameters</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">mail.log</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">max_execution_time</td><td class="v">300</td><td class="v">300</td></tr>
+<tr><td class="e">max_file_uploads</td><td class="v">20</td><td class="v">20</td></tr>
+<tr><td class="e">max_input_nesting_level</td><td class="v">64</td><td class="v">64</td></tr>
+<tr><td class="e">max_input_time</td><td class="v">60</td><td class="v">60</td></tr>
+<tr><td class="e">max_input_vars</td><td class="v">1000</td><td class="v">1000</td></tr>
+<tr><td class="e">memory_limit</td><td class="v">-1</td><td class="v">-1</td></tr>
+<tr><td class="e">open_basedir</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">output_buffering</td><td class="v">4096</td><td class="v">4096</td></tr>
+<tr><td class="e">output_encoding</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">output_handler</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">post_max_size</td><td class="v">50M</td><td class="v">50M</td></tr>
+<tr><td class="e">precision</td><td class="v">14</td><td class="v">14</td></tr>
+<tr><td class="e">realpath_cache_size</td><td class="v">4096K</td><td class="v">4096K</td></tr>
+<tr><td class="e">realpath_cache_ttl</td><td class="v">120</td><td class="v">120</td></tr>
+<tr><td class="e">register_argc_argv</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">report_memleaks</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">report_zend_debug</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">request_order</td><td class="v">GP</td><td class="v">GP</td></tr>
+<tr><td class="e">sendmail_from</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">sendmail_path</td><td class="v">/usr/sbin/sendmail&nbsp;-t&nbsp;-i&nbsp;</td><td class="v">/usr/sbin/sendmail&nbsp;-t&nbsp;-i&nbsp;</td></tr>
+<tr><td class="e">serialize_precision</td><td class="v">-1</td><td class="v">-1</td></tr>
+<tr><td class="e">short_open_tag</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">SMTP</td><td class="v">localhost</td><td class="v">localhost</td></tr>
+<tr><td class="e">smtp_port</td><td class="v">25</td><td class="v">25</td></tr>
+<tr><td class="e">sql.safe_mode</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">sys_temp_dir</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">track_errors</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">unserialize_callback_func</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">upload_max_filesize</td><td class="v">50M</td><td class="v">50M</td></tr>
+<tr><td class="e">upload_tmp_dir</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">user_dir</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">user_ini.cache_ttl</td><td class="v">300</td><td class="v">300</td></tr>
+<tr><td class="e">user_ini.filename</td><td class="v">.user.ini</td><td class="v">.user.ini</td></tr>
+<tr><td class="e">variables_order</td><td class="v">GPCS</td><td class="v">GPCS</td></tr>
+<tr><td class="e">xmlrpc_error_number</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">xmlrpc_errors</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">zend.assertions</td><td class="v">-1</td><td class="v">-1</td></tr>
+<tr><td class="e">zend.detect_unicode</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">zend.enable_gc</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">zend.multibyte</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">zend.script_encoding</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">zend.signal_check</td><td class="v">Off</td><td class="v">Off</td></tr>
+</table>
+<h2><a name="module_ctype">ctype</a></h2>
+<table>
+<tr><td class="e">ctype functions </td><td class="v">enabled </td></tr>
+</table>
+<h2><a name="module_curl">curl</a></h2>
+<table>
+<tr><td class="e">cURL support </td><td class="v">enabled </td></tr>
+<tr><td class="e">cURL Information </td><td class="v">7.47.0 </td></tr>
+<tr><td class="e">Age </td><td class="v">3 </td></tr>
+<tr><td class="e">Features </td></tr>
+<tr><td class="e">AsynchDNS </td><td class="v">Yes </td></tr>
+<tr><td class="e">CharConv </td><td class="v">No </td></tr>
+<tr><td class="e">Debug </td><td class="v">No </td></tr>
+<tr><td class="e">GSS-Negotiate </td><td class="v">No </td></tr>
+<tr><td class="e">IDN </td><td class="v">Yes </td></tr>
+<tr><td class="e">IPv6 </td><td class="v">Yes </td></tr>
+<tr><td class="e">krb4 </td><td class="v">No </td></tr>
+<tr><td class="e">Largefile </td><td class="v">Yes </td></tr>
+<tr><td class="e">libz </td><td class="v">Yes </td></tr>
+<tr><td class="e">NTLM </td><td class="v">Yes </td></tr>
+<tr><td class="e">NTLMWB </td><td class="v">Yes </td></tr>
+<tr><td class="e">SPNEGO </td><td class="v">Yes </td></tr>
+<tr><td class="e">SSL </td><td class="v">Yes </td></tr>
+<tr><td class="e">SSPI </td><td class="v">No </td></tr>
+<tr><td class="e">TLS-SRP </td><td class="v">Yes </td></tr>
+<tr><td class="e">HTTP2 </td><td class="v">No </td></tr>
+<tr><td class="e">GSSAPI </td><td class="v">Yes </td></tr>
+<tr><td class="e">KERBEROS5 </td><td class="v">Yes </td></tr>
+<tr><td class="e">UNIX_SOCKETS </td><td class="v">Yes </td></tr>
+<tr><td class="e">PSL </td><td class="v">No </td></tr>
+<tr><td class="e">Protocols </td><td class="v">dict, file, ftp, ftps, gopher, http, https, imap, imaps, ldap, ldaps, pop3, pop3s, rtmp, rtsp, smb, smbs, smtp, smtps, telnet, tftp </td></tr>
+<tr><td class="e">Host </td><td class="v">x86_64-pc-linux-gnu </td></tr>
+<tr><td class="e">SSL Version </td><td class="v">OpenSSL/1.0.2g </td></tr>
+<tr><td class="e">ZLib Version </td><td class="v">1.2.8 </td></tr>
+</table>
+<h2><a name="module_date">date</a></h2>
+<table>
+<tr><td class="e">date/time support </td><td class="v">enabled </td></tr>
+<tr><td class="e">timelib version </td><td class="v">2016.05 </td></tr>
+<tr><td class="e">&quot;Olson&quot; Timezone Database Version </td><td class="v">0.system </td></tr>
+<tr><td class="e">Timezone Database </td><td class="v">internal </td></tr>
+<tr><td class="e">Default timezone </td><td class="v">UTC </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">date.default_latitude</td><td class="v">31.7667</td><td class="v">31.7667</td></tr>
+<tr><td class="e">date.default_longitude</td><td class="v">35.2333</td><td class="v">35.2333</td></tr>
+<tr><td class="e">date.sunrise_zenith</td><td class="v">90.583333</td><td class="v">90.583333</td></tr>
+<tr><td class="e">date.sunset_zenith</td><td class="v">90.583333</td><td class="v">90.583333</td></tr>
+<tr><td class="e">date.timezone</td><td class="v">UTC</td><td class="v">UTC</td></tr>
+</table>
+<h2><a name="module_dom">dom</a></h2>
+<table>
+<tr><td class="e">DOM/XML </td><td class="v">enabled </td></tr>
+<tr><td class="e">DOM/XML API Version </td><td class="v">20031129 </td></tr>
+<tr><td class="e">libxml Version </td><td class="v">2.9.10 </td></tr>
+<tr><td class="e">HTML Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">XPath Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">XPointer Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">Schema Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">RelaxNG Support </td><td class="v">enabled </td></tr>
+</table>
+<h2><a name="module_exif">exif</a></h2>
+<table>
+<tr><td class="e">EXIF Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">EXIF Version </td><td class="v">7.1.33-24+ubuntu16.04.1+deb.sury.org+1 </td></tr>
+<tr><td class="e">Supported EXIF Version </td><td class="v">0220 </td></tr>
+<tr><td class="e">Supported filetypes </td><td class="v">JPEG,TIFF </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">exif.decode_jis_intel</td><td class="v">JIS</td><td class="v">JIS</td></tr>
+<tr><td class="e">exif.decode_jis_motorola</td><td class="v">JIS</td><td class="v">JIS</td></tr>
+<tr><td class="e">exif.decode_unicode_intel</td><td class="v">UCS-2LE</td><td class="v">UCS-2LE</td></tr>
+<tr><td class="e">exif.decode_unicode_motorola</td><td class="v">UCS-2BE</td><td class="v">UCS-2BE</td></tr>
+<tr><td class="e">exif.encode_jis</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">exif.encode_unicode</td><td class="v">ISO-8859-15</td><td class="v">ISO-8859-15</td></tr>
+</table>
+<h2><a name="module_fileinfo">fileinfo</a></h2>
+<table>
+<tr><td class="e">fileinfo support </td><td class="v">enabled </td></tr>
+<tr><td class="e">version </td><td class="v">1.0.5 </td></tr>
+<tr><td class="e">libmagic </td><td class="v">522 </td></tr>
+</table>
+<h2><a name="module_filter">filter</a></h2>
+<table>
+<tr><td class="e">Input Validation and Filtering </td><td class="v">enabled </td></tr>
+<tr><td class="e">Revision </td><td class="v">$Id: 5a34caaa246b9df197f4b43af8ac66a07464fe4b $ </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">filter.default</td><td class="v">unsafe_raw</td><td class="v">unsafe_raw</td></tr>
+<tr><td class="e">filter.default_flags</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+</table>
+<h2><a name="module_ftp">ftp</a></h2>
+<table>
+<tr><td class="e">FTP support </td><td class="v">enabled </td></tr>
+<tr><td class="e">FTPS support </td><td class="v">enabled </td></tr>
+</table>
+<h2><a name="module_gd">gd</a></h2>
+<table>
+<tr><td class="e">GD Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">GD headers Version </td><td class="v">2.3.0 </td></tr>
+<tr><td class="e">GD library Version </td><td class="v">2.2.3 </td></tr>
+<tr><td class="e">FreeType Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">FreeType Linkage </td><td class="v">with freetype </td></tr>
+<tr><td class="e">FreeType Version </td><td class="v">2.6.1 </td></tr>
+<tr><td class="e">GIF Read Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">GIF Create Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">JPEG Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">libJPEG Version </td><td class="v">8 </td></tr>
+<tr><td class="e">PNG Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">libPNG Version </td><td class="v">1.2.54 </td></tr>
+<tr><td class="e">WBMP Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">XPM Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">libXpm Version </td><td class="v">30411 </td></tr>
+<tr><td class="e">XBM Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">WebP Support </td><td class="v">enabled </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">gd.jpeg_ignore_warning</td><td class="v">1</td><td class="v">1</td></tr>
+</table>
+<h2><a name="module_gettext">gettext</a></h2>
+<table>
+<tr><td class="e">GetText Support </td><td class="v">enabled </td></tr>
+</table>
+<h2><a name="module_hash">hash</a></h2>
+<table>
+<tr><td class="e">hash support </td><td class="v">enabled </td></tr>
+<tr><td class="e">Hashing Engines </td><td class="v">md2 md4 md5 sha1 sha224 sha256 sha384 sha512/224 sha512/256 sha512 sha3-224 sha3-256 sha3-384 sha3-512 ripemd128 ripemd160 ripemd256 ripemd320 whirlpool tiger128,3 tiger160,3 tiger192,3 tiger128,4 tiger160,4 tiger192,4 snefru snefru256 gost gost-crypto adler32 crc32 crc32b fnv132 fnv1a32 fnv164 fnv1a64 joaat haval128,3 haval160,3 haval192,3 haval224,3 haval256,3 haval128,4 haval160,4 haval192,4 haval224,4 haval256,4 haval128,5 haval160,5 haval192,5 haval224,5 haval256,5  </td></tr>
+</table>
+<table>
+<tr><td class="e">MHASH support </td><td class="v">Enabled </td></tr>
+<tr><td class="e">MHASH API Version </td><td class="v">Emulated Support </td></tr>
+</table>
+<h2><a name="module_iconv">iconv</a></h2>
+<table>
+<tr><td class="e">iconv support </td><td class="v">enabled </td></tr>
+<tr><td class="e">iconv implementation </td><td class="v">glibc </td></tr>
+<tr><td class="e">iconv library version </td><td class="v">2.23 </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">iconv.input_encoding</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">iconv.internal_encoding</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">iconv.output_encoding</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+</table>
+<h2><a name="module_igbinary">igbinary</a></h2>
+<table>
+<tr><td class="e">igbinary support </td><td class="v">enabled </td></tr>
+<tr><td class="e">igbinary version </td><td class="v">1.2.2-dev </td></tr>
+<tr><td class="e">igbinary APCU serializer ABI </td><td class="v">0 </td></tr>
+<tr><td class="e">igbinary session support </td><td class="v">yes </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">igbinary.compact_strings</td><td class="v">On</td><td class="v">On</td></tr>
+</table>
+<h2><a name="module_imap">imap</a></h2>
+<table>
+<tr><td class="e">IMAP c-Client Version </td><td class="v">2007f </td></tr>
+<tr><td class="e">SSL Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">Kerberos Support </td><td class="v">enabled </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">imap.enable_insecure_rsh</td><td class="v">Off</td><td class="v">Off</td></tr>
+</table>
+<h2><a name="module_intl">intl</a></h2>
+<table>
+<tr class="h"><th>Internationalization support</th><th>enabled</th></tr>
+<tr><td class="e">version </td><td class="v">1.1.0 </td></tr>
+<tr><td class="e">ICU version </td><td class="v">65.1 </td></tr>
+<tr><td class="e">ICU Data version </td><td class="v">65.1 </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">intl.default_locale</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">intl.error_level</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">intl.use_exceptions</td><td class="v">0</td><td class="v">0</td></tr>
+</table>
+<h2><a name="module_json">json</a></h2>
+<table>
+<tr><td class="e">json support </td><td class="v">enabled </td></tr>
+<tr><td class="e">json version </td><td class="v">1.5.0 </td></tr>
+</table>
+<h2><a name="module_libxml">libxml</a></h2>
+<table>
+<tr><td class="e">libXML support </td><td class="v">active </td></tr>
+<tr><td class="e">libXML Compiled Version </td><td class="v">2.9.10 </td></tr>
+<tr><td class="e">libXML Loaded Version </td><td class="v">20903 </td></tr>
+<tr><td class="e">libXML streams </td><td class="v">enabled </td></tr>
+</table>
+<h2><a name="module_mbstring">mbstring</a></h2>
+<table>
+<tr><td class="e">Multibyte Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">Multibyte string engine </td><td class="v">libmbfl </td></tr>
+<tr><td class="e">HTTP input encoding translation </td><td class="v">disabled </td></tr>
+<tr><td class="e">libmbfl version </td><td class="v">1.3.2 </td></tr>
+<tr><td class="e">oniguruma version </td><td class="v">5.9.6 </td></tr>
+</table>
+<table>
+<tr class="h"><th>mbstring extension makes use of "streamable kanji code filter and converter", which is distributed under the GNU Lesser General Public License version 2.1.</th></tr>
+</table>
+<table>
+<tr><td class="e">Multibyte (japanese) regex support </td><td class="v">enabled </td></tr>
+<tr><td class="e">Multibyte regex (oniguruma) backtrack check </td><td class="v">On </td></tr>
+<tr><td class="e">Multibyte regex (oniguruma) version </td><td class="v">5.9.6 </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">mbstring.detect_order</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">mbstring.encoding_translation</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">mbstring.func_overload</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">mbstring.http_input</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">mbstring.http_output</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">mbstring.http_output_conv_mimetypes</td><td class="v">^(text/|application/xhtml\+xml)</td><td class="v">^(text/|application/xhtml\+xml)</td></tr>
+<tr><td class="e">mbstring.internal_encoding</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">mbstring.language</td><td class="v">neutral</td><td class="v">neutral</td></tr>
+<tr><td class="e">mbstring.strict_detection</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">mbstring.substitute_character</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+</table>
+<h2><a name="module_mcrypt">mcrypt</a></h2>
+<table>
+<tr class="h"><th>mcrypt support</th><th>enabled</th></tr>
+<tr class="h"><th>mcrypt_filter support</th><th>enabled</th></tr>
+<tr><td class="e">Version </td><td class="v">2.5.8 </td></tr>
+<tr><td class="e">Api No </td><td class="v">20021217 </td></tr>
+<tr><td class="e">Supported ciphers </td><td class="v">cast-128 gost rijndael-128 twofish arcfour cast-256 loki97 rijndael-192 saferplus wake blowfish-compat des rijndael-256 serpent xtea blowfish enigma rc2 tripledes  </td></tr>
+<tr><td class="e">Supported modes </td><td class="v">cbc cfb ctr ecb ncfb nofb ofb stream  </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">mcrypt.algorithms_dir</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">mcrypt.modes_dir</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+</table>
+<h2><a name="module_memcached">memcached</a></h2>
+<table>
+<tr class="h"><th>memcached support</th><th>enabled</th></tr>
+<tr><td class="e">Version </td><td class="v">3.0.0b1 </td></tr>
+<tr><td class="e">libmemcached version </td><td class="v">1.0.18 </td></tr>
+<tr><td class="e">SASL support </td><td class="v">yes </td></tr>
+<tr><td class="e">Session support </td><td class="v">yes </td></tr>
+<tr><td class="e">igbinary support </td><td class="v">yes </td></tr>
+<tr><td class="e">json support </td><td class="v">yes </td></tr>
+<tr><td class="e">msgpack support </td><td class="v">yes </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">memcached.compression_factor</td><td class="v">1.3</td><td class="v">1.3</td></tr>
+<tr><td class="e">memcached.compression_threshold</td><td class="v">2000</td><td class="v">2000</td></tr>
+<tr><td class="e">memcached.compression_type</td><td class="v">fastlz</td><td class="v">fastlz</td></tr>
+<tr><td class="e">memcached.default_binary_protocol</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">memcached.default_connect_timeout</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">memcached.default_consistent_hash</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">memcached.serializer</td><td class="v">php</td><td class="v">php</td></tr>
+<tr><td class="e">memcached.sess_binary_protocol</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">memcached.sess_connect_timeout</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">memcached.sess_consistent_hash</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">memcached.sess_lock_expire</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">memcached.sess_lock_max_wait</td><td class="v">not&nbsp;set</td><td class="v">not&nbsp;set</td></tr>
+<tr><td class="e">memcached.sess_lock_retries</td><td class="v">5</td><td class="v">5</td></tr>
+<tr><td class="e">memcached.sess_lock_wait</td><td class="v">not&nbsp;set</td><td class="v">not&nbsp;set</td></tr>
+<tr><td class="e">memcached.sess_lock_wait_max</td><td class="v">2000</td><td class="v">2000</td></tr>
+<tr><td class="e">memcached.sess_lock_wait_min</td><td class="v">1000</td><td class="v">1000</td></tr>
+<tr><td class="e">memcached.sess_locking</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">memcached.sess_number_of_replicas</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">memcached.sess_persistent</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">memcached.sess_prefix</td><td class="v">memc.sess.</td><td class="v">memc.sess.</td></tr>
+<tr><td class="e">memcached.sess_randomize_replica_read</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">memcached.sess_remove_failed_servers</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">memcached.sess_sasl_password</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">memcached.sess_sasl_username</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">memcached.sess_server_failure_limit</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">memcached.store_retry_count</td><td class="v">2</td><td class="v">2</td></tr>
+</table>
+<h2><a name="module_msgpack">msgpack</a></h2>
+<table>
+<tr><td class="e">MessagePack Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">Session Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">extension Version </td><td class="v">2.0.1 </td></tr>
+<tr><td class="e">header Version </td><td class="v">0.5.4 </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">msgpack.error_display</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">msgpack.illegal_key_insert</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">msgpack.php_only</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">msgpack.use_str8_serialization</td><td class="v">On</td><td class="v">On</td></tr>
+</table>
+<h2><a name="module_mysqli">mysqli</a></h2>
+<table>
+<tr class="h"><th>MysqlI Support</th><th>enabled</th></tr>
+<tr><td class="e">Client API library version </td><td class="v">mysqlnd 5.0.12-dev - 20150407 - $Id: 38fea24f2847fa7519001be390c98ae0acafe387 $ </td></tr>
+<tr><td class="e">Active Persistent Links </td><td class="v">0 </td></tr>
+<tr><td class="e">Inactive Persistent Links </td><td class="v">0 </td></tr>
+<tr><td class="e">Active Links </td><td class="v">0 </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">mysqli.allow_local_infile</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">mysqli.allow_persistent</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">mysqli.default_host</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">mysqli.default_port</td><td class="v">3306</td><td class="v">3306</td></tr>
+<tr><td class="e">mysqli.default_pw</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">mysqli.default_socket</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">mysqli.default_user</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">mysqli.max_links</td><td class="v">Unlimited</td><td class="v">Unlimited</td></tr>
+<tr><td class="e">mysqli.max_persistent</td><td class="v">Unlimited</td><td class="v">Unlimited</td></tr>
+<tr><td class="e">mysqli.reconnect</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">mysqli.rollback_on_cached_plink</td><td class="v">Off</td><td class="v">Off</td></tr>
+</table>
+<h2><a name="module_mysqlnd">mysqlnd</a></h2>
+<table>
+<tr class="h"><th>mysqlnd</th><th>enabled</th></tr>
+<tr><td class="e">Version </td><td class="v">mysqlnd 5.0.12-dev - 20150407 - $Id: 38fea24f2847fa7519001be390c98ae0acafe387 $ </td></tr>
+<tr><td class="e">Compression </td><td class="v">supported </td></tr>
+<tr><td class="e">core SSL </td><td class="v">supported </td></tr>
+<tr><td class="e">extended SSL </td><td class="v">supported </td></tr>
+<tr><td class="e">Command buffer size </td><td class="v">4096 </td></tr>
+<tr><td class="e">Read buffer size </td><td class="v">32768 </td></tr>
+<tr><td class="e">Read timeout </td><td class="v">31536000 </td></tr>
+<tr><td class="e">Collecting statistics </td><td class="v">Yes </td></tr>
+<tr><td class="e">Collecting memory statistics </td><td class="v">No </td></tr>
+<tr><td class="e">Tracing </td><td class="v">n/a </td></tr>
+<tr><td class="e">Loaded plugins </td><td class="v">mysqlnd,debug_trace,auth_plugin_mysql_native_password,auth_plugin_mysql_clear_password,auth_plugin_sha256_password </td></tr>
+<tr><td class="e">API Extensions </td><td class="v">mysqli,pdo_mysql </td></tr>
+</table>
+<table>
+<tr class="h"><th>mysqlnd statistics</th><th> </th></tr>
+<tr><td class="e">bytes_sent </td><td class="v">0 </td></tr>
+<tr><td class="e">bytes_received </td><td class="v">0 </td></tr>
+<tr><td class="e">packets_sent </td><td class="v">0 </td></tr>
+<tr><td class="e">packets_received </td><td class="v">0 </td></tr>
+<tr><td class="e">protocol_overhead_in </td><td class="v">0 </td></tr>
+<tr><td class="e">protocol_overhead_out </td><td class="v">0 </td></tr>
+<tr><td class="e">bytes_received_ok_packet </td><td class="v">0 </td></tr>
+<tr><td class="e">bytes_received_eof_packet </td><td class="v">0 </td></tr>
+<tr><td class="e">bytes_received_rset_header_packet </td><td class="v">0 </td></tr>
+<tr><td class="e">bytes_received_rset_field_meta_packet </td><td class="v">0 </td></tr>
+<tr><td class="e">bytes_received_rset_row_packet </td><td class="v">0 </td></tr>
+<tr><td class="e">bytes_received_prepare_response_packet </td><td class="v">0 </td></tr>
+<tr><td class="e">bytes_received_change_user_packet </td><td class="v">0 </td></tr>
+<tr><td class="e">packets_sent_command </td><td class="v">0 </td></tr>
+<tr><td class="e">packets_received_ok </td><td class="v">0 </td></tr>
+<tr><td class="e">packets_received_eof </td><td class="v">0 </td></tr>
+<tr><td class="e">packets_received_rset_header </td><td class="v">0 </td></tr>
+<tr><td class="e">packets_received_rset_field_meta </td><td class="v">0 </td></tr>
+<tr><td class="e">packets_received_rset_row </td><td class="v">0 </td></tr>
+<tr><td class="e">packets_received_prepare_response </td><td class="v">0 </td></tr>
+<tr><td class="e">packets_received_change_user </td><td class="v">0 </td></tr>
+<tr><td class="e">result_set_queries </td><td class="v">0 </td></tr>
+<tr><td class="e">non_result_set_queries </td><td class="v">0 </td></tr>
+<tr><td class="e">no_index_used </td><td class="v">0 </td></tr>
+<tr><td class="e">bad_index_used </td><td class="v">0 </td></tr>
+<tr><td class="e">slow_queries </td><td class="v">0 </td></tr>
+<tr><td class="e">buffered_sets </td><td class="v">0 </td></tr>
+<tr><td class="e">unbuffered_sets </td><td class="v">0 </td></tr>
+<tr><td class="e">ps_buffered_sets </td><td class="v">0 </td></tr>
+<tr><td class="e">ps_unbuffered_sets </td><td class="v">0 </td></tr>
+<tr><td class="e">flushed_normal_sets </td><td class="v">0 </td></tr>
+<tr><td class="e">flushed_ps_sets </td><td class="v">0 </td></tr>
+<tr><td class="e">ps_prepared_never_executed </td><td class="v">0 </td></tr>
+<tr><td class="e">ps_prepared_once_executed </td><td class="v">0 </td></tr>
+<tr><td class="e">rows_fetched_from_server_normal </td><td class="v">0 </td></tr>
+<tr><td class="e">rows_fetched_from_server_ps </td><td class="v">0 </td></tr>
+<tr><td class="e">rows_buffered_from_client_normal </td><td class="v">0 </td></tr>
+<tr><td class="e">rows_buffered_from_client_ps </td><td class="v">0 </td></tr>
+<tr><td class="e">rows_fetched_from_client_normal_buffered </td><td class="v">0 </td></tr>
+<tr><td class="e">rows_fetched_from_client_normal_unbuffered </td><td class="v">0 </td></tr>
+<tr><td class="e">rows_fetched_from_client_ps_buffered </td><td class="v">0 </td></tr>
+<tr><td class="e">rows_fetched_from_client_ps_unbuffered </td><td class="v">0 </td></tr>
+<tr><td class="e">rows_fetched_from_client_ps_cursor </td><td class="v">0 </td></tr>
+<tr><td class="e">rows_affected_normal </td><td class="v">0 </td></tr>
+<tr><td class="e">rows_affected_ps </td><td class="v">0 </td></tr>
+<tr><td class="e">rows_skipped_normal </td><td class="v">0 </td></tr>
+<tr><td class="e">rows_skipped_ps </td><td class="v">0 </td></tr>
+<tr><td class="e">copy_on_write_saved </td><td class="v">0 </td></tr>
+<tr><td class="e">copy_on_write_performed </td><td class="v">0 </td></tr>
+<tr><td class="e">command_buffer_too_small </td><td class="v">0 </td></tr>
+<tr><td class="e">connect_success </td><td class="v">0 </td></tr>
+<tr><td class="e">connect_failure </td><td class="v">0 </td></tr>
+<tr><td class="e">connection_reused </td><td class="v">0 </td></tr>
+<tr><td class="e">reconnect </td><td class="v">0 </td></tr>
+<tr><td class="e">pconnect_success </td><td class="v">0 </td></tr>
+<tr><td class="e">active_connections </td><td class="v">0 </td></tr>
+<tr><td class="e">active_persistent_connections </td><td class="v">0 </td></tr>
+<tr><td class="e">explicit_close </td><td class="v">0 </td></tr>
+<tr><td class="e">implicit_close </td><td class="v">0 </td></tr>
+<tr><td class="e">disconnect_close </td><td class="v">0 </td></tr>
+<tr><td class="e">in_middle_of_command_close </td><td class="v">0 </td></tr>
+<tr><td class="e">explicit_free_result </td><td class="v">0 </td></tr>
+<tr><td class="e">implicit_free_result </td><td class="v">0 </td></tr>
+<tr><td class="e">explicit_stmt_close </td><td class="v">0 </td></tr>
+<tr><td class="e">implicit_stmt_close </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_emalloc_count </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_emalloc_amount </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_ecalloc_count </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_ecalloc_amount </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_erealloc_count </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_erealloc_amount </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_efree_count </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_efree_amount </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_malloc_count </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_malloc_amount </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_calloc_count </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_calloc_amount </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_realloc_count </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_realloc_amount </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_free_count </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_free_amount </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_estrndup_count </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_strndup_count </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_estrdup_count </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_strdup_count </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_edupl_count </td><td class="v">0 </td></tr>
+<tr><td class="e">mem_dupl_count </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_null </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_bit </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_tinyint </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_short </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_int24 </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_int </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_bigint </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_decimal </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_float </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_double </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_date </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_year </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_time </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_datetime </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_timestamp </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_string </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_blob </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_enum </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_set </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_geometry </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_text_fetched_other </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_null </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_bit </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_tinyint </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_short </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_int24 </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_int </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_bigint </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_decimal </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_float </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_double </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_date </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_year </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_time </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_datetime </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_timestamp </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_string </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_json </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_blob </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_enum </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_set </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_geometry </td><td class="v">0 </td></tr>
+<tr><td class="e">proto_binary_fetched_other </td><td class="v">0 </td></tr>
+<tr><td class="e">init_command_executed_count </td><td class="v">0 </td></tr>
+<tr><td class="e">init_command_failed_count </td><td class="v">0 </td></tr>
+<tr><td class="e">com_quit </td><td class="v">0 </td></tr>
+<tr><td class="e">com_init_db </td><td class="v">0 </td></tr>
+<tr><td class="e">com_query </td><td class="v">0 </td></tr>
+<tr><td class="e">com_field_list </td><td class="v">0 </td></tr>
+<tr><td class="e">com_create_db </td><td class="v">0 </td></tr>
+<tr><td class="e">com_drop_db </td><td class="v">0 </td></tr>
+<tr><td class="e">com_refresh </td><td class="v">0 </td></tr>
+<tr><td class="e">com_shutdown </td><td class="v">0 </td></tr>
+<tr><td class="e">com_statistics </td><td class="v">0 </td></tr>
+<tr><td class="e">com_process_info </td><td class="v">0 </td></tr>
+<tr><td class="e">com_connect </td><td class="v">0 </td></tr>
+<tr><td class="e">com_process_kill </td><td class="v">0 </td></tr>
+<tr><td class="e">com_debug </td><td class="v">0 </td></tr>
+<tr><td class="e">com_ping </td><td class="v">0 </td></tr>
+<tr><td class="e">com_time </td><td class="v">0 </td></tr>
+<tr><td class="e">com_delayed_insert </td><td class="v">0 </td></tr>
+<tr><td class="e">com_change_user </td><td class="v">0 </td></tr>
+<tr><td class="e">com_binlog_dump </td><td class="v">0 </td></tr>
+<tr><td class="e">com_table_dump </td><td class="v">0 </td></tr>
+<tr><td class="e">com_connect_out </td><td class="v">0 </td></tr>
+<tr><td class="e">com_register_slave </td><td class="v">0 </td></tr>
+<tr><td class="e">com_stmt_prepare </td><td class="v">0 </td></tr>
+<tr><td class="e">com_stmt_execute </td><td class="v">0 </td></tr>
+<tr><td class="e">com_stmt_send_long_data </td><td class="v">0 </td></tr>
+<tr><td class="e">com_stmt_close </td><td class="v">0 </td></tr>
+<tr><td class="e">com_stmt_reset </td><td class="v">0 </td></tr>
+<tr><td class="e">com_stmt_set_option </td><td class="v">0 </td></tr>
+<tr><td class="e">com_stmt_fetch </td><td class="v">0 </td></tr>
+<tr><td class="e">com_deamon </td><td class="v">0 </td></tr>
+<tr><td class="e">bytes_received_real_data_normal </td><td class="v">0 </td></tr>
+<tr><td class="e">bytes_received_real_data_ps </td><td class="v">0 </td></tr>
+</table>
+<h2><a name="module_newrelic">newrelic</a></h2>
+<table>
+<tr class="h"><th>New Relic RPM Monitoring</th><th>enabled</th></tr>
+<tr><td class="e">New Relic Version </td><td class="v">6.8.0.177 (&quot;noether&quot; - &quot;a0c5dc93a6d3&quot;) </td></tr>
+</table>
+<table>
+<tr class="h"><th colspan="2">Global Directives</th></tr>
+<tr class="h"><th>Directive Name</th><th>Global Value</th></tr>
+<tr><td class="e">newrelic.daemon.app_timeout</td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.daemon.auditlog</td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.daemon.collector_host</td><td class="v">collector.newrelic.com</td></tr>
+<tr><td class="e">newrelic.daemon.dont_launch</td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.daemon.location</td><td class="v">/usr/bin/newrelic-daemon</td></tr>
+<tr><td class="e">newrelic.daemon.logfile</td><td class="v">/var/log/newrelic/newrelic-daemon.log</td></tr>
+<tr><td class="e">newrelic.daemon.loglevel</td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.daemon.pidfile</td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.daemon.port</td><td class="v">/tmp/.newrelic.sock</td></tr>
+<tr><td class="e">newrelic.daemon.proxy</td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.daemon.ssl</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.daemon.ssl_ca_bundle</td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.daemon.ssl_ca_path</td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.daemon.utilization.detect_aws</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.daemon.utilization.detect_docker</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.feature_flag</td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.high_security</td><td class="v">0</td></tr>
+<tr><td class="e">newrelic.logfile</td><td class="v">/var/log/newrelic/php_agent.log</td></tr>
+<tr><td class="e">newrelic.loglevel</td><td class="v">info</td></tr>
+</table>
+<table>
+<tr class="h"><th colspan="3">Per-Directory Directives</th></tr>
+<tr class="h"><th>Directive Name</th><th>Local/Active Value</th><th>Master/Default Value</th></tr>
+<tr><td class="e">newrelic.analytics_events.capture_attributes</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.analytics_events.enabled</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.appname</td><td class="v">Youwish&nbsp;DigitalOcean</td><td class="v">Youwish&nbsp;DigitalOcean</td></tr>
+<tr><td class="e">newrelic.attributes.enabled</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.attributes.exclude</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.attributes.include</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.browser_monitoring.attributes.enabled</td><td class="v">disabled</td><td class="v">disabled</td></tr>
+<tr><td class="e">newrelic.browser_monitoring.attributes.exclude</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.browser_monitoring.attributes.include</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.browser_monitoring.auto_instrument</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.browser_monitoring.capture_attributes</td><td class="v">disabled</td><td class="v">disabled</td></tr>
+<tr><td class="e">newrelic.browser_monitoring.debug</td><td class="v">disabled</td><td class="v">disabled</td></tr>
+<tr><td class="e">newrelic.browser_monitoring.loader</td><td class="v">rum</td><td class="v">rum</td></tr>
+<tr><td class="e">newrelic.capture_params</td><td class="v">off</td><td class="v">off</td></tr>
+<tr><td class="e">newrelic.cross_application_tracer.enabled</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.custom_insights_events.enabled</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.datastore_tracer.database_name_reporting.enabled</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.datastore_tracer.instance_reporting.enabled</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.enabled</td><td class="v">yes</td><td class="v">yes</td></tr>
+<tr><td class="e">newrelic.error_collector.attributes.enabled</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.error_collector.attributes.exclude</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.error_collector.attributes.include</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.error_collector.capture_attributes</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.error_collector.capture_events</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.error_collector.enabled</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.error_collector.ignore_errors</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.error_collector.ignore_exceptions</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.error_collector.ignore_user_exception_handler</td><td class="v">no</td><td class="v">no</td></tr>
+<tr><td class="e">newrelic.error_collector.prioritize_api_errors</td><td class="v">no</td><td class="v">no</td></tr>
+<tr><td class="e">newrelic.error_collector.record_database_errors</td><td class="v">yes</td><td class="v">yes</td></tr>
+<tr><td class="e">newrelic.framework</td><td class="v">auto-detect</td><td class="v">auto-detect</td></tr>
+<tr><td class="e">newrelic.framework.drupal.modules</td><td class="v">on</td><td class="v">on</td></tr>
+<tr><td class="e">newrelic.framework.wordpress.hooks</td><td class="v">on</td><td class="v">on</td></tr>
+<tr><td class="e">newrelic.guzzle.enabled</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">newrelic.ignored_params</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.labels</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.license</td><td class="v">ea...8a</td><td class="v">ea...8a</td></tr>
+<tr><td class="e">newrelic.phpunit_events.enabled</td><td class="v">disabled</td><td class="v">disabled</td></tr>
+<tr><td class="e">newrelic.process_host.display_name</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.special.max_nesting_level</td><td class="v">-1</td><td class="v">-1</td></tr>
+<tr><td class="e">newrelic.synthetics.enabled</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.transaction_events.attributes.enabled</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.transaction_events.attributes.exclude</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.transaction_events.attributes.include</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.transaction_events.enabled</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.transaction_tracer.attributes.enabled</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.transaction_tracer.attributes.exclude</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.transaction_tracer.attributes.include</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.transaction_tracer.capture_attributes</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.transaction_tracer.custom</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.transaction_tracer.detail</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">newrelic.transaction_tracer.enabled</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.transaction_tracer.explain_enabled</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.transaction_tracer.explain_threshold</td><td class="v">500</td><td class="v">500</td></tr>
+<tr><td class="e">newrelic.transaction_tracer.gather_input_queries</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">newrelic.transaction_tracer.record_sql</td><td class="v">obfuscated</td><td class="v">obfuscated</td></tr>
+<tr><td class="e">newrelic.transaction_tracer.slow_sql</td><td class="v">enabled</td><td class="v">enabled</td></tr>
+<tr><td class="e">newrelic.transaction_tracer.stack_trace_threshold</td><td class="v">500</td><td class="v">500</td></tr>
+<tr><td class="e">newrelic.transaction_tracer.threshold</td><td class="v">apdex_f</td><td class="v">apdex_f</td></tr>
+<tr><td class="e">newrelic.webtransaction.name.files</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.webtransaction.name.functions</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">newrelic.webtransaction.name.remove_trailing_path</td><td class="v">no</td><td class="v">no</td></tr>
+</table>
+<h2><a name="module_openssl">openssl</a></h2>
+<table>
+<tr><td class="e">OpenSSL support </td><td class="v">enabled </td></tr>
+<tr><td class="e">OpenSSL Library Version </td><td class="v">OpenSSL 1.1.1i  8 Dec 2020 </td></tr>
+<tr><td class="e">OpenSSL Header Version </td><td class="v">OpenSSL 1.1.1g  21 Apr 2020 </td></tr>
+<tr><td class="e">Openssl default config </td><td class="v">/usr/lib/ssl/openssl.cnf </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">openssl.cafile</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">openssl.capath</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+</table>
+<h2><a name="module_pcre">pcre</a></h2>
+<table>
+<tr><td class="e">PCRE (Perl Compatible Regular Expressions) Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">PCRE Library Version </td><td class="v">8.44 2020-02-12 </td></tr>
+<tr><td class="e">PCRE JIT Support </td><td class="v">enabled </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">pcre.backtrack_limit</td><td class="v">1000000</td><td class="v">1000000</td></tr>
+<tr><td class="e">pcre.jit</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">pcre.recursion_limit</td><td class="v">100000</td><td class="v">100000</td></tr>
+</table>
+<h2><a name="module_pdo">PDO</a></h2>
+<table>
+<tr class="h"><th>PDO support</th><th>enabled</th></tr>
+<tr><td class="e">PDO drivers </td><td class="v">mysql, pgsql, sqlite </td></tr>
+</table>
+<h2><a name="module_pdo_mysql">pdo_mysql</a></h2>
+<table>
+<tr class="h"><th>PDO Driver for MySQL</th><th>enabled</th></tr>
+<tr><td class="e">Client API version </td><td class="v">mysqlnd 5.0.12-dev - 20150407 - $Id: 38fea24f2847fa7519001be390c98ae0acafe387 $ </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">pdo_mysql.default_socket</td><td class="v">/var/run/mysqld/mysqld.sock</td><td class="v">/var/run/mysqld/mysqld.sock</td></tr>
+</table>
+<h2><a name="module_pdo_pgsql">pdo_pgsql</a></h2>
+<table>
+<tr class="h"><th>PDO Driver for PostgreSQL</th><th>enabled</th></tr>
+<tr><td class="e">PostgreSQL(libpq) Version </td><td class="v">9.5.23 </td></tr>
+<tr><td class="e">Module version </td><td class="v">7.1.33-24+ubuntu16.04.1+deb.sury.org+1 </td></tr>
+<tr><td class="e">Revision </td><td class="v"> $Id: 9c5f356c77143981d2e905e276e439501fe0f419 $  </td></tr>
+</table>
+<h2><a name="module_pdo_sqlite">pdo_sqlite</a></h2>
+<table>
+<tr class="h"><th>PDO Driver for SQLite 3.x</th><th>enabled</th></tr>
+<tr><td class="e">SQLite Library </td><td class="v">3.11.0 </td></tr>
+</table>
+<h2><a name="module_pgsql">pgsql</a></h2>
+<table>
+<tr class="h"><th>PostgreSQL Support</th><th>enabled</th></tr>
+<tr><td class="e">PostgreSQL(libpq) Version </td><td class="v">9.5.23 </td></tr>
+<tr><td class="e">PostgreSQL(libpq)  </td><td class="v">PostgreSQL 9.5.23 on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 5.4.0-6ubuntu1~16.04.12) 5.4.0 20160609, 64-bit </td></tr>
+<tr><td class="e">Multibyte character support </td><td class="v">enabled </td></tr>
+<tr><td class="e">SSL support </td><td class="v">enabled </td></tr>
+<tr><td class="e">Active Persistent Links </td><td class="v">0 </td></tr>
+<tr><td class="e">Active Links </td><td class="v">0 </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">pgsql.allow_persistent</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">pgsql.auto_reset_persistent</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">pgsql.ignore_notice</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">pgsql.log_notice</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">pgsql.max_links</td><td class="v">Unlimited</td><td class="v">Unlimited</td></tr>
+<tr><td class="e">pgsql.max_persistent</td><td class="v">Unlimited</td><td class="v">Unlimited</td></tr>
+</table>
+<h2><a name="module_phar">Phar</a></h2>
+<table>
+<tr class="h"><th>Phar: PHP Archive support</th><th>enabled</th></tr>
+<tr><td class="e">Phar EXT version </td><td class="v">2.0.2 </td></tr>
+<tr><td class="e">Phar API version </td><td class="v">1.1.1 </td></tr>
+<tr><td class="e">SVN revision </td><td class="v">$Id: e117ab0dc068703c55b505e78a0d3b3752e9c0b7 $ </td></tr>
+<tr><td class="e">Phar-based phar archives </td><td class="v">enabled </td></tr>
+<tr><td class="e">Tar-based phar archives </td><td class="v">enabled </td></tr>
+<tr><td class="e">ZIP-based phar archives </td><td class="v">enabled </td></tr>
+<tr><td class="e">gzip compression </td><td class="v">enabled </td></tr>
+<tr><td class="e">bzip2 compression </td><td class="v">disabled (install pecl/bz2) </td></tr>
+<tr><td class="e">Native OpenSSL support </td><td class="v">enabled </td></tr>
+</table>
+<table>
+<tr class="v"><td>
+Phar based on pear/PHP_Archive, original concept by Davey Shafik.<br />Phar fully realized by Gregory Beaver and Marcus Boerger.<br />Portions of tar implementation Copyright (c) 2003-2009 Tim Kientzle.</td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">phar.cache_list</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">phar.readonly</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">phar.require_hash</td><td class="v">On</td><td class="v">On</td></tr>
+</table>
+<h2><a name="module_posix">posix</a></h2>
+<table>
+<tr><td class="e">Revision </td><td class="v">$Id: e3a2bc739dee8e0d29094e30e1cfbe3e87e2ceb4 $ </td></tr>
+</table>
+<h2><a name="module_readline">readline</a></h2>
+<table>
+<tr class="h"><th>Readline Support</th><th>enabled</th></tr>
+<tr><td class="e">Readline library </td><td class="v">EditLine wrapper </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">cli.pager</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">cli.prompt</td><td class="v">\b&nbsp;\&gt;&nbsp;</td><td class="v">\b&nbsp;\&gt;&nbsp;</td></tr>
+</table>
+<h2><a name="module_reflection">Reflection</a></h2>
+<table>
+<tr class="h"><th>Reflection</th><th>enabled</th></tr>
+<tr><td class="e">Version </td><td class="v">$Id: 279be19a9e466fb7cfea9841a630521f99644504 $ </td></tr>
+</table>
+<h2><a name="module_session">session</a></h2>
+<table>
+<tr><td class="e">Session Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">Registered save handlers </td><td class="v">files user memcached  </td></tr>
+<tr><td class="e">Registered serializer handlers </td><td class="v">php_serialize php php_binary igbinary msgpack wddx  </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">session.auto_start</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">session.cache_expire</td><td class="v">180</td><td class="v">180</td></tr>
+<tr><td class="e">session.cache_limiter</td><td class="v">nocache</td><td class="v">nocache</td></tr>
+<tr><td class="e">session.cookie_domain</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">session.cookie_httponly</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">session.cookie_lifetime</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">session.cookie_path</td><td class="v">/</td><td class="v">/</td></tr>
+<tr><td class="e">session.cookie_secure</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">session.gc_divisor</td><td class="v">1000</td><td class="v">1000</td></tr>
+<tr><td class="e">session.gc_maxlifetime</td><td class="v">1440</td><td class="v">1440</td></tr>
+<tr><td class="e">session.gc_probability</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">session.lazy_write</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">session.name</td><td class="v">PHPSESSID</td><td class="v">PHPSESSID</td></tr>
+<tr><td class="e">session.referer_check</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">session.save_handler</td><td class="v">files</td><td class="v">files</td></tr>
+<tr><td class="e">session.save_path</td><td class="v">/var/lib/php/sessions</td><td class="v">/var/lib/php/sessions</td></tr>
+<tr><td class="e">session.serialize_handler</td><td class="v">php</td><td class="v">php</td></tr>
+<tr><td class="e">session.sid_bits_per_character</td><td class="v">5</td><td class="v">5</td></tr>
+<tr><td class="e">session.sid_length</td><td class="v">26</td><td class="v">26</td></tr>
+<tr><td class="e">session.upload_progress.cleanup</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">session.upload_progress.enabled</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">session.upload_progress.freq</td><td class="v">1%</td><td class="v">1%</td></tr>
+<tr><td class="e">session.upload_progress.min_freq</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">session.upload_progress.name</td><td class="v">PHP_SESSION_UPLOAD_PROGRESS</td><td class="v">PHP_SESSION_UPLOAD_PROGRESS</td></tr>
+<tr><td class="e">session.upload_progress.prefix</td><td class="v">upload_progress_</td><td class="v">upload_progress_</td></tr>
+<tr><td class="e">session.use_cookies</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">session.use_only_cookies</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">session.use_strict_mode</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">session.use_trans_sid</td><td class="v">0</td><td class="v">0</td></tr>
+</table>
+<h2><a name="module_shmop">shmop</a></h2>
+<table>
+<tr><td class="e">shmop support </td><td class="v">enabled </td></tr>
+</table>
+<h2><a name="module_simplexml">SimpleXML</a></h2>
+<table>
+<tr class="h"><th>Simplexml support</th><th>enabled</th></tr>
+<tr><td class="e">Revision </td><td class="v">$Id: ae067cdcddf424d6e762603905b98798bc924a00 $ </td></tr>
+<tr><td class="e">Schema support </td><td class="v">enabled </td></tr>
+</table>
+<h2><a name="module_soap">soap</a></h2>
+<table>
+<tr><td class="e">Soap Client </td><td class="v">enabled </td></tr>
+<tr><td class="e">Soap Server </td><td class="v">enabled </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">soap.wsdl_cache</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">soap.wsdl_cache_dir</td><td class="v">/tmp</td><td class="v">/tmp</td></tr>
+<tr><td class="e">soap.wsdl_cache_enabled</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">soap.wsdl_cache_limit</td><td class="v">5</td><td class="v">5</td></tr>
+<tr><td class="e">soap.wsdl_cache_ttl</td><td class="v">86400</td><td class="v">86400</td></tr>
+</table>
+<h2><a name="module_sockets">sockets</a></h2>
+<table>
+<tr><td class="e">Sockets Support </td><td class="v">enabled </td></tr>
+</table>
+<h2><a name="module_spl">SPL</a></h2>
+<table>
+<tr class="h"><th>SPL support</th><th>enabled</th></tr>
+<tr><td class="e">Interfaces </td><td class="v">Countable, OuterIterator, RecursiveIterator, SeekableIterator, SplObserver, SplSubject </td></tr>
+<tr><td class="e">Classes </td><td class="v">AppendIterator, ArrayIterator, ArrayObject, BadFunctionCallException, BadMethodCallException, CachingIterator, CallbackFilterIterator, DirectoryIterator, DomainException, EmptyIterator, FilesystemIterator, FilterIterator, GlobIterator, InfiniteIterator, InvalidArgumentException, IteratorIterator, LengthException, LimitIterator, LogicException, MultipleIterator, NoRewindIterator, OutOfBoundsException, OutOfRangeException, OverflowException, ParentIterator, RangeException, RecursiveArrayIterator, RecursiveCachingIterator, RecursiveCallbackFilterIterator, RecursiveDirectoryIterator, RecursiveFilterIterator, RecursiveIteratorIterator, RecursiveRegexIterator, RecursiveTreeIterator, RegexIterator, RuntimeException, SplDoublyLinkedList, SplFileInfo, SplFileObject, SplFixedArray, SplHeap, SplMinHeap, SplMaxHeap, SplObjectStorage, SplPriorityQueue, SplQueue, SplStack, SplTempFileObject, UnderflowException, UnexpectedValueException </td></tr>
+</table>
+<h2><a name="module_sqlite3">sqlite3</a></h2>
+<table>
+<tr class="h"><th>SQLite3 support</th><th>enabled</th></tr>
+<tr><td class="e">SQLite3 module version </td><td class="v">7.1.33-24+ubuntu16.04.1+deb.sury.org+1 </td></tr>
+<tr><td class="e">SQLite Library </td><td class="v">3.11.0 </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">sqlite3.extension_dir</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+</table>
+<h2><a name="module_standard">standard</a></h2>
+<table>
+<tr><td class="e">Dynamic Library Support </td><td class="v">enabled </td></tr>
+<tr><td class="e">Path to sendmail </td><td class="v">/usr/sbin/sendmail -t -i  </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">assert.active</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">assert.bail</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">assert.callback</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">assert.exception</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">assert.quiet_eval</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">assert.warning</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">auto_detect_line_endings</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">default_socket_timeout</td><td class="v">60</td><td class="v">60</td></tr>
+<tr><td class="e">from</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">session.trans_sid_hosts</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">session.trans_sid_tags</td><td class="v">a=href,area=href,frame=src,form=</td><td class="v">a=href,area=href,frame=src,form=</td></tr>
+<tr><td class="e">url_rewriter.hosts</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">url_rewriter.tags</td><td class="v">form=</td><td class="v">form=</td></tr>
+<tr><td class="e">user_agent</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+</table>
+<h2><a name="module_sysvmsg">sysvmsg</a></h2>
+<table>
+<tr><td class="e">sysvmsg support </td><td class="v">enabled </td></tr>
+<tr><td class="e">Revision </td><td class="v">$Id: 483c70b5c54718693a4b95633a097e33d1120ba9 $ </td></tr>
+</table>
+<h2><a name="module_sysvsem">sysvsem</a></h2>
+<table>
+<tr><td class="e">Version </td><td class="v">7.1.33-24+ubuntu16.04.1+deb.sury.org+1 </td></tr>
+</table>
+<h2><a name="module_sysvshm">sysvshm</a></h2>
+<table>
+<tr><td class="e">Version </td><td class="v">7.1.33-24+ubuntu16.04.1+deb.sury.org+1 </td></tr>
+</table>
+<h2><a name="module_tokenizer">tokenizer</a></h2>
+<table>
+<tr><td class="e">Tokenizer Support </td><td class="v">enabled </td></tr>
+</table>
+<h2><a name="module_wddx">wddx</a></h2>
+<table>
+<tr class="h"><th>WDDX Support</th><th>enabled</th></tr>
+<tr><td class="e">WDDX Session Serializer </td><td class="v">enabled </td></tr>
+</table>
+<h2><a name="module_xml">xml</a></h2>
+<table>
+<tr><td class="e">XML Support </td><td class="v">active </td></tr>
+<tr><td class="e">XML Namespace Support </td><td class="v">active </td></tr>
+<tr><td class="e">libxml2 Version </td><td class="v">2.9.10 </td></tr>
+</table>
+<h2><a name="module_xmlreader">xmlreader</a></h2>
+<table>
+<tr><td class="e">XMLReader </td><td class="v">enabled </td></tr>
+</table>
+<h2><a name="module_xmlwriter">xmlwriter</a></h2>
+<table>
+<tr><td class="e">XMLWriter </td><td class="v">enabled </td></tr>
+</table>
+<h2><a name="module_xsl">xsl</a></h2>
+<table>
+<tr><td class="e">XSL </td><td class="v">enabled </td></tr>
+<tr><td class="e">libxslt Version </td><td class="v">1.1.28 </td></tr>
+<tr><td class="e">libxslt compiled against libxml Version </td><td class="v">2.9.3 </td></tr>
+<tr><td class="e">EXSLT </td><td class="v">enabled </td></tr>
+<tr><td class="e">libexslt Version </td><td class="v">1.1.28 </td></tr>
+</table>
+<h2><a name="module_zend+opcache">Zend OPcache</a></h2>
+<table>
+<tr><td class="e">Opcode Caching </td><td class="v">Up and Running </td></tr>
+<tr><td class="e">Optimization </td><td class="v">Enabled </td></tr>
+<tr><td class="e">SHM Cache </td><td class="v">Enabled </td></tr>
+<tr><td class="e">File Cache </td><td class="v">Disabled </td></tr>
+<tr><td class="e">Startup </td><td class="v">OK </td></tr>
+<tr><td class="e">Shared memory model </td><td class="v">mmap </td></tr>
+<tr><td class="e">Cache hits </td><td class="v">1192598 </td></tr>
+<tr><td class="e">Cache misses </td><td class="v">1 </td></tr>
+<tr><td class="e">Used memory </td><td class="v">144429160 </td></tr>
+<tr><td class="e">Free memory </td><td class="v">392441752 </td></tr>
+<tr><td class="e">Wasted memory </td><td class="v">0 </td></tr>
+<tr><td class="e">Interned Strings Used memory </td><td class="v">337784 </td></tr>
+<tr><td class="e">Interned Strings Free memory </td><td class="v">66771080 </td></tr>
+<tr><td class="e">Cached scripts </td><td class="v">1 </td></tr>
+<tr><td class="e">Cached keys </td><td class="v">1 </td></tr>
+<tr><td class="e">Max keys </td><td class="v">32531 </td></tr>
+<tr><td class="e">OOM restarts </td><td class="v">0 </td></tr>
+<tr><td class="e">Hash keys restarts </td><td class="v">0 </td></tr>
+<tr><td class="e">Manual restarts </td><td class="v">0 </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">opcache.blacklist_filename</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">opcache.consistency_checks</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">opcache.dups_fix</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">opcache.enable</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">opcache.enable_cli</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">opcache.enable_file_override</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">opcache.error_log</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">opcache.fast_shutdown</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">opcache.file_cache</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">opcache.file_cache_consistency_checks</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">opcache.file_cache_only</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">opcache.file_update_protection</td><td class="v">2</td><td class="v">2</td></tr>
+<tr><td class="e">opcache.force_restart_timeout</td><td class="v">180</td><td class="v">180</td></tr>
+<tr><td class="e">opcache.huge_code_pages</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">opcache.inherited_hack</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">opcache.interned_strings_buffer</td><td class="v">64</td><td class="v">64</td></tr>
+<tr><td class="e">opcache.lockfile_path</td><td class="v">/tmp</td><td class="v">/tmp</td></tr>
+<tr><td class="e">opcache.log_verbosity_level</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">opcache.max_accelerated_files</td><td class="v">30000</td><td class="v">30000</td></tr>
+<tr><td class="e">opcache.max_file_size</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">opcache.max_wasted_percentage</td><td class="v">5</td><td class="v">5</td></tr>
+<tr><td class="e">opcache.memory_consumption</td><td class="v">512</td><td class="v">512</td></tr>
+<tr><td class="e">opcache.opt_debug_level</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">opcache.optimization_level</td><td class="v">0x7FFFBFFF</td><td class="v">0x7FFFBFFF</td></tr>
+<tr><td class="e">opcache.preferred_memory_model</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">opcache.protect_memory</td><td class="v">0</td><td class="v">0</td></tr>
+<tr><td class="e">opcache.restrict_api</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">opcache.revalidate_freq</td><td class="v">2</td><td class="v">2</td></tr>
+<tr><td class="e">opcache.revalidate_path</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">opcache.save_comments</td><td class="v">1</td><td class="v">1</td></tr>
+<tr><td class="e">opcache.use_cwd</td><td class="v">On</td><td class="v">On</td></tr>
+<tr><td class="e">opcache.validate_permission</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">opcache.validate_root</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">opcache.validate_timestamps</td><td class="v">Off</td><td class="v">Off</td></tr>
+</table>
+<h2><a name="module_zip">zip</a></h2>
+<table>
+<tr><td class="e">Zip </td><td class="v">enabled </td></tr>
+<tr><td class="e">Zip version </td><td class="v">1.13.5 </td></tr>
+<tr><td class="e">Libzip version </td><td class="v">1.7.3 </td></tr>
+</table>
+<h2><a name="module_zlib">zlib</a></h2>
+<table>
+<tr class="h"><th>ZLib Support</th><th>enabled</th></tr>
+<tr><td class="e">Stream Wrapper </td><td class="v">compress.zlib:// </td></tr>
+<tr><td class="e">Stream Filter </td><td class="v">zlib.inflate, zlib.deflate </td></tr>
+<tr><td class="e">Compiled Version </td><td class="v">1.2.8 </td></tr>
+<tr><td class="e">Linked Version </td><td class="v">1.2.8 </td></tr>
+</table>
+<table>
+<tr class="h"><th>Directive</th><th>Local Value</th><th>Master Value</th></tr>
+<tr><td class="e">zlib.output_compression</td><td class="v">Off</td><td class="v">Off</td></tr>
+<tr><td class="e">zlib.output_compression_level</td><td class="v">-1</td><td class="v">-1</td></tr>
+<tr><td class="e">zlib.output_handler</td><td class="v"><i>no value</i></td><td class="v"><i>no value</i></td></tr>
+</table>
+<h2>Additional Modules</h2>
+<table>
+<tr class="h"><th>Module Name</th></tr>
+</table>
+<h2>Environment</h2>
+<table>
+<tr class="h"><th>Variable</th><th>Value</th></tr>
+<tr><td class="e">USER </td><td class="v">forge </td></tr>
+<tr><td class="e">HOME </td><td class="v">/home/forge </td></tr>
+</table>
+<h2>PHP Variables</h2>
+<table>
+<tr class="h"><th>Variable</th><th>Value</th></tr>
+<tr><td class="e">$_SERVER['USER']</td><td class="v">forge</td></tr>
+<tr><td class="e">$_SERVER['HOME']</td><td class="v">/home/forge</td></tr>
+<tr><td class="e">$_SERVER['HTTP_ACCEPT_ENCODING']</td><td class="v">gzip, deflate</td></tr>
+<tr><td class="e">$_SERVER['HTTP_ACCEPT']</td><td class="v">*/*</td></tr>
+<tr><td class="e">$_SERVER['HTTP_USER_AGENT']</td><td class="v">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36</td></tr>
+<tr><td class="e">$_SERVER['HTTP_HOST']</td><td class="v">95.85.19.80</td></tr>
+<tr><td class="e">$_SERVER['REDIRECT_STATUS']</td><td class="v">200</td></tr>
+<tr><td class="e">$_SERVER['SERVER_NAME']</td><td class="v">default</td></tr>
+<tr><td class="e">$_SERVER['SERVER_PORT']</td><td class="v">80</td></tr>
+<tr><td class="e">$_SERVER['SERVER_ADDR']</td><td class="v">95.85.19.80</td></tr>
+<tr><td class="e">$_SERVER['REMOTE_PORT']</td><td class="v">25639</td></tr>
+<tr><td class="e">$_SERVER['REMOTE_ADDR']</td><td class="v">52.153.130.118</td></tr>
+<tr><td class="e">$_SERVER['SERVER_SOFTWARE']</td><td class="v">nginx/1.11.5</td></tr>
+<tr><td class="e">$_SERVER['GATEWAY_INTERFACE']</td><td class="v">CGI/1.1</td></tr>
+<tr><td class="e">$_SERVER['SERVER_PROTOCOL']</td><td class="v">HTTP/1.1</td></tr>
+<tr><td class="e">$_SERVER['DOCUMENT_ROOT']</td><td class="v">/home/forge/default/public</td></tr>
+<tr><td class="e">$_SERVER['DOCUMENT_URI']</td><td class="v">/index.php</td></tr>
+<tr><td class="e">$_SERVER['REQUEST_URI']</td><td class="v">/api/v1/client/subscribe</td></tr>
+<tr><td class="e">$_SERVER['SCRIPT_NAME']</td><td class="v">/index.php</td></tr>
+<tr><td class="e">$_SERVER['SCRIPT_FILENAME']</td><td class="v">/home/forge/default/public/index.php</td></tr>
+<tr><td class="e">$_SERVER['CONTENT_LENGTH']</td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">$_SERVER['CONTENT_TYPE']</td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">$_SERVER['REQUEST_METHOD']</td><td class="v">GET</td></tr>
+<tr><td class="e">$_SERVER['QUERY_STRING']</td><td class="v"><i>no value</i></td></tr>
+<tr><td class="e">$_SERVER['FCGI_ROLE']</td><td class="v">RESPONDER</td></tr>
+<tr><td class="e">$_SERVER['PHP_SELF']</td><td class="v">/index.php</td></tr>
+<tr><td class="e">$_SERVER['REQUEST_TIME_FLOAT']</td><td class="v">1784726889.4296</td></tr>
+<tr><td class="e">$_SERVER['REQUEST_TIME']</td><td class="v">1784726889</td></tr>
+</table>
+<hr />
+<h1>PHP Credits</h1>
+<table>
+<tr class="h"><th>PHP Group</th></tr>
+<tr><td class="e">Thies C. Arntzen, Stig Bakken, Shane Caraveo, Andi Gutmans, Rasmus Lerdorf, Sam Ruby, Sascha Schumann, Zeev Suraski, Jim Winstead, Andrei Zmievski </td></tr>
+</table>
+<table>
+<tr class="h"><th>Language Design &amp; Concept</th></tr>
+<tr><td class="e">Andi Gutmans, Rasmus Lerdorf, Zeev Suraski, Marcus Boerger </td></tr>
+</table>
+<table>
+<tr class="h"><th colspan="2">PHP Authors</th></tr>
+<tr class="h"><th>Contribution</th><th>Authors</th></tr>
+<tr><td class="e">Zend Scripting Language Engine </td><td class="v">Andi Gutmans, Zeev Suraski, Stanislav Malyshev, Marcus Boerger, Dmitry Stogov, Xinchen Hui, Nikita Popov </td></tr>
+<tr><td class="e">Extension Module API </td><td class="v">Andi Gutmans, Zeev Suraski, Andrei Zmievski </td></tr>
+<tr><td class="e">UNIX Build and Modularization </td><td class="v">Stig Bakken, Sascha Schumann, Jani Taskinen </td></tr>
+<tr><td class="e">Windows Support </td><td class="v">Shane Caraveo, Zeev Suraski, Wez Furlong, Pierre-Alain Joye, Anatol Belski, Kalle Sommer Nielsen </td></tr>
+<tr><td class="e">Server API (SAPI) Abstraction Layer </td><td class="v">Andi Gutmans, Shane Caraveo, Zeev Suraski </td></tr>
+<tr><td class="e">Streams Abstraction Layer </td><td class="v">Wez Furlong, Sara Golemon </td></tr>
+<tr><td class="e">PHP Data Objects Layer </td><td class="v">Wez Furlong, Marcus Boerger, Sterling Hughes, George Schlossnagle, Ilia Alshanetsky </td></tr>
+<tr><td class="e">Output Handler </td><td class="v">Zeev Suraski, Thies C. Arntzen, Marcus Boerger, Michael Wallner </td></tr>
+<tr><td class="e">Consistent 64 bit support </td><td class="v">Anthony Ferrara, Anatol Belski </td></tr>
+</table>
+<table>
+<tr class="h"><th colspan="2">SAPI Modules</th></tr>
+<tr class="h"><th>Contribution</th><th>Authors</th></tr>
+<tr><td class="e">Apache 2.0 Handler </td><td class="v">Ian Holsman, Justin Erenkrantz (based on Apache 2.0 Filter code) </td></tr>
+<tr><td class="e">CGI / FastCGI </td><td class="v">Rasmus Lerdorf, Stig Bakken, Shane Caraveo, Dmitry Stogov </td></tr>
+<tr><td class="e">CLI </td><td class="v">Edin Kadribasic, Marcus Boerger, Johannes Schlueter, Moriyoshi Koizumi, Xinchen Hui </td></tr>
+<tr><td class="e">Embed </td><td class="v">Edin Kadribasic </td></tr>
+<tr><td class="e">FastCGI Process Manager </td><td class="v">Andrei Nigmatulin, dreamcat4, Antony Dovgal, Jerome Loyet </td></tr>
+<tr><td class="e">litespeed </td><td class="v">George Wang </td></tr>
+<tr><td class="e">phpdbg </td><td class="v">Felipe Pena, Joe Watkins, Bob Weinand </td></tr>
+</table>
+<table>
+<tr class="h"><th colspan="2">Module Authors</th></tr>
+<tr class="h"><th>Module</th><th>Authors</th></tr>
+<tr><td class="e">BC Math </td><td class="v">Andi Gutmans </td></tr>
+<tr><td class="e">Bzip2 </td><td class="v">Sterling Hughes </td></tr>
+<tr><td class="e">Calendar </td><td class="v">Shane Caraveo, Colin Viebrock, Hartmut Holzgraefe, Wez Furlong </td></tr>
+<tr><td class="e">COM and .Net </td><td class="v">Wez Furlong </td></tr>
+<tr><td class="e">ctype </td><td class="v">Hartmut Holzgraefe </td></tr>
+<tr><td class="e">cURL </td><td class="v">Sterling Hughes </td></tr>
+<tr><td class="e">Date/Time Support </td><td class="v">Derick Rethans </td></tr>
+<tr><td class="e">DB-LIB (MS SQL, Sybase) </td><td class="v">Wez Furlong, Frank M. Kromann </td></tr>
+<tr><td class="e">DBA </td><td class="v">Sascha Schumann, Marcus Boerger </td></tr>
+<tr><td class="e">DOM </td><td class="v">Christian Stocker, Rob Richards, Marcus Boerger </td></tr>
+<tr><td class="e">enchant </td><td class="v">Pierre-Alain Joye, Ilia Alshanetsky </td></tr>
+<tr><td class="e">EXIF </td><td class="v">Rasmus Lerdorf, Marcus Boerger </td></tr>
+<tr><td class="e">fileinfo </td><td class="v">Ilia Alshanetsky, Pierre Alain Joye, Scott MacVicar, Derick Rethans, Anatol Belski </td></tr>
+<tr><td class="e">Firebird driver for PDO </td><td class="v">Ard Biesheuvel </td></tr>
+<tr><td class="e">FTP </td><td class="v">Stefan Esser, Andrew Skalski </td></tr>
+<tr><td class="e">GD imaging </td><td class="v">Rasmus Lerdorf, Stig Bakken, Jim Winstead, Jouni Ahto, Ilia Alshanetsky, Pierre-Alain Joye, Marcus Boerger </td></tr>
+<tr><td class="e">GetText </td><td class="v">Alex Plotnick </td></tr>
+<tr><td class="e">GNU GMP support </td><td class="v">Stanislav Malyshev </td></tr>
+<tr><td class="e">Iconv </td><td class="v">Rui Hirokawa, Stig Bakken, Moriyoshi Koizumi  </td></tr>
+<tr><td class="e">IMAP </td><td class="v">Rex Logan, Mark Musone, Brian Wang, Kaj-Michael Lang, Antoni Pamies Olive, Rasmus Lerdorf, Andrew Skalski, Chuck Hagenbuch, Daniel R Kalowsky </td></tr>
+<tr><td class="e">Input Filter </td><td class="v">Rasmus Lerdorf, Derick Rethans, Pierre-Alain Joye, Ilia Alshanetsky </td></tr>
+<tr><td class="e">InterBase </td><td class="v">Jouni Ahto, Andrew Avdeev, Ard Biesheuvel </td></tr>
+<tr><td class="e">Internationalization </td><td class="v">Ed Batutis, Vladimir Iordanov, Dmitry Lakhtyuk, Stanislav Malyshev, Vadim Savchuk, Kirti Velankar </td></tr>
+<tr><td class="e">JSON </td><td class="v">Jakub Zelenka, Omar Kilani, Scott MacVicar </td></tr>
+<tr><td class="e">LDAP </td><td class="v">Amitay Isaacs, Eric Warnke, Rasmus Lerdorf, Gerrit Thomson, Stig Venaas </td></tr>
+<tr><td class="e">LIBXML </td><td class="v">Christian Stocker, Rob Richards, Marcus Boerger, Wez Furlong, Shane Caraveo </td></tr>
+<tr><td class="e">mcrypt </td><td class="v">Sascha Schumann, Derick Rethans </td></tr>
+<tr><td class="e">Multibyte String Functions </td><td class="v">Tsukada Takuya, Rui Hirokawa </td></tr>
+<tr><td class="e">MySQL driver for PDO </td><td class="v">George Schlossnagle, Wez Furlong, Ilia Alshanetsky, Johannes Schlueter </td></tr>
+<tr><td class="e">MySQLi </td><td class="v">Zak Greant, Georg Richter, Andrey Hristov, Ulf Wendel </td></tr>
+<tr><td class="e">MySQLnd </td><td class="v">Andrey Hristov, Ulf Wendel, Georg Richter, Johannes Schlüter </td></tr>
+<tr><td class="e">OCI8 </td><td class="v">Stig Bakken, Thies C. Arntzen, Andy Sautins, David Benson, Maxim Maletsky, Harald Radi, Antony Dovgal, Andi Gutmans, Wez Furlong, Christopher Jones, Oracle Corporation </td></tr>
+<tr><td class="e">ODBC driver for PDO </td><td class="v">Wez Furlong </td></tr>
+<tr><td class="e">ODBC </td><td class="v">Stig Bakken, Andreas Karajannis, Frank M. Kromann, Daniel R. Kalowsky </td></tr>
+<tr><td class="e">Opcache </td><td class="v">Andi Gutmans, Zeev Suraski, Stanislav Malyshev, Dmitry Stogov, Xinchen Hui </td></tr>
+<tr><td class="e">OpenSSL </td><td class="v">Stig Venaas, Wez Furlong, Sascha Kettler, Scott MacVicar </td></tr>
+<tr><td class="e">Oracle (OCI) driver for PDO </td><td class="v">Wez Furlong </td></tr>
+<tr><td class="e">pcntl </td><td class="v">Jason Greene, Arnaud Le Blanc </td></tr>
+<tr><td class="e">Perl Compatible Regexps </td><td class="v">Andrei Zmievski </td></tr>
+<tr><td class="e">PHP Archive </td><td class="v">Gregory Beaver, Marcus Boerger </td></tr>
+<tr><td class="e">PHP Data Objects </td><td class="v">Wez Furlong, Marcus Boerger, Sterling Hughes, George Schlossnagle, Ilia Alshanetsky </td></tr>
+<tr><td class="e">PHP hash </td><td class="v">Sara Golemon, Rasmus Lerdorf, Stefan Esser, Michael Wallner, Scott MacVicar </td></tr>
+<tr><td class="e">Posix </td><td class="v">Kristian Koehntopp </td></tr>
+<tr><td class="e">PostgreSQL driver for PDO </td><td class="v">Edin Kadribasic, Ilia Alshanetsky </td></tr>
+<tr><td class="e">PostgreSQL </td><td class="v">Jouni Ahto, Zeev Suraski, Yasuo Ohgaki, Chris Kings-Lynne </td></tr>
+<tr><td class="e">Pspell </td><td class="v">Vlad Krupin </td></tr>
+<tr><td class="e">Readline </td><td class="v">Thies C. Arntzen </td></tr>
+<tr><td class="e">Recode </td><td class="v">Kristian Koehntopp </td></tr>
+<tr><td class="e">Reflection </td><td class="v">Marcus Boerger, Timm Friebe, George Schlossnagle, Andrei Zmievski, Johannes Schlueter </td></tr>
+<tr><td class="e">Sessions </td><td class="v">Sascha Schumann, Andrei Zmievski </td></tr>
+<tr><td class="e">Shared Memory Operations </td><td class="v">Slava Poliakov, Ilia Alshanetsky </td></tr>
+<tr><td class="e">SimpleXML </td><td class="v">Sterling Hughes, Marcus Boerger, Rob Richards </td></tr>
+<tr><td class="e">SNMP </td><td class="v">Rasmus Lerdorf, Harrie Hazewinkel, Mike Jackson, Steven Lawrance, Johann Hanne, Boris Lytochkin </td></tr>
+<tr><td class="e">SOAP </td><td class="v">Brad Lafountain, Shane Caraveo, Dmitry Stogov </td></tr>
+<tr><td class="e">Sockets </td><td class="v">Chris Vandomelen, Sterling Hughes, Daniel Beulshausen, Jason Greene </td></tr>
+<tr><td class="e">SPL </td><td class="v">Marcus Boerger, Etienne Kneuss </td></tr>
+<tr><td class="e">SQLite 3.x driver for PDO </td><td class="v">Wez Furlong </td></tr>
+<tr><td class="e">SQLite3 </td><td class="v">Scott MacVicar, Ilia Alshanetsky, Brad Dewar </td></tr>
+<tr><td class="e">System V Message based IPC </td><td class="v">Wez Furlong </td></tr>
+<tr><td class="e">System V Semaphores </td><td class="v">Tom May </td></tr>
+<tr><td class="e">System V Shared Memory </td><td class="v">Christian Cartus </td></tr>
+<tr><td class="e">tidy </td><td class="v">John Coggeshall, Ilia Alshanetsky </td></tr>
+<tr><td class="e">tokenizer </td><td class="v">Andrei Zmievski, Johannes Schlueter </td></tr>
+<tr><td class="e">WDDX </td><td class="v">Andrei Zmievski </td></tr>
+<tr><td class="e">XML </td><td class="v">Stig Bakken, Thies C. Arntzen, Sterling Hughes </td></tr>
+<tr><td class="e">XMLReader </td><td class="v">Rob Richards </td></tr>
+<tr><td class="e">xmlrpc </td><td class="v">Dan Libby </td></tr>
+<tr><td class="e">XMLWriter </td><td class="v">Rob Richards, Pierre-Alain Joye </td></tr>
+<tr><td class="e">XSL </td><td class="v">Christian Stocker, Rob Richards </td></tr>
+<tr><td class="e">Zip </td><td class="v">Pierre-Alain Joye, Remi Collet </td></tr>
+<tr><td class="e">Zlib </td><td class="v">Rasmus Lerdorf, Stefan Roehrich, Zeev Suraski, Jade Nicoletti, Michael Wallner </td></tr>
+</table>
+<table>
+<tr class="h"><th colspan="2">PHP Documentation</th></tr>
+<tr><td class="e">Authors </td><td class="v">Mehdi Achour, Friedhelm Betz, Antony Dovgal, Nuno Lopes, Hannes Magnusson, Philip Olson, Georg Richter, Damien Seguy, Jakub Vrana, Adam Harvey </td></tr>
+<tr><td class="e">Editor </td><td class="v">Peter Cowburn </td></tr>
+<tr><td class="e">User Note Maintainers </td><td class="v">Daniel P. Brown, Thiago Henrique Pojda </td></tr>
+<tr><td class="e">Other Contributors </td><td class="v">Previously active authors, editors and other contributors are listed in the manual. </td></tr>
+</table>
+<table>
+<tr class="h"><th>PHP Quality Assurance Team</th></tr>
+<tr><td class="e">Ilia Alshanetsky, Joerg Behrens, Antony Dovgal, Stefan Esser, Moriyoshi Koizumi, Magnus Maatta, Sebastian Nohn, Derick Rethans, Melvyn Sopacua, Jani Taskinen, Pierre-Alain Joye, Dmitry Stogov, Felipe Pena, David Soria Parra, Stanislav Malyshev, Julien Pauli, Stephen Zarkos, Anatol Belski, Remi Collet, Ferenc Kovacs </td></tr>
+</table>
+<table>
+<tr class="h"><th colspan="2">Websites and Infrastructure team</th></tr>
+<tr><td class="e">PHP Websites Team </td><td class="v">Rasmus Lerdorf, Hannes Magnusson, Philip Olson, Lukas Kahwe Smith, Pierre-Alain Joye, Kalle Sommer Nielsen, Peter Cowburn, Adam Harvey, Ferenc Kovacs, Levi Morrison </td></tr>
+<tr><td class="e">Event Maintainers </td><td class="v">Damien Seguy, Daniel P. Brown </td></tr>
+<tr><td class="e">Network Infrastructure </td><td class="v">Daniel P. Brown </td></tr>
+<tr><td class="e">Windows Infrastructure </td><td class="v">Alex Schoenmaker </td></tr>
+</table>
+<h2>PHP License</h2>
+<table>
+<tr class="v"><td>
+<p>
+This program is free software; you can redistribute it and/or modify it under the terms of the PHP License as published by the PHP Group and included in the distribution in the file:  LICENSE
+</p>
+<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</p>
+<p>If you did not receive a copy of the PHP license, or have any questions about PHP licensing, please contact license@php.net.
+</p>
+</td></tr>
+</table>
+</div><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"deb49e4d0f","applicationID":"33569937","transactionName":"MgRUbEACWEcAUU1bCQtOY0pbTF9aBVdBHBYNEQ==","queueTime":0,"applicationTime":2,"atts":"HkNXGggYS0k=","errorBeacon":"bam.nr-data.net","agent":""}</script></body></html>

@@ -1,0 +1,550 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr" prefix="content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# " class="h-100">
+  <head>
+    <meta charset="utf-8" />
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MYLR9RN59E"></script>
+<script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments)};gtag("js", new Date());gtag("set", "developer_id.dMDhkMT", true);gtag("config", "G-MYLR9RN59E", {"groups":"default","page_placeholder":"PLACEHOLDER_page_location"});</script>
+<meta name="description" content="Explore our site to find valuable resources, cutting-edge research, and breaking news on the gender equality dimensions of HIV/AIDS. This site aims to promote understanding, knowledge sharing, and action on the gender-based inequalities propelling the HIV epidemic." />
+<link rel="shortlink" href="https://genderandaids.unwomen.org/en" />
+<link rel="canonical" href="https://genderandaids.unwomen.org/en" />
+<meta property="og:site_name" content="Gender Equality And HIV/AIDS" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://genderandaids.unwomen.org/" />
+<meta property="og:title" content="Home" />
+<meta property="og:description" content="Explore our site to find valuable resources, cutting-edge research, and breaking news on the gender equality dimensions of HIV/AIDS. This site aims to promote understanding, knowledge sharing, and action on the gender-based inequalities propelling the HIV epidemic." />
+<meta property="fb:app_id" content="488769704655473" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Home" />
+<meta name="twitter:description" content="Explore our site to find valuable resources, cutting-edge research, and breaking news on the gender equality dimensions of HIV/AIDS. This site aims to promote understanding, knowledge sharing, and action on the gender-based inequalities propelling the HIV epidemic." />
+<meta name="Generator" content="Drupal 10 (https://www.drupal.org)" />
+<meta name="MobileOptimized" content="width" />
+<meta name="HandheldFriendly" content="true" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" href="/themes/custom/unwomen_advanced/favicon.ico" type="image/vnd.microsoft.icon" />
+<script>window.a2a_config=window.a2a_config||{};a2a_config.callbacks=[];a2a_config.overlays=[];a2a_config.templates={};</script>
+
+    <title>Home | Gender Equality And HIV/AIDS</title>
+    <link rel="stylesheet" media="all" href="/sites/default/files/css/css_sIzqO0YzapkLXIvyZwSVhvxnpAok-zMqUVHgHbzRYpI.css?delta=0&amp;language=en&amp;theme=unwomen_advanced&amp;include=eJxdjsEOAiEMRH8I4eT3mLLtsiSlJRR2xa_XqIkbL5M3M5cHiF1BZoAv-LWpdBdVu_UG9RoiGJ17Yo3AF-uTs6TzU8gMEplbGMxmEEVyizZ6USvA-UFuZbobZ6QWsnRKDXpWcRUavLhuFrCNCux_ix9SR-RsG6GzaZ3KR2rIoYXkBriDLIT_anumw8I7fVEcTE-vg12F" />
+<link rel="stylesheet" media="all" href="/sites/default/files/css/css_l2V8peTA_PMpiOj3yfuE5_NAj8KJnM5XiSvygnTl3Kg.css?delta=1&amp;language=en&amp;theme=unwomen_advanced&amp;include=eJxdjsEOAiEMRH8I4eT3mLLtsiSlJRR2xa_XqIkbL5M3M5cHiF1BZoAv-LWpdBdVu_UG9RoiGJ17Yo3AF-uTs6TzU8gMEplbGMxmEEVyizZ6USvA-UFuZbobZ6QWsnRKDXpWcRUavLhuFrCNCux_ix9SR-RsG6GzaZ3KR2rIoYXkBriDLIT_anumw8I7fVEcTE-vg12F" />
+<link rel="stylesheet" media="all" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+
+    
+  </head>
+  <body class="page-route-entity-node-canonical path-frontpage page-node-type-homepage    bg- d-flex flex-column h-100">
+        <div class="visually-hidden-focusable skip-link p-3 container">
+      <a href="#main-content" class="p-2">
+        Skip to main content
+      </a>
+    </div>
+    
+      <div class="dialog-off-canvas-main-canvas d-flex flex-column h-100" data-off-canvas-main-canvas>
+    
+          <header>
+      <div class="top-bar">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+                <div class="region region-header">
+    <div id="block-unwomen-advanced-branding" class="block block-system block-system-branding-block">
+  
+    
+  <div class="d-lg-flex justify-content-between">
+      <a class="logo navbar-btn pull-left" href="/en" title="Home" rel="home">
+      <img src="/themes/custom/unwomen_advanced/logo.svg" alt="Home" />
+    </a>
+  
+  <div class="branding-right">
+          <div class="name site-name">Gender Equality And HIV/AIDS</div>
+    
+          <div class="site-slogan">Comprehensive Web Portal for Gender Equality Dimensions of the HIV/AIDS Epidemic</div>
+      </div>
+</div>
+</div>
+
+  </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <div  id="navbar" role="banner">
+        <div class="container">
+          <div class="row">
+            <div class="navbar-header">
+              <div class="row">
+                <div class="desktop-show">
+                    <div class="region region-navigation-collapsible">
+    <nav role="navigation" aria-labelledby="block-unwomen-advanced-main-menu-menu" id="block-unwomen-advanced-main-menu">
+            
+  <h2 class="visually-hidden" id="block-unwomen-advanced-main-menu-menu">Main navigation</h2>
+  
+
+        
+            <ul data-block="navigation_collapsible" class="navbar-nav justify-content-end flex-wrap nav-level-0">
+                    <li class="nav-item">
+          <a href="/en" class="nav-link is-active" data-drupal-link-system-path="&lt;front&gt;" aria-current="page">Home</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="/en/about" class="nav-link" data-drupal-link-system-path="node/1">About</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="/en/resources" class="nav-link" data-drupal-link-system-path="resources">Resources</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="/en/stories" class="nav-link" data-drupal-link-system-path="stories">Stories</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="/en/links" class="nav-link" data-drupal-link-system-path="links">Links</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="/en/news" class="nav-link" data-drupal-link-system-path="news">News</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="/en/contact-us" class="nav-link" data-drupal-link-system-path="node/4">Contact</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="https://www.unwomen.org/en" class="nav-link">Un Women</a>
+      </li>
+
+        </ul>
+  
+
+
+
+  </nav>
+
+  </div>
+
+                </div>
+                <div class="mobile-show">
+                                                        <button type="button" class="navbar-toggle mobile-menu-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="fa fa-bars"></span>
+                    </button>
+                                  </div>
+              </div>
+            </div>
+                                      <div id="navbar-collapse" class="navbar-collapse navbar-mobile collapse">
+                <div class="mobile-show">
+                  <div class="js--search-icon search--icon d-none d-lg-block">
+                    <i class="fas fa-search"></i>
+                  </div>
+                  <div class="search-form hide">
+                    <form action="/search" id="search-form" class="input-field">
+                      <input type="text" name="keywords" value="" />
+                      <input type="submit" value="GO" />
+                    </form>
+                  </div>
+                </div>
+                  <div class="region region-navigation-collapsible">
+    <nav role="navigation" aria-labelledby="block-unwomen-advanced-main-menu-menu" id="block-unwomen-advanced-main-menu">
+            
+  <h2 class="visually-hidden" id="block-unwomen-advanced-main-menu-menu">Main navigation</h2>
+  
+
+        
+            <ul data-block="navigation_collapsible" class="navbar-nav justify-content-end flex-wrap nav-level-0">
+                    <li class="nav-item">
+          <a href="/en" class="nav-link is-active" data-drupal-link-system-path="&lt;front&gt;" aria-current="page">Home</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="/en/about" class="nav-link" data-drupal-link-system-path="node/1">About</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="/en/resources" class="nav-link" data-drupal-link-system-path="resources">Resources</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="/en/stories" class="nav-link" data-drupal-link-system-path="stories">Stories</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="/en/links" class="nav-link" data-drupal-link-system-path="links">Links</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="/en/news" class="nav-link" data-drupal-link-system-path="news">News</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="/en/contact-us" class="nav-link" data-drupal-link-system-path="node/4">Contact</a>
+      </li>
+
+                    <li class="nav-item">
+          <a href="https://www.unwomen.org/en" class="nav-link">Un Women</a>
+      </li>
+
+        </ul>
+  
+
+
+
+  </nav>
+
+  </div>
+
+              </div>
+                        <div class="desktop-show searchs">
+              <div class="js--search-icon search--icon d-none d-lg-block">
+                <i class="fas fa-search"></i>
+              </div>
+              <div class="search-form hide">
+                <form action="/search" id="search-form" class="input-field">
+                  <input type="text" name="keywords" value="" />
+                  <input type="submit" value="GO" />
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </header>
+        
+  <div class="mains">
+      
+          <div role="main" class="main-container">
+                          
+                  <div class="container region region-highlighted">
+              <div class="region region-highlighted">
+    <div data-drupal-messages-fallback class="hidden"></div>
+
+  </div>
+
+          </div>
+          
+                  <div class="container-fluid g-0">
+              <div class="region region-content-full">
+    <div class="views-element-container block block-views block-views-blockhomepage-slider-block-homepage-slider" id="block-views-block-homepage-slider-block-homepage-slider">
+  
+    
+      <div data-block="content_full"><div class="view view-homepage-slider view-id-homepage_slider view-display-id-block_homepage_slider js-view-dom-id-92bebd3eb108f0f7b19fc47c354ae23b3387c002a5ffa1df63bb5e2b2e6ae3cb">
+  
+    
+      
+      <div class="view-content">
+      
+<div>
+    
+<div id="flexslider-1" class="flexslider optionset-default">
+ 
+<ul class="slides">
+    
+<li>
+    <div class="views-field views-field-field-media-image"><div class="field-content">  <img loading="lazy" src="/sites/default/files/media/Images/Slides/bg3.jpg" width="1920" height="500" typeof="foaf:Image" class="img-fluid" />
+
+</div></div>
+    </li>
+<li>
+    <div class="views-field views-field-field-media-image"><div class="field-content">  <img loading="lazy" src="/sites/default/files/media/Images/Slides/bg4.jpg" width="1920" height="500" typeof="foaf:Image" class="img-fluid" />
+
+</div></div>
+    </li>
+<li>
+    <div class="views-field views-field-field-media-image"><div class="field-content">  <img loading="lazy" src="/sites/default/files/media/Images/Slides/Slide-1-new.jpg" width="1920" height="500" typeof="foaf:Image" class="img-fluid" />
+
+</div></div>
+    </li>
+<li>
+    <div class="views-field views-field-field-media-image"><div class="field-content">  <img loading="lazy" src="/sites/default/files/media/Images/Slides/Slide-4.jpg" width="1920" height="500" typeof="foaf:Image" class="img-fluid" />
+
+</div></div>
+    </li>
+<li>
+    <div class="views-field views-field-field-media-image"><div class="field-content">  <img loading="lazy" src="/sites/default/files/media/Images/Slides/Slide-3.jpg" width="1920" height="500" typeof="foaf:Image" class="img-fluid" />
+
+</div></div>
+    </li>
+</ul>
+</div>
+
+</div>
+
+    </div>
+  
+          </div>
+</div>
+
+  </div>
+
+  </div>
+
+          </div>
+        
+                  <div class="container region region-content">
+            <section class="main-section col-12">
+                <div class="region region-content">
+    <div id="block-unwomen-advanced-content" class="block block-system block-system-main-block">
+  
+    
+      
+<article data-history-node-id="1348" about="/en/home" class="node node--type-homepage node--promoted node--view-mode-full">
+  
+    
+
+  <div class="node__content">
+    
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><h2>COMPREHENSIVE | UP-TO-DATE | REVIEWED</h2><p>Explore our site to find valuable resources, cutting-edge research, and breaking news on the gender equality dimensions of HIV and AIDS. This site aims to promote understanding, knowledge sharing and action on the gender-based inequalities propelling the HIV epidemic.</p><p><a href="/news">Read More</a></p></div>
+      
+      <div class="field field--name-field-featured-content field--type-entity-reference-revisions field--label-hidden field__items">
+              <div class="field__item">   <div class="image-block paragraph--type--homepage-featured paragraph--view-mode--default">
+    <div class="image-with-label">
+      <div class="tag">Featured</div>
+      <div class="field--name-field-thumbnail">
+        
+            <div class="field field--name-field-thumbnail field--type-entity-reference field--label-hidden field__item"><div class="media media--type-image media--view-mode-default">
+  
+      
+  <div class="field field--name-field-media-image field--type-image field--label-visually_hidden">
+    <div class="field__label visually-hidden">Image</div>
+              <div class="field__item">  <img loading="lazy" src="/sites/default/files/2025-12/HIV-card2.png" width="675" height="450" alt="Empower Change. Learn Today!." typeof="foaf:Image" class="img-fluid" />
+
+</div>
+          </div>
+
+  </div>
+</div>
+      
+      </div>
+    </div>
+    <div class="title-description">
+              <div class="title-desc-content">
+        <a href="/en/news/2025/12/empower-change-learn-today">Empower Change. Learn Today!.</a>
+        
+            <div class="field field--name-field-description field--type-string-long field--label-hidden field__item">Take the lead in creating gender-transformative HIV policies and programmes. Enroll now and access tools that make a real difference. <br />
+Start Learning</div>
+      
+        </div>
+        <div class="more-link"><a href="/en/news/2025/12/empower-change-learn-today">Read More</a></div>
+          </div>
+  </div>
+
+</div>
+              <div class="field__item">   <div class="image-block paragraph--type--homepage-featured paragraph--view-mode--default">
+    <div class="image-with-label">
+      <div class="tag">Women&#039;s Stories</div>
+      <div class="field--name-field-thumbnail">
+        
+            <div class="field field--name-field-thumbnail field--type-entity-reference field--label-hidden field__item"><div class="media media--type-image media--view-mode-default">
+  
+      
+  <div class="field field--name-field-media-image field--type-image field--label-visually_hidden">
+    <div class="field__label visually-hidden">Image</div>
+              <div class="field__item">  <img loading="lazy" src="/sites/default/files/media/Images/Stories/Ukraine_HIV_November2017_Hanna-Lilina_1_675x450.jpg" width="675" height="450" typeof="foaf:Image" class="img-fluid" />
+
+</div>
+          </div>
+
+  </div>
+</div>
+      
+      </div>
+    </div>
+    <div class="title-description">
+              <div class="title-desc-content">
+        <a href="/en/stories/2018/03/living-with-hiv-and-violence-women-of-ukraine-speak-out-and-build-solidarity">Living with HIV and Violence: Women of Ukraine Speak Out and Build Solidarity</a>
+        
+            <div class="field field--name-field-description field--type-string-long field--label-hidden field__item">In Ukraine, peer-support groups and the National Women’s Forum on HIV is bringing awareness, action and new beginnings for women survivors of violence living with HIV.</div>
+      
+        </div>
+        <div class="more-link"><a href="/en/stories/2018/03/living-with-hiv-and-violence-women-of-ukraine-speak-out-and-build-solidarity">Read More</a></div>
+          </div>
+  </div>
+
+</div>
+              <div class="field__item">   <div class="image-block paragraph--type--homepage-featured paragraph--view-mode--default">
+    <div class="image-with-label">
+      <div class="tag">In the News</div>
+      <div class="field--name-field-thumbnail">
+        
+            <div class="field field--name-field-thumbnail field--type-entity-reference field--label-hidden field__item"><div class="media media--type-image media--view-mode-default">
+  
+      
+  <div class="field field--name-field-media-image field--type-image field--label-visually_hidden">
+    <div class="field__label visually-hidden">Image</div>
+              <div class="field__item">  <img loading="lazy" src="/sites/default/files/2026-07/Community_partnerships_end_aids_675x450_final2.png" width="675" height="450" alt="Community Partnerships in action to end AIDS" typeof="foaf:Image" class="img-fluid" />
+
+</div>
+          </div>
+
+  </div>
+</div>
+      
+      </div>
+    </div>
+    <div class="title-description">
+              <div class="title-desc-content">
+        <a href="/en/resources/2026/06/community-partnerships-action-end-aids">Community partnerships in action to end AIDS</a>
+        
+            <div class="field field--name-field-description field--type-string-long field--label-hidden field__item">Partnerships with community leaders and civil society organizations are vital to eliminating AIDS as a public health threat. This new report, compiled on behalf of the 11 UNAIDS cosponsors, shares stories of meaningful community partnerships around the globe and demonstrates the positive impact of incorporating the voices of women, girls, and those most directly impacted by the AIDS epidemic.</div>
+      
+        </div>
+        <div class="more-link"><a href="/en/resources/2026/06/community-partnerships-action-end-aids">Read More</a></div>
+          </div>
+  </div>
+
+</div>
+          </div>
+  
+  </div>
+
+</article>
+
+  </div>
+
+  </div>
+
+            </section>
+          </div>
+          
+        <div class="container">
+          <div class="row">
+                          <aside class="site-sidebar filters col-12 col-md-6 col-lg-8">
+                  <div class="region region-sidebar-first">
+    <div class="views-element-container block block-views block-views-blockhomepage-in-the-news-block-homepage-in-the-news" id="block-views-block-homepage-in-the-news-block-homepage-in-the-news">
+  
+      <h2>In the news</h2>
+    
+      <div data-block="sidebar_first"><div class="view view-homepage-in-the-news view-id-homepage_in_the_news view-display-id-block_homepage_in_the_news js-view-dom-id-e11f460912fecc175ec0f0f92ff8557d51c53198b8949c253892123a2278b8d0">
+  
+    
+      
+      <div class="view-content">
+          <div class="views-row"><div class="views-field views-field-title"><span class="field-content"><a href="/en/news/2025/12/statement-secretary-general-un-world-aids-day" hreflang="en">Statement by the Secretary-General of the UN on World AIDS Day</a></span></div><div class="views-field views-field-body"><div class="field-content"><p>This World AIDS Day reminds us that we have the power to transform lives and futures, and end the AIDS epidemic once and for all.&nbsp;</p><p>Read the UN Secretary General World AIDS Day message <a href="https://press.un.org/en/2025/sgsm22918.doc.htm">here</a>.&nbsp;</p></div></div></div>
+    <div class="views-row"><div class="views-field views-field-title"><span class="field-content"><a href="/en/news/2025/12/statement-un-women-world-aids-day" hreflang="en">Statement by UN Women for World AIDS Day</a></span></div><div class="views-field views-field-body"><div class="field-content"><p>This&nbsp;<a href="https://www.un.org/en/observances/world-aids-day">World AIDS Day</a>&nbsp;comes amid deep uncertainty, and this year’s theme, “Overcoming disruption, transforming the AIDS response”, is a clear call to action: the world must step up, not step back.&nbsp;</p><p>Read UN Women full statement for World AIDS Day<strong>&nbsp;</strong><a href="https://www.unwomen.org/en/news-stories/statement/2025/11/statement-recommit-and-resource-the-power-of-women-and-girls-to-transform-the-aids-response">here.</a></p><p>&nbsp;</p></div></div></div>
+    <div class="views-row"><div class="views-field views-field-title"><span class="field-content"><a href="/en/news/2025/12/overcoming-disruption-transforming-aids-response" hreflang="en">Overcoming Disruption, Transforming the AIDS Response</a></span></div><div class="views-field views-field-body"><div class="field-content"><p>UNAIDS releases its 2025 World AIDS Day report: Overcoming disruption, transforming the AIDS response: <em>The 2025 funding crisis has thrown the AIDS response into turmoil with massive disruptions to HIV prevention and community led services, particularly for the most vulnerable. However, the new report by UNAIDS shows evidence that resilience, investment and innovation combined with global solidarity still offer a path to end AIDS.&nbsp; </em>Article can be accessed on-line <a href="https://www.unaids.org/sites/default/files/2025-11/2025-WAD-report_en.pdf" target="_blank">here</a>.</p></div></div></div>
+
+    </div>
+  
+          <div class="more-link"><a href="/en/news">View More</a></div>
+
+      </div>
+</div>
+
+  </div>
+<div id="block-homepagebottomcontent-2" class="block block-block-content block-block-content9088b371-652f-4a83-8ed7-d923a9be88de">
+  
+    
+      
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p><iframe allowfullscreen="1" frameborder="0" src="https://www.youtube.com/embed/MesFCRS1Ngw"></iframe></p>
+</div>
+      
+  </div>
+
+  </div>
+
+              </aside>
+                                      <aside class="site-sidebar col-12 col-md-6 col-lg-4">
+                  <div class="region region-sidebar-second">
+    <div class="views-element-container block block-views block-views-blockrecent-resources-block-recent-resources" id="block-views-block-recent-resources-block-recent-resources">
+  
+      <h2>Recent Resources</h2>
+    
+      <div data-block="sidebar_second"><div class="view view-recent-resources view-id-recent_resources view-display-id-block_recent_resources js-view-dom-id-c9ddc537b82cbc1fef00d6e4607dc041c045a26645277d4247bc5fd27f4b06f8">
+  
+    
+      
+      <div class="view-content">
+          <div class="views-row"><div class="views-field views-field-nothing"><span class="field-content"><div class="resource-icon">
+  <img src="/sites/default/files/media/Images/Icons/Publication-icon-color.jpg" /></div>
+<div class="content-container">
+<div><a href="/en/resources/2026/06/community-partnerships-action-end-aids" hreflang="en">Community partnerships in action to end AIDS</a></div>
+<div>
+<p>This report, produced by UNICEF on behalf of the 11 cosponsors of UNAIDS (ILO, UNDP, UNESCO, UNFPA, UNHCR…
+</div>
+</div></span></div></div>
+    <div class="views-row"><div class="views-field views-field-nothing"><span class="field-content"><div class="resource-icon">
+  <img src="/sites/default/files/media/Images/Icons/Publication-icon-color.jpg" /></div>
+<div class="content-container">
+<div><a href="/en/resources/2025/12/power" hreflang="en">POWER - Program On Women’s Empowerment in Sexual, Reproductive, Maternal, Newborn, Child and Adolescent Health (SRMNCAH) rights in humanitarian settings in the Horn of Africa Region</a></div>
+<div>
+<p>UN Women's Programme on Women's Empowerment in Sexual, Reproductive, Maternal, Newborn, Child, and…
+</div>
+</div></span></div></div>
+    <div class="views-row"><div class="views-field views-field-nothing"><span class="field-content"><div class="resource-icon">
+  <img src="/sites/default/files/media/Images/Icons/Publication-icon-color.jpg" /></div>
+<div class="content-container">
+<div><a href="/en/resources/2025/07/effects-intimate-partner-violence-womens-risk-hiv-acquisition-and-engagement" hreflang="en">The effects of intimate partner violence on women&#039;s risk of HIV acquisition and engagement</a></div>
+<div>
+<p>This analysis seeks to determine the effects of intimate partner violence on recent HIV infection and…
+</div>
+</div></span></div></div>
+
+    </div>
+  
+          <div class="more-link"><a href="/en/resources">View More</a></div>
+
+      </div>
+</div>
+
+  </div>
+<div id="block-homepagetwitter" class="block block-block-content block-block-content6cbce4df-88dd-41b1-8e48-959eec1fc486">
+  
+    
+      
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><div class="social-media"><a class="twitter-timeline" href="https://twitter.com/UN_Women?ref_src=twsrc%5Etfw">Tweets by UN_Women</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></div>
+</div>
+      
+  </div>
+
+  </div>
+
+              </aside>
+                      </div>
+        </div>
+  
+      </div>
+      </div>
+
+<footer class="footer">
+  <div class="scroll-to-top hide"><span class="fas fa-angle-up"></span></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6 footer-logo-img-holder">
+          <div class="region region-footer-left">
+    <div id="block-footerleft" class="block block-block-content block-block-content5f239fd7-d309-4cb1-b826-7772e7d1e0a0">
+  
+    
+      
+            <div class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item"><p><a href="https://genderandaids.unwomen.org/en"><img src="/sites/default/files/media/Images/Layout/un-women-logo.png"></a>© UN Women - All Right Reserved.</p></div>
+      
+  </div>
+
+  </div>
+
+      </div>
+      <div class="col-sm-6 footer-right">
+        <a class="btn-u btn-u-red" href="/rss-feed" target="_blank">
+          <i class="fa fa-rss"></i>
+        </a>
+        <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#username=xa-4d2e121560f0fb83"></script>
+        <a class="btn-u btn-u-red addthis_button_compact" href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4d2e121560f0fb83">
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+  
+  
+  </div>
+
+    
+    <script type="application/json" data-drupal-selector="drupal-settings-json">{"path":{"baseUrl":"\/","pathPrefix":"en\/","currentPath":"node\/1348","currentPathIsAdmin":false,"isFront":true,"currentLanguage":"en"},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"ajaxPageState":{"libraries":"eJxdj8FuAjEMRH8ouznxPWh2Y0Iqx45iB0i_vogiWriM3ozn4EFKrpAZ8YT11FU8bKpu3tEOcYPRm3_h8mULw8ne-pl1Ay_mk4vk_5dKZshkYWeYzSiaKOza6U69gss3hRPTzbgk6rGIU-7wohKyamY6QsDTy27xMwgNHfd2O1tMfTTw-pesQ9rYuNiZUrBpTvV31pCrVpIj0gWyU_p8_lLoavGha9U0mH4AC093bQ","theme":"unwomen_advanced","theme_token":null},"ajaxTrustedUrl":[],"google_analytics":{"account":"G-MYLR9RN59E","trackOutbound":true,"trackMailto":true,"trackTel":true,"trackDownload":true,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip"},"flexslider":{"optionsets":{"default":{"animation":"fade","animationSpeed":600,"direction":"horizontal","slideshow":true,"easing":"swing","smoothHeight":false,"reverse":false,"slideshowSpeed":7000,"animationLoop":true,"randomize":false,"startAt":0,"itemWidth":0,"itemMargin":0,"minItems":0,"maxItems":0,"move":0,"directionNav":true,"controlNav":true,"thumbCaptions":false,"thumbCaptionsBoth":false,"keyboard":true,"multipleKeyboard":false,"mousewheel":false,"touch":true,"prevText":"Previous","nextText":"Next","namespace":"flex-","selector":".slides \u003E li","sync":"","asNavFor":"","initDelay":0,"useCSS":true,"video":false,"pausePlay":false,"pauseText":"Pause","playText":"Play","pauseOnAction":true,"pauseOnHover":false,"controlsContainer":".flex-control-nav-container","manualControls":""}},"instances":{"flexslider-1":"default"}},"user":{"uid":0,"permissionsHash":"eb8e3c22ef09bfba78683dcb7b4a8423f466c1e90831c2c3d69f6575e9639092"}}</script>
+<script src="/sites/default/files/js/js_WU0RHwD6aqE2lmMe_EBYRmz2195CHWF9DCuAI3jhnPM.js?scope=footer&amp;delta=0&amp;language=en&amp;theme=unwomen_advanced&amp;include=eJxdyEEOwjAMBMAPJfjU91TbxrWCjI1iF8jvuSAh9TYatJYOm4Qfbsdwy7K5Z-TAc6E_6z2qIjmyHMqf0N54ULdkGcjuVsRdlFcYdGbfg65RTnv7g21Fe8F2biTqG7RGTu0mXwoLOOk"></script>
+<script src="https://static.addtoany.com/menu/page.js" defer></script>
+<script src="/sites/default/files/js/js_JNQYhrXG9ND6ya30n4YFrUrTZI4233suLttXqISWIJk.js?scope=footer&amp;delta=2&amp;language=en&amp;theme=unwomen_advanced&amp;include=eJxdyEEOwjAMBMAPJfjU91TbxrWCjI1iF8jvuSAh9TYatJYOm4Qfbsdwy7K5Z-TAc6E_6z2qIjmyHMqf0N54ULdkGcjuVsRdlFcYdGbfg65RTnv7g21Fe8F2biTqG7RGTu0mXwoLOOk"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/js/all.min.js"></script>
+<script src="https://kit.fontawesome.com/a33bf53eb4.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Документация | Twitch TTS</title>
+    <style>
+        :root {
+            --bg-main: #0e0e10;
+            --bg-container: #18181b;
+            --bg-accent: #27272c;
+            --border-color: #2f2f35;
+            --text-main: #efeff1;
+            --text-muted: #adadb8;
+            --twitch-purple: #9146ff;
+            --twitch-purple-hover: #772ce8;
+            --accent-green: #00ff7f;
+            --accent-red: #ff4e4e;
+            --code-bg: #09090b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: var(--bg-main);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styling */
+        .sidebar {
+            width: 300px;
+            background: var(--bg-container);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+        }
+
+        .sidebar h1 {
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 2rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sidebar h1 span {
+            color: var(--twitch-purple);
+        }
+
+        .nav-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .nav-group-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-links a {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            background: var(--bg-accent);
+            color: var(--text-main);
+        }
+
+        /* Main Content Styling */
+        .main-content {
+            margin-left: 300px;
+            flex: 1;
+            padding: 3rem 4rem;
+            max-width: 1000px;
+        }
+
+        section {
+            margin-bottom: 4rem;
+            scroll-margin-top: 3rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-main);
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        a {
+            color: var(--twitch-purple);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: var(--bg-container);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: var(--bg-accent);
+            color: var(--text-main);
+            font-weight: 600;
+        }
+
+        td {
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-muted);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Code Block Styling */
+        pre {
+            background: var(--code-bg);
+            border: 1px solid var(--border-color);
+            padding: 1.25rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        code {
+            font-family: 'Consolas', 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: #f472b6;
+        }
+
+        pre code {
+            color: #e4e4e7;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .badge-user { background: rgba(145, 70, 255, 0.2); color: #c084fc; }
+        .badge-mod { background: rgba(0, 255, 127, 0.15); color: var(--accent-green); }
+
+        .info-block {
+            background: rgba(145, 70, 255, 0.1);
+            border-left: 4px solid var(--twitch-purple);
+            padding: 1rem 1.25rem;
+            border-radius: 0 8px 8px 0;
+            margin: 1.5rem 0;
+        }
+
+        .info-block p {
+            margin: 0;
+            color: var(--text-main);
+        }
+
+        /* Scrollbar customizing */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-main);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--bg-accent);
+        }
+
+        @media (max-width: 900px) {
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                margin-left: 0;
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <h1><span>Twitch</span> TTS Docs</h1>
+            
+            <div class="nav-group">
+                <div class="nav-group-title">Обзор</div>
+                <ul class="nav-links">
+                    <li><a href="#about">О проекте</a></li>
+                    <li><a href="#architecture">Архитектура</a></li>
+                    <li><a href="#config">Константы и API</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-title">Команды чата</div>
+                <ul class="nav-links">
+                    <li><a href="#user-commands">Для пользователей</a></li>
+                    <li><a href="#mod-commands">Для модераторов</a></li>
+                </ul>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-title">Разработчику</div>
+                <ul class="nav-links">
+                    <li><a href="#queue-logic">Управление очередью</a></li>
+                    <li><a href="#retry-logic">Retry-политика</a></li>
+                    <li><a href="#localstorage">Хранилище данных</a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content Box -->
+        <main class="main-content">
+            
+            <section id="about">
+                <h2>🎤 О проекте Twitch TTS</h2>
+                <p><strong>Twitch TTS (Text-to-Speech)</strong> — это клиентское веб-приложение (SPA), разработанное для стримеров. Оно позволяет в реальном времени интегрировать текстовые сообщения из чата Twitch в голосовую озвучку прямо на трансляции, используя гибкую систему кастомных голосов и прав доступа.</p>
+                <div class="info-block">
+                    <p>Интерфейс выполнен в фирменной темной палитре Twitch для бесшовной интеграции в рабочее окружение контент-мейкера.</p>
+                </div>
+            </section>
+
+            <section id="architecture">
+                <h2>🛠️ Архитектура проекта</h2>
+                <p>Приложение представляет собой легковесный автономный скрипт, не требующий сложного серверного деплоя:</p>
+                <ul>
+                    <li><strong>Twitch IRC Интеграция:</strong> Использует библиотеку <code>Comfy.js</code> (подключена через CDN). Это позволяет слушать события чата без необходимости прохождения OAuth-авторизации со стороны стримера — достаточно указать имя канала.</li>
+                    <li><strong>Бизнес-логика:</strong> Чистый ванильный JavaScript (ES6+), управляющий очередями воспроизведения, механикой повторных запросов, обработкой ошибок сети и событий элементов HTML5 Audio.</li>
+                    <li><strong>UI/Интерфейс:</strong> Трехколоночная структура (Голоса, Команды управления, Активность пользователей), построенная на семантичном HTML и кастомных CSS стилях без применения тяжелых UI-фреймворков.</li>
+                </ul>
+            </section>
+
+            <section id="config">
+                <h2>⚙️ Конфигурация и константы</h2>
+                <p>В коде скрипта зашиты базовые параметры взаимодействия с инфраструктурой синтеза речи:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Константа</th>
+                            <th>Тип / Значение</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>TTS_API_URL</code></td>
+                            <td><code>String</code></td>
+                            <td>Эндпоинт генерации аудиофайлов речи (возвращает бинарный аудио-поток).</td>
+                        </tr>
+                        <tr>
+                            <td><code>SPEAKERS_URL</code></td>
+                            <td><code>String</code></td>
+                            <td>Эндпоинт для выгрузки дерева доступных спикеров (категории и ID голосов).</td>
+                        </tr>
+                        <tr>
+                            <td><code>API_TOKEN</code></td>
+                            <td><code>String</code></td>
+                            <td>Токен авторизации (передается в HTTP-заголовке <code>Authorization: Bearer ...</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><code>TTS_GAP_BETWEEN_MS</code></td>
+                            <td><code>4000</code></td>
+                            <td>Пауза в миллисекундах между окончаниями одного трека и стартом следующего.</td>
+                        </tr>
+                        <tr>
+                            <td><code>TTS_MAX_TEXT_CHARS</code></td>
+                            <td><code>400</code></td>
+                            <td>Максимально допустимая длина текстового фрагмента для отправки в синтез.</td>
+                        </tr>
+                        <tr>
+                            <td><code>TTS_QUEUE_MAX_ITEMS</code></td>
+                            <td><code>100</code></td>
+                            <td>Лимит на число элементов, одновременно находящихся в очереди воспроизведения.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="user-commands">
+                <h2>💬 Команды для зрителей</h2>
+                <p>Обычные участники чата могут взаимодействовать с TTS с помощью двух основных команд (если доступ для них открыт модераторами):</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Команда</th>
+                            <th>Пример использования</th>
+                            <th>Описание</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>!tts [текст]</code></td>
+                            <td><code>!tts Привет стример!</code></td>
+                            <td>Отправляет указанный текст в очередь на генерацию и воспроизведение речи от текущего голоса пользователя. <span class="badge badge-user">User</span></td>
+                        </tr>
+                        <tr>
+                            <td><code>!s [voice_id]</code></td>
+                            <td><code>!s 23</code> или <code>!s glados</code></td>
+                            <td>Закрепляет за профилем пользователя выбранный уникальный идентификатор голоса. <span class="badge badge-user">User</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="mod-commands">
+                <h2>🛡️ Административные команды управления</h2>
+                <p>Модераторы и владелец канала (Broadcaster) обладают расширенным синтаксисом для динамической настройки поведения системы:</p>
+                
+                <h3>Управление режимами автоматического чтения чата:</h3>
+                <ul>
+                    <li><code>!tts on</code> / <code>!tts off</code> — Включение или отключение глобального перехвата и озвучивания **всех** рядовых сообщений чата.</li>
+                    <li><code>!tts on [username]</code> / <code>!tts off [username]</code> — Таргетированное включение/исключение автоматической озвучки для конкретного зрителя.</li>
+                    <li><code>!tts random [секунды]</code> — Активация режима «Случайный спикер». Система будет брать последнее живое сообщение из чата и зачитывать его раз в указанный интервал времени со случайным голосом. Для выключения используется <code>!tts random off</code>.</li>
+                    <li><code>!tts clear</code> — Экстренная полная очистка текущей очереди и мгновенное прерывание проигрываемого в данный момент аудиопотока.</li>
+                </ul>
+
+                <h3>Менеджмент прав доступа (Синтаксис <code>!open</code> / <code>!close</code>):</h3>
+                <ul>
+                    <li><code>!open all</code> / <code>!close all</code> — Выдача или отзыв прав на использование ручных команд <code>!tts</code> и <code>!s</code> для абсолютно всех зрителей.</li>
+                    <li><code>!open vip</code> / <code>!close vip</code> — Открытие или закрытие функционала эксклюзивно для аудитории со статусом VIP.</li>
+                    <li><code>!open [username]</code> / <code>!close [username]</code> — Индивидуальный белый или черный список для конкретного аккаукта.</li>
+                </ul>
+
+                <h3>Административное назначение голосов:</h3>
+                <ul>
+                    <li><code>!s [username] [voice_id]</code> — Принудительное назначение или изменение голоса выбранному пользователю модератором.</li>
+                </ul>
+            </section>
+
+            <section id="queue-logic">
+                <h2>🧠 Механика управления очередью (PlayNext)</h2>
+                <p>Воспроизведение базируется на изолированном асинхронном цикле во избежание наложения звуковых дорожек друг на друга:</p>
+                <pre><code>async function playNext() {
+  if (playing || queue.length === 0) return;
+  playing = true;
+  
+  const item = queue[0];
+  // Формирование URLSearchParams, валидация токенов...
+  
+  try {
+    const res = await fetchWithRetry(...);
+    let blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const audio = new Audio(url);
+    
+    audio.onended = () => {
+      playing = false;
+      URL.revokeObjectURL(url);
+      setTimeout(() => playNext(), TTS_GAP_BETWEEN_MS); // Пауза 4 секунды
+    };
+    
+    await audio.play();
+  } catch(err) {
+    playing = false;
+    setTimeout(() => playNext(), 1200);
+  }
+}</code></pre>
+                <p>Каждому запуску функции присваивается уникальный инкрементируемый <code>playbackToken</code>. Это защищает систему от дублирования звука в случаях, когда модератор прожал очистку очереди во время ожидания сетевого ответа от бэкенда.</p>
+            </section>
+
+            <section id="retry-logic">
+                <h2>📡 Защита от сбоев и Retry-политика</h2>
+                <p>Приложение спроектировано с учетом нестабильности сетевых маршрутов и работы под высокими нагрузками:</p>
+                <ul>
+                    <li><strong>Обработка HTTP HTTP 429 (Too Many Requests):</strong> При возникновении лимитов на стороне сервера генерации, функция <code>fetchWithRetry</code> пытается проанализировать HTTP-заголовок <code>Retry-After</code>. Если заголовка нет, запускается алгоритм экспоненциального отката (увеличение задержки в геом. прогрессии <code>2^(attempt-1)</code>) с информированием стримера на панели статусов.</li>
+                    <li><strong>Фильтрация спама ссылками:</strong> На этапе перехвата события <code>onChat</code> строка очищается регулярными выражениями от любых URL-адресов. Это защищает стрим от зачитывания роботом длинных бессмысленных веб-ссылок.</li>
+                </ul>
+            </section>
+
+            <section id="localstorage">
+                <h2>💾 Экосистема локального хранения (LocalStorage)</h2>
+                <p>Для сохранения конфигурации при перезапуске вкладки браузера (или OBS сцены) задействован механизм <code>localStorage</code>:</p>
+                <ul>
+                    <li><code>ttsChannel</code> — Хранит текстовое имя последнего подключенного Twitch-канала.</li>
+                    <li><code>ttsAutoPlayState</code> — Сериализованный в JSON объект, содержащий глобальный статус флага Авто-TTS и списки исключений (массивы пользователей с персонально включенной/выключенной озвучкой).</li>
+                    <li><code>ttsPerUserSpeakers</code> — Таблица маппинга вида <code>{"логин_пользователя": "идентификатор_голоса"}</code>, к которой обращается система для поиска голоса при генерации.</li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enot Red TG Boost</title>
+    <meta name="description" content="Enot Red TG Boost - быстрый доступ к Telegram без ограничений.">
+    <link rel="icon" href="photo_2025-09-03_15-30-53.jpg" type="image/jpeg">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg:           #080606;
+            --bg-card:      rgba(20, 6, 6, 0.88);
+            --accent:       #c01818;
+            --accent-light: #ff4444;
+            --accent-glow:  rgba(192, 24, 24, 0.35);
+            --text:         #f2eaea;
+            --text-muted:   #8a7070;
+            --border:       rgba(180, 28, 28, 0.22);
+            --border-hover: rgba(210, 45, 45, 0.50);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 80% 55% at 18% 8%,  rgba(160, 18, 18, 0.11) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 82% 88%, rgba(110, 10, 10, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        #bg-canvas {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .wrap {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 18px 64px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* ── HERO CARD ────────────────────────────────────────────── */
+        .hero-card {
+            margin-top: 52px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px 28px 36px;
+            text-align: center;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 0 70px rgba(180, 20, 20, 0.09);
+        }
+
+        .hero-logo {
+            width: 104px;
+            height: 104px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2.5px solid var(--accent);
+            box-shadow:
+                0 0 0 6px rgba(192, 24, 24, 0.11),
+                0 0 32px var(--accent-glow);
+            margin-bottom: 20px;
+            animation: float 4.5s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50%       { transform: translateY(-8px); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .hero-title {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            background: linear-gradient(140deg, #ff6666 0%, #cc1111 55%, #880000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .hero-sub {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* ── HERO STATS ───────────────────────────────────────────── */
+        .hero-stats {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 28px;
+            max-width: 310px;
+            background: rgba(192, 24, 24, 0.06);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 10px 0;
+        }
+
+        .stat-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .stat-val {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--accent-light);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.63rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-div {
+            width: 1px;
+            height: 28px;
+            background: var(--border);
+            flex-shrink: 0;
+        }
+
+        /* ── BUTTONS ──────────────────────────────────────────────── */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 14px 36px;
+            border-radius: 50px;
+            font-size: 0.96rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+            transition: transform 0.22s, box-shadow 0.22s, background 0.22s;
+            letter-spacing: 0.15px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #c41c1c 0%, #8b0000 100%);
+            color: #fff;
+            box-shadow: 0 4px 22px rgba(180, 24, 24, 0.42);
+            width: 100%;
+            max-width: 320px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.13) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.22s;
+            border-radius: inherit;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 28px rgba(196, 28, 28, 0.58);
+        }
+
+        .btn-primary:hover::after { opacity: 1; }
+
+        .btn-primary:disabled {
+            opacity: 0.72;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-primary .btn-icon {
+            transition: transform 0.22s;
+            flex-shrink: 0;
+        }
+
+        .btn-primary:not(:disabled):hover .btn-icon {
+            transform: translateX(3px);
+        }
+
+        .btn-ghost {
+            background: rgba(180, 28, 28, 0.10);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 12px 24px;
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--border-hover);
+            background: rgba(180, 28, 28, 0.18);
+            transform: translateY(-1px);
+        }
+
+        /* ── ACCORDION ────────────────────────────────────────────── */
+        .accordion {
+            margin-top: 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            backdrop-filter: blur(16px);
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .accordion.open { border-color: rgba(200, 40, 40, 0.38); }
+
+        .acc-toggle {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 22px;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            gap: 12px;
+            transition: background 0.2s;
+        }
+
+        .acc-toggle:hover { background: rgba(180, 28, 28, 0.06); }
+        .acc-label { flex: 1; }
+
+        .acc-arrow {
+            width: 20px;
+            height: 20px;
+            color: var(--accent-light);
+            flex-shrink: 0;
+            transition: transform 0.32s ease;
+        }
+
+        .accordion.open .acc-arrow { transform: rotate(180deg); }
+
+        .acc-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.38s ease;
+        }
+
+        .accordion.open .acc-body { max-height: 420px; }
+
+        .acc-inner {
+            padding: 0 22px 22px;
+            border-top: 1px solid rgba(160, 20, 20, 0.15);
+        }
+
+        .proxy-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 0;
+            border-bottom: 1px solid rgba(160, 20, 20, 0.12);
+        }
+
+        .proxy-row:last-of-type { border-bottom: none; }
+
+        .proxy-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.55px;
+            color: var(--text-muted);
+            min-width: 58px;
+        }
+
+        .proxy-val {
+            font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            color: var(--text);
+            flex: 1;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: rgba(180, 24, 24, 0.16);
+            border: 1px solid rgba(180, 24, 24, 0.30);
+            color: var(--accent-light);
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 0.76rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.2s, color 0.2s, border-color 0.2s;
+            font-family: inherit;
+        }
+
+        .copy-btn:hover { background: rgba(180, 24, 24, 0.30); }
+
+        .copy-btn.ok {
+            color: #5de890;
+            border-color: rgba(93, 232, 144, 0.32);
+            background: rgba(93, 232, 144, 0.09);
+        }
+
+        /* ── FEATURE CARDS ────────────────────────────────────────── */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 26px 20px 22px;
+            text-align: center;
+            backdrop-filter: blur(16px);
+            transition: border-color 0.3s, transform 0.22s, box-shadow 0.22s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(210, 45, 45, 0.42);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 28px rgba(180, 20, 20, 0.13);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+
+        .feature-desc {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        /* ── SECTION ──────────────────────────────────────────────── */
+        .section { margin-top: 28px; }
+
+        .section-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .section-title em { font-style: normal; color: var(--accent-light); }
+
+        /* ── STEPS CARD ───────────────────────────────────────────── */
+        .steps-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            backdrop-filter: blur(16px);
+            overflow: hidden;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 18px 22px;
+            border-bottom: 1px solid rgba(160, 20, 20, 0.13);
+        }
+
+        .step:last-child { border-bottom: none; }
+
+        .step-num {
+            width: 32px;
+            height: 32px;
+            min-width: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #c41c1c, #8b0000);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.88rem;
+            color: #fff;
+            box-shadow: 0 0 10px rgba(196, 28, 28, 0.38);
+            margin-top: 1px;
+        }
+
+        .step-content { flex: 1; min-width: 0; }
+        .step-content h3 { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; }
+        .step-content p  { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; }
+
+        /* ── SHARE URL ────────────────────────────────────────────── */
+        .share-url-box {
+            background: rgba(0, 0, 0, 0.36);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 9px 12px;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            word-break: break-all;
+            text-align: left;
+            margin-bottom: 10px;
+            user-select: all;
+            line-height: 1.55;
+        }
+
+        /* ── COPY LINK BUTTON ─────────────────────────────────────── */
+        .copy-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(180, 24, 24, 0.12);
+            border: 1px solid rgba(180, 24, 24, 0.28);
+            color: var(--accent-light);
+            padding: 9px 20px;
+            border-radius: 50px;
+            font-size: 0.84rem;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: inherit;
+            transition: background 0.2s, border-color 0.2s, transform 0.2s;
+        }
+
+        .copy-link-btn:hover {
+            background: rgba(180, 24, 24, 0.24);
+            border-color: rgba(200, 40, 40, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .copy-link-btn.ok {
+            color: #5de890;
+            border-color: rgba(93, 232, 144, 0.32);
+            background: rgba(93, 232, 144, 0.09);
+        }
+
+        /* ── TOAST ────────────────────────────────────────────────── */
+        .toast {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%) translateY(18px);
+            background: rgba(16, 4, 4, 0.96);
+            border: 1px solid rgba(192, 24, 24, 0.4);
+            color: var(--text);
+            padding: 12px 26px;
+            border-radius: 50px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.28s, transform 0.28s;
+            pointer-events: none;
+            white-space: nowrap;
+            backdrop-filter: blur(14px);
+            box-shadow: 0 4px 28px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(192,24,24,0.12);
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ── FOOTER ───────────────────────────────────────────────── */
+        .footer {
+            margin-top: 44px;
+            padding-top: 28px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .footer-btns {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 22px;
+            flex-wrap: wrap;
+        }
+
+        .footer-copy {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+        }
+
+        /* ── RESPONSIVE: tablet ───────────────────────────────────── */
+        @media (max-width: 768px) {
+            .wrap       { padding: 0 16px 56px; }
+            .hero-card  { margin-top: 36px; padding: 34px 24px 30px; }
+        }
+
+        /* ── RESPONSIVE: mobile ───────────────────────────────────── */
+        @media (max-width: 520px) {
+            .wrap            { padding: 0 14px 48px; }
+            .hero-card       { margin-top: 24px; padding: 28px 18px 24px; border-radius: 18px; }
+            .hero-logo       { width: 86px; height: 86px; margin-bottom: 16px; }
+            .hero-title      { font-size: 1.6rem; }
+            .hero-sub        { font-size: 0.86rem; margin-bottom: 16px; }
+            .hero-stats      { max-width: 100%; padding: 9px 0; }
+            .stat-val        { font-size: 0.92rem; }
+            .stat-label      { font-size: 0.6rem; }
+            .btn-primary     { max-width: 100%; padding: 13px 24px; font-size: 0.92rem; }
+
+            .accordion       { border-radius: 16px; }
+            .acc-toggle      { padding: 15px 18px; font-size: 0.94rem; }
+            .acc-inner       { padding: 0 16px 18px; }
+            .proxy-label     { min-width: 50px; font-size: 0.68rem; }
+            .proxy-val       { font-size: 0.78rem; }
+            .copy-btn        { padding: 4px 9px; font-size: 0.72rem; }
+
+            .features-grid   { gap: 10px; }
+            .feature-card    { padding: 20px 14px 18px; border-radius: 14px; }
+            .feature-icon    { font-size: 1.65rem; }
+            .feature-title   { font-size: 0.9rem; }
+            .feature-desc    { font-size: 0.73rem; }
+
+            .section         { margin-top: 22px; }
+            .section-title   { font-size: 1.05rem; margin-bottom: 12px; }
+
+            .steps-card      { border-radius: 16px; }
+            .step            { padding: 14px 16px; gap: 12px; }
+            .step-num        { width: 28px; height: 28px; min-width: 28px; font-size: 0.8rem; }
+            .step-content h3 { font-size: 0.85rem; }
+            .step-content p  { font-size: 0.77rem; }
+            .share-url-box   { font-size: 0.7rem; }
+
+            .footer          { margin-top: 36px; padding-top: 22px; }
+            .footer-btns     { gap: 10px; }
+            .btn-ghost       { padding: 11px 20px; font-size: 0.88rem; width: 100%; max-width: 260px; }
+        }
+
+        /* ── RESPONSIVE: small phones ─────────────────────────────── */
+        @media (max-width: 360px) {
+            .wrap       { padding: 0 10px 44px; }
+            .hero-title { font-size: 1.4rem; }
+            .step       { padding: 12px 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<canvas id="bg-canvas"></canvas>
+
+<div class="wrap">
+
+    <!-- ═══ HERO CARD ══════════════════════════════════════════════ -->
+    <div class="hero-card">
+        <img src="photo_2025-09-03_15-30-53.jpg" alt="Enot Red" class="hero-logo">
+        <h1 class="hero-title">Enot Red TG Boost</h1>
+        <p class="hero-sub">Telegram летит быстро - везде и без ограничений</p>
+
+        <!-- Hero stats bar -->
+        <div class="hero-stats">
+            <div class="stat-item">
+                <span class="stat-val">99.9%</span>
+                <span class="stat-label">Uptime</span>
+            </div>
+            <div class="stat-div"></div>
+            <div class="stat-item">
+                <span class="stat-val">&lt;50ms</span>
+                <span class="stat-label">Пинг</span>
+            </div>
+            <div class="stat-div"></div>
+            <div class="stat-item">
+                <span class="stat-val">0</span>
+                <span class="stat-label">Логов</span>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" id="connect-btn" onclick="connectProxy()">
+            <svg class="btn-icon" width="17" height="17" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            Подключиться в Telegram
+        </button>
+    </div>
+
+    <!-- ═══ PROXY SETTINGS (ACCORDION) ════════════════════════════ -->
+    <div class="accordion" id="acc-proxy">
+        <button class="acc-toggle" onclick="toggleAcc('acc-proxy')" aria-expanded="false">
+            <span class="acc-label">⚙️ Настройки прокси</span>
+            <svg class="acc-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor"
+                 stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="5 8 10 13 15 8"/>
+            </svg>
+        </button>
+        <div class="acc-body">
+            <div class="acc-inner">
+                <div class="proxy-row">
+                    <span class="proxy-label">Сервер</span>
+                    <span class="proxy-val" id="v-server">mtp.enotred.net</span>
+                    <button class="copy-btn" onclick="copyVal('v-server', this)">Копировать</button>
+                </div>
+                <div class="proxy-row">
+                    <span class="proxy-label">Порт</span>
+                    <span class="proxy-val" id="v-port">443</span>
+                    <button class="copy-btn" onclick="copyVal('v-port', this)">Копировать</button>
+                </div>
+                <div class="proxy-row">
+                    <span class="proxy-label">Секрет</span>
+                    <span class="proxy-val" id="v-secret">ee64233711cbb13d713136de64ef244df26d74702e656e6f747265642e6e6574</span>
+                    <button class="copy-btn" onclick="copyVal('v-secret', this)">Копировать</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ═══ FEATURE CARDS ══════════════════════════════════════════ -->
+    <section class="section">
+        <h2 class="section-title">✨ <em>Преимущества</em></h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-icon">⚡</span>
+                <h3 class="feature-title">Скорость</h3>
+                <p class="feature-desc">Высокоскоростной канал без ограничений и задержек</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon">🕐</span>
+                <h3 class="feature-title">24/7</h3>
+                <p class="feature-desc">Работает круглосуточно - всегда на связи</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ HOW TO CONNECT ══════════════════════════════════════════ -->
+    <section class="section">
+        <h2 class="section-title">Как <em>подключиться</em></h2>
+        <div class="steps-card">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h3>Нажмите «Подключиться в Telegram»</h3>
+                    <p>Кнопка в верхнем блоке откроет Telegram с уже заполненными данными прокси.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h3>Подтвердите подключение</h3>
+                    <p>В открывшемся окне нажмите <strong>«Добавить прокси»</strong> - подключение добавится мгновенно.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h3>Готово!</h3>
+                    <p>Ускорение активировано - пользуйтесь с удовольствием.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SHARE ════════════════════════════════════════════════════ -->
+    <section class="section">
+        <h2 class="section-title">📤 Поделиться <em>с друзьями</em></h2>
+        <div class="steps-card">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-content">
+                    <h3>Скопируй ссылку</h3>
+                    <div class="share-url-box" id="v-share">tg://proxy?server=mtp.enotred.net&amp;port=443&amp;secret=ee64233711cbb13d713136de64ef244df26d74702e656e6f747265642e6e6574</div>
+                    <button class="copy-link-btn" id="copy-link-btn" onclick="copyLink(this)">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        Скопировать ссылку
+                    </button>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-content">
+                    <h3>Отправь её другу</h3>
+                    <p>Любым удобным способом - в Telegram, WhatsApp, SMS или просто скинь в чат.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-content">
+                    <h3>Друг подключится в один клик</h3>
+                    <p>Он нажмёт на ссылку - Telegram сам предложит включить подключение, без ручных настроек.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ══════════════════════════════════════════════════ -->
+    <footer class="footer">
+        <div class="footer-btns">
+            <a href="https://t.me/EnotGuard_bot" class="btn btn-ghost">
+                🤖 Наш бот
+            </a>
+            <a href="https://t.me/EnotRedHelp_bot" class="btn btn-ghost">
+                💬 Поддержка
+            </a>
+        </div>
+        <div class="footer-copy">© 2024 Enot Red</div>
+    </footer>
+
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
+
+<script>
+    /* ── Constants ──────────────────────────────────────────────── */
+    const PROXY_LINK = 'tg://proxy?server=mtp.enotred.net&port=443&secret=ee64233711cbb13d713136de64ef244df26d74702e656e6f747265642e6e6574';
+    const SHARE_URL  = 'tg://proxy?server=mtp.enotred.net&port=443&secret=ee64233711cbb13d713136de64ef244df26d74702e656e6f747265642e6e6574';
+
+    /* ── Toast ──────────────────────────────────────────────────── */
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(t._tid);
+        t._tid = setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    /* ── Connect to Telegram ────────────────────────────────────── */
+    function connectProxy() {
+        const btn  = document.getElementById('connect-btn');
+        const orig = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML =
+            '<svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="animation:spin .9s linear infinite;flex-shrink:0">' +
+            '<path d="M21 12a9 9 0 1 1-6.22-8.56"/></svg> Открываем Telegram…';
+        window.location.href = PROXY_LINK;
+        showToast('Открывается в Telegram…');
+        setTimeout(function () {
+            btn.disabled = false;
+            btn.innerHTML = orig;
+        }, 3200);
+    }
+
+    /* ── Accordion ──────────────────────────────────────────────── */
+    function toggleAcc(id) {
+        const el   = document.getElementById(id);
+        const btn  = el.querySelector('.acc-toggle');
+        const open = el.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open);
+    }
+
+    /* ── Copy value (server / port / secret) ────────────────────── */
+    function copyVal(id, btn) {
+        const text = document.getElementById(id).textContent.trim();
+        const orig = btn.textContent;
+        function done() {
+            btn.textContent = '✓ Скопировано';
+            btn.classList.add('ok');
+            setTimeout(function () { btn.textContent = orig; btn.classList.remove('ok'); }, 2000);
+        }
+        function fallback() {
+            const el = document.getElementById(id);
+            const r  = document.createRange();
+            r.selectNodeContents(el);
+            const s = window.getSelection();
+            s.removeAllRanges(); s.addRange(r);
+            document.execCommand('copy');
+            s.removeAllRanges();
+            done();
+        }
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(done).catch(fallback);
+        } else { fallback(); }
+    }
+
+    /* ── Copy share link ────────────────────────────────────────── */
+    function copyLink(btn) {
+        const origHTML = btn.innerHTML;
+        const checkSVG =
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">' +
+            '<polyline points="20 6 9 17 4 12"></polyline></svg>';
+        function done() {
+            btn.innerHTML = checkSVG + ' Скопировано!';
+            btn.classList.add('ok');
+            showToast('Ссылка скопирована!');
+            setTimeout(function () { btn.innerHTML = origHTML; btn.classList.remove('ok'); }, 2200);
+        }
+        function fallback() {
+            const el = document.getElementById('v-share');
+            const r  = document.createRange();
+            r.selectNodeContents(el);
+            const s = window.getSelection();
+            s.removeAllRanges(); s.addRange(r);
+            document.execCommand('copy');
+            s.removeAllRanges();
+            done();
+        }
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(SHARE_URL).then(done).catch(fallback);
+        } else { fallback(); }
+    }
+
+    /* ── Ember particles (fly all the way to top) ───────────────── */
+    (function () {
+        const canvas = document.getElementById('bg-canvas');
+        const ctx    = canvas.getContext('2d');
+        const COUNT  = 60;
+
+        function resize() {
+            canvas.width  = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        function Particle(initial) { this.init(initial); }
+
+        Particle.prototype.init = function (initial) {
+            this.x      = Math.random() * canvas.width;
+            this.y      = initial ? Math.random() * canvas.height : canvas.height + 8;
+            this.r      = Math.random() * 1.6 + 0.4;
+            this.vy     = Math.random() * 0.55 + 0.18;
+            this.vx     = (Math.random() - 0.5) * 0.22;
+            this.phase  = Math.random() * Math.PI * 2;
+            this.wSpeed = Math.random() * 0.025 + 0.008;
+            this.hue    = Math.random() * 22;   /* 0-22°: red → orange-red */
+        };
+
+        /* Alpha purely based on y position - fade in from bottom, fade out at top */
+        Particle.prototype.alpha = function () {
+            const f = this.y / canvas.height;  /* 1 = bottom, 0 = top */
+            if (f > 0.88) return ((1 - f) / 0.12) * 0.55;   /* fade in  */
+            if (f < 0.18) return (f / 0.18)        * 0.55;  /* fade out */
+            return 0.55;
+        };
+
+        Particle.prototype.tick = function () {
+            this.phase += this.wSpeed;
+            this.y     -= this.vy;
+            this.x     += this.vx + Math.sin(this.phase) * 0.18;
+            if (this.y < -10) this.init(false);   /* reset only when past top */
+        };
+
+        Particle.prototype.draw = function () {
+            const a = this.alpha();
+            if (a <= 0.004) return;
+            ctx.save();
+            ctx.globalAlpha = a;
+            ctx.shadowBlur  = 10;
+            ctx.shadowColor = 'hsl(' + this.hue + ',100%,52%)';
+            ctx.fillStyle   = 'hsl(' + this.hue + ',100%,68%)';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        };
+
+        const pool = Array.from({ length: COUNT }, function () { return new Particle(true); });
+
+        function loop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            pool.forEach(function (p) { p.tick(); p.draw(); });
+            requestAnimationFrame(loop);
+        }
+        loop();
+    })();
+</script>
+</body>
+</html>

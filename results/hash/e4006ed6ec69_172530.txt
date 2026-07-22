@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MineCraft — Сервер方块</title>
+    <!-- Иконка и шрифты -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛏️</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1a1a2e;
+            color: #f0f0f0;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Фоновые кубические частицы (CSS-анимация) */
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: rgba(99, 184, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transform: rotate(45deg);
+            animation: floatParticle 25s infinite alternate ease-in-out;
+        }
+
+        .particle:nth-child(1) { top: 10%; left: 5%; animation-duration: 18s; }
+        .particle:nth-child(2) { top: 20%; right: 12%; animation-duration: 22s; animation-delay: 1s; }
+        .particle:nth-child(3) { bottom: 30%; left: 20%; animation-duration: 20s; animation-delay: 0.5s; }
+        .particle:nth-child(4) { bottom: 15%; right: 8%; animation-duration: 26s; animation-delay: 2s; }
+        .particle:nth-child(5) { top: 60%; left: 40%; animation-duration: 24s; animation-delay: 1.2s; }
+        .particle:nth-child(6) { top: 80%; left: 70%; animation-duration: 19s; animation-delay: 0.8s; }
+        .particle:nth-child(7) { top: 40%; left: 85%; animation-duration: 28s; animation-delay: 3s; }
+        .particle:nth-child(8) { top: 70%; left: 10%; animation-duration: 21s; animation-delay: 2.5s; }
+
+        @keyframes floatParticle {
+            0% { transform: translate(0, 0) rotate(45deg) scale(1); opacity: 0.3; }
+            100% { transform: translate(60px, -80px) rotate(180deg) scale(1.6); opacity: 0.7; }
+        }
+
+        /* Главный контейнер */
+        .main-wrapper {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            width: 100%;
+        }
+
+        /* Хедер */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.8rem 0 2rem 0;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            color: #f5d742;
+            text-shadow: 0 0 12px rgba(245, 215, 66, 0.3);
+        }
+
+        .logo span {
+            background: #2d2d44;
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 2px solid #3d3d5c;
+        }
+
+        .nav a {
+            color: #c0c0e0;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: 0.2s;
+            letter-spacing: 0.3px;
+        }
+
+        .nav a:hover {
+            color: #f5d742;
+            text-shadow: 0 0 10px #f5d74255;
+        }
+
+        /* Герой-секция */
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 3rem 0 2rem 0;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f5d742, #ffb347);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 30px rgba(245, 215, 66, 0.2);
+            letter-spacing: 2px;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .hero .sub {
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: #b0b0d0;
+            background: rgba(0,0,0,0.3);
+            padding: 0.6rem 2rem;
+            border-radius: 60px;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(255,255,255,0.06);
+            display: inline-block;
+            margin-bottom: 2.5rem;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        .hero .ip-box {
+            background: #252540;
+            padding: 0.9rem 2.5rem;
+            border-radius: 60px;
+            border: 1px solid #3d3d66;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+            backdrop-filter: blur(5px);
+        }
+
+        .ip-box .ip {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.3rem;
+            color: #b8f0ff;
+            letter-spacing: 2px;
+        }
+
+        .ip-box .copy-btn {
+            background: #3d3d6b;
+            border: none;
+            color: white;
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.15s;
+            font-size: 0.9rem;
+            border: 1px solid #5a5a8a;
+        }
+
+        .ip-box .copy-btn:hover {
+            background: #5a5a8a;
+            transform: scale(1.02);
+            box-shadow: 0 0 15px #5a5a8a55;
+        }
+
+        .btn-primary {
+            background: #f5d742;
+            border: none;
+            color: #1a1a2e;
+            font-weight: 700;
+            font-size: 1.2rem;
+            padding: 0.9rem 3rem;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 8px 0 #a5852a;
+            letter-spacing: 0.5px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 0 #a5852a;
+            background: #ffe066;
+        }
+
+        .btn-primary:active {
+            transform: translateY(6px);
+            box-shadow: 0 4px 0 #a5852a;
+        }
+
+        /* Секция с карточками */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0 3rem 0;
+        }
+
+        .card {
+            background: rgba(30, 30, 55, 0.7);
+            backdrop-filter: blur(4px);
+            padding: 2rem 1.5rem;
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+            transition: 0.25s ease;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.4);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #f5d74255;
+            box-shadow: 0 25px 35px rgba(0,0,0,0.6);
+        }
+
+        .card .emoji-big {
+            font-size: 3.2rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .card h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.6rem;
+            color: #f0e8c0;
+        }
+
+        .card p {
+            color: #b0b0d0;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Секция онлайн / статистика */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            background: rgba(20, 20, 40, 0.5);
+            backdrop-filter: blur(5px);
+            padding: 2rem 1.5rem;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            margin: 1.5rem 0 2rem 0;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item .number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #b8f0ff, #7ac7ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .stat-item .label {
+            color: #9090b0;
+            font-weight: 500;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        /* Футер */
+        .footer {
+            margin-top: auto;
+            padding: 2rem 0 1rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            text-align: center;
+            color: #707090;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #9a9ac0;
+            text-decoration: none;
+            margin: 0 0.8rem;
+            transition: 0.15s;
+        }
+
+        .footer a:hover {
+            color: #f5d742;
+        }
+
+        /* Адаптив */
+        @media (max-width: 700px) {
+            .hero h1 { font-size: 2.8rem; }
+            .logo { font-size: 1.2rem; }
+            .nav a { margin-left: 1rem; font-size: 1rem; }
+            .hero .sub { font-size: 0.7rem; padding: 0.5rem 1rem; }
+            .ip-box .ip { font-size: 1rem; }
+            .stats { gap: 1.5rem; border-radius: 30px; padding: 1.5rem 1rem; }
+            .stat-item .number { font-size: 2rem; }
+        }
+
+        @media (max-width: 480px) {
+            .header { flex-direction: column; align-items: center; }
+            .nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; }
+            .nav a { margin: 0 0.6rem; }
+            .hero h1 { font-size: 2.2rem; }
+            .ip-box { flex-direction: column; gap: 8px; padding: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Частицы фона -->
+    <div class="bg-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="main-wrapper">
+        <!-- Шапка -->
+        <header class="header">
+            <div class="logo">
+                <span>⛏️</span> CUBE<span style="color:#b8f0ff;">CRAFT</span>
+            </div>
+            <div class="nav">
+                <a href="#">Главная</a>
+                <a href="#">Новости</a>
+                <a href="#">Вакансии</a>
+                <a href="#">Правила</a>
+            </div>
+        </header>
+
+        <!-- Герой -->
+        <section class="hero">
+            <h1>Добро пожаловать<br>на сервер Neff.mooo</h1>
+            <div class="sub">✦ 1.20+ ·  Выживание ·  Приваты ✦</div>
+
+            <div class="ip-box">
+                <span class="ip">play.cubecraft.ru</span>
+                <button class="copy-btn" id="copyIpBtn">📋 Копировать</button>
+            </div>
+
+            <button class="btn-primary" id="joinBtn">▶  Играть сейчас</button>
+        </section>
+
+        <!-- Карточки возможностей -->
+        <section class="features">
+            <div class="card">
+                <span class="emoji-big">🌍</span>
+                <h3>Бесконечный мир</h3>
+                <p>Огромный процедурно-генерируемый мир с уникальными биомами и структурами.</p>
+            </div>
+            <div class="card">
+                <span class="emoji-big">⚔️</span>
+                <h3>PVP & Подземелья</h3>
+                <p>Арены, рейды, данжи и эпические сражения с боссами в компании друзей.</p>
+            </div>
+            <div class="card">
+                <span class="emoji-big">🏡</span>
+                <h3>Приваты & Экономика</h3>
+                <p>Защита построек, магазины, аукционы и своя валюта — развивайся!</p>
+            </div>
+            <div class="card">
+                <span class="emoji-big">🎮</span>
+                <h3>Мини-игры</h3>
+                <p>Скайварс, Бег с препятствиями, Строительный батл и многое другое.</p>
+            </div>
+        </section>
+
+        <!-- Онлайн-статистика -->
+        <div class="stats">
+            <div class="stat-item">
+                <div class="number" id="onlineCount">87</div>
+                <div class="label">Игроков онлайн</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">1 240</div>
+                <div class="label">Всего игроков</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">🏆 4.9</div>
+                <div class="label">Рейтинг сервера</div>
+            </div>
+        </div>
+
+        <!-- Футер -->
+        <footer class="footer">
+            <div>© 2026 CubeCraft — неофициальный фанатский проект</div>
+            <div>
+                <a href="#">VK</a>
+                <a href="#">Discord</a>
+                <a href="#">YouTube</a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        (function() {
+            // Кнопка копирования IP
+            const copyBtn = document.getElementById('copyIpBtn');
+            const ipText = 'play.cubecraft.ru';
+
+            copyBtn.addEventListener('click', function() {
+                navigator.clipboard.writeText(ipText).then(() => {
+                    const original = copyBtn.textContent;
+                    copyBtn.textContent = '✅ Скопировано!';
+                    setTimeout(() => {
+                        copyBtn.textContent = original;
+                    }, 2000);
+                }).catch(() => {
+                    alert('Не удалось скопировать. IP: ' + ipText);
+                });
+            });
+
+            // Кнопка "Играть сейчас" — анимация / сообщение
+            const joinBtn = document.getElementById('joinBtn');
+            joinBtn.addEventListener('click', function() {
+                // Имитация запуска игры
+                joinBtn.textContent = '⏳ Подключение...';
+                joinBtn.style.opacity = '0.7';
+                setTimeout(() => {
+                    joinBtn.textContent = '✅ Готово!';
+                    joinBtn.style.background = '#6fcf97';
+                    joinBtn.style.boxShadow = '0 8px 0 #2d6b4a';
+                    setTimeout(() => {
+                        joinBtn.textContent = '▶  Играть сейчас';
+                        joinBtn.style.background = '';
+                        joinBtn.style.boxShadow = '';
+                        joinBtn.style.opacity = '1';
+                    }, 1500);
+                }, 800);
+            });
+
+            // Динамическое обновление онлайна (имитация)
+            const onlineEl = document.getElementById('onlineCount');
+            if (onlineEl) {
+                function updateOnline() {
+                    const base = 87;
+                    const variation = Math.floor(Math.random() * 30) - 10; // -10 .. +19
+                    let newVal = base + variation;
+                    if (newVal < 40) newVal = 40 + Math.floor(Math.random() * 20);
+                    onlineEl.textContent = newVal;
+                }
+                // обновляем каждые 12 секунд
+                setInterval(updateOnline, 12000);
+                // первый раз через 1 секунду
+                setTimeout(updateOnline, 1000);
+            }
+
+            // Небольшой эффект: появляющиеся карточки (для красоты)
+            const cards = document.querySelectorAll('.card');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.transition = 'all 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.2)';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            cards.forEach((card, i) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                observer.observe(card);
+            });
+
+            // Немедленно показываем, если они уже видны (для больших экранов)
+            setTimeout(() => {
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    if (rect.top < window.innerHeight - 100) {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }
+                });
+            }, 200);
+
+        })();
+    </script>
+</body>
+</html>

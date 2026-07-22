@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Devil VPN — Свобода без границ</title>
+<link rel="icon" type="image/png" href="/favicon.png?v=2">
+<meta name="description" content="Devil VPN — безлимитный, быстрый и анонимный VPN с серверами по всему миру. Максимальная скорость и защита приватности.">
+<meta property="og:title" content="Devil VPN — Информация">
+<meta property="og:description" content="Безлимитный, быстрый и анонимный VPN с серверами по всему миру.">
+<meta property="og:type" content="website">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red:      #c0192a;
+    --red-hi:   #e8324a;
+    --bg:       #080205;
+    --surface:  #0e0307;
+    --surface2: #130408;
+    --surface3: #1a0509;
+    --border:   rgba(150,15,30,0.25);
+    --border-h: rgba(180,20,38,0.45);
+    --text:     #e8cfd3;
+    --text2:    #7a4e55;
+    --text3:    #4a2a30;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -300px; left: 50%;
+    transform: translateX(-50%);
+    width: 1100px; height: 800px;
+    background: radial-gradient(ellipse, rgba(140,0,20,0.16) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .grid-bg {
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(rgba(180,20,40,0.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(180,20,40,0.022) 1px, transparent 1px);
+    background-size: 52px 52px;
+    pointer-events: none; z-index: 0;
+  }
+
+  .embers { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .ember {
+    position: absolute; bottom: -20px;
+    width: 3px; height: 3px; border-radius: 50%;
+    background: var(--red-hi);
+    opacity: 0;
+    animation: rise linear infinite;
+    box-shadow: 0 0 6px rgba(232,50,74,0.8);
+  }
+  @keyframes rise {
+    0%   { transform: translateY(0) translateX(0); opacity: 0; }
+    10%  { opacity: 0.9; }
+    85%  { opacity: 0.4; }
+    100% { transform: translateY(-105vh) translateX(40px); opacity: 0; }
+  }
+
+  .wrap { position: relative; z-index: 1; }
+
+  /* ===== Навигация ===== */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 32px;
+    background: rgba(8,2,5,0.85);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { display: flex; align-items: center; gap: 11px; }
+  .nav-mark {
+    width: 38px; height: 38px; border-radius: 10px;
+    border: 1px solid var(--border-h);
+    background: linear-gradient(145deg, #1c040a, #0d0205);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nav-mark svg { width: 21px; height: 21px; }
+  .nav-name {
+    font-family: 'Cinzel Decorative', serif; font-weight: 900;
+    font-size: 17px; letter-spacing: 2.5px;
+  }
+  .nav-name .d { color: var(--red); }
+  .nav-name .v { color: rgba(220,200,204,0.92); }
+
+  .nav-links { display: flex; gap: 30px; }
+  .nav-links a {
+    color: var(--text2); text-decoration: none;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.5px;
+    transition: color 0.15s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    padding: 9px 20px; border-radius: 8px;
+    border: 1px solid rgba(160,15,30,0.45);
+    background: rgba(100,5,18,0.4);
+    color: var(--text); text-decoration: none;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+    transition: background 0.15s;
+  }
+  .nav-cta:hover { background: rgba(120,8,22,0.55); }
+
+  .nav-burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+  .nav-burger span { width: 22px; height: 2px; background: var(--text2); border-radius: 2px; }
+
+  /* ===== Hero ===== */
+  .hero {
+    text-align: center;
+    padding: 100px 24px 90px;
+    max-width: 820px; margin: 0 auto;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 6px 14px; border-radius: 100px;
+    border: 1px solid var(--border-h);
+    background: var(--surface2);
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--text2); font-weight: 500;
+    margin-bottom: 28px;
+  }
+  .hero-badge .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--red-hi);
+    box-shadow: 0 0 8px var(--red-hi);
+    animation: blink 2s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.35;} }
+
+  .hero-sigil {
+    width: 96px; height: 96px; border-radius: 24px;
+    border: 1px solid var(--border-h);
+    background: linear-gradient(145deg, #1c040a, #0d0205);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 32px; position: relative;
+  }
+  .hero-sigil::after {
+    content: '';
+    position: absolute; top: 0; left: 20px; right: 20px; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(220,80,90,0.5), transparent);
+  }
+  .hero-sigil svg { width: 50px; height: 50px; }
+  .hero-sigil .pulse {
+    position: absolute; inset: -18px; border-radius: 36px;
+    background: radial-gradient(circle, rgba(180,0,25,0.18) 0%, transparent 70%);
+    animation: pulse 3.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50%      { transform: scale(1.2); opacity: 0.45; }
+  }
+
+  .hero h1 {
+    font-family: 'Cinzel Decorative', serif; font-weight: 900;
+    font-size: clamp(36px, 7vw, 62px); line-height: 1.05;
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+  }
+  .hero h1 .glow { color: var(--red); text-shadow: 0 0 30px rgba(192,25,42,0.5); }
+
+  .hero p {
+    font-size: 16px; color: var(--text2);
+    max-width: 520px; margin: 0 auto 38px;
+    font-weight: 300;
+  }
+
+  .hero-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 14px 28px; border-radius: 10px;
+    font-size: 14px; font-weight: 600; letter-spacing: 0.5px;
+    text-decoration: none; cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  }
+  .btn:active { transform: scale(0.98); }
+  .btn-primary {
+    border: 1px solid rgba(160,15,30,0.5);
+    background: linear-gradient(145deg, rgba(140,8,24,0.6), rgba(90,4,16,0.6));
+    color: #f3dde0;
+  }
+  .btn-primary:hover { background: linear-gradient(145deg, rgba(168,12,28,0.75), rgba(110,5,20,0.75)); }
+  .btn-ghost {
+    border: 1px solid var(--border-h);
+    background: var(--surface2);
+    color: var(--text);
+  }
+  .btn-ghost:hover { background: var(--surface3); }
+  .btn svg { width: 15px; height: 15px; }
+
+  /* ===== Секции ===== */
+  section { padding: 70px 24px; max-width: 1080px; margin: 0 auto; }
+
+  .sec-head { text-align: center; margin-bottom: 48px; }
+  .sec-kicker {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--red); font-weight: 600; margin-bottom: 12px;
+  }
+  .sec-head h2 {
+    font-family: 'Cinzel Decorative', serif; font-weight: 700;
+    font-size: clamp(24px, 4vw, 34px); letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .sec-head p { color: var(--text2); font-size: 14px; font-weight: 300; }
+
+  /* ===== Преимущества ===== */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .feature {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 26px 20px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.18s, transform 0.18s;
+  }
+  .feature::before {
+    content: '';
+    position: absolute; top: 0; left: 20px; right: 20px; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(160,20,35,0.4), transparent);
+  }
+  .feature:hover { border-color: var(--border-h); transform: translateY(-4px); }
+  .feature-ico {
+    width: 46px; height: 46px; border-radius: 11px;
+    background: var(--surface3); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 16px;
+  }
+  .feature-ico svg { width: 22px; height: 22px; }
+  .feature h3 { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .feature .big { font-family: 'Cinzel Decorative', serif; color: var(--red); font-size: 19px; font-weight: 700; }
+  .feature p { font-size: 12.5px; color: var(--text2); font-weight: 300; }
+
+  /* ===== Серверы ===== */
+  .servers-band {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .servers-band::before {
+    content: '';
+    position: absolute; top: 0; left: 40px; right: 40px; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(160,20,35,0.4), transparent);
+  }
+  .servers-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px; margin-bottom: 36px;
+  }
+  .server-stat { text-align: center; }
+  .server-stat .num {
+    font-family: 'Cinzel Decorative', serif; font-weight: 900;
+    font-size: 38px; color: var(--red);
+    text-shadow: 0 0 24px rgba(192,25,42,0.4);
+  }
+  .server-stat .lbl {
+    font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--text2); margin-top: 4px;
+  }
+  .server-list {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  .server-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 13px 16px; border-radius: 9px;
+    background: var(--surface2); border: 1px solid var(--border);
+    font-size: 13px; font-weight: 500; min-width: 0;
+  }
+  .server-flag { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; flex-shrink: 0; border: 1px solid var(--border); }
+  .server-name { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .server-ping {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 11px; color: var(--text2); flex-shrink: 0;
+  }
+  .ping-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: #2faa4a; box-shadow: 0 0 6px rgba(47,170,74,0.7);
+  }
+
+  /* ===== Тарифы ===== */
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    align-items: stretch;
+  }
+  .plan {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 30px 26px;
+    display: flex; flex-direction: column;
+    position: relative;
+    transition: border-color 0.18s, transform 0.18s;
+  }
+  .plan:hover { border-color: var(--border-h); transform: translateY(-4px); }
+  .plan.featured {
+    border-color: rgba(180,20,38,0.6);
+    background: linear-gradient(160deg, rgba(40,4,12,0.9), var(--surface));
+  }
+  .plan.featured::after {
+    content: 'ВЫБОР БОЛЬШИНСТВА';
+    position: absolute; top: -1px; right: 22px;
+    transform: translateY(-50%);
+    padding: 5px 12px; border-radius: 100px;
+    background: var(--red); color: #fff;
+    font-size: 9px; font-weight: 700; letter-spacing: 1.5px;
+  }
+  .plan-name {
+    font-family: 'Cinzel Decorative', serif; font-weight: 700;
+    font-size: 18px; letter-spacing: 1px; margin-bottom: 6px;
+  }
+  .plan-tagline { font-size: 12px; color: var(--text2); margin-bottom: 22px; }
+  .plan-price { display: flex; align-items: baseline; gap: 4px; margin-bottom: 4px; }
+  .plan-price .amount {
+    font-family: 'Cinzel Decorative', serif; font-weight: 900;
+    font-size: 40px; color: var(--text);
+  }
+  .plan.featured .plan-price .amount { color: var(--red); }
+  .plan-price .per { font-size: 13px; color: var(--text2); }
+  .plan-note { font-size: 11px; color: var(--text3); margin-bottom: 22px; }
+  .plan-features { list-style: none; margin-bottom: 26px; flex: 1; }
+  .plan-features li {
+    display: flex; align-items: flex-start; gap: 9px;
+    font-size: 13px; color: var(--text); padding: 7px 0;
+    border-bottom: 1px solid rgba(150,15,30,0.1);
+  }
+  .plan-features li:last-child { border-bottom: none; }
+  .plan-features li svg { width: 14px; height: 14px; flex-shrink: 0; margin-top: 2px; }
+  .plan .btn { width: 100%; justify-content: center; }
+
+  /* ===== Контакты ===== */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: 18px;
+    align-items: stretch;
+  }
+  .contact-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    position: relative;
+    display: flex; flex-direction: column;
+  }
+  .contact-card::before {
+    content: '';
+    position: absolute; top: 0; left: 24px; right: 24px; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(160,20,35,0.4), transparent);
+  }
+  .contact-card h3 {
+    font-family: 'Cinzel Decorative', serif; font-weight: 700;
+    font-size: 17px; margin-bottom: 16px;
+  }
+  .contact-link {
+    display: flex; align-items: center; gap: 12px;
+    padding: 13px 14px; border-radius: 10px;
+    background: var(--surface2); border: 1px solid var(--border);
+    text-decoration: none; color: var(--text);
+    margin-bottom: 10px;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .contact-link:last-child { margin-bottom: 0; }
+  .contact-link:hover { border-color: var(--border-h); background: var(--surface3); }
+  .contact-link .c-ico {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--surface3); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .contact-link .c-ico svg { width: 17px; height: 17px; }
+  .contact-link .c-title { font-size: 13px; font-weight: 600; }
+  .contact-link .c-sub { font-size: 11px; color: var(--text2); }
+
+  .hours-row {
+    display: flex; justify-content: space-between;
+    padding: 10px 0; font-size: 13px;
+    border-bottom: 1px solid rgba(150,15,30,0.12);
+  }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-row .day { color: var(--text2); }
+  .hours-row .time { font-weight: 600; }
+  .hours-row .time.live { color: #2faa4a; }
+
+  .about-text { font-size: 13px; color: var(--text2); font-weight: 300; margin-bottom: 14px; }
+  .about-highlight {
+    padding: 14px 16px; border-radius: 10px;
+    background: rgba(60,4,12,0.5);
+    border: 1px solid rgba(150,15,30,0.2);
+    font-size: 13px; line-height: 1.6;
+  }
+  .about-highlight b { color: var(--red); font-family: 'Cinzel Decorative', serif; }
+
+  /* ===== Футер ===== */
+  footer {
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+    padding: 44px 24px 28px;
+  }
+  .footer-inner {
+    max-width: 1080px; margin: 0 auto;
+    display: grid; grid-template-columns: 2fr 1fr;
+    gap: 36px;
+  }
+  .footer-brand .nav-logo { margin-bottom: 14px; }
+  .footer-brand p { font-size: 12.5px; color: var(--text2); font-weight: 300; max-width: 280px; }
+  .footer-col h4 {
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text2); margin-bottom: 14px;
+  }
+  .footer-col a {
+    display: block; color: var(--text); text-decoration: none;
+    font-size: 13px; padding: 5px 0;
+    transition: color 0.15s;
+  }
+  .footer-col a:hover { color: var(--red); }
+  .footer-bottom {
+    max-width: 1080px; margin: 32px auto 0;
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+    text-align: center;
+    font-size: 12px; color: var(--text3);
+  }
+
+  @media (max-width: 860px) {
+    .features { grid-template-columns: repeat(2, 1fr); }
+    .plans { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+    .servers-stats { grid-template-columns: 1fr; gap: 16px; }
+    .nav-links { display: none; }
+    .nav-burger { display: flex; }
+    .nav-links.open {
+      display: flex; flex-direction: column;
+      position: absolute; top: 100%; left: 0; right: 0;
+      background: rgba(8,2,5,0.97);
+      padding: 18px 32px; gap: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    nav { position: relative; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal { opacity: 0; }
+  .reveal.shown { animation: fadeUp 0.6s ease both; }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+<div class="embers" id="embers"></div>
+
+<div class="wrap">
+
+  <nav>
+    <div class="nav-logo">
+      <div class="nav-mark">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 2 C9 5 7 7 7 11 C7 14 9 16 12 18 C15 16 17 14 17 11 C17 7 15 5 12 2 Z" stroke="#c0192a" stroke-width="1.4" stroke-linejoin="round"/>
+          <path d="M5 4 L7.5 8 M19 4 L16.5 8" stroke="#c0192a" stroke-width="1.4" stroke-linecap="round"/>
+          <path d="M12 9 L12 14 M9.5 11.5 L14.5 11.5" stroke="#c0192a" stroke-width="1.3" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <span class="nav-name"><span class="d">DEVIL</span> <span class="v">VPN</span></span>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a href="#features">Возможности</a>
+      <a href="#servers">Серверы</a>
+      <a href="#plans">Тарифы</a>
+      <a href="#contacts">Контакты</a>
+    </div>
+    <a href="https://t.me/devil_vpn_bot" target="_blank" class="nav-cta">Подключиться</a>
+    <div class="nav-burger" id="burger"><span></span><span></span><span></span></div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero-badge"><span class="dot"></span>Серверы онлайн · 24/7</div>
+
+    <div class="hero-sigil">
+      <div class="pulse"></div>
+      <svg viewBox="0 0 50 50" fill="none">
+        <path d="M25 4 C19 10 15 14 15 22 C15 28 19 33 25 37 C31 33 35 28 35 22 C35 14 31 10 25 4 Z" stroke="#c0192a" stroke-width="1.8" stroke-linejoin="round"/>
+        <path d="M10 8 L15 16 M40 8 L35 16" stroke="#c0192a" stroke-width="1.8" stroke-linecap="round"/>
+        <path d="M25 18 L25 28 M20 23 L30 23" stroke="#c0192a" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M19 39 L25 45 L31 39" stroke="#c0192a" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <h1>Свобода <span class="glow">без границ</span></h1>
+    <p>Безлимитный VPN с серверами по всему миру. Максимальная скорость, полная приватность и непробиваемая защита твоих данных.</p>
+
+    <div class="hero-actions">
+      <a href="https://t.me/devil_vpn_bot" target="_blank" class="btn btn-primary">
+        <svg viewBox="0 0 15 15" fill="none"><path d="M3 7.5 L11 7.5 M8 4 L11.5 7.5 L8 11" stroke="#f3dde0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Попробовать бесплатно
+      </a>
+      <a href="#servers" class="btn btn-ghost">
+        <svg viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="5.5" stroke="#e8cfd3" stroke-width="1.3"/><path d="M2 7.5 L13 7.5 M7.5 2 C9.5 4.5 9.5 10.5 7.5 13 C5.5 10.5 5.5 4.5 7.5 2" stroke="#e8cfd3" stroke-width="1.1"/></svg>
+        Наши серверы
+      </a>
+    </div>
+  </header>
+
+  <!-- ===== Возможности ===== -->
+  <section id="features">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">Почему Devil</div>
+      <h2>Сила в деталях</h2>
+      <p>Причины подключиться прямо сейчас</p>
+    </div>
+    <div class="features">
+      <div class="feature reveal">
+        <div class="feature-ico">
+          <svg viewBox="0 0 22 22" fill="none"><path d="M11 2 L18 5 V11 C18 16 14.5 19 11 20.5 C7.5 19 4 16 4 11 V5 Z" stroke="#c0192a" stroke-width="1.4" stroke-linejoin="round"/><path d="M8 11 L10.3 13.3 L14.5 8.5" stroke="#c0192a" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Шифрование</h3>
+        <p>Протокол <span class="big">VLESS</span> — современное шифрование, которое не поддаётся блокировкам.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-ico">
+          <svg viewBox="0 0 22 22" fill="none"><path d="M12 2 L5 12 H10 L9 20 L17 9 H11 Z" stroke="#c0192a" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Скорость</h3>
+        <p>До <span class="big">10 Гбит/с</span> на канал — стримы и игры без единой задержки.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-ico">
+          <svg viewBox="0 0 22 22" fill="none"><path d="M11 3 C8 6 6.5 8 6.5 12 C6.5 15 8.5 17.5 11 19 C13.5 17.5 15.5 15 15.5 12 C15.5 8 14 6 11 3 Z" stroke="#c0192a" stroke-width="1.4" stroke-linejoin="round"/><circle cx="11" cy="11" r="2" stroke="#c0192a" stroke-width="1.3"/></svg>
+        </div>
+        <h3>Приватность</h3>
+        <p>Строгая <span class="big">No-logs</span> политика — мы не храним историю твоих подключений.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-ico">
+          <svg viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="8" stroke="#c0192a" stroke-width="1.4"/><path d="M3 11 H19 M11 3 C14 6.5 14 15.5 11 19 C8 15.5 8 6.5 11 3" stroke="#c0192a" stroke-width="1.2"/></svg>
+        </div>
+        <h3>География</h3>
+        <p>Серверы в <span class="big">6 странах</span> — Европа, Азия, США и Россия, высокая скорость на каждом узле.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Серверы ===== -->
+  <section id="servers">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">Инфраструктура</div>
+      <h2>Серверы по всему миру</h2>
+      <p>Сеть работает круглосуточно ради твоей свободы в интернете</p>
+    </div>
+    <div class="servers-band reveal">
+      <div class="servers-stats">
+        <div class="server-stat">
+          <div class="num">6</div>
+          <div class="lbl">Стран</div>
+        </div>
+        <div class="server-stat">
+          <div class="num">99.9%</div>
+          <div class="lbl">Аптайм</div>
+        </div>
+        <div class="server-stat">
+          <div class="num">24/7</div>
+          <div class="lbl">Мониторинг</div>
+        </div>
+      </div>
+      <div class="server-list">
+        <div class="server-item"><img class="server-flag" src="https://flagcdn.com/w40/pl.png" alt="PL"><span class="server-name">Польша</span></div> <!-- <span class="server-ping"><span class="ping-dot"></span>47ms</span> -->
+        <div class="server-item"><img class="server-flag" src="https://flagcdn.com/w40/fi.png" alt="FI"><span class="server-name">Финляндия</span></div> <!-- <span class="server-ping"><span class="ping-dot"></span>41ms</span> -->
+        <div class="server-item"><img class="server-flag" src="https://flagcdn.com/w40/nl.png" alt="NL"><span class="server-name">Нидерланды</span></div> <!-- <span class="server-ping"><span class="ping-dot"></span>50ms</span> -->
+        <div class="server-item"><img class="server-flag" src="https://flagcdn.com/w40/ch.png" alt="SE"><span class="server-name">Швейцария</span></div> <!-- <span class="server-ping"><span class="ping-dot"></span>54ms</span> -->
+        <div class="server-item"><img class="server-flag" src="https://flagcdn.com/w40/se.png" alt="SE"><span class="server-name">Швеция</span></div> <!-- <span class="server-ping"><span class="ping-dot"></span>52ms</span> -->
+        <div class="server-item"><img class="server-flag" src="https://flagcdn.com/w40/jp.png" alt="JP"><span class="server-name">Япония</span></div> <!-- <span class="server-ping"><span class="ping-dot"></span>137ms</span> -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Тарифы ===== -->
+  <section id="plans">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">Тарифы</div>
+      <h2>Выбери свой план</h2>
+      <p>Гибкие условия для любых задач — от знакомства до полной свободы</p>
+    </div>
+    <div class="plans">
+
+      <div class="plan reveal">
+        <div class="plan-name">Пробный</div>
+        <div class="plan-tagline">Попробуй перед покупкой</div>
+        <div class="plan-price"><span class="amount">0</span><span class="per">₽ / 24 часа</span></div>
+        <div class="plan-note">Доступ к тарифу с подключением новых устройств за 0₽</div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 L5.5 11 L12 3.5" stroke="#c0192a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>До 2 устройств</li>
+          <li><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 L5.5 11 L12 3.5" stroke="#c0192a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>5 стран на выбор</li>
+          <li><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 L5.5 11 L12 3.5" stroke="#c0192a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Базовая поддержка</li>
+          <li><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 L5.5 11 L12 3.5" stroke="#c0192a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Ограниченная скорость</li>
+        </ul>
+        <a href="https://t.me/devil_vpn_bot" target="_blank" class="btn btn-ghost">Попробовать бесплатно</a>
+      </div>
+
+      <div class="plan featured reveal">
+        <div class="plan-name">Базовый</div>
+        <div class="plan-tagline">Оптимальный выбор</div>
+        <div class="plan-price"><span class="amount">от 120</span><span class="per">₽ / мес</span></div>
+        <div class="plan-note">Доступ к тарифу с подключением нового устройства за 120₽</div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 L5.5 11 L12 3.5" stroke="#c0192a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>До 15 устройств</li>
+          <li><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 L5.5 11 L12 3.5" stroke="#c0192a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Все доступные страны</li>
+          <li><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 L5.5 11 L12 3.5" stroke="#c0192a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Базовая поддержка</li>
+          <li><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 L5.5 11 L12 3.5" stroke="#c0192a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Скорость до 10 Гбит/с</li>
+        </ul>
+        <a href="https://t.me/devil_vpn_bot" target="_blank" class="btn btn-primary">Подключить Базовый</a>
+      </div>
+
+      <div class="plan reveal">
+        <div class="plan-name">Персональный</div>
+        <div class="plan-tagline">Максимум возможностей</div>
+        <div class="plan-price"><span class="amount">от 490</span><span class="per">₽ / мес</span></div>
+        <div class="plan-note">Доступ к тарифу, с выбранными вами странами и выделенными IP адресами.</div>
+        <ul class="plan-features">
+          <li><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 L5.5 11 L12 3.5" stroke="#c0192a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Свой лимит устройств</li>
+          <li><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 L5.5 11 L12 3.5" stroke="#c0192a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Свой выбор стран</li>
+          <li><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 L5.5 11 L12 3.5" stroke="#c0192a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Приоритетная поддержка</li>
+          <li><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 L5.5 11 L12 3.5" stroke="#c0192a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Выделенная скорость</li>
+          <li><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 L5.5 11 L12 3.5" stroke="#c0192a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Выделенные IP адреса</li>
+          <li><svg viewBox="0 0 14 14" fill="none"><path d="M2 7.5 L5.5 11 L12 3.5" stroke="#c0192a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Кастомный URL подписки</li>
+        </ul>
+        <a href="https://t.me/devil_contact" target="_blank" class="btn btn-ghost">Подключить Продвинутый</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== Контакты ===== -->
+  <section id="contacts">
+    <div class="sec-head reveal">
+      <div class="sec-kicker">Поддержка</div>
+      <h2>Свяжись с нами</h2>
+      <p>Мы всегда готовы помочь с любым вопросом</p>
+    </div>
+    <div class="contact-grid">
+
+      <div class="contact-card reveal">
+        <h3>Каналы связи</h3>
+        <a href="https://t.me/devil_contact" target="_blank" class="contact-link">
+          <div class="c-ico">
+            <svg viewBox="0 0 17 17" fill="none"><path d="M2 8 L15 3 L12.5 14 L8.5 11 L6.5 13 L6 9.5 Z" stroke="#c0192a" stroke-width="1.3" stroke-linejoin="round"/><path d="M6 9.5 L12 5" stroke="#c0192a" stroke-width="1.1" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="c-title">Telegram</div>
+            <div class="c-sub">@devil_contact</div>
+          </div>
+        </a>
+        <a href="mailto:support@devil-vpn.online" class="contact-link">
+          <div class="c-ico">
+            <svg viewBox="0 0 17 17" fill="none"><rect x="2" y="4" width="13" height="9" rx="1.5" stroke="#c0192a" stroke-width="1.3"/><path d="M2.5 5 L8.5 9.5 L14.5 5" stroke="#c0192a" stroke-width="1.3" stroke-linecap="round"/></svg>
+          </div>
+          <div>
+            <div class="c-title">Email</div>
+            <div class="c-sub">support@devil-vpn.online</div>
+          </div>
+        </a>
+      </div>
+
+      <div class="contact-card reveal">
+        <h3>Часы работы</h3>
+        <div class="hours-row"><span class="day">Пн — Пт</span><span class="time">09:00 — 21:00</span></div>
+        <div style="margin-top:18px;" class="about-highlight">
+          Devil VPN работает с <b>2026</b> года. Наша миссия — сделать интернет свободным и безопасным для каждого.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== Футер ===== -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <div class="nav-mark">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 2 C9 5 7 7 7 11 C7 14 9 16 12 18 C15 16 17 14 17 11 C17 7 15 5 12 2 Z" stroke="#c0192a" stroke-width="1.4" stroke-linejoin="round"/>
+              <path d="M5 4 L7.5 8 M19 4 L16.5 8" stroke="#c0192a" stroke-width="1.4" stroke-linecap="round"/>
+              <path d="M12 9 L12 14 M9.5 11.5 L14.5 11.5" stroke="#c0192a" stroke-width="1.3" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <span class="nav-name"><span class="d">DEVIL</span> <span class="v">VPN</span></span>
+        </div>
+        <p>Безлимитный, быстрый и анонимный VPN-сервис для защиты твоей приватности и свободы в интернете.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Документы</h4>
+        <a href="/info/privacy-policy">Политика конфиденциальности</a>
+        <a href="/info/user-agreement">Условия использования</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Devil VPN. Все права защищены.</div>
+  </footer>
+
+</div>
+
+<script>
+  function spawnEmbers() {
+    const Container = document.getElementById('embers');
+    for (let i = 0; i < 28; i++) {
+      const Ember = document.createElement('div');
+      Ember.className = 'ember';
+      Ember.style.left              = Math.random() * 100 + 'vw';
+      Ember.style.animationDuration = (9 + Math.random() * 14) + 's';
+      Ember.style.animationDelay    = (Math.random() * 16) + 's';
+      const Size = 2 + Math.random() * 3;
+      Ember.style.width  = Size + 'px';
+      Ember.style.height = Size + 'px';
+      Container.appendChild(Ember);
+    }
+  }
+
+  const Burger = document.getElementById('burger');
+  const NavLinks = document.getElementById('navLinks');
+  Burger.addEventListener('click', () => NavLinks.classList.toggle('open'));
+  NavLinks.querySelectorAll('a').forEach(Link =>
+    Link.addEventListener('click', () => NavLinks.classList.remove('open'))
+  );
+
+  const Observer = new IntersectionObserver(Entries => {
+    Entries.forEach(Entry => {
+      if (Entry.isIntersecting) {
+        Entry.target.classList.add('shown');
+        Observer.unobserve(Entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(El => Observer.observe(El));
+
+  spawnEmbers();
+</script>
+</body>
+</html>

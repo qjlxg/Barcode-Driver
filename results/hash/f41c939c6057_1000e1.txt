@@ -1,0 +1,52 @@
+
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><title>
+
+</title>
+    <style>
+        * {
+            font-family: Tahoma;
+        }
+
+        button {
+            font-size: 9pt;
+            font-family: Tahoma;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+<form method="post" action="GenericErrorPage.aspx?type=clash" id="form1" dir="rtl">
+<div class="aspNetHidden">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="NHshEOQO1ZREi7TFTT0qo8QYWp+xGtnm+7TUTLzl433+nnXuxWgaKDjurlQOBdWwyFphN8SVk2EMAX0j58mEapNH+ml+dIQILkgFhhgGJMcpEz1D0BCR+coa5hL0DZYat1TuYV27LG4+FOwIZa5hbMjjU7XCEkCCc0rhqBk8MZZ04mRiKmqR+J22oDnAfhPKHoVhyxRsZx1qkfMKa5Y3fP9Qq66jEYUpPcj6OJZTt5ABvwIyHZXOaieqwBA4hdr9Aaufyn3cZXjvF0AE912tr1nCZ0oDR8Zs6qruwz5mvuKa11TP6YkFpR/NMZiXHjTM/LPtUC07cCmTfujHvai1XlsMypQj2SaKxxM634V/CeKABQ6hvcbAWfbAv9aMTZcoR7rkKIaXN46l0/+qi10kUdp3uX/ClqYa986yp6PrCaJd6s/f" />
+</div>
+
+<div class="aspNetHidden">
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="4EE7F8FE" />
+</div>
+
+    <div class="alert alert-error" style="margin: 30px; padding: 20px;">
+        <strong>
+            <span id="lblErrorTitle">خطای اولیه در اجرای نرم افزار !</span>
+        </strong>
+        <br />
+        <br />
+        <span id="lblMessage">خطا در مجوز! جهت اطلاعات بیشتر به رویدادهای سیستم مراجعه نمایید.پس از رفع خطا سایت را restart کنید !</span>
+        <br />
+        <br />
+        <div style="margin: 10px;">
+            <button type="button" class="btn btn-primary" onclick="javascript:location.href='/';">
+                <div>
+                    صفحه اصلی
+                </div>
+                <img src="/assets/Images/home.png" width="32" height="32" /><br />
+            </button>
+        </div>
+
+    </div>
+</form>
+</body>
+</html>

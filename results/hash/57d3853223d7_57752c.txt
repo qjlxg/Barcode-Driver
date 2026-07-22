@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+  <head>
+<!--
+   ______                            __
+  / ____/___  ____ ___  ____  __  __/ /____  _____
+ / /   / __ \/ __ `__ \/ __ \/ / / / __/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ / /_/  __/ /
+\____/\____/_/ /_/ /_/ .___/\__,_/\__/\___/_/
+                    /_/
+        Created with Perplexity Computer
+        https://www.perplexity.ai/computer
+-->
+
+<!-- Perplexity Computer Attribution — SEO Meta Tags -->
+<meta name="generator" content="Perplexity Computer">
+<meta name="author" content="Perplexity Computer">
+<meta property="og:see_also" content="https://www.perplexity.ai/computer">
+<link rel="author" href="https://www.perplexity.ai/computer">
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>МЧИ AI — Твой AI беговой тренер</title>
+    <meta name="description" content="Персональные тренировочные планы, анализ метрик Garmin, синхронизация с Intervals.icu — через Telegram или MAX." />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              accent: '#ff404a',
+              'accent-hover': '#e6363f',
+              dark: {
+                DEFAULT: '#111111',
+                card: '#1a1a1a',
+                border: '#2a2a2a',
+                surface: '#1e1e1e',
+              },
+              muted: '#9ca3af',
+            },
+            fontFamily: {
+              heading: ['Cinzel', 'serif'],
+              body: ['Inter', 'sans-serif'],
+            },
+          },
+        },
+      }
+    </script>
+
+    <!-- Animate CSS -->
+    <link rel="stylesheet" href="assets/css/animate.css" />
+
+    <!-- WOW JS -->
+    <script src="assets/js/wow.min.js"></script>
+
+    <style>
+      * { box-sizing: border-box; }
+      html { font-family: 'Inter', sans-serif; }
+      body { background-color: #111111; color: #e0e0e0; }
+
+      /* Fix Cinzel small caps for Latin text */
+      .font-heading { font-variant-ligatures: no-common-ligatures; }
+
+      /* Navbar sticky */
+      .ud-header { transition: all 0.3s ease; }
+      .ud-header.sticky {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+        background: rgba(17, 17, 17, 0.95);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        box-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      /* Scrollbar */
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: #111111; }
+      ::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #ff404a; }
+
+      /* Hero gradient background */
+      .hero-gradient {
+        background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(255, 64, 74, 0.15), transparent),
+                    radial-gradient(ellipse 60% 50% at 80% 50%, rgba(255, 64, 74, 0.08), transparent),
+                    #111111;
+      }
+
+      /* Grid pattern overlay */
+      .grid-pattern {
+        background-image:
+          linear-gradient(rgba(255, 64, 74, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 64, 74, 0.03) 1px, transparent 1px);
+        background-size: 60px 60px;
+      }
+
+      /* Feature card hover */
+      .feature-card {
+        transition: all 0.3s ease;
+        border: 1px solid #333333;
+        background: linear-gradient(145deg, #1a1a1a, #161616);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
+      .feature-card:hover {
+        border-color: #ff404a;
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(255, 64, 74, 0.15);
+      }
+
+      /* Step connector line */
+      .step-connector {
+        position: relative;
+      }
+      .step-connector::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: -32px;
+        width: 64px;
+        height: 2px;
+        background: linear-gradient(90deg, #ff404a, transparent);
+      }
+      @media (max-width: 1023px) {
+        .step-connector::after { display: none; }
+      }
+
+      /* Glow effect on accent button */
+      .btn-accent {
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-accent::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+      }
+      .btn-accent:hover::before {
+        width: 300px;
+        height: 300px;
+      }
+
+      /* Smooth section transition */
+      section { position: relative; }
+
+      /* Number badge for steps */
+      .step-number {
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #ff404a, #cc333b);
+        color: white;
+        font-family: 'Cinzel', serif;
+        font-weight: 700;
+        font-size: 1.25rem;
+        flex-shrink: 0;
+      }
+
+      /* Pulse animation for CTA */
+      @keyframes pulse-accent {
+        0%, 100% { box-shadow: 0 0 0 0 rgba(255, 64, 74, 0.4); }
+        50% { box-shadow: 0 0 0 12px rgba(255, 64, 74, 0); }
+      }
+      .pulse-accent { animation: pulse-accent 2s infinite; }
+
+      /* Floating geometric shapes */
+      @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(5deg); }
+      }
+      .float-shape { animation: float 6s ease-in-out infinite; }
+      .float-shape-delay { animation: float 8s ease-in-out 2s infinite; }
+
+      /* Nav link active state */
+      .nav-link { position: relative; }
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #ff404a;
+        transition: width 0.3s ease;
+      }
+      .nav-link:hover::after { width: 100%; }
+    </style>
+  </head>
+
+  <body class="font-body">
+    <!-- ====== Navbar ====== -->
+    <header class="absolute top-0 left-0 z-40 flex items-center w-full bg-transparent ud-header">
+      <div class="container px-4 mx-auto">
+        <div class="relative flex items-center justify-between py-2">
+          <!-- Logo -->
+          <a href="#home" class="flex items-center gap-3 py-3 group">
+            <svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="МЧИ AI Logo">
+              <!-- Outer hexagonal frame -->
+              <path d="M24 2L43 13v22L24 46 5 35V13z" fill="none" stroke="#ff404a" stroke-width="1.2" opacity="0.35"/>
+              <!-- Inner circuit ring -->
+              <circle cx="24" cy="24" r="16" fill="none" stroke="#ff404a" stroke-width="0.6" opacity="0.2" stroke-dasharray="3 3"/>
+              <!-- Runner - head -->
+              <circle cx="28" cy="12" r="3.5" fill="#ff404a"/>
+              <!-- Runner - spine/torso -->
+              <path d="M27 16L23 24" stroke="#ff404a" stroke-width="2.5" stroke-linecap="round"/>
+              <!-- Runner - front arm -->
+              <path d="M25 19L32 16" stroke="#ff404a" stroke-width="2" stroke-linecap="round"/>
+              <!-- Runner - back arm -->
+              <path d="M25 19L17 17" stroke="#ff404a" stroke-width="2" stroke-linecap="round"/>
+              <!-- Runner - front leg (extended stride) -->
+              <path d="M23 24L30 31L36 36" stroke="#ff404a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Runner - back leg (pushing off) -->
+              <path d="M23 24L16 30L11 34" stroke="#ff404a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <!-- Circuit nodes -->
+              <circle cx="10" cy="10" r="1.5" fill="#ff404a" opacity="0.5"/>
+              <circle cx="38" cy="10" r="1.5" fill="#ff404a" opacity="0.5"/>
+              <circle cx="38" cy="38" r="1.5" fill="#ff404a" opacity="0.5"/>
+              <circle cx="10" cy="38" r="1.5" fill="#ff404a" opacity="0.5"/>
+              <!-- Circuit traces -->
+              <line x1="11.5" y1="10" x2="18" y2="10" stroke="#ff404a" stroke-width="0.8" opacity="0.25"/>
+              <line x1="38" y1="11.5" x2="38" y2="18" stroke="#ff404a" stroke-width="0.8" opacity="0.25"/>
+              <line x1="36.5" y1="38" x2="30" y2="38" stroke="#ff404a" stroke-width="0.8" opacity="0.25"/>
+              <line x1="10" y1="36.5" x2="10" y2="30" stroke="#ff404a" stroke-width="0.8" opacity="0.25"/>
+            </svg>
+            <span class="text-xl font-heading font-bold text-white tracking-wider">МЧИ<span class="text-accent"> AI</span></span>
+          </a>
+
+          <!-- Mobile toggle -->
+          <button id="navbarToggler" class="absolute right-4 top-1/2 block -translate-y-1/2 rounded-lg px-3 py-[6px] ring-accent focus:ring-2 lg:hidden z-50">
+            <span class="relative my-[6px] block h-[2px] w-[30px] bg-white"></span>
+            <span class="relative my-[6px] block h-[2px] w-[30px] bg-white"></span>
+            <span class="relative my-[6px] block h-[2px] w-[30px] bg-white"></span>
+          </button>
+
+          <!-- Navigation -->
+          <nav id="navbarCollapse" class="absolute right-4 top-full hidden w-full max-w-[250px] rounded-lg bg-dark-card border border-dark-border py-5 shadow-lg lg:static lg:block lg:w-full lg:max-w-full lg:bg-transparent lg:border-none lg:px-4 lg:py-0 lg:shadow-none">
+            <ul class="flex flex-col lg:flex-row lg:items-center lg:justify-end lg:gap-1">
+              <li>
+                <a href="#features" class="nav-link flex py-2 px-5 text-sm font-medium text-gray-300 hover:text-white transition-colors lg:px-4 lg:py-6">Возможности</a>
+              </li>
+              <li>
+                <a href="#how-it-works" class="nav-link flex py-2 px-5 text-sm font-medium text-gray-300 hover:text-white transition-colors lg:px-4 lg:py-6">Как работает</a>
+              </li>
+              <li>
+                <a href="#pricing" class="nav-link flex py-2 px-5 text-sm font-medium text-gray-300 hover:text-white transition-colors lg:px-4 lg:py-6">Тарифы</a>
+              </li>
+              <li>
+                <a href="https://t.me/Mchi_AI_Bot" target="_blank" rel="noopener noreferrer" class="nav-link flex py-2 px-5 text-sm font-medium text-gray-300 hover:text-white transition-colors lg:px-4 lg:py-6">Telegram</a>
+              </li>
+              <li>
+                <a href="https://max.ru/id1650324269_bot" target="_blank" rel="noopener noreferrer" class="nav-link flex py-2 px-5 text-sm font-medium text-gray-300 hover:text-white transition-colors lg:px-4 lg:py-6">MAX</a>
+              </li>
+              <li class="lg:ml-4">
+                <a href="/app/" class="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white bg-accent hover:bg-accent-hover rounded-lg transition-all duration-300">
+                  Войти
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- ====== Hero Section ====== -->
+    <section id="home" class="hero-gradient grid-pattern relative overflow-hidden pt-32 pb-20 md:pt-40 md:pb-28 lg:pt-48 lg:pb-32">
+      <!-- Decorative floating shapes -->
+      <div class="absolute top-20 left-10 float-shape opacity-20">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+          <polygon points="40,0 80,80 0,80" stroke="#ff404a" stroke-width="1" fill="none"/>
+        </svg>
+      </div>
+      <div class="absolute top-40 right-20 float-shape-delay opacity-10">
+        <svg width="120" height="120" viewBox="0 0 120 120" fill="none">
+          <circle cx="60" cy="60" r="58" stroke="#ff404a" stroke-width="1" fill="none"/>
+          <circle cx="60" cy="60" r="30" stroke="#ff404a" stroke-width="0.5" fill="none"/>
+        </svg>
+      </div>
+      <div class="absolute bottom-20 left-1/4 float-shape opacity-10">
+        <svg width="60" height="60" viewBox="0 0 60 60" fill="none">
+          <rect x="5" y="5" width="50" height="50" stroke="#ff404a" stroke-width="1" fill="none" transform="rotate(45 30 30)"/>
+        </svg>
+      </div>
+      <div class="absolute bottom-40 right-1/3 float-shape-delay opacity-15">
+        <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+          <line x1="0" y1="20" x2="40" y2="20" stroke="#ff404a" stroke-width="0.5"/>
+          <line x1="20" y1="0" x2="20" y2="40" stroke="#ff404a" stroke-width="0.5"/>
+        </svg>
+      </div>
+
+      <div class="container px-4 mx-auto relative z-10">
+        <div class="max-w-3xl mx-auto text-center">
+          <h1 class="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white leading-tight mb-6 tracking-wide">
+            Твой AI<br/>беговой тренер
+          </h1>
+          <p class="text-base sm:text-lg md:text-xl text-muted leading-relaxed max-w-2xl mx-auto mb-10">
+            Персональные тренировочные планы, анализ метрик Garmin, синхронизация с&nbsp;Intervals.icu — через Telegram или MAX
+          </p>
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="/app/" class="btn-accent pulse-accent inline-flex items-center justify-center px-8 py-4 text-base font-semibold text-white bg-accent hover:bg-accent-hover rounded-lg transition-all duration-300 w-full sm:w-auto">
+              Начать бесплатно
+              <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </a>
+            <a href="https://t.me/Mchi_AI_Bot" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-4 text-base font-semibold text-white border border-dark-border hover:border-accent rounded-lg transition-all duration-300 w-full sm:w-auto group">
+              <svg class="mr-2 w-5 h-5 text-accent" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.492-1.302.48-.428-.013-1.252-.242-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+              Telegram
+            </a>
+            <a href="https://max.ru/id1650324269_bot" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center px-6 py-4 text-base font-semibold text-white border border-dark-border hover:border-accent rounded-lg transition-all duration-300 w-full sm:w-auto group">
+              <svg class="mr-2 w-5 h-5 text-accent" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+              MAX бот
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom fade -->
+      <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-dark to-transparent"></div>
+    </section>
+
+    <!-- ====== Features Section ====== -->
+    <section id="features" class="py-20 md:py-28 relative">
+      <!-- Subtle top accent line -->
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent"></div>
+
+      <div class="container px-4 mx-auto">
+        <div class="text-center mb-16">
+          <span class="wow fadeInUp inline-block text-accent text-sm font-semibold tracking-widest uppercase mb-3" data-wow-delay=".1s">Возможности</span>
+          <h2 class="wow fadeInUp font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-wide" data-wow-delay=".15s">
+            Всё для твоего бега
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <!-- Feature 1 -->
+          <div class="wow fadeInUp feature-card bg-dark-card rounded-xl p-8 text-center" data-wow-delay=".1s">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-xl bg-dark-surface flex items-center justify-center">
+              <svg class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 00-6.23.693L5 14.5m14.8.8l1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0112 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/>
+              </svg>
+            </div>
+            <h3 class="font-heading text-xl font-bold text-white mb-3 tracking-wide">AI тренировочный план</h3>
+            <p class="text-muted text-sm leading-relaxed">
+              4&#8209;недельный персональный план на основе ваших метрик и целей. Экспорт в&nbsp;Intervals.icu одной кнопкой
+            </p>
+          </div>
+
+          <!-- Feature 2 -->
+          <div class="wow fadeInUp feature-card bg-dark-card rounded-xl p-8 text-center" data-wow-delay=".2s">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-xl bg-dark-surface flex items-center justify-center">
+              <svg class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <!-- Watch band top -->
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 2v4h6V2"/>
+                <!-- Watch face -->
+                <rect x="6" y="6" width="12" height="12" rx="3" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Watch band bottom -->
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 18v4h6v-4"/>
+                <!-- Heart rate line -->
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h1.5l1-2 1.5 4 1-2H16"/>
+              </svg>
+            </div>
+            <h3 class="font-heading text-xl font-bold text-white mb-3 tracking-wide">Синхронизация с&nbsp;<span class="font-body font-bold">Garmin</span></h3>
+            <p class="text-muted text-sm leading-relaxed">
+              Автоматический сбор метрик: HRV, Training Status, пульсовые зоны, sleep score. Анализ готовности к&nbsp;нагрузке
+            </p>
+          </div>
+
+          <!-- Feature 3 -->
+          <div class="wow fadeInUp feature-card bg-dark-card rounded-xl p-8 text-center" data-wow-delay=".3s">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-xl bg-dark-surface flex items-center justify-center">
+              <svg class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z"/>
+              </svg>
+            </div>
+            <h3 class="font-heading text-xl font-bold text-white mb-3 tracking-wide">Умный анализ</h3>
+            <p class="text-muted text-sm leading-relaxed">
+              Еженедельный анализ прогресса, рекомендации по корректировке плана, альтернативные тренировки
+            </p>
+          </div>
+
+          <!-- Feature 4 -->
+          <div class="wow fadeInUp feature-card bg-dark-card rounded-xl p-8 text-center" data-wow-delay=".4s">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-xl bg-dark-surface flex items-center justify-center">
+              <svg class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/>
+              </svg>
+            </div>
+            <h3 class="font-heading text-xl font-bold text-white mb-3 tracking-wide">Авто-анализ</h3>
+            <p class="text-muted text-sm leading-relaxed">
+              После каждой тренировки AI анализирует результат, сравнивает с планом и даёт рекомендации
+            </p>
+          </div>
+
+          <!-- Feature 5 -->
+          <div class="wow fadeInUp feature-card bg-dark-card rounded-xl p-8 text-center" data-wow-delay=".5s">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-xl bg-dark-surface flex items-center justify-center">
+              <svg class="w-8 h-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="font-heading text-xl font-bold text-white mb-3 tracking-wide">Без часов?</h3>
+            <p class="text-muted text-sm leading-relaxed">
+              Режим для тренировок по воспринимаемому усилию и времени. Не нужен GPS или пульсомер
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== How It Works Section ====== -->
+    <section id="how-it-works" class="py-20 md:py-28 relative bg-dark-surface">
+      <!-- Diagonal accent -->
+      <div class="absolute top-0 left-0 right-0 h-px bg-dark-border"></div>
+
+      <div class="container px-4 mx-auto">
+        <div class="text-center mb-16">
+          <span class="wow fadeInUp inline-block text-accent text-sm font-semibold tracking-widest uppercase mb-3" data-wow-delay=".1s">Как работает</span>
+          <h2 class="wow fadeInUp font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-wide" data-wow-delay=".15s">
+            Три простых шага
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12 lg:gap-8 max-w-5xl mx-auto">
+          <!-- Step 1 -->
+          <div class="wow fadeInUp text-center relative step-connector" data-wow-delay=".1s">
+            <div class="step-number mx-auto mb-6">1</div>
+            <h3 class="font-heading text-xl font-bold text-white mb-3 tracking-wide">Подключи <span class="font-body font-bold">Garmin</span></h3>
+            <p class="text-muted text-sm leading-relaxed max-w-xs mx-auto">
+              Привяжи аккаунт Garmin Connect для автоматического сбора данных
+            </p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="wow fadeInUp text-center relative step-connector" data-wow-delay=".2s">
+            <div class="step-number mx-auto mb-6">2</div>
+            <h3 class="font-heading text-xl font-bold text-white mb-3 tracking-wide">Получи план</h3>
+            <p class="text-muted text-sm leading-relaxed max-w-xs mx-auto">
+              AI создаст персональный план тренировок под твою цель
+            </p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="wow fadeInUp text-center" data-wow-delay=".3s">
+            <div class="step-number mx-auto mb-6">3</div>
+            <h3 class="font-heading text-xl font-bold text-white mb-3 tracking-wide">Мчи!</h3>
+            <p class="text-muted text-sm leading-relaxed max-w-xs mx-auto">
+              Следуй плану, получай daily&#8209;рекомендации и&nbsp;корректировки
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="absolute bottom-0 left-0 right-0 h-px bg-dark-border"></div>
+    </section>
+
+    <!-- ====== Pricing Section ====== -->
+    <section id="pricing" class="py-20 md:py-28 relative">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-[2px] bg-gradient-to-r from-transparent via-accent to-transparent"></div>
+
+      <div class="container px-4 mx-auto">
+        <div class="text-center mb-16">
+          <span class="wow fadeInUp inline-block text-accent text-sm font-semibold tracking-widest uppercase mb-3" data-wow-delay=".1s">Тарифы</span>
+          <h2 class="wow fadeInUp font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-wide" data-wow-delay=".15s">
+            Выбери свой план
+          </h2>
+          <p class="wow fadeInUp text-muted text-base mt-4 max-w-xl mx-auto" data-wow-delay=".2s">
+            Начни бесплатно, перейди на Premium когда будешь готов
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+
+          <!-- FREE Card -->
+          <div class="wow fadeInUp feature-card bg-dark-card rounded-2xl p-8 flex flex-col" data-wow-delay=".1s">
+            <div class="mb-6">
+              <h3 class="font-heading text-2xl font-bold text-white tracking-wide mb-4">Бесплатный</h3>
+              <div class="flex items-baseline gap-2 mb-1">
+                <span class="font-heading text-5xl font-bold text-white">0 ₽</span>
+              </div>
+              <p class="text-muted text-sm">навсегда</p>
+            </div>
+
+            <ul class="space-y-3 mb-8 flex-1">
+              <li class="flex items-start gap-3 text-sm">
+                <span class="text-accent font-bold mt-0.5 flex-shrink-0">✓</span>
+                <span class="text-gray-300">Статус готовности (/status)</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm">
+                <span class="text-accent font-bold mt-0.5 flex-shrink-0">✓</span>
+                <span class="text-gray-300">Рекомендация на день (/daily)</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm">
+                <span class="text-accent font-bold mt-0.5 flex-shrink-0">✓</span>
+                <span class="text-gray-300">Заметки по тренировкам (/note)</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm">
+                <span class="text-accent font-bold mt-0.5 flex-shrink-0">✓</span>
+                <span class="text-gray-300">Подключение Garmin Connect</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm">
+                <span class="text-accent font-bold mt-0.5 flex-shrink-0">✓</span>
+                <span class="text-gray-300">Подключение Intervals.icu</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm">
+                <span class="text-accent font-bold mt-0.5 flex-shrink-0">✓</span>
+                <span class="text-gray-300">Telegram и MAX боты</span>
+              </li>
+            </ul>
+
+            <a href="/app/" class="inline-flex items-center justify-center w-full px-6 py-3 text-sm font-semibold text-white border border-dark-border hover:border-accent rounded-lg transition-all duration-300">
+              Начать бесплатно
+            </a>
+          </div>
+
+          <!-- PREMIUM Card -->
+          <div class="wow fadeInUp rounded-2xl p-8 flex flex-col relative" data-wow-delay=".2s" style="background: linear-gradient(145deg, #1e1e1e, #1a1a1a); border: 1px solid #ff404a; box-shadow: 0 0 40px rgba(255, 64, 74, 0.15), 0 4px 20px rgba(0,0,0,0.4);">
+            <!-- Popular badge -->
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+              <span class="inline-block bg-accent text-white text-xs font-bold px-4 py-1.5 rounded-full tracking-wider uppercase">Популярный</span>
+            </div>
+
+            <div class="mb-6">
+              <h3 class="font-heading text-2xl font-bold text-white tracking-wide mb-4">Premium ⭐</h3>
+              <div class="flex items-baseline gap-2 mb-1">
+                <span class="text-muted text-lg font-medium">от</span>
+                <span class="font-heading text-5xl font-bold text-white">2 000</span>
+              </div>
+              <p class="text-muted text-sm">Stars/мес</p>
+            </div>
+
+            <ul class="space-y-3 mb-8 flex-1">
+              <li class="flex items-start gap-3 text-sm">
+                <span class="text-accent font-bold mt-0.5 flex-shrink-0">✓</span>
+                <span class="text-gray-300">Всё из бесплатного тарифа</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm">
+                <span class="text-accent font-bold mt-0.5 flex-shrink-0">✓</span>
+                <span class="text-white font-medium">4-недельный план тренировок</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm">
+                <span class="text-accent font-bold mt-0.5 flex-shrink-0">✓</span>
+                <span class="text-white font-medium">Альтернативная тренировка</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm">
+                <span class="text-accent font-bold mt-0.5 flex-shrink-0">✓</span>
+                <span class="text-white font-medium">Анализ недели и плана</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm">
+                <span class="text-accent font-bold mt-0.5 flex-shrink-0">✓</span>
+                <span class="text-white font-medium">Корректировка плана с учётом событий</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm">
+                <span class="text-accent font-bold mt-0.5 flex-shrink-0">✓</span>
+                <span class="text-white font-medium">Авто-анализ тренировок с AI-инсайтами</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm">
+                <span class="text-accent font-bold mt-0.5 flex-shrink-0">✓</span>
+                <span class="text-white font-medium">Режим без часов (по RPE + время)</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm">
+                <span class="text-accent font-bold mt-0.5 flex-shrink-0">✓</span>
+                <span class="text-white font-medium">Приоритетная поддержка</span>
+              </li>
+            </ul>
+
+            <a href="https://t.me/Mchi_AI_Bot" target="_blank" rel="noopener noreferrer" class="btn-accent inline-flex items-center justify-center w-full px-6 py-3 text-sm font-semibold text-white bg-accent hover:bg-accent-hover rounded-lg transition-all duration-300">
+              Оформить в Telegram ⭐
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== CTA Section ====== -->
+    <section id="cta" class="py-20 md:py-28 relative overflow-hidden">
+      <!-- Background decoration -->
+      <div class="absolute inset-0 hero-gradient opacity-60"></div>
+      <div class="absolute top-10 right-10 float-shape opacity-10">
+        <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
+          <circle cx="100" cy="100" r="98" stroke="#ff404a" stroke-width="0.5"/>
+          <circle cx="100" cy="100" r="60" stroke="#ff404a" stroke-width="0.5"/>
+          <circle cx="100" cy="100" r="30" stroke="#ff404a" stroke-width="0.5"/>
+        </svg>
+      </div>
+      <div class="absolute bottom-10 left-10 float-shape-delay opacity-10">
+        <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+          <polygon points="50,0 100,87 0,87" stroke="#ff404a" stroke-width="0.5" fill="none"/>
+        </svg>
+      </div>
+
+      <div class="container px-4 mx-auto relative z-10">
+        <div class="max-w-2xl mx-auto text-center">
+          <h2 class="wow fadeInUp font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-wide mb-6" data-wow-delay=".1s">
+            Готов тренироваться умнее?
+          </h2>
+          <p class="wow fadeInUp text-muted text-base sm:text-lg mb-10" data-wow-delay=".2s">
+            Подключи Garmin, получи персональный план и&nbsp;начни прогрессировать с&nbsp;AI&#8209;тренером уже сегодня
+          </p>
+          <div class="wow fadeInUp" data-wow-delay=".3s">
+            <a href="/app/" class="btn-accent pulse-accent inline-flex items-center justify-center px-10 py-4 text-lg font-semibold text-white bg-accent hover:bg-accent-hover rounded-lg transition-all duration-300">
+              Попробовать бесплатно
+              <svg class="ml-2 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== Footer ====== -->
+    <footer class="relative border-t border-dark-border bg-dark pt-16 pb-8">
+      <div class="container px-4 mx-auto">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+          <!-- Logo & description -->
+          <div class="md:col-span-1">
+            <a href="#home" class="flex items-center gap-3 mb-4 group">
+              <svg width="32" height="32" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="МЧИ AI Logo">
+                <path d="M24 2L43 13v22L24 46 5 35V13z" fill="none" stroke="#ff404a" stroke-width="1.2" opacity="0.35"/>
+                <circle cx="24" cy="24" r="16" fill="none" stroke="#ff404a" stroke-width="0.6" opacity="0.2" stroke-dasharray="3 3"/>
+                <circle cx="28" cy="12" r="3.5" fill="#ff404a"/>
+                <path d="M27 16L23 24" stroke="#ff404a" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M25 19L32 16" stroke="#ff404a" stroke-width="2" stroke-linecap="round"/>
+                <path d="M25 19L17 17" stroke="#ff404a" stroke-width="2" stroke-linecap="round"/>
+                <path d="M23 24L30 31L36 36" stroke="#ff404a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M23 24L16 30L11 34" stroke="#ff404a" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="10" cy="10" r="1.5" fill="#ff404a" opacity="0.5"/>
+                <circle cx="38" cy="10" r="1.5" fill="#ff404a" opacity="0.5"/>
+                <circle cx="38" cy="38" r="1.5" fill="#ff404a" opacity="0.5"/>
+                <circle cx="10" cy="38" r="1.5" fill="#ff404a" opacity="0.5"/>
+              </svg>
+              <span class="text-lg font-heading font-bold text-white tracking-wider">МЧИ<span class="text-accent"> AI</span></span>
+            </a>
+            <p class="text-muted text-sm leading-relaxed max-w-xs">
+              AI беговой тренер с персональными планами, анализом метрик Garmin и&nbsp;синхронизацией с&nbsp;Intervals.icu. Доступен в&nbsp;Telegram и&nbsp;MAX
+            </p>
+          </div>
+
+          <!-- Links -->
+          <div>
+            <h4 class="text-white font-semibold text-sm tracking-wider uppercase mb-4">Навигация</h4>
+            <ul class="space-y-3">
+              <li><a href="#features" class="text-muted hover:text-white text-sm transition-colors">Возможности</a></li>
+              <li><a href="#how-it-works" class="text-muted hover:text-white text-sm transition-colors">Как работает</a></li>
+              <li><a href="/app/" class="text-muted hover:text-white text-sm transition-colors">Войти в приложение</a></li>
+            </ul>
+          </div>
+
+          <!-- Connect -->
+          <div>
+            <h4 class="text-white font-semibold text-sm tracking-wider uppercase mb-4">Подключайся</h4>
+            <ul class="space-y-3">
+              <li>
+                <a href="https://t.me/Mchi_AI_Bot" target="_blank" rel="noopener noreferrer" class="text-muted hover:text-white text-sm transition-colors inline-flex items-center gap-2">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.479.33-.913.492-1.302.48-.428-.013-1.252-.242-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+                  Telegram бот
+                </a>
+              </li>
+              <li>
+                <a href="https://max.ru/id1650324269_bot" target="_blank" rel="noopener noreferrer" class="text-muted hover:text-white text-sm transition-colors inline-flex items-center gap-2">
+                  <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+                  MAX бот
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom bar -->
+        <div class="border-t border-dark-border pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p class="text-muted text-xs">© 2026 МЧИ AI. Все права защищены.</p>
+          <a href="https://alexshein.com" target="_blank" rel="noopener noreferrer" class="text-muted hover:text-white text-xs transition-colors">
+            Created with care by alexshein.com
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ====== Back to Top ====== -->
+    <a href="javascript:void(0)" class="back-to-top fixed bottom-8 right-8 z-50 hidden items-center justify-center w-10 h-10 rounded-lg bg-accent text-white shadow-lg hover:bg-accent-hover transition-all duration-300">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"/></svg>
+    </a>
+
+    <!-- ====== Scripts ====== -->
+    <script>
+    (function () {
+      "use strict";
+
+      // ======= Sticky navbar
+      window.onscroll = function () {
+        const ud_header = document.querySelector(".ud-header");
+        if (!ud_header) return;
+        const sticky = 80;
+
+        if (window.pageYOffset > sticky) {
+          ud_header.classList.add("sticky");
+        } else {
+          ud_header.classList.remove("sticky");
+        }
+
+        // Back to top button
+        const backToTop = document.querySelector(".back-to-top");
+        if (backToTop) {
+          if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+            backToTop.style.display = "flex";
+          } else {
+            backToTop.style.display = "none";
+          }
+        }
+      };
+
+      // ===== Responsive navbar
+      const navbarToggler = document.querySelector("#navbarToggler");
+      const navbarCollapse = document.querySelector("#navbarCollapse");
+
+      if (navbarToggler && navbarCollapse) {
+        navbarToggler.addEventListener("click", () => {
+          navbarToggler.classList.toggle("navbarTogglerActive");
+          navbarCollapse.classList.toggle("hidden");
+        });
+
+        // Close on link click
+        document.querySelectorAll("#navbarCollapse ul li a").forEach((e) =>
+          e.addEventListener("click", () => {
+            navbarToggler.classList.remove("navbarTogglerActive");
+            navbarCollapse.classList.add("hidden");
+          })
+        );
+      }
+
+      // ===== Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+
+      // ===== WOW.js init
+      if (typeof WOW !== 'undefined') {
+        new WOW({ offset: 80, mobile: true }).init();
+      }
+
+      // ===== Back to top
+      const backToTopBtn = document.querySelector(".back-to-top");
+      if (backToTopBtn) {
+        backToTopBtn.addEventListener("click", () => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
+    })();
+    </script>
+  </body>
+</html>

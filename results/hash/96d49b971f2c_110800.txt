@@ -1,0 +1,567 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Oplata.Info</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="google" content="notranslate" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="norton-safeweb-site-verification" content="qoxrfu0keqsht95-isq4oj87pjddolbaf7bfw2rjq0f5xab2wm1fxaqsyo2uh62xcbzfnku4vjeziiji-seu18is1xhyrxx9kapx-78b25k225wzcnsc5kn2ej7j1qbe" />
+
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" sizes="16x16 32x32 64x64" href="favicon.ico" />
+<link rel="icon" type="image/png" sizes="196x196" href="favicon-196x196.png" />
+<link rel="icon" type="image/png" sizes="128x128" href="favicon-128.png" />
+<link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
+<link rel="apple-touch-icon-precomposed" sizes="57x57" href="apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon-precomposed" sizes="60x60" href="apple-touch-icon-60x60.png" />
+<link rel="apple-touch-icon-precomposed" sizes="120x120" href="apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon-precomposed" sizes="76x76" href="apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="apple-touch-icon-152x152.png" />
+<link rel="stylesheet" type="text/css" href="../css/jquery.qtip.css" />
+<meta name="application-name" content="&nbsp;"/>
+<meta name="msapplication-TileColor" content="#FFFFFF" />
+<meta name="msapplication-TileImage" content="mstile-144x144.png" />
+<meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
+<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+<meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
+<meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
+<link rel="stylesheet" type="text/css" href="../css/default.css?rnd=20260218-1" />
+<link rel="stylesheet" type="text/css" href="../cssmin/styles.min.css?rnd=20260218-1" />
+<link rel="stylesheet" type="text/css" href="../css/swiper.min.css?rnd=20260218-1" />
+<link rel="stylesheet" type="text/css" href="../css/dd.css?rnd=20260218-1" />
+<link rel="stylesheet" type="text/css" href="../js/select2/css/select2.min.css" />
+<link rel="stylesheet" type="text/css" href="../cssmin/style.min.css?rnd=20260218-1" />
+<link rel="stylesheet" type="text/css" href="../css/jquery.fancybox.css?rnd=20130228" media="screen" />
+<script type="text/javascript" src="../js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../js/jquery.signalR-2.0.3.min.js"></script>
+<script type="text/javascript" src="../js/jquery.truemodal.js"></script>
+<script type="text/javascript" src="../js/isMobile.min.js"></script>
+<script type="text/javascript" src="../js/jquery.fancybox.pack.js"></script>
+<script type="text/javascript" src="../js/jquery.countdown.min.js"></script>
+<script type="text/javascript" src="../js/jquery.countdown-en-US.js"></script>
+<script type="text/javascript" src="../js/jquery.formatDateTime.min.js"></script>
+<script type="text/javascript" src="../js/jquery.dd.min.js"></script>
+<script type="text/javascript" src="../js/select2/js/select2.min.js"></script>
+<script type="text/javascript" src="../js/select2/js/i18n/en.js"></script>
+<script type="text/javascript" src="../js/jquery.qtip.min.js"></script>
+<script type="text/javascript" src="/js/lang-en-US.js?31.01.2014-0"></script>
+<script type="text/javascript" src="../js/info.js" ></script>
+<script type="text/javascript" src="../js/swiper.min.js" ></script>
+<script type="text/javascript" src="../js/clipboard.min.js"></script>
+<script type="text/javascript" src="../js/inv-status.js"></script>
+<style>
+.switchgroup {
+	display: none;
+}
+</style>
+</head> 
+<body>
+<script>
+$(document).ready(function(){
+
+
+	$('.hasTooltip').each(function() { // Notice the .each() loop, discussed below
+	    $(this).qtip({
+	        content: {
+	            text: $(this).next('div') // Use the "div" element next to this for the content
+	        },
+			position: {
+			    target: 'mouse', // Position it where the click was...
+			    adjust: {x:12, y:12},
+			    my: 'top left',
+			    at: 'bottom right'
+		    },
+		    style: {
+				 classes: 'qtip-bootstrap',
+				 tip: {corner: true, mimic: false, width: 8, height: 8, border: true, offset: 0}
+			}
+	    });
+	});
+
+
+	// loader
+    // setTimeout(function(){
+    //   $(".content-loader").fadeOut();
+    // }, 1000);
+	try {$("body select:not('#BankSBP'):not('#USDT_Blockchain')").msDropDown();} 	        
+		catch(e) {alert(e.message);}	 
+	$('#Lang').msDropDown();
+	$('.fancybox').fancybox();
+	// menu-bobile
+	$('.menu-bobile').click(function(event) {
+        event.preventDefault();	      
+          
+        $('header nav ul').slideToggle( "slow");
+	    $(this).toggleClass('active');   
+	    $('#form_lang, .user_settings').toggleClass('active');     
+	    $('.overlay').toggleClass('show');	        
+    });    
+    function windowSizeSwiper(){
+	    if ($(window).width() <= '768'){
+	        var swiper = new Swiper('.swiper-container', {
+		        slidesPerView: 'auto',
+				freeMode: true,
+				freeModeMinimumVelocity: 0.1,
+				speed: 100,
+				centeredSlides: false,
+				paginationClickable: true,
+				spaceBetween: 10,
+				slidesOffsetAfter: 20
+		    });		
+	    } 
+	    else {
+	    }
+	}
+    $(window).on('load resize',windowSizeSwiper);
+    // menu-bobile end
+
+    $('.user_block').click(function(event) {
+    	$('.user_block div.popup').toggle();
+    });
+    $(document).click(function(e){
+	    if ($(e.target).parents().filter('div.popup:visible').length != 1 && !$(e.target).hasClass('ava')) {
+	        $('div.popup').hide();
+	    }
+	});
+
+// myPopup класс окна popup
+// link-toggle-popup класс ссылки по которому открывается Ваш popup. Если не проверять, то при клике на ссылку окно не появится
+});
+</script>
+
+<div class="container">
+	<div class="row user_settings">		
+		<form id="form_lang" method=POST>
+		<select id="Lang" name="Lang" onchange="ChangeLang($('#Lang').val())">
+			<option value="ru-RU" title="images/flag_RU.png" >Russian</option>
+			<option value="en-US" title="images/flag_EN.png" selected>English</option>
+		</select>
+		</form>
+		<div class="user_block">
+			<span class="ava">
+				
+				<a class="logout" href="logout.asp?lang=en-US"></a>
+				<div class="popup">
+					<header>
+						<span class="user"></span>
+						
+							<a class="logout" href="delivery.asp?lang=en-US">Sign in</a>
+						
+					</header>
+					<ul>				
+						<li>
+							<a href="../info/purchases.asp?lang=en-US">Purchases
+							</a>
+						</li>
+						<li>
+							<a href="../info/promo.asp?lang=en-US">Promo сodes
+					        </a>
+						</li>
+						<li>
+							<a href="../info/card_new.asp?lang=en-US">Gift Cards
+							</a>
+						</li>
+					</ul>
+				</div>
+			</span>
+		</div>
+	</div>
+	<header class="row">
+		<h1 class="logo_mobile small-10"><a href="">Oplata.Info</a></h1>
+		<nav class="clearfix column small-2 medium-8">
+			<ul>				
+				<li>
+					<a href="../info/purchases.asp?lang=en-US">Purchases
+					</a>
+				</li>
+				<li>
+					<a href="../info/promo.asp?lang=en-US">Promo сodes
+			        </a>
+				</li>
+				<li>
+					<a href="../info/card_new.asp?lang=en-US">Gift Cards
+					</a>
+				</li>
+			</ul>
+			<a href="" class="menu-bobile columns"><span></span></a>
+		</nav>	
+		<div class="lang">
+<!-- 			<form id="form_lang" method=POST>
+				<select id="Lang" name="Lang" onchange="ChangeLang($('#Lang').val())">
+					<option value="ru-RU" title="images/flag_RU.png" >Russian</option>
+					<option value="en-US" title="images/flag_EN.png" selected>English</option>
+				</select>
+			</form> -->
+			
+				<h1>Sign in</h1>
+			
+
+			
+			
+		</div>
+		</header>
+		<div class="maindiv">			
+			<div class="innerdiv">
+	<div class="authorization">
+   
+	<script type="text/javascript">	
+        function addFav(obj, url, title) {
+            if (window.sidebar) { // Mozilla Firefox
+                window.sidebar.addPanel(name, url, '');
+            }
+            else if (window.opera && window.print) {
+                obj.setAttribute('href', url);
+                obj.setAttribute('title', title);
+                obj.setAttribute('rel', 'sidebar');
+                obj.click();
+            }
+            else if (window.external && document.all) { // IE
+                window.external.AddFavorite(url, name);
+            }
+            else {
+                alert('Press Ctrl + D to create a bookmark in Google Chrome');
+            }
+            return false;
+        }
+    </script>
+
+	<!--
+    <div class=commentdiv>Sign in via a social network</div>
+    <div>                
+        <div id="ulogin" data-ulogin="lang=en;verify=1;display=panel;fields=email,photo;optional=phone;providers=facebook,steam,vkontakte,twitter,google,mailru;wargamingnet;hidden=other;redirect_uri=https%3A%2F%2Foplata%2Einfo%2Finfo%2Fsocial%5Flogin%2Easp%3Flang%3Den%2DUS%26returnurl%3D"></div>
+    </div>  
+    <span class="comment_login_text">Some social networks require email confirmation.</span> 
+	-->
+   	<div class="login_wrapper">
+		<!--<label class="commentdiv text">..or specify the email you entered while making the payment</label>-->
+		<div class="commentdiv text" style="font-size:16px;margin-top:0px;margin-bottom:10px;">Email provided upon payment</div>		
+		
+	    <form id=f1 name=f1 method="POST">
+	    	<input class=email_text type=email required="" name=Email id=Email value="" tabindex="1">
+	        <br />
+			
+			<div style="margin-top:20px;margin-bottom:12px;">
+				  <span style="float: left;" style="width:170px"><img id=turingimgdb src="gen_img3.asp?guid=2DEDF788-9339-45BF-AE1B-33C9FFBEBBF4" onFocus="this.blur()"></span> 
+				  <span style="float: right;max-width: 46%;" ><input maxlength=9  placeholder="Captcha" type=text style="margin:0" name=TuringNum ID=TuringNum required>    </span>
+				  <div style="clear:both;"></div> <!-- Here we go -->
+			</div>
+            <input type="hidden" name="turingguid" value="2DEDF788-9339-45BF-AE1B-33C9FFBEBBF4" />
+			<input type="hidden" id="Replace_GUID" name="Replace_GUID" value="no">
+            <input type="hidden" name="returnurl" value="" />
+	        <input type="submit" id=btn_proceed name=btn_proceed class="btn btn_big btn_blue" value="Proceed">            
+	    </form>
+	</div>
+	
+</div>
+
+<small>
+
+</small>
+
+			</div>
+		</div>
+	</div>
+	
+	<footer class="clearfix">
+		
+
+		<!--<p><a href="/info/delete_history">Delete purchase history</a></p>-->
+		<p>To delete your purchase history, click <a href="/info/delete_history">here</a>.</p>
+		<div class="footer_img_wrapper"><img src="images/network_sec.png" alt=""><a href="" class="mobile_icon"><img src="images/networksolution@2x.png" alt=""></a></div>
+	</footer>	
+	 
+</div>
+<div class="overlay"></div>   
+
+<style>
+.gdpr {
+	display: flex;
+	position: fixed !important;
+	bottom: 0 !important;
+	left: 0 !important;
+	right: 0 !important;
+	padding: 20px !important;
+	background-color: #ffffff !important;
+	box-shadow: 0 2px 50px rgba(0, 0, 0, 0.3) !important;
+	font-size: 14px !important;
+	font-family: "Roboto", sans-serif !important;
+	line-height: 1.5 !important;
+	border-top: 3px solid #1e5ba7 !important;
+	max-height: 350px !important;
+	z-index: 9999 !important;
+}
+
+.gdpr .gdpr_text {
+	flex-basis: 0 !important;
+	flex-grow: 1 !important;
+	max-width: 100% !important;
+	margin-right: 20px !important;
+	text-align: justify !important;
+}
+
+.gdpr .gdpr_text h4 {
+	margin: 0 0 0.5em 0 !important;
+	font-weight: bold !important;
+	font-size: 20px !important;
+}
+
+.gdpr .gdpr_text p {
+	margin-top: 10px !important;
+	color: #555 !important;
+}
+
+.gdpr .gdpr_buttons {
+	flex: 0 0 auto !important;
+	width: auto !important;
+	max-width: none !important;
+	display: flex;
+	align-items: center !important;
+}
+
+.gdpr .gdpr_buttons .gdpr_button, .gdpr_button {
+	border: 1px solid #1e5ba7 !important;
+	border-radius: 3px !important;
+	background-color: #1e5ba7 !important;
+	box-sizing: border-box !important;
+	width: 200px !important;
+	color: #fff !important;
+	font-size: 14px !important;
+	text-align: center !important;
+	background-image: none !important;
+	height: 40px !important;
+	appearance: none !important;
+	cursor: pointer !important;
+}
+
+@media screen and (max-width: 768px) {
+	.gdpr {
+		flex-direction: column !important;
+		overflow: scroll !important;
+	}
+
+	.gdpr .gdpr_buttons {
+		display: flex;
+		flex-direction: row !important;
+		justify-content: center !important;
+	}
+}
+
+.cookie_policy_text h3 {
+	margin-top: 15px !important;
+}
+
+.cookie_policy_text h4 {
+	margin-top: 15px !important;
+	font-size: 14px !important;
+}
+
+
+/* custom modal */
+.modal-custom {
+	display: flex;
+	justify-content: center !important;
+	align-items: center !important;
+	max-width: 100% !important;
+	position: fixed !important;
+	top: 0 !important;
+	bottom: 0 !important;
+	left: 0 !important;
+	right: 0 !important;
+	z-index: 10003 !important;
+}
+
+.modal-overlay {
+	position: fixed !important;
+	top: 0 !important;
+	bottom: 0 !important;
+	left: 0 !important;
+	right: 0 !important;
+	height: 100% !important;
+	background-color: rgba(255,255,255,.8) !important;
+	z-index: 10000 !important;
+}
+
+.modal-box {
+	padding: 40px 60px !important;
+	border-radius: 4px !important;
+	border: 1px solid #ededed !important;
+	background-color: #fff !important;
+	position: relative !important;
+	margin: 5px !important;
+	z-index: 10001 !important;
+	width: 700px !important;
+	max-height: 100% !important;
+	overflow: auto !important;
+	color: #555 !important;
+	font-family: Roboto !important;
+}
+
+.modal-text {
+	line-height: 110% !important;
+	font-family: Roboto,sans-serif !important;
+}
+
+.modal-box h2 {
+	font-weight: 500 !important;
+	font-size: 20px !important;
+	color: #000 !important;
+	font-family: Roboto, sans-serif !important;
+	margin: 0 !important;
+	line-height: 1 !important;
+}
+
+.modal-box p {
+	font-size: 14px !important;
+	margin-top: 10px !important;
+	margin-bottom: 0 !important;
+	font-family: Roboto, sans-serif !important;
+}
+
+.modal-box h3 {
+	margin-top: 15px !important;
+	color: #000 !important;
+	font-size: 16px !important;
+	font-style: italic !important;
+	font-family: Roboto, sans-serif !important;
+	margin-bottom: 0 !important;
+	line-height: 1 !important;
+}
+
+.modal-box h4 {
+	margin-top: 15px !important;
+	color: #000 !important;
+	font-size: 14px !important;
+	font-family: Roboto, sans-serif !important;
+}
+
+.modal-close {
+	text-align: center !important;
+	margin-top: 15px !important;
+}
+
+.modal-close button{
+	border-radius: 3px !important;
+	background-color: #1e5ba7 !important;
+	border: 0 !important;
+	color: #fff !important;
+	font-size: 14px !important;
+	cursor: pointer !important;
+	padding: 11px 73px !important;
+}
+
+.close-modal {
+	position: absolute !important;
+	top: 0 !important;
+	right: 15px !important;
+}
+
+.close-modal span {
+	font-size: 40px !important;
+	color: #1e5ba7 !important;
+	cursor: pointer !important;
+}
+
+@media (max-width: 768px) {
+	.modal-box {
+		padding: 20px 10px !important;
+	}
+}
+
+</style>
+
+
+
+<div class="gdpr">
+	<div class="gdpr_text">
+		<p>This website uses cookies to provide a more effective user experience. See our <a href="javascript:void(0);" onclick="showCookiePolicyPopup()">Cookie policy</a> for details.</p>
+	</div>
+	<div class="gdpr_buttons">
+		<button id="gdpr_accept_button" class="gdpr_button">OK</button>
+	</div>
+</div>
+<div class="modal-custom" style="display: none;">
+	<div class="modal-overlay"></div>
+	<div class="modal-box">
+		<span class="close-modal">
+			<span>×</span>
+		</span>
+		<div class="modal-text">
+			<h2>Cookie policy</h2>
+		
+			<p>Please read this cookie policy carefully before using oplata.info operated by us. By visiting oplata.info you agree that oplata.info may use cookies to be processed by Google Analytics and Yandex.Metrika.</p>
+			
+			<h3>What are cookies?</h3>
+			<p>Cookies are simple text files that are stored on your computer or mobile device by a website’s server. Each cookie is unique to your web browser. It will contain some anonymous information such as a unique identifier, website’s domain name, and some digits and numbers.</p>
+
+			<h3>What types of cookies do we use?</h3>
+			<h4>Necessary cookies</h4>
+			<p>Necessary cookies allow us to offer you the best possible experience when accessing and navigating through our website and using its features. For example, these cookies let us recognize that you have created an account and have logged into that account.</p>
+
+			<h4>Functionality cookies</h4>
+			<p>Functionality cookies let us operate the site in accordance with the choices you make. For example, we will recognize your username and remember how you customized the site during future visits.</p>
+
+			<h3>How to delete cookies?</h3>
+			<p>If you want to restrict or block the cookies that are set by our website, you can do so through your browser setting. Alternatively, you can visit <a href="https://www.internetcookies.org">www.internetcookies.org</a>, which contains comprehensive information on how to do this on a wide variety of browsers and devices. You will find general information about cookies and details on how to delete cookies from your device.</p>
+		</div>
+		<div class="modal-close">
+			<button>Close</button>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+
+	function setCookieGdpr(cname, cvalue, exdays) {
+		var expires = "";
+		if (exdays != undefined) {
+			var d = new Date();
+			d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+			expires = "expires=" + d.toUTCString();
+		} else {
+			expires = "expires = Fri, 31 Dec 9999 23:59:59 GMT";
+		}
+		document.cookie = cname + "=" + cvalue + ";" + expires + ";domain=oplata.info;path=/";
+	}
+
+	function initGdprPopupListener() {
+		var gdprPopupLink = document.getElementById('gdpr_accept_button');
+		gdprPopupLink.addEventListener('click', function (e) {
+			e.preventDefault();
+			setCookieGdpr('gdpr_accepted', 'yes', 365);
+
+			document.querySelector('.gdpr').remove();
+		});
+	}
+
+	function closeModal() {
+		document.querySelector('.modal-custom').style.display = 'none';
+	}
+
+	function showCookiePolicyPopup() {
+		document.querySelector('.modal-custom').style.display = 'flex';
+	}
+
+	window.addEventListener('DOMContentLoaded', initGdprPopupListener, false);
+
+	window.addEventListener('click', function(ev) {
+		if(ev.target.closest(".close-modal") == null 
+			&& ev.target.closest(".modal-close") == null) {
+
+			return;
+		}
+
+		ev.preventDefault();
+		closeModal();
+		return;
+	}, false);
+</script>
+
+
+</body>
+</html> 

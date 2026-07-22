@@ -1,0 +1,711 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="dark light" />
+  <title>Роскомнадзор — Щит цифрового суверенитета России</title>
+  <meta name="description" content="Официальные достижения и ключевые функции РКН в обеспечении безопасности и стабильности национального сегмента сети Интернет." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg0:#0b1020;
+      --bg1:#0f172a;
+      --card:#0b1224cc;
+      --card2:#0b1224;
+      --text:#e5e7eb;
+      --muted:#a7b0c0;
+      --border:rgba(255,255,255,.10);
+      --brand:#2563eb;
+      --brand2:#38bdf8;
+      --ok:#10b981;
+      --warn:#f59e0b;
+      --bad:#ef4444;
+
+      --shadow: 0 16px 40px rgba(0,0,0,.35);
+      --shadow2: 0 24px 60px rgba(0,0,0,.45);
+
+      --r: 18px;
+      --r2: 26px;
+
+      --max: 1120px;
+      --ease: cubic-bezier(.2,.8,.2,1);
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color: var(--text);
+      background:
+        radial-gradient(1200px 700px at 10% -20%, rgba(37,99,235,.35), transparent 55%),
+        radial-gradient(1200px 700px at 90% 0%, rgba(56,189,248,.22), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1) 35%, #0b1020 100%);
+      min-height:100vh;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    a:hover{ text-decoration: underline; text-underline-offset: 3px; }
+
+    .container{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 18px;
+    }
+
+    /* Top nav */
+    .nav{
+      position: sticky;
+      top:0;
+      z-index: 50;
+      background: rgba(11,16,32,.72);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      height:64px;
+      gap: 14px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .logo{
+      width:42px;
+      height:42px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 10px 25px rgba(37,99,235,.25);
+      display:grid;
+      place-items:center;
+      position: relative;
+      overflow:hidden;
+    }
+    .logo svg{ width:26px; height:26px; fill:white; opacity:.95; }
+
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap: 18px;
+      list-style:none;
+      margin:0;
+      padding:0;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .nav-links a{
+      padding: 10px 10px;
+      border-radius: 10px;
+      transition: transform .18s var(--ease), background .18s var(--ease), color .18s var(--ease);
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+    }
+    .nav-links a:hover{
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+      transform: translateY(-1px);
+      text-decoration:none;
+    }
+
+    .nav-cta{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color: var(--text);
+      font-weight: 700;
+      font-size: 14px;
+      transition: transform .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
+      cursor:pointer;
+      user-select:none;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.07);
+      border-color: rgba(255,255,255,.16);
+      text-decoration:none;
+    }
+    .btn.primary{
+      background: linear-gradient(135deg, #2563eb, #38bdf8);
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 18px 40px rgba(37,99,235,.22);
+      color:#fff;
+    }
+
+    .menu-btn{ display:none; }
+
+    /* Mobile menu */
+    .mobile{
+      display:none;
+      border-top:1px solid var(--border);
+      padding: 10px 0 14px;
+    }
+    .mobile a{
+      display:flex;
+      padding: 12px 10px;
+      margin: 4px 0;
+      border-radius: 12px;
+      color: var(--muted);
+      font-weight: 700;
+      text-decoration:none;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .mobile a:hover{
+      background: rgba(255,255,255,.06);
+      color: var(--text);
+    }
+
+    /* Hero */
+    .hero{ padding: 64px 0 28px; }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 22px;
+      align-items: stretch;
+    }
+    .hero-card{
+      border:1px solid var(--border);
+      border-radius: var(--r2);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      box-shadow: var(--shadow);
+      padding: 26px;
+      position: relative;
+      overflow:hidden;
+    }
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(37,99,235,.15);
+      border: 1px solid rgba(37,99,235,.25);
+      color: #93c5fd;
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .h1{
+      margin: 14px 0 10px;
+      font-size: clamp(28px, 3.2vw, 44px);
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+    .lead{
+      margin:0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+      max-width: 62ch;
+    }
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+    .illus{
+      display:grid;
+      place-items:center;
+      min-height: 100%;
+    }
+    .illus .ring{
+      width: 100%;
+      height: 100%;
+      min-height: 220px;
+      border-radius: var(--r2);
+      border: 1px solid rgba(255,255,255,.10);
+      background:
+        radial-gradient(480px 240px at 35% 20%, rgba(56,189,248,.30), transparent 60%),
+        radial-gradient(520px 260px at 70% 80%, rgba(37,99,235,.28), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+    }
+    .illus svg{
+      width: 190px;
+      height: 190px;
+      opacity: .95;
+      filter: drop-shadow(0 18px 35px rgba(0,0,0,.35));
+    }
+
+    /* Sections */
+    section{ padding: 18px 0; }
+    .section-card{
+      border:1px solid var(--border);
+      border-radius: var(--r2);
+      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.025));
+      box-shadow: var(--shadow);
+      padding: 26px;
+    }
+    .section-head{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      padding-bottom: 14px;
+      margin-bottom: 14px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .title{
+      margin:0;
+      font-size: 20px;
+      letter-spacing:-0.02em;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.045);
+      border: 1px solid rgba(255,255,255,.08);
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .grid-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 14px; }
+    .grid-2{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 14px; }
+    .card{
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(11,18,36,.55);
+      border-radius: var(--r);
+      padding: 16px;
+      transition: transform .18s var(--ease), box-shadow .18s var(--ease), border-color .18s var(--ease);
+      box-shadow: 0 10px 25px rgba(0,0,0,.20);
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      box-shadow: var(--shadow2);
+      border-color: rgba(255,255,255,.13);
+    }
+    .kicker{
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      color: var(--text);
+      font-weight: 800;
+      letter-spacing: -.01em;
+      margin: 0 0 8px;
+    }
+    .kicker .ico{
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      background: rgba(37,99,235,.18);
+      border:1px solid rgba(37,99,235,.22);
+      flex: 0 0 auto;
+    }
+    .kicker .ico svg{ width: 18px; height:18px; fill:#dbeafe; }
+    .card p{ margin:0; color: var(--muted); line-height: 1.7; font-size: 14px; }
+    
+    .list{ margin: 12px 0 0; padding: 0; list-style:none; display:grid; gap: 10px; }
+    .li{
+      display:flex;
+      gap: 10px;
+      align-items:flex-start;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.08);
+      background: rgba(11,18,36,.45);
+    }
+    .li .dot{
+      width: 28px;
+      height: 28px;
+      border-radius: 10px;
+      display:grid;
+      place-items:center;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+    }
+    .li .dot.ok{ background: rgba(16,185,129,.14); border-color: rgba(16,185,129,.24); color: var(--ok); font-weight: bold; }
+    .li .txt{ color: var(--muted); font-size: 14px; line-height: 1.65; }
+    .li .txt b{ color: var(--text); font-weight: 800; }
+    
+    footer{ padding: 30px 0 44px; color: var(--muted); }
+    .footer-card{
+      border:1px solid var(--border);
+      border-radius: var(--r2);
+      background: rgba(255,255,255,.03);
+      padding: 18px;
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+    }
+    .small{ font-size: 12px; line-height: 1.6; color: var(--muted); }
+    code, .mono{ font-family: var(--mono); font-size: .95em; }
+
+    /* Responsive */
+    @media (max-width: 920px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .grid-3{ grid-template-columns: 1fr; }
+      .grid-2{ grid-template-columns: 1fr; }
+      .nav-links{ display:none; }
+      .menu-btn{ display:inline-flex; }
+      .mobile.show{ display:block; }
+      .hero{ padding-top: 40px; }
+    }
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+      .card, .btn, .nav-links a{ transition:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="nav" role="banner">
+    <div class="container">
+      <div class="nav-inner">
+        <a class="brand" href="#top" aria-label="На главную">
+          <div class="logo" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 2l8 4v6c0 5-3.4 9.6-8 10-4.6-.4-8-5-8-10V6l8-4zm0 6a4 4 0 100 8 4 4 0 000-8z"/>
+            </svg>
+          </div>
+          <span>РОСКОМНАДЗОР</span>
+        </a>
+
+        <ul class="nav-links" aria-label="Навигация">
+          <li><a href="#about">О службе</a></li>
+          <li><a href="#effects">Деятельность</a></li>
+          <li><a href="#documents">Документы</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+          <li><a href="#blocking">Примеры работы</a></li>
+        </ul>
+
+        <div class="nav-cta">
+          <a class="btn" href="/portal/" style="border-color: transparent; background: transparent; color: var(--muted); font-weight: 500;">
+            Служебный вход
+          </a>
+          <a class="btn primary" href="https://rkn.gov.ru" target="_blank" rel="noopener">Официальный сайт</a>
+          <button class="btn menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mobileMenu">
+            Меню
+          </button>
+        </div>
+      </div>
+
+      <nav class="mobile" id="mobileMenu" aria-label="Мобильная навигация">
+        <a href="#about">О службе</a>
+        <a href="#effects">Защита граждан</a>
+        <a href="#blocking">Примеры работы</a>
+        
+        <a href="/portal/" style="border-color: rgba(56,189,248,.3); color: var(--brand2); margin-top: 14px;">
+          <svg viewBox="0 0 24 24" style="width:16px; height:16px; fill:currentColor; margin-right:8px; display:inline-block; vertical-align:middle;">
+            <path d="M12 2C9.243 2 7 4.243 7 7v3H6c-1.103 0-2 .897-2 2v8c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-8c0-1.103-.897-2-2-2h-1V7c0-2.757-2.243-5-5-5zm6 10v8H6v-8h12zm-9-2V7c0-1.654 1.346-3 3-3s3 1.346 3 3v3H9z"/>
+          </svg>
+          Служебный вход
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top" class="container" role="main">
+    <section class="hero" aria-label="Вступление">
+      <div class="hero-grid">
+        <div class="hero-card">
+          <div class="badge">Цифровая крепость России</div>
+          <h1 class="h1">Обеспечиваем надежное будущее интернета</h1>
+          <p class="lead">
+            Мы создаем фундамент для чистого, безопасного и независимого интернета в России. 
+            Благодаря передовым технологиям контроля, каждый гражданин защищен от деструктивного контента и киберугроз.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#about">Наша миссия</a>
+            <a class="btn" href="#effects">Результаты работы</a>
+          </div>
+        </div>
+        <div class="illus">
+          <div class="ring" aria-label="Иллюстрация: цифровая инфраструктура">
+            <svg viewBox="0 0 240 240" role="img" aria-label="Схема сети и щита">
+              <defs>
+                <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#60a5fa"/>
+                  <stop offset="1" stop-color="#38bdf8"/>
+                </linearGradient>
+              </defs>
+              <circle cx="120" cy="120" r="86" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="2"/>
+              <circle cx="120" cy="120" r="64" fill="none" stroke="rgba(255,255,255,.10)" stroke-width="2"/>
+              <g fill="none" stroke="rgba(255,255,255,.18)" stroke-width="2">
+                <path d="M36 112h168"/>
+                <path d="M64 64l112 112"/>
+                <path d="M176 64L64 176"/>
+              </g>
+              <g>
+                <circle cx="36" cy="112" r="6" fill="url(#g1)"/>
+                <circle cx="204" cy="112" r="6" fill="url(#g1)"/>
+                <circle cx="64" cy="64" r="6" fill="url(#g1)"/>
+                <circle cx="176" cy="64" r="6" fill="url(#g1)"/>
+                <circle cx="64" cy="176" r="6" fill="url(#g1)"/>
+                <circle cx="176" cy="176" r="6" fill="url(#g1)"/>
+              </g>
+              <path d="M120 58l44 20v38c0 32-20 60-44 66-24-6-44-34-44-66V78l44-20z" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.16)" stroke-width="2"/>
+              <path d="M120 84l18 8v18c0 15-8 28-18 31-10-3-18-16-18-31V92l18-8z" fill="url(#g1)" opacity=".95"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" aria-label="О службе">
+      <div class="section-card">
+        <div class="section-head">
+          <h2 class="title">Фундаментальные основы нашей работы</h2>
+          <span class="pill">Защита национальных интересов</span>
+        </div>
+        <div class="grid-3">
+          <div class="card">
+            <div class="kicker"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.4 9.6-8 10-4.6-.4-8-5-8-10V6l8-4z"/></svg></span>Контроль и надзор</div>
+            <p>Бескомпромиссное обеспечение законности в медиапространстве и защита граждан от информационных угроз.</p>
+          </div>
+          <div class="card">
+            <div class="kicker"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4zM7 4h10v3H7z"/></svg></span>Персональные данные</div>
+            <p>Высочайший стандарт конфиденциальности: мы гарантируем, что данные граждан находятся под надежным государственным щитом.</p>
+          </div>
+          <div class="card">
+            <div class="kicker"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3l9 7-9 7-9-7 9-7zm0 12l7 5H5l7-5z"/></svg></span>Устойчивость сетей</div>
+            <p>Технологическое лидерство: формирование независимой сетевой инфраструктуры (ТСПУ), устойчивой к любым внешним воздействиям.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="effects" aria-label="Защита граждан">
+      <div class="section-card">
+        <div class="section-head">
+          <h2 class="title">Ключевые достижения и результаты</h2>
+          <span class="pill">Позитивный эффект</span>
+        </div>
+        <p class="lead" style="max-width:none">
+          Реализация государственной политики в области связи позволяет создавать здоровую и достоверную информационную среду для каждого пользователя.
+        </p>
+        <div class="grid-3">
+          <div class="card">
+            <div class="kicker"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></span>Безопасность детства</div>
+            <ul class="list">
+              <li class="li"><span class="dot ok">✓</span><div class="txt"><b>Результат:</b> Полная блокировка суицидального контента.</div></li>
+              <li class="li"><span class="dot ok">✓</span><div class="txt"><b>Польза:</b> Спокойствие родителей за будущее нового поколения.</div></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="kicker"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg></span>Импортозамещение</div>
+            <ul class="list">
+              <li class="li"><span class="dot ok">✓</span><div class="txt"><b>Результат:</b> Стимул для развития отечественных платформ.</div></li>
+              <li class="li"><span class="dot ok">✓</span><div class="txt"><b>Польза:</b> Рост российских IT-гигантов и технологическая независимость.</div></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="kicker"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg></span>Чистый интернет</div>
+            <ul class="list">
+              <li class="li"><span class="dot ok">✓</span><div class="txt"><b>Результат:</b> Пресечение распространения фейков.</div></li>
+              <li class="li"><span class="dot ok">✓</span><div class="txt"><b>Польза:</b> Формирование достоверной информационной среды.</div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="blocking" aria-label="Примеры работы">
+      <div class="section-card">
+        <div class="section-head">
+          <h2 class="title">Примеры правоприменительной практики</h2>
+          <span class="pill">Принуждение к соблюдению закона</span>
+        </div>
+        <p class="lead" style="max-width:none">
+          Целевые меры реагирования, направленные на защиту граждан РФ и пресечение деятельности нарушителей законодательства.
+        </p>
+        <div class="grid-3">
+          <div class="card">
+            <div class="kicker"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 6H3l9-4 9 4zm0 2v10H3V8h18zM9 11h6v2H9z"/></svg></span>YouTube</div>
+            <ul class="list">
+              <li class="li"><span class="dot ok">✓</span><div class="txt"><b>Основание:</b> Систематическое распространение фейков.</div></li>
+              <li class="li"><span class="dot ok">✓</span><div class="txt"><b>Эффект:</b> Защита общества от агрессивной пропаганды и поддержка платформы RuTube.</div></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="kicker"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 2h10l2 4v16H5V6l2-4zm2 7h6v6H9V9z"/></svg></span>Instagram (Meta)</div>
+            <ul class="list">
+              <li class="li"><span class="dot ok">✓</span><div class="txt"><b>Основание:</b> Признание компании-владельца экстремистской организацией.</div></li>
+              <li class="li"><span class="dot ok">✓</span><div class="txt"><b>Эффект:</b> Пресечение призывов к насилию в отношении граждан РФ.</div></li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="kicker"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 4H3v16h18V4zM7 8h10v2H7V8zm0 4h7v2H7v-2z"/></svg></span>Telegram-каналы</div>
+            <ul class="list">
+              <li class="li"><span class="dot ok">✓</span><div class="txt"><b>Основание:</b> Распространение наркотиков и мошенничества.</div></li>
+              <li class="li"><span class="dot ok">✓</span><div class="txt"><b>Эффект:</b> Точечная ликвидация опасных сетей с сохранением удобной площадки для общения.</div></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer role="contentinfo">
+    <section id="news" aria-label="Пресс-центр">
+      <div class="section-card">
+        <div class="section-head">
+          <h2 class="title">Пресс-центр</h2>
+          <span class="pill">Официальные сообщения</span>
+        </div>
+        <div class="grid-3">
+          <div class="card" style="display:flex; flex-direction:column; gap:10px;">
+            <div style="font-size: 12px; color: var(--brand2); font-weight: 700;">Сегодня, 10:00</div>
+            <div style="font-weight: 700; color: var(--text); line-height: 1.4;">Опубликован отчет о блокировке фишинговых ресурсов за прошедший квартал</div>
+            <p style="font-size: 13px; margin-top: auto;">Системы автоматического мониторинга выявили и нейтрализовали более 15 000 потенциально опасных узлов...</p>
+            <a href="#" style="font-size: 13px; color: var(--brand); font-weight: 600; margin-top: 10px;">Читать далее →</a>
+          </div>
+          <div class="card" style="display:flex; flex-direction:column; gap:10px;">
+            <div style="font-size: 12px; color: var(--brand2); font-weight: 700;">Вчера, 14:30</div>
+            <div style="font-weight: 700; color: var(--text); line-height: 1.4;">Модернизация оборудования ТСПУ в регионах завершена на 85%</div>
+            <p style="font-size: 13px; margin-top: auto;">Плановое обновление программно-аппаратных комплексов позволит повысить отказоустойчивость сетей связи...</p>
+            <a href="#" style="font-size: 13px; color: var(--brand); font-weight: 600; margin-top: 10px;">Читать далее →</a>
+          </div>
+          <div class="card" style="display:flex; flex-direction:column; gap:10px;">
+            <div style="font-size: 12px; color: var(--brand2); font-weight: 700;">12 марта 2026</div>
+            <div style="font-weight: 700; color: var(--text); line-height: 1.4;">Открыта регистрация на ежегодный форум «Безопасный Рунет»</div>
+            <p style="font-size: 13px; margin-top: auto;">Приглашаем представителей IT-сектора и операторов связи к обсуждению новых стандартов защиты данных...</p>
+            <a href="#" style="font-size: 13px; color: var(--brand); font-weight: 600; margin-top: 10px;">Читать далее →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="documents" aria-label="Документы">
+      <div class="section-card">
+        <div class="section-head">
+          <h2 class="title">Нормативно-правовая база</h2>
+          <span class="pill">Реестры и приказы</span>
+        </div>
+        <p class="lead" style="max-width:none">
+          Деятельность службы строго регламентирована федеральным законодательством и внутренними нормативными актами.
+        </p>
+        <div class="list" style="display:grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+          <a href="#" class="li" style="align-items: center; text-decoration: none; transition: 0.2s;">
+            <span class="ico" style="background: rgba(255,255,255,.05); padding: 8px; border-radius: 8px;">📄</span>
+            <div class="txt"><b>Федеральный закон № 149-ФЗ</b><br><span style="font-size: 12px;">«Об информации, информационных технологиях и о защите информации»</span></div>
+          </a>
+          <a href="#" class="li" style="align-items: center; text-decoration: none; transition: 0.2s;">
+            <span class="ico" style="background: rgba(255,255,255,.05); padding: 8px; border-radius: 8px;">📄</span>
+            <div class="txt"><b>Федеральный закон № 152-ФЗ</b><br><span style="font-size: 12px;">«О персональных данных»</span></div>
+          </a>
+          <a href="#" class="li" style="align-items: center; text-decoration: none; transition: 0.2s;">
+            <span class="ico" style="background: rgba(255,255,255,.05); padding: 8px; border-radius: 8px;">📋</span>
+            <div class="txt"><b>Приказ № 224</b><br><span style="font-size: 12px;">Критерии оценки материалов для ограничения доступа</span></div>
+          </a>
+          <a href="#" class="li" style="align-items: center; text-decoration: none; transition: 0.2s;">
+            <span class="ico" style="background: rgba(255,255,255,.05); padding: 8px; border-radius: 8px;">🔍</span>
+            <div class="txt"><b>Единый реестр</b><br><span style="font-size: 12px;">Форма проверки доменных имен и IP-адресов</span></div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacts" aria-label="Контакты">
+      <div class="section-card" style="background: rgba(15,23,42,0.8);">
+        <div class="grid-2">
+          <div>
+            <h2 class="title" style="margin-bottom: 20px;">Общественная приемная</h2>
+            <p style="color: var(--muted); margin-bottom: 24px;">Для направления официальных запросов, обращений граждан и юридических лиц используйте указанные каналы связи.</p>
+            <div style="display:flex; flex-direction:column; gap:16px;">
+              <div style="display:flex; gap: 12px; align-items:flex-start;">
+                <span style="color: var(--brand2);">📍</span>
+                <div>
+                  <div style="font-weight: 700;">Центральный аппарат</div>
+                  <div style="color: var(--muted); font-size: 14px;">109074, г. Москва, Китайгородский пр., д. 7, стр. 2</div>
+                </div>
+              </div>
+              <div style="display:flex; gap: 12px; align-items:flex-start;">
+                <span style="color: var(--brand2);">📞</span>
+                <div>
+                  <div style="font-weight: 700;">Справочно-информационный центр</div>
+                  <div style="color: var(--muted); font-size: 14px;">+7 (495) 983-33-93 (пн-чт 9:00–18:00, пт 9:00–16:45)</div>
+                </div>
+              </div>
+              <div style="display:flex; gap: 12px; align-items:flex-start;">
+                <span style="color: var(--brand2);">✉️</span>
+                <div>
+                  <div style="font-weight: 700;">Электронная почта</div>
+                  <div style="color: var(--muted); font-size: 14px;">rsoc_in@rkn.gov.ru</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="border: 1px solid var(--border); border-radius: var(--r); background: rgba(0,0,0,0.2); display:grid; place-items:center; min-height: 250px; position: relative; overflow: hidden;">
+            <div style="position: absolute; top:0; left:0; right:0; bottom:0; background: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\"><defs><pattern id=\"grid\" width=\"40\" height=\"40\" patternUnits=\"userSpaceOnUse\"><path d=\"M 40 0 L 0 0 0 40\" fill=\"none\" stroke=\"rgba(255,255,255,0.03)\" stroke-width=\"1\"/></pattern></defs><rect width=\"100%\" height=\"100%\" fill=\"url(%23grid)\" /></svg></div>
+            <div style="background: rgba(11,16,32,0.9); border: 1px solid var(--border); padding: 16px; border-radius: 12px; z-index: 1; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+              <div style="font-size: 24px; margin-bottom: 8px;">🏛️</div>
+              <div style="font-weight: 700; font-size: 14px;">Схема проезда</div>
+              <div style="font-size: 12px; color: var(--brand); margin-top: 4px; cursor: pointer;">Открыть на карте</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+      <div class="footer-card">
+        <div>
+          <div style="font-weight:800; letter-spacing:-.02em;">Официальный учебный макет</div>
+          <div class="small">Информационная система государственного контроля.</div>
+        </div>
+        <div class="small" style="text-align:right;">
+          <div>© 2026 Роскомнадзор</div>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const btn = document.getElementById('menuBtn');
+      const menu = document.getElementById('mobileMenu');
+      if (!btn || !menu) return;
+
+      btn.addEventListener('click', () => {
+        const open = menu.classList.toggle('show');
+        btn.setAttribute('aria-expanded', String(open));
+      });
+
+      menu.addEventListener('click', (e) => {
+        const a = e.target.closest('a');
+        if (!a) return;
+        menu.classList.remove('show');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    })();
+  </script>
+</body>
+</html>

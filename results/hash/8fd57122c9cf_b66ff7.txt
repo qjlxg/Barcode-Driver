@@ -1,0 +1,1122 @@
+
+<!DOCTYPE html>
+<html lang="en" x-data="dashboard()" :class="{ 'light': !darkMode }" x-cloak>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="color-scheme" content="dark only" />
+    <title>
+      Прогрев
+    </title>
+    <link rel="stylesheet" href="./static/tailwind.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      href="./static/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="./static/favicon.svg" />
+    <link rel="shortcut icon" href="./static/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./static/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="Xray Checker" />
+    <link rel="manifest" href="./static/site.webmanifest" />
+    <script defer src="./static/alpine.min.js"></script>
+    <script type="module">
+      import { polyfillCountryFlagEmojis } from "./static/country-flag-emoji-polyfill.js";
+      polyfillCountryFlagEmojis();
+    </script>
+    <style>
+      @font-face {
+        font-family: "Inter";
+        font-style: normal;
+        font-weight: 400 600;
+        font-display: swap;
+        src: url("./static/inter-regular.woff2") format("woff2");
+      }
+      [x-cloak] {
+        display: none !important;
+      }
+      * {
+        font-family: "Inter", "Twemoji Country Flags", system-ui, sans-serif;
+      }
+
+       
+      :root {
+        --bg-primary: #0f1114;
+        --bg-secondary: #1a1d21;
+        --bg-tertiary: #23262b;
+        --border: #2d3138;
+        --border-hover: #3e434b;
+        --text-primary: #cdcdcd;
+        --text-secondary: #9ca3af;
+        --text-muted: #5c6370;
+        --hover-bg: rgba(255, 255, 255, 0.08);
+        --segment-empty: #3e434b;
+        --accent: #294bff;
+        --color-green: #3aff82;
+        --color-red: #ff3232;
+        --color-yellow: #ffae00;
+        --filter-online-bg: rgba(58, 255, 130, 0.15);
+        --filter-offline-bg: rgba(255, 50, 50, 0.15);
+        --btn-active-bg: rgba(58, 255, 130, 0.1);
+        --btn-active-border: rgba(58, 255, 130, 0.3);
+      }
+
+       
+      .light {
+        --bg-primary: #f5f8fa;
+        --bg-secondary: #ffffff;
+        --bg-tertiary: #edf1f7;
+        --border: #d0d9e8;
+        --border-hover: #b8c4d6;
+        --text-primary: #0a0a0a;
+        --text-secondary: #4b5563;
+        --text-muted: #8c95a4;
+        --hover-bg: rgba(0, 0, 0, 0.05);
+        --segment-empty: #c4cdd9;
+        --accent: #294bff;
+        --color-green: #00a63d;
+        --color-red: #ff0000;
+        --color-yellow: #ea8900;
+        --filter-online-bg: rgba(0, 166, 61, 0.15);
+        --filter-offline-bg: rgba(255, 0, 0, 0.15);
+        --btn-active-bg: rgba(0, 166, 61, 0.1);
+        --btn-active-border: rgba(0, 166, 61, 0.3);
+      }
+
+      body {
+        background: var(--bg-primary);
+        color: var(--text-secondary);
+      }
+
+      .card {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+      }
+      .light .card {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+      .card:hover {
+        border-color: var(--border-hover);
+      }
+
+      .card-flat {
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border);
+      }
+
+      .text-primary {
+        color: var(--text-primary);
+      }
+      .text-secondary {
+        color: var(--text-secondary);
+      }
+      .text-muted {
+        color: var(--text-muted);
+      }
+      .border-default {
+        border-color: var(--border);
+      }
+      .bg-tertiary {
+        background: var(--bg-tertiary);
+      }
+
+      .btn {
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border);
+        color: var(--text-secondary);
+        transition: all 0.15s ease;
+      }
+      .btn:hover {
+        border-color: var(--border-hover);
+        color: var(--text-primary);
+      }
+
+      .btn-icon:hover {
+        background: var(--hover-bg);
+        color: var(--text-primary);
+      }
+
+      input,
+      select {
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border);
+        color: var(--text-primary);
+      }
+      input:focus,
+      select:focus {
+        outline: none;
+        border-color: var(--border-hover);
+      }
+      input::placeholder {
+        color: var(--text-muted);
+      }
+      select {
+        padding-right: 2rem;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23737373'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.5rem center;
+        background-size: 1rem;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+      }
+
+       
+      .status-online {
+        background: var(--color-green);
+      }
+      .status-offline {
+        background: var(--color-red);
+      }
+      .latency-good {
+        color: var(--color-green);
+      }
+      .latency-medium {
+        color: var(--color-yellow);
+      }
+      .latency-bad {
+        color: var(--color-red);
+      }
+      .bar-good {
+        background: var(--color-green);
+      }
+      .bar-medium {
+        background: var(--color-yellow);
+      }
+      .bar-bad {
+        background: var(--color-red);
+      }
+      .text-online {
+        color: var(--color-green);
+      }
+      .text-offline {
+        color: var(--color-red);
+      }
+      .filter-online {
+        background: var(--filter-online-bg);
+        color: var(--color-green);
+      }
+      .filter-offline {
+        background: var(--filter-offline-bg);
+        color: var(--color-red);
+      }
+      .filter-all {
+        background: var(--hover-bg);
+        color: var(--text-primary);
+      }
+      .btn-active {
+        background: var(--btn-active-bg);
+        border-color: var(--btn-active-border);
+        color: var(--color-green);
+      }
+      .link-hover:hover {
+        color: var(--color-green);
+      }
+
+       
+      .pulse::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: var(--color-green);
+        animation: pulse 2s ease-out infinite;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          opacity: 0.4;
+        }
+        100% {
+          transform: scale(3);
+          opacity: 0;
+        }
+      }
+
+       
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--border);
+        border-radius: 3px;
+      }
+
+       
+      .toast {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+      }
+
+       
+      .proxy-card.animate {
+        animation: cardAppear 0.3s ease-out both;
+      }
+      @keyframes cardAppear {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+       
+      .proxy-card.animate:nth-child(1) {
+        animation-delay: 0ms;
+      }
+      .proxy-card.animate:nth-child(2) {
+        animation-delay: 20ms;
+      }
+      .proxy-card.animate:nth-child(3) {
+        animation-delay: 40ms;
+      }
+      .proxy-card.animate:nth-child(4) {
+        animation-delay: 60ms;
+      }
+      .proxy-card.animate:nth-child(5) {
+        animation-delay: 80ms;
+      }
+      .proxy-card.animate:nth-child(6) {
+        animation-delay: 100ms;
+      }
+      .proxy-card.animate:nth-child(7) {
+        animation-delay: 120ms;
+      }
+      .proxy-card.animate:nth-child(8) {
+        animation-delay: 140ms;
+      }
+      .proxy-card.animate:nth-child(9) {
+        animation-delay: 160ms;
+      }
+      .proxy-card.animate:nth-child(n + 10) {
+        animation-delay: 180ms;
+      }
+
+       
+      .latency-segment {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--segment-empty);
+        transition: background 0.2s ease;
+      }
+      .segment-good {
+        background: var(--color-green);
+      }
+      .segment-medium {
+        background: var(--color-yellow);
+      }
+      .segment-bad {
+        background: var(--color-red);
+      }
+
+       
+      .no-bg {
+        background: transparent !important;
+      }
+
+       
+      .badge-body {
+        min-height: auto;
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .badge-container {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .badge-card {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 12px;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        font-size: 13px;
+        white-space: nowrap;
+        box-sizing: border-box;
+      }
+      .badge-status {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        position: relative;
+      }
+      .badge-name {
+        color: var(--text-primary);
+        font-weight: 500;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .badge-latency {
+        font-size: 12px;
+        font-variant-numeric: tabular-nums;
+        flex-shrink: 0;
+      }
+
+       
+      .badge-style-flat {
+        background: transparent;
+        border: none;
+        padding: 4px;
+      }
+      .badge-style-pill {
+        border-radius: 9999px;
+        padding: 4px 12px;
+      }
+
+       
+      .badge-rounded-none {
+        border-radius: 0;
+      }
+      .badge-rounded-sm {
+        border-radius: 4px;
+      }
+      .badge-rounded-md {
+        border-radius: 8px;
+      }
+      .badge-rounded-lg {
+        border-radius: 12px;
+      }
+      .badge-rounded-full {
+        border-radius: 9999px;
+      }
+
+       
+      .badge-size-sm {
+        font-size: 11px;
+        padding: 4px 8px;
+        gap: 6px;
+      }
+      .badge-size-sm .badge-status {
+        width: 6px;
+        height: 6px;
+      }
+      .badge-size-sm .badge-latency {
+        font-size: 10px;
+      }
+
+      .badge-size-lg {
+        font-size: 15px;
+        padding: 8px 16px;
+        gap: 10px;
+      }
+      .badge-size-lg .badge-status {
+        width: 10px;
+        height: 10px;
+      }
+      .badge-size-lg .badge-latency {
+        font-size: 14px;
+      }
+
+       
+      .badge-dot-only {
+        padding: 0;
+        background: transparent;
+        border: none;
+      }
+      .badge-dot-only .badge-status {
+        width: 12px;
+        height: 12px;
+      }
+
+       
+      .badge-transparent {
+        background: transparent;
+      }
+    </style>
+  </head>
+
+  <body
+    class="min-h-screen antialiased"
+    :class="[badgeMode && 'badge-body', hideBackground && 'no-bg']"
+  >
+    
+    <template x-if="badgeMode && badgeProxy">
+      <div class="badge-container" :style="badgeContainerStyle">
+        <div class="badge-card" :class="badgeClasses" :style="badgeStyle">
+          <div
+            class="badge-status"
+            :class="badgeProxy.status ? 'status-online pulse' : 'status-offline'"
+          ></div>
+          <span
+            x-show="badgeShowName"
+            class="badge-name"
+            x-text="badgeProxy.name"
+          ></span>
+          <span
+            x-show="badgeShowLatency"
+            class="badge-latency"
+            :class="badgeProxy.latencyMs === 0 ? 'text-muted' : badgeProxy.latencyMs < 500 ? 'latency-good' : badgeProxy.latencyMs < 1000 ? 'latency-medium' : 'latency-bad'"
+            x-text="badgeProxy.latency"
+          ></span>
+        </div>
+      </div>
+    </template>
+
+    
+    <div x-show="!badgeMode" class="fixed top-4 right-4 z-50">
+      <template x-for="t in toasts" :key="t.id">
+        <div
+          x-show="t.visible"
+          x-transition.opacity
+          class="toast px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 mb-2"
+        >
+          <svg
+            class="w-4 h-4 text-online"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+          <span class="text-sm text-primary" x-text="t.message"></span>
+        </div>
+      </template>
+    </div>
+
+    <div x-show="!badgeMode" class="max-w-screen-2xl mx-auto px-4 lg:px-6 py-6">
+      
+      <header
+        x-show="showHeader"
+        class="flex items-center justify-between mb-6"
+      >
+        <div class="flex items-center gap-3">
+          <div
+            class="w-9 h-9 rounded-lg card-flat flex items-center justify-center overflow-hidden"
+          >
+            <img
+              x-show="darkMode"
+              src="./static/logo-dark.svg"
+              alt="Logo"
+              class="w-7 h-7"
+            />
+            <img
+              x-show="!darkMode"
+              src="./static/logo-light.svg"
+              alt="Logo"
+              class="w-7 h-7"
+            />
+          </div>
+          <div>
+            <h1 class="text-base font-semibold text-primary">
+              Прогрев
+            </h1>
+            
+          </div>
+        </div>
+
+        <div class="flex items-center gap-2">
+          
+
+          <button
+            @click="toggleAutoRefresh()"
+            class="btn h-9 px-3 rounded-lg text-xs font-medium flex items-center gap-1.5"
+            :class="autoRefresh && 'btn-active'"
+          >
+            <svg
+              class="w-3.5 h-3.5"
+              :class="autoRefresh && 'animate-spin'"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+              />
+            </svg>
+            <span
+              class="inline-block min-w-[2.5rem] text-right tabular-nums"
+              x-text="autoRefresh ? countdown + 's' : 'Auto'"
+            ></span>
+          </button>
+
+          <button
+            @click="toggleDarkMode()"
+            class="btn h-9 w-9 rounded-lg flex items-center justify-center"
+          >
+            <svg
+              x-show="darkMode"
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
+            <svg
+              x-show="!darkMode"
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              />
+            </svg>
+          </button>
+        </div>
+      </header>
+
+      
+      <div x-show="showStats" class="grid grid-cols-4 gap-2 sm:gap-3 mb-6">
+        <div class="card rounded-lg p-2 sm:p-4 text-center">
+          <div
+            class="text-base sm:text-xl font-semibold text-primary"
+            x-text="stats.total"
+          >
+            0
+          </div>
+          <div class="text-xs text-muted mt-0.5">Total</div>
+        </div>
+        <div class="card rounded-lg p-2 sm:p-4 text-center">
+          <div
+            class="text-base sm:text-xl font-semibold text-online"
+            x-text="stats.online"
+          >
+            0
+          </div>
+          <div class="text-xs text-muted mt-0.5">Online</div>
+        </div>
+        <div class="card rounded-lg p-2 sm:p-4 text-center">
+          <div
+            class="text-base sm:text-xl font-semibold text-offline"
+            x-text="stats.offline"
+          >
+            0
+          </div>
+          <div class="text-xs text-muted mt-0.5">Offline</div>
+        </div>
+        <div class="card rounded-lg p-2 sm:p-4 text-center">
+          <div class="text-base sm:text-xl font-semibold text-primary">
+            <span x-text="stats.avgLatency">0</span
+            ><span class="text-xs sm:text-sm text-muted ml-0.5">ms</span>
+          </div>
+          <div class="text-xs text-muted mt-0.5">Avg Latency</div>
+        </div>
+      </div>
+
+      
+      <div
+        x-show="showServersHeader"
+        class="flex flex-wrap items-center justify-between gap-3 mb-4"
+      >
+        <h2 class="text-base font-semibold text-primary">Servers</h2>
+        
+      </div>
+
+      
+      
+      <div x-show="showControls" class="flex flex-col gap-2 mb-4">
+        
+        <div
+          x-show="searchOpen"
+          x-transition
+          class="sm:hidden relative"
+          @click.outside="if (!search) searchOpen = false"
+        >
+          <svg
+            class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+            />
+          </svg>
+          <input
+            type="text"
+            x-ref="searchInput"
+            x-model="search"
+            placeholder="Search..."
+            class="w-full pl-9 pr-4 py-2 rounded-lg text-sm"
+            @keydown.escape="search = ''; searchOpen = false"
+          />
+        </div>
+
+        
+        <div class="flex items-center gap-2 sm:gap-3">
+          
+          <button
+            x-show="!searchOpen"
+            @click="searchOpen = true; $nextTick(() => $refs.searchInput.focus())"
+            class="sm:hidden btn h-9 w-9 rounded-lg flex items-center justify-center flex-shrink-0"
+          >
+            <svg
+              class="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </button>
+
+          
+          <div class="hidden sm:block relative flex-1">
+            <svg
+              class="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+            <input
+              type="text"
+              x-model="search"
+              placeholder="Search..."
+              class="w-full pl-9 pr-4 py-2 rounded-lg text-sm"
+            />
+          </div>
+
+          <div class="flex gap-2 sm:gap-3 flex-1 sm:flex-none justify-end">
+            <div class="flex gap-1 p-1 rounded-lg card-flat">
+              <button
+                @click="setFilter('all')"
+                :class="filter === 'all' ? 'filter-all' : 'text-muted hover:text-secondary'"
+                class="px-3 py-1 rounded text-xs font-medium"
+              >
+                All
+              </button>
+              <button
+                @click="setFilter('online')"
+                :class="filter === 'online' ? 'filter-online' : 'text-muted hover:text-secondary'"
+                class="px-3 py-1 rounded text-xs font-medium"
+              >
+                Online
+              </button>
+              <button
+                @click="setFilter('offline')"
+                :class="filter === 'offline' ? 'filter-offline' : 'text-muted hover:text-secondary'"
+                class="px-3 py-1 rounded text-xs font-medium"
+              >
+                Offline
+              </button>
+            </div>
+
+            <select
+              x-model="sort"
+              @change="saveSort()"
+              class="pl-3 pr-8 py-2 rounded-lg text-xs cursor-pointer min-w-[110px]"
+            >
+              <option value="default">Default</option>
+              <option value="name">Name</option>
+              <option value="latency-asc">Latency ↑</option>
+              <option value="latency-desc">Latency ↓</option>
+              <option value="status">Status</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      
+      <div
+        x-show="showProxies"
+        class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 mb-4"
+      >
+        <template x-for="(proxy, idx) in filteredProxies" :key="proxy.stableId">
+          <div
+            class="proxy-card group card rounded-lg px-3 py-2.5 flex items-center gap-3 transition-all duration-150"
+            :class="initialLoad && 'animate'"
+          >
+            
+            <div class="relative flex-shrink-0">
+              <div
+                class="w-2 h-2 rounded-full"
+                :class="proxy.status ? 'status-online pulse' : 'status-offline'"
+              ></div>
+            </div>
+
+            
+            <div class="flex-1 min-w-0">
+              
+              <span
+                class="text-sm text-primary truncate block"
+                x-text="proxy.name"
+              ></span>
+               
+            </div>
+
+            
+            <div class="flex flex-col items-center gap-1 flex-shrink-0">
+              <span
+                class="text-xs tabular-nums"
+                :class="proxy.latencyMs === 0 ? 'text-muted' : proxy.latencyMs < 500 ? 'latency-good' : proxy.latencyMs < 1000 ? 'latency-medium' : 'latency-bad'"
+                x-text="proxy.latency"
+              ></span>
+              <div class="flex items-center gap-0.5">
+                <template x-for="i in 5" :key="i">
+                  <div
+                    class="latency-segment"
+                    :class="proxy.latencyMs === 0 ? '' :
+                    (proxy.latencyMs < 500 ? (i <= getSegments(proxy.latencyMs) ? 'segment-good' : '') :
+                     proxy.latencyMs < 1000 ? (i <= getSegments(proxy.latencyMs) ? 'segment-medium' : '') :
+                     (i <= getSegments(proxy.latencyMs) ? 'segment-bad' : ''))"
+                  ></div>
+                </template>
+              </div>
+            </div>
+
+            
+          </div>
+        </template>
+      </div>
+
+      <div
+        x-show="showProxies && filteredProxies.length === 0"
+        class="text-center py-12 text-muted"
+      >
+        No proxies match your criteria
+      </div>
+
+       
+
+      <footer
+        x-show="showFooter"
+        class="mt-8 pt-4 border-t border-default text-center text-xs text-muted"
+      >
+        
+        <div>
+          Powered by
+          <a
+            href="https://github.com/kutovoys/xray-checker"
+            target="_blank"
+            class="hover:text-secondary"
+            >Xray Checker</a
+          >
+        </div>
+        
+      </footer>
+    </div>
+
+    <script>
+      document.body.style.opacity = '1';
+
+      function getUrlParam(name) {
+        const params = new URLSearchParams(window.location.search);
+        return params.get(name) === 'true';
+      }
+
+      function dashboard() {
+        return {
+          darkMode: localStorage.getItem('darkMode') !== 'false',
+          autoRefresh: localStorage.getItem('autoRefresh') === 'true',
+          countdown:  300 ,
+          countdownInterval: null,
+          search: '',
+          searchOpen: false,
+          filter: localStorage.getItem('filter') || 'all',
+          sort: localStorage.getItem('sort') || 'default',
+          toasts: [],
+          initialLoad: true,
+
+          
+          showHeader: !getUrlParam('hideHeader'),
+          showStats: !getUrlParam('hideStats'),
+          showServersHeader: !getUrlParam('hideServersHeader'),
+          showControls: !getUrlParam('hideControls'),
+          showProxies: !getUrlParam('hideProxies'),
+          showStatusInfo: !getUrlParam('hideStatusInfo'),
+          showFooter: !getUrlParam('hideFooter'),
+          hideBackground: getUrlParam('hideBackground'),
+
+          
+          badgeMode: false,
+          badgeProxy: null,
+          badgeTheme: 'dark',
+          badgeStyle: '',
+          badgeContainerStyle: '',
+          badgeShowName: true,
+          badgeShowLatency: true,
+          badgeVariant: 'default',
+          badgeSize: 'md',
+          badgeRounded: 'md',
+          badgeTransparent: false,
+
+          get badgeClasses() {
+            const classes = [];
+            if (this.badgeVariant === 'flat') classes.push('badge-style-flat');
+            if (this.badgeVariant === 'pill') classes.push('badge-style-pill');
+            if (this.badgeVariant === 'dot') classes.push('badge-dot-only');
+            if (this.badgeSize === 'sm') classes.push('badge-size-sm');
+            if (this.badgeSize === 'lg') classes.push('badge-size-lg');
+            if (this.badgeVariant !== 'pill' && this.badgeVariant !== 'dot') {
+              classes.push('badge-rounded-' + this.badgeRounded);
+            }
+            if (this.badgeTransparent) classes.push('badge-transparent');
+            return classes.join(' ');
+          },
+
+          proxies: [
+            
+            { name: "🇩🇪Germany-XHTTP", stableId: "e3942bbd352c0dea", index:  0 , status:  true , latency: "180ms", latencyMs:  180  },
+            
+            { name: "🇩🇪Germany-VLESS", stableId: "fb8730a9fc5fdf96", index:  1 , status:  true , latency: "244ms", latencyMs:  244  },
+            
+            { name: "🇩🇪Germany-GRPC", stableId: "554b9f9ef50ceee4", index:  2 , status:  true , latency: "165ms", latencyMs:  165  },
+            
+            { name: "🇸🇪Sweden-XHTTP", stableId: "7785e6cccec1acad", index:  3 , status:  true , latency: "197ms", latencyMs:  197  },
+            
+            { name: "🇸🇪Sweden-VLESS", stableId: "1ec187ea8c1e5e6b", index:  4 , status:  true , latency: "335ms", latencyMs:  335  },
+            
+            { name: "🇸🇪Sweden-GRPC", stableId: "4539cb389295a575", index:  5 , status:  true , latency: "410ms", latencyMs:  410  },
+            
+            { name: "🇪🇪Estonia-VLESS", stableId: "9661795c73ed0205", index:  6 , status:  true , latency: "883ms", latencyMs:  883  },
+            
+            { name: "🇪🇪Estonia-XHTTP", stableId: "b6f276808802ba33", index:  7 , status:  true , latency: "258ms", latencyMs:  258  },
+            
+            { name: "🇪🇪Estonia-GRPC", stableId: "6a0d4899f6e4b97d", index:  8 , status:  true , latency: "246ms", latencyMs:  246  },
+            
+            { name: "🇬🇧 United Kingdom", stableId: "9e6b0831116ac3d8", index:  9 , status:  true , latency: "191ms", latencyMs:  191  },
+            
+          ],
+
+          get stats() {
+            const online = this.proxies.filter(p => p.status).length;
+            const withLatency = this.proxies.filter(p => p.status && p.latencyMs > 0);
+            return {
+              total: this.proxies.length,
+              online,
+              offline: this.proxies.length - online,
+              avgLatency: withLatency.length ? Math.round(withLatency.reduce((s, p) => s + p.latencyMs, 0) / withLatency.length) : 0
+            };
+          },
+
+          get filteredProxies() {
+            let r = this.proxies;
+            if (this.search) {
+              const q = this.search.toLowerCase();
+              r = r.filter(p => p.name.toLowerCase().includes(q) || (p.serverInfo && p.serverInfo.toLowerCase().includes(q)));
+            }
+            if (this.filter === 'online') r = r.filter(p => p.status);
+            else if (this.filter === 'offline') r = r.filter(p => !p.status);
+
+            return [...r].sort((a, b) => {
+              if (this.sort === 'latency-asc') {
+                if (a.latencyMs === 0 && b.latencyMs === 0) return 0;
+                if (a.latencyMs === 0) return 1;
+                if (b.latencyMs === 0) return -1;
+                return a.latencyMs - b.latencyMs;
+              }
+              if (this.sort === 'latency-desc') {
+                if (a.latencyMs === 0 && b.latencyMs === 0) return 0;
+                if (a.latencyMs === 0) return 1;
+                if (b.latencyMs === 0) return -1;
+                return b.latencyMs - a.latencyMs;
+              }
+              if (this.sort === 'status') return b.status - a.status;
+              if (this.sort === 'name') return this.stripLeadingEmoji(a.name).localeCompare(this.stripLeadingEmoji(b.name));
+              return a.index - b.index;
+            });
+          },
+
+          init() {
+            const params = new URLSearchParams(window.location.search);
+
+            
+            const stableId = params.get('stableId');
+            if (stableId) {
+              this.badgeProxy = this.proxies.find(p => p.stableId === stableId);
+              if (this.badgeProxy) {
+                this.badgeMode = true;
+
+                
+                const theme = params.get('theme');
+                if (theme === 'light' || theme === 'dark') {
+                  this.badgeTheme = theme;
+                  this.darkMode = theme === 'dark';
+                }
+
+                
+                const variant = params.get('variant');
+                if (['default', 'flat', 'pill', 'dot'].includes(variant)) {
+                  this.badgeVariant = variant;
+                  if (variant === 'dot') {
+                    this.badgeShowName = false;
+                    this.badgeShowLatency = false;
+                  }
+                }
+
+                
+                const size = params.get('size');
+                if (['sm', 'md', 'lg'].includes(size)) {
+                  this.badgeSize = size;
+                }
+
+                
+                const rounded = params.get('rounded');
+                if (['none', 'sm', 'md', 'lg', 'full'].includes(rounded)) {
+                  this.badgeRounded = rounded;
+                }
+
+                
+                if (params.get('showName') === 'false') {
+                  this.badgeShowName = false;
+                }
+
+                
+                if (params.get('showLatency') === 'false') {
+                  this.badgeShowLatency = false;
+                }
+
+                
+                if (params.get('transparent') === 'true') {
+                  this.badgeTransparent = true;
+                }
+
+                
+                const styles = [];
+                const width = params.get('width');
+                const height = params.get('height');
+                if (width) styles.push('width: ' + width + (isNaN(width) ? '' : 'px'));
+                if (height) styles.push('height: ' + height + (isNaN(height) ? '' : 'px'));
+                if (styles.length) this.badgeStyle = styles.join('; ');
+
+                
+                const containerStyles = [];
+                const align = params.get('align');
+                if (align === 'center') containerStyles.push('justify-content: center');
+                if (align === 'right') containerStyles.push('justify-content: flex-end');
+                if (width || height) containerStyles.push('width: 100%');
+                if (containerStyles.length) this.badgeContainerStyle = containerStyles.join('; ');
+              }
+            }
+
+            if (this.autoRefresh) this.startCountdown();
+            setTimeout(() => this.initialLoad = false, 500);
+          },
+
+          toggleDarkMode() {
+            this.darkMode = !this.darkMode;
+            localStorage.setItem('darkMode', this.darkMode);
+          },
+
+          toggleAutoRefresh() {
+            this.autoRefresh = !this.autoRefresh;
+            localStorage.setItem('autoRefresh', this.autoRefresh);
+            this.autoRefresh ? this.startCountdown() : this.stopCountdown();
+          },
+
+          setFilter(f) { this.filter = f; localStorage.setItem('filter', f); },
+          saveSort() { localStorage.setItem('sort', this.sort); },
+
+          getSegments(ms) {
+            if (ms === 0) return 0;
+            if (ms < 200) return 5;
+            if (ms < 500) return 4;
+            if (ms < 800) return 3;
+            if (ms < 1200) return 2;
+            return 1;
+          },
+
+          stripLeadingEmoji(str) {
+            return str.replace(/^[\p{Emoji}\p{Emoji_Modifier}\p{Emoji_Component}\p{Emoji_Modifier_Base}\p{Emoji_Presentation}\u200d\ufe0f\s]+/u, '').trim() || str;
+          },
+
+          startCountdown() {
+            this.countdown =  300 ;
+            this.countdownInterval = setInterval(() => {
+              if (--this.countdown <= 0) this.refreshData();
+            }, 1000);
+          },
+
+          stopCountdown() {
+            clearInterval(this.countdownInterval);
+            this.countdownInterval = null;
+            this.countdown =  300 ;
+          },
+
+          async refreshData() {
+            try {
+              const res = await fetch('./api/v1/public/proxies');
+              const json = await res.json();
+              if (json.success && json.data) {
+                json.data.forEach(updated => {
+                  const proxy = this.proxies.find(p => p.name === updated.name);
+                  if (proxy) {
+                    proxy.status = updated.online;
+                    proxy.latencyMs = updated.latencyMs;
+                    proxy.latency = updated.latencyMs > 0 ? updated.latencyMs + 'ms' : 'n/a';
+                  }
+                });
+                
+                if (this.badgeMode && this.badgeProxy) {
+                  const updated = json.data.find(p => p.stableId === this.badgeProxy.stableId);
+                  if (updated) {
+                    this.badgeProxy.status = updated.online;
+                    this.badgeProxy.latencyMs = updated.latencyMs;
+                    this.badgeProxy.latency = updated.latencyMs > 0 ? updated.latencyMs + 'ms' : 'n/a';
+                  }
+                }
+              }
+            } catch (e) {
+              console.error('Failed to refresh:', e);
+            }
+            this.countdown =  300 ;
+          },
+
+          async copyUrl(proxy) {
+            const url = new URL(proxy.url, location.href).toString();
+            try { await navigator.clipboard.writeText(url); }
+            catch { const t = Object.assign(document.createElement('textarea'), {value: url, style: 'position:fixed;opacity:0'}); document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); }
+            this.showToast('Copied!');
+          },
+
+          showToast(msg) {
+            const t = { id: Date.now(), message: msg, visible: true };
+            this.toasts.push(t);
+            setTimeout(() => { t.visible = false; setTimeout(() => this.toasts = this.toasts.filter(x => x.id !== t.id), 200); }, 2000);
+          }
+        };
+      }
+    </script>
+  </body>
+</html>

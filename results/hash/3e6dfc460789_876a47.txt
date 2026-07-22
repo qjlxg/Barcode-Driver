@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Квалификация — Сопровождение Рината Сулейманова</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0e0e;
+    --surface: #161616;
+    --surface2: #1e1e1e;
+    --border: rgba(255,255,255,0.08);
+    --border-hover: rgba(255,255,255,0.2);
+    --accent: #d4f467;
+    --accent-dim: rgba(212,244,103,0.12);
+    --text: #f0f0f0;
+    --muted: #888;
+    --muted2: #555;
+    --radius: 14px;
+    --radius-sm: 8px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Layout */
+  .shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 20px 80px;
+  }
+  .topbar {
+    width: 100%;
+    max-width: 640px;
+    padding: 32px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 48px;
+  }
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--text);
+    letter-spacing: -0.02em;
+  }
+  .step-counter {
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* Progress */
+  .progress-track {
+    width: 100%;
+    max-width: 640px;
+    height: 2px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-bottom: 52px;
+    position: relative;
+    overflow: hidden;
+  }
+  .progress-fill {
+    position: absolute;
+    left: 0; top: 0; height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* Card */
+  .card {
+    width: 100%;
+    max-width: 640px;
+    animation: fadeUp 0.35s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .step { display: none; }
+  .step.active { display: block; }
+
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border-radius: 99px;
+    padding: 4px 12px;
+    margin-bottom: 20px;
+  }
+  .step-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 34px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+  .step-sub {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 36px;
+    line-height: 1.65;
+  }
+
+  /* Options (radio-like) */
+  .opt-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 36px; }
+  .opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    user-select: none;
+  }
+  .opt:hover { border-color: var(--border-hover); background: var(--surface2); transform: translateY(-1px); }
+  .opt.selected {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+  }
+  .opt-radio {
+    width: 18px; height: 18px; min-width: 18px;
+    border-radius: 50%;
+    border: 2px solid var(--muted2);
+    margin-top: 2px;
+    transition: all 0.2s;
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .opt.selected .opt-radio {
+    border-color: var(--accent);
+    background: var(--accent);
+  }
+  .opt.selected .opt-radio::after {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #0e0e0e;
+  }
+  .opt-body { flex: 1; }
+  .opt-level {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .opt.selected .opt-level { color: var(--accent); }
+  .opt-desc { font-size: 14px; color: var(--text); line-height: 1.5; }
+
+  /* Chips */
+  .chip-group { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 36px; }
+  .chip {
+    padding: 10px 18px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+  }
+  .chip:hover { border-color: var(--border-hover); color: var(--text); }
+  .chip.selected {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0e0e0e;
+    font-weight: 500;
+  }
+
+  /* Text input */
+  .field { margin-bottom: 22px; }
+  .field label {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+  .field input, .field textarea {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+  .field input:focus, .field textarea:focus { border-color: var(--accent); }
+  .field input::placeholder, .field textarea::placeholder { color: var(--muted2); }
+
+  /* Buttons */
+  .btn-row { display: flex; align-items: center; gap: 12px; margin-top: 8px; }
+  .btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 13px 28px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    outline: none;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #0e0e0e;
+  }
+  .btn-primary:hover { background: #c8e850; transform: translateY(-1px); }
+  .btn-primary:active { transform: scale(0.98); }
+  .btn-primary:disabled { background: var(--muted2); color: var(--muted); cursor: not-allowed; transform: none; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { border-color: var(--border-hover); color: var(--text); }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 32px 0;
+  }
+
+  /* Result card */
+  .result-header {
+    background: linear-gradient(135deg, #1a1f0e 0%, #161616 100%);
+    border: 1px solid rgba(212,244,103,0.2);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin-bottom: 20px;
+  }
+  .result-track-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  .result-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .result-track-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+  .result-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+  .result-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--accent);
+    background: var(--accent-dim);
+    border-radius: 99px;
+    padding: 6px 14px;
+  }
+
+  .result-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 14px;
+  }
+  .result-block-title {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .skill-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .skill-row:last-child { border-bottom: none; }
+  .skill-name { font-size: 14px; color: var(--muted); }
+  .skill-right { display: flex; align-items: center; gap: 10px; }
+  .skill-score { font-size: 14px; font-weight: 500; color: var(--text); }
+  .dots-row { display: flex; gap: 4px; }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--muted2);
+  }
+  .dot.on { background: var(--accent); border-color: var(--accent); }
+
+  .meta-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .meta-row:last-child { border-bottom: none; }
+  .meta-label { color: var(--muted); }
+  .meta-val { color: var(--text); text-align: right; max-width: 55%; }
+
+  .action-area { margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-download {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 13px 28px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    background: var(--accent);
+    color: #0e0e0e;
+    border: none;
+    transition: all 0.2s;
+  }
+  .btn-download:hover { background: #c8e850; transform: translateY(-1px); }
+  .btn-restart {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 13px 24px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn-restart:hover { color: var(--text); border-color: var(--border-hover); }
+
+  /* Sheets notice */
+  .sheets-notice {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 14px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .sheets-notice b { color: var(--text); font-weight: 500; }
+  .sheets-notice.success { border-color: rgba(212,244,103,0.3); color: var(--accent); background: var(--accent-dim); }
+  .sheets-notice.error { border-color: rgba(255,80,80,0.3); color: #ff8080; background: rgba(255,80,80,0.08); }
+
+  /* Intro page */
+  .intro-visual {
+    margin-bottom: 40px;
+  }
+  .intro-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 40px;
+  }
+  .intro-cell {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 12px;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.4;
+  }
+  .intro-cell strong { display: block; font-size: 18px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+
+  @media (max-width: 480px) {
+    .step-title { font-size: 26px; }
+    .intro-grid { grid-template-columns: repeat(2, 1fr); }
+    .result-name { font-size: 24px; }
+  }
+
+  /* Print / PDF styles */
+  @media print {
+    body { background: white; color: #111; }
+    .shell { padding: 20px; }
+    .topbar, .progress-track, .action-area, .step:not(#s-result) { display: none !important; }
+    #s-result { display: block !important; }
+    .result-header { background: #f5f5f5; border-color: #ccc; }
+    .result-block { background: #fafafa; border-color: #ddd; }
+    .result-name, .result-track-name { color: #111; }
+    .accent { color: #4a7c00; }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <div class="topbar">
+    <div class="logo">Сопровождение Рината Сулейманова</div>
+    <div class="step-counter" id="step-counter"></div>
+  </div>
+
+  <div class="progress-track">
+    <div class="progress-fill" id="pbar"></div>
+  </div>
+
+  <div class="card" id="main-card">
+
+    <!-- Step 0: Intro -->
+    <div class="step active" id="s0">
+      <div class="tag">Добро пожаловать</div>
+      <div class="step-title">Квалификация<br><em>ученика</em></div>
+      <div class="step-sub">Ответь честно на несколько вопросов — займёт 5–7 минут. На выходе получишь свою карточку с уровнями и оптимальным треком обучения.</div>
+
+      <div class="intro-grid">
+        <div class="intro-cell"><strong>7</strong>критериев оценки</div>
+        <div class="intro-cell"><strong>6</strong>треков обучения</div>
+        <div class="intro-cell"><strong>5</strong>мин</div>
+        <div class="intro-cell"><strong>1</strong>карточка</div>
+      </div>
+
+      <div class="field">
+        <label>Твоё имя</label>
+        <input type="text" id="inp-name" placeholder="Например, Александр" />
+      </div>
+      <div class="field">
+        <label>Контакт (Telegram / email) — по желанию</label>
+        <input type="text" id="inp-contact" placeholder="@username или email" />
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="goNext()">Начать квалификацию →</button>
+      </div>
+    </div>
+
+    <!-- Step 1: AI -->
+    <div class="step" id="s1">
+      <div class="tag">Критерий 1 из 7</div>
+      <div class="step-title">AI-знания</div>
+      <div class="step-sub">Выбери описание, которое точнее всего отражает твой реальный опыт прямо сейчас.</div>
+      <div class="opt-list" id="opts-ai"></div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-ai" onclick="goNext()" disabled>Далее →</button>
+        <button class="btn btn-ghost" onclick="goPrev()">Назад</button>
+      </div>
+    </div>
+
+    <!-- Step 2: Vibe coding -->
+    <div class="step" id="s2">
+      <div class="tag">Критерий 2 из 7</div>
+      <div class="step-title">Vibe coding</div>
+      <div class="step-sub">Создание продуктов с помощью AI: Cursor, Replit, v0 и аналоги.</div>
+      <div class="opt-list" id="opts-vc"></div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-vc" onclick="goNext()" disabled>Далее →</button>
+        <button class="btn btn-ghost" onclick="goPrev()">Назад</button>
+      </div>
+    </div>
+
+    <!-- Step 3: n8n -->
+    <div class="step" id="s3">
+      <div class="tag">Критерий 3 из 7</div>
+      <div class="step-title">n8n и автоматизации</div>
+      <div class="step-sub">Умение строить автоматические воркфлоу — n8n, Make, Zapier.</div>
+      <div class="opt-list" id="opts-n8n"></div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-n8n" onclick="goNext()" disabled>Далее →</button>
+        <button class="btn btn-ghost" onclick="goPrev()">Назад</button>
+      </div>
+    </div>
+
+    <!-- Step 4: Marketing -->
+    <div class="step" id="s4">
+      <div class="tag">Критерий 4 из 7</div>
+      <div class="step-title">Маркетинг</div>
+      <div class="step-sub">Умение привлекать клиентов, работать с контентом и трафиком.</div>
+      <div class="opt-list" id="opts-mkt"></div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-mkt" onclick="goNext()" disabled>Далее →</button>
+        <button class="btn btn-ghost" onclick="goPrev()">Назад</button>
+      </div>
+    </div>
+
+    <!-- Step 5: Sales -->
+    <div class="step" id="s5">
+      <div class="tag">Критерий 5 из 7</div>
+      <div class="step-title">Продажи</div>
+      <div class="step-sub">Опыт продаж — любой, от офлайна до IT-продуктов.</div>
+      <div class="opt-list" id="opts-sales"></div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-sales" onclick="goNext()" disabled>Далее →</button>
+        <button class="btn btn-ghost" onclick="goPrev()">Назад</button>
+      </div>
+    </div>
+
+    <!-- Step 6: Mindset -->
+    <div class="step" id="s6">
+      <div class="tag">Критерий 6 из 7</div>
+      <div class="step-title">Тип мышления</div>
+      <div class="step-sub">Как ты себя ощущаешь? Это не ограничение — это точка старта.</div>
+      <div class="opt-list" id="opts-mind"></div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-mind" onclick="goNext()" disabled>Далее →</button>
+        <button class="btn btn-ghost" onclick="goPrev()">Назад</button>
+      </div>
+    </div>
+
+    <!-- Step 7: Asset -->
+    <div class="step" id="s7">
+      <div class="tag">Критерий 7 из 7</div>
+      <div class="step-title">Стартовый актив</div>
+      <div class="step-sub">Что у тебя уже есть прямо сейчас — аудитория, клиенты, связи, кейсы.</div>
+      <div class="opt-list" id="opts-asset"></div>
+      <div class="btn-row">
+        <button class="btn btn-primary" id="btn-asset" onclick="goNext()" disabled>Далее →</button>
+        <button class="btn btn-ghost" onclick="goPrev()">Назад</button>
+      </div>
+    </div>
+
+    <!-- Step 8: Goals -->
+    <div class="step" id="s8">
+      <div class="tag">Цели</div>
+      <div class="step-title">Чего хочешь достичь?</div>
+      <div class="step-sub">Чем конкретнее — тем точнее будет твой трек.</div>
+      <div class="field">
+        <label>Финансовая цель — сколько хочешь зарабатывать и когда</label>
+        <input type="text" id="inp-goal-fin" placeholder="Например: $3000 в месяц через 3 месяца" />
+      </div>
+      <div class="field">
+        <label>Продуктовая цель — что хочешь создать или продавать</label>
+        <input type="text" id="inp-goal-prod" placeholder="Например: автоматизации для малого бизнеса" />
+      </div>
+      <div class="field">
+        <label>Ролевая цель — кем хочешь стать</label>
+        <div class="chip-group" id="chips-role">
+          <div class="chip" onclick="pickChip(this,'role')">Фриланс</div>
+          <div class="chip" onclick="pickChip(this,'role')">Агентство</div>
+          <div class="chip" onclick="pickChip(this,'role')">Найм / работа</div>
+          <div class="chip" onclick="pickChip(this,'role')">Своё SaaS</div>
+          <div class="chip" onclick="pickChip(this,'role')">Пока не знаю</div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="goNext()">Далее →</button>
+        <button class="btn btn-ghost" onclick="goPrev()">Назад</button>
+      </div>
+    </div>
+
+    <!-- Step 9: Blockers -->
+    <div class="step" id="s9">
+      <div class="tag">Контекст</div>
+      <div class="step-title">Блокеры и время</div>
+      <div class="step-sub">Это поможет понять с какой точки стартуем.</div>
+
+      <div class="field">
+        <label>Главные блокеры — что мешает прямо сейчас (можно выбрать до 2)</label>
+        <div class="chip-group" id="chips-blockers">
+          <div class="chip" onclick="pickMultiChip(this,'blockers',2)">Нет времени</div>
+          <div class="chip" onclick="pickMultiChip(this,'blockers',2)">Нет аудитории</div>
+          <div class="chip" onclick="pickMultiChip(this,'blockers',2)">Нет продукта</div>
+          <div class="chip" onclick="pickMultiChip(this,'blockers',2)">Страх продаж</div>
+          <div class="chip" onclick="pickMultiChip(this,'blockers',2)">Технический барьер</div>
+          <div class="chip" onclick="pickMultiChip(this,'blockers',2)">Не знаю с чего начать</div>
+          <div class="chip" onclick="pickMultiChip(this,'blockers',2)">Нет денег на старт</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Сколько часов в неделю готов уделять обучению?</label>
+        <div class="chip-group" id="chips-time">
+          <div class="chip" onclick="pickChip(this,'time')">1–3 часа</div>
+          <div class="chip" onclick="pickChip(this,'time')">4–7 часов</div>
+          <div class="chip" onclick="pickChip(this,'time')">8–15 часов</div>
+          <div class="chip" onclick="pickChip(this,'time')">15+ часов</div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="showResult()">Получить карточку →</button>
+        <button class="btn btn-ghost" onclick="goPrev()">Назад</button>
+      </div>
+    </div>
+
+    <!-- Result -->
+    <div class="step" id="s-result">
+      <div id="result-body"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ─── CONFIG ───────────────────────────────────────────────────────────────────
+// Вставь сюда URL своего Google Apps Script Web App (инструкция внутри)
+const SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzOxZOfeQtN01X7yHKKJ5-Iu8Hj_7-qAjKD0jwkYvnmODqVlEbiFTBiudzbVSaZpb4u/exec';
+// ──────────────────────────────────────────────────────────────────────────────
+
+const DATA = {
+  ai: {
+    btn: 'btn-ai', container: 'opts-ai',
+    items: [
+      { l:'Уровень 0', d:'Никогда не пользовался. Слышал про ChatGPT, но не запускал.' },
+      { l:'Уровень 1', d:'Иногда использую ChatGPT для простых задач. Промпты не пишу осознанно. Других инструментов не знаю.' },
+      { l:'Уровень 2', d:'Регулярно использую ChatGPT, Claude, Grok или аналоги. Базовые запросы. Но без системы — интуитивно.' },
+      { l:'Уровень 3', d:'Пишу структурированные промпты. Использую AI в работе осознанно. Знаю разницу между моделями.' },
+      { l:'Уровень 4', d:'Строю AI-воркфлоу. Системные промпты, роли, контекст. Знаю 10+ инструментов по категориям.' },
+      { l:'Уровень 5', d:'Создаю AI-продукты или автоматизации для клиентов. Монетизирую знания. Есть реальные кейсы.' },
+    ]
+  },
+  vc: {
+    btn: 'btn-vc', container: 'opts-vc',
+    items: [
+      { l:'Уровень 0', d:'Никогда не пробовал AI-кодинг. Не понимаю что это.' },
+      { l:'Уровень 1', d:'Слышал про AI-кодинг инструменты. Попробовал один раз — результата не получил.' },
+      { l:'Уровень 2', d:'Сделал 1–2 простых проекта с помощью AI. Застреваю на деплое и сложных ошибках.' },
+      { l:'Уровень 3', d:'Регулярно создаю рабочие продукты. Понимаю структуру файлов, API. Умею деплоить.' },
+      { l:'Уровень 4', d:'Строю полноценные приложения: фронт + бэк + база данных. Умею отлаживать сложные ошибки.' },
+      { l:'Уровень 5', d:'Делаю продукты для клиентов на заказ. Есть портфолио реальных проектов с результатами.' },
+    ]
+  },
+  n8n: {
+    btn: 'btn-n8n', container: 'opts-n8n',
+    items: [
+      { l:'Уровень 0', d:'Не пользовался no-code инструментами автоматизации. Не понимаю что это.' },
+      { l:'Уровень 1', d:'Слышал про автоматизации, пробовал какие-то no-code инструменты на уровне шаблона. n8n не запускал.' },
+      { l:'Уровень 2', d:'Запустил n8n или аналог. Сделал 1–2 простых воркфлоу. Понимаю логику. Сложные сценарии не осиливаю.' },
+      { l:'Уровень 3', d:'Строю рабочие автоматизации с ветвлениями, API-запросами. Есть 3–5 живых воркфлоу.' },
+      { l:'Уровень 4', d:'Создаю сложные multi-step автоматизации с AI-агентами. Работаю с базами, вебхуками, кодом.' },
+      { l:'Уровень 5', d:'Продаю автоматизации клиентам. Production-ready системы. Кейсы с измеримым результатом.' },
+    ]
+  },
+  mkt: {
+    btn: 'btn-mkt', container: 'opts-mkt',
+    items: [
+      { l:'Уровень 0', d:'Нет понимания маркетинга. Никогда не привлекал клиентов. Нет аудитории.' },
+      { l:'Уровень 1', d:'Понимаю базово что такое реклама и контент. Вёл личные соцсети. Рекламу не запускал.' },
+      { l:'Уровень 2', d:'Запускал рекламу или вёл контент для бизнеса. Есть опыт — но без системы и измеримых результатов.' },
+      { l:'Уровень 3', d:'Умею выстраивать контентную стратегию. Запускал платный трафик. Понимаю CPL, ROAS, конверсии.' },
+      { l:'Уровень 4', d:'Выстраивал маркетинг системно. Несколько каналов одновременно. Понимаю позиционирование.' },
+      { l:'Уровень 5', d:'Создавал маркетинговые системы которые масштабировались. Кейсы роста. Могу выстроить с нуля.' },
+    ]
+  },
+  sales: {
+    btn: 'btn-sales', container: 'opts-sales',
+    items: [
+      { l:'Уровень 0', d:'Никогда не продавал. Нет опыта вообще. Есть страх продаж.' },
+      { l:'Уровень 1', d:'Опыт офлайн-продаж или FMCG / продукты питания / розница. Базовая коммуникация с клиентом.' },
+      { l:'Уровень 2', d:'Продавал услуги или онлайн-продукты. Фриланс, B2C. Понимаю возражения. Без CRM и системы.' },
+      { l:'Уровень 3', d:'Опыт продаж digital-продуктов. Умею вести переговоры. Закрывал сделки от $500.' },
+      { l:'Уровень 4', d:'Опыт B2B продаж. Длинные циклы сделок. Работал с ЛПР. Закрывал сделки на $2000+.' },
+      { l:'Уровень 5', d:'Опыт B2B продаж IT-продуктов или SaaS. Продавал автоматизации, AI-решения. Крупные кейсы.' },
+    ]
+  },
+  mind: {
+    btn: 'btn-mind', container: 'opts-mind',
+    items: [
+      { l:'Технарь', d:'Кайфую от настройки и логики. Продажи и контент — боль. Нужны схемы, архитектура.' },
+      { l:'Технарь-гибрид', d:'Умею и настраивать и общаться с клиентом. Редкий тип — быстро растёт.' },
+      { l:'Гибрид', d:'Понемногу всего. Ориентируюсь по ситуации. Нужна структура и чёткие приоритеты.' },
+      { l:'Маркетолог-гибрид', d:'Чувствую аудиторию, умею в контент. Технические вещи даются сложнее, но не пугают.' },
+      { l:'Продавец / Предприниматель', d:'Умею продавать и выстраивать отношения. Техническое хочу делегировать.' },
+    ]
+  },
+  asset: {
+    btn: 'btn-asset', container: 'opts-asset',
+    items: [
+      { l:'Уровень 0 — Пустой старт', d:'Нет аудитории, нет клиентов, нет кейсов, нет портфолио.' },
+      { l:'Уровень 1 — Есть связи', d:'Есть знакомые предприниматели или потенциальные клиенты из прошлого опыта.' },
+      { l:'Уровень 2 — Есть аудитория', d:'Соцсети с живой аудиторией 500+ или email-база или Telegram-канал.' },
+      { l:'Уровень 3 — Есть кейсы', d:'Уже делал проекты — есть что показать. Пусть даже за бесплатно.' },
+      { l:'Уровень 4 — Есть клиенты', d:'Уже есть платящие клиенты или бизнес которому можно допродать AI.' },
+      { l:'Уровень 5 — Есть система', d:'Работающий поток клиентов, команда или продукт который уже продаётся.' },
+    ]
+  }
+};
+
+const TRACKS = {
+  1: { name:'Старт с нуля', time:'Первая оплата — 2–3 месяца', desc:'Главная задача — снять барьер «это не для меня». Сначала трогаем все инструменты руками и получаем первый рабочий результат в каждом.' },
+  2: { name:'Технарь без продаж', time:'Первые 2–3 клиента — 2 месяца', desc:'Технические скиллы уже есть. Проблема в упаковке и продаже. Качаем продажи через практику: кейсы → холодные касания → сделки.' },
+  3: { name:'Продавец без техники', time:'Первая сделка — 3–5 недель', desc:'Продавать умеешь. Задача — дать минимальный технический словарь и выстроить модель: ты продаёшь, технарь делает.' },
+  4: { name:'Гибрид — ускорение', time:'Чёткий оффер и продажи — 6–8 недель', desc:'Всё понимаешь, но нигде не дотягиваешь до уровня который приносит деньги. Выбираем 1–2 направления и доводим до 4–5.' },
+  5: { name:'Быстрый запуск', time:'Первые деньги от AI — 3–5 недель', desc:'У тебя уже есть с кем работать. Встраиваем AI в то что уже есть — не строим с нуля. Самый быстрый трек из всех.' },
+  6: { name:'Агентство / Масштаб', time:'Агентство с командой — 3 месяца', desc:'Скиллы есть, продажи есть, актив есть. Переходим от «я делаю всё сам» к системе. Строим процессы, команду, повторяемую модель.' },
+};
+
+const STEPS = ['s0','s1','s2','s3','s4','s5','s6','s7','s8','s9','s-result'];
+const STEP_KEYS = ['','ai','vc','n8n','mkt','sales','mind','asset','','',''];
+let cur = 0;
+const scores = {};
+const chipSelections = { role:'', blockers:[], time:'' };
+
+// Build options
+Object.entries(DATA).forEach(([key, q]) => {
+  const el = document.getElementById(q.container);
+  q.items.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'opt';
+    div.innerHTML = `<div class="opt-radio"></div><div class="opt-body"><div class="opt-level">${item.l}</div><div class="opt-desc">${item.d}</div></div>`;
+    div.onclick = () => {
+      el.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+      div.classList.add('selected');
+      scores[key] = {
+       level: i,
+       text: item.d
+      };
+      document.getElementById(q.btn).disabled = false;
+    };
+    el.appendChild(div);
+  });
+});
+
+function setStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById(STEPS[n]);
+  el.classList.add('active');
+  cur = n;
+  const total = STEPS.length - 1;
+  const pct = Math.round((n / total) * 100);
+  document.getElementById('pbar').style.width = pct + '%';
+  const label = n === 0 ? '' : n === total ? 'Результат' : `Шаг ${n} из ${total - 1}`;
+  document.getElementById('step-counter').textContent = label;
+  document.getElementById('main-card').style.animation = 'none';
+  requestAnimationFrame(() => { document.getElementById('main-card').style.animation = ''; });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function goNext() { setStep(cur + 1); }
+function goPrev() { setStep(cur - 1); }
+
+function pickChip(el, group) {
+  document.querySelectorAll(`#chips-${group} .chip`).forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  chipSelections[group] = el.textContent;
+}
+
+function pickMultiChip(el, group, max) {
+  const isSelected = el.classList.contains('selected');
+  const current = document.querySelectorAll(`#chips-${group} .chip.selected`);
+  if (!isSelected && current.length >= max) return;
+  el.classList.toggle('selected');
+  chipSelections[group] = Array.from(document.querySelectorAll(`#chips-${group} .chip.selected`)).map(c => c.textContent);
+}
+
+function getTrack() {
+  const ai = scores.ai || 0, vc = scores.vc || 0, n8n = scores.n8n || 0;
+  const mkt = scores.mkt || 0, sales = scores.sales || 0, asset = scores.asset || 0;
+  const tech = (ai + vc + n8n) / 3;
+  const comm = (mkt + sales) / 2;
+  if (asset >= 3) return 5;
+  if (tech >= 4 && comm >= 3) return 6;
+  if (tech >= 3 && comm <= 2) return 2;
+  if (tech <= 2 && comm >= 3) return 3;
+  if (tech >= 2 && comm >= 2) return 4;
+  return 1;
+}
+
+function makeDots(val, max) {
+  let h = '<div class="dots-row">';
+  for (let i = 0; i < max; i++) h += `<div class="dot${i < val ? ' on' : ''}"></div>`;
+  return h + '</div>';
+}
+
+const MIND_LABELS = ['Технарь','Технарь-гибрид','Гибрид','Маркетолог-гибрид','Продавец'];
+const ASSET_LABELS = ['Пустой старт','Есть связи','Есть аудитория','Есть кейсы','Есть клиенты','Есть система'];
+
+function buildCardData() {
+  const name = document.getElementById('inp-name').value.trim() || 'Ученик';
+  const contact = document.getElementById('inp-contact').value.trim() || '—';
+  const goalFin = document.getElementById('inp-goal-fin').value.trim() || '—';
+  const goalProd = document.getElementById('inp-goal-prod').value.trim() || '—';
+
+  const role = chipSelections.role || '—';
+  const blockers = Array.isArray(chipSelections.blockers) ? chipSelections.blockers.join(', ') || '—' : chipSelections.blockers || '—';
+  const time = chipSelections.time || '—';
+  const trackN = getTrack();
+  const t = TRACKS[trackN];
+  const mind = scores.mind?.text || '';
+  const asset = scores.asset?.text || '';
+  const date = new Date().toLocaleDateString('ru-RU');
+  return { name, contact, goalFin, goalProd, role, blockers, time, trackN, t, mind, asset, date };
+}
+
+function showResult() {
+  const d = buildCardData();
+  const SKILLS = [
+    ['AI-знания', scores.ai || 0, 5],
+    ['Vibe coding', scores.vc || 0, 5],
+    ['n8n / автоматизации', scores.n8n || 0, 5],
+    ['Маркетинг', scores.mkt || 0, 5],
+    ['Продажи', scores.sales || 0, 5],
+  ];
+
+  const html = `
+    <div class="result-header">
+      <div class="result-track-label">Трек ${d.trackN} · ${d.date}</div>
+      <div class="result-name">${d.name}</div>
+      <div class="result-track-name">${d.t.name}</div>
+      <div class="result-desc">${d.t.desc}</div>
+      <div class="result-time">⏱ ${d.t.time}</div>
+    </div>
+
+    <div class="result-block">
+      <div class="result-block-title">Уровни скиллов</div>
+      ${SKILLS.map(([n,v,m]) => `
+        <div class="skill-row">
+          <span class="skill-name">${n}</span>
+          <div class="skill-right">
+            ${makeDots(v,m)}
+            <span class="skill-score">${v} / ${m}</span>
+          </div>
+        </div>
+      `).join('')}
+      <div class="skill-row">
+        <span class="skill-name">Тип мышления</span>
+        <span class="skill-score" style="font-size:14px;">${d.mind}</span>
+      </div>
+      <div class="skill-row">
+        <span class="skill-name">Стартовый актив</span>
+        <span class="skill-score" style="font-size:14px;">${d.asset}</span>
+      </div>
+    </div>
+
+    <div class="result-block">
+      <div class="result-block-title">Цели</div>
+      <div class="meta-row"><span class="meta-label">Финансовая</span><span class="meta-val">${d.goalFin}</span></div>
+      <div class="meta-row"><span class="meta-label">Продуктовая</span><span class="meta-val">${d.goalProd}</span></div>
+      <div class="meta-row"><span class="meta-label">Ролевая</span><span class="meta-val">${d.role}</span></div>
+    </div>
+
+    <div class="result-block">
+      <div class="result-block-title">Контекст</div>
+      <div class="meta-row"><span class="meta-label">Блокеры</span><span class="meta-val">${d.blockers}</span></div>
+      <div class="meta-row"><span class="meta-label">Время в неделю</span><span class="meta-val">${d.time}</span></div>
+      <div class="meta-row"><span class="meta-label">Контакт</span><span class="meta-val">${d.contact}</span></div>
+    </div>
+
+    <div id="sheets-status"></div>
+
+    <div class="action-area">
+      <button class="btn-download" onclick="downloadCard()">Скачать карточку</button>
+      <button class="btn-restart" onclick="restart()">Пройти заново</button>
+    </div>
+  `;
+
+  document.getElementById('result-body').innerHTML = html;
+  setStep(STEPS.length - 1);
+  sendToSheets(d);
+}
+
+function sendToSheets(d) {
+  if (!SHEETS_URL) return;
+  const status = document.getElementById('sheets-status');
+  const row = {
+    date: d.date,
+    name: d.name,
+    contact: d.contact,
+    track: `${d.trackN} — ${d.t.name}`,
+    ai: scores.ai?.text || '', 
+    vc: scores.vc?.text || '',
+    n8n: scores.n8n?.text || '',
+    mkt: scores.mkt?.text || '',
+    sales: scores.sales?.text || '',
+    mind: d.mind,
+    asset: d.asset,
+    goalFin: d.goalFin,
+    goalProd: d.goalProd,
+    role: d.role,
+    blockers: d.blockers,
+    time: d.time,
+  };
+  fetch(SHEETS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(row),
+  })
+  .then(() => {
+    if (status) status.innerHTML = '<div class="sheets-notice success">✓ Карточка отправлена куратору</div>';
+  })
+  .catch(() => {
+    if (status) status.innerHTML = '<div class="sheets-notice error">Не удалось отправить карточку — сохрани скриншот или скачай файл.</div>';
+  });
+}
+
+function downloadCard() {
+  const d = buildCardData();
+  const SKILLS = [
+    ['AI-знания', scores.ai?.level || 0],
+    ['Vibe coding', scores.vc?.level || 0],
+    ['n8n / автоматизации', scores.n8n?.level || 0],
+    ['Маркетинг', scores.mkt?.level || 0],
+    ['Продажи', scores.sales?.level || 0],
+  ];
+
+  const htmlContent = `<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Карточка — ${d.name}</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  body { background:#0e0e0e; color:#f0f0f0; font-family:'DM Sans',sans-serif; padding:40px; max-width:580px; margin:0 auto; }
+  h1 { font-family:'DM Serif Display',serif; font-size:28px; margin-bottom:4px; }
+  .track { font-family:'DM Serif Display',serif; font-size:20px; color:#d4f467; margin-bottom:12px; }
+  .desc { font-size:14px; color:#888; line-height:1.6; margin-bottom:16px; }
+  .badge { display:inline-block; background:rgba(212,244,103,0.12); color:#d4f467; border-radius:99px; padding:5px 14px; font-size:13px; margin-bottom:28px; }
+  .block { background:#161616; border:1px solid rgba(255,255,255,0.08); border-radius:12px; padding:20px; margin-bottom:14px; }
+  .block-title { font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:#555; margin-bottom:14px; }
+  .row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.06); font-size:14px; }
+  .row:last-child { border-bottom:none; }
+  .label { color:#888; }
+  .val { color:#f0f0f0; font-weight:500; }
+  .dots { display:flex; gap:4px; align-items:center; }
+  .dot { width:8px;height:8px;border-radius:50%;background:#222; }
+  .dot.on { background:#d4f467; }
+  .tag { font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:#d4f467; margin-bottom:10px; }
+</style>
+</head>
+<body>
+<div class="tag">Трек ${d.trackN} · ${d.date}</div>
+<h1>${d.name}</h1>
+<div class="track">${d.t.name}</div>
+<div class="desc">${d.t.desc}</div>
+<div class="badge">⏱ ${d.t.time}</div>
+
+<div class="block">
+  <div class="block-title">Уровни скиллов</div>
+  ${SKILLS.map(([n,v]) => `
+  <div class="row">
+    <span class="label">${n}</span>
+    <div style="display:flex;gap:10px;align-items:center;">
+      <div class="dots">${[0,1,2,3,4].map(i=>`<div class="dot${i<v?' on':''}"></div>`).join('')}</div>
+      <span class="val">${v}/5</span>
+    </div>
+  </div>`).join('')}
+  <div class="row"><span class="label">Тип мышления</span><span class="val">${d.mind}</span></div>
+  <div class="row"><span class="label">Стартовый актив</span><span class="val">${d.asset}</span></div>
+</div>
+
+<div class="block">
+  <div class="block-title">Цели</div>
+  <div class="row"><span class="label">Финансовая</span><span class="val" style="text-align:right;max-width:55%;font-size:13px;">${d.goalFin}</span></div>
+  <div class="row"><span class="label">Продуктовая</span><span class="val" style="text-align:right;max-width:55%;font-size:13px;">${d.goalProd}</span></div>
+  <div class="row"><span class="label">Ролевая</span><span class="val">${d.role}</span></div>
+</div>
+
+<div class="block">
+  <div class="block-title">Контекст</div>
+  <div class="row"><span class="label">Блокеры</span><span class="val" style="text-align:right;max-width:55%;font-size:13px;">${d.blockers}</span></div>
+  <div class="row"><span class="label">Время в неделю</span><span class="val">${d.time}</span></div>
+  <div class="row"><span class="label">Контакт</span><span class="val">${d.contact}</span></div>
+</div>
+</body></html>`;
+
+  const blob = new Blob([htmlContent], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `карточка_${d.name.replace(/\s+/g,'_')}.html`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function restart() {
+  Object.keys(scores).forEach(k => delete scores[k]);
+  chipSelections.role = '';
+  chipSelections.blockers = [];
+  chipSelections.time = '';
+  document.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('[id^="btn-"]').forEach(b => { if(b.disabled !== undefined) b.disabled = true; });
+  ['inp-name','inp-contact','inp-goal-fin','inp-goal-prod'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
+  setStep(0);
+}
+
+// init
+setStep(0);
+</script>
+</body>
+</html>

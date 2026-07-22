@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <title>BloxCoin — Roblox Game Items Marketplace</title>
+    <meta name="description" content="BloxCoin — marketplace for buying and selling game items from popular Roblox games. Adopt Me, Murder Mystery 2, Pet Simulator 99 and more." />
+    <meta name="keywords" content="roblox, bloxcoin, marketplace, game items, adopt me, mm2, pet simulator 99, buy roblox items" />
+    <meta name="theme-color" content="#9359fd" />
+    <meta name="author" content="BloxCoin" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://bloxcoin.gg/" />
+    <meta property="og:title" content="BloxCoin — Roblox Game Items Marketplace" />
+    <meta property="og:description" content="BloxCoin — marketplace for buying and selling game items from popular Roblox games" />
+    <meta property="og:image" content="https://bloxcoin.gg/images/main_logo.svg" />
+    <meta property="og:site_name" content="BloxCoin" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://bloxcoin.gg/" />
+    <meta name="twitter:title" content="BloxCoin — Roblox Game Items Marketplace" />
+    <meta name="twitter:description" content="BloxCoin — marketplace for buying and selling game items from popular Roblox games" />
+    <meta name="twitter:image" content="https://bloxcoin.gg/images/main_logo.svg" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://bloxcoin.gg/" />
+    
+    <link rel="icon" type="image/png" href="/images/site-icon.png" />
+    <link rel="apple-touch-icon" href="/images/site-icon.png" />
+    <link rel="preload" href="/images/main_logo.svg" as="image" />
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "BloxCoin",
+      "url": "https://bloxcoin.gg",
+      "description": "Marketplace for buying and selling game items from popular Roblox games",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://bloxcoin.gg/?search={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "BloxCoin",
+      "url": "https://bloxcoin.gg",
+      "logo": "https://bloxcoin.gg/images/main_logo.svg",
+      "description": "Marketplace for buying and selling game items from popular Roblox games",
+      "sameAs": []
+    }
+    </script>
+    
+    <link rel="stylesheet" href="css/fonts.css?v=20260312a" />
+    <script>
+      try {
+        if (sessionStorage.getItem('bloxcoin_loader_seen') === '1') {
+          document.documentElement.classList.add('loader-skip');
+        }
+      } catch (e) {}
+    </script>
+    <style>
+      html.loader-skip #loader-screen { display: none !important; }
+      html.loader-skip body.loader-visible { overflow: auto !important; }
+    </style>
+    <style>
+      /* Критический CSS: лоадер виден сразу, без ожидания внешних стилей */
+      body.loader-visible { overflow: hidden; }
+      #loader-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #151022; z-index: 99999; display: flex; align-items: center; justify-content: center; }
+      #loader-screen .loader-content { display: flex; flex-direction: column; align-items: center; }
+      #loader-screen .loader-logo { width: 300px; height: 113px; margin-bottom: 24px; }
+      #loader-screen .loader-logo img { width: 100%; height: 100%; object-fit: contain; }
+      #loader-screen .loader-progress-container { margin-top: 12px; width: 400px; max-width: 90%; }
+      #loader-screen .loader-progress-bar { width: 100%; height: 6px; background: #0F0A1A; border-radius: 3px; overflow: hidden; }
+      #loader-screen .loader-progress-fill { height: 100%; width: 0%; background: linear-gradient(to bottom, rgba(167, 89, 255, 0.9) 0%, #9359fd 100%); border-radius: 3px; transition: width 0.3s ease-out; }
+    </style>
+    <link rel="stylesheet" href="css/index.css?v=20260505c" />
+    <link rel="stylesheet" href="css/loader.css?v=20260417b" />
+  </head>
+  <body class="loader-visible">
+    <div id="loader-screen" class="loader-screen">
+      <div class="loader-content">
+        <div class="loader-logo"><img src="/images/bloxlight.gif" alt="BloxCoin" class="loader-logo-gif"></div>
+        <div class="loader-progress-container">
+          <div class="loader-progress-bar"><div class="loader-progress-fill" id="loader-progress"></div></div>
+        </div>
+        <div class="loader-phrase" id="loader-phrase"></div>
+      </div>
+    </div>
+    <script src="js/loader.js?v=20260505d"></script>
+    <script src="vendor/js/jquery-3.7.1.min.js?v=20260312a"></script>
+    <script src="vendor/js/axios.min.js?v=20260312a"></script>
+    <main>
+      <header id="header-placeholder">
+        <div class="header-skeleton" aria-hidden="true">
+          <div class="header-skeleton__logo"></div>
+          <div class="header-skeleton__right"><span></span><span></span></div>
+        </div>
+      </header>
+      <div class="main_content">
+        <aside class="market-cart-panel market-cart-panel--hidden" id="market-cart-panel" aria-label="Marketplace cart"></aside>
+        <div class="main_container">
+            <div class="container">
+        <div class="home-topline">
+          <div class="home-site-online" id="home-site-online" aria-live="polite">
+            <span class="category-card__online-dot home-site-online__dot" aria-hidden="true"></span>
+            <span class="home-site-online__label"><span class="home-site-online__value" id="home-site-online-value">0</span> Online</span>
+          </div>
+        </div>
+        <div class="news-row" id="row">
+          <div class="news-carousel-wrapper">
+            <div class="news-carousel" id="newsCarousel">
+              <div class="news-carousel-skeleton" id="newsCarouselSkeleton" aria-hidden="true">
+                <div class="news-carousel-skeleton__slide"></div>
+                <div class="news-carousel-skeleton__slide"></div>
+              </div>
+            </div>
+            <div class="news-carousel-indicators" id="newsCarouselIndicators">
+              <!-- Индикаторы будут добавлены через JavaScript -->
+            </div>
+            <button class="news-carousel-nav news-carousel-nav--prev" id="newsCarouselPrev" aria-label="Previous news">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.5 9L4.5 6L7.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button class="news-carousel-nav news-carousel-nav--next" id="newsCarouselNext" aria-label="Next news">
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.5 3L7.5 6L4.5 9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="gift">
+            <div class="gift-img"></div>
+            <div class="gift-info">
+              <h2>
+                <span class="gift-text-desktop">Daily giveaways of in-game items</span>
+                <span class="gift-text-mobile">Daily giveaways of in-game items</span>
+              </h2>
+              <a href="#" class="gift-telegram-link" id="gift-telegram-link" target="_blank" rel="noopener noreferrer">
+                <span>Subscribe</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+        </div>
+        </div>
+        <!-- <div class="line-row">
+                <div class="line"></div>
+            </div> -->
+        <div class="live-purchases" id="row">
+          <div class="live-purchases__header">
+            <div class="live-purchases__icon">
+              <img src="/images/live.svg" alt="Live Drop" />
+            </div>
+            <div class="live-purchases__title">
+              <h2>Live Drop</h2>
+            </div>
+          </div>
+          <div class="live-purchases__list">
+            <div class="live-purchases__item">
+              <div class="live-purchases__item-info">
+                <h3>Radiant Blade</h3>
+                <span>MM2</span>
+              </div>
+              <div class="live-purchases__item-icon">
+                <img src="/images/mm2logo.png" alt="Radiant Blade" loading="lazy" />
+              </div>
+            </div>
+            <div class="live-purchases__item">
+              <div class="live-purchases__item-info">
+                <h3>Mythic Egg</h3>
+                <span>Adopt Me</span>
+              </div>
+              <div class="live-purchases__item-icon">
+                <img src="/images/adoptmelogo.png" alt="Mythic Egg" loading="lazy" />
+              </div>
+            </div>
+            <div class="live-purchases__item">
+              <div class="live-purchases__item-info">
+                <h3>Neon Dragon</h3>
+                <span>Adopt Me</span>
+              </div>
+              <div class="live-purchases__item-icon">
+                <img src="/images/adoptmelogo.png" alt="Neon Dragon" loading="lazy" />
+              </div>
+            </div>
+            <div class="live-purchases__item">
+              <div class="live-purchases__item-info">
+                <h3>Exclusive Chest</h3>
+                <span>Pet Simulator 99</span>
+              </div>
+              <div class="live-purchases__item-icon">
+                <img src="/images/ps99logo.png" alt="Exclusive Chest" loading="lazy" />
+              </div>
+            </div>
+            <div class="live-purchases__item">
+              <div class="live-purchases__item-info">
+                <h3>Ice Breaker</h3>
+                <span>MM2</span>
+              </div>
+              <div class="live-purchases__item-icon">
+                <img src="/images/mm2logo.png" alt="Ice Breaker" loading="lazy" />
+              </div>
+            </div>
+            <div class="live-purchases__item">
+              <div class="live-purchases__item-info">
+                <h3>Shadow Dragon</h3>
+                <span>Adopt Me</span>
+              </div>
+              <div class="live-purchases__item-icon">
+                <img src="/images/adoptmelogo.png" alt="Shadow Dragon" loading="lazy" />
+              </div>
+            </div>
+            <div class="live-purchases__item">
+              <div class="live-purchases__item-info">
+                <h3>Golden Unicorn</h3>
+                <span>Adopt Me</span>
+              </div>
+              <div class="live-purchases__item-icon">
+                <img src="/images/adoptmelogo.png" alt="Golden Unicorn" loading="lazy" />
+              </div>
+            </div>
+            <div class="live-purchases__item">
+              <div class="live-purchases__item-info">
+                <h3>Rainbow Box</h3>
+                <span>PS99</span>
+              </div>
+              <div class="live-purchases__item-icon">
+                <img src="/images/ps99logo.png" alt="Rainbow Box" loading="lazy" />
+              </div>
+            </div>
+            <div class="live-purchases__item">
+              <div class="live-purchases__item-info">
+                <h3>Chroma Knife</h3>
+                <span>MM2</span>
+              </div>
+              <div class="live-purchases__item-icon">
+                <img src="/images/mm2logo.png" alt="Chroma Knife" loading="lazy" />
+              </div>
+            </div>
+            <div class="live-purchases__item">
+              <div class="live-purchases__item-info">
+                <h3>Legendary Pet</h3>
+                <span>Adopt Me</span>
+              </div>
+              <div class="live-purchases__item-icon">
+                <img src="/images/adoptmelogo.png" alt="Legendary Pet" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="games-section" id="row">
+          <div class="games-section-head">
+            <div class="games-section-head__main">
+              <div class="games-section-head__icon">
+                <span class="header-dropdown-icon" aria-hidden="true"></span>
+              </div>
+              <div class="games-section-head__title">
+                <h2>Games</h2>
+              </div>
+            </div>
+          </div>
+          <div class="categories-row">
+            <div class="category-card category-card--battles category-card--wide">
+            <div class="category-card__image-container">
+              <div class="category-card__back"></div>
+            </div>
+            <div class="category-card__battles-scene" aria-hidden="true">
+              <div class="category-card__battles-anchor">
+                <img src="/images/home-card-battles-red-case.png" alt="" class="category-card__battles-piece category-card__battles-piece--red" loading="lazy" />
+                <img src="/images/home-card-battles-blue-case.png" alt="" class="category-card__battles-piece category-card__battles-piece--blue" loading="lazy" />
+                <img src="/images/home-card-battles-vs.png" alt="" class="category-card__battles-piece category-card__battles-piece--vs" loading="lazy" />
+              </div>
+            </div>
+            <div class="category-card__content">
+              <div class="category-card__content-main">
+                <div class="category-card__online">
+                  <span class="category-card__online-dot" aria-hidden="true"></span>
+                  <span>0</span>
+                </div>
+                <div class="category-card__title-row">
+                  <h3>Battles</h3>
+                  <div class="category-card__cta">
+                    <img src="/images/line-rounded.svg" alt="Battles" class="category-card__cta-img" loading="lazy" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="category-card category-card--upgrader category-card--wide">
+            <div class="category-card__image-container">
+              <div class="category-card__back"></div>
+            </div>
+            <div class="category-card__upgrader-scene">
+              <div class="category-card__upgrader-anchor">
+                <img src="/images/upgrader-card-arrow.png" alt="" class="category-card__upgrader-layer category-card__upgrader-arrow" loading="lazy" />
+                <img src="/images/upgrader-card-wheel.png" alt="" class="category-card__upgrader-layer category-card__upgrader-wheel" loading="lazy" />
+                <img src="/images/upgrader-card-percent.png" alt="" class="category-card__upgrader-layer category-card__upgrader-percent" loading="lazy" />
+                <img src="/images/upgrader-card-check.png" alt="" class="category-card__upgrader-layer category-card__upgrader-check" loading="lazy" />
+                <img src="/images/upgrader-card-upgrade.png" alt="" class="category-card__upgrader-layer category-card__upgrader-upgrade" loading="lazy" />
+                <img src="/images/upgrader-card-cursor.png" alt="" class="category-card__upgrader-layer category-card__upgrader-cursor" loading="lazy" />
+              </div>
+            </div>
+            <div class="category-card__content">
+              <div class="category-card__content-main">
+                <div class="category-card__online">
+                  <span class="category-card__online-dot" aria-hidden="true"></span>
+                  <span>0</span>
+                </div>
+                <div class="category-card__title-row">
+                  <h3>Upgrader</h3>
+                  <div class="category-card__cta">
+                    <img src="/images/line-rounded.svg" alt="Upgrader" class="category-card__cta-img" loading="lazy" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="category-card category-card--coinflip">
+            <div class="category-card__image-container">
+              <div class="category-card__back"></div>
+            </div>
+            <div class="category-card__coin-wrap">
+              <img src="/images/green_coin.png" alt="Green coin" class="category-card__coin category-card__coin--green" loading="lazy" />
+            </div>
+            <div class="category-card__coin-wrap">
+              <img src="/images/purple_coin.png" alt="Purple coin" class="category-card__coin category-card__coin--purple" loading="lazy" />
+            </div>
+            <div class="category-card__content">
+              <div class="category-card__content-main">
+                <div class="category-card__online">
+                  <span class="category-card__online-dot" aria-hidden="true"></span>
+                  <span>0</span>
+                </div>
+                <div class="category-card__title-row">
+                  <h3>Coinflip</h3>
+                  <div class="category-card__cta">
+                    <img src="/images/line-rounded.svg" alt="Coinflip" class="category-card__cta-img" loading="lazy" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="category-card category-card--cases">
+            <div class="category-card__image-container">
+              <div class="category-card__back"></div>
+            </div>
+            <div class="category-card__centered-image">
+              <img src="/images/cases.png" alt="Cases" loading="lazy" class="game-art game-art--home game-art--cases" />
+            </div>
+            <div class="category-card__content">
+              <div class="category-card__content-main">
+                <div class="category-card__online">
+                  <span class="category-card__online-dot" aria-hidden="true"></span>
+                  <span>0</span>
+                </div>
+                <div class="category-card__title-row">
+                  <h3>Cases</h3>
+                  <div class="category-card__cta">
+                    <img src="/images/line-rounded.svg" alt="Cases" class="category-card__cta-img" loading="lazy" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="category-card category-card--mines">
+            <div class="category-card__image-container">
+              <div class="category-card__back"></div>
+            </div>
+            <div class="category-card__mines-scene" aria-hidden="true">
+              <div class="category-card__mines-anchor">
+                <img src="/images/home-card-mines-crystal-purple.png" alt="" class="category-card__mines-piece category-card__mines-piece--purple" loading="lazy" />
+                <img src="/images/home-card-mines-bomb.png" alt="" class="category-card__mines-piece category-card__mines-piece--bomb" loading="lazy" />
+                <img src="/images/home-card-mines-crystal-green.png" alt="" class="category-card__mines-piece category-card__mines-piece--green" loading="lazy" />
+              </div>
+            </div>
+            <div class="category-card__content">
+              <div class="category-card__content-main">
+                <div class="category-card__online">
+                  <span class="category-card__online-dot" aria-hidden="true"></span>
+                  <span>0</span>
+                </div>
+                <div class="category-card__title-row">
+                  <h3>Mines</h3>
+                  <div class="category-card__cta">
+                    <img src="/images/line-rounded.svg" alt="Mines" class="category-card__cta-img" loading="lazy" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+            <div class="category-card category-card--marketplace mobile-only">
+            <div class="category-card__image-container">
+              <div class="category-card__back"></div>
+            </div>
+            <div class="category-card__centered-image">
+              <img src="/images/shop.png" alt="Marketplace" loading="lazy" />
+            </div>
+            <div class="category-card__content">
+              <div class="category-card__content-main">
+                <div class="category-card__online">
+                  <span class="category-card__online-dot" aria-hidden="true"></span>
+                  <span>3,789</span>
+                </div>
+                <div class="category-card__title-row">
+                  <h3>Marketplace</h3>
+                  <div class="category-card__cta">
+                    <img src="/images/line-rounded.svg" alt="Marketplace" class="category-card__cta-img" loading="lazy" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+        </div>
+            </div>
+          </div>
+        </div>
+        <div id="footer-placeholder">
+          <div class="footer-skeleton" aria-hidden="true">
+            <div class="footer-skeleton__line"></div>
+            <div class="footer-skeleton__line short"></div>
+            <div class="footer-skeleton__line"></div>
+          </div>
+        </div>
+        <div class="chat_container"></div>
+      </div>
+    </main>
+    <script src="js/app-router.js?v=20260512a"></script>
+    <script src="js/tooltip.js?v=20260312a"></script>
+    <script src="js/auth-popup.js?v=20260421a"></script>
+    <script type="text/javascript" src="js/index.js?v=20260512a"></script>
+
+    <!-- Support Chat Popup -->
+    <div id="support-chat-placeholder"></div>
+  </body>
+</html>

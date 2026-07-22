@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="green">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0d0d0f">
+<title>English By Trifonov — Словарь v5</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ── Базовые переменные (дефолтные, перебиваются темами) ── */
+  :root {
+    --bg: #0d0d0f;
+    --surface: #16161a;
+    --surface2: #1e1e24;
+    --accent: #6aff8e;
+    --accent-rgb: 106, 255, 142;
+    --accent2: #3d8bff;
+    --accent3: #ff6a6a;
+    --accent4: #ffb84d;
+    --accent5: #b86aff;
+    --text: #f0f0f0;
+    --muted: #6b6b7a;
+    --border: #2a2a35;
+    --on-accent: #0d0d0f;
+    --grid-opacity: 0.3;
+    --glow-opacity: 0.06;
+
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --safe-left: env(safe-area-inset-left, 0px);
+    --safe-right: env(safe-area-inset-right, 0px);
+  }
+
+  /* ── Темы ─────────────────────────────────────────────── */
+
+  [data-theme="green"] {
+    --accent: #6aff8e;
+    --accent-rgb: 106, 255, 142;
+  }
+
+  [data-theme="neon"] {
+    --bg: #07070d;
+    --surface: #0f0f1f;
+    --surface2: #1a1a30;
+    --border: #2a2a4a;
+    --accent: #00fff0;
+    --accent-rgb: 0, 255, 240;
+    --accent5: #ff00d4;
+    --grid-opacity: 0.35;
+    --glow-opacity: 0.12;
+  }
+
+  [data-theme="blue"] {
+    --accent: #3d8bff;
+    --accent-rgb: 61, 139, 255;
+  }
+
+  [data-theme="pink"] {
+    --accent: #ff6ac1;
+    --accent-rgb: 255, 106, 193;
+  }
+
+  [data-theme="yellow"] {
+    --accent: #ffd93d;
+    --accent-rgb: 255, 217, 61;
+  }
+
+  [data-theme="red"] {
+    --accent: #ff5c5c;
+    --accent-rgb: 255, 92, 92;
+  }
+
+  [data-theme="white"] {
+    --bg: #f5f5f7;
+    --surface: #ffffff;
+    --surface2: #ebebef;
+    --accent: #1a1a1a;
+    --accent-rgb: 26, 26, 26;
+    --accent2: #2563eb;
+    --accent3: #dc2626;
+    --accent4: #d97706;
+    --accent5: #7c3aed;
+    --text: #0a0a0a;
+    --muted: #6b6b7a;
+    --border: #d4d4d8;
+    --on-accent: #ffffff;
+    --grid-opacity: 0.6;
+    --glow-opacity: 0.04;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+  }
+
+  body {
+    font-family: 'Syne', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: var(--bg);
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 40px 40px;
+    opacity: var(--grid-opacity);
+    z-index: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    margin: 0 auto;
+    padding:
+      calc(24px + var(--safe-top))
+      calc(16px + var(--safe-right))
+      calc(80px + var(--safe-bottom))
+      calc(16px + var(--safe-left));
+  }
+
+  .header {
+    position: relative;
+    text-align: center;
+    margin-bottom: 32px;
+    padding-top: 8px;
+  }
+
+  .logo {
+    font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--accent);
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.8;
+    transition: color 0.25s ease;
+  }
+
+  .title {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--text) 0%, var(--muted) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Settings icon */
+  .settings-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+  }
+
+  .settings-btn:hover { border-color: var(--accent); }
+  .settings-btn:active { transform: scale(0.92); }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: calc(40px + var(--safe-top)) 16px 16px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  [data-theme="white"] .modal-overlay {
+    background: rgba(0, 0, 0, 0.3);
+  }
+
+  .modal-overlay.visible {
+    display: flex;
+    opacity: 1;
+  }
+
+  .modal {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    width: 100%;
+    max-width: 420px;
+    padding: 20px;
+    transform: translateY(-12px);
+    transition: transform 0.25s ease;
+  }
+
+  .modal-overlay.visible .modal { transform: translateY(0); }
+
+  .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+
+  .modal-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text);
+  }
+
+  .modal-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: var(--surface2);
+    border: none;
+    color: var(--muted);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--text); }
+  .modal-close:active { transform: scale(0.92); }
+
+  .section-label {
+    font-size: 11px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+
+  .theme-card {
+    aspect-ratio: 1;
+    border-radius: 14px;
+    border: 2px solid var(--border);
+    background: var(--surface2);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    overflow: hidden;
+    transition: transform 0.15s, border-color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .theme-card:active { transform: scale(0.94); }
+  .theme-card.selected { border-color: var(--accent); }
+
+  .theme-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 8px 8px;
+    pointer-events: none;
+  }
+
+  .theme-swatch {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    box-shadow: 0 0 14px var(--swatch-glow, transparent);
+    position: relative;
+    z-index: 1;
+  }
+
+  .theme-name {
+    font-size: 10px;
+    font-family: 'JetBrains Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--muted);
+    position: relative;
+    z-index: 1;
+  }
+
+  .theme-card.selected .theme-name { color: var(--text); }
+
+  .theme-card .check {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--on-accent);
+    font-size: 11px;
+    font-weight: 800;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .theme-card.selected .check { display: flex; }
+
+  /* Neon preview swatch */
+  .theme-card[data-theme-id="neon"] .theme-swatch {
+    background: linear-gradient(135deg, #00fff0 0%, #ff00d4 100%);
+    box-shadow: 0 0 18px rgba(0, 255, 240, 0.5), 0 0 18px rgba(255, 0, 212, 0.4);
+  }
+
+  /* Stats row */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px 12px;
+    text-align: center;
+    transition: border-color 0.2s, transform 0.1s;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .stat-card:active { transform: scale(0.97); }
+  .stat-card:hover  { border-color: var(--accent); }
+  .stat-card.active { border-color: var(--accent); background: var(--surface2); }
+
+  .stat-value {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    display: block;
+  }
+
+  .stat-value.mastered { color: var(--accent5); }
+  .stat-value.topics   { color: var(--accent2); }
+
+  .stat-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  .due-banner {
+    display: none;
+    background: linear-gradient(135deg, rgba(255, 184, 77, 0.15), rgba(255, 184, 77, 0.05));
+    border: 1px solid rgba(255, 184, 77, 0.35);
+    border-radius: 16px;
+    padding: 14px 18px;
+    margin-bottom: 20px;
+    font-size: 13px;
+    color: var(--accent4);
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.1s;
+  }
+
+  .due-banner.visible { display: block; }
+  .due-banner:active { transform: scale(0.98); }
+  .due-banner strong { color: var(--accent4); font-weight: 700; }
+
+  .search-wrap { position: relative; margin-bottom: 20px; }
+
+  .search-input {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 18px 14px 46px;
+    color: var(--text);
+    font-family: 'Syne', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .search-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.15);
+  }
+
+  .search-input::placeholder { color: var(--muted); }
+
+  .search-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    font-size: 18px;
+  }
+
+  .filter-tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    margin-bottom: 20px;
+    scrollbar-width: none;
+    mask-image: linear-gradient(to right, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, black 92%, transparent);
+  }
+
+  .filter-tabs::-webkit-scrollbar { display: none; }
+
+  .tab {
+    flex-shrink: 0;
+    padding: 8px 16px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .tab.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--on-accent);
+    font-weight: 700;
+  }
+
+  .words-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .word-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    animation: fadeUp 0.3s ease both;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .word-card:hover {
+    border-color: var(--accent2);
+    background: var(--surface2);
+    transform: translateX(4px);
+  }
+
+  .word-card.is-due { border-color: rgba(255, 184, 77, 0.5); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .word-main { flex: 1; min-width: 0; }
+
+  .word-en {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 3px;
+    word-break: break-word;
+  }
+
+  .word-ru {
+    font-size: 13px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+    word-break: break-word;
+  }
+
+  .word-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    white-space: nowrap;
+  }
+
+  .acc-high { background: rgba(106, 255, 142, 0.15); color: #4ec97a; }
+  .acc-mid  { background: rgba(61, 139, 255, 0.15);  color: var(--accent2); }
+  .acc-low  { background: rgba(255, 106, 106, 0.15); color: var(--accent3); }
+
+  [data-theme="white"] .acc-high { background: rgba(22, 163, 74, 0.15);  color: #16a34a; }
+  [data-theme="white"] .acc-mid  { background: rgba(37, 99, 235, 0.15);  color: var(--accent2); }
+  [data-theme="white"] .acc-low  { background: rgba(220, 38, 38, 0.15);  color: var(--accent3); }
+
+  .box-1 { background: rgba(255, 106, 106, 0.15); color: var(--accent3); }
+  .box-2 { background: rgba(255, 184, 77, 0.15);  color: var(--accent4); }
+  .box-3 { background: rgba(61, 139, 255, 0.15);  color: var(--accent2); }
+  .box-4 { background: rgba(106, 255, 142, 0.15); color: #4ec97a; }
+  .box-5 { background: rgba(184, 106, 255, 0.15); color: var(--accent5); }
+  .box-none { background: rgba(107, 107, 122, 0.12); color: var(--muted); }
+
+  [data-theme="white"] .box-1 { background: rgba(220, 38, 38, 0.12);  color: var(--accent3); }
+  [data-theme="white"] .box-2 { background: rgba(217, 119, 6, 0.15);  color: var(--accent4); }
+  [data-theme="white"] .box-3 { background: rgba(37, 99, 235, 0.12);  color: var(--accent2); }
+  [data-theme="white"] .box-4 { background: rgba(22, 163, 74, 0.15);  color: #16a34a; }
+  [data-theme="white"] .box-5 { background: rgba(124, 58, 237, 0.15); color: var(--accent5); }
+
+  [data-theme="neon"] .box-5 { background: rgba(255, 0, 212, 0.18); color: var(--accent5); }
+
+  .box-badge.is-due { box-shadow: 0 0 0 2px rgba(255, 184, 77, 0.4); }
+
+  .topic-tag {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+    display: block;
+  }
+
+  .empty-state { text-align: center; padding: 60px 20px; }
+  .empty-emoji { font-size: 48px; margin-bottom: 16px; }
+  .empty-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+  .empty-text  { color: var(--muted); font-size: 14px; line-height: 1.6; }
+
+  .loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px 20px;
+    gap: 16px;
+  }
+
+  .spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(var(--accent-rgb), var(--glow-opacity)) 0%,
+      transparent 70%
+    );
+    top: -100px;
+    right: -100px;
+    pointer-events: none;
+    z-index: 0;
+    transition: background 0.25s ease;
+  }
+
+  [data-theme="neon"] .glow.glow-2 {
+    background: radial-gradient(circle, rgba(255, 0, 212, 0.1) 0%, transparent 70%);
+    top: auto;
+    right: auto;
+    bottom: -100px;
+    left: -100px;
+    display: block;
+  }
+  .glow.glow-2 { display: none; }
+
+  /* ── Topics modal ─────────────────────────────────────── */
+  .topics-modal {
+    max-height: calc(100vh - 80px - var(--safe-top) - var(--safe-bottom));
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 8px;
+  }
+
+  .topics-list {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 4px -4px 0;
+    padding: 4px 4px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+
+  .topics-list::-webkit-scrollbar { width: 6px; }
+  .topics-list::-webkit-scrollbar-track { background: transparent; }
+  .topics-list::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+  }
+
+  .topic-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.1s, background 0.2s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .topic-row:hover { border-color: var(--accent); }
+  .topic-row:active { transform: scale(0.98); }
+
+  .topic-row.selected {
+    border-color: var(--accent);
+    background: var(--surface);
+  }
+
+  .topic-row-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .topic-row-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    word-break: break-word;
+  }
+
+  .topic-row-meta {
+    font-size: 11px;
+    color: var(--muted);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .topic-row-count {
+    flex-shrink: 0;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    background: rgba(var(--accent-rgb), 0.15);
+    color: var(--accent);
+  }
+
+  .topic-row.selected .topic-row-count {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .topics-empty {
+    padding: 32px 16px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="glow glow-2"></div>
+
+<div class="container">
+
+  <header class="header">
+    <button class="settings-btn" id="settings-btn" aria-label="Настройки" title="Настройки">⚙️</button>
+    <div class="logo">English By Trifonov</div>
+    <h1 class="title">Мой Словарь</h1>
+  </header>
+
+  <div class="stats" id="stats">
+    <div class="stat-card active" data-filter="all" role="button" tabindex="0">
+      <span class="stat-value" id="total-words">0</span>
+      <span class="stat-label">Всего слов</span>
+    </div>
+    <div class="stat-card" data-filter="mastered" role="button" tabindex="0">
+      <span class="stat-value mastered" id="mastered-words">0</span>
+      <span class="stat-label">Закреплено</span>
+    </div>
+    <div class="stat-card" data-filter="topics-count-stub" role="button" tabindex="0">
+      <span class="stat-value topics" id="topics-count">0</span>
+      <span class="stat-label">Топиков</span>
+    </div>
+  </div>
+
+  <div class="due-banner" id="due-banner" role="button" tabindex="0">
+    🔁 <strong><span id="due-count">0</span></strong> <span id="due-word">слов</span> готовы к повторению — открой бота
+  </div>
+
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input
+      class="search-input"
+      type="text"
+      id="search"
+      placeholder="Поиск слов..."
+      autocomplete="off"
+      autocapitalize="none"
+      autocorrect="off"
+    >
+  </div>
+
+  <div class="filter-tabs" id="tabs">
+    <button class="tab active" data-filter="all">Все</button>
+  </div>
+
+  <div class="words-grid" id="words-container">
+    <div class="loading">
+      <div class="spinner"></div>
+      <span style="color: var(--muted); font-size: 14px;">Загрузка словаря...</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Settings Modal -->
+<div class="modal-overlay" id="settings-modal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">⚙️ Настройки</div>
+      <button class="modal-close" id="modal-close" aria-label="Закрыть">✕</button>
+    </div>
+
+    <div class="section-label">Тема оформления</div>
+    <div class="theme-grid" id="theme-grid"></div>
+  </div>
+</div>
+
+<!-- Topics Modal -->
+<div class="modal-overlay" id="topics-modal" role="dialog" aria-modal="true">
+  <div class="modal topics-modal">
+    <div class="modal-header">
+      <div class="modal-title">📚 Топики</div>
+      <button class="modal-close" id="topics-modal-close" aria-label="Закрыть">✕</button>
+    </div>
+
+    <div class="section-label">Выбери топик, чтобы отфильтровать слова</div>
+    <div class="topics-list" id="topics-list"></div>
+  </div>
+</div>
+
+<script>
+  console.log('[Dictionary] v5 loaded');
+  const tg = window.Telegram?.WebApp;
+
+  // ── Themes ─────────────────────────────────────────────────
+  const THEMES = [
+    { id: 'green',  name: 'Green',  swatch: '#6aff8e', headerBg: '#0d0d0f' },
+    { id: 'neon',   name: 'Neon',   swatch: 'gradient', headerBg: '#07070d' },
+    { id: 'blue',   name: 'Blue',   swatch: '#3d8bff', headerBg: '#0d0d0f' },
+    { id: 'pink',   name: 'Pink',   swatch: '#ff6ac1', headerBg: '#0d0d0f' },
+    { id: 'yellow', name: 'Yellow', swatch: '#ffd93d', headerBg: '#0d0d0f' },
+    { id: 'red',    name: 'Red',    swatch: '#ff5c5c', headerBg: '#0d0d0f' },
+    { id: 'white',  name: 'Light',  swatch: '#1a1a1a', headerBg: '#f5f5f7' },
+  ];
+  const DEFAULT_THEME = 'green';
+  const THEME_STORAGE_KEY = 'dict_theme_v1';
+
+  function getStoredTheme() {
+    try {
+      const v = localStorage.getItem(THEME_STORAGE_KEY);
+      if (v && THEMES.some(t => t.id === v)) return v;
+    } catch (e) {}
+    return DEFAULT_THEME;
+  }
+
+  function applyTheme(themeId) {
+    const theme = THEMES.find(t => t.id === themeId) || THEMES[0];
+    document.documentElement.setAttribute('data-theme', theme.id);
+
+    if (tg) {
+      try {
+        tg.setHeaderColor(theme.headerBg);
+        tg.setBackgroundColor(theme.headerBg);
+      } catch (e) {}
+    }
+
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', theme.headerBg);
+
+    try { localStorage.setItem(THEME_STORAGE_KEY, theme.id); } catch (e) {}
+
+    document.querySelectorAll('.theme-card').forEach(c => {
+      c.classList.toggle('selected', c.dataset.themeId === theme.id);
+    });
+
+    try { tg?.HapticFeedback?.selectionChanged(); } catch (e) {}
+  }
+
+  function hexToGlow(hex) {
+    const m = hex.match(/^#([0-9a-f]{6})$/i);
+    if (!m) return 'transparent';
+    const n = parseInt(m[1], 16);
+    const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+    return `rgba(${r}, ${g}, ${b}, 0.5)`;
+  }
+
+  function buildThemeGrid() {
+    const grid = document.getElementById('theme-grid');
+    const current = document.documentElement.getAttribute('data-theme');
+    grid.innerHTML = THEMES.map(t => {
+      const isGradient = t.swatch === 'gradient';
+      const swatchStyle = isGradient
+        ? ''
+        : `style="background:${t.swatch}; --swatch-glow: ${hexToGlow(t.swatch)}"`;
+      const selected = t.id === current ? ' selected' : '';
+      return `
+        <div class="theme-card${selected}" data-theme-id="${t.id}" role="button" tabindex="0">
+          <div class="check">✓</div>
+          <div class="theme-swatch" ${swatchStyle}></div>
+          <div class="theme-name">${t.name}</div>
+        </div>
+      `;
+    }).join('');
+
+    grid.addEventListener('click', (e) => {
+      const card = e.target.closest('.theme-card');
+      if (!card) return;
+      applyTheme(card.dataset.themeId);
+    });
+  }
+
+  // ── Settings modal ─────────────────────────────────────────
+  function openSettings() {
+    document.getElementById('settings-modal').classList.add('visible');
+    try { tg?.HapticFeedback?.impactOccurred('light'); } catch (e) {}
+  }
+  function closeSettings() {
+    document.getElementById('settings-modal').classList.remove('visible');
+  }
+
+  document.getElementById('settings-btn').addEventListener('click', openSettings);
+  document.getElementById('modal-close').addEventListener('click', closeSettings);
+  document.getElementById('settings-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'settings-modal') closeSettings();
+  });
+
+  // ── Topics modal ───────────────────────────────────────────
+  function openTopics() {
+    buildTopicsList();
+    document.getElementById('topics-modal').classList.add('visible');
+    try { tg?.HapticFeedback?.impactOccurred('light'); } catch (e) {}
+  }
+  function closeTopics() {
+    document.getElementById('topics-modal').classList.remove('visible');
+  }
+
+  document.getElementById('topics-modal-close').addEventListener('click', closeTopics);
+  document.getElementById('topics-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'topics-modal') closeTopics();
+  });
+
+  document.getElementById('topics-list').addEventListener('click', (e) => {
+    const row = e.target.closest('.topic-row');
+    if (!row) return;
+    const filter = row.dataset.filter;
+    selectTopicFilter(filter);
+    try { tg?.HapticFeedback?.selectionChanged(); } catch (e) {}
+    closeTopics();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeSettings();
+      closeTopics();
+    }
+  });
+
+  // ── Telegram init ──────────────────────────────────────────
+  if (tg) {
+    tg.ready();
+    tg.expand();
+
+    try {
+      tg.BackButton.show();
+      tg.BackButton.onClick(() => {
+        const settingsModal = document.getElementById('settings-modal');
+        const topicsModal = document.getElementById('topics-modal');
+        if (topicsModal.classList.contains('visible')) {
+          closeTopics();
+        } else if (settingsModal.classList.contains('visible')) {
+          closeSettings();
+        } else {
+          tg.close();
+        }
+      });
+    } catch (e) {}
+
+    try { tg.enableClosingConfirmation(); } catch (e) {}
+  }
+
+  // Применяем сохранённую тему ДО построения UI
+  applyTheme(getStoredTheme());
+  buildThemeGrid();
+
+  // ── State / data ───────────────────────────────────────────
+  const topicNames = {};
+  let allWords = [];
+  let currentTopicFilter = 'all';
+  let currentStateFilter = 'all';
+  let maxBox = 5;
+
+  function pluralRu(n, forms) {
+    const a = Math.abs(n) % 100;
+    const b = a % 10;
+    if (a > 10 && a < 20) return forms[2];
+    if (b > 1 && b < 5) return forms[1];
+    if (b === 1) return forms[0];
+    return forms[2];
+  }
+
+  async function loadWords() {
+    try {
+      const url = '/api/words';
+      const initData = tg?.initData || '';
+      const devUserId = new URLSearchParams(location.search).get('user_id');
+      const fetchUrl = initData
+        ? url
+        : (devUserId ? `${url}?user_id=${devUserId}` : url);
+
+      const resp = await fetch(fetchUrl, {
+        headers: initData ? { 'X-Telegram-Init-Data': initData } : {},
+      });
+
+      if (!resp.ok) {
+        if (resp.status === 401) {
+          showEmpty('Сессия истекла. Закрой мини-приложение и открой заново через бота.');
+        } else {
+          showEmpty(`Ошибка загрузки (HTTP ${resp.status}).`);
+        }
+        return;
+      }
+      const data = await resp.json();
+      renderWords(data.words || [], data.srs || null);
+    } catch (err) {
+      console.error(err);
+      showEmpty('Не удалось загрузить словарь. Проверь, что бот запущен.');
+    }
+  }
+
+  function renderWords(words, srs) {
+    allWords = words;
+    if (srs && srs.max_box) maxBox = srs.max_box;
+
+    words.forEach(w => {
+      if (w.topic_name && !topicNames[w.topic_id]) {
+        topicNames[w.topic_id] = w.topic_name;
+      }
+    });
+
+    const masteredCount = words.filter(w => w.is_mastered).length;
+    const topics = new Set(words.map(w => w.topic_id));
+
+    document.getElementById('total-words').textContent = words.length;
+    document.getElementById('mastered-words').textContent = masteredCount;
+    document.getElementById('topics-count').textContent = topics.size;
+
+    const dueCount = srs?.due ?? words.filter(w => w.is_due).length;
+    const banner = document.getElementById('due-banner');
+    if (dueCount > 0) {
+      document.getElementById('due-count').textContent = dueCount;
+      document.getElementById('due-word').textContent =
+        pluralRu(dueCount, ['слово', 'слова', 'слов']);
+      banner.classList.add('visible');
+    } else {
+      banner.classList.remove('visible');
+    }
+
+    const orderedTopicIds = [];
+    const seen = new Set();
+    words.forEach(w => {
+      if (!seen.has(w.topic_id)) {
+        seen.add(w.topic_id);
+        orderedTopicIds.push(w.topic_id);
+      }
+    });
+    buildTabs(orderedTopicIds);
+
+    applyFilters();
+  }
+
+  function buildTabs(topicIds) {
+    const container = document.getElementById('tabs');
+    container.innerHTML = '';
+
+    const allBtn = document.createElement('button');
+    allBtn.className = 'tab active';
+    allBtn.textContent = 'Все';
+    allBtn.dataset.filter = 'all';
+    container.appendChild(allBtn);
+
+    topicIds.forEach(tid => {
+      const name = topicNames[tid] || `Топик ${tid}`;
+      const btn = document.createElement('button');
+      btn.className = 'tab';
+      btn.textContent = name;
+      btn.dataset.filter = String(tid);
+      container.appendChild(btn);
+    });
+  }
+
+  document.getElementById('tabs').addEventListener('click', (e) => {
+    const btn = e.target.closest('.tab');
+    if (!btn) return;
+    selectTopicFilter(btn.dataset.filter);
+  });
+
+  // Общая функция выбора топика — используется и табами, и модалкой
+  function selectTopicFilter(filter) {
+    currentTopicFilter = filter;
+
+    // Синхронизируем активный таб (если такого таба нет — оставляем "Все" неактивной,
+    // но сам фильтр всё равно применится)
+    document.querySelectorAll('#tabs .tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.filter === filter);
+    });
+
+    applyFilters();
+  }
+
+  // Строим список топиков в модалке на основе уже загруженных слов.
+  // Семантически верно: в словаре показываем только те топики, в которых
+  // у пользователя реально есть выученные слова.
+  function buildTopicsList() {
+    const list = document.getElementById('topics-list');
+    list.innerHTML = '';
+
+    // Группируем по topic_id с сохранением порядка из allWords
+    // (API уже отдаёт слова в порядке сложности топиков)
+    const grouped = new Map(); // topic_id -> { name, total, mastered, due }
+    allWords.forEach(w => {
+      if (!grouped.has(w.topic_id)) {
+        grouped.set(w.topic_id, {
+          topic_id: w.topic_id,
+          name: w.topic_name || topicNames[w.topic_id] || `Топик ${w.topic_id}`,
+          total: 0,
+          mastered: 0,
+          due: 0,
+        });
+      }
+      const g = grouped.get(w.topic_id);
+      g.total += 1;
+      if (w.is_mastered) g.mastered += 1;
+      if (w.is_due) g.due += 1;
+    });
+
+    if (grouped.size === 0) {
+      list.innerHTML = `
+        <div class="topics-empty">
+          Топиков пока нет — начни учить слова в боте,
+          и они появятся здесь.
+        </div>
+      `;
+      return;
+    }
+
+    // Кнопка "Все топики" в самом верху
+    const allRow = document.createElement('div');
+    allRow.className = 'topic-row' + (currentTopicFilter === 'all' ? ' selected' : '');
+    allRow.dataset.filter = 'all';
+    allRow.innerHTML = `
+      <div class="topic-row-main">
+        <div class="topic-row-name">Все топики</div>
+        <div class="topic-row-meta">показать все слова</div>
+      </div>
+      <span class="topic-row-count">${allWords.length}</span>
+    `;
+    list.appendChild(allRow);
+
+    grouped.forEach(g => {
+      const row = document.createElement('div');
+      const isSelected = currentTopicFilter === String(g.topic_id);
+      row.className = 'topic-row' + (isSelected ? ' selected' : '');
+      row.dataset.filter = String(g.topic_id);
+
+      const metaParts = [];
+      if (g.mastered > 0) metaParts.push(`🏆 ${g.mastered} закреплено`);
+      if (g.due > 0) metaParts.push(`🔁 ${g.due} к повторению`);
+      const meta = metaParts.length
+        ? metaParts.join(' · ')
+        : `${g.total} ${pluralRu(g.total, ['слово', 'слова', 'слов'])}`;
+
+      row.innerHTML = `
+        <div class="topic-row-main">
+          <div class="topic-row-name">${escapeHtml(g.name)}</div>
+          <div class="topic-row-meta">${escapeHtml(meta)}</div>
+        </div>
+        <span class="topic-row-count">${g.total}</span>
+      `;
+      list.appendChild(row);
+    });
+  }
+
+  document.getElementById('stats').addEventListener('click', (e) => {
+    const card = e.target.closest('.stat-card');
+    if (!card) return;
+    const filter = card.dataset.filter;
+
+    // Клик по карточке "Топиков" → открыть модалку со списком всех топиков
+    if (filter === 'topics-count-stub') {
+      openTopics();
+      return;
+    }
+
+    if (currentStateFilter === filter) {
+      currentStateFilter = 'all';
+    } else {
+      currentStateFilter = filter;
+    }
+
+    document.querySelectorAll('.stat-card').forEach(c => c.classList.remove('active'));
+    if (currentStateFilter === 'all') {
+      document.querySelector('.stat-card[data-filter="all"]').classList.add('active');
+    } else {
+      card.classList.add('active');
+    }
+    applyFilters();
+  });
+
+  document.getElementById('due-banner').addEventListener('click', () => {
+    if (!tg) return;
+    try {
+      tg.showPopup({
+        title: 'Готовы к повторению',
+        message: 'Закрой это окно и в боте открой «📚 Слова» — сверху появится кнопка повторения.',
+        buttons: [
+          { id: 'close', type: 'default', text: 'Закрыть и перейти' },
+          { id: 'cancel', type: 'cancel' },
+        ],
+      }, (btnId) => {
+        if (btnId === 'close') tg.close();
+      });
+    } catch (e) {
+      tg.close();
+    }
+  });
+
+  let searchTimer;
+  document.getElementById('search').addEventListener('input', () => {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(applyFilters, 150);
+  });
+
+  function applyFilters() {
+    const query = document.getElementById('search').value.trim().toLowerCase();
+    let filtered = allWords;
+
+    if (currentTopicFilter !== 'all') {
+      filtered = filtered.filter(w => String(w.topic_id) === currentTopicFilter);
+    }
+
+    if (currentStateFilter === 'mastered') {
+      filtered = filtered.filter(w => w.is_mastered);
+    } else if (currentStateFilter === 'due') {
+      filtered = filtered.filter(w => w.is_due);
+    }
+
+    if (query) {
+      filtered = filtered.filter(w =>
+        w.word_en.toLowerCase().includes(query) ||
+        w.word_ru.toLowerCase().includes(query)
+      );
+    }
+    displayWords(filtered);
+  }
+
+  function displayWords(words) {
+    const container = document.getElementById('words-container');
+
+    if (words.length === 0) {
+      const isSearching = document.getElementById('search').value.trim().length > 0;
+      const isFiltered = currentTopicFilter !== 'all' || currentStateFilter !== 'all';
+
+      if (allWords.length === 0) {
+        showEmpty('Начни изучать слова в боте — они появятся здесь.');
+      } else if (isSearching) {
+        showEmpty('По этому запросу ничего не найдено.');
+      } else if (isFiltered) {
+        showEmpty('Нет слов под этот фильтр. Попробуй другой.');
+      } else {
+        showEmpty('Тут пока пусто.');
+      }
+      return;
+    }
+
+    container.innerHTML = words.map((w, i) => {
+      const acc = Math.round(w.correct / Math.max(w.attempts, 1) * 100);
+      const accClass = acc >= 80 ? 'acc-high' : acc >= 50 ? 'acc-mid' : 'acc-low';
+      const topicName = w.topic_name || topicNames[w.topic_id] || '';
+      const boxBadge = renderBoxBadge(w);
+      const cardClass = w.is_due ? 'word-card is-due' : 'word-card';
+
+      return `
+        <div class="${cardClass}" style="animation-delay: ${Math.min(i * 0.03, 0.6)}s">
+          <div class="word-main">
+            <div class="word-en">${escapeHtml(w.word_en)}</div>
+            <div class="word-ru">${escapeHtml(w.word_ru)}</div>
+            <span class="topic-tag">${escapeHtml(topicName)}</span>
+          </div>
+          <div class="word-meta">
+            ${boxBadge}
+            <span class="badge ${accClass}">${acc}%</span>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  function renderBoxBadge(w) {
+    if (w.box == null) {
+      return `<span class="badge box-badge box-none" title="Не в SRS">📦 —</span>`;
+    }
+    const cls = `box-${w.box}`;
+    const dueCls = w.is_due ? ' is-due' : '';
+    const icon = w.is_mastered ? '🏆' : '📦';
+    const title = w.is_due
+      ? 'Готово к повторению'
+      : (w.next_review_at ? `Следующее повторение: ${formatDate(w.next_review_at)}` : '');
+    return `<span class="badge box-badge ${cls}${dueCls}" title="${escapeHtml(title)}">${icon} ${w.box}/${maxBox}</span>`;
+  }
+
+  function formatDate(iso) {
+    try {
+      const d = new Date(iso + (iso.endsWith('Z') ? '' : 'Z'));
+      const now = new Date();
+      const diffDays = Math.round((d - now) / (1000 * 60 * 60 * 24));
+      if (diffDays <= 0) return 'сегодня';
+      if (diffDays === 1) return 'завтра';
+      if (diffDays < 30)  return `через ${diffDays} ${pluralRu(diffDays, ['день', 'дня', 'дней'])}`;
+      return d.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
+    } catch (e) {
+      return iso;
+    }
+  }
+
+  function showEmpty(msg) {
+    document.getElementById('words-container').innerHTML = `
+      <div class="empty-state">
+        <div class="empty-emoji">📖</div>
+        <div class="empty-title">Ничего нет</div>
+        <div class="empty-text">${escapeHtml(msg)}</div>
+      </div>
+    `;
+  }
+
+  function escapeHtml(str) {
+    if (str == null) return '';
+    return String(str)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#39;');
+  }
+
+  loadWords();
+</script>
+</body>
+</html>

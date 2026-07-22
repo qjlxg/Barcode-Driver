@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Remnawave — Node Monitor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-deep: #0a0e14;
+      --bg-panel: #0d1117;
+      --bg-card: #111820;
+      --border: #1e2836;
+      --border-glow: #00f0ff;
+      --text: #c5d0de;
+      --text-dim: #6b7a8c;
+      --accent-cyan: #00f0ff;
+      --accent-green: #00ff88;
+      --accent-orange: #ffaa00;
+      --accent-red: #ff4466;
+      --accent-violet: #aa66ff;
+      --glow-cyan: rgba(0, 240, 255, 0.25);
+      --glow-green: rgba(0, 255, 136, 0.2);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg-deep);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Grid background */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: 
+        linear-gradient(90deg, rgba(0,240,255,0.03) 1px, transparent 1px),
+        linear-gradient(rgba(0,240,255,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Scanline overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 4px
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .app {
+      position: relative;
+      z-index: 2;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem 1.25rem;
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 0 30px rgba(0,240,255,0.06);
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: 1.5rem;
+      letter-spacing: 0.15em;
+      color: var(--accent-cyan);
+      text-shadow: 0 0 20px var(--glow-cyan);
+    }
+
+    .logo span {
+      color: var(--accent-green);
+    }
+
+    .config {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.75rem;
+      margin-left: auto;
+    }
+
+    .config input {
+      font-family: inherit;
+      font-size: 0.8rem;
+      padding: 0.5rem 0.75rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      width: 220px;
+    }
+
+    .config input::placeholder {
+      color: var(--text-dim);
+    }
+
+    .config input:focus {
+      outline: none;
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 12px var(--glow-cyan);
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      background: transparent;
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn:hover {
+      background: var(--accent-cyan);
+      color: var(--bg-deep);
+      box-shadow: 0 0 20px var(--glow-cyan);
+    }
+
+    .btn.primary {
+      background: var(--accent-cyan);
+      color: var(--bg-deep);
+    }
+
+    .btn.primary:hover {
+      box-shadow: 0 0 24px var(--glow-cyan);
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .summary-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem;
+      text-align: center;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .summary-card:hover {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 20px var(--glow-cyan);
+    }
+
+    .summary-card .value {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--accent-cyan);
+      text-shadow: 0 0 12px var(--glow-cyan);
+    }
+
+    .summary-card .value.green { color: var(--accent-green); text-shadow: 0 0 12px var(--glow-green); }
+    .summary-card .value.orange { color: var(--accent-orange); }
+    .summary-card .value.red { color: var(--accent-red); }
+
+    .summary-card .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      margin-top: 0.25rem;
+    }
+
+    .nodes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1rem;
+    }
+
+    .node-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      transition: all 0.2s;
+    }
+
+    .node-card:hover {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 24px rgba(0,240,255,0.08);
+    }
+
+    .node-card.offline {
+      opacity: 0.75;
+      border-color: var(--border);
+    }
+
+    .node-card.connecting {
+      border-color: var(--accent-orange);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255,170,0,0.2); }
+      50% { box-shadow: 0 0 20px 4px rgba(255,170,0,0.15); }
+    }
+
+    .node-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .node-name {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      letter-spacing: 0.05em;
+    }
+
+    .node-status {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    .node-status.online {
+      background: rgba(0,255,136,0.15);
+      color: var(--accent-green);
+      border: 1px solid var(--accent-green);
+    }
+
+    .node-status.offline {
+      background: rgba(255,68,102,0.15);
+      color: var(--accent-red);
+      border: 1px solid var(--accent-red);
+    }
+
+    .node-status.connecting {
+      background: rgba(255,170,0,0.15);
+      color: var(--accent-orange);
+      border: 1px solid var(--accent-orange);
+    }
+
+    .node-status.disabled {
+      background: rgba(107,122,140,0.2);
+      color: var(--text-dim);
+      border: 1px solid var(--text-dim);
+    }
+
+    .node-metrics {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .metric {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+    }
+
+    .metric .key {
+      color: var(--text-dim);
+    }
+
+    .metric .val {
+      font-weight: 600;
+      color: var(--accent-cyan);
+    }
+
+    .metric .val.highlight {
+      color: var(--accent-green);
+    }
+
+    .traffic-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+      margin-top: 0.25rem;
+    }
+
+    .traffic-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-green), var(--accent-cyan));
+      border-radius: 3px;
+      transition: width 0.3s;
+    }
+
+    .traffic-bar-fill.warn {
+      background: var(--accent-orange);
+    }
+
+    .traffic-bar-fill.danger {
+      background: var(--accent-red);
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.75rem;
+    }
+
+    .tag {
+      font-size: 0.65rem;
+      padding: 0.2rem 0.4rem;
+      background: rgba(170,102,255,0.15);
+      color: var(--accent-violet);
+      border-radius: 3px;
+      border: 1px solid rgba(170,102,255,0.3);
+    }
+
+    .error-banner {
+      background: rgba(255,68,102,0.15);
+      border: 1px solid var(--accent-red);
+      color: var(--accent-red);
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+
+    .loading {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-dim);
+    }
+
+    .loading::after {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      margin-left: 0.5rem;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent-cyan);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .auto-refresh {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    .auto-refresh input {
+      width: 4rem;
+      font-family: inherit;
+      padding: 0.25rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 0.8rem;
+    }
+
+    .proxy-badge {
+      font-size: 0.75rem;
+      color: var(--accent-green);
+      padding: 0.35rem 0.6rem;
+      background: rgba(0,255,136,0.1);
+      border: 1px solid rgba(0,255,136,0.3);
+      border-radius: 4px;
+    }
+
+    .last-update {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="logo">3 APES<span>VPN</span> MONITOR</div>
+      <div class="config" id="configArea">
+        <div id="proxyBadge" class="proxy-badge" style="display: none;">Через прокси</div>
+        <div id="manualConfig" style="display: none;">
+          <input type="url" id="apiUrl" placeholder="API Base URL" />
+          <input type="password" id="apiToken" placeholder="Bearer token" />
+        </div>
+        <label class="auto-refresh">
+          <input type="checkbox" id="autoRefresh" checked />
+          Auto
+        </label>
+        <input type="number" id="refreshSec" value="30" min="10" max="300" class="auto-refresh" title="Интервал (сек)" />
+        <button type="button" class="btn primary" id="btnLoad">Загрузить</button>
+      </div>
+    </header>
+
+    <div id="errorBanner" class="error-banner" style="display: none;"></div>
+    <div id="loading" class="loading" style="display: none;">Загрузка нод</div>
+
+    <div id="summary" class="summary" style="display: none;"></div>
+    <div id="nodesGrid" class="nodes-grid"></div>
+
+    <div id="lastUpdate" class="last-update"></div>
+  </div>
+
+  <script>
+    const STORAGE_API_URL = 'remn_monitor_api_url';
+    const STORAGE_TOKEN = 'remn_monitor_token';
+
+    const apiUrlEl = document.getElementById('apiUrl');
+    const apiTokenEl = document.getElementById('apiToken');
+    const configArea = document.getElementById('configArea');
+    const proxyBadge = document.getElementById('proxyBadge');
+    const manualConfig = document.getElementById('manualConfig');
+    const autoRefreshEl = document.getElementById('autoRefresh');
+    const refreshSecEl = document.getElementById('refreshSec');
+    const btnLoad = document.getElementById('btnLoad');
+    const errorBanner = document.getElementById('errorBanner');
+    const loadingEl = document.getElementById('loading');
+    const summaryEl = document.getElementById('summary');
+    const nodesGrid = document.getElementById('nodesGrid');
+    const lastUpdateEl = document.getElementById('lastUpdate');
+
+    let refreshTimer = null;
+    let useProxyMode = false;
+
+    async function detectProxy() {
+      try {
+        const res = await fetch('/api/proxy/config');
+        const data = await res.json().catch(() => ({}));
+        if (data.useProxy) {
+          useProxyMode = true;
+          proxyBadge.style.display = 'block';
+          manualConfig.style.display = 'none';
+          return true;
+        }
+      } catch (_) {}
+      useProxyMode = false;
+      proxyBadge.style.display = 'none';
+      manualConfig.style.display = 'flex';
+      return false;
+    }
+
+    function loadStored() {
+      try {
+        const url = localStorage.getItem(STORAGE_API_URL);
+        const token = localStorage.getItem(STORAGE_TOKEN);
+        if (url) apiUrlEl.value = url;
+        if (token) apiTokenEl.value = token;
+      } catch (_) {}
+    }
+
+    function saveStored() {
+      try {
+        localStorage.setItem(STORAGE_API_URL, apiUrlEl.value.trim());
+        localStorage.setItem(STORAGE_TOKEN, apiTokenEl.value);
+      } catch (_) {}
+    }
+
+    function showError(msg) {
+      errorBanner.textContent = msg;
+      errorBanner.style.display = 'block';
+    }
+
+    function hideError() {
+      errorBanner.style.display = 'none';
+    }
+
+    function formatBytes(n) {
+      if (n == null || n === 0) return '—';
+      const units = ['B', 'KB', 'MB', 'GB', 'TB'];
+      let i = 0;
+      while (n >= 1024 && i < units.length - 1) { n /= 1024; i++; }
+      return n.toFixed(2) + ' ' + units[i];
+    }
+
+    function formatBytesLifetime(raw) {
+      if (raw == null || raw === '') return '—';
+      const bytes = typeof raw === 'number' ? raw : Number(raw);
+      if (isNaN(bytes) || bytes < 0) return String(raw);
+      return formatBytes(bytes);
+    }
+
+    function formatDate(s) {
+      if (!s) return '—';
+      try {
+        const d = new Date(s);
+        return d.toLocaleString('ru-RU', { dateStyle: 'short', timeStyle: 'short' });
+      } catch (_) { return s; }
+    }
+
+    async function fetchStats() {
+      if (useProxyMode) {
+        try {
+          const res = await fetch('/api/proxy/stats');
+          const data = await res.json().catch(() => ({}));
+          if (res.ok && data && data.response) return data.response;
+        } catch (_) {}
+        return null;
+      }
+      const base = (apiUrlEl.value || '').trim().replace(/\/$/, '');
+      const token = (apiTokenEl.value || '').trim();
+      if (!base) return null;
+      try {
+        const res = await fetch(`${base}/api/system/stats`, {
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data && data.response) return data.response;
+      } catch (_) {}
+      return null;
+    }
+
+    async function fetchNodes() {
+      if (useProxyMode) {
+        hideError();
+        loadingEl.style.display = 'block';
+        summaryEl.style.display = 'none';
+        nodesGrid.innerHTML = '';
+        try {
+          const res = await fetch('/api/proxy/nodes');
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) {
+            throw new Error(data.message || `HTTP ${res.status}`);
+          }
+          if (!data || !Array.isArray(data.response)) {
+            throw new Error('Неверный формат ответа');
+          }
+          loadingEl.style.display = 'none';
+          return data.response;
+        } catch (e) {
+          loadingEl.style.display = 'none';
+          showError(e.message || 'Ошибка загрузки');
+          return null;
+        }
+      }
+      const base = (apiUrlEl.value || '').trim().replace(/\/$/, '');
+      const token = (apiTokenEl.value || '').trim();
+      if (!base) {
+        showError('Укажите API Base URL');
+        return null;
+      }
+      saveStored();
+      hideError();
+      loadingEl.style.display = 'block';
+      summaryEl.style.display = 'none';
+      nodesGrid.innerHTML = '';
+
+      try {
+        const res = await fetch(`${base}/api/nodes`, {
+          headers: token ? { 'Authorization': `Bearer ${token}` } : {},
+        });
+        if (!res.ok) {
+          const text = await res.text();
+          throw new Error(`HTTP ${res.status}: ${text.slice(0, 200)}`);
+        }
+        const data = await res.json();
+        if (!data || !Array.isArray(data.response)) {
+          throw new Error('Неверный формат ответа: ожидается { response: [...] }');
+        }
+        loadingEl.style.display = 'none';
+        return data.response;
+      } catch (e) {
+        loadingEl.style.display = 'none';
+        showError(e.message || 'Ошибка загрузки');
+        return null;
+      }
+    }
+
+    function renderSummary(nodes, stats) {
+      const online = nodes.filter(n => n.isConnected && !n.isDisabled).length;
+      const offline = nodes.filter(n => !n.isConnected && !n.isDisabled).length;
+      const disabled = nodes.filter(n => n.isDisabled).length;
+      const usersOnlineSum = nodes.reduce((s, n) => s + (n.usersOnline ?? 0), 0);
+      const totalTrafficUsed = nodes.reduce((s, n) => s + (n.trafficUsedBytes ?? 0), 0);
+      const totalTrafficLimit = nodes.reduce((s, n) => s + (n.trafficLimitBytes ?? 0), 0);
+
+      const totalUsers = stats && stats.users && typeof stats.users.totalUsers === 'number' ? stats.users.totalUsers : null;
+      const os = stats && stats.onlineStats ? stats.onlineStats : null;
+      const nodesStats = stats && stats.nodes ? stats.nodes : null;
+
+      summaryEl.innerHTML = `
+        <div class="summary-card">
+          <div class="value">${nodes.length}</div>
+          <div class="label">Всего нод</div>
+        </div>
+        <div class="summary-card">
+          <div class="value green">${online}</div>
+          <div class="label">Нод онлайн</div>
+        </div>
+        <div class="summary-card">
+          <div class="value red">${offline}</div>
+          <div class="label">Нод офлайн</div>
+        </div>
+        <div class="summary-card">
+          <div class="value orange">${disabled}</div>
+          <div class="label">Нод отключено</div>
+        </div>
+        <div class="summary-card">
+          <div class="value">${totalUsers != null ? totalUsers : '—'}</div>
+          <div class="label">Всего пользователей</div>
+        </div>
+        <div class="summary-card">
+          <div class="value green">${usersOnlineSum}</div>
+          <div class="label">Пользователей онлайн</div>
+        </div>
+        ${os ? `
+        <div class="summary-card">
+          <div class="value green">${os.onlineNow ?? '—'}</div>
+          <div class="label">Онлайн (система)</div>
+        </div>
+        <div class="summary-card">
+          <div class="value">${os.lastDay != null ? os.lastDay : '—'}</div>
+          <div class="label">Заходили за 24 ч</div>
+        </div>
+        <div class="summary-card">
+          <div class="value">${os.lastWeek != null ? os.lastWeek : '—'}</div>
+          <div class="label">Заходили за 7 дней</div>
+        </div>
+        <div class="summary-card">
+          <div class="value orange">${os.neverOnline != null ? os.neverOnline : '—'}</div>
+          <div class="label">Никогда не заходили</div>
+        </div>
+        ` : ''}
+        <div class="summary-card">
+          <div class="value">${formatBytes(totalTrafficUsed)}</div>
+          <div class="label">Трафик использовано</div>
+        </div>
+        <div class="summary-card">
+          <div class="value">${totalTrafficLimit ? formatBytes(totalTrafficLimit) : '—'}</div>
+          <div class="label">Лимит трафика</div>
+        </div>
+        ${nodesStats && (nodesStats.totalBytesLifetime != null && nodesStats.totalBytesLifetime !== '') ? `
+        <div class="summary-card">
+          <div class="value">${formatBytesLifetime(nodesStats.totalBytesLifetime)}</div>
+          <div class="label">Трафик нод (всего)</div>
+        </div>
+        ` : ''}
+      `;
+      summaryEl.style.display = 'grid';
+    }
+
+    function renderNodes(nodes) {
+      nodesGrid.innerHTML = nodes.map(node => {
+        const status = node.isDisabled ? 'disabled' : node.isConnecting ? 'connecting' : node.isConnected ? 'online' : 'offline';
+        const trafficLimit = node.trafficLimitBytes ?? 0;
+        const trafficUsed = node.trafficUsedBytes ?? 0;
+        const trafficPct = trafficLimit > 0 ? Math.min(100, (trafficUsed / trafficLimit) * 100) : 0;
+        const trafficClass = trafficPct >= 90 ? 'danger' : trafficPct >= 70 ? 'warn' : '';
+
+        return `
+          <article class="node-card ${status}" data-uuid="${node.uuid}">
+            <div class="node-header">
+              <span class="node-name">${escapeHtml(node.name || '—')}</span>
+              <span class="node-status ${status}">${status === 'online' ? 'Online' : status === 'offline' ? 'Offline' : status === 'connecting' ? 'Connecting' : 'Disabled'}</span>
+            </div>
+            <div class="node-metrics">
+              <div class="metric">
+                <span class="key">Адрес</span>
+                <span class="val">${escapeHtml(node.address || '—')}${node.port ? ':' + node.port : ''}</span>
+              </div>
+              <div class="metric">
+                <span class="key">Пользователей онлайн</span>
+                <span class="val highlight">${node.usersOnline ?? '—'}</span>
+              </div>
+              <div class="metric">
+                <span class="key">Uptime (xray)</span>
+                <span class="val">${escapeHtml(node.xrayUptime || '—')}</span>
+              </div>
+              <div class="metric">
+                <span class="key">Версия</span>
+                <span class="val">${escapeHtml(node.xrayVersion || node.nodeVersion || '—')}</span>
+              </div>
+              ${node.cpuCount != null || node.cpuModel ? `
+              <div class="metric">
+                <span class="key">CPU</span>
+                <span class="val">${node.cpuCount != null ? node.cpuCount + ' × ' : ''}${escapeHtml(node.cpuModel || '—')}</span>
+              </div>
+              ` : ''}
+              ${node.totalRam ? `
+              <div class="metric">
+                <span class="key">RAM</span>
+                <span class="val">${escapeHtml(node.totalRam)}</span>
+              </div>
+              ` : ''}
+              ${node.isTrafficTrackingActive ? `
+              <div class="metric">
+                <span class="key">Трафик</span>
+                <span class="val">${formatBytes(trafficUsed)} / ${formatBytes(trafficLimit) || '∞'}</span>
+              </div>
+              <div class="traffic-bar"><div class="traffic-bar-fill ${trafficClass}" style="width:${trafficPct}%"></div></div>
+              ` : ''}
+              <div class="metric">
+                <span class="key">Последнее изменение</span>
+                <span class="val">${formatDate(node.lastStatusChange)}</span>
+              </div>
+              ${(node.lastStatusMessage || '').trim() ? `
+              <div class="metric">
+                <span class="key">Сообщение</span>
+                <span class="val">${escapeHtml(node.lastStatusMessage)}</span>
+              </div>
+              ` : ''}
+            </div>
+            ${(node.tags || []).length ? `<div class="tags">${(node.tags || []).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}</div>` : ''}
+          </article>
+        `;
+      }).join('');
+    }
+
+    function escapeHtml(s) {
+      if (s == null) return '';
+      const div = document.createElement('div');
+      div.textContent = s;
+      return div.innerHTML;
+    }
+
+    async function loadAndRender() {
+      const [nodes, stats] = await Promise.all([fetchNodes(), fetchStats()]);
+      if (!nodes) return;
+      renderSummary(nodes, stats);
+      renderNodes(nodes);
+      lastUpdateEl.textContent = 'Обновлено: ' + new Date().toLocaleString('ru-RU');
+      scheduleRefresh();
+    }
+
+    function scheduleRefresh() {
+      if (refreshTimer) clearTimeout(refreshTimer);
+      if (!autoRefreshEl.checked) return;
+      const sec = Math.max(10, parseInt(refreshSecEl.value, 10) || 30);
+      refreshTimer = setTimeout(loadAndRender, sec * 1000);
+    }
+
+    btnLoad.addEventListener('click', loadAndRender);
+    autoRefreshEl.addEventListener('change', () => { if (autoRefreshEl.checked) scheduleRefresh(); else if (refreshTimer) clearTimeout(refreshTimer); });
+    refreshSecEl.addEventListener('change', scheduleRefresh);
+
+    (async function init() {
+      loadStored();
+      await detectProxy();
+      loadAndRender();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,1 @@
+{"status": "ok", "service": "ipset-api", "ipset_name": "geo-whitelist"}

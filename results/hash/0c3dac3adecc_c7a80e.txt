@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Log in - Private Seafile</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family: Arial, Helvetica, sans-serif;height:100vh;overflow:hidden;position:relative;}
+.background{position:fixed;inset:0;background:linear-gradient(rgba(255,255,255,0.82), rgba(255,255,255,0.82)), url('https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=2070&auto=format&fit=crop') center center/cover no-repeat;}
+.wrapper{position:relative;z-index:2;width:100%;height:100vh;display:flex;justify-content:center;align-items:center;}
+.login-box{width:390px;background:#fff;border-radius:4px;padding:36px 30px 28px;box-shadow:0 2px 5px rgba(0,0,0,0.12),0 8px 20px rgba(0,0,0,0.08);}
+.logo{display:flex;justify-content:center;align-items:center;gap:12px;margin-bottom:28px;}
+.logo img{width:44px;height:44px;object-fit:contain;}
+.logo h1{font-size:24px;font-weight:400;color:#444;}
+.title{text-align:center;color:#333;font-size:18px;margin-bottom:22px;}
+.input-group .input-field{margin-bottom:15px;}
+.input-group .input-field:last-child{margin-bottom:0;}
+.input-group input{width:100%;height:42px;border:1px solid #d4d4d4;padding:0 12px;font-size:14px;outline:none;color:#444;transition:0.2s;}
+.input-group input:focus{border-color:#f0a100;}
+.password-wrapper{position:relative;}
+.password-wrapper input{width:100%;height:42px;border:1px solid #d4d4d4;padding:0 45px 0 12px;font-size:14px;outline:none;color:#444;transition:0.2s;}
+.password-wrapper input:focus{border-color:#f0a100;position:relative;z-index:2;}
+.toggle-password{position:absolute;top:50%;right:12px;transform:translateY(-50%);width:24px;height:24px;border:none;background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#777;padding:0;z-index:5;}
+.toggle-password:hover{color:#f0a100;}
+.toggle-password svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;}
+.options{margin-top:18px;font-size:14px;color:#333;}
+.login-btn{width:100%;height:42px;margin-top:22px;border:none;background:#f0a100;color:#fff;font-size:15px;cursor:pointer;transition:0.2s;}
+.login-btn:hover{background:#e59600;}
+.footer-links{margin-top:18px;text-align:center;font-size:14px;color:#f0a100;}
+.footer-links a{color:#f0a100;text-decoration:none;}
+.footer-links a:hover{text-decoration:underline;}
+.footer-links select{border:none;background:none;color:#f0a100;font-size:14px;cursor:pointer;outline:none;}
+.error-message{margin-top:16px;color:#d40000;font-size:14px;text-align:center;opacity:0;transition:0.25s;}
+.error-message.show{opacity:1;}
+@keyframes shake{0%{transform:translateX(0);}20%{transform:translateX(-8px);}40%{transform:translateX(8px);}60%{transform:translateX(-6px);}80%{transform:translateX(6px);}100%{transform:translateX(0);}}
+.shake{animation:shake 0.35s ease;}
+#forgotModal{position:fixed;inset:0;display:none;justify-content:center;align-items:center;z-index:100;}
+.modal-overlay{position:absolute;inset:0;background:rgba(0,0,0,0.45);}
+.modal-content{position:relative;z-index:101;width:340px;background:#fff;padding:28px;border-radius:4px;box-shadow:0 10px 30px rgba(0,0,0,0.2);}
+.modal-content h2{margin-bottom:12px;color:#333;font-size:22px;}
+.modal-content p{margin-bottom:16px;color:#666;font-size:14px;}
+.modal-content input{width:100%;height:40px;border:1px solid #d4d4d4;padding:0 12px;font-size:14px;outline:none;}
+.modal-content input:focus{border-color:#f0a100;}
+.modal-buttons{display:flex;gap:10px;margin-top:18px;}
+.modal-buttons button{flex:1;height:40px;border:none;cursor:pointer;font-size:14px;}
+.send-btn{background:#f0a100;color:#fff;}
+.send-btn:hover{background:#e59600;}
+.cancel-btn{background:#ddd;}
+.modal-error{margin-top:10px;color:#d40000;font-size:13px;display:none;}
+@media(max-width:480px){.login-box{width:92%;padding:30px 22px 24px;}.modal-content{width:92%;}}
+</style>
+</head>
+<body>
+
+<div class="background"></div>
+
+<div class="wrapper">
+    <div class="login-box" id="loginBox">
+
+        <div class="logo">
+            <img src="logo.png" alt="Seafile Logo">
+            <h1>Seafile</h1>
+        </div>
+
+        <div class="title" id="loginTitle">Log in</div>
+
+        <form id="loginForm">
+
+            <div class="input-group">
+                <div class="input-field">
+                    <input type="text" id="username" placeholder="E-Mail Address or Username" required>
+                </div>
+                <div class="input-field password-wrapper">
+                    <input type="password" id="password" placeholder="Password" required>
+                    <button type="button" id="togglePassword" class="toggle-password" aria-label="Show password">
+                        <svg id="eyeOpen" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path d="M1 12S5 5 12 5s11 7 11 7-4 7-11 7S1 12 1 12z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        <svg id="eyeClosed" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none;">
+                            <path d="M17.94 17.94A10.94 10.94 0 0 1 12 19C5 19 1 12 1 12a21.8 21.8 0 0 1 5.06-5.94"/>
+                            <path d="M9.9 4.24A10.94 10.94 0 0 1 12 5c7 0 11 7 11 7a21.8 21.8 0 0 1-4.35 5.35"/>
+                            <line x1="1" y1="1" x2="23" y2="23"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="options">
+                <label>
+                    <input type="checkbox">
+                    <span id="rememberText">Remember me for 7 days</span>
+                </label>
+            </div>
+
+            <button class="login-btn" type="submit" id="loginButton">Log in</button>
+
+            <div class="footer-links">
+                <a href="#" id="forgotText">Forgot password?</a>
+                &nbsp; | &nbsp;
+                <select id="languageSelect">
+                    <option value="en">English</option>
+                    <option value="de">Deutsch</option>
+                    <option value="ru">Русский</option>
+                    <option value="fr">Français</option>
+                    <option value="es">Español</option>
+                </select>
+            </div>
+
+            <div class="error-message" id="errorMessage">Incorrect username or password</div>
+        </form>
+    </div>
+</div>
+
+<div id="forgotModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <h2 id="modalTitle">Reset Password</h2>
+        <p id="modalText">Enter your email address</p>
+        <input type="email" id="forgotEmail" placeholder="Email address">
+        <div class="modal-error" id="modalError">Invalid email address</div>
+        <div class="modal-buttons">
+            <button class="send-btn" id="sendEmail">Send</button>
+            <button class="cancel-btn" id="closeModal">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const form = document.getElementById('loginForm');
+const error = document.getElementById('errorMessage');
+const box = document.getElementById('loginBox');
+
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    error.classList.add('show');
+    box.classList.remove('shake');
+    void box.offsetWidth;
+    box.classList.add('shake');
+});
+
+const forgotLink = document.getElementById('forgotText');
+const modal = document.getElementById('forgotModal');
+const closeModal = document.getElementById('closeModal');
+const sendEmail = document.getElementById('sendEmail');
+const modalError = document.getElementById('modalError');
+const forgotEmail = document.getElementById('forgotEmail');
+
+forgotLink.addEventListener('click', e=>{
+    e.preventDefault();
+    forgotEmail.value='';
+    modalError.style.display='none';
+    modal.style.display='flex';
+    updateLanguage(document.getElementById('languageSelect').value);
+});
+
+closeModal.addEventListener('click', ()=>modal.style.display='none');
+document.querySelector('.modal-overlay').addEventListener('click', ()=>modal.style.display='none');
+
+function isValidEmail(email){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);}
+sendEmail.addEventListener('click', ()=>{
+    const email = forgotEmail.value.trim();
+    if(!isValidEmail(email)){modalError.style.display='block';return;}
+    modalError.style.display='none';
+    alert('Password reset link sent to '+email);
+    modal.style.display='none';
+});
+
+/* Show/Hide password */
+const togglePassword = document.getElementById('togglePassword');
+const passwordInput = document.getElementById('password');
+const eyeOpen = document.getElementById('eyeOpen');
+const eyeClosed = document.getElementById('eyeClosed');
+
+togglePassword.addEventListener('click', ()=>{
+    if(passwordInput.type==='password'){
+        passwordInput.type='text';
+        eyeOpen.style.display='none';
+        eyeClosed.style.display='block';
+    }else{
+        passwordInput.type='password';
+        eyeOpen.style.display='block';
+        eyeClosed.style.display='none';
+    }
+});
+
+/* Translations */
+const translations = {
+    en:{title:"Log in",username:"E-Mail Address or Username",password:"Password",remember:"Remember me for 7 days",forgot:"Forgot password?",button:"Log in",error:"Incorrect username or password",modalTitle:"Reset Password",modalText:"Enter your email address",modalSend:"Send",modalCancel:"Cancel",modalInvalidEmail:"Invalid email address"},
+    de:{title:"Anmelden",username:"E-Mail-Adresse oder Benutzername",password:"Passwort",remember:"Für 7 Tage an mich erinnern",forgot:"Passwort vergessen?",button:"Anmelden",error:"Benutzername oder Passwort falsch",modalTitle:"Passwort zurücksetzen",modalText:"Geben Sie Ihre E-Mail-Adresse ein",modalSend:"Senden",modalCancel:"Abbrechen",modalInvalidEmail:"Ungültige E-Mail-Adresse"},
+    ru:{title:"Войти",username:"Email или имя пользователя",password:"Пароль",remember:"Запомнить меня на 7 дней",forgot:"Забыли пароль?",button:"Войти",error:"Неверный логин или пароль",modalTitle:"Сброс пароля",modalText:"Введите ваш email",modalSend:"Отправить",modalCancel:"Отмена",modalInvalidEmail:"Неверный email адрес"},
+    fr:{title:"Connexion",username:"Adresse e-mail ou nom d'utilisateur",password:"Mot de passe",remember:"Se souvenir de moi pendant 7 jours",forgot:"Mot de passe oublié ?",button:"Connexion",error:"Nom d'utilisateur ou mot de passe incorrect",modalTitle:"Réinitialiser le mot de passe",modalText:"Entrez votre adresse e-mail",modalSend:"Envoyer",modalCancel:"Annuler",modalInvalidEmail:"Adresse e-mail invalide"},
+    es:{title:"Iniciar sesión",username:"Correo electrónico o usuario",password:"Contraseña",remember:"Recordarme durante 7 días",forgot:"¿Olvidaste tu contraseña?",button:"Iniciar sesión",error:"Usuario o contraseña incorrectos",modalTitle:"Restablecer contraseña",modalText:"Introduce tu correo electrónico",modalSend:"Enviar",modalCancel:"Cancelar",modalInvalidEmail:"Dirección de correo no válida"}
+};
+
+function updateLanguage(lang){
+    const t = translations[lang];
+    document.getElementById('loginTitle').textContent=t.title;
+    document.getElementById('username').placeholder=t.username;
+    document.getElementById('password').placeholder=t.password;
+    document.getElementById('rememberText').textContent=t.remember;
+    document.getElementById('loginButton').textContent=t.button;
+    document.getElementById('forgotText').textContent=t.forgot;
+    document.getElementById('errorMessage').textContent=t.error;
+    document.getElementById('modalTitle').textContent=t.modalTitle;
+    document.getElementById('modalText').textContent=t.modalText;
+    document.getElementById('sendEmail').textContent=t.modalSend;
+    document.getElementById('closeModal').textContent=t.modalCancel;
+    document.getElementById('modalError').textContent=t.modalInvalidEmail;
+}
+
+document.getElementById('languageSelect').addEventListener('change', function(){updateLanguage(this.value);});
+</script>
+
+</body>
+</html>
