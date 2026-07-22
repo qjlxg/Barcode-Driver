@@ -2,91 +2,154 @@ import aiohttp, asyncio, hashlib, os, csv, argparse, random, datetime, base64
 from zoneinfo import ZoneInfo
 from tqdm import tqdm
 
-# --- 1. 基础配置 (核心收敛) ---
-TARGET_PORTS = [80, 443, 8080, 8443, 8880, 2052, 2053, 2082, 2083, 2087, 2095, 2096, 8888, 9999, 54321]
-PATHS = ["", "/", "/sub", "/subscribe", "/link", "/s/", "/api/v1/client/subscribe", "/config.yaml", "/clash", "/v2ray"]
-SIGNS = [s.lower() for s in ["proxies:", "proxy-groups:", "vless://", "vmess://", "trojan://", "hysteria://", "hy2://", "tuic://", "ss://"]]
-
-WORKER_COUNT = 80
-LIMIT_PER_HOST = 5
-MAX_RESPONSE_SIZE = 300 * 1024 # 300KB
-USER_AGENTS = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
-    "clash-verge/v1.3.8",
-    "Shadowrocket/2.2.33"
+# --- 配置 ---
+TARGET_PORTS = [
+    # 标准 Web 与加密服务
+    80, 443,
+    # Cloudflare 常用及配套端口
+    8080, 8443, 8880, 2052, 2053, 2082, 2083, 2086, 2087, 2095, 2096,
+    # 常用面板、本地代理核心及高位端口
+    1333, 1999, 2222, 3000, 3002, 3333, 4444, 5000, 5432, 5555, 6001, 6666, 7777,
+    7890, 8000, 8010, 8011, 8081, 8083, 8181, 8787, 8888, 8899, 9000, 9050, 9090,
+    9091, 9981, 9999, 10000, 10086, 10110, 12202, 18080, 19999, 20000, 30001,
+    40000, 54321, 60001, 60002, 65432, 65533,
+    # 补充的常用服务、系统管理及其他扩展冷门端口
+    21, 22, 25, 53, 110, 143, 465, 587, 993, 995,
+    1025, 1080, 1081, 1082, 1090, 1180, 1194, 1299, 1888,
+    2000, 2001, 2002, 2020, 2021, 2022, 2030, 2031, 2040,
+    2055, 2060, 2070, 2077, 2080, 2081, 2085, 2090,
+    2100, 2111, 2121, 2200, 2255, 2333, 2375, 2376, 2555,
+    3001, 3128, 3222, 3389, 4001, 5001, 5222, 5223,
+    6000, 7000, 7001, 7070, 7077, 8001, 8082, 8084, 8085, 8086, 8088,
+    8089, 8090, 8282, 8333, 8555, 8666, 8881, 8889, 9002, 9443, 9500, 9800,
+    10101, 10443, 10809, 11223, 11443, 12000, 12345, 13000,
+    14444, 15000, 16000, 17000, 18000, 19000, 21000,
+    22000, 23000, 25000, 25565, 28080, 30000, 50000, 55000, 60000
 ]
 
-stats = {"req": 0, "saved": 0, "err": 0}
-history_data = {} 
+PATHS = [
+    # 基础与根目录
+    "", "/", 
+    # 基础订阅与分发路径
+    "/sub", "/subscribe", "/subscription", "/sub2", "/sub3", "/subs",
+    "/link", "/links", "/s/", "/get", "/getsub", "/getSub",
+    # API 接口及各类版本订阅路径
+    "/api/sub", "/api/subscribe", "/api/v1/subscribe", "/api/v2/subscribe",
+    "/api/client/subscribe", "/user/subscribe", "/api/user/subscribe",
+    "/api/v1/client/subscribe", "/api/v1/user/subscribe", "/client/subscribe",
+    "/api/v1/sub", "/user/sub", "/api/sub/1", "/sub/1",
+    # 常见客户端、面板及协议专属路径
+    "/clash", "/clash/config", "/clash/proxies", "/v2ray", "/v2", "/vmess",
+    "/ss", "/shadowsocks", "/trojan", "/hysteria", "/hy2", "/tuic",
+    "/singbox", "/sb", "/mihomo", "/nekobox",
+    # 隐蔽式短路径与常用管理路径
+    "/getback8", "/auto", "/main.conf", "/clash.cfg", "/v2ray.txt", "/nodes",
+    "/share", "/c", "/v", "/s", "/conf", "/dl", "/node", "/list", "/proxy",
+    "/proxies", "/all", "/full", "/base64", "/b64", "/yaml", "/yml", "/json", "/txt",
+    # 配置文件与静态模板路径
+    "/config.yaml", "/sub.yaml", "/clash.yaml", "/clash.yml", "/config.yml",
+    "/profile.yaml", "/profile.yml", "/config.json", "/setup.yaml",
+    "/static/config.yaml", "/download/config.yml", "/download", "/download/sub", "/download/config",
+    # 带参数的动态查询路径
+    "/sub?target=clash", "/sub?target=v2ray", "/sub?target=singbox",
+    "/sub?target=clash&ver=2", "/clash?type=clash", "/sub?format=clash",
+    "/api/v1/client/sub?token=", "/user/sub?token=", "/link?sub=",
+    "/s?token=", "/subscribe?token=", "/config?type=clash"
+]
 
-# --- 2. 工具函数 ---
+SIGNS = [s.lower() for s in [
+    # Clash / Meta / Sing-box 核心配置关键字
+    "proxies:", "proxy-groups:", "proxy-provider:", "proxy-providers:",
+    "rule-providers:", "rules:", "mixed-port:", "allow-lan:", "mode:",
+    "outbounds:", "inbounds:", "servers:", "dns:", "socks-port:",
+    "redir-port:", "tproxy-port:", "policy-group", "proxy-group",
+    "outbounds", "payload:",
+    
+    # 传统代理协议及链接
+    "vless://", "vmess://", "trojan://", "ss://", "ssr://", "snell://",
+    "shadowsocks://", "shadowsocks", "shadow-tls",
+    
+    # 现代高性能与加密代理协议
+    "hysteria://", "hysteria2://", "hy2://", "hy://", "tuic://",
+    "tuic-v5://", "anytls://", "juicity://", "reality://", "vless-reality://",
+    "naive://", "wireguard", "ssh://", "relay",
+    
+    # 节点基础凭证与键值参数
+    "uuid:", "passwd:", "password:", "server:", "port:", "sni:", "alpn:",
+    "flow:", "method:", "cipher:", "server_name:", "skip-cert-verify:",
+    "tls:", "network:",
+    
+    # JSON / 结构化键值特征
+    "\"name\":", "\"server\":", "\"port\":", "\"password\":",
+    "\"method\":", "\"cipher\":", "\"uuid\":", "\"flow\":",
+    '"protocol"', '"server"',
+    
+    # 协议类型声明特征
+    "type: vmess", "type: vless", "type: trojan", "type: shadowsocks",
+    "type: hysteria", "type: hysteria2", "type: tuic",
+    
+    # 面板、转换器与客户端通用标识
+    "sub-converter", "clash-config", "subscription-userinfo", "v2board",
+    "[proxy]", "[server]", "clash", "sing-box", "subscription",
+    "subscribe", "clash-for-windows", "clash.meta", "mihomo", "nekoray", "nekobox"
+]]
+
+WORKER_COUNT = 100 
+
+stats = {"req": 0, "saved": 0}
+# 记录历史资产数据：{url: [hash, url, host_port, last_seen, change_count, last_hash]}
+history_data = {}
 
 def normalize_url(url):
     return url.rstrip("/")
 
-def is_base64_like(text):
-    """精简后的 Base64 特征检查"""
-    clean_text = "".join(text.split())
-    if len(clean_text) < 30: return False
-    # 由于已经 split()，此处不再需要检查空格和换行符
-    allowed = set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=")
-    return all(c in allowed for c in clean_text[:512])
-
-def is_proxy_config(text):
-    """命中逻辑判断"""
-    if not text: return False
-    
-    # 1. 明文匹配 (缓存小写)
-    lower_text = text.lower()
-    if any(s in lower_text for s in SIGNS):
-        return True
-    
-    # 2. Base64 匹配
-    if is_base64_like(text):
-        try:
-            sample = "".join(text.split())[:512]
-            padding = "=" * (-len(sample) % 4)
-            decoded = base64.b64decode(sample + padding).decode("utf-8", errors="ignore").lower()
-            if any(s in decoded for s in SIGNS):
-                return True
-        except:
-            pass
-    return False
-
 def load_existing_results():
+    """加载历史记录以实现去重与更新"""
     if os.path.exists("scan_results.csv"):
         with open("scan_results.csv", "r", encoding="utf-8") as f:
             reader = csv.reader(f)
-            next(reader, None)
+            next(reader, None) # 跳过表头
             for row in reader:
-                if len(row) >= 7:
+                if len(row) >= 6:
+                    # hash, url, host_port, last_seen, change_count, last_hash
                     history_data[normalize_url(row[1])] = row
+                elif len(row) >= 2:
+                    # 兼容旧格式
+                    history_data[normalize_url(row[1])] = [row[0], row[1], "", datetime.datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d"), 0, row[0]]
 
-# --- 3. 核心扫描逻辑 ---
+def check_base64(text):
+    try:
+        sample = text[:500]
+        decoded = base64.b64decode(
+            sample + "=" * (-len(sample) % 4)
+        ).decode(
+            "utf-8",
+            errors="ignore"
+        )
+        decoded_lower = decoded.lower()
+        return any(
+            s in decoded_lower
+            for s in SIGNS
+        )
+    except:
+        return False
 
 async def scan(session, host, port, path, pbar):
     for scheme in ["https", "http"]:
         url = f"{scheme}://{host}:{port}{path}"
         try:
-            async with session.get(url, timeout=4, ssl=False) as resp:
+            async with session.get(url, timeout=3, ssl=False) as resp:
                 stats["req"] += 1
                 if resp.status == 200:
-                    # 响应头预检：跳过超大文件
-                    cl = resp.headers.get("Content-Length")
-                    if cl and int(cl) > MAX_RESPONSE_SIZE:
-                        continue
-                        
-                    content = await resp.content.read(MAX_RESPONSE_SIZE)
-                    text = content.decode("utf-8", errors="ignore")
-                    
-                    if is_proxy_config(text):
+                    text = await resp.text(errors="ignore")
+                    lower_text = text.lower()
+                    if any(s in lower_text for s in SIGNS) or check_base64(text):
+                        # 计算当前指纹
                         content_hash = hashlib.md5(text.encode("utf-8")).hexdigest()[:12]
-                        content_type = resp.headers.get("Content-Type", "unknown").split(";")[0]
                         now_str = datetime.datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S")
+                        
                         norm_url = normalize_url(url)
-
-                        # 保存快照 (不覆盖已存在的)
+                        # 强制落地备份 (保存内容哈希及来源标识)
                         os.makedirs("results/hash", exist_ok=True)
                         file_suffix = hashlib.md5(norm_url.encode()).hexdigest()[:6]
                         filename = f"results/hash/{content_hash}_{file_suffix}.txt"
@@ -95,67 +158,59 @@ async def scan(session, host, port, path, pbar):
                                 f.write(text)
 
                         if norm_url not in history_data:
+                            # 新资产
                             stats["saved"] += 1
-                            pbar.write(f"[+] 发现新资产: {url} | {content_type}")
-                            row = [content_hash, norm_url, f"{host}:{port}", now_str, 0, content_hash, content_type]
+                            pbar.write(f"[+] 发现新节点: {url}")
+                            row = [content_hash, norm_url, f"{host}:{port}", now_str, 0, content_hash]
                         else:
+                            # 已知资产，检查变更
                             old_row = history_data[norm_url]
-                            change_inc = 1 if old_row[0] != content_hash else 0
-                            row = [content_hash, norm_url, f"{host}:{port}", now_str, int(old_row[4]) + change_inc, old_row[0], content_type]
+                            if old_row[0] != content_hash:
+                                pbar.write(f"[*] 发现内容变更: {url}")
+                                row = [content_hash, norm_url, f"{host}:{port}", now_str, int(old_row[4]) + 1, old_row[0]]
+                            else:
+                                # 无变更，仅更新最后探测时间
+                                old_row[3] = now_str
+                                row = old_row
                         
                         history_data[norm_url] = row
                         pbar.update(1)
-                        return # 命中即停
-        except Exception:
-            stats["err"] += 1
+                        return # 找到即停止尝试该端口
+                    
+        except Exception: 
             continue
     pbar.update(1)
 
-# --- 4. 主流程 ---
-
 async def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--file", required=True)
-    args = parser.parse_args()
+    parser = argparse.ArgumentParser(); parser.add_argument("--file", required=True); args = parser.parse_args()
+    load_existing_results() # 启动时加载历史记录
     
-    load_existing_results()
-    
-    with open(args.file) as f:
-        lines = [l.strip() for l in f if l.strip()]
+    with open(args.file) as f: lines = [l.strip() for l in f if l.strip()]
     
     tasks = []
     for line in lines:
-        # 仅针对简单的 IPv4:Port 或 域名:Port 进行拆分，跳过 IPv6 复杂判断
-        if ":" in line and "[" not in line:
+        if ":" in line:
             host, port = line.rsplit(":", 1)
-            tasks.extend([(host, port, path) for path in PATHS])
+            for path in PATHS: tasks.append((host, port, path))
         else:
             for port in TARGET_PORTS:
-                tasks.extend([(line, port, path) for path in PATHS])
+                for path in PATHS: tasks.append((line, port, path))
 
-    print(f"[*] 任务总数: {len(tasks)} | 库内存放历史: {len(history_data)}")
+    print(f"[*] 任务总数: {len(tasks)} | 已加载 {len(history_data)} 条历史记录")
     pbar = tqdm(total=len(tasks))
     
-    connector = aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT, limit_per_host=LIMIT_PER_HOST)
-    headers = {"User-Agent": random.choice(USER_AGENTS)}
-    
-    async with aiohttp.ClientSession(connector=connector, headers=headers) as session:
+    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT)) as session:
         for i in range(0, len(tasks), WORKER_COUNT):
             batch = tasks[i:i+WORKER_COUNT]
             await asyncio.gather(*(scan(session, h, p, path, pbar) for h, p, path in batch))
-            await asyncio.sleep(random.uniform(0.1, 0.2))
     
-    # 保存结果 (排序后落地)
+    # 扫描完成后，写入表头并重写 CSV
     with open("scan_results.csv", "w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["hash", "url", "host_port", "last_seen", "change_count", "last_hash", "content_type"])
-        for url_key in sorted(history_data.keys()):
-            writer.writerow(history_data[url_key])
+        writer.writerow(["hash", "url", "host_port", "last_seen", "change_count", "last_hash"])
+        for norm_url in history_data:
+            writer.writerow(history_data[norm_url])
             
-    print(f"\n[*] 扫描完成！请求: {stats['req']} | 成功: {len(history_data)} | 报错: {stats['err']}")
+    print(f"\n[*] 扫描完成！共新增/更新: {stats['saved']} 个")
 
-if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        pass
+if __name__ == "__main__": asyncio.run(main())
