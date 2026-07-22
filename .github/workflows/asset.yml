@@ -1,6 +1,5 @@
 name: 流水线
 
-
 concurrency:
   group: asset-pipeline-lock
   cancel-in-progress: false
@@ -25,8 +24,8 @@ jobs:
           sudo apt-get update && sudo apt-get install -y masscan
           pip install aiohttp tqdm
 
-      - name: 0. 运行 ASN 切片生成 ip.txt
-        run: python3 asn.py
+   #   - name: 0. 运行 ASN 切片生成 ip.txt
+  #      run: python3 asn.py
         
       - name: 1. 生成任务批次
         run: python3 processor.py
@@ -74,16 +73,16 @@ jobs:
             find results/hash -maxdepth 1 -name "*.txt" -delete
           fi
           
-          # 2. 精简后的 Git add
+          # 2. 将需要的文件全部加入暂存区
           git add progress.json alive_latest.txt alive_history.txt scan_results.csv targets.txt alive_new.txt results/hash/ archive/hash/ || true
           
-          # 3. 判断是否有改动并执行提交
-          if [[ -n $(git status -s) ]]; then
+          # 3. 检查是否有暂存的改动需要提交
+          if git diff --cached --quiet; then
+            echo "[-] 无数据变动，无需提交。"
+          else
             git commit -m "Auto: 资产轮询完成 $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
             
-            # 使用 --rebase 避免冲突
-            git pull --rebase origin main
+            # 使用 --autostash 防止本地暂存/未追踪文件导致 rebase 失败
+            git pull --rebase --autostash origin main
             git push origin main
-          else
-            echo "[-] 无数据变动，无需提交。"
           fi
