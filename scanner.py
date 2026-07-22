@@ -5,7 +5,7 @@ from tqdm import tqdm
 # --- 配置 ---
 TARGET_PORTS = [80, 443, 1333, 1999, 2052, 2053, 2082, 2083, 2087, 2095, 2096, 2222, 3002, 3333, 4444, 5555, 6001, 6666, 7777, 8011, 8080, 8081, 8083, 8443, 8444, 8787, 8888, 8899, 9050, 9981, 9999, 10110, 12202, 18080, 19999, 54321, 60001, 60002]
 PATHS = ["", "/", "/sub", "/subscribe", "/link", "/s/", "/api/sub", "/api/v1/client/subscribe", "/api/user/subscribe", "/client/subscribe", "/config.yaml", "/sub.yaml"]
-SIGNS = [s.lower() for s in ["proxies:", "proxy-groups:", "vless://", "vmess://", "trojan://", "uuid:", "hysteria://", "hysteria2://", "hy2://", "tuic://", "anytls://"]]
+SIGNS = [s.lower() for s in ["proxies:", "proxy-groups:", "vless://", "vmess://", "trojan://","hysteria://", "hysteria2://", "hy2://", "tuic://", "anytls://"]]
 WORKER_COUNT = 100 
 
 stats = {"req": 0, "saved": 0}
