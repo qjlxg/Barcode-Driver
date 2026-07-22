@@ -20,6 +20,7 @@ HIGH_PRIORITY_SIGNS = [s.lower() for s in [
     "v2rayn-sub",
     "content-disposition",
     "basehttp/0.6 python",
+    "simplehttp/0.6 python",
     "clash-party.yaml"
 ]]
 
@@ -138,9 +139,9 @@ async def scan(session, host, port, path, pbar):
 
                 header_text = str(resp.headers).lower()
 
-                # 1. 最高优先级检测（最快：命中响应头特征直接收割）
+                # 一级：确定性特征（直接保存）
                 if any(s in header_text for s in HIGH_PRIORITY_SIGNS) or \
-                   re.search(r'subscription-userinfo|profile-update-interval|v2rayn-sub', header_text):
+                   re.search(r'subscription-userinfo|profile-update-interval|v2rayn-sub|content-disposition', header_text):
                     
                     text = await resp.text(errors="ignore")
                     stats["saved"] += 1
@@ -149,11 +150,25 @@ async def scan(session, host, port, path, pbar):
                     pbar.update(1)
                     return True
 
-                # 2. 普通特征检测
+                # 二级：正文结构判断与网页拦截
                 text = await resp.text(errors="ignore")
                 lower_text = text.lower()
-                
-                if any(s in lower_text for s in NORMAL_SIGNS):
+
+                # 如果页面返回的内容含有 <html 标签，且不包含节点协议，直接拦截丢弃
+                if "<html" in lower_text and not any(proto in lower_text for proto in ["vless://", "vmess://", "trojan://", "ss://", "ssr://", "hysteria://", "hysteria2://", "hy2://", "tuic://", "anytls://", "proxies:"]):
+                    continue
+
+                score = 0
+                if "proxies:" in lower_text:
+                    score += 3
+                if "proxy-groups:" in lower_text:
+                    score += 5
+                if "uuid:" in lower_text:
+                    score += 2
+                if any(p in lower_text for p in ["hysteria2://", "vless://", "vmess://", "trojan://", "tuic://"]):
+                    score += 5
+
+                if score >= 5 or any(s in lower_text for s in NORMAL_SIGNS):
                     stats["saved"] += 1
                     pbar.write(f"[+] 发现节点: {url}")
                     await save_result(url, text, host, port, pbar)
