@@ -1,11 +1,99 @@
-import aiohttp, asyncio, hashlib, os, csv, argparse, random, datetime
+import aiohttp, asyncio, hashlib, os, csv, argparse, random, datetime, base64
 from zoneinfo import ZoneInfo
 from tqdm import tqdm
 
 # --- 配置 ---
-TARGET_PORTS = [80, 443, 1333, 1999, 2052, 2053, 2082, 2083, 2087, 2095, 2096, 2222, 3002, 3333, 4444, 5555, 6001, 6666, 7777, 8011, 8080, 8081, 8083, 8443, 8444, 8787, 8888, 8899, 9050, 9981, 9999, 10110, 12202, 18080, 19999, 54321, 60001, 60002]
-PATHS = ["", "/", "/sub", "/subscribe", "/link", "/s/", "/api/sub", "/api/v1/client/subscribe", "/api/user/subscribe", "/client/subscribe", "/config.yaml", "/sub.yaml"]
-SIGNS = [s.lower() for s in ["proxies:", "proxy-groups:", "vless://", "vmess://", "trojan://", "uuid:", "hysteria://", "hysteria2://", "hy2://", "tuic://", "anytls://"]]
+TARGET_PORTS = [
+    # 标准 Web 与加密服务
+    80, 443,
+    # Cloudflare 常用及配套端口
+    8080, 8443, 8880, 2052, 2053, 2082, 2083, 2086, 2087, 2095, 2096,
+    # 常用面板、本地代理核心及高位端口
+    1333, 1999, 2222, 3000, 3002, 3333, 4444, 5000, 5432, 5555, 6001, 6666, 7777,
+    7890, 8000, 8010, 8011, 8081, 8083, 8181, 8787, 8888, 8899, 9000, 9050, 9090,
+    9091, 9981, 9999, 10000, 10086, 10110, 12202, 18080, 19999, 20000, 30001,
+    40000, 54321, 60001, 60002, 65432, 65533,
+    # 补充的常用服务、系统管理及其他扩展冷门端口
+    21, 22, 25, 53, 110, 143, 465, 587, 993, 995,
+    1025, 1080, 1081, 1082, 1090, 1180, 1194, 1299, 1888,
+    2000, 2001, 2002, 2020, 2021, 2022, 2030, 2031, 2040,
+    2055, 2060, 2070, 2077, 2080, 2081, 2085, 2090,
+    2100, 2111, 2121, 2200, 2255, 2333, 2375, 2376, 2555,
+    3001, 3128, 3222, 3389, 4001, 5001, 5222, 5223,
+    6000, 7000, 7001, 7070, 7077, 8001, 8082, 8084, 8085, 8086, 8088,
+    8089, 8090, 8282, 8333, 8555, 8666, 8881, 8889, 9002, 9443, 9500, 9800,
+    10101, 10443, 10809, 11223, 11443, 12000, 12345, 13000,
+    14444, 15000, 16000, 17000, 18000, 19000, 21000,
+    22000, 23000, 25000, 25565, 28080, 30000, 50000, 55000, 60000
+]
+
+PATHS = [
+    # 基础与根目录
+    "", "/", 
+    # 基础订阅与分发路径
+    "/sub", "/subscribe", "/subscription", "/sub2", "/sub3", "/subs",
+    "/link", "/links", "/s/", "/get", "/getsub", "/getSub",
+    # API 接口及各类版本订阅路径
+    "/api/sub", "/api/subscribe", "/api/v1/subscribe", "/api/v2/subscribe",
+    "/api/client/subscribe", "/user/subscribe", "/api/user/subscribe",
+    "/api/v1/client/subscribe", "/api/v1/user/subscribe", "/client/subscribe",
+    "/api/v1/sub", "/user/sub", "/api/sub/1", "/sub/1",
+    # 常见客户端、面板及协议专属路径
+    "/clash", "/clash/config", "/clash/proxies", "/v2ray", "/v2", "/vmess",
+    "/ss", "/shadowsocks", "/trojan", "/hysteria", "/hy2", "/tuic",
+    "/singbox", "/sb", "/mihomo", "/nekobox",
+    # 隐蔽式短路径与常用管理路径
+    "/getback8", "/auto", "/main.conf", "/clash.cfg", "/v2ray.txt", "/nodes",
+    "/share", "/c", "/v", "/s", "/conf", "/dl", "/node", "/list", "/proxy",
+    "/proxies", "/all", "/full", "/base64", "/b64", "/yaml", "/yml", "/json", "/txt",
+    # 配置文件与静态模板路径
+    "/config.yaml", "/sub.yaml", "/clash.yaml", "/clash.yml", "/config.yml",
+    "/profile.yaml", "/profile.yml", "/config.json", "/setup.yaml",
+    "/static/config.yaml", "/download/config.yml", "/download", "/download/sub", "/download/config",
+    # 带参数的动态查询路径
+    "/sub?target=clash", "/sub?target=v2ray", "/sub?target=singbox",
+    "/sub?target=clash&ver=2", "/clash?type=clash", "/sub?format=clash",
+    "/api/v1/client/sub?token=", "/user/sub?token=", "/link?sub=",
+    "/s?token=", "/subscribe?token=", "/config?type=clash"
+]
+
+SIGNS = [s.lower() for s in [
+    # Clash / Meta / Sing-box 核心配置关键字
+    "proxies:", "proxy-groups:", "proxy-provider:", "proxy-providers:",
+    "rule-providers:", "rules:", "mixed-port:", "allow-lan:", "mode:",
+    "outbounds:", "inbounds:", "servers:", "dns:", "socks-port:",
+    "redir-port:", "tproxy-port:", "policy-group", "proxy-group",
+    "outbounds", "payload:",
+    
+    # 传统代理协议及链接
+    "vless://", "vmess://", "trojan://", "ss://", "ssr://", "snell://",
+    "shadowsocks://", "shadowsocks", "shadow-tls",
+    
+    # 现代高性能与加密代理协议
+    "hysteria://", "hysteria2://", "hy2://", "hy://", "tuic://",
+    "tuic-v5://", "anytls://", "juicity://", "reality://", "vless-reality://",
+    "naive://", "wireguard", "ssh://", "relay",
+    
+    # 节点基础凭证与键值参数
+    "uuid:", "passwd:", "password:", "server:", "port:", "sni:", "alpn:",
+    "flow:", "method:", "cipher:", "server_name:", "skip-cert-verify:",
+    "tls:", "network:",
+    
+    # JSON / 结构化键值特征
+    "\"name\":", "\"server\":", "\"port\":", "\"password\":",
+    "\"method\":", "\"cipher\":", "\"uuid\":", "\"flow\":",
+    '"protocol"', '"server"',
+    
+    # 协议类型声明特征
+    "type: vmess", "type: vless", "type: trojan", "type: shadowsocks",
+    "type: hysteria", "type: hysteria2", "type: tuic",
+    
+    # 面板、转换器与客户端通用标识
+    "sub-converter", "clash-config", "subscription-userinfo", "v2board",
+    "[proxy]", "[server]", "clash", "sing-box", "subscription",
+    "subscribe", "clash-for-windows", "clash.meta", "mihomo", "nekoray", "nekobox"
+]]
+
 WORKER_COUNT = 100 
 
 stats = {"req": 0, "saved": 0}
@@ -29,6 +117,23 @@ def load_existing_results():
                     # 兼容旧格式
                     history_data[normalize_url(row[1])] = [row[0], row[1], "", datetime.datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d"), 0, row[0]]
 
+def check_base64(text):
+    try:
+        sample = text[:500]
+        decoded = base64.b64decode(
+            sample + "=" * (-len(sample) % 4)
+        ).decode(
+            "utf-8",
+            errors="ignore"
+        )
+        decoded_lower = decoded.lower()
+        return any(
+            s in decoded_lower
+            for s in SIGNS
+        )
+    except:
+        return False
+
 async def scan(session, host, port, path, pbar):
     for scheme in ["https", "http"]:
         url = f"{scheme}://{host}:{port}{path}"
@@ -37,7 +142,8 @@ async def scan(session, host, port, path, pbar):
                 stats["req"] += 1
                 if resp.status == 200:
                     text = await resp.text(errors="ignore")
-                    if any(s in text.lower() for s in SIGNS):
+                    lower_text = text.lower()
+                    if any(s in lower_text for s in SIGNS) or check_base64(text):
                         # 计算当前指纹
                         content_hash = hashlib.md5(text.encode("utf-8")).hexdigest()[:12]
                         now_str = datetime.datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S")
