@@ -15,14 +15,12 @@ from tqdm import tqdm
 
 # 最高优先级特征（命中即判定有效，包含高价值 Python/BaseHTTP 及订阅标识）
 HIGH_PRIORITY_SIGNS = [s.lower() for s in [
-    "subscription-userinfo:", 
-    "profile-update-interval:",
-    "clash-party.yaml",
+    "subscription-userinfo", 
+    "profile-update-interval",
     "v2rayn-sub",
-    "subscription:",
-    "upload=.*; download=.*; total=.*; expire=",
+    "content-disposition",
     "basehttp/0.6 python",
-    "content-disposition"
+    "clash-party.yaml"
 ]]
 
 # 普通特征
@@ -40,7 +38,7 @@ NORMAL_SIGNS = [s.lower() for s in [
     "server_name:", "skip-cert-verify:", "tls:", "network:", "flow:", "cipher:"
 ]]
 
-# 目标端口
+# 目标端口（完整版）
 TARGET_PORTS = [
     80, 443,
     2052, 2053, 2082, 2083, 2087, 2095, 2096,
@@ -58,7 +56,7 @@ TARGET_PORTS = [
     20000, 2375, 2376
 ]
 
-# Web路径
+# Web路径（完整版）
 PATHS = [
     "", "/",
     "/sub", "/subscribe", "/subscription", "/link", "/s/",
@@ -149,7 +147,7 @@ async def scan(session, host, port, path, pbar):
                     pbar.write(f"[+] 高优先级发现: {url}")
                     await save_result(url, text, host, port, pbar)
                     pbar.update(1)
-                    return
+                    return True
 
                 # 2. 普通特征检测
                 text = await resp.text(errors="ignore")
@@ -160,12 +158,13 @@ async def scan(session, host, port, path, pbar):
                     pbar.write(f"[+] 发现节点: {url}")
                     await save_result(url, text, host, port, pbar)
                     pbar.update(1)
-                    return
+                    return True
 
         except Exception:
             continue
     
     pbar.update(1)
+    return False
 
 async def main():
     parser = argparse.ArgumentParser()
@@ -177,29 +176,80 @@ async def main():
     with open(args.file, encoding="utf-8") as f:
         lines = [l.strip() for l in f if l.strip()]
 
-    tasks = []
+    # 提取所有唯一的目标主机/IP
+    unique_hosts = set()
+    explicit_targets = []
     for line in lines:
         if ":" in line and not line.startswith(":"):
-            host, port = line.rsplit(":", 1)
-            for path in PATHS:
-                tasks.append((host, port, path))
+            explicit_targets.append(line)
         else:
-            for port in TARGET_PORTS:
-                for path in PATHS:
-                    tasks.append((line, str(port), path))
+            unique_hosts.add(line)
 
-    print(f"[*] 任务总数: {len(tasks)} | 历史记录: {len(history_data)} 条")
+    # ==========================
+    # 第一轮：快速扫描（高优端口 + 核心路径）
+    # ==========================
+    ROUND1_PORTS = [80, 443, 8080, 8443, 8888]
+    ROUND1_PATHS = ["", "/", "/sub", "/subscribe", "/api/v1/client/subscribe"]
 
-    pbar = tqdm(total=len(tasks))
+    round1_tasks = []
+    for target in explicit_targets:
+        host, port = target.rsplit(":", 1)
+        for path in ROUND1_PATHS:
+            round1_tasks.append((host, port, path))
+    for host in unique_hosts:
+        for port in ROUND1_PORTS:
+            for path in ROUND1_PATHS:
+                round1_tasks.append((host, str(port), path))
+
+    print(f"[*] 第一轮快速扫描任务数: {len(round1_tasks)} | 历史记录: {len(history_data)} 条")
+
+    pbar1 = tqdm(total=len(round1_tasks))
+    hit_targets = set()
 
     async with aiohttp.ClientSession(
         connector=aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT)
     ) as session:
-        for i in range(0, len(tasks), WORKER_COUNT):
-            batch = tasks[i:i + WORKER_COUNT]
-            await asyncio.gather(
-                *(scan(session, h, p, path, pbar) for h, p, path in batch)
+        for i in range(0, len(round1_tasks), WORKER_COUNT):
+            batch = round1_tasks[i:i + WORKER_COUNT]
+            results = await asyncio.gather(
+                *(scan(session, h, p, path, pbar1) for h, p, path in batch)
             )
+            for (h, p, path), is_hit in zip(batch, results):
+                if is_hit:
+                    hit_targets.add(f"{h}:{p}")
+
+    # ==========================
+    # 第二轮：完整扫描（针对第一轮未命中的目标跑全量端口和路径）
+    # ==========================
+    remaining_explicit = []
+    for target in explicit_targets:
+        if target not in hit_targets:
+            remaining_explicit.append(target)
+
+    round2_tasks = []
+    for target in remaining_explicit:
+        host, port = target.rsplit(":", 1)
+        for path in PATHS:
+            round2_tasks.append((host, port, path))
+    for host in unique_hosts:
+        for port in TARGET_PORTS:
+            if f"{host}:{port}" not in hit_targets:
+                for path in PATHS:
+                    round2_tasks.append((host, str(port), path))
+
+    if round2_tasks:
+        print(f"\n[*] 第一轮已过滤大部分无效资产，开始第二轮完整扫描，剩余任务数: {len(round2_tasks)}")
+        pbar2 = tqdm(total=len(round2_tasks))
+        async with aiohttp.ClientSession(
+            connector=aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT)
+        ) as session:
+            for i in range(0, len(round2_tasks), WORKER_COUNT):
+                batch = round2_tasks[i:i + WORKER_COUNT]
+                await asyncio.gather(
+                    *(scan(session, h, p, path, pbar2) for h, p, path in batch)
+                )
+    else:
+        print("\n[*] 第一轮已覆盖所有资产或无需进行第二轮扫描。")
 
     # 保存结果
     with open("scan_results.csv", "w", encoding="utf-8", newline="") as f:
