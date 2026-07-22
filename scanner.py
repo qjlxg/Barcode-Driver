@@ -155,7 +155,7 @@ async def scan(session, host, port, path, pbar):
                 lower_text = text.lower()
 
                 # 如果页面返回的内容含有 <html 标签，且不包含节点协议，直接拦截丢弃
-                if "<html" in lower_text and not any(proto in lower_text for proto in ["vless://", "vmess://", "trojan://", "ss://", "ssr://", "hysteria://", "hysteria2://", "hy2://", "tuic://", "anytls://", "proxies:"]):
+                if "<html" in lower_text and not any(proto in lower_text for proto in ["vless://", "vmess://", "trojan://", "ss://", "ssr://", "hysteria://", "hysteria2://", "hy2://", "tuic://", "anytls://", "rules:","allow-lan: false","proxies:"]):
                     continue
 
                 score = 0
