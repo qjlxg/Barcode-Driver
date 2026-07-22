@@ -24,29 +24,7 @@ jobs:
           sudo apt-get update && sudo apt-get install -y masscan
           pip install aiohttp tqdm
 
-   #   - name: 0. 运行 ASN 切片生成 ip.txt
-  #      run: python3 asn.py
-        
-      - name: 1. 生成任务批次
-        run: python3 processor.py
-
-      - name: 2. 高速端口探测
-        run: |
-          if [ -s targets.txt ]; then
-            TARGETS=$(tr '\n' ',' < targets.txt | sed 's/,$//')
-            PORTS=$(cat ports.txt | tr ',\n\r' ' ' | xargs | tr ' ' ',')
-            
-            sudo masscan $TARGETS -p"$PORTS" --rate 1000 --wait 5 --open-only | \
-            awk '/Discovered open port/ { split($4,p,"/"); print $6 ":" p[1] }' | \
-            sort -u > alive_latest.txt
-            
-            if [ -s alive_latest.txt ]; then
-              cat alive_latest.txt >> alive_history.txt
-              sort -u alive_history.txt -o alive_history.txt
-            fi
-          else
-            touch alive_latest.txt
-          fi
+  
           
       - name: 3. 深度指纹采集 (增量过滤)
         run: |
