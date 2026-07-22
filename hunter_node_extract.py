@@ -12,12 +12,12 @@ from urllib.parse import urlparse
 from typing import Any, Dict, List, Tuple
 
 # --- 配置 ---
-INPUT_CSV = 'scan_results.csv'     # 从 CSV 读取 URL
-OUTPUT_FILE = 'unique.yaml'        # 最终合并的节点文件
-CSV_FILE = 'unique.csv'            # 统计报告
-UNIQUE_URLS_FILE = 'unique_urls.txt' # 去重后的链接清单
-RULES_FILE = 'rules.yaml'         # 基础规则文件(可选)
-EXCLUDE_FILE = 'exclude.txt'      # 排除列表(可选)
+INPUT_CSV = 'scan_results.csv'     
+OUTPUT_FILE = 'unique.yaml'        
+CSV_FILE = 'unique.csv'            
+UNIQUE_URLS_FILE = 'unique_urls.txt'
+RULES_FILE = 'rules.yaml'         
+EXCLUDE_FILE = 'exclude.txt'      
 BAD_WORDS = ["cf优选", "cf官方优选", "cloudflare优选", "免费测速", "剩余流量", "官网"]
 
 # 抓取参数
@@ -42,15 +42,17 @@ def load_exclude_list() -> set:
     return exclude_set
 
 def is_valid_server(server: Any) -> bool:
-    if not server or not isinstance(server, str): return False
+    if not server or not isinstance(server, str): 
+        return False
     server = server.strip()
     blacklist = {"1.0.0.1", "1.1.1.1", "8.8.8.8", "255.255.255.255", "255.255.0.0", "255.0.0.0", "0.0.0.0", "127.0.0.1"}
-    if server in blacklist: return False
+    if server in blacklist: 
+        return False
     try:
         ip = ipaddress.ip_address(server)
         return ip.is_global
     except ValueError:
-        return True # 域名格式默认通过
+        return True  # 域名默认通过
 
 def stable_hash(node: Dict) -> str:
     keys = ["type", "server", "port", "uuid", "password", "cipher"]
@@ -60,12 +62,18 @@ def stable_hash(node: Dict) -> str:
 async def fetch_yaml(session: aiohttp.ClientSession, host: str) -> Tuple[str, int, str, float]:
     start_time = time.time()
     try:
-        async with session.get(host, timeout=aiohttp.ClientTimeout(connect=CONNECT_TIMEOUT, sock_read=READ_TIMEOUT),
-                               headers={"User-Agent": BROWSER_UA}, allow_redirects=True) as response:
+        async with session.get(
+            host, 
+            timeout=aiohttp.ClientTimeout(connect=CONNECT_TIMEOUT, sock_read=READ_TIMEOUT),
+            headers={"User-Agent": BROWSER_UA}, 
+            allow_redirects=True
+        ) as response:
             text = await response.text(errors='ignore')
             cost = round(time.time() - start_time, 2)
             return str(response.url), response.status, text, cost
-    except Exception: return host, 0, "", 0.0
+    except Exception as e:
+        logger.debug(f"请求失败 {host}: {e}")
+        return host, 0, "", 0.0
 
 def extract_yaml_nodes(text: str) -> List[Dict]:
     try:
@@ -80,7 +88,8 @@ def extract_yaml_nodes(text: str) -> List[Dict]:
                             continue
                         nodes.append(n)
                 return nodes
-    except Exception: pass
+    except Exception:
+        pass
     return []
 
 async def process_source(session: aiohttp.ClientSession, source: str, semaphore: asyncio.Semaphore):
@@ -92,7 +101,7 @@ async def process_source(session: aiohttp.ClientSession, source: str, semaphore:
     
     nodes = extract_yaml_nodes(text)
     if not nodes: 
-        summary = text[:150].replace('\r', ' ').replace('\n', ' ')
+        summary = text[:150].replace('\r', ' ').replace('\n', ' ').replace('"', "'")
         return [source, "", "无有效节点", 0, status, cost, summary], []
         
     return [source, "", "提取成功", len(nodes), status, cost, ""], nodes
@@ -115,9 +124,13 @@ async def main():
     logger.info(f"待处理 URL 总数: {len(unique_urls)}")
 
     # 2. 并发抓取
-    async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False, limit=CONCURRENCY)) as session:
+    async with aiohttp.ClientSession(
+        connector=aiohttp.TCPConnector(ssl=False, limit=CONCURRENCY)
+    ) as session:
         semaphore = asyncio.Semaphore(CONCURRENCY)
-        results = await asyncio.gather(*(process_source(session, url, semaphore) for url in unique_urls))
+        results = await asyncio.gather(
+            *(process_source(session, url, semaphore) for url in unique_urls)
+        )
 
     # 3. 节点汇总与去重
     stats, all_nodes_map = [], {}
@@ -129,18 +142,15 @@ async def main():
     # 4. 生成 YAML
     unique_nodes = list(all_nodes_map.values())
 
-    # 若存在 rules.yaml 则合并配置
     final_config = {"proxies": unique_nodes}
     if os.path.exists(RULES_FILE):
         with open(RULES_FILE, "r", encoding="utf-8") as f:
             rules_data = yaml.safe_load(f) or {}
             final_config = {**rules_data, "proxies": unique_nodes}
-            # 自动填充代理组节点 (插入逻辑)
             if "proxy-groups" in final_config:
                 node_names = [n.get("name") for n in unique_nodes if n.get("name")]
                 for group in final_config["proxy-groups"]:
                     if group.get("name") in ["自动优选", "手动选择", "Nodes"]:
-                        # 确保将抓取的节点填入代理组，且排除重复
                         current_proxies = group.get("proxies", [])
                         new_proxies = [p for p in current_proxies if p not in node_names]
                         group["proxies"] = new_proxies + node_names
@@ -148,14 +158,25 @@ async def main():
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         yaml.dump(final_config, f, allow_unicode=True, sort_keys=False, width=1000)
 
-    # 5. 保存 CSV 统计（深度清洗所有字段中的双引号、换行符和特殊符号，杜绝写盘报错）
+    # 5. 保存 CSV 统计（关键修复）
     cleaned_stats = []
     for row in stats:
-        cleaned_row = [str(item).replace('"', "'").replace('\r', ' ').replace('\n', ' ') for item in row]
+        cleaned_row = []
+        for item in row:
+            s = str(item)
+            s = s.replace('"', "'")           # 双引号转单引号
+            s = s.replace('\r', ' ').replace('\n', ' ')  # 移除换行
+            s = s.replace('\t', ' ')          # 移除制表符
+            cleaned_row.append(s)
         cleaned_stats.append(cleaned_row)
 
     with open(CSV_FILE, "w", newline="", encoding="utf-8-sig") as f:
-        writer = csv.writer(f)
+        writer = csv.writer(
+            f, 
+            quoting=csv.QUOTE_ALL,      # 关键修复
+            escapechar='\\', 
+            doublequote=True
+        )
         writer.writerow(["原始URL", "资产地址", "状态", "节点数", "HTTP码", "响应秒数", "摘要"])
         writer.writerows(cleaned_stats)
 
