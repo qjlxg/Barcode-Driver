@@ -35,42 +35,70 @@ async def scan(session, host, port, path, pbar):
         try:
             async with session.get(url, timeout=3, ssl=False) as resp:
                 stats["req"] += 1
-                if resp.status == 200:
-                    text = await resp.text(errors="ignore")
-                    if any(s in text.lower() for s in SIGNS):
-                        # 计算当前指纹
-                        content_hash = hashlib.md5(text.encode("utf-8")).hexdigest()[:12]
-                        now_str = datetime.datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S")
-                        
-                        norm_url = normalize_url(url)
-                        # 强制落地备份 (保存内容哈希及来源标识)
-                        os.makedirs("results/hash", exist_ok=True)
-                        file_suffix = hashlib.md5(norm_url.encode()).hexdigest()[:6]
-                        filename = f"results/hash/{content_hash}_{file_suffix}.txt"
-                        if not os.path.exists(filename):
-                            with open(filename, "w", encoding="utf-8") as f:
-                                f.write(text)
+                if resp.status != 200:
+                    continue
+                text = await resp.text(errors="ignore")
+                text_lower = text.lower()
+                text_stripped = text.strip()
+                
+                # ==================== 防误报过滤 ====================
+                # 1. 明显是网页的直接跳过
+                if (text_stripped.startswith('<!doctype') or 
+                    '<html' in text_lower[:300] or 
+                    '<head>' in text_lower[:500] or 
+                    len(text) > 800000):
+                    continue
+                
+                # 2. 必须包含有效代理特征
+                has_sign = any(s in text_lower for s in SIGNS)
+                if not has_sign:
+                    continue
+                
+                # 3. 严格过滤只含 "proxies:" 的情况
+                if ("proxies:" in text_lower and 
+                    not any(x in text_lower for x in ["proxy-groups:", "vless://", "vmess://", "trojan://", "hysteria", "tuic://", "ss://"])):
+                    continue
+                
+                # 4. 额外过滤：太短或明显不是订阅内容的也跳过
+                if len(text) < 100 or "404 not found" in text_lower or "not found" in text_lower[:200]:
+                    continue
+                # ==================================================
+                
+                # 计算当前指纹
+                content_hash = hashlib.md5(text.encode("utf-8")).hexdigest()[:12]
+                now_str = datetime.datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S")
+                
+                norm_url = normalize_url(url)
+                # 强制落地备份 (保存内容哈希及来源标识)
+                os.makedirs("results/hash", exist_ok=True)
+                file_suffix = hashlib.md5(norm_url.encode()).hexdigest()[:6]
+                filename = f"results/hash/{content_hash}_{file_suffix}.txt"
+                if not os.path.exists(filename):
+                    with open(filename, "w", encoding="utf-8") as f:
+                        f.write(text)
 
-                        if norm_url not in history_data:
-                            # 新资产
-                            stats["saved"] += 1
-                            pbar.write(f"[+] 发现新节点: {url}")
-                            row = [content_hash, norm_url, f"{host}:{port}", now_str, 0, content_hash]
-                        else:
-                            # 已知资产，检查变更
-                            old_row = history_data[norm_url]
-                            if old_row[0] != content_hash:
-                                pbar.write(f"[*] 发现内容变更: {url}")
-                                row = [content_hash, norm_url, f"{host}:{port}", now_str, int(old_row[4]) + 1, old_row[0]]
-                            else:
-                                # 无变更，仅更新最后探测时间
-                                old_row[3] = now_str
-                                row = old_row
-                        
-                        history_data[norm_url] = row
-                        pbar.update(1)
-                        return # 找到即停止尝试该端口
+                if norm_url not in history_data:
+                    # 新资产
+                    stats["saved"] += 1
+                    pbar.write(f"[+] 发现新节点: {url}")
+                    row = [content_hash, norm_url, f"{host}:{port}", now_str, 0, content_hash]
+                else:
+                    # 已知资产，检查变更
+                    old_row = history_data[norm_url]
+                    if old_row[0] != content_hash:
+                        pbar.write(f"[*] 发现内容变更: {url}")
+                        row = [content_hash, norm_url, f"{host}:{port}", now_str, int(old_row[4]) + 1, old_row[0]]
+                    else:
+                        # 无变更，仅更新最后探测时间
+                        old_row[3] = now_str
+                        row = old_row
+                
+                history_data[norm_url] = row
+                pbar.update(1)
+                return # 找到即停止尝试该端口
                     
+        except asyncio.TimeoutError: 
+            continue
         except Exception: 
             continue
     pbar.update(1)
