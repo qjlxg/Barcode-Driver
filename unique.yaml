@@ -4,17 +4,47 @@ proxy-groups:
   url: https://cp.cloudflare.com/generate_204
   interval: 300
   proxies:
-  - SelfBuild-VLESS-Reality-Vision
-  - SelfBuild-Trojan-TLS-gRPC
-  - 硅谷-VLESS
+  - 🔥 V2Ray-WS
+  - ??-??443
+  - ??-??8443
+  - ???-???
+  - ????-???2053
+  - 美国|新泽西 01
+  - US-SS
+  - Tokyo-SS
+  - Reality-US
+  - LA-RackNerd-6T
+  - LA-DMIT-CMIN2-1.5T
+  - SouthCarolina-Google-0.2T
+  - Oregon-Google-0.2T
+  - Singapore-AWS-0.2T
+  - vless-reality-vision-vps-10462-7605.example.com
+  - vmess-ws-vps-10462-7605.example.com
+  - hysteria2-vps-10462-7605.example.com
+  - tuic5-vps-10462-7605.example.com
 - name: 手动选择
   type: select
   proxies:
   - 自动优选
   - DIRECT
-  - SelfBuild-VLESS-Reality-Vision
-  - SelfBuild-Trojan-TLS-gRPC
-  - 硅谷-VLESS
+  - 🔥 V2Ray-WS
+  - ??-??443
+  - ??-??8443
+  - ???-???
+  - ????-???2053
+  - 美国|新泽西 01
+  - US-SS
+  - Tokyo-SS
+  - Reality-US
+  - LA-RackNerd-6T
+  - LA-DMIT-CMIN2-1.5T
+  - SouthCarolina-Google-0.2T
+  - Oregon-Google-0.2T
+  - Singapore-AWS-0.2T
+  - vless-reality-vision-vps-10462-7605.example.com
+  - vmess-ws-vps-10462-7605.example.com
+  - hysteria2-vps-10462-7605.example.com
+  - tuic5-vps-10462-7605.example.com
 dns:
   enable: true
   enhanced-mode: fake-ip
@@ -59,45 +89,232 @@ rules:
 - GEOIP,CN,DIRECT
 - MATCH,自动优选
 proxies:
-- name: SelfBuild-VLESS-Reality-Vision
-  type: vless
-  server: 192.255.136.85
-  port: 2083
-  uuid: 522efba0-57cf-437f-8cce-cddc9c4bf4f9
-  udp: true
-  tls: true
-  servername: www.apple.com
-  flow: xtls-rprx-vision
-  network: tcp
-  client-fingerprint: chrome
-  reality-opts:
-    public-key: ckodPdinygteNVtJAmLafe5cFIZ-W5KT-b4-DmReATw
-    short-id: 4e782a55
-- name: SelfBuild-Trojan-TLS-gRPC
-  type: trojan
-  server: 192.255.136.85
-  port: 8443
-  password: 20bxlR-1fDXjTblDNbzhsA
-  udp: true
+- name: 🔥 V2Ray-WS
+  type: vmess
+  server: zt-ai.cloud
+  port: 443
+  uuid: fce3d6a4-0f12-49b5-a810-84bcf0fde202
+  alterId: 0
+  cipher: auto
+  network: ws
+  ws-opts:
+    path: /v2ray
   tls: true
   skip-cert-verify: true
-  sni: 192.255.136.85
-  network: grpc
-  grpc-opts:
-    grpc-service-name: trojan-grpc
-  alpn:
-  - h2
-- name: 硅谷-VLESS
+  servername: zt-ai.cloud
+- name: ??-??443
   type: vless
-  server: 43.173.78.139
-  port: 8443
-  uuid: 211d03a1-36e9-40e7-8b5e-f9dac6997f05
+  server: 64.90.31.91
+  port: 443
+  uuid: 1d5244ff-e081-406e-bf53-0143a97cb143
   network: tcp
-  tls: true
   udp: true
+  tls: true
   flow: xtls-rprx-vision
+  servername: www.samsung.com
   client-fingerprint: chrome
-  servername: www.apple.com
   reality-opts:
-    public-key: ftbEBjykrVrMuhJrZvVVMu7A_YLyIJXXlWEnXDK7VFM
-    short-id: ed7720aa510154f5
+    public-key: n-BLGHC6helU1Xd7RtV4e7nM5t1ZfnqxOE3GjaAvBSI
+    short-id: 8bcedc283337878e
+- name: ??-??8443
+  type: vless
+  server: 64.90.31.91
+  port: 8443
+  uuid: 1d5244ff-e081-406e-bf53-0143a97cb143
+  network: tcp
+  udp: true
+  tls: true
+  flow: xtls-rprx-vision
+  servername: www.samsung.com
+  client-fingerprint: chrome
+  reality-opts:
+    public-key: n-BLGHC6helU1Xd7RtV4e7nM5t1ZfnqxOE3GjaAvBSI
+    short-id: 8bcedc283337878e
+- name: ???-???
+  type: vless
+  server: 89.125.103.227
+  port: 443
+  uuid: 2135cfc7-0c5e-4042-a5fe-cc417c195c6b
+  network: tcp
+  udp: true
+  tls: true
+  flow: xtls-rprx-vision
+  servername: www.samsung.com
+  client-fingerprint: chrome
+  reality-opts:
+    public-key: xqS1YMwAXgBMDpnUIxdMNaBVCAsvSmMfiKiMNhVwKx0
+    short-id: a84c4ae71c4e9204
+- name: ????-???2053
+  type: vless
+  server: 64.90.31.91
+  port: 2053
+  uuid: 2135cfc7-0c5e-4042-a5fe-cc417c195c6b
+  network: tcp
+  udp: true
+  tls: true
+  flow: xtls-rprx-vision
+  servername: www.samsung.com
+  client-fingerprint: chrome
+  reality-opts:
+    public-key: xqS1YMwAXgBMDpnUIxdMNaBVCAsvSmMfiKiMNhVwKx0
+    short-id: a84c4ae71c4e9204
+- name: 美国|新泽西 01
+  type: vless
+  server: 66.154.102.59
+  port: 49347
+  uuid: 182b49f4-2793-490e-b94a-6420302950bb
+  flow: xtls-rprx-vision
+  tls: true
+  servername: www.ebay.com
+  reality_opts:
+    public-key: 7clt3hypa37uYhdWzDqYgMlAnEzs_YnTE2H4ZE3Ehk4
+    fingerprint: chrome
+  network: tcp
+  udp: true
+  skip-cert-verify: true
+  client-fingerprint: chrome
+- name: US-SS
+  type: ss
+  server: 67.230.179.124
+  port: 51001
+  cipher: aes-256-gcm
+  password: Tk9yPmR4Wz7bQcLvHs3nJf6xAe2gKu8w
+  udp: true
+- name: Tokyo-SS
+  type: ss
+  server: 43.165.168.222
+  port: 51001
+  cipher: aes-256-gcm
+  password: Tk9yPmR4Wz7bQcLvHs3nJf6xAe2gKu8w
+  udp: true
+- name: Reality-US
+  type: vless
+  server: 67.230.182.107
+  port: 443
+  uuid: f2a07176-c5df-4c0e-9b1a-dc1878bca019
+  network: tcp
+  udp: true
+  tls: true
+  servername: www.cloudflare.com
+  flow: xtls-rprx-vision
+  reality-opts:
+    public-key: d0pDig796WDY4rsAOIgF1jjpeaW8T5GusjbtEbSRrno
+    short-id: 37097b0e44b5
+  client-fingerprint: chrome
+- name: LA-RackNerd-6T
+  type: vless
+  server: 142.171.228.203
+  port: 443
+  uuid: df5e11e1-5858-441f-ab87-120d06e74da7
+  network: raw
+  tls: true
+  skip-cert-verify: false
+  security: reality
+  servername: www.leercapitulo.co
+  client-fingerprint: chrome
+  flow: xtls-rprx-vision
+  reality-opts:
+    public-key: 4cuGEUbBdLM-ley23lc1B8_s_xPAlDYogrCdtLMXtGI
+    short-id: e33de4a49c876370
+    spider-x: /
+- name: LA-DMIT-CMIN2-1.5T
+  type: vless
+  server: 64.186.240.20
+  port: 51409
+  uuid: a0c69e15-f1a0-4f5d-bc85-779b3d3214f0
+  network: tcp
+  udp: true
+  tls: true
+  flow: xtls-rprx-vision
+  servername: apple.com
+  reality-opts:
+    public-key: rxENKIzdOQkQACfky6NXv7tZj73NoLq_Z6ywUUdow2o
+    short-id: 9e5cc9a6
+  client-fingerprint: chrome
+- name: SouthCarolina-Google-0.2T
+  type: hysteria2
+  server: 35.211.248.90
+  up-speed: 500
+  down-speed: 500
+  port: 60447
+  password: 381e32dd-556d-4681-9a13-043ed87b9e3b
+  alpn:
+  - h3
+  sni: www.bing.com
+  skip-cert-verify: true
+  fast-open: true
+- name: Oregon-Google-0.2T
+  type: hysteria2
+  server: 35.212.171.61
+  up-speed: 500
+  down-speed: 500
+  port: 44147
+  password: 70bede1e
+  alpn:
+  - h3
+  sni: www.bing.com
+  skip-cert-verify: true
+  fast-open: true
+- name: Singapore-AWS-0.2T
+  type: hysteria2
+  server: 18.142.107.215
+  port: 5246
+  up-speed: 500
+  down-speed: 500
+  password: 24f77d7e
+  skip-cert-verify: true
+  sni: www.bing.com
+  servername: www.bing.com
+- name: vless-reality-vision-vps-10462-7605.example.com
+  type: vless
+  server: 154.19.190.28
+  port: 21168
+  uuid: da4c05bd-97cb-442d-8fae-eef38b419db5
+  network: tcp
+  udp: true
+  tls: true
+  flow: xtls-rprx-vision
+  servername: apple.com
+  reality-opts:
+    public-key: fFDLqrxR4erMUUm5xgw7dDmWrvvUSvdmvhGdTmc7EU0
+    short-id: fd7c34cc
+  client-fingerprint: chrome
+- name: vmess-ws-vps-10462-7605.example.com
+  type: vmess
+  server: 154.19.190.28
+  port: 8880
+  uuid: da4c05bd-97cb-442d-8fae-eef38b419db5
+  alterId: 0
+  cipher: auto
+  udp: true
+  tls: false
+  network: ws
+  servername: www.bing.com
+  ws-opts:
+    path: da4c05bd-97cb-442d-8fae-eef38b419db5-vm
+    headers:
+      Host: www.bing.com
+- name: hysteria2-vps-10462-7605.example.com
+  type: hysteria2
+  server: 154.19.190.28
+  port: 28098
+  password: da4c05bd-97cb-442d-8fae-eef38b419db5
+  alpn:
+  - h3
+  sni: www.bing.com
+  skip-cert-verify: true
+  fast-open: true
+- name: tuic5-vps-10462-7605.example.com
+  server: 154.19.190.28
+  port: 62034
+  type: tuic
+  uuid: da4c05bd-97cb-442d-8fae-eef38b419db5
+  password: da4c05bd-97cb-442d-8fae-eef38b419db5
+  alpn:
+  - h3
+  disable-sni: true
+  reduce-rtt: true
+  udp-relay-mode: native
+  congestion-controller: bbr
+  sni: www.bing.com
+  skip-cert-verify: true
