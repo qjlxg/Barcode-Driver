@@ -86,27 +86,32 @@ def extract_yaml_nodes(text: str) -> List[Dict]:
 async def process_source(session: aiohttp.ClientSession, source: str, semaphore: asyncio.Semaphore):
     async with semaphore:
         real_url, status, text, cost = await fetch_yaml(session, source)
+
+    if not text: 
+        return [source, "", "请求失败", 0, status, cost, ""], []
     
-    if not text: return [source, "", "请求失败", 0, status, cost, ""], []
     nodes = extract_yaml_nodes(text)
-    if not nodes: return [source, "", "无有效节点", 0, status, cost, text[:150]], []
+    if not nodes: 
+        summary = text[:150].replace('\r', ' ').replace('\n', ' ')
+        return [source, "", "无有效节点", 0, status, cost, summary], []
+        
     return [source, "", "提取成功", len(nodes), status, cost, ""], nodes
 
 async def main():
     if not os.path.exists(INPUT_CSV):
         logger.error(f"未找到输入文件: {INPUT_CSV}")
         return
-    
+
     # 1. 从 CSV 读取并去重
     exclude_list = load_exclude_list()
     with open(INPUT_CSV, 'r', encoding='utf-8-sig') as f:
         reader = csv.DictReader(f)
         urls = {row['url'].strip() for row in reader if row.get('url')}
         unique_urls = sorted(list({u.rstrip('/') for u in urls if u.rstrip('/') not in exclude_list}))
-    
+
     with open(UNIQUE_URLS_FILE, 'w', encoding='utf-8') as f:
         f.write('\n'.join(unique_urls))
-    
+
     logger.info(f"待处理 URL 总数: {len(unique_urls)}")
 
     # 2. 并发抓取
@@ -123,7 +128,7 @@ async def main():
 
     # 4. 生成 YAML
     unique_nodes = list(all_nodes_map.values())
-    
+
     # 若存在 rules.yaml 则合并配置
     final_config = {"proxies": unique_nodes}
     if os.path.exists(RULES_FILE):
@@ -139,17 +144,16 @@ async def main():
                         current_proxies = group.get("proxies", [])
                         new_proxies = [p for p in current_proxies if p not in node_names]
                         group["proxies"] = new_proxies + node_names
-    
+
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         yaml.dump(final_config, f, allow_unicode=True, sort_keys=False, width=1000)
 
-    # 5. 保存 CSV 统计
+    # 5. 保存 CSV 统计（使用 QUOTE_ALL 并清理摘要中的换行符）
     with open(CSV_FILE, "w", newline="", encoding="utf-8-sig") as f:
-        writer = csv.writer(f)
+        writer = csv.writer(f, quoting=csv.QUOTE_ALL, quotechar='"')
         writer.writerow(["原始URL", "资产地址", "状态", "节点数", "HTTP码", "响应秒数", "摘要"])
         writer.writerows(stats)
 
-    
     logger.info(f"处理完成，生成唯一节点数: {len(unique_nodes)}")
 
 if __name__ == "__main__":
