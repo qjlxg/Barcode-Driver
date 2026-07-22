@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>     Login || wunderdata.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script>
+        // Apply saved theme class as early as possible to reduce flashes
+        (function() {
+            try {
+                function getCookie(name) {
+                    var parts = document.cookie ? document.cookie.split(';') : [];
+                    for (var i = 0; i < parts.length; i++) {
+                        var c = parts[i].trim();
+                        if (c.indexOf(name + '=') === 0) {
+                            return decodeURIComponent(c.substring(name.length + 1));
+                        }
+                    }
+                    return '';
+                }
+                var val = (getCookie('themeMode') || '').toLowerCase().trim();
+                var cl = document.documentElement.classList;
+                cl.remove('theme-light','theme-dark','theme-system');
+                
+                if (val === 'dark') {
+                    cl.add('theme-dark');
+                } else if (val === 'light') {
+                    cl.add('theme-light');
+                } else {
+                    // System mode: check OS preference
+                    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                        cl.add('theme-dark');
+                    } else {
+                        cl.add('theme-light');
+                    }
+                }
+            } catch (e) {}
+        })();
+    </script>
+
+    <link href="/bundles/bilayout/css/bootstrap.css?v=20260610b" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <!--link href="/bundles/bilayout/css/fontawesome.min.css?v=20260610b" rel="stylesheet"-->
+    <link href="/bundles/bilayout/css/wunderdata_20250403.css?v=20260610b" rel="stylesheet">
+    <!-- Nord theme overrides (dark mode) -->
+    <link href="/bundles/bilayout/css/wunderdata_darcula.css?v=20260610b" rel="stylesheet">
+        <link href="/bundles/bichart/css/wdcharts.css?v=20260610b" rel="stylesheet">
+        <style type="text/css">
+        body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+        .sidebar-nav {
+            padding: 9px 0;
+        }
+
+        @media (max-width: 980px) {
+            /* Enable use of floated navbar text */
+            .navbar-text.pull-right {
+                float: none;
+                padding-left: 5px;
+                padding-right: 5px;
+            }
+        }
+    </style>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="/bundles/bilayout/js/html5shiv.js?v=20260610b"></script>
+    <![endif]-->
+
+            <!-- Fav and touch icons -->
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/bundles/bilayout/images/ico/apple-touch-icon-144-precomposed.png?v=20260610b">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/bundles/bilayout/images/ico/apple-touch-icon-114-precomposed.png?v=20260610b">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/bundles/bilayout/images/ico/apple-touch-icon-72-precomposed.png?v=20260610b">
+        <link rel="apple-touch-icon-precomposed" href="/bundles/bilayout/images/ico/apple-touch-icon-57-precomposed.png?v=20260610b">
+        <link rel="shortcut icon" href="/bundles/bilayout/images/ico/favicon.png?v=20260610b">
+        <script>
+        dataLayer = [{ }];
+    </script>
+</head>
+
+<body>
+
+<!-- End Google Tag Manager -->
+
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#wunderdata-navbar1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/dashboard" style="padding-top: 10px">
+                                    <span style="line-height: 30px">Arvo</span>
+                            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="wunderdata-navbar1">
+            <ul class="nav navbar-nav">
+                            </ul>
+        </div>
+    </div>
+</nav>
+
+<script>
+    // Ensure the toggle exists in anonymous layout as well by injecting into navbar once DOM is ready
+    (function(){
+        function ensureToggle(){
+            if (document.getElementById('theme-toggle')) return;
+            var nav = document.getElementById('wunderdata-navbar1');
+            if (!nav) return;
+            var ul = document.createElement('ul');
+            ul.className = 'nav navbar-nav navbar-right';
+            ul.innerHTML = '<li>'+
+                '<button id="theme-toggle" class="theme-toggle-btn p-2 rounded-full transition-colors focus:outline-none" aria-label="Switch theme" title="Switch theme" style="margin-top:9px;height: 2.35em">'+
+                // Sun icon (light)
+                '<svg class="theme-icon-sun text-nord-aurora3 text-xl" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">'+
+                '<path d="M256 160c-52.9 0-96 43.1-96 96s43.1 96 96 96 96-43.1 96-96-43.1-96-96-96zm246.4 80.5l-94.7-47.3 33.5-100.4c4.5-13.6-8.4-26.5-21.9-21.9l-100.4 33.5-47.4-94.8c-6.4-12.8-24.6-12.8-31 0l-47.3 94.7L92.7 70.8c-13.6-4.5-26.5 8.4-21.9 21.9l33.5 100.4-94.7 47.4c-12.8 6.4-12.8 24.6 0 31l94.7 47.3-33.5 100.5c-4.5 13.6 8.4 26.5 21.9 21.9l100.4-33.5 47.3 94.7c6.4 12.8 24.6 12.8 31 0l-47.3 94.7 100.4 33.5c13.6 4.5 26.5-8.4 21.9-21.9l-33.5-100.4 94.7-47.3c13-6.5 13-24.7.2-31.1zm-155.9 106c-49.9 49.9-131.1 49.9-181 0-49.9-49.9-49.9-131.1 0-181 49.9-49.9 131.1-49.9 181 0 49.9 49.9 49.9 131.1 0 181z"></path>'+
+                '</svg>'+
+                // Moon icon (dark)
+                '<svg class="theme-icon-moon text-nord-frost4 text-xl" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg">'+
+                '<path d="M283.211 512c78.962 0 151.079-35.925 198.857-94.792 7.068-8.708-.639-21.43-11.562-19.35-124.203 23.654-238.262-71.576-238.262-196.954 0-72.222 38.662-138.635 101.498-174.394 9.686-5.512 7.25-20.197-3.756-22.23A258.156 258.156 0 0 0 283.211 0c-141.309 0-256 114.511-256 256 0 141.309 114.511 256 256 256z"></path>'+
+                '</svg>'+
+                '</button></li>';
+            nav.appendChild(ul);
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', ensureToggle);
+        } else { ensureToggle(); }
+    })();
+</script>
+
+<div class="container" style="margin-top: 20px;">
+    <div class="row">
+        <div class="col-lg-12">
+                                </div>
+    </div>
+</div>
+
+    <div class="row">
+        <div class="col-sm-offset-4 col-sm-4 alert alert-warning">
+            <strong>Attention!</strong> Please make sure you are using the correct login domain.
+        </div>
+    </div>
+<div class="row">
+    <div class="col-sm-offset-4 col-sm-4 well">
+        <form class="form-horizontal" action="/login_check" method="post">
+            <div class="form-group">
+                <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="_username" id="username" placeholder="Email">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputPassword" class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" name="_password" id="password" placeholder="Password">
+                </div>
+            </div>
+                        <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="_remember_me" id="remember"> Remember me
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default">Sign in</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <a href="/login/password">I forgot my password.</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="/js/acc5978.js"></script>
+
+
+<link rel="stylesheet" href="/bundles/bilayout/css/excel-2007.css?v=20260610b" />
+
+<style>
+    .sortable-fallback {
+        position: fixed !important;
+        opacity: 1 !important;
+        z-index: 2147483647 !important;
+        cursor: grabbing;
+        /* Re-apply list item styles since it's no longer in ul.drag-list */
+        background-color: white;
+        border: 1px solid grey;
+        padding: 5px;
+        box-shadow: 1px 1px #d8d8d8;
+        border-radius: 3px;
+        list-style: none;
+        text-align: left; /* varying alignment in different contexts */
+    }
+    .ghost {
+        opacity: 0.4;
+        background: #f0f0f0;
+    }
+</style>
+<div class="modal fade" id="edit-modal">
+    <div class="modal-dialog" style="width:80%; max-width:80%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">Query and Column Editor</h4>
+            </div>
+            <div class="modal-body">
+                
+                <!-- Table Name (Global) -->
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="dashboard-object-edit-table-name">Table Name</label>
+                    <input type="text" class="form-control" id="dashboard-object-edit-table-name" placeholder="Table Name">
+                </div>
+
+                <!-- Mode: Drag'n Drop Builder -->
+                <div id="dnd-editor-container" style="min-height: 400px; position: relative;">
+                     
+                     <!-- Cube Switcher Row -->
+                     <div class="row" style="margin-bottom: 15px;">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="dnd-cube-selector">Data Schema (Cube)</label>
+                                <select id="dnd-cube-selector" class="form-control">
+                                    <option value="">Select a Schema...</option>
+                                    <!-- Options populated via JS -->
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-8 text-right" style="padding-top: 25px;">
+                             <button type="button" id="switch-to-query-editor" class="btn btn-primary">Switch to Query Editor</button>
+                        </div>
+                     </div>
+                     
+                     <div class="alert alert-info">Loading builder...</div>
+                </div>
+                
+                <!-- Mode: Query Editor -->
+                <div id="query-editor-container" style="display:none;">
+                    <div id="query-mode-warning" class="alert alert-warning" style="display:none;">
+                        <strong>Warning!</strong> You are currently using a custom query. The Drag'n Drop builder is disabled. To re-enable it, please delete your custom query.
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dashboard-object-edit-sql-query">SQL Query</label>
+                        <div class="btn-group pull-right" style="margin-bottom: 5px;">
+                            <button type="button" id="delete-custom-query" class="btn btn-danger btn-xs" style="display:none;">Delete custom query and return to Drag'n Drop Editor</button>
+                        </div>
+                        <textarea id="dashboard-object-edit-sql-query" class="form-control" name="sql_query" rows="10" style="font-family: monospace;"></textarea>
+                    </div>
+
+                    <!-- Inline Filters -->
+                    <div class="well well-sm form-inline" style="margin-top: 10px; display: flex; align-items: center;">
+                        <strong style="margin-right: 10px; white-space: nowrap;">Available Filters (click to copy):</strong>
+                        <div id="filter-helper-list" style="max-height: 30px; overflow-y: auto; overflow-x: hidden; flex-grow: 1; display: flex; flex-wrap: wrap; gap: 5px;">
+                            <i class="fa fa-spinner fa-spin"></i> Loading filters...
+                        </div>
+                        <button type="button" id="wrap-query-orderby" class="btn btn-default btn-xs" style="margin-left: 10px;">Wrap Query in OrderBy</button>
+                    </div>
+                </div>
+
+                <!-- Actions & Save Bar -->
+                <div style="margin-top: 15px; margin-bottom: 10px; display: flex; align-items: center; width: 100%; flex-wrap: wrap;">
+                    <div id="query-editor-actions" style="display: none;">
+                         <button type="button" id="dashboard-object-edit-columns-autodetect" class="btn btn-primary" style="margin-bottom: 5px;">Test Query & Auto-detect Columns</button>
+                         <button type="button" id="dashboard-object-copy-processed-sql" class="btn btn-default" style="margin-left:8px; margin-bottom: 5px;">Copy processed SQL</button>
+                         <select id="dashboard-object-edit-table-layout" class="form-control" style="display:inline-block; width:150px; margin-left:8px; margin-bottom:5px;">
+                             <option value="simple">Simple Table</option>
+                             <option value="heatmap">Heatmap</option>
+                         </select>
+                    </div>
+                    
+                    <button id="dashboard-object-edit-table-save" class="btn btn-default" data-type="table" data-table_id="" data-uuid="" style="margin-left: auto; margin-bottom: 5px;">Save</button>
+                </div>
+
+                <div id="query-results-preview" style="display:none; margin-bottom: 15px; margin-top: 0;">
+                    <div id="query-error" class="alert alert-danger" style="display: none;"></div>
+                    <div id="query-preview-table-container" style="max-height: 420px; overflow: auto;"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="edit-sql-error-message" class="alert alert-danger" role="alert" style="display:none;">
+    A simple danger alert—check it out!
+</div>
+<div id="edit-sql-success-message" class="alert alert-success" role="alert" style="display:none;">
+    A simple success alert—check it out!
+</div>
+
+
+<style>
+    /* Right-align the row descriptions in the preview table's header column */
+    #edit-modal #query-preview-table-container table thead th.wd-headcol {
+        text-align: right;
+    }
+
+    /* Left-align the detected datatype header row values (exclude the header label column) */
+    #edit-modal #query-preview-table-container table.ExcelTable2007 thead tr.wd-row-dtype th:not(.wd-headcol) {
+        text-align: left;
+    }
+
+    /* Ensure preview table sizing is driven by header/colgroup, not body cells */
+    #edit-modal #query-preview-table-container table.ExcelTable2007 {
+        table-layout: fixed; /* use colgroup/first row to size columns */
+    }
+
+    /* Truncate long body values with ellipsis */
+    #edit-modal #query-preview-table-container table.ExcelTable2007 tbody td {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 1px; /* enables truncation regardless of content; actual width comes from column */
+    }
+
+    /* Sticky headers disabled for preview to avoid vertical scrolling */
+    #edit-modal #query-preview-table-container { position: relative; }
+</style>
+
+<script type="text/javascript">
+
+    // Global variables for DnD instances
+    var dndDimensions = null;
+    var dndMetrics = null;
+    // Store current builder config to know if we can generate queries
+    var currentBuilderConfig = null;
+
+    $('#edit-sql-error-message').hide();
+    $('#edit-sql-success-message').hide();
+
+    // Mode Switching Logic
+    function switchToQueryMode() {
+        $('#dnd-editor-container').hide();
+        $('#query-editor-container').show();
+        $('#query-editor-actions').show();
+        
+        // Generate SQL if in simple mode
+        if (currentBuilderConfig && currentBuilderConfig.isSimple) {
+            generateQueryFromDnD();
+            $('#query-mode-warning').show();
+        }
+        
+        // Show "Delete custom query" button if we have a cube (allowing return to DnD)
+        if (currentBuilderConfig && currentBuilderConfig.cubeId) {
+            $('#delete-custom-query').show();
+        } else {
+            $('#delete-custom-query').hide();
+        }
+    }
+
+    function switchToDnDMode() {
+        $('#query-editor-container').hide();
+        $('#query-editor-actions').hide();
+        $('#dnd-editor-container').show();
+        
+        // Hide warning as we are back in sync/safe mode? 
+        // Or check if valid state?
+        $('#query-mode-warning').hide();
+
+        // Mark as simple mode so that switching back to query mode triggers regeneration
+        if (currentBuilderConfig) {
+            currentBuilderConfig.isSimple = 1;
+        }
+    }
+
+    $('#switch-to-query-editor').click(function(){
+        switchToQueryMode();
+    });
+
+    function generateQueryFromDnD() {
+        if (!currentBuilderConfig || !dndDimensions || !dndMetrics) return;
+        
+        // We need cube ID from config
+         var cubeId = currentBuilderConfig.cubeId;
+         var dimIds = dndDimensions.getResult();
+         var metIds = dndMetrics.getResult();
+
+         $.ajax({
+            type: 'POST',
+            url: '/builder/editor/generateQuery',
+            data: {
+                cube: cubeId,
+                dimensions: dimIds,
+                metrics: metIds
+            },
+            success: function(response) {
+                if (response.sql) {
+                    $('#dashboard-object-edit-sql-query').val(response.sql);
+                }
+            }
+         });
+    }
+
+    $(document).on('click', 'button.dashboard-object-edit', function(event){
+        let element = $(event.currentTarget);
+        let type = element.attr('data-type');
+        let uuid = element.attr('data-uuid');
+        let cube = element.attr('data-cube');
+        let url = "/builder/editor/editSql/REPLACETYPE/REPLACEUUID";
+        url = url.replace('REPLACETYPE', type);
+        url = url.replace('REPLACEUUID', uuid);
+        
+        if (cube) {
+            url += '?cube=' + cube;
+        }
+        
+        let isClone = element.attr('data-clone') === 'true';
+
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function (data, status) {
+                $('#dashboard-object-edit-sql-query').val(data['exa_query']);
+                if (isClone) {
+                    $('#dashboard-object-edit-table-name').val(data['table_title'] + ' - copy');
+                    $('#edit-modal #dashboard-object-edit-table-save').attr('data-uuid', 'new');
+                    $('#edit-modal #dashboard-object-edit-table-save').attr('data-table_id', '');
+                } else {
+                    $('#dashboard-object-edit-table-name').val(data['table_title']);
+                    $('#edit-modal #dashboard-object-edit-table-save').attr('data-uuid', uuid);
+                    $('#edit-modal #dashboard-object-edit-table-save').attr('data-table_id', data['table_id']);
+                }
+                
+                // Populating Cube Dropdown
+                var cubes = data['cubes'] || {};
+                var $cubeSelect = $('#dnd-cube-selector');
+                $cubeSelect.empty();
+                $cubeSelect.append('<option value="">Select a Schema...</option>');
+                $.each(cubes, function(cid, cname) {
+                    $cubeSelect.append($('<option>', { value: cid, text: cname }));
+                });
+                
+                // Initialize Layout Selection
+                var layoutType = data['table_type'] ? data['table_type'] : 'simple';
+                $('#dashboard-object-edit-table-layout').val(layoutType);
+                $('#dashboard-object-edit-table-layout').trigger('change');
+
+                // Handle Builder / Tabs
+                // Handle Builder / Tabs
+                currentBuilderConfig = data['builder_config'];
+                // Set initial cube in selector
+                if (currentBuilderConfig && currentBuilderConfig.cubeId) {
+                    $cubeSelect.val(currentBuilderConfig.cubeId);
+                }
+
+                var hasDnD = (currentBuilderConfig && currentBuilderConfig.cubeId && currentBuilderConfig.html);
+                
+                
+                // Virtual List Class for DnD Editor
+                var VirtualDnDList = function(config) {
+                    this.container = $(config.containerId);
+                    this.list = $(config.listId);
+                    this.spacer = $(config.spacerId);
+                    this.search = $(config.searchId);
+                    this.data = config.data || [];
+                    this.itemHeight = config.itemHeight || 30; // Default LI height
+                    this.itemPrefix = config.itemPrefix || '';
+                    
+                    this.filteredData = [];
+                    
+                    this.init = function() {
+                        this.filter();
+                        this.container.on('scroll', this.render.bind(this));
+                        var that = this;
+                        this.search.on('keyup', function() { that.filter(); });
+                    };
+                    
+                    this.filter = function() {
+                        var query = this.search.val().toLowerCase();
+                        this.filteredData = this.data.filter(function(item) {
+                            if (!query) return true;
+                            return item.search.indexOf(query) !== -1;
+                        });
+                        
+                        this.spacer.height(this.filteredData.length * this.itemHeight);
+                        this.container.scrollTop(0);
+                        this.render();
+                    };
+                    
+                    this.render = function() {
+                        var scrollTop = this.container.scrollTop();
+                        var containerHeight = this.container.height();
+                        
+                        var startIndex = Math.floor(scrollTop / this.itemHeight);
+                        var endIndex = Math.min(
+                            this.filteredData.length, 
+                            Math.floor((scrollTop + containerHeight) / this.itemHeight) + 10 // buffer
+                        );
+                        
+                        var visibleItems = this.filteredData.slice(startIndex, endIndex);
+                        var topOffset = startIndex * this.itemHeight;
+                        
+                        var html = '';
+                        for (var i = 0; i < visibleItems.length; i++) {
+                            var item = visibleItems[i];
+                            // Reconstruct LI. DragAndDrop2 expects ID.
+                            html += '<li id="avail_' + item.id + '" style="height: ' + this.itemHeight + 'px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; padding: 0 5px; line-height: ' + this.itemHeight + 'px;">' +
+                                    item.name + 
+                                    '</li>';
+                        }
+                        
+                        this.list.css('top', topOffset + 'px').html(html);
+                    };
+                };
+
+                // Start: DnD and Virtual List Initialization Helper
+                function initDnDInterface() {
+                     // Check if data is available (provided by fragment script)
+                     if (typeof window.dndFragmentData === 'undefined') return;
+                     
+                     // Initialize Virtual Lists
+                     var vDim = new VirtualDnDList({
+                         containerId: '#dim-virtual-container',
+                         listId: '#builder-possibleDimensions',
+                         spacerId: '#dim-scroll-spacer',
+                         searchId: '#dimensionsSearchbar',
+                         data: window.dndFragmentData.dimensions,
+                         itemPrefix: 'dim'
+                     });
+                     vDim.init();
+                     
+                     var vMet = new VirtualDnDList({
+                         containerId: '#met-virtual-container',
+                         listId: '#builder-possibleMetrics',
+                         spacerId: '#met-scroll-spacer',
+                         searchId: '#metricsSearchbar',
+                         data: window.dndFragmentData.metrics,
+                         itemPrefix: 'met'
+                     });
+                     vMet.init();
+                     
+                     // Initialize DragAndDrop (SortableJS)
+                     if (dndDimensions) { try { dndDimensions.destroy(); } catch(e){} }
+                     dndDimensions = new DragAndDrop({
+                        dragId: 'builder-possibleDimensions',
+                        dropId: 'builder-dimensions',
+                        connectionClass: 'connectedDimensionsSortable',
+                        searchBarId: 'dimensionsSearchbar',
+                        onChange: function() { updateSaveButton(); }
+                     });
+                     dndDimensions.initialize();
+            
+                     if (dndMetrics) { try { dndMetrics.destroy(); } catch(e){} }
+                     dndMetrics = new DragAndDrop({
+                        dragId: 'builder-possibleMetrics',
+                        dropId: 'builder-metrics',
+                        connectionClass: 'connectedMetricsSortable',
+                        searchBarId: 'metricsSearchbar',
+                        onChange: function() { updateSaveButton(); }
+                     });
+                     dndMetrics.initialize();
+                }
+
+                // Load SortableJS library ensuring correct version
+                function loadSortableLib(callback) {
+                    $.ajax({
+                        url: '/bundles/bibuilder/js/Sortable.min.js?v=20260610b',
+                        dataType: 'script',
+                        cache: true,
+                        success: function() {
+                            if (callback) callback();
+                        }
+                    });
+                }
+
+                // Function to load DnD fragment
+                function loadDnDFragment(cubeId) {
+                    // Remove instruction alert if present
+                    $('#dnd-editor-container > .alert-info').remove();
+                    
+                    $('#dnd-content-area').html('<div class="alert alert-info"><i class="fa fa-spinner fa-spin"></i> Loading schema...</div>');
+                    
+                    $.ajax({
+                        url: '/builder/editor/dndFragment',
+                        data: { cubeId: cubeId },
+                        success: function(html) {
+                            if (!html) {
+                                $('#dnd-content-area').html('<div class="alert alert-warning">Failed to load schema definition.</div>');
+                                return;
+                            }
+                            $('#dnd-content-area').html(html);
+                            
+                            loadSortableLib(function() {
+                                initDnDInterface();
+                            });
+                            
+                            // Update current config tracking (at least the cube part)
+                            if (!currentBuilderConfig) currentBuilderConfig = {};
+                            currentBuilderConfig.cubeId = cubeId;
+                            currentBuilderConfig.isSimple = 1; // Assuming we are in DnD mode now
+                        },
+                        error: function() {
+                            $('#dnd-content-area').html('<div class="alert alert-danger">Error loading schema.</div>');
+                        }
+                    });
+                }
+                
+                // Cube Change Handler
+                $cubeSelect.off('change').on('change', function() {
+                    var newCubeId = $(this).val();
+                    var oldCubeId = (currentBuilderConfig ? currentBuilderConfig.cubeId : '');
+                    
+                    // Check for dirty state (selected dimensions/metrics)
+                    var isDirty = false;
+                    if (dndDimensions && dndDimensions.getResult().length > 0) isDirty = true;
+                    if (dndMetrics && dndMetrics.getResult().length > 0) isDirty = true;
+                    
+                    if (isDirty && newCubeId !== oldCubeId) {
+                        if (!confirm("Changing the Data Schema will clear your current selection of dimensions and metrics. Do you want to continue?")) {
+                            $(this).val(oldCubeId); // Revert selection
+                            return;
+                        }
+                    }
+                    
+                    if (newCubeId) {
+                         loadDnDFragment(newCubeId);
+                         // Update "isSimple" flag as we are actively building
+                         if (!currentBuilderConfig) currentBuilderConfig = {};
+                         currentBuilderConfig.isSimple = 1; 
+                         // Show switch buttons just in case
+                         $('#switch-to-query-editor').show();
+                         $('#delete-custom-query').show();
+                    } else {
+                        $('#dnd-content-area').empty();
+                    }
+                });
+
+                if (hasDnD) {
+                    if ($('#dnd-content-area').length === 0) {
+                         $('#dnd-editor-container').append('<div id="dnd-content-area"></div>');
+                         $('.alert-info', '#dnd-editor-container').remove();
+                    }
+                    
+                    $('#dnd-content-area').html(currentBuilderConfig.html);
+                    
+                    loadSortableLib(function() {
+                        initDnDInterface();
+                    });
+                } else {
+                     // Ensure content area exists for the fragment loader
+                     if ($('#dnd-content-area').length === 0) {
+                         $('#dnd-editor-container').append('<div id="dnd-content-area"></div>');
+                         $('.alert-info', '#dnd-editor-container').text('Please select a Data Schema to start building.');
+                    }
+                }
+
+                if (currentBuilderConfig && currentBuilderConfig.isSimple) {
+                    // Activate DnD Mode
+                    switchToDnDMode();
+                } else {
+                     // Custom Query mode or no DnD
+                     switchToQueryMode();
+                     
+                     // ALWAYS show Delete Custom Query button now, as per request
+                     $('#delete-custom-query').show();
+                     
+                     // Ensure Switch button is visible in DnD mode
+                     $('#switch-to-query-editor').show();
+                }
+
+                // Clear previous preview
+                $('#query-preview-table-container').empty();
+                $('#query-error').hide();
+                // If server provided existing columns, render them into the editor form
+                if (data['columns'] && data['columns'].length > 0) {
+                    try {
+                        var cols = (Array.isArray(data['columns']) ? data['columns'] : []);
+                        // Normalize and ensure a transformer value exists for selection
+                        cols = cols.map(function(c){
+                            return {
+                                sql_name: c.sql_name || '',
+                                name: c.name || '',
+                                type: c.type || 'string',
+                                transformer: c.transformer || '',
+                                background_color: c.background_color || '',
+                                text_color: c.text_color || '',
+                                percentage_bar: c.percentage_bar || false
+                            };
+                        });
+                        var html = wdBuildColumnsForm(cols, []);
+                        $('#query-preview-table-container').html(html);
+                        $('#query-results-preview').show();
+                        // Auto-run test query to show data preview but keep existing column inputs intact
+                        runTestQuery(true);
+                    } catch (e) {
+                        // fallback: keep preview hidden if anything goes wrong
+                        $('#query-results-preview').hide();
+                    }
+                } else {
+                    // No existing columns in DB. 
+                    // If DnD mode, try to generate preview from builder state
+                    var isDnD = (currentBuilderConfig && currentBuilderConfig.isSimple);
+                    
+                    if (isDnD) {
+                        $('#query-results-preview').show();
+                        runTestQuery(true); // Auto-generate preview
+                    } else {
+                        // If there is a query present, run test query
+                        // to auto-detect columns and build inputs; otherwise keep preview hidden
+                        var q = $('#dashboard-object-edit-sql-query').val();
+                        if (q && q.trim().length > 0) {
+                            runTestQuery(false);
+                        } else {
+                            $('#query-results-preview').hide();
+                        }
+                    }
+                }
+                $('#edit-modal').modal({
+                    backdrop: 'static',
+                    keyboard: false,
+                    show: true
+                });
+                
+                // Load Filters
+                function fallbackCopy(text, el) {
+                    var temp = $('<textarea>');
+                    $('body').append(temp);
+                    temp.val(text).select();
+                    document.execCommand('copy');
+                    temp.remove();
+                    if (el) {
+                        var originalColor = el.css('background-color');
+                        el.css('background-color', '#5cb85c');
+                        setTimeout(function(){ el.css('background-color', originalColor); }, 500);
+                    }
+                }
+                 $.getJSON('/filter/admin/list-replacements', function(data){
+                    var container = $('#filter-helper-list');
+                    container.empty();
+                    if(data.length === 0) {
+                        container.html('<span class="text-muted">No filters found.</span>');
+                        return;
+                    }
+                    data.forEach(function(item){
+                        var snippet = '/*{{filter_' + item.replacement_identifier + '}}*/';
+                        var label = item.replacement_identifier;
+                        var badge = $('<span class="label label-info" style="cursor:pointer; margin-right:5px; display:inline-block; margin-bottom:2px;" title="Click to copy: ' + snippet + '">' + label + '</span>');
+                        
+                        badge.click(function(){
+                            var el = $(this);
+                            // Use modern Clipboard API, fall back to execCommand for old browsers
+                            if (navigator.clipboard && navigator.clipboard.writeText) {
+                                navigator.clipboard.writeText(snippet).then(function() {
+                                    var originalColor = el.css('background-color');
+                                    el.css('background-color', '#5cb85c');
+                                    setTimeout(function(){ el.css('background-color', originalColor); }, 500);
+                                }).catch(function() {
+                                    fallbackCopy(snippet, el);
+                                });
+                            } else {
+                                fallbackCopy(snippet, el);
+                            }
+                        });
+                        
+                        container.append(badge);
+                    });
+                });
+            },
+            error: function(xhr, status, error) {
+            $('#edit-sql-error-message').html(xhr.responseText);
+            $('#edit-sql-error-message').fadeIn().delay(10000).fadeOut();
+            }
+        });
+    });
+    
+    // START: Wrap Query in OrderBy
+    $('#wrap-query-orderby').click(function() {
+        var $textarea = $('#dashboard-object-edit-sql-query');
+        var query = $textarea.val();
+        if (!query.trim()) return;
+
+        var wrapped = 'SELECT * FROM (\n' + query + '\n) /*{{order_with_orderby}}*/';
+        $textarea.val(wrapped);
+        $textarea.trigger('input'); // Update dirty state
+    });
+    // END: Wrap Query in OrderBy
+
+                // --- Dirty State / Save Button Management ---
+                
+                var $saveBtn = $('#dashboard-object-edit-table-save');
+                var initialState = {
+                    title: $('#dashboard-object-edit-table-name').val(),
+                    sql: $('#dashboard-object-edit-sql-query').val(),
+                    cubeId: currentBuilderConfig ? currentBuilderConfig.cubeId : '',
+                    layout: $('#dashboard-object-edit-table-layout').val(),
+                    dim: [], // populated later
+                    met: [] // populated later
+                };
+                
+                function getDnDState() {
+                    return {
+                        dim: (dndDimensions ? dndDimensions.getResult() : []),
+                        met: (dndMetrics ? dndMetrics.getResult() : [])
+                    };
+                }
+                
+                // Capture initial DnD state after initialization
+                setTimeout(function(){
+                    var dnd = getDnDState();
+                    initialState.dim = dnd.dim;
+                    initialState.met = dnd.met;
+                    updateSaveButton(); // Initial check
+                }, 500); // Small delay to ensure sortables are ready
+
+                function isDirty() {
+                    if ($('#dashboard-object-edit-table-name').val() !== initialState.title) return true;
+                    if ($('#dashboard-object-edit-sql-query').val() !== initialState.sql) return true;
+                    
+                    var currentCubeId = $('#dnd-cube-selector').length ? $('#dnd-cube-selector').val() : (currentBuilderConfig ? currentBuilderConfig.cubeId : '');
+                    // Handle 'undefined' or null vs empty string
+                    if ((currentCubeId || '') != (initialState.cubeId || '')) return true;
+
+                    if ($('#dashboard-object-edit-table-layout').val() !== initialState.layout) return true;
+
+                    // DnD check
+                    var dnd = getDnDState();
+                    if (dnd.dim.join(',') !== initialState.dim.join(',')) return true;
+                    if (dnd.met.join(',') !== initialState.met.join(',')) return true;
+                    
+                    return false;
+                }
+
+                function updateSaveButton() {
+                    // Reset Error state if it was there?
+                    if ($saveBtn.hasClass('btn-danger')) {
+                        $saveBtn.removeClass('btn-danger').text('Save');
+                    }
+
+                    // Always keep save button enabled; highlight green when dirty
+                    if (isDirty()) {
+                        $saveBtn.removeClass('btn-default').addClass('btn-success').prop('disabled', false);
+                    } else {
+                        $saveBtn.removeClass('btn-success btn-danger').addClass('btn-default').prop('disabled', false);
+                    }
+                }
+
+                // Bind Events
+                $('#dashboard-object-edit-table-name, #dashboard-object-edit-sql-query').on('input keyup paste', function() {
+                    updateSaveButton();
+                });
+                
+                $('#dnd-cube-selector').on('change', function() {
+                    updateSaveButton();
+                });
+                
+                $('#dashboard-object-edit-table-layout').on('change', function() {
+                    updateSaveButton();
+                    // Re-render the correct preview layout immediately
+                    if (window.lastPreviewData && window.lastPreviewCols) {
+                        var layout = $(this).val();
+                        var html = '';
+                        if (layout === 'heatmap') {
+                             html = wdBuildHeatmapPreview(window.lastPreviewCols, window.lastPreviewData);
+                        } else {
+                             html = wdBuildColumnsForm(window.lastPreviewCols, window.lastPreviewData);
+                        }
+                        $('#query-preview-table-container').html(html);
+                    }
+                });
+                
+                // Bind to body for delegated sortupdate from DnD lists
+                $('body').off('sortupdate').on('sortupdate', '.connectedDimensionsSortable, .connectedMetricsSortable', function() {
+                     setTimeout(function() {
+                         updateSaveButton();
+                         // Auto-update preview in DnD mode
+                         if ($('#dnd-editor-container').is(':visible')) {
+                             runTestQuery(true);
+                         }
+                     }, 200); // Debounce/Delay
+                });
+                
+                // Bind live preview update on transformer change
+                $('#query-preview-table-container').on('change', 'select[name$="[transformer]"]', function() {
+                    if (window.lastPreviewData) {
+                        var currentCols = wdReadColumnsFromForm();
+                        // This rebuilds the table with applying the new transformers
+                        var html = wdBuildColumnsForm(currentCols, window.lastPreviewData);
+                        $('#query-preview-table-container').html(html);
+                    }
+                });
+                
+                // Update delete handler to trigger check
+                $('#delete-custom-query').click(function(){
+                    if (!confirm("Are you sure you want to delete your custom query? This action cannot be undone.")) {
+                        return;
+                    }
+                    $('#dashboard-object-edit-sql-query').val('');
+                    switchToDnDMode();
+                    updateSaveButton();
+                });
+
+                // Override switch to query mode to update button? 
+                // Mode switch itself doesn't change data, but visibility might affect what "isDirty" means?
+                // For now, checks are global (hidden fields still have values).
+                
+                // --- End Dirty State Management ---
+
+    $('button#dashboard-object-edit-table-save').unbind('click').click(function(event){
+        let element = $(event.currentTarget);
+        let uuid = element.attr('data-uuid');
+        
+        // Disable to prevent double click
+        element.prop('disabled', true).text('Saving...');
+        
+        // ... (rest of save logic) ..
+        let table_id = element.attr('data-table_id');
+        let type = element.attr('data-type');
+        
+        // Determine mode based on visibility
+        var isDnD = $('#dnd-editor-container').is(':visible');
+        
+        if (isDnD) {
+             // We need to use TableController::saveAction logic.
+             // But we are in an overlay. `TableController::saveAction` returns JSON `{ "uuid": "..." }`.
+             // We can use that.
+             
+             // Construct data for TableController::saveAction
+             // It expects: title, cube, dimensions[], metrics[], uuid
+             
+             if (!currentBuilderConfig) {
+                 alert("Builder state lost.");
+                 return;
+             }
+             
+             var dndData = {
+                 title: $('#dashboard-object-edit-table-name').val(),
+                 cube: currentBuilderConfig.cubeId,
+                 dimensions: dndDimensions.getResult(), // array of strings "dim123"
+                 metrics: dndMetrics.getResult(),
+                 layout: $('#dashboard-object-edit-table-layout').val(),
+                 uuid: (uuid === 'new' ? '' : uuid)
+             };
+             
+             $.ajax({
+                 type: 'POST',
+                 url: '/builder/table/new/save',
+                 data: dndData,
+                 success: function(resp) {
+                      // Success
+                      $('#edit-modal').modal('hide');
+                      window.location.reload();
+                 },
+                 error: function(xhr) {
+                      $('#edit-sql-error-message').html(xhr.responseText || 'Save failed');
+                      $('#edit-sql-error-message').fadeIn().delay(5000).fadeOut();
+                      
+                      // Restore button to error state
+                      $('button#dashboard-object-edit-table-save')
+                          .removeClass('btn-success btn-default')
+                          .addClass('btn-danger')
+                          .text('Save')
+                          .prop('disabled', false); // Allow retry
+                 }
+             });
+             return; // Stop here, don't execute the old save logic
+        }
+        
+        // If SQL Mode
+        let sqlData = {
+            type: type,
+            uuid: uuid,
+            table_id: table_id,
+            table_name: $('#dashboard-object-edit-table-name').val(),
+            sql_query: $('#dashboard-object-edit-sql-query').val(),
+            layout: $('#dashboard-object-edit-table-layout').val(),
+        };
+        $.ajax({
+            type: 'POST',
+            url: '/builder/editor/updateObject/',
+            data: sqlData,
+            success: function (data, status) {
+
+                // Build payload exactly as classic form-urlencoded string so Symfony parses columns[...] correctly
+                
+                // Validate colors in edit_columns_form
+                const hexRegex = /^#([A-Fa-f0-9]{8}|[A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
+                $('form#edit_columns_form input.wd-col-bg, form#edit_columns_form input.wd-col-text').each(function() {
+                    let val = $(this).val();
+                    if (val && !hexRegex.test(val)) {
+                         $(this).val(''); // Clear invalid color
+                    }
+                });
+
+                let columnsQuery = $('form#edit_columns_form').serialize();
+                // append required meta fields
+                columnsQuery += '&type=' + encodeURIComponent(type)
+                    + '&uuid=' + encodeURIComponent(data['uuid'])
+                    + '&table_id=' + encodeURIComponent(data['table_id']);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/builder/editor/updateObject/',
+                    data: columnsQuery,
+                    success: function (data, status) {
+                        $.when(
+                            $('#edit-sql-success-message').html("Creating or updating table was successful!"),
+                            $('#edit-sql-success-message').fadeIn().delay(1000).fadeOut()
+                        ).done(function(x) {
+                            $('#edit-modal').modal('hide');
+                            if(window.location.pathname == "/builder/table") {
+                                window.location.href = window.location.protocol + "//" + window.location.host + "/builder/table?tab=query";
+                            } else {
+                                 window.location.href = window.location.href;
+                            }
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        $('#edit-sql-error-message').html(xhr.responseText);
+                        $('#edit-sql-error-message').fadeIn().delay(1000).fadeOut();
+                        
+                        $('button#dashboard-object-edit-table-save')
+                          .removeClass('btn-success btn-default')
+                          .addClass('btn-danger')
+                          .text('Save')
+                          .prop('disabled', false);
+                    }
+                });
+            },
+            error: function(xhr, status, error) {
+                $('#edit-sql-error-message').html(xhr.responseText);
+                $('#edit-sql-error-message').fadeIn().delay(1000).fadeOut();
+                
+                $('button#dashboard-object-edit-table-save')
+                  .removeClass('btn-success btn-default')
+                  .addClass('btn-danger')
+                  .text('Save')
+                  .prop('disabled', false);
+            }
+        });
+    });
+
+    // Helper to escape HTML in dynamic content
+    function wdEscapeHtml(text) {
+        return String(text)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+    }
+
+    // Decide default transformer based on sql_name and type
+    function wdComputeDefaultTransformer(sqlName, type) {
+        var lname = String(sqlName || '').toLowerCase();
+        var t = String(type || '').toLowerCase();
+        if (lname.indexOf('%') !== -1) return 'round_percentage';
+        var moneyHints = ['revenue','salary','sales','cogs','ek','profit'];
+        var containsMoneyHint = moneyHints.some(function(h){ return lname.indexOf(h) !== -1; });
+        if (t === 'float' && containsMoneyHint) return 'round_cur';
+        if (t === 'float') return 'round';
+        if (t === 'string') return 'string';
+        return '';
+    }
+
+    function wdBuildHeatmapPreview(columns, data) {
+        if (!columns || columns.length < 4) {
+             return '<div style="padding: 20px; color: red;">Heatmap requires exactly 4 columns: X, Y, KPI, Color code. This table has ' + (columns ? columns.length : 0) + ' columns.</div>';
+        }
+        
+        var x_col = columns[0].sql_name;
+        var y_col = columns[1].sql_name;
+        var kpi_col = columns[2].sql_name;
+        var color_col = columns[3].sql_name;
+        
+        var x_values = [];
+        var y_values = [];
+        var matrix = {};
+        
+        data.forEach(function(row) {
+            var x = row[x_col];
+            var y = row[y_col];
+            var kpi = row[kpi_col];
+            var color = row[color_col];
+            
+            if (x_values.indexOf(x) === -1) x_values.push(x);
+            if (y_values.indexOf(y) === -1) y_values.push(y);
+            
+            var y_key = '_' + y;
+            var x_key = '_' + x;
+            
+            if (!matrix[y_key]) matrix[y_key] = {};
+            matrix[y_key][x_key] = { kpi: kpi, color: color };
+        });
+        
+        var html = '<table class="ExcelTable2007 heatmap-table" style="width: 100%; border-collapse: collapse;">';
+        html += '<thead><tr>';
+        html += '<th class="heading key" style="text-align: left; padding: 8px; border: 1px solid #ddd;">' + wdEscapeHtml(columns[1].name || columns[1].sql_name) + ' \\ ' + wdEscapeHtml(columns[0].name || columns[0].sql_name) + '</th>';
+        
+        x_values.forEach(function(x) {
+            html += '<th style="padding: 8px; border: 1px solid #ddd; text-align: center;">' + wdEscapeHtml(x !== null && x !== undefined ? x : 'NULL') + '</th>';
+        });
+        html += '</tr></thead><tbody>';
+        
+        y_values.forEach(function(y) {
+            var y_key = '_' + y;
+            html += '<tr>';
+            html += '<td class="key heading" style="font-weight: bold; padding: 8px; border: 1px solid #ddd; text-align: left;">' + wdEscapeHtml(y !== null && y !== undefined ? y : 'NULL') + '</td>';
+            
+            x_values.forEach(function(x) {
+                var x_key = '_' + x;
+                var cellData = matrix[y_key][x_key] || { kpi: '-', color: '#ffffff' };
+                html += '<td style="background-color: ' + wdEscapeHtml(cellData.color) + '; padding: 8px; border: 1px solid #eee; text-align: right;">';
+                html += wdEscapeHtml(cellData.kpi !== null && cellData.kpi !== undefined ? cellData.kpi : 'NULL');
+                html += '</td>';
+            });
+            html += '</tr>';
+        });
+        
+        html += '</tbody></table>';
+        return html;
+    }
+
+    // Build the columns form (header rows + preview rows)
+    function wdBuildColumnsForm(columns, rows) {
+        rows = Array.isArray(rows) ? rows : [];
+        var table = '<form id="edit_columns_form">';
+        table += '<input type="hidden" id="column-new-id" value="1" />';
+        table += '<table class="ExcelTable2007">';
+
+        // Sizing
+        const minCh = 6, maxCh = 40, padCh = 2;
+        const headColWidthPx = 160;
+        table += '<colgroup>';
+        table += '<col class="wd-headcol" style="width:' + headColWidthPx + 'px">';
+        columns.forEach(function(col){
+            let widthCh = Math.max(String(col.sql_name || '').length, String(col.name || '').length) + padCh;
+            widthCh = Math.max(minCh, Math.min(maxCh, widthCh));
+            table += '<col style="width:' + widthCh + 'ch">';
+        });
+        table += '</colgroup>';
+        table += '<thead>';
+
+        // Row 1: sql_name
+        table += '<tr class="key">';
+        table += '<th class="wd-headcol">sql_name</th>';
+        columns.forEach(function(col, idx) {
+            let cid = idx + 1;
+            table += '<th>' +
+                '<input value="' + wdEscapeHtml(col.sql_name || '') + '" type="text" name="columns[new-' + cid + '][sql_name]" class="form-control input-sm" placeholder="SQL Name">' +
+                '<input type="hidden" name="columns[new-' + cid + '][update_type]" value="insert">' +
+                '<input type="hidden" name="columns[new-' + cid + '][old_transformer]" value="">' +
+                '</th>';
+        });
+        table += '</tr>';
+
+        // Row 2: detected datatype
+        table += '<tr class="key wd-row-dtype">';
+        table += '<th class="wd-headcol">detected datatype</th>';
+        columns.forEach(function(col, idx) {
+            let cid = idx + 1;
+            let dtype = col.type || 'string';
+            table += '<th>' +
+                '<span class="label label-default">' + wdEscapeHtml(dtype) + '</span>' +
+                '<input type="hidden" name="columns[new-' + cid + '][detected_type]" value="' + wdEscapeHtml(dtype) + '">' +
+                '</th>';
+        });
+        table += '</tr>';
+
+        // Row 2.5: Formatting
+        table += '<tr class="key" style="height: 10px;">';
+        table += '<th class="wd-headcol"></th>';
+        columns.forEach(function(col, idx) {
+            let cid = idx + 1;
+            let bg = col.background_color || '';
+            let text = col.text_color || '';
+            let perc = (col.percentage_bar === true || col.percentage_bar === 'true') ? 'true' : 'false';
+            
+            table += '<th style="text-align: center; vertical-align: middle; padding: 0;">' +
+                '<input type="hidden" name="columns[new-' + cid + '][background_color]" value="' + wdEscapeHtml(bg) + '" class="wd-col-bg">' +
+                '<input type="hidden" name="columns[new-' + cid + '][text_color]" value="' + wdEscapeHtml(text) + '" class="wd-col-text">' +
+                '<input type="hidden" name="columns[new-' + cid + '][percentage_bar]" value="' + perc + '" class="wd-col-perc">' +
+                '<button type="button" class="btn btn-xs btn-link wd-col-fmt-btn" style="padding: 0; color: #555;" data-cid="' + cid + '"><i class="fa fa-ellipsis-h"></i></button>' +
+                '</th>';
+        });
+        table += '</tr>';
+
+        // Row 3: applied transformer
+        table += '<tr class="key">';
+        table += '<th class="wd-headcol">applied transformer</th>';
+        columns.forEach(function(col, idx) {
+            let cid = idx + 1;
+            // Choose provided transformer or derive default
+            var transformerDefault = (col.transformer && col.transformer.length) ? col.transformer : wdComputeDefaultTransformer(col.sql_name, col.type);
+            let tStringSel = (transformerDefault === 'string') ? 'selected' : '';
+            let tRoundSel = (transformerDefault === 'round') ? 'selected' : '';
+            let tRoundCurSel = (transformerDefault === 'round_cur') ? 'selected' : '';
+            let tRoundPercSel = (transformerDefault === 'round_percentage') ? 'selected' : '';
+            table += '<th>' +
+                '<select class="form-control input-sm" name="columns[new-' + cid + '][transformer]">' +
+                '<option value="" ' + ((transformerDefault === '') ? 'selected' : '') + '>Transformer...</option>' +
+                '<option value="string" ' + tStringSel + '>String</option>' +
+                '<option value="round" ' + tRoundSel + '>Round</option>' +
+                '<option value="round_cur" ' + tRoundCurSel + '>Round+Cur</option>' +
+                '<option value="round_percentage" ' + tRoundPercSel + '>Round+%</option>' +
+                '</select>' +
+                '</th>';
+        });
+        table += '</tr>';
+
+        // Row 4: Display Name
+        table += '<tr class="key">';
+        table += '<th class="wd-headcol">Display Name</th>';
+        columns.forEach(function(col, idx) {
+            let cid = idx + 1;
+            table += '<th>' +
+                '<input value="' + wdEscapeHtml(col.name || '') + '" type="text" name="columns[new-' + cid + '][name]" class="form-control input-sm" placeholder="Name">' +
+                '</th>';
+        });
+        table += '</tr>';
+
+        table += '</thead>';
+        table += '<tbody>';
+        if (rows.length > 0) {
+            rows.forEach(function(row) {
+                table += '<tr>';
+                table += '<td class="wd-headcol"></td>';
+                columns.forEach(function(col) {
+                    let val = (row[col.sql_name] !== null && row[col.sql_name] !== undefined ? row[col.sql_name] : 'NULL');
+                    
+                    // Apply visual formatting to preview (this mimics Twig extension behavior)
+                    var fmt = (col.transformer && col.transformer.length) ? col.transformer : '';
+                    val = wdFormatPreviewValue(val, fmt);
+                    
+                    table += '<td>' + wdEscapeHtml(val) + '</td>';
+                });
+                table += '</tr>';
+            });
+        }
+        table += '</tbody></table></form>';
+        return table;
+    }
+    
+    function wdFormatPreviewValue(val, transformer) {
+        if (val === 'NULL' || val === null || val === undefined) return val;
+        
+        // Simple numeric check
+        var num = parseFloat(val);
+        var isNum = !isNaN(num) && isFinite(val);
+        
+        if (!isNum) return val; // if not valid number, return as is (string)
+        
+        // Helpers
+        var doRound = function(v) { 
+             // Mimic round-float-with-precision-2
+             return v.toFixed(2); // or Math.round(v * 100) / 100? toFixed matches standard business display.
+        };
+        
+        // Transformers map:
+        // 'round' -> round 2 decimals
+        // 'cur' -> append currency (default € for preview)
+        // 'percentage' -> append %
+        // 'round_cur' -> round + cur
+        // 'round_percentage' -> round + %
+        
+        // Check for composition first (underscore)
+        var parts = transformer.split('_');
+        // Common cases seen in dropdown
+        
+        if (transformer === 'string') return val;
+        
+        // Formatting Logic
+        var formatted = num;
+        var suffix = '';
+        var prefix = '';
+        
+        // Check if rounding needed
+        if (transformer.indexOf('round') !== -1) {
+            formatted = doRound(num);
+        } else {
+            // Note: some transformers like 'cur' might imply rounding or not?
+            // If backend sends 'cur', it usually means raw+cur. 
+            // But let's stick to what the transformer name says.
+        }
+        
+        // Check for currency
+        if (transformer.indexOf('cur') !== -1) {
+             // Basic Currency Symbol (User can adjust in real dashboard, here just preview)
+             // We use € as default or generic currency sign.
+             // If we want to be smarter, we could assume '€'.
+             suffix = ' €'; 
+        }
+        
+        // Check for percentage
+        if (transformer.indexOf('percentage') !== -1) {
+             suffix = ' %';
+        }
+
+        return prefix + formatted + suffix;
+    }
+
+
+    // Read current columns from the form without changing them
+    function wdReadColumnsFromForm() {
+        var colsByKey = {};
+        var order = [];
+        // Read inputs and selects under the edit columns form
+        $('#query-preview-table-container form#edit_columns_form').find('input, select').each(function() {
+            var name = this.name || '';
+            var match = name.match(/^columns\[(.+?)\]\[(.+?)\]$/);
+            if (!match) return; // skip non-column inputs
+            var key = match[1]; // e.g., new-1
+            var field = match[2]; // e.g., sql_name, name, detected_type, transformer
+            if (!colsByKey[key]) { colsByKey[key] = {}; order.push(key); }
+            var val = (this.tagName.toLowerCase() === 'select') ? $(this).val() : $(this).val();
+            colsByKey[key][field] = val;
+        });
+        // Build ordered array
+        // Sort order by the numeric part of new-X if possible
+        order.sort(function(a,b){
+            var na = parseInt(String(a).replace(/[^0-9]/g,''), 10) || 0;
+            var nb = parseInt(String(b).replace(/[^0-9]/g,''), 10) || 0;
+            return na - nb;
+        });
+        var cols = [];
+        order.forEach(function(k){
+            var c = colsByKey[k] || {};
+            cols.push({
+                sql_name: c['sql_name'] || '',
+                name: c['name'] || '',
+                type: c['detected_type'] || c['type'] || 'string',
+                transformer: c['transformer'] || '',
+                background_color: c['background_color'] || '',
+                text_color: c['text_color'] || '',
+                percentage_bar: (c['percentage_bar'] === 'true')
+            });
+        });
+        return cols;
+    }
+
+    // Run test query; if preserveColumns is true, keep current inputs and only update preview rows
+    function runTestQuery(preserveColumns) {
+        // use css display check because :visible is false when modal is not yet shown (initial load)
+        var isDnD = $('#dnd-editor-container').css('display') !== 'none';
+        
+        // Capture columns BEFORE any DOM changes if preservation is requested
+        var savedCols = null;
+        if (preserveColumns === true) {
+            savedCols = wdReadColumnsFromForm();
+        }
+
+        if (isDnD && currentBuilderConfig) {
+             var dims = (dndDimensions ? dndDimensions.getResult() : []);
+             var mets = (dndMetrics ? dndMetrics.getResult() : []);
+             
+             if (dims.length === 0 && mets.length === 0) {
+                 // Clear preview if empty
+                 $('#query-preview-table-container').empty();
+                 return; 
+             }
+             
+             $('#query-results-preview').show();
+             $('#query-preview-table-container').html('<div class="text-center" style="padding: 20px;"><i class="fa fa-spinner fa-spin"></i> Generating view...</div>');
+             $('#query-error').hide();
+
+             $.ajax({
+                 url: '/builder/editor/dndPreview',
+                 type: 'POST',
+                 data: {
+                     cube: currentBuilderConfig.cubeId,
+                     dimensions: dims,
+                     metrics: mets
+                 },
+                 success: function(resp) {
+                      // resp contains { columns: [...], data: [...], sql: "..." }
+                      
+                      if (resp.sql) {
+                          $('#dashboard-object-edit-sql-query').val(resp.sql);
+                          if (typeof updateSaveButton === 'function') updateSaveButton();
+                      }
+                      
+                      if(resp.error) {
+                          $('#query-preview-table-container').empty();
+                          $('#query-error').text(resp.error).show();
+                          return;
+                      }
+
+                      var cols = resp.columns || [];
+                      window.lastPreviewData = resp.data || [];
+                      window.lastPreviewCols = cols;
+                      
+                      // If we have savedCols (preserved), we might want to merge or prefer them?
+                      // The user wants "column configuration taken from dim and expression definitions" (fresh),
+                      // so arguably we should use the fresh 'cols' from backend for the Structure, 
+                      // but maybe preserve formatting (colors, transformers) if names match?
+                      // For now, let's trust the backend fresh definition as it aligns with "current dim/expression config".
+                      
+                      if(!cols || cols.length === 0) {
+                          $('#query-preview-table-container').html('<p>No columns selected.</p>');
+                          return;
+                      }
+
+                      var layout = $('#dashboard-object-edit-table-layout').val();
+                      var html = '';
+                      if (layout === 'heatmap') {
+                          html = wdBuildHeatmapPreview(cols, window.lastPreviewData);
+                      } else {
+                          html = wdBuildColumnsForm(cols, window.lastPreviewData);
+                      }
+                      $('#query-preview-table-container').html(html);
+                 },
+                 error: function() {
+                      $('#query-preview-table-container').html('<div class="alert alert-danger">Failed to load preview.</div>');
+                 }
+             });
+        } else {
+             var sqlQuery = $('#dashboard-object-edit-sql-query').val();
+             _executeTestQuery(sqlQuery, savedCols);
+        }
+    }
+
+    function _executeTestQuery(sqlQuery, preservedCols) {
+        if (!sqlQuery || !sqlQuery.trim()) {
+            return;
+        }
+
+        // If preservedCols is simply "true" (legacy call), try reading form now (careful: this fails if form was wiped)
+        if (preservedCols === true) {
+            preservedCols = wdReadColumnsFromForm();
+        }
+
+        $('#query-results-preview').show();
+        $('#query-preview-table-container').empty();
+        $('#query-error').hide();
+
+             $.ajax({
+                 type: 'POST',
+                 url: '/builder/editor/testQuery',
+                 data: { 
+                     sql_query: sqlQuery,
+                     layout: $('#dashboard-object-edit-table-layout').val()
+                 },
+            success: function(response) {
+                if (response.error) {
+                    $('#query-error').text(response.error).show();
+                    $('#query-preview-table-container').empty();
+                    return;
+                }
+
+                // Build columns array based on preservation
+                var cols;
+                if (preservedCols && Array.isArray(preservedCols) && preservedCols.length > 0) {
+                    cols = preservedCols;
+                } else {
+                    // Use detected columns and compute default transformers
+                    var inCols = Array.isArray(response.columns) ? response.columns : [];
+                    cols = inCols.map(function(col){
+                        return {
+                            sql_name: col.sql_name || '',
+                            name: col.name || '',
+                            type: col.type || 'string',
+                            transformer: wdComputeDefaultTransformer(col.sql_name, col.type),
+                            background_color: col.background_color || '',
+                            text_color: col.text_color || '',
+                            percentage_bar: col.percentage_bar || false
+                        };
+                    });
+                }
+
+                if(!cols || cols.length === 0) {
+                    $('#query-preview-table-container').html('<p>' + (response.message || 'Query returned no data.') + '</p>');
+                    return;
+                }
+                
+                window.lastPreviewData = response.data || [];
+                window.lastPreviewCols = cols;
+                
+                var layout = $('#dashboard-object-edit-table-layout').val();
+                var html = '';
+                if (layout === 'heatmap') {
+                    html = wdBuildHeatmapPreview(cols, window.lastPreviewData);
+                } else {
+                    html = wdBuildColumnsForm(cols, window.lastPreviewData);
+                }
+                $('#query-preview-table-container').html(html);
+            },
+            error: function(xhr) {
+                let errorMsg = 'An unknown error occurred.';
+                if (xhr.responseJSON && xhr.responseJSON.error) {
+                    errorMsg = xhr.responseJSON.error;
+                } else if (xhr.responseText) {
+                    try {
+                        let response = JSON.parse(xhr.responseText);
+                        if(response.error) {
+                            errorMsg = response.error;
+                        }
+                    } catch (e) {
+                         errorMsg = xhr.responseText;
+                    }
+                }
+                $('#query-preview-table-container').empty();
+                $('#query-error').text(errorMsg).show();
+            }
+        });
+    }
+
+    // Manual click: test query and auto-detect columns (overwrite inputs)
+    $('#dashboard-object-edit-columns-autodetect').click(function(event) {
+        runTestQuery(false);
+    });
+
+    // Copy processed SQL (server applies filters and sort like in DataController::tableAction)
+    $('#dashboard-object-copy-processed-sql').click(function() {
+        var uuid = $('#edit-modal #dashboard-object-edit-table-save').attr('data-uuid');
+        if (!uuid) {
+            $('#edit-sql-error-message').html('No table UUID available. Save or open an existing table to use this feature.').fadeIn().delay(2000).fadeOut();
+            return;
+        }
+        var url = '/builder/editor/processedQuery/REPLACEUUID'.replace('REPLACEUUID', uuid);
+        // Optionally pass orderby/direction if UI has them later
+        $.ajax({
+            type: 'GET',
+            url: url,
+            success: function(resp) {
+                if (resp && resp.query) {
+                    var text = (typeof resp.query === 'string') ? resp.query : (resp.queries || []).join('\n\n');
+                    if (navigator.clipboard && navigator.clipboard.writeText) {
+                        navigator.clipboard.writeText(text).then(function(){
+                            $('#edit-sql-success-message').html('Processed SQL copied to clipboard.').fadeIn().delay(1500).fadeOut();
+                        }, function(){
+                            $('#edit-sql-error-message').html('Failed to copy to clipboard.').fadeIn().delay(2000).fadeOut();
+                        });
+                    } else {
+                        // Fallback: use a hidden textarea
+                        var $ta = $('<textarea style="position:absolute;left:-9999px;top:-9999px;"></textarea>').val(text).appendTo('body');
+                        $ta[0].select();
+                        try { document.execCommand('copy'); } catch(e) {}
+                        $ta.remove();
+                        $('#edit-sql-success-message').html('Processed SQL copied to clipboard.').fadeIn().delay(1500).fadeOut();
+                    }
+                } else if (resp && resp.message) {
+                    $('#edit-sql-error-message').html(resp.message).fadeIn().delay(2500).fadeOut();
+                } else if (resp && resp.error) {
+                    $('#edit-sql-error-message').html(resp.error).fadeIn().delay(2500).fadeOut();
+                } else {
+                    $('#edit-sql-error-message').html('No query returned.').fadeIn().delay(2000).fadeOut();
+                }
+            },
+            error: function(xhr) {
+                var msg = 'Failed to process SQL.';
+                if (xhr.responseJSON && (xhr.responseJSON.error || xhr.responseJSON.message)) {
+                    msg = xhr.responseJSON.error || xhr.responseJSON.message;
+                } else if (xhr.responseText) {
+                    msg = xhr.responseText;
+                }
+                $('#edit-sql-error-message').html(msg).fadeIn().delay(2500).fadeOut();
+            }
+        });
+    });
+
+    // --- Formatting Options Logic ---
+
+    const wdPalette = [
+        '#1490cb', '#007ebe', '#eef2f9', '#d6e0ef', '#C1DFF6', '#eeff94', '#ff6d6f', // Light
+        '#2E3440', '#3B4252', '#434C5E', '#4C566A', '#D8DEE9', '#E5E9F0', '#ECEFF4', '#8FBCBB', '#88C0D0', '#81A1C1', '#5E81AC', '#BF616A', '#D08770', '#EBCB8B', '#A3BE8C', '#B48EAD', // Dark
+        '#FF0000', '#FFC000', '#FFFF00', '#92D050', '#00B050', '#00B0F0', '#0070C0', '#002060', '#7030A0' // Excel
+    ];
+
+    function wdGetFmtPopoverContent(cid, currentBg, currentText, currentPerc) {
+        let html = '<div class="wd-fmt-popover-content" data-cid="' + cid + '" style="width: 460px;">';
+        
+        html += '<div style="display: flex; gap: 20px;">';
+        
+        // Left Column: Background Colors
+        html += '<div style="flex: 1;">';
+        html += '<div style="font-weight: bold; margin-bottom: 4px;">Background Color</div>';
+        html += '<div style="display: flex; flex-wrap: wrap; gap: 2px; margin-bottom: 10px;">';
+        html += '<div class="wd-fmt-color" data-type="bg" data-color="" style="width: 20px; height: 20px; border: 1px solid #ccc; cursor: pointer; background: white; text-align: center; line-height: 18px;" title="No Color">X</div>';
+        
+        wdPalette.forEach(function(c) {
+            let border = (c === currentBg) ? '2px solid black' : '1px solid #ddd';
+            html += '<div class="wd-fmt-color" data-type="bg" data-color="' + c + '" style="width: 20px; height: 20px; background-color: ' + c + '; cursor: pointer; border: ' + border + ';"></div>';
+        });
+        html += '</div>';
+        
+        // Background Hex Input
+        html += '<div class="input-group input-group-sm" style="margin-bottom: 10px;">';
+        html += '<input type="text" class="form-control wd-fmt-hex-input" data-type="bg" placeholder="#RRGGBB" value="' + currentBg + '">';
+        html += '<span class="input-group-btn"><button class="btn btn-default wd-fmt-hex-apply" data-type="bg" type="button">Apply</button></span>';
+        html += '</div>';
+        html += '</div>'; // End Left Column
+
+        // Right Column: Text Colors
+        html += '<div style="flex: 1;">';
+        html += '<div style="font-weight: bold; margin-bottom: 4px;">Text Color</div>';
+        html += '<div style="display: flex; flex-wrap: wrap; gap: 2px; margin-bottom: 10px;">';
+        html += '<div class="wd-fmt-color" data-type="text" data-color="" style="width: 20px; height: 20px; border: 1px solid #ccc; cursor: pointer; background: white; text-align: center; line-height: 18px;" title="No Color">X</div>';
+        
+        wdPalette.forEach(function(c) {
+            let border = (c === currentText) ? '2px solid black' : '1px solid #ddd';
+            html += '<div class="wd-fmt-color" data-type="text" data-color="' + c + '" style="width: 20px; height: 20px; background-color: ' + c + '; cursor: pointer; border: ' + border + ';"></div>';
+        });
+        html += '</div>';
+
+        // Text Hex Input
+        html += '<div class="input-group input-group-sm" style="margin-bottom: 10px;">';
+        html += '<input type="text" class="form-control wd-fmt-hex-input" data-type="text" placeholder="#RRGGBB" value="' + currentText + '">';
+        html += '<span class="input-group-btn"><button class="btn btn-default wd-fmt-hex-apply" data-type="text" type="button">Apply</button></span>';
+        html += '</div>';
+        html += '</div>'; // End Right Column
+        
+        html += '</div>'; // End Flex Container
+
+        // Percentage Bar
+        let checked = (currentPerc === 'true' || currentPerc === true) ? 'checked' : '';
+        html += '<div class="checkbox"><label><input type="checkbox" class="wd-fmt-perc" ' + checked + '> Percentage Bar</label></div>';
+        
+        html += '</div>';
+        return html;
+    }
+
+    $('body').on('click', '.wd-col-fmt-btn', function(e) {
+        $('.wd-col-fmt-btn').not(this).popover('destroy');
+        
+        let btn = $(this);
+        let cid = btn.data('cid');
+        let bgInput = $('input[name="columns[new-' + cid + '][background_color]"]');
+        let textInput = $('input[name="columns[new-' + cid + '][text_color]"]');
+        let percInput = $('input[name="columns[new-' + cid + '][percentage_bar]"]');
+        
+        let currentBg = bgInput.val();
+        let currentText = textInput.val();
+        let currentPerc = percInput.val();
+        
+        if (!btn.data('bs.popover')) {
+            btn.popover({
+                html: true,
+                placement: 'bottom',
+                content: wdGetFmtPopoverContent(cid, currentBg, currentText, currentPerc),
+                trigger: 'manual',
+                container: 'body',
+                template: '<div class="popover" role="tooltip" style="max-width: 500px;"><div class="arrow"></div><h3 class="popover-title"></h3><div class="popover-content"></div></div>'
+            });
+        }
+        
+        btn.popover('toggle');
+        e.stopPropagation();
+    });
+
+    $('body').on('click', function (e) {
+        if ($(e.target).closest('.popover').length === 0 && $(e.target).closest('.wd-col-fmt-btn').length === 0) {
+            $('.wd-col-fmt-btn').popover('destroy');
+        }
+    });
+
+    $('body').on('click', '.wd-fmt-color', function() {
+        let color = $(this).data('color');
+        let type = $(this).data('type');
+        let container = $(this).closest('.wd-fmt-popover-content');
+        let cid = container.data('cid');
+        
+        if (type === 'bg') {
+            $('input[name="columns[new-' + cid + '][background_color]"]').val(color);
+        } else if (type === 'text') {
+            $('input[name="columns[new-' + cid + '][text_color]"]').val(color);
+        }
+        $('.wd-col-fmt-btn').popover('destroy');
+    });
+
+    $('body').on('click', '.wd-fmt-hex-apply', function() {
+        let type = $(this).data('type');
+        let container = $(this).closest('.wd-fmt-popover-content');
+        let cid = container.data('cid');
+        let inputField = container.find('input.wd-fmt-hex-input[data-type="' + type + '"]');
+        let color = inputField.val();
+
+        // Allow user to enter hex without hash, add it if missing
+        if (color && color.indexOf('#') !== 0 && (color.length === 3 || color.length === 6 || color.length === 8)) {
+            color = '#' + color;
+        }
+
+        if (type === 'bg') {
+            $('input[name="columns[new-' + cid + '][background_color]"]').val(color);
+        } else if (type === 'text') {
+            $('input[name="columns[new-' + cid + '][text_color]"]').val(color);
+        }
+        $('.wd-col-fmt-btn').popover('destroy');
+    });
+
+    $('body').on('keypress', '.wd-fmt-hex-input', function(e) {
+        if(e.which == 13) {
+            e.preventDefault();
+            $(this).closest('.input-group').find('.wd-fmt-hex-apply').click();
+        }
+    });
+
+    $('body').on('change', '.wd-fmt-perc', function() {
+        let checked = $(this).is(':checked');
+        let container = $(this).closest('.wd-fmt-popover-content');
+        let cid = container.data('cid');
+        
+        $('input[name="columns[new-' + cid + '][percentage_bar]"]').val(checked ? 'true' : 'false');
+    });
+
+</script>
+
+<script>
+    (function(){
+        function setCookie(name, value, days) {
+            var expires = '';
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days*24*60*60*1000));
+                expires = '; expires=' + date.toUTCString();
+            }
+            document.cookie = name + '=' + encodeURIComponent(value) + expires + '; path=/';
+        }
+        function getCookie(name) {
+            var parts = document.cookie ? document.cookie.split(';') : [];
+            for (var i = 0; i < parts.length; i++) {
+                var c = parts[i].trim();
+                if (c.indexOf(name + '=') === 0) {
+                    return decodeURIComponent(c.substring(name.length + 1));
+                }
+            }
+            return '';
+        }
+        function applyThemeClass(val){
+            val = (val||'').toLowerCase();
+            var cl = document.documentElement.classList;
+            cl.remove('theme-light','theme-dark','theme-system');
+            
+            if (val === 'dark') {
+                cl.add('theme-dark');
+            } else if (val === 'light') {
+                cl.add('theme-light');
+            } else {
+                // System: check OS preference
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    cl.add('theme-dark');
+                } else {
+                    cl.add('theme-light');
+                }
+            }
+        }
+        function getAppliedTheme(mode){
+            mode = (mode||'system').toLowerCase();
+            if (mode === 'light' || mode === 'dark') return mode;
+            // system: use OS preference
+            var isDark = false;
+            try { isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; } catch(e) {}
+            return isDark ? 'dark' : 'light';
+        }
+        function setToggleAria(btn, currentSetting){
+            if (!btn) return;
+            var applied = getAppliedTheme(currentSetting);
+            var next = (applied === 'dark') ? 'light' : 'dark';
+            btn.setAttribute('aria-label', 'Switch to ' + next + ' mode');
+            btn.setAttribute('title', 'Switch to ' + next + ' mode');
+        }
+        function bindToggle(btn){
+            if (!btn || btn.__wdBound) return;
+            btn.__wdBound = true;
+            var current = getCookie('themeMode') || 'system';
+            setToggleAria(btn, current);
+            btn.addEventListener('click', function(){
+                var cur = getCookie('themeMode') || 'system';
+                var applied = getAppliedTheme(cur);
+                var nxt = (applied === 'dark') ? 'light' : 'dark';
+                // If user manually toggles, we save that explicit preference (overriding system)
+                // Or should we just toggle between light/dark and keep it explicit?
+                // The original code set cookie to 'nxt'.
+                setCookie('themeMode', nxt, 365*2);
+                applyThemeClass(nxt);
+                setToggleAria(btn, nxt);
+            });
+        }
+        
+        // Listener for OS theme changes when in system mode
+        if (window.matchMedia) {
+            var mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+            function handleSystemChange(e) {
+                var currentMode = getCookie('themeMode') || 'system';
+                if (currentMode === 'system' || currentMode === '') {
+                    applyThemeClass('system');
+                }
+            }
+            // Modern browsers
+            if (mediaQuery.addEventListener) {
+                mediaQuery.addEventListener('change', handleSystemChange);
+            } else if (mediaQuery.addListener) {
+                // Safari < 14, older browsers
+                mediaQuery.addListener(handleSystemChange);
+            }
+        }
+
+        function init(){
+            var btn = document.getElementById('theme-toggle');
+            if (btn) { bindToggle(btn); return; }
+            // If button is injected later (anonymous navbar), observe DOM and bind once it appears
+            if ('MutationObserver' in window) {
+                var obs = new MutationObserver(function(){
+                    var b = document.getElementById('theme-toggle');
+                    if (b) { bindToggle(b); obs.disconnect(); }
+                });
+                obs.observe(document.documentElement || document.body, {childList: true, subtree: true});
+            }
+        }
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else { init(); }
+    })();
+</script>
+</body>
+</html>
