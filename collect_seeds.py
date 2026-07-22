@@ -30,7 +30,6 @@ def load_sources():
     sources = []
     for line in SOURCES_FILE.read_text(encoding="utf-8").splitlines():
         line = line.strip()
-        # 跳过空行和注释行
         if line and not line.startswith("#"):
             sources.append(line)
     return sources
@@ -50,16 +49,14 @@ def try_base64_decode(text: str) -> str:
         return text
 
 def resolve_domain_to_ip(domain: str) -> set:
-    """将域名解析为 IP 地址"""
+    """将域名/服务器地址反查为 IP 并转为 /24 网段"""
     found_ips = set()
     try:
-        # 获取域名的所有 IP 地址
         ip_info = socket.getaddrinfo(domain, None)
         for item in ip_info:
             ip_str = item[4][0]
             ip_obj = ipaddress.ip_address(ip_str)
             if not ip_obj.is_private and not ip_obj.is_loopback and not ip_obj.is_reserved:
-                # 统一转换为 /24 网段
                 net = ipaddress.ip_network(f"{ip_str}/24", strict=False)
                 found_ips.add(str(net))
     except Exception:
@@ -67,7 +64,7 @@ def resolve_domain_to_ip(domain: str) -> set:
     return found_ips
 
 def extract_ips_and_domains(text: str):
-    """从文本中精准提取 CIDR、独立 IPv4 以及域名并反查 IP"""
+    """从文本中精准提取 CIDR、独立 IPv4、节点域名并反查 IP"""
     found_items = set()
 
     # 1. 匹配标准 CIDR 格式
@@ -91,21 +88,20 @@ def extract_ips_and_domains(text: str):
         except:
             continue
 
-    # 3. 匹配链接中的域名或节点中的 server/addr 字段，并反查 IP
-    # 提取常见的 URL 或配置中的主机名/域名
-    domain_pattern = r'(?:server=|address=|sni=|host=|\bhttps?://)([a-zA-Z0-9][-a-zA-Z0-9]{0,62}(?:\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+)\b'
-    domains = re.findall(domain_pattern, text, re.IGNORECASE)
+    # 3. 匹配节点配置中的目标地址（如 server=, address=, add=, 或是直接的链接域名）并反查
+    target_pattern = r'(?:server\s*[:=]\s*|address\s*[:=]\s*|add\s*[:=]\s*|sni\s*[:=]\s*|host\s*[:=]\s*|\bhttps?://)([a-zA-Z0-9][-a-zA-Z0-9]{0,62}(?:\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+)\b'
+    targets = re.findall(target_pattern, text, re.IGNORECASE)
     
-    for domain in set(domains):
-        # 排除纯 IP 被误匹配的情况
-        if not re.match(r'^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$', domain):
-            resolved_nets = resolve_domain_to_ip(domain)
+    for target in set(targets):
+        if not re.match(r'^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$', target):
+            resolved_nets = resolve_domain_to_ip(target)
             found_items.update(resolved_nets)
 
     return found_items
 
+
 def collect_from_url(url: str):
-    """从单个URL收集"""
+    """从单个URL收集并完整输出日志"""
     try:
         print(f"[+] 正在抓取: {url}")
         resp = requests.get(url, headers=HEADERS, timeout=15)
@@ -117,11 +113,12 @@ def collect_from_url(url: str):
         processed_text = try_base64_decode(raw_text)
         found = extract_ips_and_domains(processed_text)
 
-        print(f"    └─ 成功提取到 {len(found)} 个合法网段/IP")
+        print(f"    └─ 成功提取到 {len(found)} 个合法网段")
         return found
     except Exception as e:
         print(f"    └─ 抓取失败: {e}")
         return set()
+
 
 def main():
     print(f"[{datetime.now(ZoneInfo('Asia/Shanghai')).strftime('%Y-%m-%d %H:%M:%S')}] 开始收集新鲜种子...\n")
@@ -174,6 +171,7 @@ def main():
     print(f"当前总种子数: {len(clean_combined)} 个")
     print(f"已更新 → {IP_FILE}")
     print("="*50)
+
 
 if __name__ == "__main__":
     main()
