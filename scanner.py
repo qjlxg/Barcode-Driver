@@ -91,7 +91,9 @@ SIGNS = [s.lower() for s in [
     # 面板、转换器与客户端通用标识
     "sub-converter", "clash-config", "subscription-userinfo", "v2board",
     "[proxy]", "[server]", "clash", "sing-box", "subscription",
-    "subscribe", "clash-for-windows", "clash.meta", "mihomo", "nekoray", "nekobox"
+    "subscribe", "clash-for-windows", "clash.meta", "mihomo", "nekoray", "nekobox",
+    # 补充响应头高优特征
+    "v2rayn-sub"
 ]]
 
 WORKER_COUNT = 100 
@@ -141,9 +143,13 @@ async def scan(session, host, port, path, pbar):
             async with session.get(url, timeout=3, ssl=False) as resp:
                 stats["req"] += 1
                 if resp.status == 200:
+                    # 高优先级响应头特征拦截
+                    headers_str = str(resp.headers).lower()
+                    is_high_priority = "v2rayn-sub" in headers_str or "subscription-userinfo" in headers_str
+
                     text = await resp.text(errors="ignore")
                     lower_text = text.lower()
-                    if any(s in lower_text for s in SIGNS) or check_base64(text):
+                    if is_high_priority or any(s in lower_text for s in SIGNS) or check_base64(text):
                         # 计算当前指纹
                         content_hash = hashlib.md5(text.encode("utf-8")).hexdigest()[:12]
                         now_str = datetime.datetime.now(ZoneInfo("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S")
