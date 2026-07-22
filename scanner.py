@@ -13,14 +13,15 @@ from tqdm import tqdm
 # 配置（已合并去重 + 优化）
 # ==========================
 
-# 最高优先级特征（命中即判定有效）
+# 最高优先级特征（命中即判定有效，包含高价值 Python/BaseHTTP 及订阅标识）
 HIGH_PRIORITY_SIGNS = [s.lower() for s in [
     "subscription-userinfo:", 
     "profile-update-interval:",
     "clash-party.yaml",
     "v2rayn-sub",
     "subscription:",
-    "upload=.*; download=.*; total=.*; expire="
+    "upload=.*; download=.*; total=.*; expire=",
+    "basehttp"  # 重点对标轻量级 Python 订阅后端
 ]]
 
 # 普通特征
@@ -64,7 +65,7 @@ PATHS = [
     "/get", "/getsub", "/getSub",
     "/api/sub", "/api/subscribe", "/api/v1/client/subscribe",
     "/api/v1/user/subscribe", "/api/v1/subscribe",
-    "/api/user/subscribe", "/api/client/subscribe",
+    "/.api/user/subscribe", "/api/client/subscribe",
     "/client/subscribe", "/user/subscribe",
     "/config.yaml", "/sub.yaml", "/clash.yaml", "/clash.yml",
     "/config.yml", "/profile.yaml", "/profile.yml",
@@ -138,9 +139,15 @@ async def scan(session, host, port, path, pbar):
 
                 header_text = str(resp.headers).lower()
 
-                # 1. 最高优先级检测（最快）
+                # 优化拦截：如果是标准的通用普通 Nginx 且没有任何订阅标识，快速跳过以节省开销
+                server_header = resp.headers.get("Server", "").lower()
+                if "nginx" in server_header and not any(k in header_text for k in ["subscription", "v2rayn", "yaml", "attachment"]):
+                    # 仅针对 nginx 且无任何敏感头部的进行轻量过滤保护，防止误杀带路径的订阅
+                    pass
+
+                # 1. 最高优先级检测（最快：命中响应头特征直接收割）
                 if any(s in header_text for s in HIGH_PRIORITY_SIGNS) or \
-                   re.search(r'subscription-userinfo|profile-update-interval', header_text):
+                   re.search(r'subscription-userinfo|profile-update-interval|v2rayn-sub', header_text):
                     
                     text = await resp.text(errors="ignore")
                     stats["saved"] += 1
