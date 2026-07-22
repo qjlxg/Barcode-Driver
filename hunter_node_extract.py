@@ -12,9 +12,9 @@ from urllib.parse import urlparse
 from typing import Any, Dict, List, Tuple
 
 # --- 配置 ---
-INPUT_CSV = 'scan_results.csv'    # 从 CSV 读取 URL
+INPUT_CSV = 'scan_results.csv'     # 从 CSV 读取 URL
 OUTPUT_FILE = 'unique.yaml'        # 最终合并的节点文件
-CSV_FILE = 'scan_stats.csv'       # 统计报告
+CSV_FILE = 'unique.csv'            # 统计报告
 UNIQUE_URLS_FILE = 'unique_urls.txt' # 去重后的链接清单
 RULES_FILE = 'rules.yaml'         # 基础规则文件(可选)
 EXCLUDE_FILE = 'exclude.txt'      # 排除列表(可选)
@@ -89,7 +89,7 @@ async def process_source(session: aiohttp.ClientSession, source: str, semaphore:
     
     if not text: return [source, "", "请求失败", 0, status, cost, ""], []
     nodes = extract_yaml_nodes(text)
-    if not nodes: return [source, "", "无有效节点", 0, status, cost, text[:50]], []
+    if not nodes: return [source, "", "无有效节点", 0, status, cost, text[:150]], []
     return [source, "", "提取成功", len(nodes), status, cost, ""], nodes
 
 async def main():
