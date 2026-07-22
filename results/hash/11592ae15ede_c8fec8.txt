@@ -1,0 +1,31 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Directory listing for /</title>
+</head>
+<body>
+<h1>Directory listing for /</h1>
+<hr>
+<ul>
+<li><a href=".font-unix/">.font-unix/</a></li>
+<li><a href=".ICE-unix/">.ICE-unix/</a></li>
+<li><a href=".Test-unix/">.Test-unix/</a></li>
+<li><a href=".webmin/">.webmin/</a></li>
+<li><a href=".X11-unix/">.X11-unix/</a></li>
+<li><a href=".XIM-unix/">.XIM-unix/</a></li>
+<li><a href="categories.json">categories.json</a></li>
+<li><a href="g.py">g.py</a></li>
+<li><a href="g_it.py">g_it.py</a></li>
+<li><a href="gen_m3u.py">gen_m3u.py</a></li>
+<li><a href="gen_playlist.py">gen_playlist.py</a></li>
+<li><a href="playlist.m3u">playlist.m3u</a></li>
+<li><a href="streams.json">streams.json</a></li>
+<li><a href="systemd-private-702d05ff572942c8ae861a391b659dc7-apache2.service-YhWdq1/">systemd-private-702d05ff572942c8ae861a391b659dc7-apache2.service-YhWdq1/</a></li>
+<li><a href="systemd-private-702d05ff572942c8ae861a391b659dc7-systemd-logind.service-RfLjYZ/">systemd-private-702d05ff572942c8ae861a391b659dc7-systemd-logind.service-RfLjYZ/</a></li>
+<li><a href="systemd-private-702d05ff572942c8ae861a391b659dc7-systemd-resolved.service-3VztV2/">systemd-private-702d05ff572942c8ae861a391b659dc7-systemd-resolved.service-3VztV2/</a></li>
+<li><a href="systemd-private-702d05ff572942c8ae861a391b659dc7-systemd-timesyncd.service-uInLMd/">systemd-private-702d05ff572942c8ae861a391b659dc7-systemd-timesyncd.service-uInLMd/</a></li>
+</ul>
+<hr>
+</body>
+</html>

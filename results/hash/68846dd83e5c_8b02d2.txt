@@ -1,0 +1,921 @@
+
+<!DOCTYPE>
+<html lang="ar">
+
+<head>
+  
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="keywords" content="KWAN" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="KWAN" />
+
+    <title> KWAN </title>
+
+
+    <link rel="apple-touch-icon" sizes="57x57" href="static/favicon/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="static/favicon/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="static/favicon/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="static/favicon/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="static/favicon/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="static/favicon/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="static/favicon/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="static/favicon/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="static/favicon/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="static/favicon/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="static/favicon/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static/favicon/favicon-16x16.png">
+    <link rel="manifest" href="static/favicon/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="static/favicon/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
+
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="static/css/style.desktop.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/style.tablet.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/style.tablet-small.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/style.mobile.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/style.retina.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/animate.css" />
+    <link rel="stylesheet" type="text/css" href="static/css/custom.css?v=4567893bgh3h3" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+
+    <style>
+        .sWheel-txt img {
+            display: initial !important;
+        }
+        
+        .cd-main-content {
+            background-image: url(static/images/img-home.webp);
+            background-size: auto 100%;
+            background-repeat: no-repeat;
+            background-position: center top;
+        }
+        
+        .button:disabled {
+            opacity: 0.5;
+            cursor: no-drop;
+        }
+        
+        .not-visible {
+            display: none;
+        }
+        
+        .visible {
+            display: block;
+            -webkit-transition: all 0.5s ease;
+            -moz-transition: all 0.5s ease;
+            -o-transition: all 0.5s ease;
+            transition: all 0.5s ease;
+        }
+        
+        canvas {
+            z-index: 99999 !important;
+        }
+        
+        .swal2-modal {
+            background: #f2f2f2 !important;
+        }
+        
+        .swal2-actions .btn-success {
+            margin-top: -90px !important;
+        }
+        
+        .row {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            margin-right: 0px;
+            margin-left: 0px;
+        }
+        
+        .btn-success.focus,
+        .btn-success:focus {
+            color: #fff;
+            border-color: #fff !important;
+            box-shadow: 0 0 0 .2rem rgba(72, 180, 97, .5);
+        }
+        
+        .btn-success:not(:disabled):not(.disabled).active,
+        .btn-success:not(:disabled):not(.disabled):active,
+        .show>.btn-success.dropdown-toggle {
+            color: #fff;
+            background-color: #e20c0f;
+            border-color: #e20c0f;
+        }
+        
+        .swal2-show {
+            background: #fff !important;
+        }
+        /*######### BTN WHATSAPP ##########*/
+        
+        .btn-whatsapp-pulse {
+            background: #25d366;
+            color: white;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 32px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 0;
+            height: 0;
+            padding: 29px;
+            text-decoration: none;
+            border-radius: 50%;
+            animation-name: pulse;
+            animation-duration: 1.5s;
+            animation-timing-function: ease-out;
+            animation-iteration-count: infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5);
+            }
+            80% {
+                box-shadow: 0 0 0 14px rgba(37, 211, 102, 0);
+            }
+        }
+        
+        .btn-whatsapp-pulse-border {
+            bottom: 75px;
+            right: 10px;
+            animation-play-state: paused;
+        }
+        
+        .btn-whatsapp-pulse-border::before {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            padding: 25px;
+            border: 5px solid #25d366;
+            opacity: 0.75;
+            animation-name: pulse-border;
+            animation-duration: 1.5s;
+            animation-timing-function: ease-out;
+            animation-iteration-count: infinite;
+        }
+        
+        @keyframes pulse-border {
+            0% {
+                padding: 25px;
+                opacity: 0.75;
+            }
+            75% {
+                padding: 50px;
+                opacity: 0;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body style="background: #ffffff;">
+
+
+    <div id="allContent" class="wrapper">
+
+        <!-- header section -->
+        <header style="z-index:99999;background: #fff;padding: 5px;">
+            <div class="row" style="z-index:99999;background: #fff;min-height: 55px">
+                <div class="col-12 text-center ">
+                    <img src="static/images/logo.png" alt="Kwan" style="height: 45px;margin: 0 auto;">
+                </div>
+
+            </div>
+        </header>
+
+
+
+        <div class="menu">
+            <div class="row sticky" style="background: #F2C0C3;">
+
+                <div class="col-12 text-center">
+                    <a href="javascript:;" class="text-center black-btn button-cta cta-header gotoform">
+         اطلب الآن 
+         <span>
+           التوصيل إلى جميع أنحاء المغرب
+         </span>
+       </a>
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+        <img src="static/images/botox-new-main.webp" class="center produit-sur-mobile" style="width: 100% !important;height: auto;" alt="">
+
+        <img src="static/images/botox-new-influ.webp" class="center produit-sur-mobile" style="width: 100% !important;height: auto;" alt="">
+
+        <div class="row" style="position: relative; top:-85px;">
+            <div class="col-12 text-center">
+                <a href="javascript:;" class="text-center black-btn  button-cta gotoform" style="background: #000;">
+        اطلب الآن 
+        <span>
+          التوصيل إلى جميع أنحاء المغرب
+        </span>
+      </a>
+            </div>
+        </div>
+
+        <div class="inner-block" style="padding: 15px;background: #ffffff;position: relative; top:-50px;">
+
+            <style>
+                .btn-achat-pack {
+                    background: #00BAC1;
+                    padding: 10px;
+                    color: #ffffff;
+                    font-size: 24px;
+                }
+            </style>
+
+ 
+
+<div class="text-center" style="margin-bottom: 10px; height: auto;cursor: pointer; -webkit-box-shadow: 0px 0px 13px -1px #787878; box-shadow: 0px 0px 13px -1px #787878;margin-bottom:40px;border: 2px solid  #00BAC1;">
+                <img src="static/images/botox-11.jpg" data-product="1" class="center produit-sur-mobile product-mobile gotoform" style="width: 100% !important;border-radius: 5px;" alt="">
+                <div class="btn-achat-pack gotoform" data-product="1" style="background: #24262a">
+                    اطلب الآن
+                    <br>
+                    <small style=" font-size: 55%; ">الـــتــوصــيــــل إلـــى جـــمـــيـــع أنــــحاء الــــــمـــــــغـــــــرب</small>
+
+                </div>
+            </div>
+
+            <div class="text-center " style="margin-bottom: 10px; height: auto;cursor: pointer; -webkit-box-shadow: 0px 0px 13px -1px #787878; box-shadow: 0px 0px 13px -1px #787878;margin-bottom:40px;border: 2px solid #00BAC1; ">
+                <img src="static/images/botox-2.jpg " data-product="0 " class="center produit-sur-mobile product-mobile gotoform " style="width: 100% !important;border-radius: 5px; " alt=" ">
+                <div class="btn-achat-pack gotoform " data-product="0 " style="background: #24262a; ">
+                    اطلب الآن
+                    <br>
+                    <small style="font-size: 55%; ">الـــتــوصــيــــل إلـــى جـــمـــيـــع أنــــحاء الــــــمـــــــغـــــــرب</small>
+                </div>
+            </div>
+
+
+           
+
+
+<!-- 
+            <div class="text-center " style="margin-bottom: 10px; height: auto;cursor: pointer; -webkit-box-shadow: 0px 0px 13px -1px #787878; box-shadow: 0px 0px 13px -1px #787878;margin-bottom:40px;border: 2px solid #00BAC1; ">
+                <img src="static/images/botox-new-3-p.webp " data-product="2 " class="center produit-sur-mobile product-mobile gotoform " style="width: 100% !important;border-radius: 5px; " alt=" ">
+                <div class="btn-achat-pack gotoform " data-product="2 " style="background: #24262a">
+                    اطلب الآن
+                    <br>
+                    <small style="font-size: 55%;">الـــتــوصــيــــل إلـــى جـــمـــيـــع أنــــحاء الــــــمـــــــغـــــــرب</small>
+
+                </div>
+            </div> -->
+
+
+
+        </div>
+
+
+
+
+
+
+        <section style="background: #ffffff !important;">
+
+            <img src="static/images/botox-new-avantage-1.webp" class="center produit-sur-mobile " style="width: 100% !important;  height: auto;    margin-top: -40px;" alt="">
+            <div class="row" style="position: relative; top: -75px;">
+                <div class="col-12 text-center">
+                    <a href="javascript:;" class="text-center black-btn  button-cta gotoform" style="background: #000;">
+          اطلب الآن 
+          <span>
+            التوصيل إلى جميع أنحاء المغرب
+          </span>
+        </a>
+                </div>
+            </div>
+            <img src="static/images/botox-new-avantage-2.webp" class="center produit-sur-mobile " style="width: 100% !important;  height: auto;    margin-top: -90px;" alt="">
+
+
+
+        </section>
+
+        <div class="row" style="position: relative; top: -50px;">
+            <div class="col-12 text-center">
+                <a href="javascript:;" class="text-center black-btn  button-cta gotoform" style="background: #000;">
+         اطلب الآن 
+         <span>
+           التوصيل إلى جميع أنحاء المغرب
+         </span>
+       </a>
+            </div>
+        </div>
+        <br><br>
+
+
+        <img src="static/images/webp-conc/press-conc.webp" class="center produit-sur-mobile " style="width: 100% !important;  height: auto;    margin-top: -40px;position: relative; top: -50px;" alt="">
+        <br>
+        <div class="row" style="position: relative; top: -40px;">
+            <div class="col-12 text-center">
+                <a href="javascript:;" class="text-center black-btn  button-cta gotoform" style="background: #000;">
+         اطلب الآن 
+         <span>
+           التوصيل إلى جميع أنحاء المغرب
+         </span>
+       </a>
+            </div>
+        </div>
+
+        <br><br>
+        <img src="static/images/webp-conc/header-avis-conc.webp" class="center produit-sur-mobile " style="width: 100% !important;  height: auto;    margin-top: -40px;" alt="">
+
+
+
+        <style>
+            .comment {
+                min-height: 175px;
+                background: #ffffff;
+                padding: 10px;
+                border-radius: 20px;
+                margin-top: 30px;
+                margin-bottom: 20px;
+                -webkit-box-shadow: 0px 0px 13px -1px #787878;
+                box-shadow: 0px 0px 13px -1px #787878;
+                margin: 10px;
+            }
+            
+            .comment p {
+                color: #000000;
+                font-size: 15px;
+                padding-bottom: 2px !important;
+            }
+            
+            .comment img {
+                height: 30px;
+                margin: 0 auto;
+                padding-bottom: 2px;
+            }
+            
+            .comment .comment-user {
+                color: #a9141a;
+                font-weight: bold;
+            }
+        </style>
+
+        <div class="inner-block text-center">
+
+            <div class="carousel-testimonials">
+                <div>
+                    <img src="static/images/av-ap-1.png" width="100%" alt="">
+
+                    <div class="text-center comment">
+                        <img src="static/images/stars.png" alt="">
+                        <p dir="rtl">
+                            أستعمله دائما للإعتناء بشعري، لديه ملمس و رائحة لطيفة للغاية، وقد مكنني من تغيير بنية شعري التي أصبحت طبيعية مرة أخرى.
+
+                        </p>
+                        <p class="comment-user"> ليلى من طنجة </p>
+                    </div>
+                </div>
+                <div class="item-2">
+                    <img src="static/images/av-ap-2.png" width="100%" alt="">
+                    <div class="text-center comment">
+                        <img src="static/images/stars.png" alt="">
+                        <p dir="rtl">
+                            لم أكن متقينة في البداية من فاعلية المنتوج، استعملته فقط من باب الفضول و أعجبني كثيرا. منتجات رائعة فعلا أنصح بها جميع أصدقائي.
+
+                        </p>
+                        <p class="comment-user"> هاجر من الرباط </p>
+                    </div>
+                </div>
+                <div class="item-3">
+                    <img src="static/images/av-ap-3.png" width="100%" alt="">
+                    <div class="text-center comment">
+                        <img src="static/images/stars.png" alt="">
+                        <p dir="rtl">
+                            كان شعري متضرر و كيطيح ليا بزاف لكن دابا بدا كينقص مع الوقت و أطراف شعري مابقاوش متقصفين . أنا جد راضية بنتيجة استعمالي لمجموعة كوان، بايبي هير من أول شهر.
+
+                        </p>
+                        <p class="comment-user"> هاجر من الدار البيضاء </p>
+                    </div>
+                </div>
+                <div class="item-4">
+                    <img src="static/images/av-ap-4.png" width="100%" alt="">
+                    <div class="text-center comment">
+                        <img src="static/images/stars.png" alt="">
+                        <p dir="rtl">
+                            هذا هو منتوجي المفضل، شعري أصبح أقوى و لم يزد من دهنية الشعر على الإطلاق على الرغم من أن شعري دهني جدا حتى مصفف الشعر الخاص لي سألني عن المنتوج الذي أستعمله لشعري.
+
+                        </p>
+                        <p class="comment-user"> رانيا من فاس </p>
+                    </div>
+                </div>
+                <div class="item-5">
+                    <img src="static/images/av-ap-5.png" width="100%" alt="">
+                    <div class="text-center comment">
+                        <img src="static/images/stars.png" alt="">
+                        <p dir="rtl">
+                            بعد شهر من الإستعمال، أنا مقتنعة جدا بفاعليته لأن شعري أصبح أكثر إشراقا و نعومة و لم يعد متجعدا بعد الآن.
+
+                        </p>
+                        <p class="comment-user"> سكينة من الدار البيضاء </p>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <Br>
+
+        <img src="static/images/sound-ar.png" style="position: absolute; width: 100%;margin-top: 15px;" alt="">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button>
+        <svg id='play-svg-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
+          <path  d='M11,8 L26,16 11,24 11,8'>
+            <animate attributeName='d' fill='freeze' dur='0.1s'
+                     calc-mode='spline' keySplines='0.19 1 0.22 1'/>
+          </path>
+        </svg>
+      </button>
+                <h5 class="mt-2" style="font-weight: bold;">ليلا 26 سنة - الدار البيضاء</h6>
+            </div>
+        </div>
+
+        <Br>
+
+        <img src="static/images/sound-ar.png" style="position: absolute; width: 100%;margin-top: 15px;" alt="">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button>
+          <svg id='play-svg-2' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
+            <path 					d='M11,8 L26,16 11,24 11,8'>
+              <animate attributeName='d' fill='freeze' dur='0.2s'
+                      calc-mode='spline' keySplines='0.19 1 0.22 1'/>
+            </path>
+          </svg>
+        </button>
+
+                <h5 style="font-weight: bold;">نهيلة 21 ـ سنة الجديدة </h6>
+            </div>
+        </div>
+        <Br>
+
+
+
+        <br>
+        <img src="static/images/webp-conc/about-conc.webp" class="center produit-sur-mobile " style="width: 100% !important;  height: auto; " alt="">
+        <div style="background: #fff;border-radius: 20px;margin:10px; -webkit-box-shadow: 0px 0px 13px -1px #787878; box-shadow: 0px 0px 13px -1px #787878;">
+
+
+            <div class="price" id="pack-name" style="border: none !important;">
+                2 بوتوكس الشعر
+            </div>
+
+            <form action="thankyou.php" method="post" id="form1" class="iefix">
+
+
+                <input type='hidden' name='utm_source' value="<?php echo @$_GET['utm']; ?>" />
+
+                <div class="" style="padding: 15px;">
+
+<!--
+                    <div class="form-holder">
+                        <select name="pays" id="pays" class="first-name" dir="rtl">
+                            <option value="0">المملكة المغربية</option>
+                            <option value="0">خارج المغرب</option>
+                        </select>
+                    </div>
+        -->
+                    <div class="form-holder" id="msgRedirection" style="display:none;background: #4ebf29; color: #ffffff;padding: 20px;text-align: center;font-size: 1rem;font-weight: bold;">ستتم إعادة توجيهك إلى متجرنا الدولي ...</div>
+
+                    <div class="form-holder">
+                        <select name="product" id="product" class="first-name" dir="rtl">
+                            <option value="43725067256086">   بوتوكس الشعر</option> 
+                            <option value="43725068828950" selected> 2 بوتوكس الشعر</option> 
+                          <!-- <option value="43725072007446">  3 بوتوكس الشعر</option>  -->
+                        </select>
+                    </div>
+
+                    <div class="form-holder">
+                        <input type="text" name="first_name" placeholder="الإسم والنسب" class="first-name" dir="rtl" />
+                    </div>
+
+                    <div class="form-holder">
+                        <input type="tel" name="phone" placeholder="رقم الهاتف" class="first-name" dir="rtl" />
+                    </div>
+
+                    <div class="form-holder">
+                        <input type="text" name="city" placeholder="المدينة" class="first-name" dir="rtl" />
+                    </div>
+
+                    <div class="form-holder">
+                        <textarea name="address" placeholder="العنوان" class="first-name" rows="5" dir="rtl"></textarea>
+                    </div>
+
+
+                    <div class="text-center">
+                        <button type="submit" class="button-new" style="border-radius: 40px !important;background: #000000;width:auto !important;">اطلب الان</button>
+                    </div>
+
+                    <div class="price" id="price" style="font-size: 16px;">
+                        299 درهم ( توصيل مجاني )
+                    </div>
+
+                </div>
+            </form>
+            <BR>
+        </div>
+
+        <img src="static/images/webp-conc/header-phone-conc.webp" class="center produit-sur-mobile " style="width: 100% !important;  height: auto;" alt="">
+        <a href="tel:0520607060"><img src="static/images/webp-conc/phone-conc.webp" class="center produit-sur-mobile " style="width: 100% !important;  height: auto;" alt=""></a>
+        <img src="static/images/webp-conc/footer-phone-conc.webp" class="center produit-sur-mobile " style="width: 100% !important;  height: auto;" alt="">
+
+
+
+
+        <br><br>
+
+        <br>
+
+        <!--
+   <a href="whatsapp://send?phone=212520607060&text=SALAM" class="btn-whatsapp-pulse btn-whatsapp-pulse-border">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+      -->
+
+
+        <!-- footer section -->
+
+        <section class="footer-section" style="background: #000000 !important;">
+            <div class="">
+                <div class="col-md-12">
+                    <p style="    text-align: center;
+     font-size: 9px;
+     color: #fff;
+     padding: 15px;
+     line-height: 1.5;">©️ 2023 KWAN THIS SITE IS NOT A PART OF THE FACEBOOK WEBSITE OR FACEBOOK INC. ADDITIONALLY, THIS SITE IS NOT ENDORSED BY FACEBOOK IN ANY WAY. FACEBOOK IS A TRADEMARK OF FACEBOOK, INC.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="fixed-mobile-button" style="background: #F2C0C3;">
+            <a href="javascript:;" class="text-center black-btn  button-cta gotoform">
+       اطلب الآن 
+       <span>
+         التوصيل إلى جميع أنحاء المغرب
+       </span>
+     </a>
+        </section>
+
+
+
+
+    </div>
+
+
+
+
+    <script src="static/js/lib/jquery-3.0.0.min.js"></script>
+    <script src="static/js/lib/owl.carousel.min.js" type="text/javascript"></script>
+
+    <script src="static/js/scripts.js" type="text/javascript"></script>
+
+    <script src="static/js/lib/jquery.validate.js" type="text/javascript"></script>
+
+
+    <script src="wheel/js/main.js?v=var456733"></script>
+    <!-- Resource jQuery -->
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+
+
+            $("#form1").validate({
+                // Specify validation rules
+                rules: {
+                    // The key name on the left side is the name attribute
+                    // of an input field. Validation rules are defined
+                    // on the right side
+                    first_name: "required",
+                    city: "required",
+                    phone: {
+                        required: true,
+                        number: true
+                    },
+                    address: "required"
+                },
+                // Specify validation error messages
+                messages: {
+                    first_name: "Veuillez insérer votre nom et prénom",
+                    city: "Veuillez insérer votre ville",
+                    tel: 'Veuillez insérer un numéro de téléphone',
+                    address: "Veuillez insérer votre adresse de livraison"
+                },
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function(form) {
+                    form.submit();
+                }
+
+            });
+
+
+            // owl slider 
+            $('.carousel-testimonials').owlCarousel({
+                items: 1,
+                loop: true,
+                itemsDesktop: [1023, 1],
+                itemsTablet: [959, 1],
+                itemsMobile: [768, 1],
+                singleItem: false,
+                autoPlay: 7000,
+                paginationSpeed: 1600,
+                navigation: false,
+                pagination: true,
+                responsive: true,
+                paginationNumbers: false,
+            });
+
+            $('.carousel-ingred, .carousel-ingred-2').owlCarousel({
+                items: 3,
+                itemsDesktop: [1023, 1],
+                itemsTablet: [959, 1],
+                itemsMobile: [768, 1],
+                singleItem: false,
+                autoPlay: 2000,
+                paginationSpeed: 700,
+                navigation: false,
+                pagination: true,
+                responsive: true,
+                paginationNumbers: false,
+                stopOnHover: true
+            });
+
+
+            // end owl slider 
+
+            $('#product').on('change', function() {
+                changeTextPrice();
+            })
+
+            function changeTextPrice() {
+                var selected = $('#product').prop('selectedIndex');
+                if (selected == 0) {
+                    $('#price').html(' 199 درهم  ( + 30 درهم خدمة التوصيل )');
+                    $('#pack-name').html(' بوتوكس الشعر');
+                } else if (selected == 1) {
+                    $('#price').html('299 درهم  ( توصيل مجاني )');
+                    $('#pack-name').html('2 بوتوكس الشعر');
+                } else if (selected == 2) {
+                    $('#price').html('449 درهم  ( توصيل مجاني )');
+                    $('#pack-name').html('3 بوتوكس الشعر');
+                } else {
+                    $('#price').html(' 299 درهم  ( توصيل مجاني )');
+                    $('#pack-name').html('2 بوتوكس الشعر');
+                }
+            }
+
+            $(".gotoform").click(function(e) {
+                // Prevent a page reload when a link is pressed
+
+                e.preventDefault();
+
+                var indexProduit = $(this).data('product');
+
+                $('#product option').eq(indexProduit).prop('selected', true);
+
+                changeTextPrice();
+
+                $('html,body').animate({
+                    scrollTop: $("#form1").offset().top
+                }, 'slow');
+
+
+
+
+            });
+            $('#pays').on('change', function() {
+                var selected = $(this).prop('selectedIndex');
+                if (selected == 1) {
+                    $('#msgRedirection').fadeIn();
+                    setTimeout(function() {
+                        window.location.replace("https://kwancosmetics.com/products/cure-soin-profond-kwan");
+                    }, 2000);
+
+                }
+
+            })
+
+            $('#toggle').click(function() {
+                $(this).toggleClass('active');
+                $('#overlay').toggleClass('open');
+            });
+
+
+
+        });
+        /* ######### accordion benifits ########### */
+        function accordion(id) {
+            $('#collspan-' + id).slideToggle();
+        }
+
+        /* ######### sticky menu 1 ########### */
+        let timeout = 0
+        let previousScrollY = 0
+
+        function scan() {
+            const sticky = document.querySelector('header')
+            let scrollY = window.scrollY
+            let scrollingDirection = scrollY - previousScrollY
+            if (scrollY > sticky.offsetHeight) {
+                if (scrollingDirection < 0) {
+                    sticky.setAttribute('data-visible', 'sticky');
+                    $(".sticky").css({
+                        "top": "0px"
+                    });
+                } else if (scrollingDirection > 0) {
+                    sticky.setAttribute('data-visible', 'false');
+                    $(".sticky").css({
+                        "top": "0px"
+                    });
+                }
+            } else {
+                sticky.setAttribute('data-visible', 'true')
+            }
+            previousScrollY = scrollY
+        }
+        window.onscroll = function() {
+            clearTimeout();
+            timeout = setTimeout(scan, 10)
+        }
+
+        /* ######### sticky menu 2 ########### */
+        var div_top = $('.menu').offset().top;
+
+        $(window).scroll(function() {
+            var window_top = $(window).scrollTop() - 0;
+            if (window_top > div_top) {
+                if (!$('.menu').is('.sticky')) {
+                    $('.menu').addClass('sticky');
+                }
+            } else {
+                $('.menu').removeClass('sticky');
+            }
+        });
+
+
+        // ######## play sound avis ################
+
+        function MorphedSVG(svgId, firstPath, secondPath, styleClass) {
+            this.elem = document.getElementById(svgId);
+            this.path = this.elem.getElementsByTagName('path')[0];
+            this.anim = this.path.getElementsByTagName('animate')[0];
+            this.animDur = parseFloat(this.anim.getAttribute('dur')) * 1000;
+
+            this.originalPath = this.path.getAttribute('d');
+            this.firstPath = firstPath;
+            this.secondPath = secondPath;
+            this.state = MorphedSVG.STATE_1;
+            this.styleClass = styleClass;
+
+            this.timeout;
+        }
+
+        MorphedSVG.STATE_1 = true;
+        MorphedSVG.STATE_2 = false;
+
+        MorphedSVG.prototype.toState = function(state) {
+            if (state == this.state) return;
+
+            switch (state) {
+                case MorphedSVG.STATE_1:
+                    this._set(this.firstPath, this.secondPath, this.firstPath);
+                    this.styleClass ? this.elem.classList.add(this.styleClass) : null;
+                    break;
+
+                case MorphedSVG.STATE_2:
+                    this._set(this.secondPath, this.firstPath, this.secondPath);
+                    this.styleClass ? this.elem.classList.remove(this.styleClass) : null;
+                    break;
+            }
+
+            this.state = state;
+            this.anim.beginElement();
+
+            if (this.originalPath && this.animDur) {
+                this.timeout ? clearTimeout(this.timeout) : null;
+                this.timeout = setTimeout(this._resetOriginal.bind(this), this.animDur);
+            }
+        }
+
+        MorphedSVG.prototype.toggle = function() {
+            this.toState(!this.state);
+        }
+
+        MorphedSVG.prototype._set = function(d, from, to) {
+            this.path.setAttribute('d', d);
+            this.anim.setAttribute('from', from);
+            this.anim.setAttribute('to', to);
+        }
+
+        MorphedSVG.prototype._resetOriginal = function() {
+            if (this.state == MorphedSVG.STATE_1)
+                this._set(this.originalPath, '', '');
+        }
+
+
+        ////////////////////////////////////////////////
+
+        /* HORIZONTAL */
+
+        const PLAY_PATH_1 = 'M11,8 L18,11.74 18,20.28 11,24 11,8   M18,11.74 L26,16 26,16 18,20.28 18,11.74',
+            PAUSE_PATH_1 = 'M9,8  L14,8     14,24    9,24  9,8    M19,8     L24,8  24,24 19,24    19,8';
+
+        var theButtonHor = new MorphedSVG(
+            'play-svg-1', PLAY_PATH_1, PAUSE_PATH_1
+        );
+
+        const audio = new Audio("static/sound.mp3");
+        const audio2 = new Audio("static/sound2.mp3");
+
+        theButtonHor.elem.parentNode.addEventListener('click', function() {
+            var $this = $(this);
+            this.toggle();
+            $('#play-svg-1').toggleClass('active');
+            if ($('#play-svg-1').hasClass('active')) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+        }.bind(theButtonHor));
+
+
+        /* VERTICAL */
+
+        const PAUSE_PATH_2 = 'M9,8   L14,8  14,24 9,24 9,8    M19,8  L24,8  24,24 19,24 19,8',
+            PLAY_PATH_2 = 'M26,16 L26,16 11,16 11,8 26,16  M26,16 L26,16 11,24 11,16 26,16';
+
+        var theButtonVer = new MorphedSVG(
+            'play-svg-2', PLAY_PATH_2, PAUSE_PATH_2
+        );
+
+        theButtonVer.elem.parentNode.addEventListener('click', function() {
+            var $this = $(this);
+            this.toggle();
+            $('#play-svg-2').toggleClass('active');
+            if ($('#play-svg-2').hasClass('active')) {
+                audio2.play();
+            } else {
+                audio2.pause();
+            }
+        }.bind(theButtonVer));
+    </script>
+
+
+    <style>
+        .sWheel-center img {
+            display: initial !important;
+        }
+        
+        .swal2-actions button {
+            margin: 5px !important;
+        }
+        
+        .swal2-actions .btn-success {
+            display: inline-block;
+            background: #e20c0f;
+            width: 250px;
+            border-radius: 10px !important;
+            font-size: 31px;
+            border: none;
+            margin-top: -25px !important;
+        }
+        
+        .swal2-actions .btn-danger {
+            background-color: #000;
+            border-color: #000;
+            color: #fff;
+            font-size: 22px;
+        }
+        
+        .swal2-html-container {
+            direction: rtl !important;
+        }
+    </style>
+</body>
+
+</html>

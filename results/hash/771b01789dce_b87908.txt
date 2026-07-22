@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+
+    
+        <head>
+    <!-- Standard Meta -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <!-- Site Properties -->
+    <title>FLY.pl - panel</title>
+    <link rel="stylesheet" type="text/css" href="/templates/default/css/semantic.css">
+    <link rel="stylesheet" type="text/css" href="/templates/default/css/custom.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="/templates/default/img/favicon_fly.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="16x16" href="/templates/default/img/favicon_fly.png">
+
+    <script src="/templates/default/js/jquery.min.js"></script>
+    <script src="/templates/default/js/semantic.min.js"></script>
+
+    <style type="text/css">
+        body {
+            background-color: #DADADA;
+        }
+        body > .grid {
+            height: 100%;
+        }
+        .image {
+            margin-top: -100px;
+        }
+        .column {
+            max-width: 450px;
+        }
+        #build>div:nth-child(2) {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            padding: 10px;
+            color: #ab351f;
+        }
+        #build>div:nth-child(3) {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            padding: 10px;
+            color: #ab351f;
+        }
+        #build>div:nth-child(1):after {
+            content: attr(data-build);
+            font-family: Arial, sans-serif;
+            position: absolute;
+            font-size: 11px;
+            line-height: 2vh;
+            width: 40vh;
+            letter-spacing: 2px;
+            text-align: center;
+            font-weight: normal;
+            color: #ab351f;
+            bottom: 0;
+            left: 50%;
+            transform: translate(-50%, -10px);
+        }
+        a {
+            color: #ab351f;
+        }
+        a:hover {
+            color: #ab351f;
+        }
+    </style>
+    <script>
+        $(document)
+            .ready(function() {
+                $('.ui.form')
+                    .form({
+                        fields: {
+                            email: {
+                                identifier  : 'login_name',
+                                rules: [
+                                    {
+                                        type   : 'empty',
+                                        prompt : 'Proszę podaj swój e-mail'
+                                    },
+                                    {
+                                        type   : 'email',
+                                        prompt : 'Wpisane adres e-mail jest nieprawidłowy'
+                                    }
+                                ]
+                            },
+                            password: {
+                                identifier  : 'login_password',
+                                rules: [
+                                    {
+                                        type   : 'empty',
+                                        prompt : 'Proszę podaj swoje hasło'
+                                    },
+                                    {
+                                        type   : 'length[6]',
+                                        prompt : 'Twoje hasło musi mieć minimum 6 znaków'
+                                    }
+                                ]
+                            }
+                        }
+                    })
+                ;
+            })
+        ;
+    </script>
+</head>
+<body>
+<div class="ui middle aligned center aligned grid">
+    <div class="column">
+        <div class="ui aligned center aligned grid">
+            <div class="column">
+                <img class="logo" src="/templates/default/img/flypl_logo.png">
+                <h2 class="ui header">Panel klienta</h2>
+                <p>Zaloguj się do swojego konta w FLY.pl</p>
+                <p></p>
+            </div>
+        </div>
+
+        <form class="ui large form" method="post">
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="login_name" placeholder="Adres E-mail">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="login_password" placeholder="Hasło">
+                    </div>
+                </div>
+                <div class="ui fluid large orange submit button">Zaloguj</div>
+                <input name="login" type="hidden" id="login" value="submit">
+            </div>
+
+            <div class="field ui left aligned segment">
+                <div class="ui checkbox">
+                    <input type="checkbox" name="login_not_save" value="1">
+                    <label>Nie zapamiętuj mnie w tej przeglądarce.</label>
+                </div>
+            </div>
+
+            
+
+            <div class="ui error message"></div>
+
+        </form>
+
+        <div class="ui message hidden">
+            New to us? <a href="#">Sign Up</a>
+        </div>
+
+    </div>
+</div>
+<div id="build"><div data-build="Build 3.0.0"></div>
+<div>Copyright 2023 <a href="https://fly.pl/" target="_blank">Fly.pl</a></div>
+<div>Created by <a title="Adam Mroczek" href="https://warsaw.media/" target="_blank">warsaw.media</a></div></div>
+</body>
+
+    
+
+    
+
+
+
+
+
+
+</html>

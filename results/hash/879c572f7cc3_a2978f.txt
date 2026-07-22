@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visuelle Arbeitsanweisungen — Portal</title>
+  <meta name="description" content="Kurze POV-Videos als visuelle Arbeitsanweisungen — nach Abteilung, Arbeitsbereich und Arbeitsschritt." />
+  <link rel="preconnect" href="https://rsms.me/" />
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="index.html">
+        <span class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        </span>
+        <span>Visuelle Arbeitsanweisungen</span>
+      </a>
+      <div class="header-spacer"></div>
+      <nav class="header-nav">
+        <a href="index.html">Abteilungen</a>
+        <a href="abteilung.html">Produktion</a>
+        <a href="#">Zuletzt angesehen</a>
+      </nav>
+      <form class="searchbar" onsubmit="return false;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="search" placeholder="Anweisung suchen…" aria-label="Anweisung suchen" />
+      </form>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap">
+      <div class="eyebrow">Wissen sichtbar machen</div>
+      <h1>Jeder Handgriff. Als Video erklärt.</h1>
+      <p>Kurze POV-Aufnahmen mit der Datenbrille zeigen Schritt für Schritt, wie es geht — mit schriftlicher Anweisung in vier Sprachen. Finden Sie die richtige Anleitung in Sekunden.</p>
+      <div class="hero-search">
+        <form class="searchbar" onsubmit="return false;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="search" placeholder="Suchen Sie z. B. „Rüsten Maschine A“ oder „Kommissionieren“…" aria-label="Suche" />
+        </form>
+      </div>
+      <div style="margin-top:22px;">
+        <button type="button" class="rec-btn js-record-open">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          Anweisung aufnehmen
+        </button>
+      </div>
+    </section>
+
+    <section class="section wrap">
+      <div class="section-head">
+        <h2>Abteilungen</h2>
+        <span class="muted">5 Abteilungen · 128 Anweisungen · zuletzt aktualisiert heute</span>
+      </div>
+
+      <div class="tiles">
+        <a class="tile" href="abteilung.html">
+          <span class="tile-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20"/><path d="M4 20V9l6-4v4l6-4v15"/><path d="M14 20V9l6 4v7"/></svg>
+          </span>
+          <h3>Produktion</h3>
+          <p>Maschinen rüsten, bedienen und überwachen.</p>
+          <div class="tile-meta">42 Anweisungen · 6 Arbeitsbereiche</div>
+          <span class="arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+
+        <a class="tile" href="abteilung.html">
+          <span class="tile-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </span>
+          <h3>Lager</h3>
+          <p>Wareneingang, Kommissionierung und Versand.</p>
+          <div class="tile-meta">31 Anweisungen · 5 Arbeitsbereiche</div>
+          <span class="arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+
+        <a class="tile" href="abteilung.html">
+          <span class="tile-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </span>
+          <h3>Qualität</h3>
+          <p>Prüfen, messen und dokumentieren.</p>
+          <div class="tile-meta">23 Anweisungen · 4 Arbeitsbereiche</div>
+          <span class="arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+
+        <a class="tile" href="abteilung.html">
+          <span class="tile-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </span>
+          <h3>Montage</h3>
+          <p>Baugruppen fügen, verschrauben, prüfen.</p>
+          <div class="tile-meta">21 Anweisungen · 4 Arbeitsbereiche</div>
+          <span class="arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+
+        <a class="tile" href="abteilung.html">
+          <span class="tile-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </span>
+          <h3>Wartung</h3>
+          <p>Instandhaltung, Inspektion und Reparatur.</p>
+          <div class="tile-meta">11 Anweisungen · 3 Arbeitsbereiche</div>
+          <span class="arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+
+        <a class="tile" href="abteilung.html">
+          <span class="tile-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </span>
+          <h3>Arbeitssicherheit</h3>
+          <p>Unterweisungen, PSA und Notfallabläufe.</p>
+          <div class="tile-meta">Neu · übergreifend für alle Bereiche</div>
+          <span class="arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section wrap" style="padding-top:0;">
+      <div class="section-head">
+        <h2>Zuletzt angesehen</h2>
+        <span class="muted">Ihre offenen Anleitungen</span>
+      </div>
+      <div class="steps-flow">
+        <a class="step-card" href="anweisung.html">
+          <div class="thumb g2">
+            <span class="step-num">Schritt 1 / 4</span>
+            <span class="play-mini"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+            <span class="duration">2:14</span>
+          </div>
+          <div class="step-body">
+            <h3>Rüsten der Maschine A</h3>
+            <p>Werkzeugwechsel und Grundeinstellung vor Produktionsstart.</p>
+            <div class="step-foot"><span>Produktion · Maschine A</span><span class="go">Öffnen ›</span></div>
+          </div>
+        </a>
+        <a class="step-card" href="anweisung.html">
+          <div class="thumb g4">
+            <span class="step-num">Schritt 2 / 5</span>
+            <span class="play-mini"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+            <span class="duration">1:48</span>
+          </div>
+          <div class="step-body">
+            <h3>Kommissionieren nach Pickliste</h3>
+            <p>Entnahme, Scan und Ablage im Kommissionierwagen.</p>
+            <div class="step-foot"><span>Lager · Kommissionierung</span><span class="go">Öffnen ›</span></div>
+          </div>
+        </a>
+        <a class="step-card" href="anweisung.html">
+          <div class="thumb g5">
+            <span class="step-num">Schritt 3 / 3</span>
+            <span class="play-mini"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+            <span class="duration">3:02</span>
+          </div>
+          <div class="step-body">
+            <h3>Sichtprüfung Endkontrolle</h3>
+            <p>Oberfläche, Maße und Kennzeichnung final freigeben.</p>
+            <div class="step-foot"><span>Qualität · Endkontrolle</span><span class="go">Öffnen ›</span></div>
+          </div>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>© 2026 Visuelle Arbeitsanweisungen · Interner Prototyp</p>
+      <div class="foot-links">
+        <a href="index.html">Abteilungen</a>
+        <a href="#">Hilfe</a>
+        <a href="#">Datenschutz</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

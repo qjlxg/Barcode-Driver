@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - IPRN</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/waitme@1.19.0/waitMe.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/waitme@1.19.0/waitMe.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #8b5cf6;
+            --primary-dark: #7c3aed;
+            --secondary-color: #eab308;
+            --secondary-dark: #ca8a04;
+            --sidebar-start: #1e293b;
+            --sidebar-end: #0f172a;
+            --header-bg: #eab308;
+            --header-text: #1f2937;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            min-height: 100vh;
+        }
+        .form-slide-in {
+            animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        @keyframes floating {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        .input-focus:focus {
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+            border-color: var(--primary-color) !important;
+        }
+        label.error {
+            color: #ef4444;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: block;
+        }
+        input.error {
+            border-color: #ef4444 !important;
+        }
+        .hidden {
+            display: none !important;
+        }
+        .branding-side {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-dark) 100%);
+        }
+        .tab-active {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%) !important;
+            color: white !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+        }
+        .btn-primary:hover {
+            filter: brightness(1.1);
+        }
+        .text-primary-custom {
+            color: var(--primary-color);
+        }
+        .text-primary-custom:hover {
+            color: var(--primary-dark);
+        }
+        .checkbox-custom:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <div class="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+        <!-- Background Decorations -->
+        <div class="absolute top-20 left-10 w-72 h-72 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-pulse" style="background: #eab308;"></div>
+        <div class="absolute top-40 right-10 w-72 h-72 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-pulse" style="background: #7c3aed;"></div>
+        <div class="absolute -bottom-8 left-20 w-72 h-72 rounded-full mix-blend-multiply filter blur-xl opacity-40 animate-pulse" style="background: #ca8a04;"></div>
+
+        <div class="w-full max-w-6xl relative z-10">
+                            <div class="grid md:grid-cols-2 gap-0 bg-white rounded-2xl shadow-2xl overflow-hidden">
+                    <!-- Left Side - Branding -->
+                    <div class="branding-side p-12 flex flex-col justify-center items-center text-white relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-full opacity-10">
+                            <div class="absolute top-10 left-10 w-40 h-40 border-4 border-white rounded-full"></div>
+                            <div class="absolute bottom-10 right-10 w-60 h-60 border-4 border-white rounded-full"></div>
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 border-4 border-white rounded-full"></div>
+                        </div>
+
+                        <div class="relative z-10 text-center">
+                            <div class="mb-8 floating">
+                                <i class="fas fa-sms text-8xl mb-4"></i>
+                            </div>
+                            <h1 class="text-5xl font-bold mb-4 tracking-wider">IPRN</h1>
+                            <p class="text-xl mb-2 tracking-widest opacity-90">PREMIUM RATES</p>
+                            <div class="w-32 h-1 bg-white mx-auto mb-6"></div>
+                            <p class="text-lg opacity-90 max-w-md">
+                                SMS Traffic Monetization Platform
+                            </p>
+                            <div class="mt-12 space-y-4">
+                                <div class="flex items-center justify-center space-x-3">
+                                    <i class="fas fa-check-circle text-2xl"></i>
+                                    <span>Real-time SMS Monitoring</span>
+                                </div>
+                                <div class="flex items-center justify-center space-x-3">
+                                    <i class="fas fa-check-circle text-2xl"></i>
+                                    <span>Advanced Analytics</span>
+                                </div>
+                                <div class="flex items-center justify-center space-x-3">
+                                    <i class="fas fa-check-circle text-2xl"></i>
+                                    <span>Secure & Reliable</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Side - Form -->
+                    <div class="p-12 bg-white">
+                        <div class="form-slide-in">
+                                                            <!-- Toggle Tabs - Only show if both are enabled -->
+                                <div class="flex mb-8 bg-gray-100 rounded-lg p-1">
+                                    <button
+                                        type="button"
+                                        id="loginTab"
+                                        class="tab-button flex-1 py-3 px-6 rounded-lg font-semibold transition-all tab-active"
+                                    >
+                                        <i class="fas fa-sign-in-alt mr-2"></i>
+                                        Login
+                                    </button>
+                                    <button
+                                        type="button"
+                                        id="registerTab"
+                                        class="tab-button flex-1 py-3 px-6 rounded-lg font-semibold transition-all text-gray-600 hover:text-gray-900"
+                                    >
+                                        <i class="fas fa-user-plus mr-2"></i>
+                                        Register
+                                    </button>
+                                </div>
+                            
+                            <!-- Form Title -->
+                            <div class="mb-8">
+                                <h2 id="formTitle" class="text-3xl font-bold text-gray-800 mb-2">
+                                                                            Welcome Back!
+                                                                    </h2>
+                                <p id="formSubtitle" class="text-gray-600">
+                                                                            Enter your credentials to access your account
+                                                                    </p>
+                            </div>
+
+                            
+                            
+                            
+                                                            <!-- Login Form -->
+                                <form id="loginForm" action="https://95.217.6.102/Switchfy/login" method="POST" class="space-y-5 ">
+                                    <input type="hidden" name="_token" value="3IxRm6pT6Tw5fYrNyQX85lQK0fhV64afjNgnrgMm" autocomplete="off">
+                                    
+                                    <!-- Email Field -->
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                            Email Address
+                                        </label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-envelope text-gray-400"></i>
+                                            </div>
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                value=""
+                                                class="input-focus w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none transition-all"
+                                                placeholder="your@email.com"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <!-- Password Field -->
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                            Password
+                                        </label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-lock text-gray-400"></i>
+                                            </div>
+                                            <input
+                                                type="password"
+                                                name="password"
+                                                id="loginPassword"
+                                                class="input-focus w-full pl-10 pr-12 py-3 border-2 border-gray-300 rounded-lg focus:outline-none transition-all"
+                                                placeholder="••••••••"
+                                                required
+                                            />
+                                            <button
+                                                type="button"
+                                                class="toggle-password absolute top-0 right-0 h-full w-12 flex items-center justify-center text-gray-400 hover:text-gray-600"
+                                                data-target="loginPassword"
+                                                tabindex="-1"
+                                            >
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Remember Me / Forgot Password -->
+                                    <div class="flex items-center justify-between">
+                                        <label class="flex items-center cursor-pointer">
+                                            <input
+                                                type="checkbox"
+                                                name="remember"
+                                                class="checkbox-custom w-4 h-4 border-gray-300 rounded focus:ring-2"
+                                                style="accent-color: var(--primary-color);"
+                                            />
+                                            <span class="ml-2 text-sm text-gray-700">Remember me</span>
+                                        </label>
+                                        <a href="https://95.217.6.102/Switchfy/forgot-password" class="text-sm text-primary-custom font-semibold">
+                                            Forgot password?
+                                        </a>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <button
+                                        type="submit"
+                                        class="w-full btn-primary text-white font-bold py-4 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                                    >
+                                        <i class="fas fa-sign-in-alt mr-2"></i>
+                                        Sign In
+                                    </button>
+                                </form>
+                            
+                                                            <!-- Register Form -->
+                                <form id="registerForm" action="https://95.217.6.102/Switchfy/register" method="POST" class="space-y-5 hidden">
+                                    <input type="hidden" name="_token" value="3IxRm6pT6Tw5fYrNyQX85lQK0fhV64afjNgnrgMm" autocomplete="off">
+                                    
+                                    <!-- Full Name -->
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                            Full Name
+                                        </label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-user text-gray-400"></i>
+                                            </div>
+                                            <input
+                                                type="text"
+                                                name="name"
+                                                value=""
+                                                class="input-focus w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none transition-all"
+                                                placeholder="John Doe"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <!-- Phone Number -->
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                            Phone Number
+                                        </label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-phone text-gray-400"></i>
+                                            </div>
+                                            <input
+                                                type="tel"
+                                                name="phone"
+                                                value=""
+                                                class="input-focus w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none transition-all"
+                                                placeholder="+1 (555) 000-0000"
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <!-- Email Field -->
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                            Email Address
+                                        </label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-envelope text-gray-400"></i>
+                                            </div>
+                                            <input
+                                                type="email"
+                                                name="email"
+                                                value=""
+                                                class="input-focus w-full pl-10 pr-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none transition-all"
+                                                placeholder="your@email.com"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <!-- Password Field -->
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                            Password
+                                        </label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-lock text-gray-400"></i>
+                                            </div>
+                                            <input
+                                                type="password"
+                                                name="password"
+                                                id="registerPassword"
+                                                class="input-focus w-full pl-10 pr-12 py-3 border-2 border-gray-300 rounded-lg focus:outline-none transition-all"
+                                                placeholder="••••••••"
+                                                required
+                                            />
+                                            <button
+                                                type="button"
+                                                class="toggle-password absolute top-0 right-0 h-full w-12 flex items-center justify-center text-gray-400 hover:text-gray-600"
+                                                data-target="registerPassword"
+                                                tabindex="-1"
+                                            >
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Confirm Password -->
+                                    <div>
+                                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                            Confirm Password
+                                        </label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <i class="fas fa-lock text-gray-400"></i>
+                                            </div>
+                                            <input
+                                                type="password"
+                                                name="password_confirmation"
+                                                id="registerPasswordConfirm"
+                                                class="input-focus w-full pl-10 pr-12 py-3 border-2 border-gray-300 rounded-lg focus:outline-none transition-all"
+                                                placeholder="••••••••"
+                                                required
+                                            />
+                                            <button
+                                                type="button"
+                                                class="toggle-password absolute top-0 right-0 h-full w-12 flex items-center justify-center text-gray-400 hover:text-gray-600"
+                                                data-target="registerPasswordConfirm"
+                                                tabindex="-1"
+                                            >
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <button
+                                        type="submit"
+                                        class="w-full btn-primary text-white font-bold py-4 rounded-lg transition-all transform hover:scale-105 shadow-lg hover:shadow-xl"
+                                    >
+                                        <i class="fas fa-user-plus mr-2"></i>
+                                        Create Account
+                                    </button>
+                                </form>
+                            
+                                                            <!-- Switch Mode Link - Only show if both are enabled -->
+                                <div class="mt-8 text-center">
+                                    <p class="text-gray-600">
+                                        <span id="switchText">Don&#039;t have an account? </span>
+                                        <button
+                                            type="button"
+                                            id="switchModeBtn"
+                                            class="text-primary-custom font-bold"
+                                        >
+                                            <span id="switchBtnText">Sign up now</span>
+                                        </button>
+                                    </p>
+                                </div>
+                                                    </div>
+                    </div>
+                </div>
+            
+            <!-- Footer -->
+            <div class="text-center mt-8 text-white">
+                <p class="text-sm opacity-90">
+                    © 2026 Switchfy sms. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            const showLoginForm = true;
+            const showRegisterForm = true;
+            let isLogin = true;
+            const primaryColor = '#8b5cf6';
+
+            // Toggle Password Visibility
+            $('.toggle-password').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                const targetId = $(this).data('target');
+                const input = $('#' + targetId);
+                const icon = $(this).find('i');
+
+                if (input.attr('type') === 'password') {
+                    input.attr('type', 'text');
+                    icon.removeClass('fa-eye').addClass('fa-eye-slash');
+                } else {
+                    input.attr('type', 'password');
+                    icon.removeClass('fa-eye-slash').addClass('fa-eye');
+                }
+            });
+
+                        // Tab Switching - Only if both forms are enabled
+            function switchToLogin() {
+                isLogin = true;
+                $('#loginForm').removeClass('hidden');
+                $('#registerForm').addClass('hidden');
+                $('#loginTab').addClass('tab-active').removeClass('text-gray-600 hover:text-gray-900');
+                $('#registerTab').removeClass('tab-active').addClass('text-gray-600 hover:text-gray-900');
+                $('#formTitle').text('Welcome Back!');
+                $('#formSubtitle').text('Enter your credentials to access your account');
+                $('#switchText').text("Don't have an account? ");
+                $('#switchBtnText').text('Sign up now');
+            }
+
+            function switchToRegister() {
+                isLogin = false;
+                $('#loginForm').addClass('hidden');
+                $('#registerForm').removeClass('hidden');
+                $('#loginTab').removeClass('tab-active').addClass('text-gray-600 hover:text-gray-900');
+                $('#registerTab').addClass('tab-active').removeClass('text-gray-600 hover:text-gray-900');
+                $('#formTitle').text('Create Account');
+                $('#formSubtitle').text('Fill in your details to get started');
+                $('#switchText').text('Already have an account? ');
+                $('#switchBtnText').text('Sign in');
+            }
+
+            $('#loginTab').on('click', function() {
+                if (!isLogin) switchToLogin();
+            });
+
+            $('#registerTab').on('click', function() {
+                if (isLogin) switchToRegister();
+            });
+
+            $('#switchModeBtn').on('click', function() {
+                if (isLogin) {
+                    switchToRegister();
+                } else {
+                    switchToLogin();
+                }
+            });
+            
+                        // Login Form Validation
+            $("#loginForm").validate({
+                rules: {
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 6
+                    }
+                },
+                messages: {
+                    email: {
+                        required: "Please enter your email address",
+                        email: "Please enter a valid email address"
+                    },
+                    password: {
+                        required: "Please enter your password",
+                        minlength: "Password must be at least 6 characters"
+                    }
+                },
+                errorClass: "error",
+                validClass: "valid",
+                errorPlacement: function(error, element) {
+                    error.insertAfter(element.parent());
+                },
+                submitHandler: function(form) {
+                    $('#loginForm').waitMe({
+                        effect: 'rotation',
+                        text: 'Logging in...',
+                        bg: 'rgba(255,255,255,0.9)',
+                        color: primaryColor,
+                        maxSize: '',
+                        waitTime: -1,
+                        textPos: 'vertical',
+                        fontSize: '16px'
+                    });
+                    form.submit();
+                }
+            });
+            
+                        // Register Form Validation
+            $("#registerForm").validate({
+                rules: {
+                    name: {
+                        required: true,
+                        minlength: 2
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    phone: {
+                        minlength: 10
+                    },
+                    password: {
+                        required: true,
+                        minlength: 8
+                    },
+                    password_confirmation: {
+                        required: true,
+                        minlength: 8,
+                        equalTo: "#registerPassword"
+                    }
+                },
+                messages: {
+                    name: {
+                        required: "Please enter your full name",
+                        minlength: "Name must be at least 2 characters"
+                    },
+                    email: {
+                        required: "Please enter your email address",
+                        email: "Please enter a valid email address"
+                    },
+                    phone: {
+                        minlength: "Phone number must be at least 10 digits"
+                    },
+                    password: {
+                        required: "Please enter a password",
+                        minlength: "Password must be at least 8 characters"
+                    },
+                    password_confirmation: {
+                        required: "Please confirm your password",
+                        minlength: "Password must be at least 8 characters",
+                        equalTo: "Passwords do not match"
+                    }
+                },
+                errorClass: "error",
+                validClass: "valid",
+                errorPlacement: function(error, element) {
+                    error.insertAfter(element.parent());
+                },
+                submitHandler: function(form) {
+                    $('#registerForm').waitMe({
+                        effect: 'rotation',
+                        text: 'Creating your account...',
+                        bg: 'rgba(255,255,255,0.9)',
+                        color: primaryColor,
+                        maxSize: '',
+                        waitTime: -1,
+                        textPos: 'vertical',
+                        fontSize: '16px'
+                    });
+                    form.submit();
+                }
+            });
+                    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+  
+
+ 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML+RDFa 1.1//EN" "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html xml:lang="en" xmlns:fb="http://ogp.me/ns/fb#"
+	xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+<!-- Added Nothing_selected_gettext variable to remove console errors -->
+<script type="text/javascript">
+    var Nothing_selected_gettext = "Nothing selected";
+</script>
+<!-- End -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>
+    Log In | ASTPP - Open Source Voip Billing Solution    </title>
+    <!-- // ASTPPENT-4192 Ashish start -->
+    <link rel="icon"
+	href="https://astpp.itskysolutions.com/upload/favicon.ico" />
+<!-- // ASTPPENT-4192 Ashish End -->
+<link href="https://astpp.itskysolutions.com/assets/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://astpp.itskysolutions.com/assets/fonts/font-awesome-4.7.0/css/font-awesome.css"
+	rel="stylesheet">
+<link href="https://astpp.itskysolutions.com/assets/css/global-style.css"
+	rel="stylesheet" type="text/css">
+<link href="https://astpp.itskysolutions.com/assets/css/custome_index.css"
+	rel="stylesheet" type="text/css">
+<link href="https://astpp.itskysolutions.com/assets/css/style.css"
+	rel="stylesheet" type="text/css">
+
+<script src="https://astpp.itskysolutions.com/assets/js/jquery-1.12.4.js"></script>
+<script type="text/javascript"
+	src="https://astpp.itskysolutions.com/assets/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"
+	src="https://astpp.itskysolutions.com/assets/status/dist/js/bootstrap-select.js"></script>
+<script type="text/javascript"
+	src="https://astpp.itskysolutions.com/assets/js/jquery.validate.min.js"></script>
+<!-- IE -->
+<script type="text/javascript"
+	src="https://astpp.itskysolutions.com/assets/js/respond.js"></script>
+<script type="text/javascript"
+	src="https://astpp.itskysolutions.com/assets/js/respond.src.js"></script>
+
+<script src="https://astpp.itskysolutions.com/assets/js/custome_index.js"></script>
+
+<link
+	href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+
+<noscript>
+	<div id="noscript-warning">ASTPP work best with JavaScript enabled</div>
+</noscript>
+
+
+<script type="text/javascript">
+      $(document).ready(function () {
+        setTimeout(function () {
+        var $Input = $('input');
+        $Input.closest('.form-group').addClass('control-highlight');
+        }, 200);
+      });
+
+     function FocusOnInput() {
+        document.getElementById("username").focus();
+       }
+
+         $('document').ready(function() 
+         { 
+            // ASTPPENT-4515 Kinjal start
+            const agent = window.navigator.userAgent.toLowerCase();
+            const browser = agent.indexOf('edge') > -1 ? 'edge'
+              : agent.indexOf('edg') > -1 ? 'chromium based edge'
+              : agent.indexOf('opr') > -1 && window.opr ? 'opera'
+              : agent.indexOf('chrome') > -1 && window.chrome ? 'chrome'
+              : agent.indexOf('trident') > -1 ? 'ie'
+              : agent.indexOf('firefox') > -1 ? 'firefox'
+              : agent.indexOf('safari') > -1 ? 'safari'
+              : 'other';
+            // ASTPPENT-4515 Kinjal End
+             $("#login_form").validate({
+                 rules: {
+                     username: {
+                         required: true,
+                     },
+                     password: {
+                         required: true,
+                     },
+                },
+                 messages: {
+                     username: { 
+                         required: '<span class="text-danger">Account No is Required</span>',
+                     },
+                     password: {
+                        required: '<span class="text-danger">Password is Required</span>',
+                     },
+                 },
+                 errorClass: "error_label",
+                 submitHandler: function(form) {
+                                var username_decrypt = $("#username").val();
+                var password_decrypt = $("#password").val();
+                var password = "123456";
+                username = CryptoJSAesJson.encrypt(username_decrypt, password);
+                password1 = CryptoJSAesJson.encrypt(password_decrypt, password);
+                $("#username").val(username);
+                $("#password").val(password1);
+                // Kinjal issue no 4515
+                if(browser == 'safari' ){
+                    $('<input>').attr({
+                        type: 'hidden',id: 'new_username',name: 'new_username',value: username
+                    }).appendTo('form');
+                    $('<input>').attr({
+                        type: 'hidden',id: 'new_password',name: 'new_password',value: password1
+                    }).appendTo('form');
+                    form.submit();
+                                        localStorage.setItem('user_logout', ''); 
+                                        $('#login_form')[0].reset();
+                }else{
+                    form.submit();
+                                        localStorage.setItem('user_logout', ''); 
+                                        $("#username").val(username_decrypt);
+                    $("#password").val(password_decrypt);
+                }
+                // END
+                			$(':input[type="submit"]').prop('disabled', true);
+			$('input[type="text"]').keyup(function() {
+			if($(this).val() != '') {
+			$(':input[type="submit"]').prop('disabled', false);
+			}
+			});
+                 }
+             });  
+         });
+ </script>
+
+<style>
+html, body {
+	height: 100%;
+}
+
+body {
+	display: -ms-flexbox;
+	display: flex;
+	-ms-flex-align: center;
+	align-items: center;
+	padding-top: 40px;
+	padding-bottom: 40px;
+	background-color: #f5f5f5;
+}
+</style>
+
+</head>
+<body style="background: url(https://astpp.itskysolutions.com/assets/images/login_bg.jpg);background-size: cover;background-attachment: fixed;" onload="FocusOnInput()">
+	<div class="col-md-12 m-auto form_card">
+		<form role="form" id="login_form" class="card p-4 col-12 "
+			name="login_form" action="https://astpp.itskysolutions.com/login/login"
+			method="POST" novalidate
+			style="background: rgba(255, 255, 255, 0.8);">
+           
+          <div class="">
+				<h2 class="text-center">
+          
+               
+                      <img class="mb-4 img-fluid" id="logo" alt='login'
+						src="https://astpp.itskysolutions.com/upload/logo.png">
+                            <div class="clear"></div>
+
+				</h2>
+			</div>
+
+			<div class="card px-4 py-5">
+
+				<div class="form-group">
+					<input type="text" id="username" class="form-control error_login"
+						name="username" value="" autocomplete="off" required> <label
+						class="control-label" for="username">Account No OR Email</label>
+				</div>
+
+				<div class="form-group">
+					<input type="password" class="form-control error_login"
+						id="password" name="password" value="" autocomplete="off" required>
+					<label class="control-label" for="password">Password</label>
+				</div>
+                				<button type="submit" id="save_button" name="save_button"
+					class="btn btn-block btn-primary text-uppercase border_box">Sign In</button>
+                    
+			</div>
+			<div class="col-12 mt-4">
+				<p class="text-center">
+                					<a class="forgot_pass text-primary" href="forgotpassword">Forgot Password?</a>
+                    				</p>
+				<p class="text-center px-4 m-0">
+                            <a class="btn btn-outline-primary btn-block"
+						href="/signup/">Signup now!</a> 
+                          </p>
+
+			</div>
+
+		</form>
+
+	</div>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+    <script src="https://astpp.itskysolutions.com/assets/js/cryptojs-aes-format.js"></script>
+    <script src="https://astpp.itskysolutions.com/assets/js/cryptojs-aes.min.js"></script>
+    </body>
+</html>
