@@ -15,18 +15,28 @@ ROOT_DIR = Path(__file__).resolve().parent
 SOURCES_FILE = ROOT_DIR / "sources.txt"
 IP_FILE = ROOT_DIR / "ip.txt"
 FRESH_LOG = ROOT_DIR / "fresh_seeds_log.json"
+FRESH_SEED_JSON = ROOT_DIR / "fresh_seed.json"
 
 # 请求头伪装
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
 }
 
+# 常见公共 CDN 及大厂网段过滤（避免抓到共享出口导致扫描器效率低下）
+BAD_NETS = [
+    ipaddress.ip_network("104.16.0.0/12"),
+    ipaddress.ip_network("172.64.0.0/13"),
+    ipaddress.ip_network("104.21.0.0/16"),
+    ipaddress.ip_network("172.67.0.0/16"),
+    ipaddress.ip_network("108.160.0.0/11"),
+]
+
 def load_sources():
     """从根目录的 sources.txt 加载数据源"""
     if not SOURCES_FILE.exists():
         print(f"[!] 未找到数据源文件: {SOURCES_FILE}")
         return []
-    
+
     sources = []
     for line in SOURCES_FILE.read_text(encoding="utf-8").splitlines():
         line = line.strip()
@@ -36,8 +46,10 @@ def load_sources():
 
 def try_base64_decode(text: str) -> str:
     """尝试将文本进行 Base64 解码"""
+    if len(text.strip()) < 20:
+        return text
     clean_s = re.sub(r'[^A-Za-z0-9+/=]', '', text)
-    if len(clean_s) < 20:
+    if not re.fullmatch(r'[A-Za-z0-9+/=\s]+', text[:200]) and len(clean_s) < 20:
         return text
     try:
         missing_padding = len(clean_s) % 4
@@ -48,6 +60,19 @@ def try_base64_decode(text: str) -> str:
     except Exception:
         return text
 
+def is_bad_ip(ip_str: str) -> bool:
+    """检查是否属于排除的网段或私有/保留地址"""
+    try:
+        ip_obj = ipaddress.ip_address(ip_str)
+        if ip_obj.is_private or ip_obj.is_loopback or ip_obj.is_reserved:
+            return True
+        for net in BAD_NETS:
+            if ip_obj in net:
+                return True
+    except Exception:
+        return True
+    return False
+
 def resolve_domain_to_ip(domain: str) -> set:
     """将域名/服务器地址反查为 IP 并转为 /24 网段"""
     found_ips = set()
@@ -55,8 +80,7 @@ def resolve_domain_to_ip(domain: str) -> set:
         ip_info = socket.getaddrinfo(domain, None)
         for item in ip_info:
             ip_str = item[4][0]
-            ip_obj = ipaddress.ip_address(ip_str)
-            if not ip_obj.is_private and not ip_obj.is_loopback and not ip_obj.is_reserved:
+            if not is_bad_ip(ip_str):
                 net = ipaddress.ip_network(f"{ip_str}/24", strict=False)
                 found_ips.add(str(net))
     except Exception:
@@ -64,7 +88,7 @@ def resolve_domain_to_ip(domain: str) -> set:
     return found_ips
 
 def extract_ips_and_domains(text: str):
-    """从文本中精准提取 CIDR、独立 IPv4、节点域名并反查 IP"""
+    """从文本中精准提取 CIDR、节点相关 IP、节点域名并反查 IP"""
     found_items = set()
 
     # 1. 匹配标准 CIDR 格式
@@ -72,28 +96,21 @@ def extract_ips_and_domains(text: str):
     for match in re.findall(cidr_pattern, text):
         try:
             net = ipaddress.ip_network(match, strict=False)
-            if not net.is_private and not net.is_loopback and not net.is_reserved:
+            if not is_bad_ip(str(net.network_address)):
                 found_items.add(str(net))
         except:
             continue
 
-    # 2. 匹配独立 IPv4，自动转为规范的 /24 网段
-    ipv4_pattern = r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b'
-    for match in re.findall(ipv4_pattern, text):
-        try:
-            ip_obj = ipaddress.ip_address(match)
-            if not ip_obj.is_private and not ip_obj.is_loopback and not ip_obj.is_reserved:
-                net = ipaddress.ip_network(f"{match}/24", strict=False)
-                found_items.add(str(net))
-        except:
-            continue
-
-    # 3. 匹配节点配置中的目标地址（如 server=, address=, add=, 或是直接的链接域名）并反查
-    target_pattern = r'(?:server\s*[:=]\s*|address\s*[:=]\s*|add\s*[:=]\s*|sni\s*[:=]\s*|host\s*[:=]\s*|\bhttps?://)([a-zA-Z0-9][-a-zA-Z0-9]{0,62}(?:\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+)\b'
+    # 2. 匹配节点配置中的目标地址（如 server=, address=, add=, 或是直接的链接域名）并反查，避免全网页盲抓 IP
+    target_pattern = r'(?:server\s*[:=]\s*|address\s*[:=]\s*|add\s*[:=]\s*|sni\s*[:=]\s*|host\s*[:=]\s*|\bhttps?://)([a-zA-Z0-9][-a-zA-Z0-9]{0,62}(?:\.[a-zA-Z0-9][-a-zA-Z0-9]{0,62})+|(?:[0-9]{1,3}\.){3}[0-9]{1,3})\b'
     targets = re.findall(target_pattern, text, re.IGNORECASE)
-    
+
     for target in set(targets):
-        if not re.match(r'^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$', target):
+        if re.match(r'^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$', target):
+            if not is_bad_ip(target):
+                net = ipaddress.ip_network(f"{target}/24", strict=False)
+                found_items.add(str(net))
+        else:
             resolved_nets = resolve_domain_to_ip(target)
             found_items.update(resolved_nets)
 
@@ -147,12 +164,35 @@ def main():
     clean_combined = sorted([x for x in combined if x])
     IP_FILE.write_text("\n".join(clean_combined), encoding="utf-8")
 
+    # 生成带评分与来源记录的 fresh_seed.json 供流水线对接
+    current_time_str = datetime.now(ZoneInfo("Asia/Shanghai")).strftime('%Y-%m-%d')
+    fresh_seed_data = {}
+    if FRESH_SEED_JSON.exists():
+        try:
+            fresh_seed_data = json.loads(FRESH_SEED_JSON.read_text(encoding="utf-8"))
+        except:
+            pass
+
+    for item in really_new:
+        if item not in fresh_seed_data:
+            fresh_seed_data[item] = {
+                "source": "collector",
+                "first_seen": current_time_str,
+                "score": 10
+            }
+
+    try:
+        FRESH_SEED_JSON.write_text(json.dumps(fresh_seed_data, indent=2, ensure_ascii=False), encoding="utf-8")
+    except:
+        pass
+
     # 日志记录
     log_entry = {
         "time": datetime.now(ZoneInfo("Asia/Shanghai")).isoformat(),
         "new_count": len(really_new),
         "total_now": len(clean_combined),
-        "sources_checked": len(sources)
+        "sources_checked": len(sources),
+        "new_items": list(really_new)[:200]
     }
 
     try:
