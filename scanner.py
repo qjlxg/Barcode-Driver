@@ -13,7 +13,7 @@ from tqdm import tqdm
 # 配置（已合并去重 + 优化）
 # ==========================
 
-# 最高优先级特征（FOFA 高价值，命中即判定有效）
+# 最高优先级特征（命中即判定有效）
 HIGH_PRIORITY_SIGNS = [s.lower() for s in [
     "subscription-userinfo:", 
     "profile-update-interval:",
