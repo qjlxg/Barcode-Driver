@@ -25,6 +25,9 @@ jobs:
           sudo apt-get update && sudo apt-get install -y masscan
           pip install aiohttp tqdm
 
+      - name: 0. 运行 ASN 切片生成 ip.txt
+        run: python3 asn.py
+        
       - name: 1. 生成任务批次
         run: python3 processor.py
 
