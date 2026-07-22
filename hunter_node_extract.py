@@ -148,11 +148,16 @@ async def main():
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
         yaml.dump(final_config, f, allow_unicode=True, sort_keys=False, width=1000)
 
-    # 5. 保存 CSV 统计（使用 QUOTE_ALL 并清理摘要中的换行符）
+    # 5. 保存 CSV 统计（深度清洗所有字段中的双引号、换行符和特殊符号，杜绝写盘报错）
+    cleaned_stats = []
+    for row in stats:
+        cleaned_row = [str(item).replace('"', "'").replace('\r', ' ').replace('\n', ' ') for item in row]
+        cleaned_stats.append(cleaned_row)
+
     with open(CSV_FILE, "w", newline="", encoding="utf-8-sig") as f:
-        writer = csv.writer(f, quoting=csv.QUOTE_ALL, quotechar='"')
+        writer = csv.writer(f)
         writer.writerow(["原始URL", "资产地址", "状态", "节点数", "HTTP码", "响应秒数", "摘要"])
-        writer.writerows(stats)
+        writer.writerows(cleaned_stats)
 
     logger.info(f"处理完成，生成唯一节点数: {len(unique_nodes)}")
 
