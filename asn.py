@@ -11,15 +11,11 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent
 CONFIG_DIR = BASE_DIR / "config"
 ASN_SEED_FILE = CONFIG_DIR / "asn_seed.txt"
-ASN_IP_FILE = BASE_DIR / "asn_ip.txt"          # 过程缓存，也可按需保留
 IP_FILE = BASE_DIR / "ip.txt"                  # 最终运行结果保存到根目录下 ip.txt
 ASN_HISTORY_FILE = CONFIG_DIR / "asn_history.json"
 
-# 保护机制
-MAX_TOTAL_CIDRS = 25         # 全局总网段硬上限
-MAX_PER_ASN = 300            # 单个 ASN 最大允许录入的 /24 数量
 FETCH_DELAY = (3, 7)         # 随机延迟范围（秒），防止被 HE.net 封禁
-EXPIRY_DAYS = 180            # 历史记录过期天数
+BATCH_SIZE = 25              # 每次从当前 ASN 中取出的网段数量
 
 # 扩展后的 CDN 及 基础运营商 ASN 黑名单
 EXCLUDE_ASNS = {
@@ -87,7 +83,6 @@ def process_to_24(prefix_set):
 
             if net.prefixlen < 24:
                 if net.prefixlen < 16:
-                    print(f"    [?] 跳过超大型网段 (>{net.prefixlen}) 以防溢出: {p}")
                     continue
                 for subnet in net.subnets(new_prefix=24):
                     results.add(str(subnet))
@@ -105,21 +100,9 @@ def collect():
     if not setup_env(): return
 
     history = load_history()
-    # 状态数据存在 progress 结构中，不干扰原有的 asn 历史详情
-    progress_meta = history.get("_progress", {"last_index": 0})
-    last_index = progress_meta.get("last_index", 0)
-
-    # 载入现有 ip.txt 或 asn_ip.txt 中的资产
-    existing_cidrs = set()
-    if IP_FILE.exists():
-        existing_cidrs = {l.strip() for l in IP_FILE.read_text(encoding="utf-8").splitlines() if l.strip()}
-    elif ASN_IP_FILE.exists():
-        existing_cidrs = {l.strip() for l in ASN_IP_FILE.read_text(encoding="utf-8").splitlines() if l.strip()}
-
-    print(f"[*] 任务开始 | 当前全量资产数: {len(existing_cidrs)} | 上限: {MAX_TOTAL_CIDRS}")
-
-    if len(existing_cidrs) >= MAX_TOTAL_CIDRS:
-        print("[!] 当前资产库达到上限，将继续检查已有ASN，不新增")
+    progress = history.get("_progress", {"asn_index": 0, "cidr_index": 0})
+    asn_index = progress.get("asn_index", 0)
+    cidr_index = progress.get("cidr_index", 0)
 
     # 获取待处理 ASN 种子
     raw_asns = [
@@ -133,114 +116,79 @@ def collect():
         print("[!] asn_seed.txt 中未发现有效的 ASN")
         return
 
-    # 如果上次已经全部抓完，支持循环重置或提示
-    if last_index >= total_asns:
-        print("[*] 所有 ASN 已遍历完成，重置抓取进度开始新一轮循环...")
-        last_index = 0
+    # 如果所有 ASN 都已经消费完毕
+    if asn_index >= total_asns:
+        print("[*] asn_seed.txt 中的所有 ASN 网段已全部取完！请加入新的 ASN 到 seed 文件中。")
+        IP_FILE.write_text("", encoding="utf-8")
+        return
 
     current_time_str = datetime.now().strftime("%Y-%m-%d %H:%M")
-    current_date_obj = datetime.now()
+    current_asn = raw_asns[asn_index]
 
-    # 从上次停止的位置开始
-    processed_count = 0
-    for i in range(last_index, total_asns):
-        asn = raw_asns[i]
-        
-        if len(existing_cidrs) >= MAX_TOTAL_CIDRS:
-            print("\n[!] 已达到资产硬上限，停止新增采集")
-            break
-
-        if asn in EXCLUDE_ASNS:
-            print(f"[*] 跳过名单内 ASN: {asn}")
-            last_index = i + 1
-            continue
-
-        print(f"\n[*] 正在采集 [{i+1}/{total_asns}] {asn}...")
-        raw_prefixes = get_prefixes_from_he(asn)
-
-        if not raw_prefixes:
-            print(f"    [!] 未能获取到前缀，跳过")
-            last_index = i + 1
-            # 记录当前进度
-            history["_progress"] = {"last_index": last_index}
-            save_history(history)
-            continue
-
-        current_asn_cidrs = process_to_24(raw_prefixes)
-
-        old_asn_record = history.get(asn, {})
-        old_asn_cidrs_dict = old_asn_record.get("cidrs", {})
-
-        active_old_cidrs = set()
-        for cidr, meta in old_asn_cidrs_dict.items():
-            last_added_str = meta.get("last_added", meta.get("first_seen", current_time_str))
-            try:
-                last_added_date = datetime.strptime(last_added_str.split()[0], "%Y-%m-%d")
-                if (current_date_obj - last_added_date).days < EXPIRY_DAYS:
-                    active_old_cidrs.add(cidr)
-            except Exception:
-                active_old_cidrs.add(cidr)
-
-        new_potential = current_asn_cidrs - active_old_cidrs
-        new_potential = new_potential - existing_cidrs
-
-        print(f"    -> 提取网段: {len(current_asn_cidrs)} | 待入库新增: {len(new_potential)}")
-
-        added_count = 0
-        newly_accepted_dict = {}
-
-        for cidr in sorted(list(new_potential)):
-            if added_count >= MAX_PER_ASN:
-                print(f"    [!] 已达到单 ASN 录入上限 ({MAX_PER_ASN})")
-                break
-            if len(existing_cidrs) >= MAX_TOTAL_CIDRS:
-                break
-
-            existing_cidrs.add(cidr)
-
-            if cidr in old_asn_cidrs_dict:
-                first_seen = old_asn_cidrs_dict[cidr].get("first_seen", current_time_str)
-            else:
-                first_seen = current_time_str
-
-            newly_accepted_dict[cidr] = {
-                "first_seen": first_seen,
-                "last_added": current_time_str
-            }
-            added_count += 1
-
-        updated_cidrs_dict = {}
-        for cidr, meta in old_asn_cidrs_dict.items():
-            if cidr in active_old_cidrs:
-                updated_cidrs_dict[cidr] = meta
-        for cidr, meta in newly_accepted_dict.items():
-            updated_cidrs_dict[cidr] = meta
-
-        history[asn] = {
-            "last_scan": current_time_str,
-            "total_count": len(updated_cidrs_dict),
-            "new_added": added_count,
-            "cidrs": updated_cidrs_dict
-        }
-
-        # 更新指针到下一条
-        last_index = i + 1
-        history["_progress"] = {"last_index": last_index}
-
-        # 实时持久化历史与根目录下的 ip.txt
+    if current_asn in EXCLUDE_ASNS:
+        print(f"[*] 跳过名单内 ASN: {current_asn}")
+        history["_progress"] = {"asn_index": asn_index + 1, "cidr_index": 0}
         save_history(history)
-        IP_FILE.write_text("\n".join(sorted(existing_cidrs)), encoding="utf-8")
-        if ASN_IP_FILE.parent.exists():
-            ASN_IP_FILE.write_text("\n".join(sorted(existing_cidrs)), encoding="utf-8")
+        return
 
-        if added_count > 0:
-            print(f"    [+] 成功入库 {added_count} 个新网段")
-        else:
-            print(f"    [-] 无新资产更新")
+    print(f"\n[*] 当前处理 ASN [{asn_index + 1}/{total_asns}]: {current_asn}")
 
-    print(f"\n[*] 采集轮次结束")
-    print(f"[*] 下次运行将从索引 {last_index} 继续")
-    print(f"[*] 最终资产总数: {len(existing_cidrs)}")
+    # 检查历史记录里是否已经完整缓存过该 ASN 的网段
+    asn_record = history.get(current_asn, {})
+    cached_cidrs = asn_record.get("all_cidrs", [])
 
-if __name__ == "__main__":
-    collect()
+    if not cached_cidrs:
+        print(f"    -> 正在从 HE.net 抓取 {current_asn} 的所有网段...")
+        raw_prefixes = get_prefixes_from_he(current_asn)
+        if not raw_prefixes:
+            print(f"    [!] 未能获取到前缀，跳过该 ASN")
+            history["_progress"] = {"asn_index": asn_index + 1, "cidr_index": 0}
+            save_history(history)
+            return
+
+        processed_cidrs = sorted(list(process_to_24(raw_prefixes)))
+        cached_cidrs = processed_cidrs
+        
+        # 缓存该 ASN 的全量网段
+        history[current_asn] = {
+            "last_scan": current_time_str,
+            "total_count": len(cached_cidrs),
+            "all_cidrs": cached_cidrs
+        }
+        print(f"    -> 成功获取并缓存 {current_asn} 的全量网段共 {len(cached_cidrs)} 个")
+    else:
+        print(f"    -> 使用本地缓存的 {current_asn} 网段，总量: {len(cached_cidrs)}")
+
+    total_cidrs_in_asn = len(cached_cidrs)
+
+    if cidr_index >= total_cidrs_in_asn:
+        print(f"    [!] ASN {current_asn} 的所有网段已全部取完，准备切入下一个 ASN")
+        history["_progress"] = {"asn_index": asn_index + 1, "cidr_index": 0}
+        save_history(history)
+        return
+
+    # 从当前 cidr_index 开始截取 25 个
+    end_cidr_index = min(cidr_index + BATCH_SIZE, total_cidrs_in_asn)
+    batch_cidrs = cached_cidrs[cidr_index:end_cidr_index]
+
+    print(f"    -> 本次截取范围: 索引 {cidr_index} 到 {end_cidr_index} (共 {len(batch_cidrs)} 个网段)")
+
+    # 写入根目录下的 ip.txt
+    IP_FILE.write_text("\n".join(batch_cidrs), encoding="utf-8")
+    print(f"    [+] 已成功将 {len(batch_cidrs)} 个网段保存到根目录 ip.txt 中")
+
+    # 更新进度
+    next_cidr_index = end_cidr_index
+    next_asn_index = asn_index
+
+    if next_cidr_index >= total_cidrs_in_asn:
+        print(f"    [*] ASN {current_asn} 的所有网段已取完，下次将自动切换到下一个 ASN")
+        next_asn_index += 1
+        next_cidr_index = 0
+
+    history["_progress"] = {
+        "asn_index": next_asn_index,
+        "cidr_index": next_cidr_index
+    }
+    save_history(history)
+    print(f"[*] 本次运行结束。下次运行进度指针 -> ASN索引: {next_asn_index}, 网段索引: {next_cidr_index}")
