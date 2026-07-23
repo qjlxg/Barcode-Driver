@@ -6,6 +6,7 @@ existing = set()
 if os.path.exists('scan_results.csv'):
     with open('scan_results.csv', 'r', encoding='utf-8') as f:
         reader = csv.reader(f)
+        next(reader, None)  # 跳过表头
         for row in reader:
             if not row: continue
             # 新版格式第3列为 host_port，旧版格式第2列为 url
