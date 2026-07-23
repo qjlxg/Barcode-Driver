@@ -51,38 +51,39 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
         Path(output_file).write_text("", encoding="utf-8")
         return
 
-    # 2. 读取状态
-    state = {"scanned_ids": [], "last_time": ""}
+    # 2. 读取进度
+    index = 0
     if PROGRESS_FILE.exists():
-        try: state = json.loads(PROGRESS_FILE.read_text())
-        except: pass
+        try:
+            state = json.loads(PROGRESS_FILE.read_text())
+            index = state.get("index", 0)
+        except Exception:
+            index = 0
 
-    # 3. 从当前列表中去掉已扫过的，剩余即为待扫队列
-    scanned_ids = set(state.get("scanned_ids", []))
-    pending = [n for n in all_networks if get_net_id(n) not in scanned_ids]
+    # 3. 如果已经到底，重新开始
+    if index >= len(all_networks):
+        print("[*] 全部扫描完成，重新轮询")
+        index = 0
 
-    # 4. 全部扫完则重置，重新开始
-    if not pending:
-        print("[*] 全部网段已扫完，重置进度...")
-        scanned_ids = set()
-        pending = all_networks
+    print(f"[*] 当前进度:\n{index}/{len(all_networks)}")
 
-    # 5. 取本批
-    batch = pending[:batch_size]
+    # 4. 获取本批
+    batch = all_networks[index:index + batch_size]
 
-    # 6. 保存状态
-    if batch:
-        for n in batch:
-            scanned_ids.add(get_net_id(n))
-        state["scanned_ids"] = list(scanned_ids)
-        state["last_time"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        PROGRESS_FILE.write_text(json.dumps(state, indent=2))
+    # 5. 更新游标并保存状态
+    new_index = index + len(batch)
+    state = {
+        "index": new_index,
+        "total": len(all_networks),
+        "last_time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    }
+    PROGRESS_FILE.write_text(json.dumps(state, indent=2))
 
     print(f"[*] 写入文件: {Path(output_file).resolve()}")
     with open(output_file, 'w', encoding='utf-8') as f:
         f.writelines([f"{n}\n" for n in batch])
 
-    print(f"[*] 处理: {len(batch)} 个网段 | 进度: {len(scanned_ids)}/{len(all_networks)}")
+    print(f"[*] 处理: {len(batch)} 个网段 | 新进度: {new_index}/{len(all_networks)}")
 
 if __name__ == "__main__":
     process_ip_file()
