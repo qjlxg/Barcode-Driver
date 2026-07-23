@@ -473,5 +473,60 @@
     "last_total_hits": 4,
     "no_hit_rounds": 0,
     "has_historical_hit": true
+  },
+  "95.85.232.0/24": {
+    "last_total_hits": 44,
+    "no_hit_rounds": 0,
+    "has_historical_hit": true
+  },
+  "95.85.243.0/24": {
+    "last_total_hits": 48,
+    "no_hit_rounds": 0,
+    "has_historical_hit": true
+  },
+  "95.85.240.0/24": {
+    "last_total_hits": 52,
+    "no_hit_rounds": 0,
+    "has_historical_hit": true
+  },
+  "95.85.233.0/24": {
+    "last_total_hits": 44,
+    "no_hit_rounds": 0,
+    "has_historical_hit": true
+  },
+  "95.85.234.0/24": {
+    "last_total_hits": 72,
+    "no_hit_rounds": 0,
+    "has_historical_hit": true
+  },
+  "95.85.245.0/24": {
+    "last_total_hits": 45,
+    "no_hit_rounds": 0,
+    "has_historical_hit": true
+  },
+  "95.85.235.0/24": {
+    "last_total_hits": 59,
+    "no_hit_rounds": 0,
+    "has_historical_hit": true
+  },
+  "96.47.238.0/24": {
+    "last_total_hits": 2,
+    "no_hit_rounds": 0,
+    "has_historical_hit": true
+  },
+  "95.85.239.0/24": {
+    "last_total_hits": 73,
+    "no_hit_rounds": 0,
+    "has_historical_hit": true
+  },
+  "95.85.246.0/24": {
+    "last_total_hits": 46,
+    "no_hit_rounds": 0,
+    "has_historical_hit": true
+  },
+  "95.85.236.0/24": {
+    "last_total_hits": 71,
+    "no_hit_rounds": 0,
+    "has_historical_hit": true
   }
 }
