@@ -118,7 +118,6 @@ def collect():
 
     if asn_index >= total_asns:
         log("[*] asn_seed.txt 中的所有 ASN 网段已全部取完！请加入新的 ASN 到 seed 文件中。")
-        IP_FILE.write_text("", encoding="utf-8")
         return
 
     current_time_str = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -169,8 +168,15 @@ def collect():
 
     log(f"    -> 本次截取范围: 索引 {cidr_index} 到 {end_cidr_index} (共 {len(batch_cidrs)} 个网段)")
 
-    IP_FILE.write_text("\n".join(batch_cidrs), encoding="utf-8")
-    log(f"    [+] 已成功将 {len(batch_cidrs)} 个网段保存到根目录 ip.txt 中")
+    existing = set()
+    if IP_FILE.exists():
+        existing = {line.strip() for line in IP_FILE.read_text(encoding="utf-8").splitlines() if line.strip()}
+
+    combined = existing.union(batch_cidrs)
+    clean_combined = sorted(x for x in combined if x)
+
+    IP_FILE.write_text("\n".join(clean_combined), encoding="utf-8")
+    log(f"    [+] 已成功将 {len(batch_cidrs)} 个网段增量合并去重保存到根目录 ip.txt 中（当前 ip.txt 总网段数: {len(clean_combined)}）")
 
     next_cidr_index = end_cidr_index
     next_asn_index = asn_index
