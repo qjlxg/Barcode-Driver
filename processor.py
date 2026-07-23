@@ -5,7 +5,7 @@ import datetime
 from pathlib import Path
 from urllib.parse import urlparse
 
-BATCH_SIZE = 30
+BATCH_SIZE = 5
 PROGRESS_FILE = Path('progress.json')
 
 def get_net_id(net_str):
