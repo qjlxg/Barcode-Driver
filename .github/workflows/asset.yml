@@ -182,6 +182,9 @@ jobs:
               git commit \
               -m "Auto: 资产轮询完成 $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
 
+              echo "===== 同步远端最新内容并推送 ====="
+              # 如果远端有更新，安全合并，冲突时以本地计算产生的新结果优先 (-X ours)
+              git pull origin main --no-rebase -X ours || true
 
               git push origin main
 
