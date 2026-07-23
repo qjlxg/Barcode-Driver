@@ -4,7 +4,6 @@ proxy-groups:
   url: https://cp.cloudflare.com/generate_204
   interval: 300
   proxies:
-  - 🔥 V2Ray-WS
   - ??-??443
   - ??-??8443
   - ???-???
@@ -27,7 +26,6 @@ proxy-groups:
   proxies:
   - 自动优选
   - DIRECT
-  - 🔥 V2Ray-WS
   - ??-??443
   - ??-??8443
   - ???-???
@@ -89,19 +87,6 @@ rules:
 - GEOIP,CN,DIRECT
 - MATCH,自动优选
 proxies:
-- name: 🔥 V2Ray-WS
-  type: vmess
-  server: zt-ai.cloud
-  port: 443
-  uuid: fce3d6a4-0f12-49b5-a810-84bcf0fde202
-  alterId: 0
-  cipher: auto
-  network: ws
-  ws-opts:
-    path: /v2ray
-  tls: true
-  skip-cert-verify: true
-  servername: zt-ai.cloud
 - name: ??-??443
   type: vless
   server: 64.90.31.91
