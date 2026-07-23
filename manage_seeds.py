@@ -478,9 +478,9 @@ def manage_seeds():
                 removed_ips.append(ip)
 
         # 安全检查 1：删除占比过大
-        if len(original_ips) > 0 and (len(removed_ips) / len(original_ips) > 0.5):
+        if len(original_ips) > 0 and (len(removed_ips) / len(original_ips) > 0.9):
             print(
-                f"[!] 警告：删除 IP 数量占比超过 50% "
+                f"[!] 警告：删除 IP 数量占比超过 90% "
                 f"({len(removed_ips)}/{len(original_ips)})，放弃清理操作。"
             )
             save_history(history)
