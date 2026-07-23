@@ -1,5 +1,4 @@
 import ipaddress
-import hashlib
 import json
 import datetime
 from pathlib import Path
@@ -8,9 +7,6 @@ from urllib.parse import urlparse
 BATCH_SIZE = 45
 PROGRESS_FILE = Path('progress.json')
 COLD_FILE = Path('ip_cold.txt')
-
-def get_net_id(net_str):
-    return hashlib.md5(net_str.encode()).hexdigest()
 
 def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=BATCH_SIZE):
     input_path = Path(input_file)
@@ -27,7 +23,10 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
                 if not c_target: continue
                 try:
                     c_ip = c_target.split(':')[0]
-                    c_net = ipaddress.ip_network(c_ip if '/' in c_ip else f"{c_ip}/24", strict=False)
+                    c_net = ipaddress.ip_network(
+                        c_ip.split('/')[0] + "/24",
+                        strict=False
+                    )
                     cold_networks.add(str(c_net))
                 except ValueError: continue
 
@@ -35,7 +34,7 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
     seen = set()
     networks = []
     cleaned_lines = []
-    removed_count = 0
+    removed_networks = set()
 
     with input_path.open('r', encoding='utf-8') as f:
         for line in f:
@@ -55,12 +54,15 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
                     cleaned_lines.append(line)
                     continue
 
-                net = ipaddress.ip_network(ip_part if '/' in ip_part else f"{ip_part}/24", strict=False)
+                net = ipaddress.ip_network(
+                    ip_part.split('/')[0] + "/24",
+                    strict=False
+                )
                 net_str = str(net)
 
                 # 如果命中冷库，则永久从总表中剔除
                 if net_str in cold_networks:
-                    removed_count += 1
+                    removed_networks.add(net_str)
                     continue
 
                 if net_str not in seen:
@@ -72,10 +74,10 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
                 cleaned_lines.append(line)
                 continue
 
-    if removed_count > 0:
+    if removed_networks:
         with input_path.open('w', encoding='utf-8') as f:
             f.writelines(cleaned_lines)
-        print(f"[*] 已从总表 ip.txt 中永久剔除冷库网段: {removed_count} 个")
+        print(f"[*] 已从总表 ip.txt 中永久剔除冷库网段: {len(removed_networks)} 个")
 
     print(f"[*] 解析得到 {len(networks)} 个网段")
 
@@ -90,7 +92,11 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
     if PROGRESS_FILE.exists():
         try:
             state = json.loads(PROGRESS_FILE.read_text())
-            index = state.get("index", 0)
+            if state.get("total") != len(all_networks):
+                print("[!] 种子数量变化，重新开始轮询")
+                index = 0
+            else:
+                index = state.get("index", 0)
         except Exception:
             index = 0
 
