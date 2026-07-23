@@ -12,6 +12,7 @@ from datetime import datetime
 
 HISTORY_FILE = Path("seed_history.json")
 IP_FILE = Path("ip.txt")
+IP_COLD_FILE = Path("ip_cold.txt")          # 冷库：淘汰但未永久丢弃的 IP
 TARGETS_FILE = Path("targets.txt")
 RESULTS_FILE = Path("scan_results.csv")
 
@@ -21,13 +22,19 @@ RESULTS_FILE = Path("scan_results.csv")
 # ============================================================
 
 # 从未有过任何产出的 /24
-# 连续多少次“实际扫描但没有新增结果”后淘汰
-MAX_INACTIVE_NEW = 1
+# 连续多少次"实际扫描但没有新增结果"后淘汰
+MAX_INACTIVE_NEW = 7
 
 
 # 曾经有过产出的 /24
-# 连续多少次“实际扫描但没有新增结果”后淘汰
+# 连续多少次"实际扫描但没有新增结果"后淘汰
 MAX_INACTIVE_OLD = 15
+
+# 热池 IP 数量低于此值时，从冷库补货
+MIN_ACTIVE_IPS = 500
+
+# 每次从冷库补入热池的 IP 数量
+REFILL_SIZE = 3000
 
 
 # ============================================================
@@ -70,6 +77,10 @@ def get_cidr_key(target):
                     f"{ip}/24",
                     strict=False
                 )
+
+            # [FIX 1] IPv6 CIDR 与单 IP 路径保持一致，统一返回 None
+            if network.version != 4:
+                return None
 
             return str(network)
 
@@ -307,7 +318,7 @@ def manage_seeds():
     # --------------------------------------------------------
 
     scanned_cidrs = read_scanned_cidrs()
-    
+
     if len(scanned_cidrs) == 0:
         print("没有实际扫描，本轮跳过清理")
         return
@@ -316,7 +327,7 @@ def manage_seeds():
         f"[*] 本轮实际扫描网段: "
         f"{len(scanned_cidrs)}"
     )
-    
+
     if len(history) == 0:
         print("首次运行，仅建立历史，不清理")
 
@@ -440,6 +451,8 @@ def manage_seeds():
     original_ips = []
     kept_ips = []
     removed_ips = []
+    cold_added = 0
+    refilled = 0
 
     if IP_FILE.exists():
 
@@ -476,6 +489,8 @@ def manage_seeds():
         # 安全检查 2：保留列表为空
         if len(kept_ips) == 0:
             print(f"[!] 警告：计算后的保留 IP 列表为空，放弃清理操作以防丢失种子。")
+            # [FIX 2] 本轮计数更新已写入 history，必须持久化，否则下轮从旧值重算
+            save_history(history)
             return
 
         # 去重，同时保持原始顺序
@@ -491,12 +506,90 @@ def manage_seeds():
                 f.write("\n".join(kept_ips))
                 f.write("\n")
 
+        # 冷库：将淘汰的 IP 追加写入 ip_cold.txt，不永久丢弃
+        if removed_ips:
+
+            with open(
+                IP_COLD_FILE,
+                "a",
+                encoding="utf-8"
+            ) as f:
+
+                f.write("\n".join(removed_ips))
+                f.write("\n")
+
+            cold_added = len(removed_ips)
+
+            print(
+                f"[*] 冷库新增: {cold_added} 条"
+            )
+
+        # 补货：热池不足时从冷库解冻一批
+        if len(kept_ips) < MIN_ACTIVE_IPS and IP_COLD_FILE.exists():
+
+            cold_lines = []
+
+            with open(
+                IP_COLD_FILE,
+                "r",
+                encoding="utf-8"
+            ) as f:
+
+                cold_lines = [
+                    l.strip()
+                    for l in f
+                    if l.strip()
+                ]
+
+            # 去重并过滤掉已在热池中的
+            hot_set = set(kept_ips)
+            cold_unique = list(dict.fromkeys(
+                ip for ip in cold_lines
+                if ip not in hot_set
+            ))
+
+            refill = cold_unique[:REFILL_SIZE]
+            remainder = cold_unique[REFILL_SIZE:]
+
+            if refill:
+
+                with open(
+                    IP_FILE,
+                    "a",
+                    encoding="utf-8"
+                ) as f:
+
+                    f.write("\n".join(refill))
+                    f.write("\n")
+
+                with open(
+                    IP_COLD_FILE,
+                    "w",
+                    encoding="utf-8"
+                ) as f:
+
+                    if remainder:
+                        f.write("\n".join(remainder))
+                        f.write("\n")
+
+                refilled = len(refill)
+
+                print(
+                    f"[*] 冷库解冻: {refilled} 条补入热池，"
+                    f"冷库剩余: {len(remainder)} 条"
+                )
+
     else:
         print(f"[WARN] {IP_FILE} 不存在")
 
     # --------------------------------------------------------
     # 7. 保存历史
     # --------------------------------------------------------
+
+    # [FIX 3] 已淘汰的网段从历史中删除，防止文件无限膨胀
+    # 冷库中的网段历史同步清除，回来时当新网段重新计数
+    for cidr in pruned_cidrs:
+        history.pop(cidr, None)
 
     save_history(history)
 
@@ -515,7 +608,8 @@ def manage_seeds():
     print(f"[+] 当前保留网段: {len(alive_cidrs)}")
     print(f"[-] 已淘汰网段: {len(pruned_cidrs)}")
     print(f"[+] 保留 IP 数量: {len(kept_ips)}")
-    print(f"[-] 删除 IP 数量: {len(removed_ips)}")
+    print(f"[-] 移入冷库 IP: {cold_added}")
+    print(f"[+] 从冷库解冻 IP: {refilled}")
     print("=" * 60)
 
 
