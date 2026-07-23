@@ -155,7 +155,7 @@ async def scan(session, host, port, path, pbar):
                 lower_text = text.lower()
 
                 # 如果页面返回的内容含有 <html 标签，且不包含节点协议，直接拦截丢弃
-                if "<html" in lower_text and not any(proto in lower_text for proto in ["vless://", "vmess://", "trojan://", "ss://", "ssr://", "hysteria://", "hysteria2://", "hy2://", "tuic://", "anytls://", "rules:","allow-lan: false","proxies:"]):
+                if "<html" in lower_text and not any(proto in lower_text for proto in ["vless://", "vmess://", "trojan://", "ss://", "ssr://", "hysteria://", "hysteria2://", "hy2://", "tuic://", "anytls://", "proxies:"]):
                     continue
 
                 score = 0
@@ -216,7 +216,7 @@ async def main():
             for path in ROUND1_PATHS:
                 round1_tasks.append((host, str(port), path))
 
-    print(f"[*] 第一轮快速扫描任务数: {len(round1_tasks)} | 历史记录: {len(history_data)} 条")
+    print(f"[*] 扫描任务数: {len(round1_tasks)} | 历史记录: {len(history_data)} 条")
 
     pbar1 = tqdm(total=len(round1_tasks))
     hit_targets = set()
@@ -232,39 +232,6 @@ async def main():
             for (h, p, path), is_hit in zip(batch, results):
                 if is_hit:
                     hit_targets.add(f"{h}:{p}")
-
-    # ==========================
-    # 第二轮：完整扫描（针对第一轮未命中的目标跑全量端口和路径）
-    # ==========================
-    remaining_explicit = []
-    for target in explicit_targets:
-        if target not in hit_targets:
-            remaining_explicit.append(target)
-
-    round2_tasks = []
-    for target in remaining_explicit:
-        host, port = target.rsplit(":", 1)
-        for path in PATHS:
-            round2_tasks.append((host, port, path))
-    for host in unique_hosts:
-        for port in TARGET_PORTS:
-            if f"{host}:{port}" not in hit_targets:
-                for path in PATHS:
-                    round2_tasks.append((host, str(port), path))
-
-    if round2_tasks:
-        print(f"\n[*] 第一轮已过滤大部分无效资产，开始第二轮完整扫描，剩余任务数: {len(round2_tasks)}")
-        pbar2 = tqdm(total=len(round2_tasks))
-        async with aiohttp.ClientSession(
-            connector=aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT)
-        ) as session:
-            for i in range(0, len(round2_tasks), WORKER_COUNT):
-                batch = round2_tasks[i:i + WORKER_COUNT]
-                await asyncio.gather(
-                    *(scan(session, h, p, path, pbar2) for h, p, path in batch)
-                )
-    else:
-        print("\n[*] 第一轮已覆盖所有资产或无需进行第二轮扫描。")
 
     # 保存结果
     with open("scan_results.csv", "w", encoding="utf-8", newline="") as f:
