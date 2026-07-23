@@ -9,23 +9,19 @@ on:
   schedule:
     - cron: "0 */1 * * *"
 
-
 jobs:
   asset_pipeline:
-
     runs-on: ubuntu-latest
+    timeout-minutes: 50 # 防止任务无限期卡死
 
     permissions:
       contents: write
 
-
     steps:
-
       - name: 拉取代码
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
 
       - name: 查看当前进度
         run: |
@@ -39,35 +35,23 @@ jobs:
             echo "progress.json 不存在"
           fi
 
-
       - name: 设置环境与依赖
         run: |
           sudo apt-get update
           sudo apt-get install -y masscan
           pip install aiohttp tqdm
 
-
-      # - name: 0. 运行 ASN 切片生成 ip.txt
-      #   run: python3 asn.py
-
-
       - name: 1. 生成任务批次
         run: |
           python3 processor.py
-
           echo "===== 本轮任务 ====="
           cat targets.txt
 
-
       - name: 2. 高速端口探测
         run: |
-
           if [ -s targets.txt ]; then
-
             TARGETS=$(tr '\n' ',' < targets.txt | sed 's/,$//')
-
             PORTS=$(cat ports.txt | tr ',\n\r' ' ' | xargs | tr ' ' ',')
-
 
             sudo masscan \
               $TARGETS \
@@ -81,94 +65,59 @@ jobs:
             }' | \
             sort -u > alive_latest.txt
 
-
             if [ -s alive_latest.txt ]; then
-
               cat alive_latest.txt >> alive_history.txt
-
               sort -u alive_history.txt -o alive_history.txt
-
             fi
-
-
           else
-
             touch alive_latest.txt
-
           fi
-
-
 
       - name: 3. 深度指纹采集 (增量过滤)
         run: |
-
           if [ -s alive_latest.txt ]; then
-
-
             python3 filter_assets.py
 
-
             if [ -s alive_new.txt ]; then
-
               python3 scanner.py --file alive_new.txt
-
             else
-
               echo "[-] 本轮无新资产需要深度检测。"
-
             fi
-
-
           else
-
             echo "[-] 无存活资产。"
-
           fi
-
 
           python3 manage_seeds.py
 
-
-
       - name: 4. 提交结果
         run: |
-
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-
-
           mkdir -p archive/hash
-
 
           if [ -d "results/hash" ] && \
              [ "$(find results/hash -maxdepth 1 -name "*.txt" | wc -l)" -gt 5000 ]; then
-
-
             tar -czf \
             "archive/hash/results_hash_$(TZ='Asia/Shanghai' date +%Y%m%d_%H%M%S).tar.gz" \
             results/hash/*.txt
-
 
             find results/hash \
             -maxdepth 1 \
             -name "*.txt" \
             -delete
-
-
           fi
 
-
-
-          echo "===== 同步远端最新代码 ====="
-
-          git pull --rebase origin main
-
-
+          echo "===== 同步远端最新代码并处理可能的冲突 ====="
+          # 尝试 rebase，如果遇到冲突（如 ip.txt 或 seed_history.json），自动采用本地生成版本 (-X ours) 覆盖并继续
+          git pull --rebase -X ours origin main || {
+            echo "[-] 检测到冲突，正在自动应用本地版本并继续 Rebase..."
+            git checkout --ours ip.txt seed_history.json || true
+            git add ip.txt seed_history.json || true
+            git rebase --continue || git rebase --abort
+          }
 
           echo "===== 加入提交 ====="
-
-
           git add \
             progress.json \
             alive_latest.txt \
@@ -182,21 +131,9 @@ jobs:
             results/hash/ \
             archive/hash/ || true
 
-
-
           if git diff --cached --quiet; then
-
               echo "[-] 无数据变化，无需提交。"
-
-
           else
-
-
-              git commit \
-              -m "Auto: 资产轮询完成 $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
-
-
+              git commit -m "Auto: 资产轮询完成 $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
               git push origin main
-
-
           fi
