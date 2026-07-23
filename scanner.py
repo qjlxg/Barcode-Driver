@@ -236,7 +236,6 @@ async def scan(session, host, port, path, pbar):
                 # ======================
                 # 一级 Header 高价值判断
                 # ======================
-                # 只有真正的高价值强标识（如 subscription-userinfo 等）才直接信任并保存
                 if any(s in header_text for s in HEADER_SIGNS):
                     data = await resp.content.read(MAX_SIZE)
                     text = data.decode(errors="ignore")
@@ -271,7 +270,7 @@ async def scan(session, host, port, path, pbar):
                 if any(s in lower_text for s in BLACK_SIGNS):
                     continue
 
-                protocol_count = count_protocols(lower_text)
+                protocol_count = count_protocols(lower_text[:10000])
                 node_count = count_yaml_nodes(text)
                 valid = False
 
@@ -281,18 +280,6 @@ async def scan(session, host, port, path, pbar):
                 if check_yaml_structure(text):
                     if node_count >= 1 or protocol_count >= 1:
                         valid = True
-
-                if looks_like_base64(text):
-                    valid = True
-
-                # 如果命中了诸如 basehttp 等弱特征 Header，则强行要求正文必须通过结构或协议校验，不能仅凭 BODY_STRONG_SIGNS 放行
-                has_weak_header = any(s in header_text for s in HEADER_WEAK_SIGNS)
-                
-                if not has_weak_header:
-                    for sign in BODY_STRONG_SIGNS:
-                        if sign in lower_text:
-                            valid = True
-                            break
 
                 if not valid:
                     continue
@@ -348,9 +335,8 @@ async def main():
             unique_hosts.add(line)
 
     # ==========================
-    # 第一轮快速扫描
+    # 单轮扫描任务构建（使用 TARGET_PORTS 与 ROUND1_PATHS，不执行第二轮）
     # ==========================
-    ROUND1_PORTS = [80, 443, 8080, 8443, 8888]
     ROUND1_PATHS = [
         "",
         "/",
@@ -370,28 +356,22 @@ async def main():
             round1_tasks.append((host, port, path))
 
     for host in unique_hosts:
-        for port in ROUND1_PORTS:
+        for port in TARGET_PORTS:
             for path in ROUND1_PATHS:
                 round1_tasks.append((host, str(port), path))
 
     print(f"[*] 扫描任务数: {len(round1_tasks)} | 历史记录: {len(history_data)} 条")
 
     pbar1 = tqdm(total=len(round1_tasks))
-    hit_targets = set()
 
     async with aiohttp.ClientSession(
         connector=aiohttp.TCPConnector(ssl=False, limit=WORKER_COUNT)
     ) as session:
         for i in range(0, len(round1_tasks), WORKER_COUNT):
             batch = round1_tasks[i:i + WORKER_COUNT]
-            results = await asyncio.gather(
+            await asyncio.gather(
                 *(scan(session, h, p, path, pbar1) for h, p, path in batch)
             )
-
-            for item, is_hit in zip(batch, results):
-                if is_hit:
-                    h, p, path = item
-                    hit_targets.add(f"{h}:{p}")
 
     # 保存结果
     with open("scan_results.csv", "w", encoding="utf-8", newline="") as f:
