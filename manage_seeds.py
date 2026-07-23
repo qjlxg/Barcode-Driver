@@ -23,7 +23,7 @@ RESULTS_FILE = Path("scan_results.csv")
 
 # 从未有过任何产出的 /24
 # 连续多少次"实际扫描但没有新增结果"后淘汰
-MAX_INACTIVE_NEW = 7
+MAX_INACTIVE_NEW = 1
 
 
 # 曾经有过产出的 /24
