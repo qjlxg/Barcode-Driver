@@ -168,6 +168,7 @@ jobs:
             alive_new.txt \
             ip_cold.txt \
             ip.txt \
+            seed_score.json \
             seed_history.json \
             results/hash/ \
             archive/hash/ || true
