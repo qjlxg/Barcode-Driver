@@ -4,7 +4,7 @@ import datetime
 from pathlib import Path
 from urllib.parse import urlparse
 
-BATCH_SIZE = 45
+BATCH_SIZE = 30
 PROGRESS_FILE = Path('progress.json')
 COLD_FILE = Path('ip_cold.txt')
 
