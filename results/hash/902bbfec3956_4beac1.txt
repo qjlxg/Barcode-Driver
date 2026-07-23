@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Directory listing for /</title>
+</head>
+<body>
+<h1>Directory listing for /</h1>
+<hr>
+<ul>
+<li><a href="hbomax_79365.ts">hbomax_79365.ts</a></li>
+<li><a href="hbomax_79366.ts">hbomax_79366.ts</a></li>
+<li><a href="hbomax_79367.ts">hbomax_79367.ts</a></li>
+<li><a href="hbomax_79368.ts">hbomax_79368.ts</a></li>
+<li><a href="hbomax_79369.ts">hbomax_79369.ts</a></li>
+<li><a href="hbomax_79370.ts">hbomax_79370.ts</a></li>
+<li><a href="hbomax_79371.ts">hbomax_79371.ts</a></li>
+<li><a href="hbomaxguide.m3u8">hbomaxguide.m3u8</a></li>
+</ul>
+<hr>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OpenCode | The open source AI coding agent</title>
+  <meta name="description" content="OpenCode - The open source coding agent.">
+  <link rel="icon" type="image/png" href="assets/favicon.png" sizes="96x96">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div data-page="opencode">
+    <div data-component="container">
+
+      <!-- Navigation -->
+      <section data-component="top">
+        <div>
+          <a href="index.html">
+            <img class="logo-light" src="assets/logo-light.svg" alt="OpenCode" width="189" height="34">
+            <img class="logo-dark" src="assets/logo-dark.svg" alt="OpenCode" width="189" height="34">
+          </a>
+        </div>
+        <nav data-component="nav-desktop">
+          <ul>
+            <li><a href="https://github.com/anomalyco/opencode" target="_blank">GitHub</a></li>
+            <li><a href="docs.html">Docs</a></li>
+            <li><a href="data.html">Data</a></li>
+            <li><a href="zen.html">Zen</a></li>
+            <li><a href="go.html">Go</a></li>
+            <li><a href="enterprise.html">Enterprise</a></li>
+            <li><a href="download.html" data-slot="cta-button"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M12.1875 9.75L9 12.9375L5.8125 9.75M9 2.0625V12.375M14.4375 15.9375H3.5625" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/></svg>Download</a></li>
+          </ul>
+        </nav>
+        <nav data-component="nav-mobile">
+          <button type="button" class="nav-toggle" onclick="document.querySelector('.nav-mobile-menu').classList.toggle('open')">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M19 17H5V16H19V17Z" fill="currentColor"/><path d="M19 8H5V7H19V8Z" fill="currentColor"/></svg>
+          </button>
+          <div class="nav-mobile-menu">
+            <ul>
+              <li><a href="https://github.com/anomalyco/opencode" target="_blank">GitHub</a></li>
+              <li><a href="docs.html">Docs</a></li>
+              <li><a href="data.html">Data</a></li>
+              <li><a href="zen.html">Zen</a></li>
+              <li><a href="go.html">Go</a></li>
+              <li><a href="enterprise.html">Enterprise</a></li>
+              <li><a href="download.html">Download</a></li>
+            </ul>
+          </div>
+        </nav>
+      </section>
+
+      <!-- Content -->
+      <div data-component="content">
+
+        <!-- Hero -->
+        <section data-component="hero">
+          <!-- <div data-component="desktop-app-banner">
+            <span data-slot="badge">New</span>
+            <span data-slot="text">Desktop app available in beta on macOS, Windows, and Linux.</span>
+            <a href="download.html" data-slot="link">Download now</a>
+          </div> -->
+          <div data-slot="hero-copy">
+            <h1>The open source AI coding agent</h1>
+            <p>Free models included or connect any model from any provider, including Claude, GPT, Gemini and more.</p>
+          </div>
+
+          <!-- Installation -->
+          <div data-slot="installation">
+            <div data-component="tabs">
+              <div data-slot="tablist">
+                <button data-slot="tab" class="active" onclick="switchTab(this, 0)">powershell (win)</button>
+                <!-- <button data-slot="tab" onclick="switchTab(this, 1)">npm</button> -->
+                <!-- <button data-slot="tab" onclick="switchTab(this, 2)">bun</button> -->
+                <button data-slot="tab" onclick="switchTab(this, 1)">brew</button>
+                <!-- <button data-slot="tab" onclick="switchTab(this, 4)">paru</button> -->
+              </div>
+              <div data-slot="panels">
+                <div data-slot="panel" class="active">
+                  <button data-slot="command" onclick="copyCommand(this)">
+                    <span data-slot="command-script"><span data-slot="highlight">powershell</span> -c "irm https://opencode.ai/install | iex"</span>
+                    <svg class="copy-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5.333 5.333V3.333a1 1 0 011-1h6.334a1 1 0 011 1v6.334a1 1 0 01-1 1h-2" stroke="currentColor" stroke-width="1.2"/><rect x="2.333" y="5.333" width="8.334" height="8.334" rx="1" stroke="currentColor" stroke-width="1.2"/></svg><svg class="copied-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+                <!-- <div data-slot="panel">
+                  <button data-slot="command" onclick="copyCommand(this)">
+                    <span data-slot="command-script"><span data-slot="highlight">npm</span> i -g opencode-ai</span>
+                    <svg class="copy-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5.333 5.333V3.333a1 1 0 011-1h6.334a1 1 0 011 1v6.334a1 1 0 01-1 1h-2" stroke="currentColor" stroke-width="1.2"/><rect x="2.333" y="5.333" width="8.334" height="8.334" rx="1" stroke="currentColor" stroke-width="1.2"/></svg><svg class="copied-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div> -->
+                <!-- <div data-slot="panel">
+                  <button data-slot="command" onclick="copyCommand(this)">
+                    <span data-slot="command-script"><span data-slot="highlight">bun</span> add -g opencode-ai</span>
+                    <svg class="copy-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5.333 5.333V3.333a1 1 0 011-1h6.334a1 1 0 011 1v6.334a1 1 0 01-1 1h-2" stroke="currentColor" stroke-width="1.2"/><rect x="2.333" y="5.333" width="8.334" height="8.334" rx="1" stroke="currentColor" stroke-width="1.2"/></svg><svg class="copied-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div> -->
+                <div data-slot="panel">
+                  <button data-slot="command" onclick="copyCommand(this)">
+                    <span data-slot="command-script"><span data-slot="highlight">brew</span> install anomalyco/tap/opencode</span>
+                    <svg class="copy-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5.333 5.333V3.333a1 1 0 011-1h6.334a1 1 0 011 1v6.334a1 1 0 01-1 1h-2" stroke="currentColor" stroke-width="1.2"/><rect x="2.333" y="5.333" width="8.334" height="8.334" rx="1" stroke="currentColor" stroke-width="1.2"/></svg><svg class="copied-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div>
+                <!-- <div data-slot="panel">
+                  <button data-slot="command" onclick="copyCommand(this)">
+                    <span data-slot="command-script"><span data-slot="highlight">paru</span> -S opencode</span>
+                    <svg class="copy-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5.333 5.333V3.333a1 1 0 011-1h6.334a1 1 0 011 1v6.334a1 1 0 01-1 1h-2" stroke="currentColor" stroke-width="1.2"/><rect x="2.333" y="5.333" width="8.334" height="8.334" rx="1" stroke="currentColor" stroke-width="1.2"/></svg><svg class="copied-icon" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                  </button>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Video -->
+        <section data-component="video">
+          <video autoplay muted loop playsinline>
+            <source src="assets/opencode-demo.mp4" type="video/mp4">
+          </video>
+        </section>
+
+        <!-- What is OpenCode -->
+        <section data-component="what">
+          <div data-slot="section-title">
+            <h3>What is OpenCode?</h3>
+          </div>
+          <p>OpenCode is an open source agent that helps you write code in your terminal, IDE, or desktop.</p>
+          <p>With over <strong class="text-strong">160,000 GitHub stars</strong>, <strong class="text-strong">900 contributors</strong>, and over <strong class="text-strong">13,000 commits</strong>, OpenCode is used and trusted by over <strong class="text-strong">7.5M developers</strong> every month.</p>
+          <ul>
+            <li><span>[+]</span><strong>LSP enabled</strong> Automatically loads the right LSPs for the LLM</li>
+            <li><span>[+]</span><strong>Multi-session</strong> Start multiple agents in parallel on the same project</li>
+            <li><span>[+]</span><strong>Share links</strong> Share a link to any session for reference or to debug</li>
+            <li><span>[+]</span><strong>GitHub Copilot</strong> Log in with GitHub to use your Copilot account</li>
+            <li><span>[+]</span><strong>ChatGPT Plus/Pro</strong> Log in with OpenAI to use your ChatGPT Plus or Pro account</li>
+            <li><span>[+]</span><strong>Any model</strong> 75+ LLM providers through Models.dev, including local models</li>
+            <li><span>[+]</span><strong>Any editor</strong> Available as a terminal interface, desktop app, and IDE extension</li>
+          </ul>
+          <a href="docs.html" class="btn-primary mt-32">Read docs <span>&rarr;</span></a>
+        </section>
+
+        <!-- Growth -->
+        <section data-component="growth">
+          <div data-slot="section-title">
+            <h3>The open source AI coding agent</h3>
+            <div><span>[+]</span><p>With over <strong>160,000</strong> GitHub stars, <strong>900</strong> contributors, and over <strong>13,000</strong> commits, OpenCode is used and trusted by over <strong>7.5M</strong> developers every month.</p></div>
+          </div>
+          <div data-component="growth-stats">
+            <div data-component="growth-stat">
+              <span><strong>160K</strong> <figure>GitHub Stars</figure></span>
+            </div>
+            <div data-component="growth-stat">
+              <span><strong>900</strong> <figure>Contributors</figure></span>
+            </div>
+            <div data-component="growth-stat">
+              <span><strong>7.5M</strong> <figure>Monthly Devs</figure></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Privacy -->
+        <section data-component="privacy">
+          <div data-slot="privacy-title">
+            <h3>Built for privacy first</h3>
+          </div>
+          <p><span class="text-weak">[+]</span> OpenCode does not store any of your code or context data, so that it can operate in privacy sensitive environments. Learn more about <a href="enterprise.html">privacy</a>.</p>
+        </section>
+
+        <!-- Zen CTA -->
+        <section data-component="zen-cta">
+          <div data-slot="zen-cta-copy">
+            <strong>Access reliable optimized models for coding agents</strong>
+            <p>Zen gives you access to a handpicked set of AI models that OpenCode has tested and benchmarked specifically for coding agents. No need to worry about inconsistent performance and quality across providers, use validated models that work.</p>
+            <div data-slot="model-logos" style="display:flex;gap:24px;margin-bottom:40px;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="12" y="16" text-anchor="middle" font-size="12" font-weight="700">@</text></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="12" y="16" text-anchor="middle" font-size="11" font-weight="700">A</text></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="12" y="16" text-anchor="middle" font-size="14" font-weight="700">+</text></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="12" y="16" text-anchor="middle" font-size="11" font-weight="700">G</text></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="12" y="16" text-anchor="middle" font-size="11" font-weight="700">V</text></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="12" y="16" text-anchor="middle" font-size="11" font-weight="700">K</text></svg>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="12" y="16" text-anchor="middle" font-size="11" font-weight="700">Z</text></svg>
+            </div>
+            <a href="zen.html" class="btn-secondary">Learn about Zen <span>&rarr;</span></a>
+          </div>
+        </section>
+
+        <!-- FAQ -->
+        <section data-component="faq">
+          <div data-slot="section-title">
+            <h3>FAQ</h3>
+          </div>
+          <ul>
+            <li>
+              <button data-slot="faq-question" onclick="toggleFaq(this)">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5"/></svg>
+                <span>What is OpenCode?</span>
+              </button>
+              <div data-slot="faq-answer">OpenCode is an open source AI coding agent that lives in your terminal, IDE, or desktop. It helps you write, debug, and understand code using any LLM provider.</div>
+            </li>
+            <li>
+              <button data-slot="faq-question" onclick="toggleFaq(this)">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5"/></svg>
+                <span>How do I use OpenCode?</span>
+              </button>
+              <div data-slot="faq-answer">Install OpenCode with a single command, configure your preferred model provider, and start coding. OpenCode works in your terminal, as a desktop app, or through IDE extensions.</div>
+            </li>
+            <li>
+              <button data-slot="faq-question" onclick="toggleFaq(this)">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5"/></svg>
+                <span>Do I need extra AI subscriptions to use OpenCode?</span>
+              </button>
+              <div data-slot="faq-answer">No. OpenCode includes free models out of the box. You can also connect your own API keys from any of 75+ supported providers, or use existing subscriptions like GitHub Copilot or ChatGPT Plus/Pro.</div>
+            </li>
+            <li>
+              <button data-slot="faq-question" onclick="toggleFaq(this)">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5"/></svg>
+                <span>Can I use my existing AI subscriptions with OpenCode?</span>
+              </button>
+              <div data-slot="faq-answer">Yes. You can use your GitHub Copilot subscription or ChatGPT Plus/Pro account directly with OpenCode. Just log in with your existing credentials.</div>
+            </li>
+            <li>
+              <button data-slot="faq-question" onclick="toggleFaq(this)">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5"/></svg>
+                <span>Can I only use OpenCode in the terminal?</span>
+              </button>
+              <div data-slot="faq-answer">No. OpenCode is available as a terminal interface, a desktop application (currently in beta for macOS, Windows, and Linux), and as IDE extensions for VS Code, Cursor, Zed, Windsurf, and VSCodium.</div>
+            </li>
+            <li>
+              <button data-slot="faq-question" onclick="toggleFaq(this)">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5"/></svg>
+                <span>How much does OpenCode cost?</span>
+              </button>
+              <div data-slot="faq-answer">OpenCode itself is free and open source. You can use free included models, bring your own API keys, subscribe to Go ($10/month) for open-source models, or use Zen ($20 pay-as-you-go) for curated premium models.</div>
+            </li>
+            <li>
+              <button data-slot="faq-question" onclick="toggleFaq(this)">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5"/></svg>
+                <span>What about data and privacy?</span>
+              </button>
+              <div data-slot="faq-answer">OpenCode does not store any of your code or context data. It operates locally and communicates directly with your chosen LLM provider. Enterprise customers get additional guarantees including SSO and internal AI gateway support.</div>
+            </li>
+            <li>
+              <button data-slot="faq-question" onclick="toggleFaq(this)">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5"/></svg>
+                <span>Is OpenCode open source?</span>
+              </button>
+              <div data-slot="faq-answer">Yes. OpenCode is fully open source with over 160,000 GitHub stars and 900 contributors. You can view, fork, and contribute to the code on GitHub.</div>
+            </li>
+          </ul>
+        </section>
+
+        <!-- Newsletter -->
+        <section data-component="email">
+          <div data-slot="section-title">
+            <h3>Be the first to know when we release new products</h3>
+            <p>Join the waitlist for early access.</p>
+          </div>
+          <div data-slot="form">
+            <input type="email" placeholder="Enter your email">
+            <button type="submit">Subscribe</button>
+          </div>
+        </section>
+
+        <!-- Footer -->
+        <footer data-component="footer">
+          <div class="footer-top">
+            <a href="https://github.com/anomalyco/opencode" target="_blank">GitHub <span class="text-weak">[160K]</span></a>
+            <a href="docs.html">Docs</a>
+            <a href="changelog.html">Changelog</a>
+            <a href="https://discord.gg/opencode" target="_blank">Discord</a>
+            <a href="https://x.com/opencode" target="_blank">X</a>
+          </div>
+          <div class="footer-bottom">
+            <span class="footer-copy">&copy;2026 Anomaly</span>
+            <a href="brand.html">Brand</a>
+            <a href="legal/privacy-policy.html">Privacy</a>
+            <a href="legal/terms-of-service.html">Terms</a>
+            <span class="text-weak">English</span>
+          </div>
+        </footer>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(btn, index) {
+      const tabs = btn.parentElement.querySelectorAll('[data-slot="tab"]');
+      const panels = btn.closest('[data-component="tabs"]').querySelectorAll('[data-slot="panel"]');
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      panels[index].classList.add('active');
+    }
+    function copyCommand(btn) {
+      const text = btn.querySelector('[data-slot="command-script"]').textContent.trim();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text);
+      } else {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      }
+      btn.classList.add('copied');
+      setTimeout(() => btn.classList.remove('copied'), 1500);
+    }
+    function toggleFaq(btn) {
+      const answer = btn.nextElementSibling;
+      answer.classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
