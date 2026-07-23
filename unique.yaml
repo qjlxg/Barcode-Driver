@@ -21,6 +21,7 @@ proxy-groups:
   - vmess-ws-vps-10462-7605.example.com
   - hysteria2-vps-10462-7605.example.com
   - tuic5-vps-10462-7605.example.com
+  - 西雅图-H2
 - name: 手动选择
   type: select
   proxies:
@@ -43,6 +44,7 @@ proxy-groups:
   - vmess-ws-vps-10462-7605.example.com
   - hysteria2-vps-10462-7605.example.com
   - tuic5-vps-10462-7605.example.com
+  - 西雅图-H2
 dns:
   enable: true
   enhanced-mode: fake-ip
@@ -303,3 +305,12 @@ proxies:
   congestion-controller: bbr
   sni: www.bing.com
   skip-cert-verify: true
+- name: 西雅图-H2
+  type: hysteria2
+  server: 96.47.238.39
+  port: 41068
+  password: TPpLawJVs377FjBSa9kEewMuMo4blLHJ
+  sni: www.bing.com
+  skip-cert-verify: true
+  up: '100'
+  down: '1000'
