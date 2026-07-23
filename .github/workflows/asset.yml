@@ -138,42 +138,22 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
 
-
           mkdir -p archive/hash
 
 
           if [ -d "results/hash" ] && \
              [ "$(find results/hash -maxdepth 1 -name "*.txt" | wc -l)" -gt 5000 ]; then
 
-
             tar -czf \
             "archive/hash/results_hash_$(TZ='Asia/Shanghai' date +%Y%m%d_%H%M%S).tar.gz" \
             results/hash/*.txt
-
 
             find results/hash \
             -maxdepth 1 \
             -name "*.txt" \
             -delete
 
-
           fi
-
-
-
-          echo "===== 同步远端最新代码并处理可能的冲突 ====="
-
-          git stash || true
-
-          git pull --rebase -X ours origin main || {
-            echo "[-] 检测到冲突，正在自动应用本地版本并继续 Rebase..."
-            git checkout --ours ip.txt seed_history.json || true
-            git add ip.txt seed_history.json || true
-            git rebase --continue || git rebase --abort || true
-          }
-
-          git stash pop || true
-
 
 
           echo "===== 加入提交 ====="
@@ -193,20 +173,16 @@ jobs:
             archive/hash/ || true
 
 
-
           if git diff --cached --quiet; then
 
               echo "[-] 无数据变化，无需提交。"
 
-
           else
-
 
               git commit \
               -m "Auto: 资产轮询完成 $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M:%S')"
 
 
               git push origin main
-
 
           fi
