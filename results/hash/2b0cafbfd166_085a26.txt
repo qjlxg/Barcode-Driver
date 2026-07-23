@@ -1,0 +1,27 @@
+mixed-port: 7890
+allow-lan: false
+mode: rule
+log-level: info
+ipv6: false
+external-controller: 127.0.0.1:9090
+
+proxies:
+  - name: 西雅图-H2
+    type: hysteria2
+    server: 96.47.238.39
+    port: 41068
+    password: TPpLawJVs377FjBSa9kEewMuMo4blLHJ
+    sni: www.bing.com
+    skip-cert-verify: true
+    up: "100"
+    down: "1000"
+
+proxy-groups:
+  - name: Proxy
+    type: select
+    proxies:
+      - 西雅图-H2
+      - DIRECT
+
+rules:
+  - MATCH,Proxy
