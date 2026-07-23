@@ -1,0 +1,998 @@
+<html itemscope itemtype="http://schema.org/Product" prefix="og: http://ogp.me/ns#" xmlns="http://www.w3.org/1999/html">
+  <head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="theme-color" content="#2A3A4B">
+    <base href="/" />
+
+
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="stylesheet" href="css/all.css?v=9268">
+    
+    <link rel="manifest" id="manifest-placeholder">
+
+    <script>
+        function contextRoot(pathname) {
+            const contextRootEndIndex = pathname.lastIndexOf('/');
+
+            return (
+                contextRootEndIndex === -1
+                ? '/'
+                : pathname.substring(0, contextRootEndIndex + 1)
+            );
+        }
+        window.EXCALIDRAW_ASSET_PATH = 'libs/excalidraw/';
+        // Dynamically generate the manifest location URL. It must be served from the document origin, and we may have
+        // the base pointing to the CDN. This way we can generate a full URL which will bypass the base.
+        document.querySelector('#manifest-placeholder').setAttribute('href', window.location.origin + contextRoot(window.location.pathname) + 'manifest.json');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!JitsiMeetJS.app) {
+                return;
+            }
+
+            JitsiMeetJS.app.renderEntryPoint({
+                Component: JitsiMeetJS.app.entryPoints.APP
+            })
+
+            const isEmbedded = () => {
+                try {
+                    return window.self !== window.top;
+                } catch (e) {
+                    return true;
+                }
+            };
+
+            const isElectron = navigator.userAgent.includes('Electron');
+            const shouldRegisterWorker = !isElectron && !isEmbedded() && 'serviceWorker' in navigator;
+
+            if (shouldRegisterWorker) {
+                navigator.serviceWorker
+                    .register(window.location.origin + contextRoot(window.location.pathname) + 'pwa-worker.js')
+                    .then(reg => {
+                        console.log('Service worker registered.', reg);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+        });
+    </script>
+    <script>
+        // IE11 and earlier can be identified via their user agent and be
+        // redirected to a page that is known to have no newer js syntax.
+        if (window.navigator.userAgent.match(/(MSIE|Trident)/)) {
+            var roomName = encodeURIComponent(window.location.pathname);
+            window.location.pathname = 'static/recommendedBrowsers.html';
+        }
+
+        window.indexLoadedTime = window.performance.now();
+        console.log("(TIME) index.html loaded:\t", indexLoadedTime);
+        window.addEventListener('load', function() {
+            window.loadedEventTime = window.performance.now();
+            console.log("(TIME) window loaded event:\t", loadedEventTime);
+        });
+
+        // XXX the code below listeners for errors and displays an error message
+        // in the document body when any of the required files fails to load.
+        // The intention is to prevent from displaying broken page.
+        var criticalFiles = [
+            "config.js",
+            "utils.js",
+            "do_external_connect.js",
+            "interface_config.js",
+            "lib-jitsi-meet.min.js",
+            "app.bundle.min.js",
+            "all.css?v=9268"
+        ];
+        var loadErrHandler = function(e) {
+            var target = e.target;
+            // Error on <script> and <link>(CSS)
+            // <script> will have .src and <link> .href
+            var fileRef = (target.src ? target.src : target.href);
+            if (("SCRIPT" === target.tagName || "LINK" === target.tagName)
+                && criticalFiles.some(
+                    function(file) { return fileRef.indexOf(file) !== -1 })) {
+                window.onload = function() {
+                    // The whole complex part below implements page reloads with
+                    // "exponential backoff". The retry attempt is passes as
+                    // "rCounter" query parameter
+                    var href = window.location.href;
+
+                    var retryMatch = href.match(/.+(\?|&)rCounter=(\d+)/);
+                    var retryCountStr = retryMatch ? retryMatch[2] : "0";
+                    var retryCount = Number.parseInt(retryCountStr);
+
+                    if (retryMatch == null) {
+                        var separator = href.indexOf("?") === -1 ? "?" : "&";
+                        var hashIdx = href.indexOf("#");
+
+                        if (hashIdx === -1) {
+                            href += separator + "rCounter=1";
+                        } else {
+                            var hashPart = href.substr(hashIdx);
+
+                            href = href.substr(0, hashIdx)
+                                + separator + "rCounter=1" + hashPart;
+                        }
+                    } else {
+                        var separator = retryMatch[1];
+
+                        href = href.replace(
+                            /(\?|&)rCounter=(\d+)/,
+                            separator + "rCounter=" + (retryCount + 1));
+                    }
+
+                    var delay = Math.pow(2, retryCount) * 2000;
+                    if (isNaN(delay) || delay < 2000 || delay > 60000)
+                        delay = 10000;
+
+                    var showMoreText = "show more";
+                    var showLessText = "show less";
+
+                    document.body.innerHTML
+                        = "<div style='"
+                        + "position: absolute;top: 50%;left: 50%;"
+                        + "text-align: center;"
+                        + "font-size: medium;"
+                        + "font-weight: 400;"
+                        + "transform: translate(-50%, -50%)'>"
+                        + "Uh oh! We couldn't fully download everything we needed :("
+                        + "<br/> "
+                        + "We will try again shortly. In the mean time, check for problems with your Internet connection!"
+                        + "<br/><br/> "
+                        + "<div id='moreInfo' style='"
+                        + "display: none;'>" + "Missing " + fileRef
+                        + "<br/><br/></div>"
+                        + "<a id='showMore' style='"
+                        + "text-decoration: underline;"
+                        + "font-size:small;"
+                        + "cursor: pointer'>" + showMoreText + "</a>"
+                        + "&nbsp;&nbsp;&nbsp;"
+                        + "<a id ='reloadLink' style='"
+                        + "text-decoration: underline;"
+                        + "font-size:small;"
+                        + "'>reload now</a>"
+                        + "</div>";
+
+                    var reloadLink = document.getElementById('reloadLink');
+                    reloadLink.setAttribute('href', href);
+
+                    var showMoreElem = document.getElementById("showMore");
+                    showMoreElem.addEventListener('click', function () {
+                            var moreInfoElem
+                                    = document.getElementById("moreInfo");
+
+                            if (showMoreElem.innerHTML === showMoreText) {
+                                moreInfoElem.setAttribute(
+                                    "style",
+                                    "display: block;"
+                                    + "color:#FF991F;"
+                                    + "font-size:small;"
+                                    + "user-select:text;");
+                                showMoreElem.innerHTML = showLessText;
+                            }
+                            else {
+                                moreInfoElem.setAttribute(
+                                    "style", "display: none;");
+                                showMoreElem.innerHTML = showMoreText;
+                            }
+                        });
+
+                    window.setTimeout(
+                        function () { window.location.replace(href); }, delay);
+
+                    // Call extra handler if defined.
+                    if (typeof postLoadErrorHandler === "function") {
+                        postLoadErrorHandler(fileRef);
+                    }
+                };
+                window.removeEventListener(
+                    'error', loadErrHandler, true /* capture phase */);
+            }
+        };
+        window.addEventListener(
+            'error', loadErrHandler, true /* capture phase type of listener */);
+    </script>
+    <script>// Jitsi Meet configuration.
+
+var config = {};
+
+config.hosts = {};
+config.hosts.domain = 'viomedi.intern';
+
+var subdir = 'client/';
+var subdomain = 'client.';
+if (subdir.startsWith('<!--')) {
+    subdir = '';
+}
+if (subdomain) {
+    subdomain = subdomain.substring(0,subdomain.length-1).split('.').join('_').toLowerCase() + '.';
+}
+config.hosts.muc = 'muc.' + subdomain + 'viomedi.intern';
+// When using authentication, domain for guest users.
+config.hosts.anonymousdomain = 'guest.viomedi.intern';
+// Domain for authenticated users. Defaults to <domain>.
+config.hosts.authdomain = 'viomedi.intern';
+config.bosh = 'https://conference.viomedi.de/' + subdir + 'http-bind';
+config.websocket = 'wss://conference.viomedi.de/' + subdir + 'xmpp-websocket';
+config.bridgeChannel = {
+    preferSctp: true
+};
+
+
+// Video configuration.
+//
+
+if (!config.hasOwnProperty('constraints')) config.constraints = {};
+if (!config.constraints.hasOwnProperty('video')) config.constraints.video = {};
+
+config.resolution = 720;
+config.constraints.video.height = { ideal: 720, max: 720, min: 180 };
+config.constraints.video.width = { ideal: 1280, max: 1280, min: 320};
+config.disableSimulcast = false;
+
+// Max. Anzahl gleichzeitig empfangener Videostreams pro Client (last-N
+// dominant speakers). -1 = unbegrenzt. Von der JVB pro Empfaenger
+// durchgesetzt; Audio laeuft immer von allen Teilnehmern.
+config.channelLastN = 9;
+config.startVideoMuted = false;
+config.startWithVideoMuted = false;
+
+if (!config.hasOwnProperty('flags')) config.flags = {};
+config.flags.sourceNameSignaling = true;
+config.flags.sendMultipleVideoStreams = true;
+config.flags.receiveMultipleVideoStreams = true;
+
+
+// ScreenShare Configuration.
+//
+
+config.desktopSharingFrameRate = { min: 5, max: 5 };
+
+// Audio configuration.
+//
+
+config.enableNoAudioDetection = true;
+config.enableTalkWhileMuted = false;
+config.disableAP = false;
+config.disableAGC = false;
+
+if (!config.hasOwnProperty('audioQuality')) config.audioQuality = {};
+config.audioQuality.stereo = false;
+
+config.startAudioOnly = false;
+config.startAudioMuted = false;
+config.startWithAudioMuted = false;
+config.startSilent = false;
+config.enableOpusRed = false;
+config.disableAudioLevels = false;
+config.enableNoisyMicDetection = true;
+
+
+// Peer-to-Peer options.
+//
+
+config.p2p = {
+    enabled: true,
+    allowWithE2EE: true,
+    desktopFullHd: true,
+    codecPreferenceOrder: ["AV1", "VP9", "VP8", "H264"],
+    mobileCodecPreferenceOrder: ["VP8", "VP9", "H264", "AV1"]
+};
+
+// Breakout Rooms
+//
+
+config.hideAddRoomButton = false;
+
+
+// Etherpad
+//
+
+// Recording.
+//
+
+if (!config.hasOwnProperty('recordingService')) config.recordingService = {};
+// Whether to enable file recording or not using the "service" defined by the finalizer in Jibri
+config.recordingService.enabled = false;
+
+// Whether to show the possibility to share file recording with other people
+// (e.g. meeting participants), based on the actual implementation
+// on the backend.
+config.recordingService.sharingEnabled = false;
+
+// Live streaming configuration.
+if (!config.hasOwnProperty('liveStreaming')) config.liveStreaming = {};
+config.liveStreaming.enabled = false;
+config.liveStreaming.dataPrivacyLink= 'https://policies.google.com/privacy';
+config.liveStreaming.helpLink= 'https://jitsi.org/live';
+config.liveStreaming.termsLink= 'https://www.youtube.com/t/terms';
+config.liveStreaming.validatorRegExpString= '^(?:[a-zA-Z0-9]{4}(?:-(?!$)|$)){4}';
+
+
+// Local recording configuration.
+if (!config.hasOwnProperty('localRecording')) config.localRecording = {};
+config.localRecording.disable = false;
+config.localRecording.notifyAllParticipants = false;
+config.localRecording.disableSelfRecording = false;
+
+
+// Analytics.
+//
+
+if (!config.hasOwnProperty('analytics')) config.analytics = {};
+
+// Enables callstatsUsername to be reported as statsId and used
+// by callstats as repoted remote id.
+config.enableStatsID = false;
+
+
+// Dial in/out services.
+//
+
+
+// Calendar service integration.
+//
+
+config.enableCalendarIntegration = false;
+
+// Invitation service.
+//
+
+// Miscellaneous.
+//
+
+// Prejoin page.
+if (!config.hasOwnProperty('prejoinConfig')) config.prejoinConfig = {};
+config.prejoinConfig.enabled = true;
+
+// Hides the participant name editing field in the prejoin screen.
+config.prejoinConfig.hideDisplayName = false;
+
+// List of buttons to hide from the extra join options dropdown on prejoin screen.
+// Welcome page.
+config.welcomePage = {
+    disabled: true
+};
+
+// Close page.
+config.enableClosePage = false;
+
+// Default language.
+config.defaultLanguage = 'de';
+// Require users to always specify a display name.
+config.requireDisplayName = false;
+
+// Chrome extension banner.
+// Disables profile and the edit of all fields from the profile settings (display name and email)
+config.disableProfile = false;
+
+// Room password (false for anything, number for max digits)
+config.roomPasswordNumberOfDigits = false;
+// Advanced.
+//
+
+// Lipsync hack in jicofo, may not be safe.
+config.enableLipSync = false;
+
+config.enableRemb = true;
+config.enableTcc = true;
+
+// Enable IPv6 support.
+config.useIPv6 = true;
+
+// Transcriptions (subtitles and buttons can be configured in interface_config)
+config.transcription = { enabled: false };
+config.transcription.translationLanguages = [];
+config.transcription.translationLanguagesHead = ['en'];
+config.transcription.useAppLanguage = true;
+config.transcription.preferredLanguage = 'en-US';
+config.transcription.disableStartForAll = false;
+config.transcription.autoCaptionOnRecord = false;
+
+// External API url used to receive branding specific information.
+config.dynamicBrandingUrl = 'https://api.viomedi.de/branding?brand=viomedi';
+// Deployment information.
+//
+
+if (!config.hasOwnProperty('deploymentInfo')) config.deploymentInfo = {};
+
+// Testing
+//
+
+if (!config.hasOwnProperty('testing')) config.testing = {};
+if (!config.testing.hasOwnProperty('octo')) config.testing.octo = {};
+
+config.testing.capScreenshareBitrate = 1;
+config.testing.octo.probability = 0;
+
+// Deep Linking
+config.disableDeepLinking = true;
+
+// P2P preferred codec
+// Video quality settings.
+//
+
+config.videoQuality = {};
+config.videoQuality.codecPreferenceOrder = ["AV1", "VP9", "VP8", "H264"];
+config.videoQuality.mobileCodecPreferenceOrder = ["VP8", "VP9", "H264", "AV1"];
+config.videoQuality.enableAdaptiveMode = true;
+config.videoQuality.jvbDesktopOneToOne = {
+    enabled: true,
+    maxBitrate: 1500000
+};
+
+config.videoQuality.preferredCodec = 'VP8';
+config.videoQuality.av1 = {};
+config.videoQuality.av1.maxBitratesVideo = {};
+
+config.videoQuality.h264 = {};
+config.videoQuality.h264.maxBitratesVideo = {};
+
+config.videoQuality.vp8 = {};
+config.videoQuality.vp8.maxBitratesVideo = {};
+
+
+config.videoQuality.vp8.maxBitratesVideo.fullHd = 4500000;
+config.videoQuality.vp9 = {};
+config.videoQuality.vp9.maxBitratesVideo = {};
+
+// Reactions
+config.disableReactions = false;
+
+// Polls
+config.disablePolls = false;
+
+// Configure toolbar buttons
+config.toolbarButtons = [ 'camera','chat','closedcaptions','desktop','download','etherpad','feedback','filmstrip','fullscreen','hangup','help','invite','microphone','mute-everyone','mute-video-everyone','participants-pane','profile','raisehand','select-background','settings','shareaudio','shortcuts','stats','tileview','toggle-camera','videoquality','security' ];
+// Hides the buttons at pre-join screen
+// Configure remote participant video menu
+if (!config.hasOwnProperty('remoteVideoMenu')) config.remoteVideoMenu = {};
+config.remoteVideoMenu.disabled = false;
+config.remoteVideoMenu.disableKick = false;
+config.remoteVideoMenu.disableGrantModerator = false;
+config.remoteVideoMenu.disablePrivateChat = false;
+
+// Configure e2eping
+if (!config.hasOwnProperty('e2eping')) config.e2eping = {};
+config.e2eping.enabled = false;
+
+
+// Set
+config.whiteboard = {
+    enabled: false,
+};
+
+// JaaS support: pre-configure image if JAAS_APP_ID was set.
+// Testing
+if (!config.hasOwnProperty('testing')) config.testing = {};
+// Avoid the unstable Android SDP fallback in stable-11031. The default upstream
+// value is true, so this must stay explicit until the upstream null guard lands.
+config.testing.enableCodecSelectionAPI = false;
+
+config.disableThirdPartyRequests = true;
+config.gravatarBaseURL = "/";
+config.locationURL = 'https://viomedi.de/';
+config.inviteAppName = "";
+config.defaultRemoteDisplayName = "Gesprächspartner";
+config.appName = 'Viomedi';
+config.desktop = {
+    appName: 'Viomedi'
+};
+config.deeplinking = {
+};
+config.deeplinking.desktop = {
+    appName: 'Viomedi'
+};
+if (!config.hasOwnProperty('flags')) config.flags = {};
+if (!config.flags.hasOwnProperty('security-options')) config.flags['security-options'] = {};
+config.flags['security-options'].enabled = false;
+config.flags['security-options.enabled'] = false;
+config.flags['recording.enabled'] = false;
+config.flags['live-streaming.enabled'] = false;
+</script><!-- adapt to your needs, i.e. set hosts and bosh path -->
+    <script>/* eslint-disable no-unused-vars, no-var, max-len */
+/* eslint sort-keys: ["error", "asc", {"caseSensitive": false}] */
+
+/**
+ * !!!IMPORTANT!!!
+ *
+ * This file is considered deprecated. All options will eventually be moved to
+ * config.js, and no new options should be added here.
+ */
+
+var interfaceConfig = {
+    APP_NAME: 'VIOMEDI',
+    AUDIO_LEVEL_PRIMARY_COLOR: 'rgba(255,255,255,0.4)',
+    AUDIO_LEVEL_SECONDARY_COLOR: 'rgba(255,255,255,0.2)',
+
+    /**
+     * A UX mode where the last screen share participant is automatically
+     * pinned. Valid values are the string "remote-only" so remote participants
+     * get pinned but not local, otherwise any truthy value for all participants,
+     * and any falsy value to disable the feature.
+     *
+     * Note: this mode is experimental and subject to breakage.
+     */
+    AUTO_PIN_LATEST_SCREEN_SHARE: 'remote-only',
+    BRAND_WATERMARK_LINK: '',
+
+    CLOSE_PAGE_GUEST_HINT: false, // A html text to be shown to guests on the close page, false disables it
+
+    DEFAULT_BACKGROUND: '#040404',
+    DEFAULT_LOGO_URL: 'images/watermark.svg',
+    DEFAULT_WELCOME_PAGE_LOGO_URL: 'images/watermark.svg',
+
+    DISABLE_DOMINANT_SPEAKER_INDICATOR: false,
+
+    /**
+     * If true, notifications regarding joining/leaving are no longer displayed.
+     */
+    DISABLE_JOIN_LEAVE_NOTIFICATIONS: false,
+
+    /**
+     * If true, presence status: busy, calling, connected etc. is not displayed.
+     */
+    DISABLE_PRESENCE_STATUS: false,
+
+    /**
+     * Whether the ringing sound in the call/ring overlay is disabled. If
+     * {@code undefined}, defaults to {@code false}.
+     *
+     * @type {boolean}
+     */
+    DISABLE_RINGING: false,
+
+    /**
+     * Whether the speech to text transcription subtitles panel is disabled.
+     * If {@code undefined}, defaults to {@code false}.
+     *
+     * @type {boolean}
+     */
+    DISABLE_TRANSCRIPTION_SUBTITLES: false,
+
+    /**
+     * Whether or not the blurred video background for large video should be
+     * displayed on browsers that can support it.
+     */
+    DISABLE_VIDEO_BACKGROUND: false,
+
+    DISPLAY_WELCOME_FOOTER: true,
+    DISPLAY_WELCOME_PAGE_ADDITIONAL_CARD: false,
+    DISPLAY_WELCOME_PAGE_CONTENT: false,
+    DISPLAY_WELCOME_PAGE_TOOLBAR_ADDITIONAL_CONTENT: false,
+
+    ENABLE_DIAL_OUT: true,
+
+    ENABLE_FEEDBACK_ANIMATION: false, // Enables feedback star animation.
+
+    FILM_STRIP_MAX_HEIGHT: 120,
+
+    GENERATE_ROOMNAMES_ON_WELCOME_PAGE: true,
+
+    /**
+     * Hide the logo on the deep linking pages.
+     */
+    HIDE_DEEP_LINKING_LOGO: false,
+
+    /**
+     * Hide the invite prompt in the header when alone in the meeting.
+     */
+    HIDE_INVITE_MORE_HEADER: false,
+
+    JITSI_WATERMARK_LINK: 'https://viomedi.de',
+
+    LANG_DETECTION: true, // Allow i18n to detect the system language
+    LIVE_STREAMING_HELP_LINK: 'https://viomedi.de', // Documentation reference for the live streaming feature.
+    LOCAL_THUMBNAIL_RATIO: 1, // 1:1
+
+    /**
+     * Maximum coefficient of the ratio of the large video to the visible area
+     * after the large video is scaled to fit the window.
+     *
+     * @type {number}
+     */
+    MAXIMUM_ZOOMING_COEFFICIENT: 1.3,
+
+    /**
+     * Whether the mobile app Jitsi Meet is to be promoted to participants
+     * attempting to join a conference in a mobile Web browser. If
+     * {@code undefined}, defaults to {@code true}.
+     *
+     * @type {boolean}
+     */
+    MOBILE_APP_PROMO: true,
+
+    /**
+     * Specify custom URL for downloading android mobile app.
+     */
+    MOBILE_DOWNLOAD_LINK_ANDROID: 'https://viomedi.de',
+
+    /**
+     * Specify custom URL for downloading f droid app.
+     */
+    MOBILE_DOWNLOAD_LINK_F_DROID: 'https://viomedi.de',
+
+    /**
+     * Specify URL for downloading ios mobile app.
+     */
+    MOBILE_DOWNLOAD_LINK_IOS: 'https://viomedi.de',
+
+    NATIVE_APP_NAME: 'VIOMEDI',
+
+    // Names of browsers which should show a warning stating the current browser
+    // has a suboptimal experience. Browsers which are not listed as optimal or
+    // unsupported are considered suboptimal. Valid values are:
+    // chrome, chromium, edge, electron, firefox, nwjs, opera, safari
+    OPTIMAL_BROWSERS: [ 'chrome', 'chromium', 'firefox', 'electron', 'webkit' ],
+
+    POLICY_LOGO: null,
+    PROVIDER_NAME: 'VIOMEDI',
+
+    /**
+     * If true, will display recent list
+     *
+     * @type {boolean}
+     */
+    RECENT_LIST_ENABLED: false,
+    REMOTE_THUMBNAIL_RATIO: 1, // 1:1
+
+    SETTINGS_SECTIONS: ['devices', 'moderator', 'profile', 'calendar', 'sounds', 'more'],
+
+    /**
+     * Specify which sharing features should be displayed. If the value is not set
+     * all sharing features will be shown. You can set [] to disable all.
+     */
+    // SHARING_FEATURES: ['email', 'url', 'dial-in', 'embed'],
+
+    SHOW_BRAND_WATERMARK: false,
+
+    /**
+     * Decides whether the chrome extension banner should be rendered on the landing page and during the meeting.
+     * If this is set to false, the banner will not be rendered at all. If set to true, the check for extension(s)
+     * being already installed is done before rendering.
+     */
+    SHOW_CHROME_EXTENSION_BANNER: false,
+
+    SHOW_DEEP_LINKING_IMAGE: false,
+    SHOW_JITSI_WATERMARK: true,
+    SHOW_POWERED_BY: false,
+    SHOW_PROMOTIONAL_CLOSE_PAGE: false,
+
+    /*
+     * If indicated some of the error dialogs may point to the support URL for
+     * help.
+     */
+    SUPPORT_URL: 'https://viomedi.de',
+
+    // Browsers, in addition to those which do not fully support WebRTC, that
+    // are not supported and should show the unsupported browser page.
+    UNSUPPORTED_BROWSERS: [],
+
+    /**
+     * Whether to show thumbnails in filmstrip as a column instead of as a row.
+     */
+    VERTICAL_FILMSTRIP: true,
+
+    // Determines how the video would fit the screen. 'both' would fit the whole
+    // screen, 'height' would fit the original video height to the height of the
+    // screen, 'width' would fit the original video width to the width of the
+    // screen respecting ratio, 'nocrop' would make the video as large as
+    // possible and preserve aspect ratio without cropping.
+    VIDEO_LAYOUT_FIT: 'both',
+
+    /**
+     * If true, hides the video quality label indicating the resolution status
+     * of the current large video.
+     *
+     * @type {boolean}
+     */
+    VIDEO_QUALITY_LABEL_DISABLED: false,
+
+    /**
+     * How many columns the tile view can expand to. The respected range is
+     * between 1 and 5.
+     */
+    // TILE_VIEW_MAX_COLUMNS: 5,
+
+    /**
+     * Specify Firebase dynamic link properties for the mobile apps.
+     */
+    // MOBILE_DYNAMIC_LINK: {
+    //    APN: 'org.jitsi.meet',
+    //    APP_CODE: 'w2atb',
+    //    CUSTOM_DOMAIN: undefined,
+    //    IBI: 'com.atlassian.JitsiMeet.ios',
+    //    ISI: '1165103905'
+    // },
+
+    /**
+     * Specify mobile app scheme for opening the app from the mobile browser.
+     */
+    // APP_SCHEME: 'org.jitsi.meet',
+
+    /**
+     * Specify the Android app package name.
+     */
+    // ANDROID_APP_PACKAGE: 'org.jitsi.meet',
+
+    // List of undocumented settings
+    /**
+     INDICATOR_FONT_SIZES
+     PHONE_NUMBER_REGEX
+    */
+
+    // -----------------DEPRECATED CONFIGS BELOW THIS LINE-----------------------------
+
+    // Connection indicators (
+    // CONNECTION_INDICATOR_AUTO_HIDE_ENABLED,
+    // CONNECTION_INDICATOR_AUTO_HIDE_TIMEOUT,
+    // CONNECTION_INDICATOR_DISABLED) got moved to config.js.
+
+    // Please use disableModeratorIndicator from config.js
+    // DISABLE_FOCUS_INDICATOR: false,
+
+    // Please use defaultLocalDisplayName from config.js
+    // DEFAULT_LOCAL_DISPLAY_NAME: 'me',
+
+    // Please use defaultRemoteDisplayName from config.js
+    // DEFAULT_REMOTE_DISPLAY_NAME: 'Fellow Jitster',
+
+    // Moved to config.js as `toolbarConfig.initialTimeout`.
+    // INITIAL_TOOLBAR_TIMEOUT: 20000,
+
+    // Moved to config.js as `toolbarConfig.alwaysVisible`.
+    // TOOLBAR_ALWAYS_VISIBLE: false,
+
+    // This config was moved to config.js as `toolbarButtons`.
+    // TOOLBAR_BUTTONS: [],
+
+    // Moved to config.js as `toolbarConfig.timeout`.
+    // TOOLBAR_TIMEOUT: 4000,
+
+    // Allow all above example options to include a trailing comma and
+    // prevent fear when commenting out the last value.
+    // eslint-disable-next-line sort-keys
+    makeJsonParserHappy: 'even if last key had a trailing comma'
+
+    // No configuration value should follow this line.
+};
+
+config.gravatar = { disabled: true };
+config.disableThirdPartyRequests = true;
+config.gravatarBaseURL = "/";
+config.locationURL = 'https://{{ .Env.DOMAIN_NAME }}/';
+config.inviteAppName = ""
+config.defaultRemoteDisplayName = "Gesprächspartner"
+// config.flags = {
+//     'security-options.enabled': false,
+//     'recording.enabled': false,
+//     'live-streaming.enabled': false
+// }
+config.flags = {
+    'security-options': {
+        'enabled': false
+    },
+    'security-options.enabled': false,
+    'recording.enabled': false,
+    'live-streaming.enabled': false
+}
+config.appName = 'Viomedi';
+config.desktop = {
+    appName: 'Viomedi'
+};
+config.deeplinking = {
+};
+config.deeplinking.desktop = {
+    appName: 'Viomedi'
+};
+if (!config.hasOwnProperty('recordingService')) config.recordingService = {};
+config.analytics.rtcstatsEnabled = false;
+config.analytics.rtcstatsStoreLogs = false;
+config.analytics.rtcstatsEndpoint = '';
+config.analytics.rtcstatsSendSdp = false;
+config.whiteboard.collabServerBaseUrl = '';
+if (!config.hasOwnProperty('testing')) config.testing = {};
+if (!config.testing.hasOwnProperty('octo')) config.testing.octo = {};
+
+// config.testing.capScreenshareBitrate = {{ $TESTING_CAP_SCREENSHARE_BITRATE }};
+// config.testing.octo.probability = {{ $TESTING_OCTO_PROBABILITY }};
+config.welcomePage = {
+    disabled: true
+};
+config.enableEncodedTransformSupport = true;
+
+// WebKit on older/weaker iPads can stop publishing camera RTP (or crash) when
+// VP8 simulcast + encoded transforms (E2EE) meet multiparty receive load.
+// Keep a bounded single-layer sender and low receive lastN on legacy devices.
+// Only treat an iPad as modern when BOTH iPadOS is new enough AND the GPU is
+// A12+ (WebGL renderer). Desktop Safari and non-iPad clients are unchanged.
+//
+// Detection:
+// - OS: classic "CPU OS x_y" UA, else Safari Version/x on desktop-class iPad UA
+// - GPU: WEBGL_debug_renderer_info / RENDERER ("Apple A10 GPU", "Apple A15 GPU")
+// Unknown OS or GPU stays on the safe legacy path.
+(function configureIPadCameraFallback() {
+    var isIPad = /iPad/.test(navigator.userAgent)
+        || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    var IPADOS_MODERN_MIN = 17;
+    // A12 (2018) and newer handle E2EE + simulcast multiparty much more reliably
+    // than A9/A10-era iPads that can still install recent iPadOS.
+    var APPLE_GPU_MODERN_MIN = 12;
+    var osMajor = 0;
+    var mode = 'not-ipad';
+    var match;
+    var gpuRenderer = null;
+    var gpuFamily = null;
+    var cores = typeof navigator.hardwareConcurrency === 'number'
+        ? navigator.hardwareConcurrency
+        : null;
+
+    function readAppleGpu() {
+        var canvas;
+        var gl;
+        var ext;
+        var renderer;
+        var familyMatch;
+
+        try {
+            canvas = document.createElement('canvas');
+            gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (!gl) {
+                return { renderer: null, family: null };
+            }
+            ext = gl.getExtension('WEBGL_debug_renderer_info');
+            renderer = ext
+                ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL)
+                : gl.getParameter(gl.RENDERER);
+            familyMatch = renderer && String(renderer).match(/Apple\s+A(\d+)/i);
+            return {
+                renderer: renderer || null,
+                family: familyMatch ? parseInt(familyMatch[1], 10) : null
+            };
+        } catch (error) {
+            return { renderer: null, family: null };
+        }
+    }
+
+    if (!isIPad) {
+        window.__viomediIPadPolicy = {
+            isIPad: false,
+            osMajor: null,
+            gpuRenderer: null,
+            gpuFamily: null,
+            cores: cores,
+            modernMin: IPADOS_MODERN_MIN,
+            gpuModernMin: APPLE_GPU_MODERN_MIN,
+            mode: mode
+        };
+        return;
+    }
+
+    // All iPads: never run P2P together with E2EE (insertable streams + second
+    // PeerConnection). Observed crash/leave path on weak WebKit in 1:1 after
+    // lobby admit. JVB-only remains available for multiparty and 1:1.
+    config.p2p = config.p2p || {};
+    config.p2p.allowWithE2EE = false;
+
+    match = navigator.userAgent.match(/OS (\d+)[._](\d+)/);
+    if (match) {
+        osMajor = parseInt(match[1], 10);
+    } else {
+        match = navigator.userAgent.match(/Version\/(\d+)\./);
+        if (match) {
+            osMajor = parseInt(match[1], 10);
+        }
+    }
+
+    match = readAppleGpu();
+    gpuRenderer = match.renderer;
+    gpuFamily = match.family;
+
+    // Modern only with recent OS AND A12+ GPU. iPadOS version alone is not
+    // enough: multi-year-old hardware can still install current iPadOS and then
+    // crash on lobby admit under E2EE multiparty load.
+    if (osMajor >= IPADOS_MODERN_MIN
+            && gpuFamily !== null
+            && gpuFamily >= APPLE_GPU_MODERN_MIN) {
+        mode = 'modern-720';
+        window.__viomediIPadPolicy = {
+            isIPad: true,
+            osMajor: osMajor,
+            gpuRenderer: gpuRenderer,
+            gpuFamily: gpuFamily,
+            cores: cores,
+            modernMin: IPADOS_MODERN_MIN,
+            gpuModernMin: APPLE_GPU_MODERN_MIN,
+            mode: mode,
+            p2pAllowWithE2EE: false
+        };
+        return;
+    }
+
+    if (osMajor >= IPADOS_MODERN_MIN && (gpuFamily === null || gpuFamily < APPLE_GPU_MODERN_MIN)) {
+        mode = 'legacy-360-weak-or-unknown-gpu';
+    } else if (osMajor > 0) {
+        mode = 'legacy-360';
+    } else {
+        mode = 'legacy-360-unknown-version';
+    }
+
+    window.__viomediIPadPolicy = {
+        isIPad: true,
+        osMajor: osMajor || null,
+        gpuRenderer: gpuRenderer,
+        gpuFamily: gpuFamily,
+        cores: cores,
+        modernMin: IPADOS_MODERN_MIN,
+        gpuModernMin: APPLE_GPU_MODERN_MIN,
+        mode: mode,
+        p2pAllowWithE2EE: false,
+        p2pEnabled: false
+    };
+
+    // Sender: no simulcast (avoids WebKit simulcast+E2EE publish stall).
+    // Legacy iPads stay at 360p even in 1:1. A prior 720p/P2P lift after
+    // lobby admit crashed old WebKit (endpoint active=false within ~10s).
+    // Multiparty already worked on 360; keep that path for 1:1 as well.
+    config['disableSimulcast'] = true;
+    config.resolution = 360;
+    config.constraints = config.constraints || {};
+    config.constraints.video = config.constraints.video || {};
+    config.constraints.video.height = { ideal: 360, max: 360, min: 180 };
+    config.constraints.video.width = { ideal: 640, max: 640, min: 320 };
+    config.videoQuality = config.videoQuality || {};
+    config.videoQuality.vp8 = config.videoQuality.vp8 || {};
+    config.videoQuality.vp8.maxBitratesVideo
+        = config.videoQuality.vp8.maxBitratesVideo || {};
+    config.videoQuality.vp8.maxBitratesVideo.high = 200000;
+    // Prefer at most one full-res remote tile on weak WebKit.
+    config.videoQuality.maxFullResolutionParticipants = 1;
+
+    // Disable P2P entirely on legacy iPads (in addition to allowWithE2EE=false
+    // set for all iPads above). 1:1 must stay on JVB only.
+    config.p2p = config.p2p || {};
+    config.p2p.enabled = false;
+    config.p2p.allowWithE2EE = false;
+
+    // Receiver: cap concurrent remote videos to reduce E2EE decode load on
+    // lobby admit into multiparty rooms (common crash point on A9/A10 iPads).
+    if (typeof config.channelLastN !== 'number' || config.channelLastN < 0
+            || config.channelLastN > 3) {
+        config.channelLastN = 3;
+    }
+    config.startLastN = 2;
+}());
+</script>
+    <script src="libs/lib-jitsi-meet.min.js?v=9268-viomedi-e2ee-p2p1"></script>
+    <script src="libs/app.bundle.min.js?v=9268"></script>
+    <script src="viomedi-p2p-quality.js?v=12"></script>
+    <title>VIOMEDI</title>
+<meta property="og:title" content="VIOMEDI"/>
+<meta itemprop="name" content="VIOMEDI"/>
+<link rel="icon" type="image/png" href="images/favicon.ico?v=1"/>
+<link rel="stylesheet" href="/external-styles.css">
+<script src="/external-js.js"></script>
+<style type="text/css">
+.watermark,.leftwatermark{bottom: 32px;top: unset;}
+</style>
+
+    
+    <template id = "welcome-page-additional-content-template"></template>
+
+    <template id = "welcome-page-additional-card-template"></template>
+
+    <template id="settings-toolbar-additional-content-template"></template>
+
+  </head>
+  <body>
+    <noscript aria-hidden="true">
+        <div>JavaScript is disabled. </br>For this site to work you have to enable JavaScript.</div>
+    </noscript>
+    
+    <div id="react" role="main"></div>
+  </body>
+</html>

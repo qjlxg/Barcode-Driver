@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex Session Manager</title>
+  <style>
+    :root {
+      --bg: #f4f6f8;
+      --panel: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --accent: #0f766e;
+      --danger: #b91c1c;
+    }
+    body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial; background: var(--bg); color: var(--text); }
+    .wrap { max-width: 1200px; margin: 24px auto; padding: 0 16px; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 10px; padding: 14px; border-bottom: 1px solid var(--line); align-items: center; }
+    input, select, button { border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-size: 14px; }
+    input, select { min-width: 220px; background: #fff; }
+    button { cursor: pointer; background: #fff; }
+    button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+    button.danger { background: var(--danger); border-color: var(--danger); color: #fff; }
+    .status { padding: 10px 14px; color: var(--muted); font-size: 13px; border-bottom: 1px solid var(--line); }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; padding: 10px 8px; font-size: 13px; }
+    th { font-size: 12px; color: var(--muted); background: #fafafa; }
+    .id { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; }
+    .path { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; }
+    .muted { color: var(--muted); }
+    .row-actions { display: flex; gap: 6px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h2>Codex Session Manager</h2>
+    <div class="card">
+      <div class="toolbar">
+        <select id="repoFilter"></select>
+        <input id="search" placeholder="Suche (ID, Thread, Pfad)" />
+        <button id="reloadBtn">Neu laden</button>
+        <button id="deleteSelectedBtn" class="danger">Ausgewählte löschen</button>
+      </div>
+      <div id="status" class="status">Lade Sessions...</div>
+      <table>
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="checkAll"></th>
+            <th>Zeit</th>
+            <th>Thread</th>
+            <th>Session-ID</th>
+            <th>Repo</th>
+            <th>CWD</th>
+            <th>Aktion</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+  </div>
+<script>
+const state = { sessions: [] };
+
+function esc(s) {
+  return (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+}
+
+function fmtDate(ts) {
+  try { return new Date(ts).toLocaleString(); } catch { return ts || ''; }
+}
+
+async function fetchJSON(url, opts) {
+  const r = await fetch(url, opts);
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  return await r.json();
+}
+
+async function loadRepos() {
+  const data = await fetchJSON('/api/repos');
+  const sel = document.getElementById('repoFilter');
+  const current = sel.value;
+  sel.innerHTML = '';
+
+  const all = document.createElement('option');
+  all.value = '__all__';
+  all.textContent = 'Alle Repos';
+  sel.appendChild(all);
+
+  for (const repo of data.repos) {
+    const o = document.createElement('option');
+    o.value = repo;
+    o.textContent = repo;
+    sel.appendChild(o);
+  }
+
+  if ([...sel.options].some(o => o.value === current)) sel.value = current;
+}
+
+async function loadSessions() {
+  const repo = document.getElementById('repoFilter').value || '__all__';
+  const search = document.getElementById('search').value || '';
+  const query = new URLSearchParams({ repo, search });
+
+  const data = await fetchJSON('/api/sessions?' + query.toString());
+  state.sessions = data.sessions;
+
+  const rows = document.getElementById('rows');
+  rows.innerHTML = '';
+
+  for (const s of state.sessions) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><input type="checkbox" class="rowCheck" data-id="${esc(s.session_id)}"></td>
+      <td>${esc(fmtDate(s.timestamp))}</td>
+      <td>${esc(s.thread_name || '')}</td>
+      <td class="id">${esc(s.session_id)}</td>
+      <td class="path">${esc(s.repo)}</td>
+      <td class="path">${esc(s.cwd)}</td>
+      <td><button data-del="${esc(s.session_id)}">Löschen</button></td>
+    `;
+    rows.appendChild(tr);
+  }
+
+  document.getElementById('status').textContent = `${state.sessions.length} Sessions`;
+}
+
+function selectedIds() {
+  return [...document.querySelectorAll('.rowCheck:checked')].map(x => x.dataset.id);
+}
+
+async function deleteIds(ids) {
+  if (!ids.length) return;
+  if (!confirm(`${ids.length} Session(s) wirklich löschen?`)) return;
+
+  const res = await fetchJSON('/api/delete', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({ ids })
+  });
+
+  document.getElementById('status').textContent = `Gelöscht: ${res.deleted.length}, Nicht gefunden: ${res.missing.length}`;
+  await loadRepos();
+  await loadSessions();
+}
+
+document.getElementById('repoFilter').addEventListener('change', loadSessions);
+document.getElementById('search').addEventListener('input', loadSessions);
+document.getElementById('reloadBtn').addEventListener('click', async () => { await loadRepos(); await loadSessions(); });
+document.getElementById('deleteSelectedBtn').addEventListener('click', async () => deleteIds(selectedIds()));
+document.getElementById('checkAll').addEventListener('change', (e) => {
+  for (const cb of document.querySelectorAll('.rowCheck')) cb.checked = e.target.checked;
+});
+document.getElementById('rows').addEventListener('click', async (e) => {
+  const id = e.target.getAttribute('data-del');
+  if (id) await deleteIds([id]);
+});
+
+(async () => {
+  await loadRepos();
+  await loadSessions();
+})();
+</script>
+</body>
+</html>

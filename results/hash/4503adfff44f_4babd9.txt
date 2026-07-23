@@ -1,0 +1,366 @@
+<title>OVERCLOUD — Облачный гейминг</title>
+<style>
+  :root{
+    --bg:#0A0C11; --bg2:#0E1117; --surface:#141A23; --surface2:#1A212C;
+    --border:#252E3B; --border2:#313c4d;
+    --text:#EAEEF5; --muted:#8B95A7; --faint:#5A6473;
+    --accent:#FF5A2C; --accent-2:#FFB020; --good:#33D69F;
+    --shadow:0 24px 60px -20px rgba(0,0,0,.7);
+    --mono:ui-monospace,"Cascadia Code","SF Mono",Menlo,Consolas,monospace;
+    --sans:"Segoe UI Variable","Segoe UI",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg); color:var(--text); font-family:var(--sans);
+    line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+  .mono{font-family:var(--mono)}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+
+  /* backdrop glow */
+  .glows{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .glow{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5}
+  .glow.a{width:520px;height:520px;background:radial-gradient(circle,#FF5A2C55,transparent 70%);top:-160px;right:-120px;animation:drift 20s ease-in-out infinite alternate}
+  .glow.b{width:460px;height:460px;background:radial-gradient(circle,#3450FF44,transparent 70%);top:280px;left:-160px;animation:drift 26s ease-in-out infinite alternate-reverse}
+  @keyframes drift{to{transform:translate(40px,50px) scale(1.15)}}
+  @media (prefers-reduced-motion:reduce){.glow{animation:none}}
+
+  header,main,footer{position:relative;z-index:1}
+
+  /* nav */
+  nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;letter-spacing:-.02em;font-size:19px}
+  .logo{width:30px;height:30px;border-radius:8px;background:
+      conic-gradient(from 210deg,var(--accent),var(--accent-2),var(--accent));
+      display:grid;place-items:center;box-shadow:0 0 24px -4px var(--accent)}
+  .logo::before{content:"";width:11px;height:11px;background:#0A0C11;border-radius:3px;transform:rotate(45deg)}
+  .navlinks{display:flex;gap:30px;font-size:14.5px;color:var(--muted)}
+  .navlinks a:hover{color:var(--text)}
+  .navcta{display:flex;gap:12px;align-items:center}
+  .btn{font-family:inherit;font-size:14px;font-weight:600;border:none;cursor:pointer;
+      padding:10px 18px;border-radius:9px;transition:.16s;letter-spacing:.01em}
+  .btn-ghost{background:transparent;color:var(--text);border:1px solid var(--border2)}
+  .btn-ghost:hover{border-color:var(--faint);background:#ffffff08}
+  .btn-primary{background:linear-gradient(180deg,#FF6A3D,var(--accent));color:#fff;
+      box-shadow:0 8px 22px -8px var(--accent)}
+  .btn-primary:hover{transform:translateY(-1px);box-shadow:0 12px 26px -8px var(--accent)}
+  .btn-lg{padding:14px 26px;font-size:15.5px;border-radius:11px}
+
+  /* hero */
+  .hero{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;
+      padding:70px 0 88px}
+  .hero h1{font-size:clamp(38px,5.4vw,62px);line-height:1.03;letter-spacing:-.035em;
+      font-weight:800;text-wrap:balance;margin:20px 0 22px}
+  .hero h1 em{font-style:normal;color:transparent;background:linear-gradient(120deg,var(--accent),var(--accent-2));
+      -webkit-background-clip:text;background-clip:text}
+  .lede{font-size:18.5px;color:var(--muted);max-width:48ch;margin-bottom:32px}
+  .herocta{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .note{font-size:13px;color:var(--faint);display:flex;align-items:center;gap:8px}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 10px var(--good)}
+
+  /* live latency chip */
+  .latency{margin-top:34px;display:inline-flex;align-items:center;gap:14px;
+      background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 16px}
+  .latency .lbl{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .latency .val{font-family:var(--mono);font-weight:600}
+  .latency .val b{color:var(--good)}
+  .bars{display:flex;gap:3px;align-items:flex-end;height:22px}
+  .bars i{width:4px;background:var(--accent);border-radius:2px;opacity:.85;animation:eq 1.1s ease-in-out infinite}
+  .bars i:nth-child(2){animation-delay:.15s}.bars i:nth-child(3){animation-delay:.3s}
+  .bars i:nth-child(4){animation-delay:.45s}.bars i:nth-child(5){animation-delay:.6s}
+  @keyframes eq{0%,100%{height:6px}50%{height:22px}}
+  @media (prefers-reduced-motion:reduce){.bars i{animation:none;height:14px}}
+
+  /* login card */
+  .card{background:linear-gradient(180deg,var(--surface2),var(--surface));
+      border:1px solid var(--border);border-radius:18px;padding:30px;box-shadow:var(--shadow)}
+  .card h2{font-size:21px;letter-spacing:-.02em;margin-bottom:4px}
+  .card .sub{font-size:13.5px;color:var(--muted);margin-bottom:22px}
+  .field{margin-bottom:14px}
+  .field label{display:block;font-size:12px;color:var(--muted);margin-bottom:7px;letter-spacing:.02em}
+  .field input{width:100%;background:#0B0E13;border:1px solid var(--border2);border-radius:10px;
+      padding:12px 14px;color:var(--text);font-family:inherit;font-size:14.5px;transition:.15s}
+  .field input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px #FF5A2C25}
+  .rowline{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;margin:6px 0 18px}
+  .rowline a{color:var(--accent)}
+  .card .btn-primary{width:100%;justify-content:center;display:flex;padding:13px}
+  .divider{display:flex;align-items:center;gap:12px;color:var(--faint);font-size:12px;margin:20px 0}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--border)}
+  .social{display:flex;gap:10px}
+  .social button{flex:1;background:#0B0E13;border:1px solid var(--border2);color:var(--muted);
+      border-radius:10px;padding:11px;cursor:pointer;font-family:var(--mono);font-size:12.5px;transition:.15s}
+  .social button:hover{border-color:var(--faint);color:var(--text)}
+  .card .foot{font-size:12px;color:var(--faint);text-align:center;margin-top:18px}
+  .card .foot a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+
+  /* logos strip */
+  .strip{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:26px 0}
+  .strip .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .strip span{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.1em;text-transform:uppercase}
+  .strip .studios{display:flex;gap:34px;flex-wrap:wrap;color:var(--muted);font-weight:700;letter-spacing:.02em;opacity:.75}
+
+  /* sections */
+  section{padding:88px 0}
+  .shead{max-width:640px;margin-bottom:48px}
+  .shead h2{font-size:clamp(28px,3.6vw,40px);letter-spacing:-.03em;line-height:1.08;margin:14px 0 14px;text-wrap:balance}
+  .shead p{color:var(--muted);font-size:17px}
+
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .feat{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px;transition:.18s}
+  .feat:hover{border-color:var(--border2);transform:translateY(-3px)}
+  .feat .ic{width:44px;height:44px;border-radius:11px;background:#FF5A2C18;border:1px solid #FF5A2C33;
+      display:grid;place-items:center;margin-bottom:18px}
+  .feat .ic svg{width:22px;height:22px;stroke:var(--accent);fill:none;stroke-width:1.8}
+  .feat h3{font-size:17.5px;letter-spacing:-.01em;margin-bottom:9px}
+  .feat p{color:var(--muted);font-size:14.5px}
+  .feat .metric{font-family:var(--mono);font-size:12px;color:var(--accent);margin-top:14px;letter-spacing:.05em}
+
+  /* game tiles */
+  .tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .tile{aspect-ratio:3/4;border-radius:14px;border:1px solid var(--border);position:relative;overflow:hidden;
+      display:flex;flex-direction:column;justify-content:flex-end;padding:16px;transition:.2s}
+  .tile:hover{transform:translateY(-4px);border-color:var(--border2)}
+  .tile .tt{font-weight:700;font-size:15px;letter-spacing:-.01em;position:relative;z-index:2}
+  .tile .tg{font-family:var(--mono);font-size:11px;color:#cfd6e0cc;position:relative;z-index:2;margin-top:2px}
+  .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,#05070bdd)}
+  .t1{background:linear-gradient(150deg,#3a1c4f,#1a1030)}
+  .t2{background:linear-gradient(150deg,#4f2a1c,#2a1410)}
+  .t3{background:linear-gradient(150deg,#123a3a,#0a2424)}
+  .t4{background:linear-gradient(150deg,#3a1224,#240a16)}
+  .t5{background:linear-gradient(150deg,#1c2f4f,#101a30)}
+  .t6{background:linear-gradient(150deg,#2f4f1c,#1a3010)}
+  .t7{background:linear-gradient(150deg,#4f4a1c,#302c10)}
+  .t8{background:linear-gradient(150deg,#3a1c1c,#301010)}
+
+  /* pricing */
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:stretch}
+  .plan{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:30px;display:flex;flex-direction:column}
+  .plan.pop{border-color:var(--accent);background:linear-gradient(180deg,#1e1712,var(--surface));box-shadow:0 0 0 1px #FF5A2C55,var(--shadow)}
+  .plan .pname{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .plan.pop .pname{color:var(--accent)}
+  .price{font-size:44px;font-weight:800;letter-spacing:-.03em;margin:14px 0 2px}
+  .price span{font-size:15px;font-weight:500;color:var(--faint)}
+  .plan ul{list-style:none;margin:22px 0;display:flex;flex-direction:column;gap:12px;flex:1}
+  .plan li{font-size:14px;color:var(--muted);display:flex;gap:10px;align-items:flex-start}
+  .plan li svg{width:17px;height:17px;stroke:var(--good);fill:none;stroke-width:2.4;flex-shrink:0;margin-top:2px}
+  .plan .btn{width:100%;justify-content:center;display:flex}
+
+  /* footer */
+  footer{border-top:1px solid var(--border);padding:60px 0 40px;margin-top:40px}
+  .fgrid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px}
+  .fcol h4{font-size:12px;font-family:var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:16px}
+  .fcol a{display:block;color:var(--muted);font-size:14px;padding:5px 0}
+  .fcol a:hover{color:var(--text)}
+  .fabout{color:var(--muted);font-size:14px;max-width:36ch;margin:16px 0}
+  .fbar{border-top:1px solid var(--border);padding-top:26px;display:flex;justify-content:space-between;
+      align-items:center;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--faint)}
+  .fbar .mono{font-size:12px}
+
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr;gap:40px}
+    .grid3,.plans{grid-template-columns:1fr}
+    .tiles{grid-template-columns:repeat(2,1fr)}
+    .navlinks{display:none}
+    .fgrid{grid-template-columns:1fr 1fr}
+  }
+</style>
+
+<div class="glows"><div class="glow a"></div><div class="glow b"></div></div>
+
+<header class="wrap">
+  <nav>
+    <div class="brand"><span class="logo"></span>OVERCLOUD</div>
+    <div class="navlinks">
+      <a href="#games">Игры</a>
+      <a href="#features">Технологии</a>
+      <a href="#pricing">Тарифы</a>
+      <a href="#">Поддержка</a>
+    </div>
+    <div class="navcta">
+      <button class="btn btn-ghost" onclick="focusLogin()">Вход</button>
+      <button class="btn btn-primary" onclick="focusLogin()">Начать бесплатно</button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="wrap hero" style="padding-top:48px">
+    <div>
+      <span class="eyebrow">Мгновенный запуск · Без установки</span>
+      <h1>Вся библиотека игр в <em>4K на любом экране</em>.</h1>
+      <p class="lede">OVERCLOUD запускает свежие тайтлы на серверных видеокартах и стримит их на твой ноутбук, телефон или ТВ — без установок, патчей и ожидания.</p>
+      <div class="herocta">
+        <button class="btn btn-primary btn-lg" onclick="focusLogin()">Играть бесплатно</button>
+        <span class="note"><span class="dot"></span>2&nbsp;400 игроков онлайн</span>
+      </div>
+      <div class="latency">
+        <span class="bars"><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="lbl">Ближайший узел</span>
+        <span class="val" id="lat">Франкфурт · <b>7 мс</b></span>
+      </div>
+    </div>
+
+    <div class="card" id="login">
+      <h2>С возвращением</h2>
+      <p class="sub">Войдите, чтобы запустить игровую сессию.</p>
+      <form onsubmit="return fakeLogin(event)">
+        <div class="field">
+          <label for="email">Эл. почта</label>
+          <input id="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+        </div>
+        <div class="field">
+          <label for="pw">Пароль</label>
+          <input id="pw" type="password" placeholder="••••••••" autocomplete="current-password" required>
+        </div>
+        <div class="rowline">
+          <label style="color:var(--muted);display:flex;gap:7px;align-items:center"><input type="checkbox" style="accent-color:var(--accent)"> Запомнить меня</label>
+          <a href="#">Забыли пароль?</a>
+        </div>
+        <button class="btn btn-primary" type="submit">Войти и играть</button>
+      </form>
+      <div class="divider">или через</div>
+      <div class="social">
+        <button type="button">Steam</button>
+        <button type="button">Google</button>
+        <button type="button">Discord</button>
+      </div>
+      <p class="foot">Впервые здесь? <a href="#pricing">Создать аккаунт</a></p>
+    </div>
+  </section>
+
+  <div class="strip"><div class="wrap">
+    <span>Игры от студий</span>
+    <div class="studios"><span>NEXUS</span><span>VOLTA</span><span>IRONHART</span><span>MOONLE</span><span>ARC&nbsp;9</span><span>KODAMA</span></div>
+  </div></div>
+
+  <section class="wrap" id="features">
+    <div class="shead">
+      <span class="eyebrow">Технологии</span>
+      <h2>Задержка, которую не почувствуешь.</h2>
+      <p>Пограничные дата-центры, адаптивный битрейт и собственный стриминговый конвейер держат тебя в кадре — где бы ты ни играл.</p>
+    </div>
+    <div class="grid3">
+      <div class="feat">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div>
+        <h3>Маршрутизация меньше 8 мс</h3>
+        <p>Сессия привязывается к ближайшему из 40+ узлов с автопереключением, если маршрут просядет посреди матча.</p>
+        <div class="metric">40+ ЛОКАЦИЙ</div>
+      </div>
+      <div class="feat">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 20h8M12 17v3"/></svg></div>
+        <h3>4K · 120 к/с · HDR</h3>
+        <p>Видеокарты класса RTX рендерят в полном качестве и стримят AV1 до 75 Мбит/с — трассировка лучей на любом тарифе.</p>
+        <div class="metric">AV1 · ДО 75 МБИТ/С</div>
+      </div>
+      <div class="feat">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+        <h3>1000+ игр без установки</h3>
+        <p>Подключи свои библиотеки или подпишись на каталог. Сохранения улетают в облако, как только ты выходишь.</p>
+        <div class="metric">STEAM · EPIC · GOG</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap" id="games" style="padding-top:24px">
+    <div class="shead">
+      <span class="eyebrow">Каталог</span>
+      <h2>В тренде облака на этой неделе.</h2>
+    </div>
+    <div class="tiles">
+      <div class="tile t1"><div class="tt">Aether Protocol</div><div class="tg">RPG · 4K</div></div>
+      <div class="tile t2"><div class="tt">Redline GT</div><div class="tg">Гонки · 120 к/с</div></div>
+      <div class="tile t3"><div class="tt">Deepwater</div><div class="tg">Выживание</div></div>
+      <div class="tile t4"><div class="tt">Neon Divide</div><div class="tg">Шутер · HDR</div></div>
+      <div class="tile t5"><div class="tt">Skybound</div><div class="tg">Приключение</div></div>
+      <div class="tile t6"><div class="tt">Terraform</div><div class="tg">Стратегия</div></div>
+      <div class="tile t7"><div class="tt">Goldrush</div><div class="tg">Кооп</div></div>
+      <div class="tile t8"><div class="tt">Last Ember</div><div class="tg">Экшен</div></div>
+    </div>
+  </section>
+
+  <section class="wrap" id="pricing">
+    <div class="shead">
+      <span class="eyebrow">Тарифы</span>
+      <h2>Начни бесплатно. Апгрейд — когда нужны кадры.</h2>
+      <p>Без консоли и вложений в железо. Отмена в любой момент.</p>
+    </div>
+    <div class="plans">
+      <div class="plan">
+        <span class="pname">Старт</span>
+        <div class="price">0&nbsp;₽<span>/мес</span></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>1080p · 60 к/с</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Сессии по 1 часу</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Стандартная очередь</li>
+        </ul>
+        <button class="btn btn-ghost" onclick="focusLogin()">Начать</button>
+      </div>
+      <div class="plan pop">
+        <span class="pname">Pro · Популярный</span>
+        <div class="price">899&nbsp;₽<span>/мес</span></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>4K · 120 к/с · HDR + трассировка</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Сессии по 6 часов</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Приоритетная маршрутизация</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Облачные сохранения и моды</li>
+        </ul>
+        <button class="btn btn-primary" onclick="focusLogin()">Перейти на Pro</button>
+      </div>
+      <div class="plan">
+        <span class="pname">Ultra</span>
+        <div class="price">1690&nbsp;₽<span>/мес</span></div>
+        <ul>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Всё из Pro</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>Выделенная видеокарта, без очереди</li>
+          <li><svg viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg>240 к/с для соревновательного режима</li>
+        </ul>
+        <button class="btn btn-ghost" onclick="focusLogin()">Перейти на Ultra</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">
+  <div class="fgrid">
+    <div class="fcol">
+      <div class="brand"><span class="logo"></span>OVERCLOUD</div>
+      <p class="fabout">Облачная гейминг-инфраструктура для тех, кто не готов ждать полоску загрузки.</p>
+      <span class="mono" style="color:var(--faint);font-size:12px"> 2026 Overcloud Interactive </span>
+    </div>
+    <div class="fcol"><h4>Продукт</h4><a href="#features">Технологии</a><a href="#games">Каталог игр</a><a href="#pricing">Тарифы</a><a href="#">Системные требования</a></div>
+    <div class="fcol"><h4>Компания</h4><a href="#">О нас</a><a href="#">Вакансии</a><a href="#">Пресс-кит</a><a href="#">Статус</a></div>
+    <div class="fcol"><h4>Документы</h4><a href="#">Пользовательское соглашение</a><a href="#">Конфиденциальность</a><a href="#">Cookie</a><a href="#">Контакты</a></div>
+  </div>
+  <div class="fbar">
+    <span>Overcloud Interactive - global cloud platform</span>
+    <span class="mono">статус: <span style="color:var(--good)">все системы в норме</span></span>
+  </div>
+</div></footer>
+
+<script>
+  function focusLogin(){
+    var c=document.getElementById('login');
+    c.scrollIntoView({behavior:'smooth',block:'center'});
+    setTimeout(function(){document.getElementById('email').focus()},420);
+  }
+  function fakeLogin(e){
+    e.preventDefault();
+    var b=e.target.querySelector('button[type=submit]');
+    b.textContent='Подключение к узлу…';b.disabled=true;
+    setTimeout(function(){b.textContent='Сессия недоступна — повторить';b.disabled=false;},1400);
+    return false;
+  }
+  // живой пинг (создаёт ощущение реального сервиса)
+  (function(){
+    if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+    var el=document.getElementById('lat');var nodes=[['Франкфурт',7],['Амстердам',9],['Варшава',11],['Париж',8]];var i=0;
+    setInterval(function(){
+      var n=nodes[i%nodes.length];i++;
+      var ms=n[1]+Math.floor(Math.random()*4);
+      el.innerHTML=n[0]+' · <b>'+ms+' мс</b>';
+    },2600);
+  })();
+</script>
