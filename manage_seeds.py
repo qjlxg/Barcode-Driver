@@ -12,7 +12,7 @@ from datetime import datetime
 
 HISTORY_FILE = Path("seed_history.json")
 IP_FILE = Path("ip.txt")
-IP_COLD_FILE = Path("ip_cold.txt")          # 冷库：淘汰但未永久丢弃的 IP
+IP_COLD_FILE = Path("ip_cold.txt")         # 冷库：淘汰但未永久丢弃的 IP
 TARGETS_FILE = Path("targets.txt")
 RESULTS_FILE = Path("scan_results.csv")
 
@@ -419,6 +419,12 @@ def manage_seeds():
     pruned_cidrs = set()
 
     for cidr, state in history.items():
+
+        # [FIX 4] 只有本轮实际参与了扫描的网段，才参与淘汰考核与状态跃迁；
+        # 未参与扫描的网段保持其历史状态不变，避免被未抽中的网段“连坐”误伤。
+        if cidr not in scanned_cidrs:
+            alive_cidrs.add(cidr)
+            continue
 
         no_hit_rounds = state.get(
             "no_hit_rounds",
