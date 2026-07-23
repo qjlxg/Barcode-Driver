@@ -51,36 +51,30 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
         Path(output_file).write_text("", encoding="utf-8")
         return
 
-    # 2. 计算当前任务队列的哈希 (用于感知内容变化)
-    current_list_hash = hashlib.md5("".join(all_networks).encode()).hexdigest()
-
-    # 3. 读取状态
-    state = {"list_hash": "", "last_network_id": "", "last_time": ""}
+    # 2. 读取状态
+    state = {"scanned_ids": [], "last_time": ""}
     if PROGRESS_FILE.exists():
         try: state = json.loads(PROGRESS_FILE.read_text())
         except: pass
 
-    # 4. 逻辑判断：如果哈希变了，视为队列更新，重置进度
-    if state.get("list_hash", "") != current_list_hash:
-        print("[*] 检测到任务列表更新，重置进度...")
-        state = {"list_hash": current_list_hash, "last_network_id": "", "last_time": ""}
+    # 3. 从当前列表中去掉已扫过的，剩余即为待扫队列
+    scanned_ids = set(state.get("scanned_ids", []))
+    pending = [n for n in all_networks if get_net_id(n) not in scanned_ids]
 
-    # 5. 查找进度
-    current_hash_list = [get_net_id(n) for n in all_networks]
-    start_index = 0
-    if state.get("last_network_id"):
-        for i, nid in enumerate(current_hash_list):
-            if nid == state.get("last_network_id"):
-                start_index = i + 1
-                break
-    
-    if start_index >= len(all_networks): start_index = 0
-    end_index = min(start_index + batch_size, len(all_networks))
-    batch = all_networks[start_index:end_index]
-    
+    # 4. 全部扫完则重置，重新开始
+    if not pending:
+        print("[*] 全部网段已扫完，重置进度...")
+        scanned_ids = set()
+        pending = all_networks
+
+    # 5. 取本批
+    batch = pending[:batch_size]
+
     # 6. 保存状态
     if batch:
-        state["last_network_id"] = current_hash_list[end_index - 1]
+        for n in batch:
+            scanned_ids.add(get_net_id(n))
+        state["scanned_ids"] = list(scanned_ids)
         state["last_time"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         PROGRESS_FILE.write_text(json.dumps(state, indent=2))
 
@@ -88,7 +82,7 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
     with open(output_file, 'w', encoding='utf-8') as f:
         f.writelines([f"{n}\n" for n in batch])
 
-    print(f"[*] 处理: {len(batch)} 个网段 | 进度: {end_index}/{len(all_networks)}")
+    print(f"[*] 处理: {len(batch)} 个网段 | 进度: {len(scanned_ids)}/{len(all_networks)}")
 
 if __name__ == "__main__":
     process_ip_file()
