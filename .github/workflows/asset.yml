@@ -75,7 +75,7 @@ jobs:
           fi
           
           # 2. 将需要的文件全部加入暂存区
-          git add progress.json alive_latest.txt alive_history.txt scan_results.csv targets.txt alive_new.txt ip.txt seed_history.json results/hash/ archive/hash/ || true
+          git add progress.json alive_latest.txt alive_history.txt scan_results.csv targets.txt alive_new.txt ip_cold.txt ip.txt seed_history.json results/hash/ archive/hash/ || true
           
           # 3. 检查是否有暂存的改动需要提交
           if git diff --cached --quiet; then
