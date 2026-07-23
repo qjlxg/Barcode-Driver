@@ -420,10 +420,10 @@ def manage_seeds():
 
     for cidr, state in history.items():
 
-        # [FIX 4] 只有本轮实际参与了扫描的网段，才参与淘汰考核与状态跃迁；
-        # 未参与扫描的网段保持其历史状态不变，避免被未抽中的网段“连坐”误伤。
+        # [FIX 4 修正] 本轮未参与扫描的网段，不参与本轮的生死考核，
+        # 既不放入 alive_cidrs 强行背书，也不放入 pruned_cidrs 淘汰，
+        # 让它们保持原样，其对应的 IP 也不会被误判删除。
         if cidr not in scanned_cidrs:
-            alive_cidrs.add(cidr)
             continue
 
         no_hit_rounds = state.get(
@@ -478,7 +478,9 @@ def manage_seeds():
 
             cidr = get_cidr_key(ip)
 
-            if cidr in alive_cidrs:
+            # [FIX 5] 未参与扫描的网段对应的 IP 应该在本次清理中默认保留，
+            # 否则非扫描网段的 IP 会因为不在 alive_cidrs 中而被全部当作 removed 误删。
+            if (cidr in alive_cidrs) or (cidr not in scanned_cidrs):
                 kept_ips.append(ip)
             else:
                 removed_ips.append(ip)
