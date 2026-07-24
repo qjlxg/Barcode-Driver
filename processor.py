@@ -14,7 +14,7 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
         print("[!] ip.txt不存在")
         return
 
-    # 0. 读取冷库 (ip_cold.txt) 中的网段用于物理删除
+    # 0. 读取冷库 (ip_cold.txt) 中的网段用于本次过滤（不再执行物理删除）
     cold_networks = set()
     if COLD_FILE.exists():
         with COLD_FILE.open('r', encoding='utf-8') as cf:
@@ -33,8 +33,7 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
     # 1. 读取并规范化 (维护插入顺序)
     seen = set()
     networks = []
-    cleaned_lines = []
-    removed_networks = set()
+    skipped_cold_count = 0
 
     with input_path.open('r', encoding='utf-8') as f:
         for line in f:
@@ -51,7 +50,6 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
 
                 # 检查解析出的 ip_part 是否为空
                 if not ip_part:
-                    cleaned_lines.append(line)
                     continue
 
                 net = ipaddress.ip_network(
@@ -60,26 +58,22 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
                 )
                 net_str = str(net)
 
-                # 如果命中冷库，则永久从总表中剔除
+                # 如果命中冷库，则仅在本次构建 targets 时跳过，不修改 ip.txt 总表
                 if net_str in cold_networks:
-                    removed_networks.add(net_str)
+                    skipped_cold_count += 1
                     continue
 
                 if net_str not in seen:
                     seen.add(net_str)
                     networks.append(net_str)
 
-                cleaned_lines.append(line)
             except ValueError:
-                cleaned_lines.append(line)
                 continue
 
-    if removed_networks:
-        with input_path.open('w', encoding='utf-8') as f:
-            f.writelines(cleaned_lines)
-        print(f"[*] 已从总表 ip.txt 中永久剔除冷库网段: {len(removed_networks)} 个")
+    if skipped_cold_count:
+        print(f"[*] 已过滤冷库网段（不选入本次 targets）: {skipped_cold_count} 个")
 
-    print(f"[*] 解析得到 {len(networks)} 个网段")
+    print(f"[*] 解析得到 {len(networks)} 个有效网段")
 
     all_networks = networks[::-1] # 后加入优先
     if not all_networks:
