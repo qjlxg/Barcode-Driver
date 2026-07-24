@@ -85,13 +85,11 @@ BLACK_SIGNS = [s.lower() for s in [
     "checking your browser",
     "enable javascript",
     "wix.com",
-    "nginx",
     "apache2 ubuntu default",
     "iis windows server",
     "welcome to nginx",
     "404 not found",
-    "403 forbidden",
-    "cloudflare"
+    "403 forbidden"
 ]]
 
 # 目标端口
@@ -231,8 +229,10 @@ async def scan(session, host, port, path, pbar):
                 url,
                 timeout=5,
                 ssl=False,
-                headers={"User-Agent": "Mozilla/5.0"},
-                headers_range={"Range": "bytes=0-8191"}
+                headers={
+                    "User-Agent": "Mozilla/5.0",
+                    "Range": "bytes=0-8191"
+                }
             ) as resp:
 
                 stats["req"] += 1
