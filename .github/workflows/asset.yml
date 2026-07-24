@@ -7,14 +7,14 @@ concurrency:
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */1 * * *"
+    - cron: "0 */3 * * *"
 
 
 jobs:
   asset_pipeline:
 
     runs-on: ubuntu-latest
-    timeout-minutes: 120
+    timeout-minutes: 350
 
     permissions:
       contents: write
