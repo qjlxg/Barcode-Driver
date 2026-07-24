@@ -342,14 +342,31 @@ async def main():
     # 单轮扫描任务构建（使用 TARGET_PORTS 与 ROUND1_PATHS，不执行第二轮）
     # ==========================
     ROUND1_PATHS = [
+        # 根路径
         "",
         "/",
+        # 常用订阅路径
         "/sub",
         "/subscribe",
-        "/api/v1/client/subscribe",
-        "/config.yaml",
+        "/subscription",
+        # Clash / 配置文件
+        "/clash",
         "/clash.yaml",
-        "/sub.yaml"
+        "/config.yaml",
+        "/config.yml",
+        "/sub.yaml",
+        "/profile.yaml",
+        "/base.yaml",
+        "/all.yaml",
+        "/full.yaml",
+        # V2Board 及主流 API
+        "/api/sub",
+        "/api/subscribe",
+        "/api/v1/sub",
+        "/api/v1/subscribe",
+        "/api/v1/client/subscribe",
+        "/download/clash",
+        "/download/sub",
     ]
 
     round1_tasks = []
