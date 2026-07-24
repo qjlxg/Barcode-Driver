@@ -1,4 +1,4 @@
-name: 流水线打螺丝
+name: 螺丝粉
 
 concurrency:
   group: asset-pipeline-lock
