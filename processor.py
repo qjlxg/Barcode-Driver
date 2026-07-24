@@ -14,7 +14,7 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
         print("[!] ip.txt不存在")
         return
 
-    # 0. 读取冷库 (ip_cold.txt) 中的网段用于本次过滤（不再执行物理删除）
+    # 0. 读取冷库（仅过滤，不删除）
     cold_networks = set()
     if COLD_FILE.exists():
         with COLD_FILE.open('r', encoding='utf-8') as cf:
@@ -22,17 +22,15 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
                 c_target = line.strip()
                 if not c_target: continue
                 try:
-                    c_ip = c_target.split(':')[0]
-                    c_net = ipaddress.ip_network(
-                        c_ip.split('/')[0] + "/24",
-                        strict=False
-                    )
+                    c_ip = c_target.split(':')[0].split('/')[0]
+                    c_net = ipaddress.ip_network(c_ip + "/24", strict=False)
                     cold_networks.add(str(c_net))
-                except ValueError: continue
+                except ValueError: 
+                    continue
 
-    # 1. 读取并规范化 (维护插入顺序)
+    # 1. 读取并规范化（维护相对顺序）
     seen = set()
-    networks = []
+    networks = []          # 当前所有有效网段（/24）
     skipped_cold_count = 0
 
     with input_path.open('r', encoding='utf-8') as f:
@@ -40,25 +38,20 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
             target = line.strip()
             if not target: continue
             try:
-                # 逻辑：如果包含协议头，用 urlparse 解析；否则视为原始 IP
                 if "://" in target:
                     parsed = urlparse(target)
                     ip_part = parsed.hostname
                 else:
-                    # 去除端口部分
                     ip_part = target.split(':')[0]
 
-                # 检查解析出的 ip_part 是否为空
                 if not ip_part:
                     continue
 
                 net = ipaddress.ip_network(
-                    ip_part.split('/')[0] + "/24",
-                    strict=False
+                    ip_part.split('/')[0] + "/24", strict=False
                 )
                 net_str = str(net)
 
-                # 如果命中冷库，则仅在本次构建 targets 时跳过，不修改 ip.txt 总表
                 if net_str in cold_networks:
                     skipped_cold_count += 1
                     continue
@@ -71,53 +64,69 @@ def process_ip_file(input_file='ip.txt', output_file='targets.txt', batch_size=B
                 continue
 
     if skipped_cold_count:
-        print(f"[*] 已过滤冷库网段（不选入本次 targets）: {skipped_cold_count} 个")
+        print(f"[*] 已过滤冷库网段: {skipped_cold_count} 个")
 
     print(f"[*] 解析得到 {len(networks)} 个有效网段")
 
-    all_networks = networks[::-1] # 后加入优先
-    if not all_networks:
-        print("[!] 没有解析出任何网段")
+    if not networks:
+        print("[!] 没有有效网段")
         Path(output_file).write_text("", encoding="utf-8")
         return
 
-    # 2. 读取进度
+    all_networks = networks[::-1]   # 保持“后加入优先”
+
+    # ==================== 新的进度逻辑 ====================
+    last_scanned = None
     index = 0
+
     if PROGRESS_FILE.exists():
         try:
             state = json.loads(PROGRESS_FILE.read_text())
-            if state.get("total") != len(all_networks):
-                print("[!] 种子数量变化，重新开始轮询")
-                index = 0
-            else:
-                index = state.get("index", 0)
+            last_scanned = state.get("last_scanned")
+            
+            if last_scanned:
+                # 尝试找到上次扫描的网段位置
+                try:
+                    idx = all_networks.index(last_scanned)
+                    index = idx + 1  # 从下一个开始
+                    print(f"[*] 继续上次断点: {last_scanned} 之后")
+                except ValueError:
+                    # 上次网段已被删除（进冷库），从头开始或合理位置
+                    print(f"[*] 上次网段 {last_scanned} 已不在列表中（可能已进入冷库），从头开始")
+                    index = 0
         except Exception:
-            index = 0
+            print("[!] 进度文件读取失败，从头开始")
 
-    # 3. 如果已经到底，重新开始
+    # 如果已经到末尾，重新开始新一轮
     if index >= len(all_networks):
-        print("[*] 全部扫描完成，重新轮询")
+        print("[*] 已完成一轮扫描，重新开始新一轮")
         index = 0
 
-    print(f"[*] 当前进度:\n{index}/{len(all_networks)}")
+    print(f"[*] 当前进度: {index}/{len(all_networks)}")
 
-    # 4. 获取本批
-    batch = all_networks[index:index + batch_size]
+    # 获取本批
+    batch = all_networks[index : index + batch_size]
 
-    # 5. 更新游标并保存状态
-    new_index = index + len(batch)
+    # 更新进度（记录本批最后一个网段）
+    if batch:
+        new_last_scanned = batch[-1]
+    else:
+        new_last_scanned = last_scanned
+
     state = {
-        "index": new_index,
-        "total": len(all_networks),
+        "last_scanned": new_last_scanned,
+        "total": len(all_networks),      # 仅用于参考
         "last_time": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
-    PROGRESS_FILE.write_text(json.dumps(state, indent=2))
+    PROGRESS_FILE.write_text(json.dumps(state, indent=2, ensure_ascii=False))
 
+    # 写入 targets.txt
     print(f"[*] 写入文件: {Path(output_file).resolve()}")
     with open(output_file, 'w', encoding='utf-8') as f:
         f.writelines([f"{n}\n" for n in batch])
 
-    print(f"[*] 处理: {len(batch)} 个网段 | 新进度: {new_index}/{len(all_networks)}")
+    print(f"[*] 本批处理 {len(batch)} 个网段 | 下一断点: {new_last_scanned}")
+    print(f"[*] 新进度: {index + len(batch)}/{len(all_networks)}")
 
 if __name__ == "__main__":
     process_ip_file()
